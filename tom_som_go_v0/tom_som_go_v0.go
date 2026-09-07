@@ -38,6 +38,9 @@ func (x *AcceptanceCriteriaList) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AcceptanceCriteriaList) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -77,6 +80,9 @@ func (x *AcceptanceCriteriaSummary) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AcceptanceCriteriaSummary) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -136,6 +142,9 @@ func NewAcceptanceCriterionEntry(doc *som.SpecDocument, path string) *Acceptance
 	return &AcceptanceCriterionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AcceptanceCriterionEntry) Content() *AcceptanceCriterionEntryContentForm {
 	return NewAcceptanceCriterionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -156,6 +165,9 @@ func (x *AcceptancePlan) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AcceptancePlan) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -208,6 +220,9 @@ func NewAcceptanceProcess(doc *som.SpecDocument, path string) *AcceptanceProcess
 	return &AcceptanceProcess{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AcceptanceProcess) Content() *AcceptanceProcessContentForm {
 	return NewAcceptanceProcessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -265,6 +280,9 @@ func NewAcceptanceStepEntry(doc *som.SpecDocument, path string) *AcceptanceStepE
 	return &AcceptanceStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AcceptanceStepEntry) Content() *AcceptanceStepEntryContentForm {
 	return NewAcceptanceStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -298,6 +316,9 @@ func (x *AccessChannels) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessChannels) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -342,6 +363,9 @@ func (x *AccessConstraintPolicies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessConstraintPolicies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -377,6 +401,9 @@ func (x *AccessControlModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessControlModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -429,6 +456,9 @@ func (x *AccessControlModelSelection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessControlModelSelection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -450,6 +480,9 @@ func NewAccessLevelEntry(doc *som.SpecDocument, path string) *AccessLevelEntry {
 	return &AccessLevelEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessLevelEntry) Content() *AccessLevelEntryContentForm {
 	return NewAccessLevelEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -488,6 +521,9 @@ func (x *AccessLevels) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessLevels) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -533,6 +569,9 @@ func NewAccessRestrictionEntry(doc *som.SpecDocument, path string) *AccessRestri
 	return &AccessRestrictionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessRestrictionEntry) Content() *AccessRestrictionEntryContentForm {
 	return NewAccessRestrictionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -553,6 +592,9 @@ func (x *AccessUserCategories) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessUserCategories) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -587,6 +629,9 @@ func (x *Accessibility) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Accessibility) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -651,6 +696,9 @@ func NewAccessibilityCheckEntry(doc *som.SpecDocument, path string) *Accessibili
 	return &AccessibilityCheckEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessibilityCheckEntry) Content() *AccessibilityCheckEntryContentForm {
 	return NewAccessibilityCheckEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -688,6 +736,9 @@ func (x *AccessibilityChecklist) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessibilityChecklist) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -724,6 +775,9 @@ func NewAccessibilityStandardEntry(doc *som.SpecDocument, path string) *Accessib
 	return &AccessibilityStandardEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccessibilityStandardEntry) Content() *AccessibilityStandardEntryContentForm {
 	return NewAccessibilityStandardEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -767,6 +821,9 @@ func (x *AccountActivationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccountActivationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -798,6 +855,9 @@ func (x *AccountDeactivationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccountDeactivationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -828,6 +888,9 @@ func (x *AccountDeletionPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccountDeletionPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -859,6 +922,9 @@ func (x *AccountLockoutPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccountLockoutPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -889,6 +955,9 @@ func (x *AccountModificationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AccountModificationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -910,6 +979,9 @@ func NewActionParameterEntry(doc *som.SpecDocument, path string) *ActionParamete
 	return &ActionParameterEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ActionParameterEntry) Content() *ActionParameterEntryContentForm {
 	return NewActionParameterEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -924,6 +996,9 @@ func NewActorCharacteristics(doc *som.SpecDocument, path string) *ActorCharacter
 	return &ActorCharacteristics{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ActorCharacteristics) Content() *ActorCharacteristicsContentForm {
 	return NewActorCharacteristicsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -956,6 +1031,9 @@ func (x *ActorEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ActorEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1008,6 +1086,9 @@ func NewActorGoals(doc *som.SpecDocument, path string) *ActorGoals {
 	return &ActorGoals{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ActorGoals) Content() *ActorGoalsContentForm {
 	return NewActorGoalsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1031,6 +1112,9 @@ func (x *ActorOverview) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ActorOverview) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1066,6 +1150,9 @@ func NewActorPermissions(doc *som.SpecDocument, path string) *ActorPermissions {
 	return &ActorPermissions{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ActorPermissions) Content() *ActorPermissionsContentForm {
 	return NewActorPermissionsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1086,6 +1173,9 @@ func (x *ActorRelationshipDiagram) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ActorRelationshipDiagram) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1115,6 +1205,9 @@ func NewAdminInterfaceRequirements(doc *som.SpecDocument, path string) *AdminInt
 	return &AdminInterfaceRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AdminInterfaceRequirements) Content() *AdminInterfaceRequirementsContentForm {
 	return NewAdminInterfaceRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1150,6 +1243,9 @@ func (x *AdministrationRequirementsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AdministrationRequirementsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1203,6 +1299,9 @@ func NewAdministrativeEventPolicy(doc *som.SpecDocument, path string) *Administr
 	return &AdministrativeEventPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AdministrativeEventPolicy) Content() *AdministrativeEventPolicyContentForm {
 	return NewAdministrativeEventPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1220,6 +1319,9 @@ func NewAffectedDepartmentEntry(doc *som.SpecDocument, path string) *AffectedDep
 	return &AffectedDepartmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AffectedDepartmentEntry) Content() *AffectedDepartmentEntryContentForm {
 	return NewAffectedDepartmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1236,6 +1338,9 @@ func NewAffectedFunctionEntry(doc *som.SpecDocument, path string) *AffectedFunct
 	return &AffectedFunctionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AffectedFunctionEntry) Content() *AffectedFunctionEntryContentForm {
 	return NewAffectedFunctionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1267,6 +1372,9 @@ func NewAffectedObjectEntry(doc *som.SpecDocument, path string) *AffectedObjectE
 	return &AffectedObjectEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AffectedObjectEntry) Content() *AffectedObjectEntryContentForm {
 	return NewAffectedObjectEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1297,6 +1405,9 @@ func NewAlertDefinitionEntry(doc *som.SpecDocument, path string) *AlertDefinitio
 	return &AlertDefinitionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AlertDefinitionEntry) Content() *AlertDefinitionEntryContentForm {
 	return NewAlertDefinitionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1326,6 +1437,9 @@ func NewAlertEscalationPolicies(doc *som.SpecDocument, path string) *AlertEscala
 	return &AlertEscalationPolicies{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AlertEscalationPolicies) Content() *AlertEscalationPoliciesContentForm {
 	return NewAlertEscalationPoliciesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1355,6 +1469,9 @@ func NewAlertNotificationChannels(doc *som.SpecDocument, path string) *AlertNoti
 	return &AlertNotificationChannels{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AlertNotificationChannels) Content() *AlertNotificationChannelsContentForm {
 	return NewAlertNotificationChannelsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1384,6 +1501,9 @@ func NewAlertRuleEntry(doc *som.SpecDocument, path string) *AlertRuleEntry {
 	return &AlertRuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AlertRuleEntry) Content() *AlertRuleEntryContentForm {
 	return NewAlertRuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1413,6 +1533,9 @@ func NewAlertSuppressionRules(doc *som.SpecDocument, path string) *AlertSuppress
 	return &AlertSuppressionRules{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AlertSuppressionRules) Content() *AlertSuppressionRulesContentForm {
 	return NewAlertSuppressionRulesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1436,6 +1559,9 @@ func (x *AlertingConfiguration) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AlertingConfiguration) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1503,6 +1629,9 @@ func NewAlertingRequirements(doc *som.SpecDocument, path string) *AlertingRequir
 	return &AlertingRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AlertingRequirements) Content() *AlertingRequirementsContentForm {
 	return NewAlertingRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1537,6 +1666,9 @@ func NewAlternativeFlowEntry(doc *som.SpecDocument, path string) *AlternativeFlo
 	return &AlternativeFlowEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AlternativeFlowEntry) Content() *AlternativeFlowEntryContentForm {
 	return NewAlternativeFlowEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1569,6 +1701,9 @@ func NewAlternativeStepEntry(doc *som.SpecDocument, path string) *AlternativeSte
 	return &AlternativeStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AlternativeStepEntry) Content() *AlternativeStepEntryContentForm {
 	return NewAlternativeStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1610,6 +1745,9 @@ func NewAnomalyDetectionPolicy(doc *som.SpecDocument, path string) *AnomalyDetec
 	return &AnomalyDetectionPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AnomalyDetectionPolicy) Content() *AnomalyDetectionPolicyContentForm {
 	return NewAnomalyDetectionPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1638,6 +1776,9 @@ func (x *ApiAbuseProtection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApiAbuseProtection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1668,6 +1809,9 @@ func (x *ApiAuthenticationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApiAuthenticationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1699,6 +1843,9 @@ func (x *ApiAuthorizationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApiAuthorizationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1720,6 +1867,9 @@ func NewApiCompatibilityEntry(doc *som.SpecDocument, path string) *ApiCompatibil
 	return &ApiCompatibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApiCompatibilityEntry) Content() *ApiCompatibilityEntryContentForm {
 	return NewApiCompatibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1765,6 +1915,9 @@ func (x *ApiCorsSecurity) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApiCorsSecurity) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1795,6 +1948,9 @@ func (x *ApiKeyManagementPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApiKeyManagementPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1827,6 +1983,9 @@ func (x *ApiRequestValidationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApiRequestValidationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1859,6 +2018,9 @@ func (x *ApiSecurity) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApiSecurity) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1922,6 +2084,9 @@ func (x *ApiSecurityMonitoring) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApiSecurityMonitoring) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -1943,6 +2108,9 @@ func NewApiVersioningStrategy(doc *som.SpecDocument, path string) *ApiVersioning
 	return &ApiVersioningStrategy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApiVersioningStrategy) Content() *ApiVersioningStrategyContentForm {
 	return NewApiVersioningStrategyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1972,6 +2140,9 @@ func NewApplicableRegulationEntry(doc *som.SpecDocument, path string) *Applicabl
 	return &ApplicableRegulationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApplicableRegulationEntry) Content() *ApplicableRegulationEntryContentForm {
 	return NewApplicableRegulationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -1993,6 +2164,9 @@ func NewApplicationDiagnostics(doc *som.SpecDocument, path string) *ApplicationD
 	return &ApplicationDiagnostics{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApplicationDiagnostics) Content() *ApplicationDiagnosticsContentForm {
 	return NewApplicationDiagnosticsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2022,6 +2196,9 @@ func NewApplicationMetricsSpec(doc *som.SpecDocument, path string) *ApplicationM
 	return &ApplicationMetricsSpec{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApplicationMetricsSpec) Content() *ApplicationMetricsSpecContentForm {
 	return NewApplicationMetricsSpecContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2051,6 +2228,9 @@ func NewApplicationPerformanceMonitoring(doc *som.SpecDocument, path string) *Ap
 	return &ApplicationPerformanceMonitoring{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApplicationPerformanceMonitoring) Content() *ApplicationPerformanceMonitoringContentForm {
 	return NewApplicationPerformanceMonitoringContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2085,6 +2265,9 @@ func NewApplicationSecurityRequirements(doc *som.SpecDocument, path string) *App
 	return &ApplicationSecurityRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApplicationSecurityRequirements) Content() *ApplicationSecurityRequirementsContentForm {
 	return NewApplicationSecurityRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2114,6 +2297,9 @@ func NewApprovalRecord(doc *som.SpecDocument, path string) *ApprovalRecord {
 	return &ApprovalRecord{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ApprovalRecord) Content() *ApprovalRecordContentForm {
 	return NewApprovalRecordContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2128,6 +2314,9 @@ func NewArchitectureComponentEntry(doc *som.SpecDocument, path string) *Architec
 	return &ArchitectureComponentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ArchitectureComponentEntry) Content() *ArchitectureComponentEntryContentForm {
 	return NewArchitectureComponentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2167,6 +2356,9 @@ func NewArchitectureDecisionRecord(doc *som.SpecDocument, path string) *Architec
 	return &ArchitectureDecisionRecord{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ArchitectureDecisionRecord) Content() *ArchitectureDecisionRecordContentForm {
 	return NewArchitectureDecisionRecordContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2201,6 +2393,9 @@ func NewArchitectureOverview(doc *som.SpecDocument, path string) *ArchitectureOv
 	return &ArchitectureOverview{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ArchitectureOverview) Content() *ArchitectureOverviewContentForm {
 	return NewArchitectureOverviewContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2235,6 +2430,9 @@ func NewArchitecturePrincipleEntry(doc *som.SpecDocument, path string) *Architec
 	return &ArchitecturePrincipleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ArchitecturePrincipleEntry) Content() *ArchitecturePrincipleEntryContentForm {
 	return NewArchitecturePrincipleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2270,6 +2468,9 @@ func (x *ArchitectureStyle) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ArchitectureStyle) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2350,6 +2551,9 @@ func (x *AssumptionConstraintDependencyRegister) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AssumptionConstraintDependencyRegister) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2393,6 +2597,9 @@ func NewAssumptionRegisterEntry(doc *som.SpecDocument, path string) *AssumptionR
 	return &AssumptionRegisterEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AssumptionRegisterEntry) Content() *AssumptionRegisterEntryContentForm {
 	return NewAssumptionRegisterEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2413,6 +2620,9 @@ func (x *AssumptionsConstraintsDependencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AssumptionsConstraintsDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2454,6 +2664,9 @@ func (x *AuditAndLogging) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuditAndLogging) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2482,6 +2695,9 @@ func NewAuditEntry(doc *som.SpecDocument, path string) *AuditEntry {
 	return &AuditEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuditEntry) Content() *AuditEntryContentForm {
 	return NewAuditEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2496,6 +2712,9 @@ func NewAuditEvidenceRequirements(doc *som.SpecDocument, path string) *AuditEvid
 	return &AuditEvidenceRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuditEvidenceRequirements) Content() *AuditEvidenceRequirementsContentForm {
 	return NewAuditEvidenceRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2517,6 +2736,9 @@ func NewAuditEvidenceTypeEntry(doc *som.SpecDocument, path string) *AuditEvidenc
 	return &AuditEvidenceTypeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuditEvidenceTypeEntry) Content() *AuditEvidenceTypeEntryContentForm {
 	return NewAuditEvidenceTypeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2540,6 +2762,9 @@ func (x *AuditLogFormat) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuditLogFormat) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2589,6 +2814,9 @@ func (x *AuditRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuditRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2625,6 +2853,9 @@ func (x *Authentication) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Authentication) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2672,6 +2903,9 @@ func (x *AuthenticationErrorHandling) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthenticationErrorHandling) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2695,6 +2929,9 @@ func NewAuthenticationEventPolicy(doc *som.SpecDocument, path string) *Authentic
 	return &AuthenticationEventPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthenticationEventPolicy) Content() *AuthenticationEventPolicyContentForm {
 	return NewAuthenticationEventPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2723,6 +2960,9 @@ func (x *AuthenticationFlow) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthenticationFlow) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2787,6 +3027,9 @@ func NewAuthenticationMethodEntry(doc *som.SpecDocument, path string) *Authentic
 	return &AuthenticationMethodEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthenticationMethodEntry) Content() *AuthenticationMethodEntryContentForm {
 	return NewAuthenticationMethodEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2832,6 +3075,9 @@ func (x *AuthenticationMethods) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthenticationMethods) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2899,6 +3145,9 @@ func (x *AuthorizationComplianceFollowUp) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthorizationComplianceFollowUp) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -2922,6 +3171,9 @@ func NewAuthorizationEventPolicy(doc *som.SpecDocument, path string) *Authorizat
 	return &AuthorizationEventPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthorizationEventPolicy) Content() *AuthorizationEventPolicyContentForm {
 	return NewAuthorizationEventPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2939,6 +3191,9 @@ func NewAuthorizationGroupEntry(doc *som.SpecDocument, path string) *Authorizati
 	return &AuthorizationGroupEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthorizationGroupEntry) Content() *AuthorizationGroupEntryContentForm {
 	return NewAuthorizationGroupEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -2971,6 +3226,9 @@ func (x *AuthorizationModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthorizationModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -3022,6 +3280,9 @@ func NewAuthorizationRequirementSpec(doc *som.SpecDocument, path string) *Author
 	return &AuthorizationRequirementSpec{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthorizationRequirementSpec) Content() *AuthorizationRequirementSpecContentForm {
 	return NewAuthorizationRequirementSpecContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3070,6 +3331,9 @@ func NewAuthorizationRoleEntry(doc *som.SpecDocument, path string) *Authorizatio
 	return &AuthorizationRoleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *AuthorizationRoleEntry) Content() *AuthorizationRoleEntryContentForm {
 	return NewAuthorizationRoleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3146,6 +3410,9 @@ func NewAvailability(doc *som.SpecDocument, path string) *Availability {
 	return &Availability{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Availability) Content() *AvailabilityContentForm {
 	return NewAvailabilityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3192,6 +3459,9 @@ func (x *BackupAndRecoverySection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BackupAndRecoverySection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -3255,6 +3525,9 @@ func NewBackupCompliance(doc *som.SpecDocument, path string) *BackupCompliance {
 	return &BackupCompliance{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BackupCompliance) Content() *BackupComplianceContentForm {
 	return NewBackupComplianceContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3284,6 +3557,9 @@ func NewBackupDataClassification(doc *som.SpecDocument, path string) *BackupData
 	return &BackupDataClassification{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BackupDataClassification) Content() *BackupDataClassificationContentForm {
 	return NewBackupDataClassificationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3318,6 +3594,9 @@ func (x *BackupEncryptionPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BackupEncryptionPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -3339,6 +3618,9 @@ func NewBackupInfrastructure(doc *som.SpecDocument, path string) *BackupInfrastr
 	return &BackupInfrastructure{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BackupInfrastructure) Content() *BackupInfrastructureContentForm {
 	return NewBackupInfrastructureContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3373,6 +3655,9 @@ func NewBackupPolicyEntry(doc *som.SpecDocument, path string) *BackupPolicyEntry
 	return &BackupPolicyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BackupPolicyEntry) Content() *BackupPolicyEntryContentForm {
 	return NewBackupPolicyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3407,6 +3692,9 @@ func NewBackupVerification(doc *som.SpecDocument, path string) *BackupVerificati
 	return &BackupVerification{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BackupVerification) Content() *BackupVerificationContentForm {
 	return NewBackupVerificationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3436,6 +3724,9 @@ func NewBackwardsCompatibilityRequirements(doc *som.SpecDocument, path string) *
 	return &BackwardsCompatibilityRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BackwardsCompatibilityRequirements) Content() *BackwardsCompatibilityRequirementsContentForm {
 	return NewBackwardsCompatibilityRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3470,6 +3761,9 @@ func NewBandwidthRequirements(doc *som.SpecDocument, path string) *BandwidthRequ
 	return &BandwidthRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BandwidthRequirements) Content() *BandwidthRequirementsContentForm {
 	return NewBandwidthRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3510,6 +3804,9 @@ func (x *BasicTechnicalRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BasicTechnicalRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -3554,6 +3851,9 @@ func NewBatchJobManagement(doc *som.SpecDocument, path string) *BatchJobManageme
 	return &BatchJobManagement{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BatchJobManagement) Content() *BatchJobManagementContentForm {
 	return NewBatchJobManagementContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3623,6 +3923,9 @@ func NewBehaviorRuleEntry(doc *som.SpecDocument, path string) *BehaviorRuleEntry
 	return &BehaviorRuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BehaviorRuleEntry) Content() *BehaviorRuleEntryContentForm {
 	return NewBehaviorRuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3647,6 +3950,9 @@ func (x *BiometricAuthenticationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BiometricAuthenticationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -3668,6 +3974,9 @@ func NewBoundaryAssumptionEntry(doc *som.SpecDocument, path string) *BoundaryAss
 	return &BoundaryAssumptionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BoundaryAssumptionEntry) Content() *BoundaryAssumptionEntryContentForm {
 	return NewBoundaryAssumptionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3703,6 +4012,9 @@ func (x *BoundaryAssumptions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BoundaryAssumptions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -3741,6 +4053,9 @@ func (x *BoundaryInteractionPatterns) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BoundaryInteractionPatterns) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -3764,6 +4079,9 @@ func NewBoundedContextEntry(doc *som.SpecDocument, path string) *BoundedContextE
 	return &BoundedContextEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BoundedContextEntry) Content() *BoundedContextEntryContentForm {
 	return NewBoundedContextEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3806,6 +4124,9 @@ func (x *BreakpointConfiguration) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BreakpointConfiguration) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -3839,6 +4160,9 @@ func NewBreakpointEntry(doc *som.SpecDocument, path string) *BreakpointEntry {
 	return &BreakpointEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BreakpointEntry) Content() *BreakpointEntryContentForm {
 	return NewBreakpointEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3863,6 +4187,9 @@ func NewBrowserCompatibilityEntry(doc *som.SpecDocument, path string) *BrowserCo
 	return &BrowserCompatibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BrowserCompatibilityEntry) Content() *BrowserCompatibilityEntryContentForm {
 	return NewBrowserCompatibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3897,6 +4224,9 @@ func NewBrowserRequirementEntry(doc *som.SpecDocument, path string) *BrowserRequ
 	return &BrowserRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BrowserRequirementEntry) Content() *BrowserRequirementEntryContentForm {
 	return NewBrowserRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3931,6 +4261,9 @@ func NewBuildToolchainEntry(doc *som.SpecDocument, path string) *BuildToolchainE
 	return &BuildToolchainEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BuildToolchainEntry) Content() *BuildToolchainEntryContentForm {
 	return NewBuildToolchainEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -3975,6 +4308,9 @@ func NewBuildToolsConfiguration(doc *som.SpecDocument, path string) *BuildToolsC
 	return &BuildToolsConfiguration{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BuildToolsConfiguration) Content() *BuildToolsConfigurationContentForm {
 	return NewBuildToolsConfigurationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -4009,6 +4345,9 @@ func NewBusinessComponentEntry(doc *som.SpecDocument, path string) *BusinessComp
 	return &BusinessComponentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessComponentEntry) Content() *BusinessComponentEntryContentForm {
 	return NewBusinessComponentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -4059,6 +4398,9 @@ func (x *BusinessDomain) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessDomain) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -4115,6 +4457,9 @@ func NewBusinessGoalEntry(doc *som.SpecDocument, path string) *BusinessGoalEntry
 	return &BusinessGoalEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessGoalEntry) Content() *BusinessGoalEntryContentForm {
 	return NewBusinessGoalEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -4192,6 +4537,9 @@ func (x *BusinessGoals) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessGoals) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -4217,6 +4565,9 @@ func NewBusinessMetricsSpec(doc *som.SpecDocument, path string) *BusinessMetrics
 	return &BusinessMetricsSpec{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessMetricsSpec) Content() *BusinessMetricsSpecContentForm {
 	return NewBusinessMetricsSpecContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -4254,6 +4605,9 @@ func NewBusinessObjectAttributeEntry(doc *som.SpecDocument, path string) *Busine
 	return &BusinessObjectAttributeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessObjectAttributeEntry) Content() *BusinessObjectAttributeEntryContentForm {
 	return NewBusinessObjectAttributeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -4293,6 +4647,9 @@ func (x *BusinessObjectEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessObjectEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -4442,6 +4799,9 @@ func (x *BusinessObjectModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessObjectModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -4479,6 +4839,9 @@ func (x *BusinessPainPoints) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessPainPoints) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -4519,6 +4882,9 @@ func (x *BusinessProcessDescriptions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessProcessDescriptions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -4599,6 +4965,9 @@ func (x *BusinessProcessEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessProcessEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -4673,6 +5042,9 @@ func (x *BusinessRuleEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessRuleEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -4793,6 +5165,9 @@ func NewBusinessRuleReferenceEntry(doc *som.SpecDocument, path string) *Business
 	return &BusinessRuleReferenceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *BusinessRuleReferenceEntry) Content() *BusinessRuleReferenceEntryContentForm {
 	return NewBusinessRuleReferenceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -4829,6 +5204,9 @@ func (x *CapacityPlanningSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CapacityPlanningSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -4880,6 +5258,9 @@ func NewCapacityReviewProcess(doc *som.SpecDocument, path string) *CapacityRevie
 	return &CapacityReviewProcess{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CapacityReviewProcess) Content() *CapacityReviewProcessContentForm {
 	return NewCapacityReviewProcessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -4909,6 +5290,9 @@ func NewCcbMemberEntry(doc *som.SpecDocument, path string) *CcbMemberEntry {
 	return &CcbMemberEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CcbMemberEntry) Content() *CcbMemberEntryContentForm {
 	return NewCcbMemberEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -4932,6 +5316,9 @@ func (x *CertificateAuthenticationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CertificateAuthenticationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -4953,6 +5340,9 @@ func NewCertificateManagement(doc *som.SpecDocument, path string) *CertificateMa
 	return &CertificateManagement{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CertificateManagement) Content() *CertificateManagementContentForm {
 	return NewCertificateManagementContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -4997,6 +5387,9 @@ func (x *CertificateManagementPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CertificateManagementPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -5018,6 +5411,9 @@ func NewCertificationEntry(doc *som.SpecDocument, path string) *CertificationEnt
 	return &CertificationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CertificationEntry) Content() *CertificationEntryContentForm {
 	return NewCertificationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5057,6 +5453,9 @@ func NewCertificationRequirementsSection(doc *som.SpecDocument, path string) *Ce
 	return &CertificationRequirementsSection{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CertificationRequirementsSection) Content() *CertificationRequirementsSectionContentForm {
 	return NewCertificationRequirementsSectionContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5093,6 +5492,9 @@ func NewChangeCategoryEntry(doc *som.SpecDocument, path string) *ChangeCategoryE
 	return &ChangeCategoryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangeCategoryEntry) Content() *ChangeCategoryEntryContentForm {
 	return NewChangeCategoryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5124,6 +5526,9 @@ func NewChangeControlBoard(doc *som.SpecDocument, path string) *ChangeControlBoa
 	return &ChangeControlBoard{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangeControlBoard) Content() *ChangeControlBoardContentForm {
 	return NewChangeControlBoardContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5169,6 +5574,9 @@ func (x *ChangeImpactCriteria) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangeImpactCriteria) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -5203,6 +5611,9 @@ func NewChangeImpactCriterionEntry(doc *som.SpecDocument, path string) *ChangeIm
 	return &ChangeImpactCriterionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangeImpactCriterionEntry) Content() *ChangeImpactCriterionEntryContentForm {
 	return NewChangeImpactCriterionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5237,6 +5648,9 @@ func NewChangeNotificationRules(doc *som.SpecDocument, path string) *ChangeNotif
 	return &ChangeNotificationRules{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangeNotificationRules) Content() *ChangeNotificationRulesContentForm {
 	return NewChangeNotificationRulesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5261,6 +5675,9 @@ func (x *ChangeProcedure) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangeProcedure) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -5309,6 +5726,9 @@ func NewChangeProcess(doc *som.SpecDocument, path string) *ChangeProcess {
 	return &ChangeProcess{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangeProcess) Content() *ChangeProcessContentForm {
 	return NewChangeProcessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5358,6 +5778,9 @@ func (x *ChangeReadinessAssessment) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangeReadinessAssessment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -5388,6 +5811,9 @@ func NewChangeRoleEntry(doc *som.SpecDocument, path string) *ChangeRoleEntry {
 	return &ChangeRoleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangeRoleEntry) Content() *ChangeRoleEntryContentForm {
 	return NewChangeRoleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5404,6 +5830,9 @@ func NewChangeStepEntry(doc *som.SpecDocument, path string) *ChangeStepEntry {
 	return &ChangeStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangeStepEntry) Content() *ChangeStepEntryContentForm {
 	return NewChangeStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5447,6 +5876,9 @@ func (x *ChangedRoleCompetencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangedRoleCompetencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -5500,6 +5932,9 @@ func (x *ChangedRoleEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangedRoleEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -5548,6 +5983,9 @@ func NewChangedRoleIdentification(doc *som.SpecDocument, path string) *ChangedRo
 	return &ChangedRoleIdentification{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangedRoleIdentification) Content() *ChangedRoleIdentificationContentForm {
 	return NewChangedRoleIdentificationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5578,6 +6016,9 @@ func (x *ChangedRoleResponsibilities) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangedRoleResponsibilities) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -5622,6 +6063,9 @@ func NewChangedRoleTransition(doc *som.SpecDocument, path string) *ChangedRoleTr
 	return &ChangedRoleTransition{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangedRoleTransition) Content() *ChangedRoleTransitionContentForm {
 	return NewChangedRoleTransitionContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5656,6 +6100,9 @@ func (x *ChangesFromCurrentStructure) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ChangesFromCurrentStructure) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -5732,6 +6179,9 @@ func NewCiCdPipelineConfiguration(doc *som.SpecDocument, path string) *CiCdPipel
 	return &CiCdPipelineConfiguration{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CiCdPipelineConfiguration) Content() *CiCdPipelineConfigurationContentForm {
 	return NewCiCdPipelineConfigurationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5767,6 +6217,9 @@ func NewCiCdPipelineRequirements(doc *som.SpecDocument, path string) *CiCdPipeli
 	return &CiCdPipelineRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CiCdPipelineRequirements) Content() *CiCdPipelineRequirementsContentForm {
 	return NewCiCdPipelineRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5801,6 +6254,9 @@ func NewClientAccessibilityRequirements(doc *som.SpecDocument, path string) *Cli
 	return &ClientAccessibilityRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ClientAccessibilityRequirements) Content() *ClientAccessibilityRequirementsContentForm {
 	return NewClientAccessibilityRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5857,6 +6313,9 @@ func NewClientApplicationEntry(doc *som.SpecDocument, path string) *ClientApplic
 	return &ClientApplicationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ClientApplicationEntry) Content() *ClientApplicationEntryContentForm {
 	return NewClientApplicationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5883,6 +6342,9 @@ func (x *ClientConfiguration) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ClientConfiguration) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -5913,6 +6375,9 @@ func NewClientConfigurationSettingEntry(doc *som.SpecDocument, path string) *Cli
 	return &ClientConfigurationSettingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ClientConfigurationSettingEntry) Content() *ClientConfigurationSettingEntryContentForm {
 	return NewClientConfigurationSettingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5927,6 +6392,9 @@ func NewClientHardwareRequirements(doc *som.SpecDocument, path string) *ClientHa
 	return &ClientHardwareRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ClientHardwareRequirements) Content() *ClientHardwareRequirementsContentForm {
 	return NewClientHardwareRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -5961,6 +6429,9 @@ func NewClientNetworkRequirements(doc *som.SpecDocument, path string) *ClientNet
 	return &ClientNetworkRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ClientNetworkRequirements) Content() *ClientNetworkRequirementsContentForm {
 	return NewClientNetworkRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6014,6 +6485,9 @@ func (x *ClientRequirementsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ClientRequirementsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -6113,6 +6587,9 @@ func NewClientSecurityRequirements(doc *som.SpecDocument, path string) *ClientSe
 	return &ClientSecurityRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ClientSecurityRequirements) Content() *ClientSecurityRequirementsContentForm {
 	return NewClientSecurityRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6147,6 +6624,9 @@ func NewCloudProviderRequirements(doc *som.SpecDocument, path string) *CloudProv
 	return &CloudProviderRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CloudProviderRequirements) Content() *CloudProviderRequirementsContentForm {
 	return NewCloudProviderRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6181,6 +6661,9 @@ func NewCloudServiceIntegrations(doc *som.SpecDocument, path string) *CloudServi
 	return &CloudServiceIntegrations{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CloudServiceIntegrations) Content() *CloudServiceIntegrationsContentForm {
 	return NewCloudServiceIntegrationsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6210,6 +6693,9 @@ func NewCodeQualityMetrics(doc *som.SpecDocument, path string) *CodeQualityMetri
 	return &CodeQualityMetrics{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CodeQualityMetrics) Content() *CodeQualityMetricsContentForm {
 	return NewCodeQualityMetricsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6249,6 +6735,9 @@ func NewCodeReviewProcess(doc *som.SpecDocument, path string) *CodeReviewProcess
 	return &CodeReviewProcess{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CodeReviewProcess) Content() *CodeReviewProcessContentForm {
 	return NewCodeReviewProcessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6283,6 +6772,9 @@ func NewCodingStandardEntry(doc *som.SpecDocument, path string) *CodingStandardE
 	return &CodingStandardEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CodingStandardEntry) Content() *CodingStandardEntryContentForm {
 	return NewCodingStandardEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6317,6 +6809,9 @@ func NewCodingStandardsSection(doc *som.SpecDocument, path string) *CodingStanda
 	return &CodingStandardsSection{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CodingStandardsSection) Content() *CodingStandardsSectionContentForm {
 	return NewCodingStandardsSectionContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6356,6 +6851,9 @@ func NewColorPaletteEntry(doc *som.SpecDocument, path string) *ColorPaletteEntry
 	return &ColorPaletteEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ColorPaletteEntry) Content() *ColorPaletteEntryContentForm {
 	return NewColorPaletteEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6379,6 +6877,9 @@ func (x *ColumnLevelSecurityPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ColumnLevelSecurityPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -6400,6 +6901,9 @@ func NewCommitteeCharter(doc *som.SpecDocument, path string) *CommitteeCharter {
 	return &CommitteeCharter{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CommitteeCharter) Content() *CommitteeCharterContentForm {
 	return NewCommitteeCharterContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6416,6 +6920,9 @@ func NewCommitteeMemberEntry(doc *som.SpecDocument, path string) *CommitteeMembe
 	return &CommitteeMemberEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CommitteeMemberEntry) Content() *CommitteeMemberEntryContentForm {
 	return NewCommitteeMemberEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6437,6 +6944,9 @@ func NewCommitteeResponsibilityEntry(doc *som.SpecDocument, path string) *Commit
 	return &CommitteeResponsibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CommitteeResponsibilityEntry) Content() *CommitteeResponsibilityEntryContentForm {
 	return NewCommitteeResponsibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6457,6 +6967,9 @@ func NewCommunicationChannelEncryptionEntry(doc *som.SpecDocument, path string) 
 	return &CommunicationChannelEncryptionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CommunicationChannelEncryptionEntry) Content() *CommunicationChannelEncryptionEntryContentForm {
 	return NewCommunicationChannelEncryptionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6471,6 +6984,9 @@ func NewCommunicationEventEntry(doc *som.SpecDocument, path string) *Communicati
 	return &CommunicationEventEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CommunicationEventEntry) Content() *CommunicationEventEntryContentForm {
 	return NewCommunicationEventEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6495,6 +7011,9 @@ func NewCommunicationMatrix(doc *som.SpecDocument, path string) *CommunicationMa
 	return &CommunicationMatrix{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CommunicationMatrix) Content() *CommunicationMatrixContentForm {
 	return NewCommunicationMatrixContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6525,6 +7044,9 @@ func NewCommunicationPatterns(doc *som.SpecDocument, path string) *Communication
 	return &CommunicationPatterns{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CommunicationPatterns) Content() *CommunicationPatternsContentForm {
 	return NewCommunicationPatternsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6570,6 +7092,9 @@ func (x *CommunicationRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CommunicationRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -6598,6 +7123,9 @@ func NewCommunicationToolsRequirements(doc *som.SpecDocument, path string) *Comm
 	return &CommunicationToolsRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CommunicationToolsRequirements) Content() *CommunicationToolsRequirementsContentForm {
 	return NewCommunicationToolsRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6612,6 +7140,9 @@ func NewCommunicationTypeEntry(doc *som.SpecDocument, path string) *Communicatio
 	return &CommunicationTypeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CommunicationTypeEntry) Content() *CommunicationTypeEntryContentForm {
 	return NewCommunicationTypeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6637,6 +7168,9 @@ func (x *CompatibilityCharacteristic) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CompatibilityCharacteristic) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -6680,6 +7214,9 @@ func (x *CompatibilityRequirementsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CompatibilityRequirementsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -6772,6 +7309,9 @@ func NewCompetencyEntry(doc *som.SpecDocument, path string) *CompetencyEntry {
 	return &CompetencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CompetencyEntry) Content() *CompetencyEntryContentForm {
 	return NewCompetencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6792,6 +7332,9 @@ func (x *CompetencyFramework) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CompetencyFramework) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -6836,6 +7379,9 @@ func NewCompetencyLevelChangeEntry(doc *som.SpecDocument, path string) *Competen
 	return &CompetencyLevelChangeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CompetencyLevelChangeEntry) Content() *CompetencyLevelChangeEntryContentForm {
 	return NewCompetencyLevelChangeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6850,6 +7396,9 @@ func NewComplianceAuditSchedule(doc *som.SpecDocument, path string) *ComplianceA
 	return &ComplianceAuditSchedule{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComplianceAuditSchedule) Content() *ComplianceAuditScheduleContentForm {
 	return NewComplianceAuditScheduleContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6889,6 +7438,9 @@ func (x *ComplianceFramework) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComplianceFramework) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -6907,6 +7459,9 @@ func NewComplianceMilestoneEntry(doc *som.SpecDocument, path string) *Compliance
 	return &ComplianceMilestoneEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComplianceMilestoneEntry) Content() *ComplianceMilestoneEntryContentForm {
 	return NewComplianceMilestoneEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6938,6 +7493,9 @@ func (x *ComplianceReporting) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComplianceReporting) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -6979,6 +7537,9 @@ func NewComplianceRequirementEntry(doc *som.SpecDocument, path string) *Complian
 	return &ComplianceRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComplianceRequirementEntry) Content() *ComplianceRequirementEntryContentForm {
 	return NewComplianceRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -6993,6 +7554,9 @@ func NewComplianceVerificationSection(doc *som.SpecDocument, path string) *Compl
 	return &ComplianceVerificationSection{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComplianceVerificationSection) Content() *ComplianceVerificationSectionContentForm {
 	return NewComplianceVerificationSectionContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7034,6 +7598,9 @@ func NewComponentActionEntry(doc *som.SpecDocument, path string) *ComponentActio
 	return &ComponentActionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentActionEntry) Content() *ComponentActionEntryContentForm {
 	return NewComponentActionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7058,6 +7625,9 @@ func NewComponentDocs(doc *som.SpecDocument, path string) *ComponentDocs {
 	return &ComponentDocs{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentDocs) Content() *ComponentDocsContentForm {
 	return NewComponentDocsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7076,6 +7646,9 @@ func NewComponentEntry(doc *som.SpecDocument, path string) *ComponentEntry {
 	return &ComponentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentEntry) Content() *ComponentEntryContentForm {
 	return NewComponentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7161,6 +7734,9 @@ func NewComponentFamilyEntry(doc *som.SpecDocument, path string) *ComponentFamil
 	return &ComponentFamilyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentFamilyEntry) Content() *ComponentFamilyEntryContentForm {
 	return NewComponentFamilyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7185,6 +7761,9 @@ func NewComponentGovernance(doc *som.SpecDocument, path string) *ComponentGovern
 	return &ComponentGovernance{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentGovernance) Content() *ComponentGovernanceContentForm {
 	return NewComponentGovernanceContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7222,6 +7801,9 @@ func NewComponentInterfaceEntry(doc *som.SpecDocument, path string) *ComponentIn
 	return &ComponentInterfaceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentInterfaceEntry) Content() *ComponentInterfaceEntryContentForm {
 	return NewComponentInterfaceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7269,6 +7851,9 @@ func (x *ComponentLibrary) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentLibrary) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -7345,6 +7930,9 @@ func NewComponentLicensingEntry(doc *som.SpecDocument, path string) *ComponentLi
 	return &ComponentLicensingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentLicensingEntry) Content() *ComponentLicensingEntryContentForm {
 	return NewComponentLicensingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7384,6 +7972,9 @@ func NewComponentOrganization(doc *som.SpecDocument, path string) *ComponentOrga
 	return &ComponentOrganization{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentOrganization) Content() *ComponentOrganizationContentForm {
 	return NewComponentOrganizationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7420,6 +8011,9 @@ func NewComponentPropertyEntry(doc *som.SpecDocument, path string) *ComponentPro
 	return &ComponentPropertyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentPropertyEntry) Content() *ComponentPropertyEntryContentForm {
 	return NewComponentPropertyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7434,6 +8028,9 @@ func NewComponentRegistry(doc *som.SpecDocument, path string) *ComponentRegistry
 	return &ComponentRegistry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentRegistry) Content() *ComponentRegistryContentForm {
 	return NewComponentRegistryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7471,6 +8068,9 @@ func NewComponentResponsibilitiesEntry(doc *som.SpecDocument, path string) *Comp
 	return &ComponentResponsibilitiesEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentResponsibilitiesEntry) Content() *ComponentResponsibilitiesEntryContentForm {
 	return NewComponentResponsibilitiesEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7514,6 +8114,9 @@ func (x *ComponentRiskAssessment) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentRiskAssessment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -7547,6 +8150,9 @@ func NewComponentRiskEntry(doc *som.SpecDocument, path string) *ComponentRiskEnt
 	return &ComponentRiskEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentRiskEntry) Content() *ComponentRiskEntryContentForm {
 	return NewComponentRiskEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7588,6 +8194,9 @@ func NewComponentSlotEntry(doc *som.SpecDocument, path string) *ComponentSlotEnt
 	return &ComponentSlotEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentSlotEntry) Content() *ComponentSlotEntryContentForm {
 	return NewComponentSlotEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7604,6 +8213,9 @@ func NewComponentStateEntry(doc *som.SpecDocument, path string) *ComponentStateE
 	return &ComponentStateEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentStateEntry) Content() *ComponentStateEntryContentForm {
 	return NewComponentStateEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7640,6 +8252,9 @@ func NewComponentStrategy(doc *som.SpecDocument, path string) *ComponentStrategy
 	return &ComponentStrategy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentStrategy) Content() *ComponentStrategyContentForm {
 	return NewComponentStrategyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7693,6 +8308,9 @@ func NewComponentVariantEntry(doc *som.SpecDocument, path string) *ComponentVari
 	return &ComponentVariantEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentVariantEntry) Content() *ComponentVariantEntryContentForm {
 	return NewComponentVariantEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7731,6 +8349,9 @@ func (x *ComponentsAndDependencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComponentsAndDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -7779,6 +8400,9 @@ func NewComputeResourceRequirements(doc *som.SpecDocument, path string) *Compute
 	return &ComputeResourceRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComputeResourceRequirements) Content() *ComputeResourceRequirementsContentForm {
 	return NewComputeResourceRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7808,6 +8432,9 @@ func NewComputingEquipmentEntry(doc *som.SpecDocument, path string) *ComputingEq
 	return &ComputingEquipmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ComputingEquipmentEntry) Content() *ComputingEquipmentEntryContentForm {
 	return NewComputingEquipmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7847,6 +8474,9 @@ func (x *ConcurrentSessionPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ConcurrentSessionPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -7868,6 +8498,9 @@ func NewConfidentialInfoCategoryEntry(doc *som.SpecDocument, path string) *Confi
 	return &ConfidentialInfoCategoryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ConfidentialInfoCategoryEntry) Content() *ConfidentialInfoCategoryEntryContentForm {
 	return NewConfidentialInfoCategoryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7884,6 +8517,9 @@ func NewConfidentialityRequirements(doc *som.SpecDocument, path string) *Confide
 	return &ConfidentialityRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ConfidentialityRequirements) Content() *ConfidentialityRequirementsContentForm {
 	return NewConfidentialityRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7910,6 +8546,9 @@ func NewConfigurationManagement(doc *som.SpecDocument, path string) *Configurati
 	return &ConfigurationManagement{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ConfigurationManagement) Content() *ConfigurationManagementContentForm {
 	return NewConfigurationManagementContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7944,6 +8583,9 @@ func NewConnectivityResilience(doc *som.SpecDocument, path string) *Connectivity
 	return &ConnectivityResilience{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ConnectivityResilience) Content() *ConnectivityResilienceContentForm {
 	return NewConnectivityResilienceContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -7973,6 +8615,9 @@ func NewConsentManagementRequirements(doc *som.SpecDocument, path string) *Conse
 	return &ConsentManagementRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ConsentManagementRequirements) Content() *ConsentManagementRequirementsContentForm {
 	return NewConsentManagementRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -8015,6 +8660,9 @@ func NewConstraintRegisterEntry(doc *som.SpecDocument, path string) *ConstraintR
 	return &ConstraintRegisterEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ConstraintRegisterEntry) Content() *ConstraintRegisterEntryContentForm {
 	return NewConstraintRegisterEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -8039,6 +8687,9 @@ func (x *ContentScanningPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ContentScanningPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8069,6 +8720,9 @@ func (x *ContextDiagram) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ContextDiagram) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8111,6 +8765,9 @@ func (x *ContextualHelp) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ContextualHelp) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8176,6 +8833,9 @@ func (x *ContextualNavigation) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ContextualNavigation) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8208,6 +8868,9 @@ func NewContingencyPlanEntry(doc *som.SpecDocument, path string) *ContingencyPla
 	return &ContingencyPlanEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ContingencyPlanEntry) Content() *ContingencyPlanEntryContentForm {
 	return NewContingencyPlanEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -8255,6 +8918,9 @@ func (x *ContingencyPlans) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ContingencyPlans) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8280,6 +8946,9 @@ func NewCorrectness(doc *som.SpecDocument, path string) *Correctness {
 	return &Correctness{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Correctness) Content() *CorrectnessContentForm {
 	return NewCorrectnessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -8321,6 +8990,9 @@ func (x *CredentialCompromiseDetectionPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CredentialCompromiseDetectionPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8351,6 +9023,9 @@ func (x *CredentialRecoveryPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CredentialRecoveryPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8381,6 +9056,9 @@ func (x *CrossBoundaryErrorHandling) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CrossBoundaryErrorHandling) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8409,6 +9087,9 @@ func (x *CrossBoundaryOperationalConsiderations) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CrossBoundaryOperationalConsiderations) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8427,6 +9108,9 @@ func NewCrossCuttingConcerns(doc *som.SpecDocument, path string) *CrossCuttingCo
 	return &CrossCuttingConcerns{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CrossCuttingConcerns) Content() *CrossCuttingConcernsContentForm {
 	return NewCrossCuttingConcernsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -8475,6 +9159,9 @@ func (x *CrossProcessAnalysis) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CrossProcessAnalysis) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8504,6 +9191,9 @@ func (x *CrossTenantAccessPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CrossTenantAccessPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8534,6 +9224,9 @@ func (x *CurrentArchitecture) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CurrentArchitecture) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8587,6 +9280,9 @@ func NewCurrentBusinessProcess(doc *som.SpecDocument, path string) *CurrentBusin
 	return &CurrentBusinessProcess{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CurrentBusinessProcess) Content() *CurrentBusinessProcessContentForm {
 	return NewCurrentBusinessProcessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -8632,6 +9328,9 @@ func (x *CurrentBusinessProcesses) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CurrentBusinessProcesses) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8690,6 +9389,9 @@ func (x *CurrentDataClassification) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CurrentDataClassification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8737,6 +9439,9 @@ func (x *CurrentDataLandscape) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CurrentDataLandscape) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8837,6 +9542,9 @@ func (x *CurrentLandscape) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CurrentLandscape) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8897,6 +9605,9 @@ func (x *CurrentOperationalMetric) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CurrentOperationalMetric) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8915,6 +9626,9 @@ func NewCurrentProcessImprovementEntry(doc *som.SpecDocument, path string) *Curr
 	return &CurrentProcessImprovementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CurrentProcessImprovementEntry) Content() *CurrentProcessImprovementEntryContentForm {
 	return NewCurrentProcessImprovementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -8938,6 +9652,9 @@ func (x *CurrentStateRiskAssessment) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CurrentStateRiskAssessment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -8959,6 +9676,9 @@ func NewCurrentWorkflowEntry(doc *som.SpecDocument, path string) *CurrentWorkflo
 	return &CurrentWorkflowEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CurrentWorkflowEntry) Content() *CurrentWorkflowEntryContentForm {
 	return NewCurrentWorkflowEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -9039,6 +9759,9 @@ func NewCustomDistributionGroup(doc *som.SpecDocument, path string) *CustomDistr
 	return &CustomDistributionGroup{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CustomDistributionGroup) Content() *CustomDistributionGroupContentForm {
 	return NewCustomDistributionGroupContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -9060,6 +9783,9 @@ func NewCustomMetricEntry(doc *som.SpecDocument, path string) *CustomMetricEntry
 	return &CustomMetricEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CustomMetricEntry) Content() *CustomMetricEntryContentForm {
 	return NewCustomMetricEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -9083,6 +9809,9 @@ func (x *CutoverProcedure) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *CutoverProcedure) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -9159,6 +9888,9 @@ func (x *D00SolutionBlueprint) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D00SolutionBlueprint) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -9306,6 +10038,9 @@ func (x *D01CurrentLandscapeAssessment) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D01CurrentLandscapeAssessment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -9430,6 +10165,9 @@ func (x *D02TargetOperatingModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D02TargetOperatingModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -9567,6 +10305,9 @@ func (x *D03InformationModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D03InformationModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -9770,6 +10511,9 @@ func (x *D04RequirementsSpecification) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D04RequirementsSpecification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -9897,6 +10641,9 @@ func (x *D05InteractionScenarios) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D05InteractionScenarios) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -10017,6 +10764,9 @@ func (x *D06ArchitectureTechnologySpecification) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D06ArchitectureTechnologySpecification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -10159,6 +10909,9 @@ func (x *D07IntegrationInterfaceSpecification) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D07IntegrationInterfaceSpecification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -10298,6 +11051,9 @@ func (x *D08SecurityAccessSpecification) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D08SecurityAccessSpecification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -10433,6 +11189,9 @@ func (x *D09ExperienceDesignSpecification) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D09ExperienceDesignSpecification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -10581,6 +11340,9 @@ func (x *D10QualityAcceptancePlan) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D10QualityAcceptancePlan) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -10759,6 +11521,9 @@ func (x *D11DeliveryRoadmap) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D11DeliveryRoadmap) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -10889,6 +11654,9 @@ func (x *D12TransitionRolloutPlan) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D12TransitionRolloutPlan) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -11042,6 +11810,9 @@ func (x *D13CodeSpecsProjection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *D13CodeSpecsProjection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -11247,6 +12018,9 @@ func NewDashboardEntry(doc *som.SpecDocument, path string) *DashboardEntry {
 	return &DashboardEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DashboardEntry) Content() *DashboardEntryContentForm {
 	return NewDashboardEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -11271,6 +12045,9 @@ func NewDashboardRequirements(doc *som.SpecDocument, path string) *DashboardRequ
 	return &DashboardRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DashboardRequirements) Content() *DashboardRequirementsContentForm {
 	return NewDashboardRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -11305,6 +12082,9 @@ func NewDashboardTemplates(doc *som.SpecDocument, path string) *DashboardTemplat
 	return &DashboardTemplates{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DashboardTemplates) Content() *DashboardTemplatesContentForm {
 	return NewDashboardTemplatesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -11328,6 +12108,9 @@ func (x *DataAccessAuditPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataAccessAuditPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -11351,6 +12134,9 @@ func NewDataAccessEventPolicy(doc *som.SpecDocument, path string) *DataAccessEve
 	return &DataAccessEventPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataAccessEventPolicy) Content() *DataAccessEventPolicyContentForm {
 	return NewDataAccessEventPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -11368,6 +12154,9 @@ func NewDataArchitecture(doc *som.SpecDocument, path string) *DataArchitecture {
 	return &DataArchitecture{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataArchitecture) Content() *DataArchitectureContentForm {
 	return NewDataArchitectureContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -11407,6 +12196,9 @@ func NewDataAttributeConstraintEntry(doc *som.SpecDocument, path string) *DataAt
 	return &DataAttributeConstraintEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataAttributeConstraintEntry) Content() *DataAttributeConstraintEntryContentForm {
 	return NewDataAttributeConstraintEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -11429,6 +12221,9 @@ func (x *DataAttributeEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataAttributeEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -11635,6 +12430,9 @@ func (x *DataClassification) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataClassification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -11681,6 +12479,9 @@ func (x *DataClassificationEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataClassificationEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -11783,6 +12584,9 @@ func NewDataClassificationLevelEntry(doc *som.SpecDocument, path string) *DataCl
 	return &DataClassificationLevelEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataClassificationLevelEntry) Content() *DataClassificationLevelEntryContentForm {
 	return NewDataClassificationLevelEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -11797,6 +12601,9 @@ func NewDataClassificationStatusEntry(doc *som.SpecDocument, path string) *DataC
 	return &DataClassificationStatusEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataClassificationStatusEntry) Content() *DataClassificationStatusEntryContentForm {
 	return NewDataClassificationStatusEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -11820,6 +12627,9 @@ func (x *DataDictionary) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataDictionary) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -11847,6 +12657,9 @@ func (x *DataDuplicationAnalysis) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataDuplicationAnalysis) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -11886,6 +12699,9 @@ func NewDataDuplicationEntry(doc *som.SpecDocument, path string) *DataDuplicatio
 	return &DataDuplicationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataDuplicationEntry) Content() *DataDuplicationEntryContentForm {
 	return NewDataDuplicationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -11940,6 +12756,9 @@ func (x *DataEntityEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataEntityEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12042,6 +12861,9 @@ func NewDataEntityMigrationEntry(doc *som.SpecDocument, path string) *DataEntity
 	return &DataEntityMigrationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataEntityMigrationEntry) Content() *DataEntityMigrationEntryContentForm {
 	return NewDataEntityMigrationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12056,6 +12878,9 @@ func NewDataEntityReferenceEntry(doc *som.SpecDocument, path string) *DataEntity
 	return &DataEntityReferenceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataEntityReferenceEntry) Content() *DataEntityReferenceEntryContentForm {
 	return NewDataEntityReferenceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12090,6 +12915,9 @@ func NewDataFormatCompatibility(doc *som.SpecDocument, path string) *DataFormatC
 	return &DataFormatCompatibility{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataFormatCompatibility) Content() *DataFormatCompatibilityContentForm {
 	return NewDataFormatCompatibilityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12132,6 +12960,9 @@ func (x *DataGovernance) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataGovernance) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12171,6 +13002,9 @@ func NewDataGovernancePolicyEntry(doc *som.SpecDocument, path string) *DataGover
 	return &DataGovernancePolicyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataGovernancePolicyEntry) Content() *DataGovernancePolicyEntryContentForm {
 	return NewDataGovernancePolicyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12195,6 +13029,9 @@ func NewDataGrowthProjections(doc *som.SpecDocument, path string) *DataGrowthPro
 	return &DataGrowthProjections{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataGrowthProjections) Content() *DataGrowthProjectionsContentForm {
 	return NewDataGrowthProjectionsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12229,6 +13066,9 @@ func NewDataIntegrationEntry(doc *som.SpecDocument, path string) *DataIntegratio
 	return &DataIntegrationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataIntegrationEntry) Content() *DataIntegrationEntryContentForm {
 	return NewDataIntegrationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12272,6 +13112,9 @@ func (x *DataIntegrationPoints) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataIntegrationPoints) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12322,6 +13165,9 @@ func (x *DataLevelSecurity) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataLevelSecurity) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12383,6 +13229,9 @@ func (x *DataMaskingPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataMaskingPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12410,6 +13259,9 @@ func NewDataMigrationStrategy(doc *som.SpecDocument, path string) *DataMigration
 	return &DataMigrationStrategy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataMigrationStrategy) Content() *DataMigrationStrategyContentForm {
 	return NewDataMigrationStrategyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12516,6 +13368,9 @@ func (x *DataModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12585,6 +13440,9 @@ func (x *DataModelFollowUp) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataModelFollowUp) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12622,6 +13480,9 @@ func (x *DataOwnership) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataOwnership) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12661,6 +13522,9 @@ func NewDataOwnershipEntry(doc *som.SpecDocument, path string) *DataOwnershipEnt
 	return &DataOwnershipEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataOwnershipEntry) Content() *DataOwnershipEntryContentForm {
 	return NewDataOwnershipEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12685,6 +13549,9 @@ func NewDataProcessingAgreementRequirements(doc *som.SpecDocument, path string) 
 	return &DataProcessingAgreementRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataProcessingAgreementRequirements) Content() *DataProcessingAgreementRequirementsContentForm {
 	return NewDataProcessingAgreementRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12730,6 +13597,9 @@ func (x *DataProtectionAndPrivacySection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataProtectionAndPrivacySection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12789,6 +13659,9 @@ func NewDataProtectionClassification(doc *som.SpecDocument, path string) *DataPr
 	return &DataProtectionClassification{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataProtectionClassification) Content() *DataProtectionClassificationContentForm {
 	return NewDataProtectionClassificationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12832,6 +13705,9 @@ func (x *DataQualityAssessment) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataQualityAssessment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12878,6 +13754,9 @@ func NewDataQualityInitiativeEntry(doc *som.SpecDocument, path string) *DataQual
 	return &DataQualityInitiativeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataQualityInitiativeEntry) Content() *DataQualityInitiativeEntryContentForm {
 	return NewDataQualityInitiativeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12892,6 +13771,9 @@ func NewDataQualityIssueEntry(doc *som.SpecDocument, path string) *DataQualityIs
 	return &DataQualityIssueEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataQualityIssueEntry) Content() *DataQualityIssueEntryContentForm {
 	return NewDataQualityIssueEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12921,6 +13803,9 @@ func NewDataResidencyRequirements(doc *som.SpecDocument, path string) *DataResid
 	return &DataResidencyRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataResidencyRequirements) Content() *DataResidencyRequirementsContentForm {
 	return NewDataResidencyRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -12959,6 +13844,9 @@ func (x *DataRetentionPolicies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataRetentionPolicies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -12989,6 +13877,9 @@ func NewDataSourceEntityEntry(doc *som.SpecDocument, path string) *DataSourceEnt
 	return &DataSourceEntityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataSourceEntityEntry) Content() *DataSourceEntityEntryContentForm {
 	return NewDataSourceEntityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13006,6 +13897,9 @@ func NewDataSourceEntry(doc *som.SpecDocument, path string) *DataSourceEntry {
 	return &DataSourceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataSourceEntry) Content() *DataSourceEntryContentForm {
 	return NewDataSourceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13076,6 +13970,9 @@ func (x *DataSourceInventory) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataSourceInventory) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13113,6 +14010,9 @@ func NewDataSubjectRightsManagement(doc *som.SpecDocument, path string) *DataSub
 	return &DataSubjectRightsManagement{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataSubjectRightsManagement) Content() *DataSubjectRightsManagementContentForm {
 	return NewDataSubjectRightsManagementContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13157,6 +14057,9 @@ func NewDataVolumeEntry(doc *som.SpecDocument, path string) *DataVolumeEntry {
 	return &DataVolumeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataVolumeEntry) Content() *DataVolumeEntryContentForm {
 	return NewDataVolumeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13171,6 +14074,9 @@ func NewDataVolumeSummary(doc *som.SpecDocument, path string) *DataVolumeSummary
 	return &DataVolumeSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataVolumeSummary) Content() *DataVolumeSummaryContentForm {
 	return NewDataVolumeSummaryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13209,6 +14115,9 @@ func (x *DataVolumesAndGrowth) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DataVolumesAndGrowth) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13258,6 +14167,9 @@ func (x *DatabaseAccessPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DatabaseAccessPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13279,6 +14191,9 @@ func NewDatabaseCompatibilityEntry(doc *som.SpecDocument, path string) *Database
 	return &DatabaseCompatibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DatabaseCompatibilityEntry) Content() *DatabaseCompatibilityEntryContentForm {
 	return NewDatabaseCompatibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13323,6 +14238,9 @@ func (x *DatabaseEncryptionPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DatabaseEncryptionPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13344,6 +14262,9 @@ func NewDebuggingConfiguration(doc *som.SpecDocument, path string) *DebuggingCon
 	return &DebuggingConfiguration{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DebuggingConfiguration) Content() *DebuggingConfigurationContentForm {
 	return NewDebuggingConfigurationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13383,6 +14304,9 @@ func NewDecisionAuthorityEntry(doc *som.SpecDocument, path string) *DecisionAuth
 	return &DecisionAuthorityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DecisionAuthorityEntry) Content() *DecisionAuthorityEntryContentForm {
 	return NewDecisionAuthorityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13397,6 +14321,9 @@ func NewDecisionMakerEntry(doc *som.SpecDocument, path string) *DecisionMakerEnt
 	return &DecisionMakerEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DecisionMakerEntry) Content() *DecisionMakerEntryContentForm {
 	return NewDecisionMakerEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13414,6 +14341,9 @@ func NewDecisionOptionEntry(doc *som.SpecDocument, path string) *DecisionOptionE
 	return &DecisionOptionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DecisionOptionEntry) Content() *DecisionOptionEntryContentForm {
 	return NewDecisionOptionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13452,6 +14382,9 @@ func NewDecisionPointEntry(doc *som.SpecDocument, path string) *DecisionPointEnt
 	return &DecisionPointEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DecisionPointEntry) Content() *DecisionPointEntryContentForm {
 	return NewDecisionPointEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13486,6 +14419,9 @@ func NewDecisionPointEntryResolution(doc *som.SpecDocument, path string) *Decisi
 	return &DecisionPointEntryResolution{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DecisionPointEntryResolution) Content() *DecisionPointEntryResolutionContentForm {
 	return NewDecisionPointEntryResolutionContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13515,6 +14451,9 @@ func NewDecisionPoints(doc *som.SpecDocument, path string) *DecisionPoints {
 	return &DecisionPoints{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DecisionPoints) Content() *DecisionPointsContentForm {
 	return NewDecisionPointsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13539,6 +14478,9 @@ func NewDeepLinkPatternEntry(doc *som.SpecDocument, path string) *DeepLinkPatter
 	return &DeepLinkPatternEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeepLinkPatternEntry) Content() *DeepLinkPatternEntryContentForm {
 	return NewDeepLinkPatternEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13570,6 +14512,9 @@ func (x *DeepLinking) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeepLinking) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13602,6 +14547,9 @@ func NewDefectResolution(doc *som.SpecDocument, path string) *DefectResolution {
 	return &DefectResolution{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DefectResolution) Content() *DefectResolutionContentForm {
 	return NewDefectResolutionContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13639,6 +14587,9 @@ func NewDeferredScopeItemEntry(doc *som.SpecDocument, path string) *DeferredScop
 	return &DeferredScopeItemEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeferredScopeItemEntry) Content() *DeferredScopeItemEntryContentForm {
 	return NewDeferredScopeItemEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13653,6 +14604,9 @@ func NewDeliverableDependencies(doc *som.SpecDocument, path string) *Deliverable
 	return &DeliverableDependencies{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeliverableDependencies) Content() *DeliverableDependenciesContentForm {
 	return NewDeliverableDependenciesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13671,6 +14625,9 @@ func NewDeliverableEntry(doc *som.SpecDocument, path string) *DeliverableEntry {
 	return &DeliverableEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeliverableEntry) Content() *DeliverableEntryContentForm {
 	return NewDeliverableEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13731,6 +14688,9 @@ func NewDeliveryAcceptanceCriterionEntry(doc *som.SpecDocument, path string) *De
 	return &DeliveryAcceptanceCriterionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeliveryAcceptanceCriterionEntry) Content() *DeliveryAcceptanceCriterionEntryContentForm {
 	return NewDeliveryAcceptanceCriterionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13776,6 +14736,9 @@ func (x *DeliveryScope) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeliveryScope) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13820,6 +14783,9 @@ func (x *DeliveryScopeAndAcceptance) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeliveryScopeAndAcceptance) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13854,6 +14820,9 @@ func (x *DeliveryTransitionAndRollout) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeliveryTransitionAndRollout) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13904,6 +14873,9 @@ func (x *DependenciesAndIntegrations) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DependenciesAndIntegrations) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13956,6 +14928,9 @@ func NewDependencyHealthMonitoring(doc *som.SpecDocument, path string) *Dependen
 	return &DependencyHealthMonitoring{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DependencyHealthMonitoring) Content() *DependencyHealthMonitoringContentForm {
 	return NewDependencyHealthMonitoringContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -13990,6 +14965,9 @@ func NewDependencyInjectionStructure(doc *som.SpecDocument, path string) *Depend
 	return &DependencyInjectionStructure{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DependencyInjectionStructure) Content() *DependencyInjectionStructureContentForm {
 	return NewDependencyInjectionStructureContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14024,6 +15002,9 @@ func NewDependencyManagement(doc *som.SpecDocument, path string) *DependencyMana
 	return &DependencyManagement{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DependencyManagement) Content() *DependencyManagementContentForm {
 	return NewDependencyManagementContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14064,6 +15045,9 @@ func NewDependencyRegisterEntry(doc *som.SpecDocument, path string) *DependencyR
 	return &DependencyRegisterEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DependencyRegisterEntry) Content() *DependencyRegisterEntryContentForm {
 	return NewDependencyRegisterEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14078,6 +15062,9 @@ func NewDependencyScanningRequirements(doc *som.SpecDocument, path string) *Depe
 	return &DependencyScanningRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DependencyScanningRequirements) Content() *DependencyScanningRequirementsContentForm {
 	return NewDependencyScanningRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14121,6 +15108,9 @@ func (x *DeploymentContext) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeploymentContext) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -14144,6 +15134,9 @@ func NewDeploymentEnvironmentEntry(doc *som.SpecDocument, path string) *Deployme
 	return &DeploymentEnvironmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeploymentEnvironmentEntry) Content() *DeploymentEnvironmentEntryContentForm {
 	return NewDeploymentEnvironmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14178,6 +15171,9 @@ func NewDeploymentModelRequirements(doc *som.SpecDocument, path string) *Deploym
 	return &DeploymentModelRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeploymentModelRequirements) Content() *DeploymentModelRequirementsContentForm {
 	return NewDeploymentModelRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14212,6 +15208,9 @@ func NewDeploymentSecurity(doc *som.SpecDocument, path string) *DeploymentSecuri
 	return &DeploymentSecurity{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeploymentSecurity) Content() *DeploymentSecurityContentForm {
 	return NewDeploymentSecurityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14250,6 +15249,9 @@ func (x *DeploymentStrategySection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeploymentStrategySection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -14311,6 +15313,9 @@ func NewDeploymentTargetEntry(doc *som.SpecDocument, path string) *DeploymentTar
 	return &DeploymentTargetEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeploymentTargetEntry) Content() *DeploymentTargetEntryContentForm {
 	return NewDeploymentTargetEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14350,6 +15355,9 @@ func NewDeploymentTopology(doc *som.SpecDocument, path string) *DeploymentTopolo
 	return &DeploymentTopology{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeploymentTopology) Content() *DeploymentTopologyContentForm {
 	return NewDeploymentTopologyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14389,6 +15397,9 @@ func NewDesignFoundationEntry(doc *som.SpecDocument, path string) *DesignFoundat
 	return &DesignFoundationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DesignFoundationEntry) Content() *DesignFoundationEntryContentForm {
 	return NewDesignFoundationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14405,6 +15416,9 @@ func NewDesignGoalEntry(doc *som.SpecDocument, path string) *DesignGoalEntry {
 	return &DesignGoalEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DesignGoalEntry) Content() *DesignGoalEntryContentForm {
 	return NewDesignGoalEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14428,6 +15442,9 @@ func (x *DesignGoals) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DesignGoals) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -14456,6 +15473,9 @@ func NewDesignPatternEntry(doc *som.SpecDocument, path string) *DesignPatternEnt
 	return &DesignPatternEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DesignPatternEntry) Content() *DesignPatternEntryContentForm {
 	return NewDesignPatternEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14504,6 +15524,9 @@ func (x *DesignPatternsAndStandards) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DesignPatternsAndStandards) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -14575,6 +15598,9 @@ func NewDesignPrincipleEntry(doc *som.SpecDocument, path string) *DesignPrincipl
 	return &DesignPrincipleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DesignPrincipleEntry) Content() *DesignPrincipleEntryContentForm {
 	return NewDesignPrincipleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14598,6 +15624,9 @@ func (x *DesignPrinciples) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DesignPrinciples) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -14635,6 +15664,9 @@ func (x *DesignVision) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DesignVision) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -14668,6 +15700,9 @@ func NewDesktopOsRequirementEntry(doc *som.SpecDocument, path string) *DesktopOs
 	return &DesktopOsRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DesktopOsRequirementEntry) Content() *DesktopOsRequirementEntryContentForm {
 	return NewDesktopOsRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14711,6 +15746,9 @@ func (x *DetailedProcessWorkflow) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DetailedProcessWorkflow) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -14729,6 +15767,9 @@ func NewDeveloperOnboarding(doc *som.SpecDocument, path string) *DeveloperOnboar
 	return &DeveloperOnboarding{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeveloperOnboarding) Content() *DeveloperOnboardingContentForm {
 	return NewDeveloperOnboardingContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14769,6 +15810,9 @@ func NewDevelopmentConventionEntry(doc *som.SpecDocument, path string) *Developm
 	return &DevelopmentConventionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DevelopmentConventionEntry) Content() *DevelopmentConventionEntryContentForm {
 	return NewDevelopmentConventionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14817,6 +15861,9 @@ func (x *DevelopmentEnvironment) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DevelopmentEnvironment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -14890,6 +15937,9 @@ func NewDevelopmentQualityGates(doc *som.SpecDocument, path string) *Development
 	return &DevelopmentQualityGates{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DevelopmentQualityGates) Content() *DevelopmentQualityGatesContentForm {
 	return NewDevelopmentQualityGatesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14938,6 +15988,9 @@ func NewDeviceSettingEntry(doc *som.SpecDocument, path string) *DeviceSettingEnt
 	return &DeviceSettingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeviceSettingEntry) Content() *DeviceSettingEntryContentForm {
 	return NewDeviceSettingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -14966,6 +16019,9 @@ func (x *DeviceSettings) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DeviceSettings) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -14991,6 +16047,9 @@ func NewDisasterRecoveryRequirements(doc *som.SpecDocument, path string) *Disast
 	return &DisasterRecoveryRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DisasterRecoveryRequirements) Content() *DisasterRecoveryRequirementsContentForm {
 	return NewDisasterRecoveryRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15025,6 +16084,9 @@ func NewDisplayEquipmentEntry(doc *som.SpecDocument, path string) *DisplayEquipm
 	return &DisplayEquipmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DisplayEquipmentEntry) Content() *DisplayEquipmentEntryContentForm {
 	return NewDisplayEquipmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15054,6 +16116,9 @@ func NewDisplayPropertyEntry(doc *som.SpecDocument, path string) *DisplayPropert
 	return &DisplayPropertyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DisplayPropertyEntry) Content() *DisplayPropertyEntryContentForm {
 	return NewDisplayPropertyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15068,6 +16133,9 @@ func NewDisplayRequirements(doc *som.SpecDocument, path string) *DisplayRequirem
 	return &DisplayRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DisplayRequirements) Content() *DisplayRequirementsContentForm {
 	return NewDisplayRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15102,6 +16170,9 @@ func NewDistributedTracingSpec(doc *som.SpecDocument, path string) *DistributedT
 	return &DistributedTracingSpec{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DistributedTracingSpec) Content() *DistributedTracingSpecContentForm {
 	return NewDistributedTracingSpecContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15131,6 +16202,9 @@ func NewDistributionGroupSummary(doc *som.SpecDocument, path string) *Distributi
 	return &DistributionGroupSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DistributionGroupSummary) Content() *DistributionGroupSummaryContentForm {
 	return NewDistributionGroupSummaryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15155,6 +16229,9 @@ func (x *DistributionList) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DistributionList) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -15198,6 +16275,9 @@ func NewDistributionRecipientEntry(doc *som.SpecDocument, path string) *Distribu
 	return &DistributionRecipientEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DistributionRecipientEntry) Content() *DistributionRecipientEntryContentForm {
 	return NewDistributionRecipientEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15239,6 +16319,9 @@ func NewDistributionRecipientPreferences(doc *som.SpecDocument, path string) *Di
 	return &DistributionRecipientPreferences{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DistributionRecipientPreferences) Content() *DistributionRecipientPreferencesContentForm {
 	return NewDistributionRecipientPreferencesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15253,6 +16336,9 @@ func NewDnsRequirements(doc *som.SpecDocument, path string) *DnsRequirements {
 	return &DnsRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DnsRequirements) Content() *DnsRequirementsContentForm {
 	return NewDnsRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15287,6 +16373,9 @@ func NewDocChangeability(doc *som.SpecDocument, path string) *DocChangeability {
 	return &DocChangeability{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocChangeability) Content() *DocChangeabilityContentForm {
 	return NewDocChangeabilityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15319,6 +16408,9 @@ func NewDocCompleteness(doc *som.SpecDocument, path string) *DocCompleteness {
 	return &DocCompleteness{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocCompleteness) Content() *DocCompletenessContentForm {
 	return NewDocCompletenessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15336,6 +16428,9 @@ func NewDocCorrectness(doc *som.SpecDocument, path string) *DocCorrectness {
 	return &DocCorrectness{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocCorrectness) Content() *DocCorrectnessContentForm {
 	return NewDocCorrectnessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15373,6 +16468,9 @@ func (x *DocumentControl) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocumentControl) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -15423,6 +16521,9 @@ func NewDocumentHeader(doc *som.SpecDocument, path string) *DocumentHeader {
 	return &DocumentHeader{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocumentHeader) Content() *DocumentHeaderContentForm {
 	return NewDocumentHeaderContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15443,6 +16544,9 @@ func (x *DocumentRelationships) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocumentRelationships) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -15468,6 +16572,9 @@ func NewDocumentRelevantSections(doc *som.SpecDocument, path string) *DocumentRe
 	return &DocumentRelevantSections{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocumentRelevantSections) Content() *DocumentRelevantSectionsContentForm {
 	return NewDocumentRelevantSectionsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15495,6 +16602,9 @@ func (x *DocumentationDeliverables) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocumentationDeliverables) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -15534,6 +16644,9 @@ func (x *DocumentationQualityCriteria) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocumentationQualityCriteria) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -15589,6 +16702,9 @@ func NewDocumentationStandards(doc *som.SpecDocument, path string) *Documentatio
 	return &DocumentationStandards{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocumentationStandards) Content() *DocumentationStandardsContentForm {
 	return NewDocumentationStandardsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15628,6 +16744,9 @@ func NewDocumentationStandardsSection(doc *som.SpecDocument, path string) *Docum
 	return &DocumentationStandardsSection{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DocumentationStandardsSection) Content() *DocumentationStandardsSectionContentForm {
 	return NewDocumentationStandardsSectionContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15671,6 +16790,9 @@ func (x *DomainBoundaries) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainBoundaries) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -15723,6 +16845,9 @@ func NewDomainBusinessRuleEntry(doc *som.SpecDocument, path string) *DomainBusin
 	return &DomainBusinessRuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainBusinessRuleEntry) Content() *DomainBusinessRuleEntryContentForm {
 	return NewDomainBusinessRuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15756,6 +16881,9 @@ func (x *DomainBusinessRules) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainBusinessRules) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -15787,6 +16915,9 @@ func NewDomainEnumEntry(doc *som.SpecDocument, path string) *DomainEnumEntry {
 	return &DomainEnumEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainEnumEntry) Content() *DomainEnumEntryContentForm {
 	return NewDomainEnumEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15834,6 +16965,9 @@ func (x *DomainEnumRegistry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainEnumRegistry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -15866,6 +17000,9 @@ func NewDomainEnumValueEntry(doc *som.SpecDocument, path string) *DomainEnumValu
 	return &DomainEnumValueEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainEnumValueEntry) Content() *DomainEnumValueEntryContentForm {
 	return NewDomainEnumValueEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15880,6 +17017,9 @@ func NewDomainEventEntry(doc *som.SpecDocument, path string) *DomainEventEntry {
 	return &DomainEventEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainEventEntry) Content() *DomainEventEntryContentForm {
 	return NewDomainEventEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15903,6 +17043,9 @@ func (x *DomainEvents) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainEvents) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -15928,6 +17071,9 @@ func NewDomainInterfaceEntry(doc *som.SpecDocument, path string) *DomainInterfac
 	return &DomainInterfaceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainInterfaceEntry) Content() *DomainInterfaceEntryContentForm {
 	return NewDomainInterfaceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -15951,6 +17097,9 @@ func (x *DomainOverview) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainOverview) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -15974,6 +17123,9 @@ func NewDomainProcessEntry(doc *som.SpecDocument, path string) *DomainProcessEnt
 	return &DomainProcessEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainProcessEntry) Content() *DomainProcessEntryContentForm {
 	return NewDomainProcessEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16010,6 +17162,9 @@ func (x *DomainProcesses) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainProcesses) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -16044,6 +17199,9 @@ func NewDomainTermEntry(doc *som.SpecDocument, path string) *DomainTermEntry {
 	return &DomainTermEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainTermEntry) Content() *DomainTermEntryContentForm {
 	return NewDomainTermEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16067,6 +17225,9 @@ func (x *DomainVocabulary) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *DomainVocabulary) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -16092,6 +17253,9 @@ func NewEfficiency(doc *som.SpecDocument, path string) *Efficiency {
 	return &Efficiency{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Efficiency) Content() *EfficiencyContentForm {
 	return NewEfficiencyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16124,6 +17288,9 @@ func NewElementValidationRuleEntry(doc *som.SpecDocument, path string) *ElementV
 	return &ElementValidationRuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ElementValidationRuleEntry) Content() *ElementValidationRuleEntryContentForm {
 	return NewElementValidationRuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16138,6 +17305,9 @@ func NewEmergencyMaintenanceProcedures(doc *som.SpecDocument, path string) *Emer
 	return &EmergencyMaintenanceProcedures{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EmergencyMaintenanceProcedures) Content() *EmergencyMaintenanceProceduresContentForm {
 	return NewEmergencyMaintenanceProceduresContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16172,6 +17342,9 @@ func NewEncryptedDataCategoryEntry(doc *som.SpecDocument, path string) *Encrypte
 	return &EncryptedDataCategoryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EncryptedDataCategoryEntry) Content() *EncryptedDataCategoryEntryContentForm {
 	return NewEncryptedDataCategoryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16198,6 +17371,9 @@ func (x *EncryptionAtRest) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EncryptionAtRest) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -16256,6 +17432,9 @@ func (x *EncryptionAtRestPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EncryptionAtRestPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -16288,6 +17467,9 @@ func (x *EncryptionInTransit) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EncryptionInTransit) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -16345,6 +17527,9 @@ func (x *EndToEndTestScenario) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EndToEndTestScenario) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -16363,6 +17548,9 @@ func NewEnterpriseSystemCompatibilityEntry(doc *som.SpecDocument, path string) *
 	return &EnterpriseSystemCompatibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EnterpriseSystemCompatibilityEntry) Content() *EnterpriseSystemCompatibilityEntryContentForm {
 	return NewEnterpriseSystemCompatibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16397,6 +17585,9 @@ func NewEntitlementEntry(doc *som.SpecDocument, path string) *EntitlementEntry {
 	return &EntitlementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EntitlementEntry) Content() *EntitlementEntryContentForm {
 	return NewEntitlementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16418,6 +17609,9 @@ func NewEntitlementReferenceEntry(doc *som.SpecDocument, path string) *Entitleme
 	return &EntitlementReferenceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EntitlementReferenceEntry) Content() *EntitlementReferenceEntryContentForm {
 	return NewEntitlementReferenceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16434,6 +17628,9 @@ func NewEntityConstraintEntry(doc *som.SpecDocument, path string) *EntityConstra
 	return &EntityConstraintEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EntityConstraintEntry) Content() *EntityConstraintEntryContentForm {
 	return NewEntityConstraintEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16457,6 +17654,9 @@ func (x *EntityFollowUpEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EntityFollowUpEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -16550,6 +17750,9 @@ func NewEntityIndexEntry(doc *som.SpecDocument, path string) *EntityIndexEntry {
 	return &EntityIndexEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EntityIndexEntry) Content() *EntityIndexEntryContentForm {
 	return NewEntityIndexEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16573,6 +17776,9 @@ func (x *EntityRelationshipEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EntityRelationshipEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -16714,6 +17920,9 @@ func (x *EntityRelationships) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EntityRelationships) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -16739,6 +17948,9 @@ func NewEntryPointEntry(doc *som.SpecDocument, path string) *EntryPointEntry {
 	return &EntryPointEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EntryPointEntry) Content() *EntryPointEntryContentForm {
 	return NewEntryPointEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16759,6 +17971,9 @@ func NewEnvironmentEntry(doc *som.SpecDocument, path string) *EnvironmentEntry {
 	return &EnvironmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EnvironmentEntry) Content() *EnvironmentEntryContentForm {
 	return NewEnvironmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16833,6 +18048,9 @@ func NewEnvironmentManagement(doc *som.SpecDocument, path string) *EnvironmentMa
 	return &EnvironmentManagement{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EnvironmentManagement) Content() *EnvironmentManagementContentForm {
 	return NewEnvironmentManagementContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16867,6 +18085,9 @@ func NewEnvironmentStrategy(doc *som.SpecDocument, path string) *EnvironmentStra
 	return &EnvironmentStrategy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EnvironmentStrategy) Content() *EnvironmentStrategyContentForm {
 	return NewEnvironmentStrategyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16911,6 +18132,9 @@ func NewEnvironments(doc *som.SpecDocument, path string) *Environments {
 	return &Environments{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Environments) Content() *EnvironmentsContentForm {
 	return NewEnvironmentsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -16940,6 +18164,9 @@ func (x *EquipmentRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EquipmentRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17005,6 +18232,9 @@ func NewErrorBudgetTracking(doc *som.SpecDocument, path string) *ErrorBudgetTrac
 	return &ErrorBudgetTracking{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ErrorBudgetTracking) Content() *ErrorBudgetTrackingContentForm {
 	return NewErrorBudgetTrackingContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17036,6 +18266,9 @@ func NewErrorCodeEntry(doc *som.SpecDocument, path string) *ErrorCodeEntry {
 	return &ErrorCodeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ErrorCodeEntry) Content() *ErrorCodeEntryContentForm {
 	return NewErrorCodeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17072,6 +18305,9 @@ func (x *ErrorCodeRegistry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ErrorCodeRegistry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17107,6 +18343,9 @@ func (x *ErrorHandling) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ErrorHandling) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17173,6 +18412,9 @@ func NewErrorHandlingStandards(doc *som.SpecDocument, path string) *ErrorHandlin
 	return &ErrorHandlingStandards{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ErrorHandlingStandards) Content() *ErrorHandlingStandardsContentForm {
 	return NewErrorHandlingStandardsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17221,6 +18463,9 @@ func (x *ErrorRecovery) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ErrorRecovery) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17298,6 +18543,9 @@ func (x *EvaluationCriteria) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EvaluationCriteria) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17326,6 +18574,9 @@ func NewEvaluationCriterionEntry(doc *som.SpecDocument, path string) *Evaluation
 	return &EvaluationCriterionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EvaluationCriterionEntry) Content() *EvaluationCriterionEntryContentForm {
 	return NewEvaluationCriterionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17358,6 +18609,9 @@ func NewEventAttributePolicy(doc *som.SpecDocument, path string) *EventAttribute
 	return &EventAttributePolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *EventAttributePolicy) Content() *EventAttributePolicyContentForm {
 	return NewEventAttributePolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17383,6 +18637,9 @@ func (x *ExecutiveSummaryDistribution) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExecutiveSummaryDistribution) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17416,6 +18673,9 @@ func NewExistingSystemEntry(doc *som.SpecDocument, path string) *ExistingSystemE
 	return &ExistingSystemEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExistingSystemEntry) Content() *ExistingSystemEntryContentForm {
 	return NewExistingSystemEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17481,6 +18741,9 @@ func (x *ExistingSystemsLandscape) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExistingSystemsLandscape) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17514,6 +18777,9 @@ func NewExpectedImprovements(doc *som.SpecDocument, path string) *ExpectedImprov
 	return &ExpectedImprovements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExpectedImprovements) Content() *ExpectedImprovementsContentForm {
 	return NewExpectedImprovementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17534,6 +18800,9 @@ func (x *ExperienceAndInterfaceDesign) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExperienceAndInterfaceDesign) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17592,6 +18861,9 @@ func (x *ExperienceCodeSpecs) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExperienceCodeSpecs) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17662,6 +18934,9 @@ func (x *ExperienceDesignFollowUp) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExperienceDesignFollowUp) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17728,6 +19003,9 @@ func (x *ExperienceLocalizationFollowUp) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExperienceLocalizationFollowUp) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -17751,6 +19029,9 @@ func NewExportFieldMappingEntry(doc *som.SpecDocument, path string) *ExportField
 	return &ExportFieldMappingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExportFieldMappingEntry) Content() *ExportFieldMappingEntryContentForm {
 	return NewExportFieldMappingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17826,6 +19107,9 @@ func NewExportFormatEntry(doc *som.SpecDocument, path string) *ExportFormatEntry
 	return &ExportFormatEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExportFormatEntry) Content() *ExportFormatEntryContentForm {
 	return NewExportFormatEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17896,6 +19180,9 @@ func NewExportSizeSettings(doc *som.SpecDocument, path string) *ExportSizeSettin
 	return &ExportSizeSettings{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExportSizeSettings) Content() *ExportSizeSettingsContentForm {
 	return NewExportSizeSettingsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17910,6 +19197,9 @@ func NewExportTemplateEntry(doc *som.SpecDocument, path string) *ExportTemplateE
 	return &ExportTemplateEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExportTemplateEntry) Content() *ExportTemplateEntryContentForm {
 	return NewExportTemplateEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17951,6 +19241,9 @@ func NewExtensionEntry(doc *som.SpecDocument, path string) *ExtensionEntry {
 	return &ExtensionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExtensionEntry) Content() *ExtensionEntryContentForm {
 	return NewExtensionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -17983,6 +19276,9 @@ func NewExtensionStepEntry(doc *som.SpecDocument, path string) *ExtensionStepEnt
 	return &ExtensionStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExtensionStepEntry) Content() *ExtensionStepEntryContentForm {
 	return NewExtensionStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18020,6 +19316,9 @@ func NewExternalActorEntry(doc *som.SpecDocument, path string) *ExternalActorEnt
 	return &ExternalActorEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalActorEntry) Content() *ExternalActorEntryContentForm {
 	return NewExternalActorEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18060,6 +19359,9 @@ func (x *ExternalActors) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalActors) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -18091,6 +19393,9 @@ func (x *ExternalConnectivitySection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalConnectivitySection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -18156,6 +19461,9 @@ func (x *ExternalInterfaceEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalInterfaceEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -18245,6 +19553,9 @@ func (x *ExternalInterfaces) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalInterfaces) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -18279,6 +19590,9 @@ func NewExternalNetworkRequirements(doc *som.SpecDocument, path string) *Externa
 	return &ExternalNetworkRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalNetworkRequirements) Content() *ExternalNetworkRequirementsContentForm {
 	return NewExternalNetworkRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18313,6 +19627,9 @@ func NewExternalPartnerConnectionEntry(doc *som.SpecDocument, path string) *Exte
 	return &ExternalPartnerConnectionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalPartnerConnectionEntry) Content() *ExternalPartnerConnectionEntryContentForm {
 	return NewExternalPartnerConnectionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18359,6 +19676,9 @@ func NewExternalPartnerOperations(doc *som.SpecDocument, path string) *ExternalP
 	return &ExternalPartnerOperations{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalPartnerOperations) Content() *ExternalPartnerOperationsContentForm {
 	return NewExternalPartnerOperationsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18382,6 +19702,9 @@ func (x *ExternalServiceDependencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalServiceDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -18410,6 +19733,9 @@ func NewExternalServiceDependencyEntry(doc *som.SpecDocument, path string) *Exte
 	return &ExternalServiceDependencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalServiceDependencyEntry) Content() *ExternalServiceDependencyEntryContentForm {
 	return NewExternalServiceDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18455,6 +19781,9 @@ func NewExternalSystemContextEntry(doc *som.SpecDocument, path string) *External
 	return &ExternalSystemContextEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalSystemContextEntry) Content() *ExternalSystemContextEntryContentForm {
 	return NewExternalSystemContextEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18501,6 +19830,9 @@ func (x *ExternalSystemsContext) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ExternalSystemsContext) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -18526,6 +19858,9 @@ func NewFamilyComponentRef(doc *som.SpecDocument, path string) *FamilyComponentR
 	return &FamilyComponentRef{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FamilyComponentRef) Content() *FamilyComponentRefContentForm {
 	return NewFamilyComponentRefContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18543,6 +19878,9 @@ func NewFeatureDependencies(doc *som.SpecDocument, path string) *FeatureDependen
 	return &FeatureDependencies{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FeatureDependencies) Content() *FeatureDependenciesContentForm {
 	return NewFeatureDependenciesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18570,6 +19908,9 @@ func NewFeatureDependencyEntry(doc *som.SpecDocument, path string) *FeatureDepen
 	return &FeatureDependencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FeatureDependencyEntry) Content() *FeatureDependencyEntryContentForm {
 	return NewFeatureDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18584,6 +19925,9 @@ func NewFeatureModuleEntry(doc *som.SpecDocument, path string) *FeatureModuleEnt
 	return &FeatureModuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FeatureModuleEntry) Content() *FeatureModuleEntryContentForm {
 	return NewFeatureModuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18629,6 +19973,9 @@ func NewFeaturePrioritization(doc *som.SpecDocument, path string) *FeaturePriori
 	return &FeaturePrioritization{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FeaturePrioritization) Content() *FeaturePrioritizationContentForm {
 	return NewFeaturePrioritizationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18703,6 +20050,9 @@ func NewFeaturePriorityEntry(doc *som.SpecDocument, path string) *FeaturePriorit
 	return &FeaturePriorityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FeaturePriorityEntry) Content() *FeaturePriorityEntryContentForm {
 	return NewFeaturePriorityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18773,6 +20123,9 @@ func NewFeaturePriorityRegister(doc *som.SpecDocument, path string) *FeaturePrio
 	return &FeaturePriorityRegister{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FeaturePriorityRegister) Content() *FeaturePriorityRegisterContentForm {
 	return NewFeaturePriorityRegisterContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18797,6 +20150,9 @@ func NewFeatureStageMapping(doc *som.SpecDocument, path string) *FeatureStageMap
 	return &FeatureStageMapping{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FeatureStageMapping) Content() *FeatureStageMappingContentForm {
 	return NewFeatureStageMappingContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18836,6 +20192,9 @@ func NewFeatureStageMatrix(doc *som.SpecDocument, path string) *FeatureStageMatr
 	return &FeatureStageMatrix{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FeatureStageMatrix) Content() *FeatureStageMatrixContentForm {
 	return NewFeatureStageMatrixContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18860,6 +20219,9 @@ func NewFeatureStakeholders(doc *som.SpecDocument, path string) *FeatureStakehol
 	return &FeatureStakeholders{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FeatureStakeholders) Content() *FeatureStakeholdersContentForm {
 	return NewFeatureStakeholdersContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18874,6 +20236,9 @@ func NewFeatureTourEntry(doc *som.SpecDocument, path string) *FeatureTourEntry {
 	return &FeatureTourEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FeatureTourEntry) Content() *FeatureTourEntryContentForm {
 	return NewFeatureTourEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18895,6 +20260,9 @@ func NewFieldHelpEntry(doc *som.SpecDocument, path string) *FieldHelpEntry {
 	return &FieldHelpEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FieldHelpEntry) Content() *FieldHelpEntryContentForm {
 	return NewFieldHelpEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18909,6 +20277,9 @@ func NewFieldValidationRule(doc *som.SpecDocument, path string) *FieldValidation
 	return &FieldValidationRule{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FieldValidationRule) Content() *FieldValidationRuleContentForm {
 	return NewFieldValidationRuleContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -18933,6 +20304,9 @@ func (x *FileAccessControlPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FileAccessControlPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -18965,6 +20339,9 @@ func (x *FileAndStorageSecurity) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FileAndStorageSecurity) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19026,6 +20403,9 @@ func (x *FileDownloadSecurityPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FileDownloadSecurityPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19057,6 +20437,9 @@ func (x *FileStorageEncryptionPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FileStorageEncryptionPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19089,6 +20472,9 @@ func (x *FileUploadValidationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FileUploadValidationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19110,6 +20496,9 @@ func NewFirewallRequirements(doc *som.SpecDocument, path string) *FirewallRequir
 	return &FirewallRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FirewallRequirements) Content() *FirewallRequirementsContentForm {
 	return NewFirewallRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19144,6 +20533,9 @@ func NewFlexibility(doc *som.SpecDocument, path string) *Flexibility {
 	return &Flexibility{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Flexibility) Content() *FlexibilityContentForm {
 	return NewFlexibilityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19187,6 +20579,9 @@ func (x *FlexibilityCharacteristic) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FlexibilityCharacteristic) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19233,6 +20628,9 @@ func NewFormScreenAssignmentEntry(doc *som.SpecDocument, path string) *FormScree
 	return &FormScreenAssignmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FormScreenAssignmentEntry) Content() *FormScreenAssignmentEntryContentForm {
 	return NewFormScreenAssignmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19247,6 +20645,9 @@ func NewFrameworkRequirementEntry(doc *som.SpecDocument, path string) *Framework
 	return &FrameworkRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FrameworkRequirementEntry) Content() *FrameworkRequirementEntryContentForm {
 	return NewFrameworkRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19299,6 +20700,9 @@ func (x *FullDistribution) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FullDistribution) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19331,6 +20735,9 @@ func NewFunctionDataMatrixEntry(doc *som.SpecDocument, path string) *FunctionDat
 	return &FunctionDataMatrixEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FunctionDataMatrixEntry) Content() *FunctionDataMatrixEntryContentForm {
 	return NewFunctionDataMatrixEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19347,6 +20754,9 @@ func NewFunctionEntry(doc *som.SpecDocument, path string) *FunctionEntry {
 	return &FunctionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FunctionEntry) Content() *FunctionEntryContentForm {
 	return NewFunctionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19391,6 +20801,9 @@ func (x *FunctionModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FunctionModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19457,6 +20870,9 @@ func NewFunctionalCompleteness(doc *som.SpecDocument, path string) *FunctionalCo
 	return &FunctionalCompleteness{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FunctionalCompleteness) Content() *FunctionalCompletenessContentForm {
 	return NewFunctionalCompletenessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19478,6 +20894,9 @@ func NewFunctionalRequirementEntry(doc *som.SpecDocument, path string) *Function
 	return &FunctionalRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FunctionalRequirementEntry) Content() *FunctionalRequirementEntryContentForm {
 	return NewFunctionalRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19568,6 +20987,9 @@ func (x *FunctionalRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FunctionalRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19603,6 +21025,9 @@ func NewFunctionalResponsibilities(doc *som.SpecDocument, path string) *Function
 	return &FunctionalResponsibilities{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FunctionalResponsibilities) Content() *FunctionalResponsibilitiesContentForm {
 	return NewFunctionalResponsibilitiesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19637,6 +21062,9 @@ func (x *FunctionalSuitabilityCharacteristic) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *FunctionalSuitabilityCharacteristic) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19686,6 +21114,9 @@ func NewGapEntry(doc *som.SpecDocument, path string) *GapEntry {
 	return &GapEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GapEntry) Content() *GapEntryContentForm {
 	return NewGapEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19720,6 +21151,9 @@ func NewGeographicDistributionRequirements(doc *som.SpecDocument, path string) *
 	return &GeographicDistributionRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GeographicDistributionRequirements) Content() *GeographicDistributionRequirementsContentForm {
 	return NewGeographicDistributionRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19757,6 +21191,9 @@ func NewGlobalRoleExclusionEntry(doc *som.SpecDocument, path string) *GlobalRole
 	return &GlobalRoleExclusionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GlobalRoleExclusionEntry) Content() *GlobalRoleExclusionEntryContentForm {
 	return NewGlobalRoleExclusionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19777,6 +21214,9 @@ func (x *GlossaryAndAbbreviations) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GlossaryAndAbbreviations) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19802,6 +21242,9 @@ func NewGlossaryEntry(doc *som.SpecDocument, path string) *GlossaryEntry {
 	return &GlossaryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GlossaryEntry) Content() *GlossaryEntryContentForm {
 	return NewGlossaryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19824,6 +21267,9 @@ func (x *GoalDependencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GoalDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19849,6 +21295,9 @@ func NewGoalDependencyEntry(doc *som.SpecDocument, path string) *GoalDependencyE
 	return &GoalDependencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GoalDependencyEntry) Content() *GoalDependencyEntryContentForm {
 	return NewGoalDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19893,6 +21342,9 @@ func (x *GoalKeyResults) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GoalKeyResults) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19918,6 +21370,9 @@ func NewGoalMilestoneEntry(doc *som.SpecDocument, path string) *GoalMilestoneEnt
 	return &GoalMilestoneEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GoalMilestoneEntry) Content() *GoalMilestoneEntryContentForm {
 	return NewGoalMilestoneEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -19940,6 +21395,9 @@ func (x *GoalMilestones) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GoalMilestones) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -19973,6 +21431,9 @@ func (x *GoalResources) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GoalResources) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -20003,6 +21464,9 @@ func NewGoalRiskEntry(doc *som.SpecDocument, path string) *GoalRiskEntry {
 	return &GoalRiskEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GoalRiskEntry) Content() *GoalRiskEntryContentForm {
 	return NewGoalRiskEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20035,6 +21499,9 @@ func (x *GoalRisks) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GoalRisks) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -20085,6 +21552,9 @@ func (x *Goals) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Goals) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -20127,6 +21597,9 @@ func NewGovernanceModel(doc *som.SpecDocument, path string) *GovernanceModel {
 	return &GovernanceModel{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GovernanceModel) Content() *GovernanceModelContentForm {
 	return NewGovernanceModelContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20153,6 +21626,9 @@ func NewGradedAccessLevelEntry(doc *som.SpecDocument, path string) *GradedAccess
 	return &GradedAccessLevelEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GradedAccessLevelEntry) Content() *GradedAccessLevelEntryContentForm {
 	return NewGradedAccessLevelEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20209,6 +21685,9 @@ func NewGradedAuthorizationRequirement(doc *som.SpecDocument, path string) *Grad
 	return &GradedAuthorizationRequirement{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *GradedAuthorizationRequirement) Content() *GradedAuthorizationRequirementContentForm {
 	return NewGradedAuthorizationRequirementContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20232,6 +21711,9 @@ func NewHandlingRequirementEntry(doc *som.SpecDocument, path string) *HandlingRe
 	return &HandlingRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *HandlingRequirementEntry) Content() *HandlingRequirementEntryContentForm {
 	return NewHandlingRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20252,6 +21734,9 @@ func (x *HardwareRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *HardwareRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -20285,6 +21770,9 @@ func NewHealthCheckEndpoints(doc *som.SpecDocument, path string) *HealthCheckEnd
 	return &HealthCheckEndpoints{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *HealthCheckEndpoints) Content() *HealthCheckEndpointsContentForm {
 	return NewHealthCheckEndpointsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20320,6 +21808,9 @@ func (x *HealthChecksAndDiagnosticsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *HealthChecksAndDiagnosticsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -20366,6 +21857,9 @@ func NewHighAvailabilityRequirements(doc *som.SpecDocument, path string) *HighAv
 	return &HighAvailabilityRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *HighAvailabilityRequirements) Content() *HighAvailabilityRequirementsContentForm {
 	return NewHighAvailabilityRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20400,6 +21894,9 @@ func NewIdeRequirementEntry(doc *som.SpecDocument, path string) *IdeRequirementE
 	return &IdeRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IdeRequirementEntry) Content() *IdeRequirementEntryContentForm {
 	return NewIdeRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20434,6 +21931,9 @@ func NewIdentification(doc *som.SpecDocument, path string) *Identification {
 	return &Identification{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Identification) Content() *IdentificationContentForm {
 	return NewIdentificationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20490,6 +21990,9 @@ func (x *IdentificationAndAuthentication) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IdentificationAndAuthentication) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -20521,6 +22024,9 @@ func NewIdentityAttributeMappingEntry(doc *som.SpecDocument, path string) *Ident
 	return &IdentityAttributeMappingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IdentityAttributeMappingEntry) Content() *IdentityAttributeMappingEntryContentForm {
 	return NewIdentityAttributeMappingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20550,6 +22056,9 @@ func NewIdentityProviderDetails(doc *som.SpecDocument, path string) *IdentityPro
 	return &IdentityProviderDetails{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IdentityProviderDetails) Content() *IdentityProviderDetailsContentForm {
 	return NewIdentityProviderDetailsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20564,6 +22073,9 @@ func NewIdentityProviderEndpoints(doc *som.SpecDocument, path string) *IdentityP
 	return &IdentityProviderEndpoints{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IdentityProviderEndpoints) Content() *IdentityProviderEndpointsContentForm {
 	return NewIdentityProviderEndpointsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20581,6 +22093,9 @@ func NewIdentityProviderEntry(doc *som.SpecDocument, path string) *IdentityProvi
 	return &IdentityProviderEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IdentityProviderEntry) Content() *IdentityProviderEntryContentForm {
 	return NewIdentityProviderEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20627,6 +22142,9 @@ func NewIdentitySourceEntry(doc *som.SpecDocument, path string) *IdentitySourceE
 	return &IdentitySourceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IdentitySourceEntry) Content() *IdentitySourceEntryContentForm {
 	return NewIdentitySourceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20664,6 +22182,9 @@ func NewIdentityVerificationPolicy(doc *som.SpecDocument, path string) *Identity
 	return &IdentityVerificationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IdentityVerificationPolicy) Content() *IdentityVerificationPolicyContentForm {
 	return NewIdentityVerificationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20706,6 +22227,9 @@ func NewImpactLevelDefinitions(doc *som.SpecDocument, path string) *ImpactLevelD
 	return &ImpactLevelDefinitions{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ImpactLevelDefinitions) Content() *ImpactLevelDefinitionsContentForm {
 	return NewImpactLevelDefinitionsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20720,6 +22244,9 @@ func NewIncidentManagementRequirements(doc *som.SpecDocument, path string) *Inci
 	return &IncidentManagementRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IncidentManagementRequirements) Content() *IncidentManagementRequirementsContentForm {
 	return NewIncidentManagementRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20754,6 +22281,9 @@ func NewIncidentResponsePlan(doc *som.SpecDocument, path string) *IncidentRespon
 	return &IncidentResponsePlan{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IncidentResponsePlan) Content() *IncidentResponsePlanContentForm {
 	return NewIncidentResponsePlanContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20783,6 +22313,9 @@ func NewIndustryProtocolComplianceEntry(doc *som.SpecDocument, path string) *Ind
 	return &IndustryProtocolComplianceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IndustryProtocolComplianceEntry) Content() *IndustryProtocolComplianceEntryContentForm {
 	return NewIndustryProtocolComplianceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20817,6 +22350,9 @@ func NewIndustryStandardEntry(doc *som.SpecDocument, path string) *IndustryStand
 	return &IndustryStandardEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IndustryStandardEntry) Content() *IndustryStandardEntryContentForm {
 	return NewIndustryStandardEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -20862,6 +22398,9 @@ func (x *InformationAndDataModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InformationAndDataModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -20950,6 +22489,9 @@ func (x *InformationArchitecture) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InformationArchitecture) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21000,6 +22542,9 @@ func (x *InformationForUseRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InformationForUseRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21023,6 +22568,9 @@ func NewInfrastructureAsCode(doc *som.SpecDocument, path string) *Infrastructure
 	return &InfrastructureAsCode{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InfrastructureAsCode) Content() *InfrastructureAsCodeContentForm {
 	return NewInfrastructureAsCodeContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21057,6 +22605,9 @@ func NewInfrastructureComponentEntry(doc *som.SpecDocument, path string) *Infras
 	return &InfrastructureComponentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InfrastructureComponentEntry) Content() *InfrastructureComponentEntryContentForm {
 	return NewInfrastructureComponentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21096,6 +22647,9 @@ func NewInfrastructureMetricsSpec(doc *som.SpecDocument, path string) *Infrastru
 	return &InfrastructureMetricsSpec{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InfrastructureMetricsSpec) Content() *InfrastructureMetricsSpecContentForm {
 	return NewInfrastructureMetricsSpecContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21125,6 +22679,9 @@ func NewInfrastructureSecurityHardening(doc *som.SpecDocument, path string) *Inf
 	return &InfrastructureSecurityHardening{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InfrastructureSecurityHardening) Content() *InfrastructureSecurityHardeningContentForm {
 	return NewInfrastructureSecurityHardeningContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21164,6 +22721,9 @@ func (x *InitialDevelopmentFlow) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InitialDevelopmentFlow) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21182,6 +22742,9 @@ func NewInitialTrainingEntry(doc *som.SpecDocument, path string) *InitialTrainin
 	return &InitialTrainingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InitialTrainingEntry) Content() *InitialTrainingEntryContentForm {
 	return NewInitialTrainingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21221,6 +22784,9 @@ func NewInputDeviceEntry(doc *som.SpecDocument, path string) *InputDeviceEntry {
 	return &InputDeviceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InputDeviceEntry) Content() *InputDeviceEntryContentForm {
 	return NewInputDeviceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21235,6 +22801,9 @@ func NewInsuranceEntry(doc *som.SpecDocument, path string) *InsuranceEntry {
 	return &InsuranceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InsuranceEntry) Content() *InsuranceEntryContentForm {
 	return NewInsuranceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21257,6 +22826,9 @@ func (x *InsuranceLiabilityRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InsuranceLiabilityRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21289,6 +22861,9 @@ func NewIntegrationArchitecture(doc *som.SpecDocument, path string) *Integration
 	return &IntegrationArchitecture{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IntegrationArchitecture) Content() *IntegrationArchitectureContentForm {
 	return NewIntegrationArchitectureContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21331,6 +22906,9 @@ func NewIntegrationConstraintEntry(doc *som.SpecDocument, path string) *Integrat
 	return &IntegrationConstraintEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IntegrationConstraintEntry) Content() *IntegrationConstraintEntryContentForm {
 	return NewIntegrationConstraintEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21367,6 +22945,9 @@ func NewIntegrationHealthSummary(doc *som.SpecDocument, path string) *Integratio
 	return &IntegrationHealthSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IntegrationHealthSummary) Content() *IntegrationHealthSummaryContentForm {
 	return NewIntegrationHealthSummaryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21395,6 +22976,9 @@ func NewIntegrationPointEntry(doc *som.SpecDocument, path string) *IntegrationPo
 	return &IntegrationPointEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IntegrationPointEntry) Content() *IntegrationPointEntryContentForm {
 	return NewIntegrationPointEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21418,6 +23002,9 @@ func (x *Integrations) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Integrations) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21451,6 +23038,9 @@ func (x *IntegrityConstraints) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IntegrityConstraints) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21471,6 +23061,9 @@ func NewIntellectualPropertyRequirements(doc *som.SpecDocument, path string) *In
 	return &IntellectualPropertyRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IntellectualPropertyRequirements) Content() *IntellectualPropertyRequirementsContentForm {
 	return NewIntellectualPropertyRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21492,6 +23085,9 @@ func NewInteractionBusinessRules(doc *som.SpecDocument, path string) *Interactio
 	return &InteractionBusinessRules{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InteractionBusinessRules) Content() *InteractionBusinessRulesContentForm {
 	return NewInteractionBusinessRulesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21517,6 +23113,9 @@ func (x *InteractionCapabilityCharacteristic) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InteractionCapabilityCharacteristic) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21568,6 +23167,9 @@ func (x *InteractionCatalog) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InteractionCatalog) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21606,6 +23208,9 @@ func NewInteractionChannelEntry(doc *som.SpecDocument, path string) *Interaction
 	return &InteractionChannelEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InteractionChannelEntry) Content() *InteractionChannelEntryContentForm {
 	return NewInteractionChannelEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21661,6 +23266,9 @@ func (x *InteractionDependencyAnalysis) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InteractionDependencyAnalysis) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21688,6 +23296,9 @@ func (x *InteractionEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InteractionEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21784,6 +23395,9 @@ func NewInteractionPatternEntry(doc *som.SpecDocument, path string) *Interaction
 	return &InteractionPatternEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InteractionPatternEntry) Content() *InteractionPatternEntryContentForm {
 	return NewInteractionPatternEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21827,6 +23441,9 @@ func (x *InteractionPatterns) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InteractionPatterns) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21861,6 +23478,9 @@ func (x *InteractionTestingStrategy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InteractionTestingStrategy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -21879,6 +23499,9 @@ func NewInterfaceBusinessContext(doc *som.SpecDocument, path string) *InterfaceB
 	return &InterfaceBusinessContext{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceBusinessContext) Content() *InterfaceBusinessContextContentForm {
 	return NewInterfaceBusinessContextContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21900,6 +23523,9 @@ func NewInterfaceBusinessProcessEntry(doc *som.SpecDocument, path string) *Inter
 	return &InterfaceBusinessProcessEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceBusinessProcessEntry) Content() *InterfaceBusinessProcessEntryContentForm {
 	return NewInterfaceBusinessProcessEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21914,6 +23540,9 @@ func NewInterfaceDataEntityEntry(doc *som.SpecDocument, path string) *InterfaceD
 	return &InterfaceDataEntityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceDataEntityEntry) Content() *InterfaceDataEntityEntryContentForm {
 	return NewInterfaceDataEntityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21928,6 +23557,9 @@ func NewInterfaceDataSpec(doc *som.SpecDocument, path string) *InterfaceDataSpec
 	return &InterfaceDataSpec{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceDataSpec) Content() *InterfaceDataSpecContentForm {
 	return NewInterfaceDataSpecContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21963,6 +23595,9 @@ func NewInterfaceErrorHandling(doc *som.SpecDocument, path string) *InterfaceErr
 	return &InterfaceErrorHandling{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceErrorHandling) Content() *InterfaceErrorHandlingContentForm {
 	return NewInterfaceErrorHandlingContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -21999,6 +23634,9 @@ func NewInterfaceGovernance(doc *som.SpecDocument, path string) *InterfaceGovern
 	return &InterfaceGovernance{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceGovernance) Content() *InterfaceGovernanceContentForm {
 	return NewInterfaceGovernanceContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22035,6 +23673,9 @@ func NewInterfaceOperationEntry(doc *som.SpecDocument, path string) *InterfaceOp
 	return &InterfaceOperationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceOperationEntry) Content() *InterfaceOperationEntryContentForm {
 	return NewInterfaceOperationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22049,6 +23690,9 @@ func NewInterfaceOperational(doc *som.SpecDocument, path string) *InterfaceOpera
 	return &InterfaceOperational{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceOperational) Content() *InterfaceOperationalContentForm {
 	return NewInterfaceOperationalContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22085,6 +23729,9 @@ func NewInterfaceSecurity(doc *som.SpecDocument, path string) *InterfaceSecurity
 	return &InterfaceSecurity{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceSecurity) Content() *InterfaceSecurityContentForm {
 	return NewInterfaceSecurityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22117,6 +23764,9 @@ func NewInterfaceSpecificationEntry(doc *som.SpecDocument, path string) *Interfa
 	return &InterfaceSpecificationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceSpecificationEntry) Content() *InterfaceSpecificationEntryContentForm {
 	return NewInterfaceSpecificationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22151,6 +23801,9 @@ func NewInterfaceTechnicalSpec(doc *som.SpecDocument, path string) *InterfaceTec
 	return &InterfaceTechnicalSpec{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceTechnicalSpec) Content() *InterfaceTechnicalSpecContentForm {
 	return NewInterfaceTechnicalSpecContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22187,6 +23840,9 @@ func NewInterfaceTestScenarioEntry(doc *som.SpecDocument, path string) *Interfac
 	return &InterfaceTestScenarioEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceTestScenarioEntry) Content() *InterfaceTestScenarioEntryContentForm {
 	return NewInterfaceTestScenarioEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22201,6 +23857,9 @@ func NewInterfaceTesting(doc *som.SpecDocument, path string) *InterfaceTesting {
 	return &InterfaceTesting{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InterfaceTesting) Content() *InterfaceTestingContentForm {
 	return NewInterfaceTestingContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22240,6 +23899,9 @@ func (x *InternalDependencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InternalDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -22265,6 +23927,9 @@ func NewInternalNetworkRequirements(doc *som.SpecDocument, path string) *Interna
 	return &InternalNetworkRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InternalNetworkRequirements) Content() *InternalNetworkRequirementsContentForm {
 	return NewInternalNetworkRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22299,6 +23964,9 @@ func NewInteroperabilityRequirements(doc *som.SpecDocument, path string) *Intero
 	return &InteroperabilityRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *InteroperabilityRequirements) Content() *InteroperabilityRequirementsContentForm {
 	return NewInteroperabilityRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22343,6 +24011,9 @@ func (x *IntroductionAndScope) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IntroductionAndScope) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -22418,6 +24089,9 @@ func NewIpOwnershipEntry(doc *som.SpecDocument, path string) *IpOwnershipEntry {
 	return &IpOwnershipEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *IpOwnershipEntry) Content() *IpOwnershipEntryContentForm {
 	return NewIpOwnershipEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22446,6 +24120,9 @@ func (x *Iso25010Coverage) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Iso25010Coverage) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -22471,6 +24148,9 @@ func NewIso25010CoverageEntry(doc *som.SpecDocument, path string) *Iso25010Cover
 	return &Iso25010CoverageEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Iso25010CoverageEntry) Content() *Iso25010CoverageEntryContentForm {
 	return NewIso25010CoverageEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22494,6 +24174,9 @@ func (x *ItLandscapePosition) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ItLandscapePosition) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -22517,6 +24200,9 @@ func NewItSecurityOperations(doc *som.SpecDocument, path string) *ItSecurityOper
 	return &ItSecurityOperations{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ItSecurityOperations) Content() *ItSecurityOperationsContentForm {
 	return NewItSecurityOperationsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22560,6 +24246,9 @@ func (x *ItSecurityStandardsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ItSecurityStandardsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -22613,6 +24302,9 @@ func NewItStandardComplianceEntry(doc *som.SpecDocument, path string) *ItStandar
 	return &ItStandardComplianceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ItStandardComplianceEntry) Content() *ItStandardComplianceEntryContentForm {
 	return NewItStandardComplianceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22662,6 +24354,9 @@ func (x *JobDescriptionsAndStaffing) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *JobDescriptionsAndStaffing) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -22716,6 +24411,9 @@ func NewJourneyStageEntry(doc *som.SpecDocument, path string) *JourneyStageEntry
 	return &JourneyStageEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *JourneyStageEntry) Content() *JourneyStageEntryContentForm {
 	return NewJourneyStageEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22732,6 +24430,9 @@ func NewKeyAttributeEntry(doc *som.SpecDocument, path string) *KeyAttributeEntry
 	return &KeyAttributeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyAttributeEntry) Content() *KeyAttributeEntryContentForm {
 	return NewKeyAttributeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22782,6 +24483,9 @@ func NewKeyCompromiseRecoveryPolicy(doc *som.SpecDocument, path string) *KeyComp
 	return &KeyCompromiseRecoveryPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyCompromiseRecoveryPolicy) Content() *KeyCompromiseRecoveryPolicyContentForm {
 	return NewKeyCompromiseRecoveryPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22799,6 +24503,9 @@ func NewKeyConceptEntry(doc *som.SpecDocument, path string) *KeyConceptEntry {
 	return &KeyConceptEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyConceptEntry) Content() *KeyConceptEntryContentForm {
 	return NewKeyConceptEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22828,6 +24535,9 @@ func (x *KeyConcepts) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyConcepts) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -22866,6 +24576,9 @@ func NewKeyEscrowAndBackupPolicy(doc *som.SpecDocument, path string) *KeyEscrowA
 	return &KeyEscrowAndBackupPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyEscrowAndBackupPolicy) Content() *KeyEscrowAndBackupPolicyContentForm {
 	return NewKeyEscrowAndBackupPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22887,6 +24600,9 @@ func NewKeyGenerationPolicy(doc *som.SpecDocument, path string) *KeyGenerationPo
 	return &KeyGenerationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyGenerationPolicy) Content() *KeyGenerationPolicyContentForm {
 	return NewKeyGenerationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22915,6 +24631,9 @@ func (x *KeyManagement) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyManagement) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -22961,6 +24680,9 @@ func NewKeyResultEntry(doc *som.SpecDocument, path string) *KeyResultEntry {
 	return &KeyResultEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyResultEntry) Content() *KeyResultEntryContentForm {
 	return NewKeyResultEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -22978,6 +24700,9 @@ func NewKeyRotationPolicy(doc *som.SpecDocument, path string) *KeyRotationPolicy
 	return &KeyRotationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyRotationPolicy) Content() *KeyRotationPolicyContentForm {
 	return NewKeyRotationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23004,6 +24729,9 @@ func (x *KeyScenarios) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyScenarios) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -23039,6 +24767,9 @@ func NewKeyStoragePolicy(doc *som.SpecDocument, path string) *KeyStoragePolicy {
 	return &KeyStoragePolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KeyStoragePolicy) Content() *KeyStoragePolicyContentForm {
 	return NewKeyStoragePolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23065,6 +24796,9 @@ func (x *KnowledgeTransfer) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *KnowledgeTransfer) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -23098,6 +24832,9 @@ func (x *LanguageCountrySelection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LanguageCountrySelection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -23155,6 +24892,9 @@ func NewLayerCommunicationRules(doc *som.SpecDocument, path string) *LayerCommun
 	return &LayerCommunicationRules{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LayerCommunicationRules) Content() *LayerCommunicationRulesContentForm {
 	return NewLayerCommunicationRulesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23194,6 +24934,9 @@ func (x *LayeringAndModuleStructure) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LayeringAndModuleStructure) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -23275,6 +25018,9 @@ func NewLegacyCompatibilityEntry(doc *som.SpecDocument, path string) *LegacyComp
 	return &LegacyCompatibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LegacyCompatibilityEntry) Content() *LegacyCompatibilityEntryContentForm {
 	return NewLegacyCompatibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23319,6 +25065,9 @@ func (x *LegalAndContractualRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LegalAndContractualRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -23369,6 +25118,9 @@ func NewLiabilityLimitations(doc *som.SpecDocument, path string) *LiabilityLimit
 	return &LiabilityLimitations{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LiabilityLimitations) Content() *LiabilityLimitationsContentForm {
 	return NewLiabilityLimitationsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23385,6 +25137,9 @@ func NewLifecycleTransitionEntry(doc *som.SpecDocument, path string) *LifecycleT
 	return &LifecycleTransitionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LifecycleTransitionEntry) Content() *LifecycleTransitionEntryContentForm {
 	return NewLifecycleTransitionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23414,6 +25169,9 @@ func NewLimitationEntry(doc *som.SpecDocument, path string) *LimitationEntry {
 	return &LimitationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LimitationEntry) Content() *LimitationEntryContentForm {
 	return NewLimitationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23428,6 +25186,9 @@ func NewLoadProfileRequirements(doc *som.SpecDocument, path string) *LoadProfile
 	return &LoadProfileRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LoadProfileRequirements) Content() *LoadProfileRequirementsContentForm {
 	return NewLoadProfileRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23457,6 +25218,9 @@ func NewLocalDevelopmentSetup(doc *som.SpecDocument, path string) *LocalDevelopm
 	return &LocalDevelopmentSetup{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LocalDevelopmentSetup) Content() *LocalDevelopmentSetupContentForm {
 	return NewLocalDevelopmentSetupContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23496,6 +25260,9 @@ func NewLocaleHandlingRequirements(doc *som.SpecDocument, path string) *LocaleHa
 	return &LocaleHandlingRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LocaleHandlingRequirements) Content() *LocaleHandlingRequirementsContentForm {
 	return NewLocaleHandlingRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23518,6 +25285,9 @@ func (x *LocalizationProcess) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LocalizationProcess) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -23575,6 +25345,9 @@ func (x *LocalizationTranslationProcess) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LocalizationTranslationProcess) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -23611,6 +25384,9 @@ func (x *LocalizationTranslationRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LocalizationTranslationRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -23639,6 +25415,9 @@ func NewLogAggregationRequirements(doc *som.SpecDocument, path string) *LogAggre
 	return &LogAggregationRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LogAggregationRequirements) Content() *LogAggregationRequirementsContentForm {
 	return NewLogAggregationRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23668,6 +25447,9 @@ func NewLogManagementRequirements(doc *som.SpecDocument, path string) *LogManage
 	return &LogManagementRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LogManagementRequirements) Content() *LogManagementRequirementsContentForm {
 	return NewLogManagementRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23704,6 +25486,9 @@ func NewLogProtectionPolicy(doc *som.SpecDocument, path string) *LogProtectionPo
 	return &LogProtectionPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LogProtectionPolicy) Content() *LogProtectionPolicyContentForm {
 	return NewLogProtectionPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23723,6 +25508,9 @@ func NewLogRetentionPolicy(doc *som.SpecDocument, path string) *LogRetentionPoli
 	return &LogRetentionPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LogRetentionPolicy) Content() *LogRetentionPolicyContentForm {
 	return NewLogRetentionPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23742,6 +25530,9 @@ func NewLogStoragePolicy(doc *som.SpecDocument, path string) *LogStoragePolicy {
 	return &LogStoragePolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LogStoragePolicy) Content() *LogStoragePolicyContentForm {
 	return NewLogStoragePolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23769,6 +25560,9 @@ func (x *LoginFlowConfiguration) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LoginFlowConfiguration) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -23810,6 +25604,9 @@ func NewLoginFlowStepEntry(doc *som.SpecDocument, path string) *LoginFlowStepEnt
 	return &LoginFlowStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *LoginFlowStepEntry) Content() *LoginFlowStepEntryContentForm {
 	return NewLoginFlowStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23839,6 +25636,9 @@ func NewMainScenarioStepEntry(doc *som.SpecDocument, path string) *MainScenarioS
 	return &MainScenarioStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MainScenarioStepEntry) Content() *MainScenarioStepEntryContentForm {
 	return NewMainScenarioStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23877,6 +25677,9 @@ func NewMainSuccessScenario(doc *som.SpecDocument, path string) *MainSuccessScen
 	return &MainSuccessScenario{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MainSuccessScenario) Content() *MainSuccessScenarioContentForm {
 	return NewMainSuccessScenarioContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23898,6 +25701,9 @@ func NewMaintainability(doc *som.SpecDocument, path string) *Maintainability {
 	return &Maintainability{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Maintainability) Content() *MaintainabilityContentForm {
 	return NewMaintainabilityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -23945,6 +25751,9 @@ func (x *MaintainabilityCharacteristic) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MaintainabilityCharacteristic) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -23986,6 +25795,9 @@ func NewMaintenanceChangeManagement(doc *som.SpecDocument, path string) *Mainten
 	return &MaintenanceChangeManagement{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MaintenanceChangeManagement) Content() *MaintenanceChangeManagementContentForm {
 	return NewMaintenanceChangeManagementContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24029,6 +25841,9 @@ func (x *MaintenanceDependencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MaintenanceDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -24057,6 +25872,9 @@ func NewMaintenanceDependencyEntry(doc *som.SpecDocument, path string) *Maintena
 	return &MaintenanceDependencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MaintenanceDependencyEntry) Content() *MaintenanceDependencyEntryContentForm {
 	return NewMaintenanceDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24086,6 +25904,9 @@ func NewMaintenanceUserImpact(doc *som.SpecDocument, path string) *MaintenanceUs
 	return &MaintenanceUserImpact{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MaintenanceUserImpact) Content() *MaintenanceUserImpactContentForm {
 	return NewMaintenanceUserImpactContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24115,6 +25936,9 @@ func NewMaintenanceWindowEntry(doc *som.SpecDocument, path string) *MaintenanceW
 	return &MaintenanceWindowEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MaintenanceWindowEntry) Content() *MaintenanceWindowEntryContentForm {
 	return NewMaintenanceWindowEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24158,6 +25982,9 @@ func (x *MaintenanceWindowsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MaintenanceWindowsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -24211,6 +26038,9 @@ func NewMasterDataDomainEntry(doc *som.SpecDocument, path string) *MasterDataDom
 	return &MasterDataDomainEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MasterDataDomainEntry) Content() *MasterDataDomainEntryContentForm {
 	return NewMasterDataDomainEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24249,6 +26079,9 @@ func (x *MasterDataManagement) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MasterDataManagement) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -24279,6 +26112,9 @@ func NewMessageFormatStandards(doc *som.SpecDocument, path string) *MessageForma
 	return &MessageFormatStandards{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MessageFormatStandards) Content() *MessageFormatStandardsContentForm {
 	return NewMessageFormatStandardsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24319,6 +26155,9 @@ func NewMessageKeyEntry(doc *som.SpecDocument, path string) *MessageKeyEntry {
 	return &MessageKeyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MessageKeyEntry) Content() *MessageKeyEntryContentForm {
 	return NewMessageKeyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24368,6 +26207,9 @@ func (x *MessageKeyRegistry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MessageKeyRegistry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -24398,6 +26240,9 @@ func NewMessageLocaleVariantEntry(doc *som.SpecDocument, path string) *MessageLo
 	return &MessageLocaleVariantEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MessageLocaleVariantEntry) Content() *MessageLocaleVariantEntryContentForm {
 	return NewMessageLocaleVariantEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24421,6 +26266,9 @@ func (x *MetricsAndObservability) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MetricsAndObservability) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -24486,6 +26334,9 @@ func NewMetricsBaselineEntry(doc *som.SpecDocument, path string) *MetricsBaselin
 	return &MetricsBaselineEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MetricsBaselineEntry) Content() *MetricsBaselineEntryContentForm {
 	return NewMetricsBaselineEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24506,6 +26357,9 @@ func (x *MetricsBaselineTable) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MetricsBaselineTable) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -24531,6 +26385,9 @@ func NewMetricsCollectionRequirements(doc *som.SpecDocument, path string) *Metri
 	return &MetricsCollectionRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MetricsCollectionRequirements) Content() *MetricsCollectionRequirementsContentForm {
 	return NewMetricsCollectionRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24565,6 +26422,9 @@ func NewMetricsDashboardSummary(doc *som.SpecDocument, path string) *MetricsDash
 	return &MetricsDashboardSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MetricsDashboardSummary) Content() *MetricsDashboardSummaryContentForm {
 	return NewMetricsDashboardSummaryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24582,6 +26442,9 @@ func NewMfaCategoryRequirementEntry(doc *som.SpecDocument, path string) *MfaCate
 	return &MfaCategoryRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MfaCategoryRequirementEntry) Content() *MfaCategoryRequirementEntryContentForm {
 	return NewMfaCategoryRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24620,6 +26483,9 @@ func (x *MfaConfiguration) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MfaConfiguration) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -24655,6 +26521,9 @@ func (x *MigrationConsiderations) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationConsiderations) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -24736,6 +26605,9 @@ func NewMigrationEnvironments(doc *som.SpecDocument, path string) *MigrationEnvi
 	return &MigrationEnvironments{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationEnvironments) Content() *MigrationEnvironmentsContentForm {
 	return NewMigrationEnvironmentsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24760,6 +26632,9 @@ func (x *MigrationInteractions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationInteractions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -24780,6 +26655,9 @@ func NewMigrationMappingEntry(doc *som.SpecDocument, path string) *MigrationMapp
 	return &MigrationMappingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationMappingEntry) Content() *MigrationMappingEntryContentForm {
 	return NewMigrationMappingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24794,6 +26672,9 @@ func NewMigrationMilestoneEntry(doc *som.SpecDocument, path string) *MigrationMi
 	return &MigrationMilestoneEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationMilestoneEntry) Content() *MigrationMilestoneEntryContentForm {
 	return NewMigrationMilestoneEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24808,6 +26689,9 @@ func NewMigrationPhaseDryRuns(doc *som.SpecDocument, path string) *MigrationPhas
 	return &MigrationPhaseDryRuns{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationPhaseDryRuns) Content() *MigrationPhaseDryRunsContentForm {
 	return NewMigrationPhaseDryRunsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24828,6 +26712,9 @@ func NewMigrationPhaseEntry(doc *som.SpecDocument, path string) *MigrationPhaseE
 	return &MigrationPhaseEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationPhaseEntry) Content() *MigrationPhaseEntryContentForm {
 	return NewMigrationPhaseEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24901,6 +26788,9 @@ func NewMigrationPhaseResources(doc *som.SpecDocument, path string) *MigrationPh
 	return &MigrationPhaseResources{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationPhaseResources) Content() *MigrationPhaseResourcesContentForm {
 	return NewMigrationPhaseResourcesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24920,6 +26810,9 @@ func NewMigrationPhases(doc *som.SpecDocument, path string) *MigrationPhases {
 	return &MigrationPhases{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationPhases) Content() *MigrationPhasesContentForm {
 	return NewMigrationPhasesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24959,6 +26852,9 @@ func (x *MigrationPlan) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationPlan) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -24977,6 +26873,9 @@ func NewMigrationResources(doc *som.SpecDocument, path string) *MigrationResourc
 	return &MigrationResources{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationResources) Content() *MigrationResourcesContentForm {
 	return NewMigrationResourcesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -24998,6 +26897,9 @@ func NewMigrationRiskEntry(doc *som.SpecDocument, path string) *MigrationRiskEnt
 	return &MigrationRiskEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationRiskEntry) Content() *MigrationRiskEntryContentForm {
 	return NewMigrationRiskEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25070,6 +26972,9 @@ func NewMigrationRiskIndicators(doc *som.SpecDocument, path string) *MigrationRi
 	return &MigrationRiskIndicators{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationRiskIndicators) Content() *MigrationRiskIndicatorsContentForm {
 	return NewMigrationRiskIndicatorsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25095,6 +27000,9 @@ func (x *MigrationRisks) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationRisks) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -25199,6 +27107,9 @@ func NewMigrationStakeholders(doc *som.SpecDocument, path string) *MigrationStak
 	return &MigrationStakeholders{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationStakeholders) Content() *MigrationStakeholdersContentForm {
 	return NewMigrationStakeholdersContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25213,6 +27124,9 @@ func NewMigrationSystems(doc *som.SpecDocument, path string) *MigrationSystems {
 	return &MigrationSystems{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationSystems) Content() *MigrationSystemsContentForm {
 	return NewMigrationSystemsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25232,6 +27146,9 @@ func NewMigrationTargetEntry(doc *som.SpecDocument, path string) *MigrationTarge
 	return &MigrationTargetEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MigrationTargetEntry) Content() *MigrationTargetEntryContentForm {
 	return NewMigrationTargetEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25246,6 +27163,9 @@ func NewMobileCompatibilityEntry(doc *som.SpecDocument, path string) *MobileComp
 	return &MobileCompatibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MobileCompatibilityEntry) Content() *MobileCompatibilityEntryContentForm {
 	return NewMobileCompatibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25280,6 +27200,9 @@ func NewMobileDeviceEntry(doc *som.SpecDocument, path string) *MobileDeviceEntry
 	return &MobileDeviceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MobileDeviceEntry) Content() *MobileDeviceEntryContentForm {
 	return NewMobileDeviceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25304,6 +27227,9 @@ func NewMobileDeviceRequirementEntry(doc *som.SpecDocument, path string) *Mobile
 	return &MobileDeviceRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MobileDeviceRequirementEntry) Content() *MobileDeviceRequirementEntryContentForm {
 	return NewMobileDeviceRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25338,6 +27264,9 @@ func NewModuleEntry(doc *som.SpecDocument, path string) *ModuleEntry {
 	return &ModuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ModuleEntry) Content() *ModuleEntryContentForm {
 	return NewModuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25377,6 +27306,9 @@ func NewModuleVersioningStrategy(doc *som.SpecDocument, path string) *ModuleVers
 	return &ModuleVersioningStrategy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ModuleVersioningStrategy) Content() *ModuleVersioningStrategyContentForm {
 	return NewModuleVersioningStrategyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25420,6 +27352,9 @@ func (x *Monitoring) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Monitoring) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -25492,6 +27427,9 @@ func (x *MonitoringAndAlertingSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MonitoringAndAlertingSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -25573,6 +27511,9 @@ func (x *MonitoringDashboards) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MonitoringDashboards) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -25624,6 +27565,9 @@ func NewMonitoringInfrastructure(doc *som.SpecDocument, path string) *Monitoring
 	return &MonitoringInfrastructure{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MonitoringInfrastructure) Content() *MonitoringInfrastructureContentForm {
 	return NewMonitoringInfrastructureContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25658,6 +27602,9 @@ func NewMoscowAnalysis(doc *som.SpecDocument, path string) *MoscowAnalysis {
 	return &MoscowAnalysis{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MoscowAnalysis) Content() *MoscowAnalysisContentForm {
 	return NewMoscowAnalysisContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25685,6 +27632,9 @@ func NewMoscowEntry(doc *som.SpecDocument, path string) *MoscowEntry {
 	return &MoscowEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MoscowEntry) Content() *MoscowEntryContentForm {
 	return NewMoscowEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25728,6 +27678,9 @@ func (x *MultiChannelExperience) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MultiChannelExperience) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -25763,6 +27716,9 @@ func (x *MultiLanguageSupport) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MultiLanguageSupport) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -25812,6 +27768,9 @@ func (x *MustPassCriteria) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MustPassCriteria) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -25853,6 +27812,9 @@ func NewMustPassCriterionEntry(doc *som.SpecDocument, path string) *MustPassCrit
 	return &MustPassCriterionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MustPassCriterionEntry) Content() *MustPassCriterionEntryContentForm {
 	return NewMustPassCriterionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25900,6 +27862,9 @@ func (x *MutualTlsPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *MutualTlsPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -25921,6 +27886,9 @@ func NewNativeAppRequirements(doc *som.SpecDocument, path string) *NativeAppRequ
 	return &NativeAppRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NativeAppRequirements) Content() *NativeAppRequirementsContentForm {
 	return NewNativeAppRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25957,6 +27925,9 @@ func NewNavigationGroupEntry(doc *som.SpecDocument, path string) *NavigationGrou
 	return &NavigationGroupEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NavigationGroupEntry) Content() *NavigationGroupEntryContentForm {
 	return NewNavigationGroupEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -25998,6 +27969,9 @@ func NewNavigationGuardEntry(doc *som.SpecDocument, path string) *NavigationGuar
 	return &NavigationGuardEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NavigationGuardEntry) Content() *NavigationGuardEntryContentForm {
 	return NewNavigationGuardEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26030,6 +28004,9 @@ func (x *NavigationGuards) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NavigationGuards) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -26067,6 +28044,9 @@ func (x *NavigationHierarchy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NavigationHierarchy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -26097,6 +28077,9 @@ func NewNavigationItemEntry(doc *som.SpecDocument, path string) *NavigationItemE
 	return &NavigationItemEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NavigationItemEntry) Content() *NavigationItemEntryContentForm {
 	return NewNavigationItemEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26157,6 +28140,9 @@ func (x *NavigationModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NavigationModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -26217,6 +28203,9 @@ func NewNavigationOverview(doc *som.SpecDocument, path string) *NavigationOvervi
 	return &NavigationOverview{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NavigationOverview) Content() *NavigationOverviewContentForm {
 	return NewNavigationOverviewContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26234,6 +28223,9 @@ func NewNetworkAvailabilityRequirements(doc *som.SpecDocument, path string) *Net
 	return &NetworkAvailabilityRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NetworkAvailabilityRequirements) Content() *NetworkAvailabilityRequirementsContentForm {
 	return NewNetworkAvailabilityRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26268,6 +28260,9 @@ func NewNetworkLatencyRequirements(doc *som.SpecDocument, path string) *NetworkL
 	return &NetworkLatencyRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NetworkLatencyRequirements) Content() *NetworkLatencyRequirementsContentForm {
 	return NewNetworkLatencyRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26302,6 +28297,9 @@ func NewNetworkLoadBalancingRequirements(doc *som.SpecDocument, path string) *Ne
 	return &NetworkLoadBalancingRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NetworkLoadBalancingRequirements) Content() *NetworkLoadBalancingRequirementsContentForm {
 	return NewNetworkLoadBalancingRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26345,6 +28343,9 @@ func (x *NetworkRequirementsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NetworkRequirementsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -26423,6 +28424,9 @@ func NewNetworkSecurityPolicy(doc *som.SpecDocument, path string) *NetworkSecuri
 	return &NetworkSecurityPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NetworkSecurityPolicy) Content() *NetworkSecurityPolicyContentForm {
 	return NewNetworkSecurityPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26462,6 +28466,9 @@ func NewNetworkSecurityRequirements(doc *som.SpecDocument, path string) *Network
 	return &NetworkSecurityRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NetworkSecurityRequirements) Content() *NetworkSecurityRequirementsContentForm {
 	return NewNetworkSecurityRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26507,6 +28514,9 @@ func (x *NewOrganizationStructure) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NewOrganizationStructure) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -26547,6 +28557,9 @@ func (x *NewRoleEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NewRoleEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -26600,6 +28613,9 @@ func NewNewRoleQualifications(doc *som.SpecDocument, path string) *NewRoleQualif
 	return &NewRoleQualifications{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NewRoleQualifications) Content() *NewRoleQualificationsContentForm {
 	return NewNewRoleQualificationsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26637,6 +28653,9 @@ func (x *NewRoleResponsibilities) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NewRoleResponsibilities) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -26674,6 +28693,9 @@ func NewNotificationChannelEntry(doc *som.SpecDocument, path string) *Notificati
 	return &NotificationChannelEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NotificationChannelEntry) Content() *NotificationChannelEntryContentForm {
 	return NewNotificationChannelEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26697,6 +28719,9 @@ func (x *NotificationModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NotificationModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -26736,6 +28761,9 @@ func NewNotificationTypeEntry(doc *som.SpecDocument, path string) *NotificationT
 	return &NotificationTypeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *NotificationTypeEntry) Content() *NotificationTypeEntryContentForm {
 	return NewNotificationTypeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26752,6 +28780,9 @@ func NewObjectInvariantEntry(doc *som.SpecDocument, path string) *ObjectInvarian
 	return &ObjectInvariantEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ObjectInvariantEntry) Content() *ObjectInvariantEntryContentForm {
 	return NewObjectInvariantEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26768,6 +28799,9 @@ func NewObjectOperationEntry(doc *som.SpecDocument, path string) *ObjectOperatio
 	return &ObjectOperationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ObjectOperationEntry) Content() *ObjectOperationEntryContentForm {
 	return NewObjectOperationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26799,6 +28833,9 @@ func NewObjectStateEntry(doc *som.SpecDocument, path string) *ObjectStateEntry {
 	return &ObjectStateEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ObjectStateEntry) Content() *ObjectStateEntryContentForm {
 	return NewObjectStateEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26813,6 +28850,9 @@ func NewOnCallProcedures(doc *som.SpecDocument, path string) *OnCallProcedures {
 	return &OnCallProcedures{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OnCallProcedures) Content() *OnCallProceduresContentForm {
 	return NewOnCallProceduresContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26847,6 +28887,9 @@ func NewOnCallScheduleConfig(doc *som.SpecDocument, path string) *OnCallSchedule
 	return &OnCallScheduleConfig{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OnCallScheduleConfig) Content() *OnCallScheduleConfigContentForm {
 	return NewOnCallScheduleConfigContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26877,6 +28920,9 @@ func (x *OnboardingHelp) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OnboardingHelp) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -26938,6 +28984,9 @@ func NewOngoingTrainingEntry(doc *som.SpecDocument, path string) *OngoingTrainin
 	return &OngoingTrainingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OngoingTrainingEntry) Content() *OngoingTrainingEntryContentForm {
 	return NewOngoingTrainingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -26978,6 +29027,9 @@ func (x *OperatingEnvironment) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OperatingEnvironment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27023,6 +29075,9 @@ func NewOperationalMonitoring(doc *som.SpecDocument, path string) *OperationalMo
 	return &OperationalMonitoring{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OperationalMonitoring) Content() *OperationalMonitoringContentForm {
 	return NewOperationalMonitoringContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27069,6 +29124,9 @@ func (x *OperationalPainPoints) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OperationalPainPoints) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27105,6 +29163,9 @@ func (x *OperationsRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OperationsRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27152,6 +29213,9 @@ func (x *OpportunityStatement) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OpportunityStatement) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27175,6 +29239,9 @@ func NewOrgChangeRisks(doc *som.SpecDocument, path string) *OrgChangeRisks {
 	return &OrgChangeRisks{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrgChangeRisks) Content() *OrgChangeRisksContentForm {
 	return NewOrgChangeRisksContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27189,6 +29256,9 @@ func NewOrgImplementationActivity(doc *som.SpecDocument, path string) *OrgImplem
 	return &OrgImplementationActivity{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrgImplementationActivity) Content() *OrgImplementationActivityContentForm {
 	return NewOrgImplementationActivityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27211,6 +29281,9 @@ func (x *OrgRequirementImplementationPlan) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrgRequirementImplementationPlan) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27261,6 +29334,9 @@ func (x *OrganizationAndProcessConcept) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrganizationAndProcessConcept) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27295,6 +29371,9 @@ func (x *OrganizationStructure) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrganizationStructure) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27324,6 +29403,9 @@ func NewOrganizationalChangeEntry(doc *som.SpecDocument, path string) *Organizat
 	return &OrganizationalChangeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrganizationalChangeEntry) Content() *OrganizationalChangeEntryContentForm {
 	return NewOrganizationalChangeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27384,6 +29466,9 @@ func (x *OrganizationalContext) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrganizationalContext) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27429,6 +29514,9 @@ func (x *OrganizationalEnvironment) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrganizationalEnvironment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27527,6 +29615,9 @@ func (x *OrganizationalFramework) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrganizationalFramework) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27572,6 +29663,9 @@ func NewOrganizationalRequirementEntry(doc *som.SpecDocument, path string) *Orga
 	return &OrganizationalRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrganizationalRequirementEntry) Content() *OrganizationalRequirementEntryContentForm {
 	return NewOrganizationalRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27627,6 +29721,9 @@ func (x *OrganizationalRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrganizationalRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27668,6 +29765,9 @@ func (x *OrganizationalTransitionTimeline) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrganizationalTransitionTimeline) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27732,6 +29832,9 @@ func NewOrganizationalUnitContextEntry(doc *som.SpecDocument, path string) *Orga
 	return &OrganizationalUnitContextEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OrganizationalUnitContextEntry) Content() *OrganizationalUnitContextEntryContentForm {
 	return NewOrganizationalUnitContextEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27746,6 +29849,9 @@ func NewOsCompatibilityEntry(doc *som.SpecDocument, path string) *OsCompatibilit
 	return &OsCompatibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OsCompatibilityEntry) Content() *OsCompatibilityEntryContentForm {
 	return NewOsCompatibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27780,6 +29886,9 @@ func NewOtherAgreementEntry(doc *som.SpecDocument, path string) *OtherAgreementE
 	return &OtherAgreementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OtherAgreementEntry) Content() *OtherAgreementEntryContentForm {
 	return NewOtherAgreementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27804,6 +29913,9 @@ func (x *OutOfScope) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OutOfScope) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27832,6 +29944,9 @@ func NewOutOfScopeEntry(doc *som.SpecDocument, path string) *OutOfScopeEntry {
 	return &OutOfScopeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *OutOfScopeEntry) Content() *OutOfScopeEntryContentForm {
 	return NewOutOfScopeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27856,6 +29971,9 @@ func NewPackageOrganization(doc *som.SpecDocument, path string) *PackageOrganiza
 	return &PackageOrganization{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PackageOrganization) Content() *PackageOrganizationContentForm {
 	return NewPackageOrganizationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27894,6 +30012,9 @@ func NewPainPointEntry(doc *som.SpecDocument, path string) *PainPointEntry {
 	return &PainPointEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PainPointEntry) Content() *PainPointEntryContentForm {
 	return NewPainPointEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27951,6 +30072,9 @@ func (x *PainPointGapCorrelation) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PainPointGapCorrelation) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -27985,6 +30109,9 @@ func NewPainPointGapCorrelationEntry(doc *som.SpecDocument, path string) *PainPo
 	return &PainPointGapCorrelationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PainPointGapCorrelationEntry) Content() *PainPointGapCorrelationEntryContentForm {
 	return NewPainPointGapCorrelationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -27999,6 +30126,9 @@ func NewPainPointRelationships(doc *som.SpecDocument, path string) *PainPointRel
 	return &PainPointRelationships{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PainPointRelationships) Content() *PainPointRelationshipsContentForm {
 	return NewPainPointRelationshipsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28023,6 +30153,9 @@ func (x *PainPointsAndGaps) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PainPointsAndGaps) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28091,6 +30224,9 @@ func NewParticipantEntry(doc *som.SpecDocument, path string) *ParticipantEntry {
 	return &ParticipantEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ParticipantEntry) Content() *ParticipantEntryContentForm {
 	return NewParticipantEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28116,6 +30252,9 @@ func (x *PasswordAndCredentialPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PasswordAndCredentialPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28189,6 +30328,9 @@ func (x *PasswordLifecyclePolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PasswordLifecyclePolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28220,6 +30362,9 @@ func (x *PasswordRequirementsPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PasswordRequirementsPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28250,6 +30395,9 @@ func (x *PasswordStoragePolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PasswordStoragePolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28271,6 +30419,9 @@ func NewPeakLoadPatterns(doc *som.SpecDocument, path string) *PeakLoadPatterns {
 	return &PeakLoadPatterns{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PeakLoadPatterns) Content() *PeakLoadPatternsContentForm {
 	return NewPeakLoadPatternsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28300,6 +30451,9 @@ func NewPenetrationTestingRequirements(doc *som.SpecDocument, path string) *Pene
 	return &PenetrationTestingRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PenetrationTestingRequirements) Content() *PenetrationTestingRequirementsContentForm {
 	return NewPenetrationTestingRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28340,6 +30494,9 @@ func (x *PerformanceEfficiencyCharacteristic) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PerformanceEfficiencyCharacteristic) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28382,6 +30539,9 @@ func NewPeriodicReviewPolicy(doc *som.SpecDocument, path string) *PeriodicReview
 	return &PeriodicReviewPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PeriodicReviewPolicy) Content() *PeriodicReviewPolicyContentForm {
 	return NewPeriodicReviewPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28399,6 +30559,9 @@ func NewPeripheralEquipmentEntry(doc *som.SpecDocument, path string) *Peripheral
 	return &PeripheralEquipmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PeripheralEquipmentEntry) Content() *PeripheralEquipmentEntryContentForm {
 	return NewPeripheralEquipmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28422,6 +30585,9 @@ func (x *PermissionCompositionStrategy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PermissionCompositionStrategy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28452,6 +30618,9 @@ func (x *PermissionEvaluationBehavior) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PermissionEvaluationBehavior) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28482,6 +30651,9 @@ func (x *PermissionGranularityPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PermissionGranularityPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28503,6 +30675,9 @@ func NewPermissionMatrixEntry(doc *som.SpecDocument, path string) *PermissionMat
 	return &PermissionMatrixEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PermissionMatrixEntry) Content() *PermissionMatrixEntryContentForm {
 	return NewPermissionMatrixEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28519,6 +30694,9 @@ func NewPersonaEntry(doc *som.SpecDocument, path string) *PersonaEntry {
 	return &PersonaEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PersonaEntry) Content() *PersonaEntryContentForm {
 	return NewPersonaEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28563,6 +30741,9 @@ func NewPersonaGoalEntry(doc *som.SpecDocument, path string) *PersonaGoalEntry {
 	return &PersonaGoalEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PersonaGoalEntry) Content() *PersonaGoalEntryContentForm {
 	return NewPersonaGoalEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28583,6 +30764,9 @@ func (x *PersonaGoals) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PersonaGoals) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28608,6 +30792,9 @@ func NewPersonaPainPointEntry(doc *som.SpecDocument, path string) *PersonaPainPo
 	return &PersonaPainPointEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PersonaPainPointEntry) Content() *PersonaPainPointEntryContentForm {
 	return NewPersonaPainPointEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28628,6 +30815,9 @@ func (x *PersonaPainPoints) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PersonaPainPoints) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28653,6 +30843,9 @@ func NewPersonaScenarioEntry(doc *som.SpecDocument, path string) *PersonaScenari
 	return &PersonaScenarioEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PersonaScenarioEntry) Content() *PersonaScenarioEntryContentForm {
 	return NewPersonaScenarioEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28675,6 +30868,9 @@ func (x *PersonaScenarios) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PersonaScenarios) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28703,6 +30899,9 @@ func NewPhaseGateReviewEntry(doc *som.SpecDocument, path string) *PhaseGateRevie
 	return &PhaseGateReviewEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PhaseGateReviewEntry) Content() *PhaseGateReviewEntryContentForm {
 	return NewPhaseGateReviewEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28761,6 +30960,9 @@ func NewPhaseGateReviews(doc *som.SpecDocument, path string) *PhaseGateReviews {
 	return &PhaseGateReviews{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PhaseGateReviews) Content() *PhaseGateReviewsContentForm {
 	return NewPhaseGateReviewsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28795,6 +30997,9 @@ func NewPhysicalWorkplaceRequirements(doc *som.SpecDocument, path string) *Physi
 	return &PhysicalWorkplaceRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PhysicalWorkplaceRequirements) Content() *PhysicalWorkplaceRequirementsContentForm {
 	return NewPhysicalWorkplaceRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28827,6 +31032,9 @@ func (x *PilotPlan) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PilotPlan) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28845,6 +31053,9 @@ func NewPipelineJobEntry(doc *som.SpecDocument, path string) *PipelineJobEntry {
 	return &PipelineJobEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PipelineJobEntry) Content() *PipelineJobEntryContentForm {
 	return NewPipelineJobEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28879,6 +31090,9 @@ func NewPipelineStageEntry(doc *som.SpecDocument, path string) *PipelineStageEnt
 	return &PipelineStageEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PipelineStageEntry) Content() *PipelineStageEntryContentForm {
 	return NewPipelineStageEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -28922,6 +31136,9 @@ func (x *PlatformAndLanguage) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PlatformAndLanguage) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -28988,6 +31205,9 @@ func NewPortability(doc *som.SpecDocument, path string) *Portability {
 	return &Portability{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Portability) Content() *PortabilityContentForm {
 	return NewPortabilityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29005,6 +31225,9 @@ func NewPostMaintenanceValidation(doc *som.SpecDocument, path string) *PostMaint
 	return &PostMaintenanceValidation{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PostMaintenanceValidation) Content() *PostMaintenanceValidationContentForm {
 	return NewPostMaintenanceValidationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29029,6 +31252,9 @@ func NewPostconditionsAndGuarantees(doc *som.SpecDocument, path string) *Postcon
 	return &PostconditionsAndGuarantees{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PostconditionsAndGuarantees) Content() *PostconditionsAndGuaranteesContentForm {
 	return NewPostconditionsAndGuaranteesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29043,6 +31269,9 @@ func NewPreconditionsAndTriggers(doc *som.SpecDocument, path string) *Preconditi
 	return &PreconditionsAndTriggers{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PreconditionsAndTriggers) Content() *PreconditionsAndTriggersContentForm {
 	return NewPreconditionsAndTriggersContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29060,6 +31289,9 @@ func NewPrimaryNavigation(doc *som.SpecDocument, path string) *PrimaryNavigation
 	return &PrimaryNavigation{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PrimaryNavigation) Content() *PrimaryNavigationContentForm {
 	return NewPrimaryNavigationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29092,6 +31324,9 @@ func NewPrintAndExportLayout(doc *som.SpecDocument, path string) *PrintAndExport
 	return &PrintAndExportLayout{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PrintAndExportLayout) Content() *PrintAndExportLayoutContentForm {
 	return NewPrintAndExportLayoutContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29146,6 +31381,9 @@ func NewPrivacyImpactAssessmentProcess(doc *som.SpecDocument, path string) *Priv
 	return &PrivacyImpactAssessmentProcess{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PrivacyImpactAssessmentProcess) Content() *PrivacyImpactAssessmentProcessContentForm {
 	return NewPrivacyImpactAssessmentProcessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29175,6 +31413,9 @@ func NewPrivacyRegulationCompliance(doc *som.SpecDocument, path string) *Privacy
 	return &PrivacyRegulationCompliance{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PrivacyRegulationCompliance) Content() *PrivacyRegulationComplianceContentForm {
 	return NewPrivacyRegulationComplianceContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29211,6 +31452,9 @@ func NewPrivilegeUsageReporting(doc *som.SpecDocument, path string) *PrivilegeUs
 	return &PrivilegeUsageReporting{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PrivilegeUsageReporting) Content() *PrivilegeUsageReportingContentForm {
 	return NewPrivilegeUsageReportingContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29237,6 +31481,9 @@ func (x *ProblemStatement) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProblemStatement) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29267,6 +31514,9 @@ func NewProcessAdjustmentDetails(doc *som.SpecDocument, path string) *ProcessAdj
 	return &ProcessAdjustmentDetails{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessAdjustmentDetails) Content() *ProcessAdjustmentDetailsContentForm {
 	return NewProcessAdjustmentDetailsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29285,6 +31535,9 @@ func NewProcessAdjustmentEntry(doc *som.SpecDocument, path string) *ProcessAdjus
 	return &ProcessAdjustmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessAdjustmentEntry) Content() *ProcessAdjustmentEntryContentForm {
 	return NewProcessAdjustmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29342,6 +31595,9 @@ func (x *ProcessAdjustments) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessAdjustments) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29389,6 +31645,9 @@ func (x *ProcessCatalog) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessCatalog) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29424,6 +31683,9 @@ func NewProcessCharacteristics(doc *som.SpecDocument, path string) *ProcessChara
 	return &ProcessCharacteristics{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessCharacteristics) Content() *ProcessCharacteristicsContentForm {
 	return NewProcessCharacteristicsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29448,6 +31710,9 @@ func NewProcessControlEntry(doc *som.SpecDocument, path string) *ProcessControlE
 	return &ProcessControlEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessControlEntry) Content() *ProcessControlEntryContentForm {
 	return NewProcessControlEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29478,6 +31743,9 @@ func (x *ProcessControls) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessControls) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29508,6 +31776,9 @@ func NewProcessDependencyEntry(doc *som.SpecDocument, path string) *ProcessDepen
 	return &ProcessDependencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessDependencyEntry) Content() *ProcessDependencyEntryContentForm {
 	return NewProcessDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29522,6 +31793,9 @@ func NewProcessDesignPrincipleEntry(doc *som.SpecDocument, path string) *Process
 	return &ProcessDesignPrincipleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessDesignPrincipleEntry) Content() *ProcessDesignPrincipleEntryContentForm {
 	return NewProcessDesignPrincipleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29544,6 +31818,9 @@ func (x *ProcessDesignPrinciples) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessDesignPrinciples) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29574,6 +31851,9 @@ func NewProcessEndEventEntry(doc *som.SpecDocument, path string) *ProcessEndEven
 	return &ProcessEndEventEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessEndEventEntry) Content() *ProcessEndEventEntryContentForm {
 	return NewProcessEndEventEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29588,6 +31868,9 @@ func NewProcessExceptionEntry(doc *som.SpecDocument, path string) *ProcessExcept
 	return &ProcessExceptionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessExceptionEntry) Content() *ProcessExceptionEntryContentForm {
 	return NewProcessExceptionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29620,6 +31903,9 @@ func (x *ProcessExceptionHandling) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessExceptionHandling) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29644,6 +31930,9 @@ func (x *ProcessExceptions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessExceptions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29674,6 +31963,9 @@ func NewProcessIdentification(doc *som.SpecDocument, path string) *ProcessIdenti
 	return &ProcessIdentification{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessIdentification) Content() *ProcessIdentificationContentForm {
 	return NewProcessIdentificationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29703,6 +31995,9 @@ func NewProcessImprovementEntry(doc *som.SpecDocument, path string) *ProcessImpr
 	return &ProcessImprovementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessImprovementEntry) Content() *ProcessImprovementEntryContentForm {
 	return NewProcessImprovementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29735,6 +32030,9 @@ func (x *ProcessImprovementSummary) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessImprovementSummary) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29770,6 +32068,9 @@ func NewProcessInputEntry(doc *som.SpecDocument, path string) *ProcessInputEntry
 	return &ProcessInputEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessInputEntry) Content() *ProcessInputEntryContentForm {
 	return NewProcessInputEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29790,6 +32091,9 @@ func (x *ProcessInputsOutputs) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessInputsOutputs) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29833,6 +32137,9 @@ func (x *ProcessInterdependencyMatrix) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessInterdependencyMatrix) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29867,6 +32174,9 @@ func NewProcessKpiEntry(doc *som.SpecDocument, path string) *ProcessKpiEntry {
 	return &ProcessKpiEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessKpiEntry) Content() *ProcessKpiEntryContentForm {
 	return NewProcessKpiEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29899,6 +32209,9 @@ func (x *ProcessMetric) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessMetric) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29923,6 +32236,9 @@ func (x *ProcessMetricCategory) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessMetricCategory) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -29950,6 +32266,9 @@ func NewProcessMetricEntry(doc *som.SpecDocument, path string) *ProcessMetricEnt
 	return &ProcessMetricEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessMetricEntry) Content() *ProcessMetricEntryContentForm {
 	return NewProcessMetricEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -29999,6 +32318,9 @@ func (x *ProcessMetrics) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessMetrics) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30069,6 +32391,9 @@ func NewProcessOutputEntry(doc *som.SpecDocument, path string) *ProcessOutputEnt
 	return &ProcessOutputEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessOutputEntry) Content() *ProcessOutputEntryContentForm {
 	return NewProcessOutputEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30091,6 +32416,9 @@ func (x *ProcessOverviewDiagram) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessOverviewDiagram) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30129,6 +32457,9 @@ func (x *ProcessPainPoints) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessPainPoints) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30160,6 +32491,9 @@ func (x *ProcessPerformance) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessPerformance) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30197,6 +32531,9 @@ func NewProcessPerformanceSummary(doc *som.SpecDocument, path string) *ProcessPe
 	return &ProcessPerformanceSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessPerformanceSummary) Content() *ProcessPerformanceSummaryContentForm {
 	return NewProcessPerformanceSummaryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30218,6 +32555,9 @@ func NewProcessRelationshipEntry(doc *som.SpecDocument, path string) *ProcessRel
 	return &ProcessRelationshipEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessRelationshipEntry) Content() *ProcessRelationshipEntryContentForm {
 	return NewProcessRelationshipEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30238,6 +32578,9 @@ func (x *ProcessRelationships) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessRelationships) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30263,6 +32606,9 @@ func NewProcessRoleEntry(doc *som.SpecDocument, path string) *ProcessRoleEntry {
 	return &ProcessRoleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessRoleEntry) Content() *ProcessRoleEntryContentForm {
 	return NewProcessRoleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30293,6 +32639,9 @@ func (x *ProcessRoles) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessRoles) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30323,6 +32672,9 @@ func NewProcessScopeEntry(doc *som.SpecDocument, path string) *ProcessScopeEntry
 	return &ProcessScopeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessScopeEntry) Content() *ProcessScopeEntryContentForm {
 	return NewProcessScopeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30337,6 +32689,9 @@ func NewProcessScopeSummary(doc *som.SpecDocument, path string) *ProcessScopeSum
 	return &ProcessScopeSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessScopeSummary) Content() *ProcessScopeSummaryContentForm {
 	return NewProcessScopeSummaryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30365,6 +32720,9 @@ func NewProcessSlaEntry(doc *som.SpecDocument, path string) *ProcessSlaEntry {
 	return &ProcessSlaEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessSlaEntry) Content() *ProcessSlaEntryContentForm {
 	return NewProcessSlaEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30390,6 +32748,9 @@ func (x *ProcessStepsAndActorInteractions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessStepsAndActorInteractions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30445,6 +32806,9 @@ func NewProcessStepsOverview(doc *som.SpecDocument, path string) *ProcessStepsOv
 	return &ProcessStepsOverview{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessStepsOverview) Content() *ProcessStepsOverviewContentForm {
 	return NewProcessStepsOverviewContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30459,6 +32823,9 @@ func NewProcessTechnology(doc *som.SpecDocument, path string) *ProcessTechnology
 	return &ProcessTechnology{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessTechnology) Content() *ProcessTechnologyContentForm {
 	return NewProcessTechnologyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30483,6 +32850,9 @@ func NewProcessTriggerEntry(doc *som.SpecDocument, path string) *ProcessTriggerE
 	return &ProcessTriggerEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessTriggerEntry) Content() *ProcessTriggerEntryContentForm {
 	return NewProcessTriggerEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30503,6 +32873,9 @@ func (x *ProcessTriggers) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessTriggers) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30548,6 +32921,9 @@ func (x *ProcessVision) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProcessVision) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30586,6 +32962,9 @@ func NewProgrammingLanguageEntry(doc *som.SpecDocument, path string) *Programmin
 	return &ProgrammingLanguageEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProgrammingLanguageEntry) Content() *ProgrammingLanguageEntryContentForm {
 	return NewProgrammingLanguageEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30631,6 +33010,9 @@ func (x *ProjectOrganization) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProjectOrganization) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30669,6 +33051,9 @@ func (x *ProjectOrganizationAndProcess) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProjectOrganizationAndProcess) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30730,6 +33115,9 @@ func (x *ProjectTeamStaffing) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProjectTeamStaffing) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30767,6 +33155,9 @@ func NewProtocolComplianceRequirements(doc *som.SpecDocument, path string) *Prot
 	return &ProtocolComplianceRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProtocolComplianceRequirements) Content() *ProtocolComplianceRequirementsContentForm {
 	return NewProtocolComplianceRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30796,6 +33187,9 @@ func NewProtocolEntry(doc *som.SpecDocument, path string) *ProtocolEntry {
 	return &ProtocolEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProtocolEntry) Content() *ProtocolEntryContentForm {
 	return NewProtocolEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30816,6 +33210,9 @@ func (x *ProtocolsAndStandardsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ProtocolsAndStandardsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30883,6 +33280,9 @@ func (x *Prototype) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Prototype) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -30945,6 +33345,9 @@ func NewPrototypeFeatureEntry(doc *som.SpecDocument, path string) *PrototypeFeat
 	return &PrototypeFeatureEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PrototypeFeatureEntry) Content() *PrototypeFeatureEntryContentForm {
 	return NewPrototypeFeatureEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -30967,6 +33370,9 @@ func (x *PrototypeFeatureSubset) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PrototypeFeatureSubset) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31013,6 +33419,9 @@ func NewPrototypeGoalEntry(doc *som.SpecDocument, path string) *PrototypeGoalEnt
 	return &PrototypeGoalEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PrototypeGoalEntry) Content() *PrototypeGoalEntryContentForm {
 	return NewPrototypeGoalEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31035,6 +33444,9 @@ func (x *PrototypeGoals) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PrototypeGoals) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31089,6 +33501,9 @@ func (x *PrototypeType) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PrototypeType) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31130,6 +33545,9 @@ func NewPwaRequirements(doc *som.SpecDocument, path string) *PwaRequirements {
 	return &PwaRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *PwaRequirements) Content() *PwaRequirementsContentForm {
 	return NewPwaRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31170,6 +33588,9 @@ func (x *QualityAndAcceptanceModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityAndAcceptanceModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31207,6 +33628,9 @@ func NewQualityCategoryEntry(doc *som.SpecDocument, path string) *QualityCategor
 	return &QualityCategoryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityCategoryEntry) Content() *QualityCategoryEntryContentForm {
 	return NewQualityCategoryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31253,6 +33677,9 @@ func (x *QualityFramework) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityFramework) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31320,6 +33747,9 @@ func NewQualityGateAdjustmentDetails(doc *som.SpecDocument, path string) *Qualit
 	return &QualityGateAdjustmentDetails{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityGateAdjustmentDetails) Content() *QualityGateAdjustmentDetailsContentForm {
 	return NewQualityGateAdjustmentDetailsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31338,6 +33768,9 @@ func NewQualityGateAdjustmentEntry(doc *som.SpecDocument, path string) *QualityG
 	return &QualityGateAdjustmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityGateAdjustmentEntry) Content() *QualityGateAdjustmentEntryContentForm {
 	return NewQualityGateAdjustmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31384,6 +33817,9 @@ func (x *QualityGateAdjustments) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityGateAdjustments) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31423,6 +33859,9 @@ func NewQualityGateCheckEntry(doc *som.SpecDocument, path string) *QualityGateCh
 	return &QualityGateCheckEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityGateCheckEntry) Content() *QualityGateCheckEntryContentForm {
 	return NewQualityGateCheckEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31470,6 +33909,9 @@ func (x *QualityGateChecklist) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityGateChecklist) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31520,6 +33962,9 @@ func (x *QualityPrioritization) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityPrioritization) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31565,6 +34010,9 @@ func NewQualityScenarioEntry(doc *som.SpecDocument, path string) *QualityScenari
 	return &QualityScenarioEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityScenarioEntry) Content() *QualityScenarioEntryContentForm {
 	return NewQualityScenarioEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31588,6 +34036,9 @@ func (x *QualityScenarios) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityScenarios) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31613,6 +34064,9 @@ func NewQualityStandardEntry(doc *som.SpecDocument, path string) *QualityStandar
 	return &QualityStandardEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityStandardEntry) Content() *QualityStandardEntryContentForm {
 	return NewQualityStandardEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31647,6 +34101,9 @@ func NewQualityWeightEntry(doc *som.SpecDocument, path string) *QualityWeightEnt
 	return &QualityWeightEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityWeightEntry) Content() *QualityWeightEntryContentForm {
 	return NewQualityWeightEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31661,6 +34118,9 @@ func NewRateLimitingPolicy(doc *som.SpecDocument, path string) *RateLimitingPoli
 	return &RateLimitingPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RateLimitingPolicy) Content() *RateLimitingPolicyContentForm {
 	return NewRateLimitingPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31690,6 +34150,9 @@ func NewReadability(doc *som.SpecDocument, path string) *Readability {
 	return &Readability{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Readability) Content() *ReadabilityContentForm {
 	return NewReadabilityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31727,6 +34190,9 @@ func NewReadinessCriteriaEntry(doc *som.SpecDocument, path string) *ReadinessCri
 	return &ReadinessCriteriaEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReadinessCriteriaEntry) Content() *ReadinessCriteriaEntryContentForm {
 	return NewReadinessCriteriaEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31741,6 +34207,9 @@ func NewRecoveryProcedures(doc *som.SpecDocument, path string) *RecoveryProcedur
 	return &RecoveryProcedures{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RecoveryProcedures) Content() *RecoveryProceduresContentForm {
 	return NewRecoveryProceduresContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31775,6 +34244,9 @@ func NewRecoveryScenarioEntry(doc *som.SpecDocument, path string) *RecoveryScena
 	return &RecoveryScenarioEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RecoveryScenarioEntry) Content() *RecoveryScenarioEntryContentForm {
 	return NewRecoveryScenarioEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31801,6 +34273,9 @@ func (x *RedirectHandlingPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RedirectHandlingPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31825,6 +34300,9 @@ func NewReferenceDocumentEntry(doc *som.SpecDocument, path string) *ReferenceDoc
 	return &ReferenceDocumentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReferenceDocumentEntry) Content() *ReferenceDocumentEntryContentForm {
 	return NewReferenceDocumentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31874,6 +34352,9 @@ func (x *ReferenceDocuments) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReferenceDocuments) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -31901,6 +34382,9 @@ func NewRegulatoryAuditSupport(doc *som.SpecDocument, path string) *RegulatoryAu
 	return &RegulatoryAuditSupport{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RegulatoryAuditSupport) Content() *RegulatoryAuditSupportContentForm {
 	return NewRegulatoryAuditSupportContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31918,6 +34402,9 @@ func NewRegulatoryComplianceEntry(doc *som.SpecDocument, path string) *Regulator
 	return &RegulatoryComplianceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RegulatoryComplianceEntry) Content() *RegulatoryComplianceEntryContentForm {
 	return NewRegulatoryComplianceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -31960,6 +34447,9 @@ func (x *RegulatoryComplianceRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RegulatoryComplianceRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -32001,6 +34491,9 @@ func (x *RegulatoryContext) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RegulatoryContext) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -32026,6 +34519,9 @@ func NewRegulatoryRequirementEntry(doc *som.SpecDocument, path string) *Regulato
 	return &RegulatoryRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RegulatoryRequirementEntry) Content() *RegulatoryRequirementEntryContentForm {
 	return NewRegulatoryRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32040,6 +34536,9 @@ func NewRelatedDocumentEntry(doc *som.SpecDocument, path string) *RelatedDocumen
 	return &RelatedDocumentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RelatedDocumentEntry) Content() *RelatedDocumentEntryContentForm {
 	return NewRelatedDocumentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32054,6 +34553,9 @@ func NewRelationshipAttributeEntry(doc *som.SpecDocument, path string) *Relation
 	return &RelationshipAttributeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RelationshipAttributeEntry) Content() *RelationshipAttributeEntryContentForm {
 	return NewRelationshipAttributeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32068,6 +34570,9 @@ func NewReleaseStrategy(doc *som.SpecDocument, path string) *ReleaseStrategy {
 	return &ReleaseStrategy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReleaseStrategy) Content() *ReleaseStrategyContentForm {
 	return NewReleaseStrategyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32102,6 +34607,9 @@ func NewRelevantSectionEntry(doc *som.SpecDocument, path string) *RelevantSectio
 	return &RelevantSectionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RelevantSectionEntry) Content() *RelevantSectionEntryContentForm {
 	return NewRelevantSectionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32116,6 +34624,9 @@ func NewReliability(doc *som.SpecDocument, path string) *Reliability {
 	return &Reliability{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Reliability) Content() *ReliabilityContentForm {
 	return NewReliabilityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32166,6 +34677,9 @@ func (x *ReliabilityCharacteristic) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReliabilityCharacteristic) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -32231,6 +34745,9 @@ func (x *RememberMePolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RememberMePolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -32254,6 +34771,9 @@ func NewRemovedRoleEntry(doc *som.SpecDocument, path string) *RemovedRoleEntry {
 	return &RemovedRoleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RemovedRoleEntry) Content() *RemovedRoleEntryContentForm {
 	return NewRemovedRoleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32292,6 +34812,9 @@ func (x *ReplacementInventory) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReplacementInventory) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -32323,6 +34846,9 @@ func NewReplacementPhaseEntry(doc *som.SpecDocument, path string) *ReplacementPh
 	return &ReplacementPhaseEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReplacementPhaseEntry) Content() *ReplacementPhaseEntryContentForm {
 	return NewReplacementPhaseEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32339,6 +34865,9 @@ func NewReplacementSystemDependencyEntry(doc *som.SpecDocument, path string) *Re
 	return &ReplacementSystemDependencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReplacementSystemDependencyEntry) Content() *ReplacementSystemDependencyEntryContentForm {
 	return NewReplacementSystemDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32353,6 +34882,9 @@ func NewReportChartAxes(doc *som.SpecDocument, path string) *ReportChartAxes {
 	return &ReportChartAxes{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReportChartAxes) Content() *ReportChartAxesContentForm {
 	return NewReportChartAxesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32368,6 +34900,9 @@ func NewReportChartEntry(doc *som.SpecDocument, path string) *ReportChartEntry {
 	return &ReportChartEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReportChartEntry) Content() *ReportChartEntryContentForm {
 	return NewReportChartEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32410,6 +34945,9 @@ func NewReportColumnEntry(doc *som.SpecDocument, path string) *ReportColumnEntry
 	return &ReportColumnEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReportColumnEntry) Content() *ReportColumnEntryContentForm {
 	return NewReportColumnEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32502,6 +35040,9 @@ func (x *ReportDefinitions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReportDefinitions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -32527,6 +35068,9 @@ func NewReportDistributionEntry(doc *som.SpecDocument, path string) *ReportDistr
 	return &ReportDistributionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReportDistributionEntry) Content() *ReportDistributionEntryContentForm {
 	return NewReportDistributionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32556,6 +35100,9 @@ func NewReportEntry(doc *som.SpecDocument, path string) *ReportEntry {
 	return &ReportEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReportEntry) Content() *ReportEntryContentForm {
 	return NewReportEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32667,6 +35214,9 @@ func NewReportFilterEntry(doc *som.SpecDocument, path string) *ReportFilterEntry
 	return &ReportFilterEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReportFilterEntry) Content() *ReportFilterEntryContentForm {
 	return NewReportFilterEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32746,6 +35296,9 @@ func NewReportRecipientEntry(doc *som.SpecDocument, path string) *ReportRecipien
 	return &ReportRecipientEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReportRecipientEntry) Content() *ReportRecipientEntryContentForm {
 	return NewReportRecipientEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32776,6 +35329,9 @@ func NewReportScheduleEntry(doc *som.SpecDocument, path string) *ReportScheduleE
 	return &ReportScheduleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReportScheduleEntry) Content() *ReportScheduleEntryContentForm {
 	return NewReportScheduleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32810,6 +35366,9 @@ func NewReportSectionEntry(doc *som.SpecDocument, path string) *ReportSectionEnt
 	return &ReportSectionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReportSectionEntry) Content() *ReportSectionEntryContentForm {
 	return NewReportSectionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32867,6 +35426,9 @@ func (x *RequirementAcceptanceCriteria) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementAcceptanceCriteria) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -32892,6 +35454,9 @@ func NewRequirementBusinessRuleEntry(doc *som.SpecDocument, path string) *Requir
 	return &RequirementBusinessRuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementBusinessRuleEntry) Content() *RequirementBusinessRuleEntryContentForm {
 	return NewRequirementBusinessRuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -32914,6 +35479,9 @@ func (x *RequirementBusinessRules) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementBusinessRules) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -32947,6 +35515,9 @@ func (x *RequirementCoverage) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementCoverage) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -32973,6 +35544,9 @@ func (x *RequirementDataRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementDataRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33006,6 +35580,9 @@ func (x *RequirementDependencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33031,6 +35608,9 @@ func NewRequirementDependencyEntry(doc *som.SpecDocument, path string) *Requirem
 	return &RequirementDependencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementDependencyEntry) Content() *RequirementDependencyEntryContentForm {
 	return NewRequirementDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33074,6 +35654,9 @@ func (x *RequirementRelationships) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementRelationships) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33094,6 +35677,9 @@ func NewRequirementScreenActionEntry(doc *som.SpecDocument, path string) *Requir
 	return &RequirementScreenActionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementScreenActionEntry) Content() *RequirementScreenActionEntryContentForm {
 	return NewRequirementScreenActionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33115,6 +35701,9 @@ func NewRequirementTestCaseEntry(doc *som.SpecDocument, path string) *Requiremen
 	return &RequirementTestCaseEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementTestCaseEntry) Content() *RequirementTestCaseEntryContentForm {
 	return NewRequirementTestCaseEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33167,6 +35756,9 @@ func (x *RequirementTestCases) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementTestCases) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33200,6 +35792,9 @@ func (x *RequirementTraceability) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementTraceability) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33243,6 +35838,9 @@ func (x *RequirementUiSpecification) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementUiSpecification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33322,6 +35920,9 @@ func (x *Requirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Requirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33366,6 +35967,9 @@ func (x *RequirementsFollowUp) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementsFollowUp) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33411,6 +36015,9 @@ func (x *RequirementsOverview) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RequirementsOverview) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33475,6 +36082,9 @@ func NewResourceAllocationEntry(doc *som.SpecDocument, path string) *ResourceAll
 	return &ResourceAllocationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResourceAllocationEntry) Content() *ResourceAllocationEntryContentForm {
 	return NewResourceAllocationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33489,6 +36099,9 @@ func NewResourceCapacityBaselines(doc *som.SpecDocument, path string) *ResourceC
 	return &ResourceCapacityBaselines{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResourceCapacityBaselines) Content() *ResourceCapacityBaselinesContentForm {
 	return NewResourceCapacityBaselinesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33523,6 +36136,9 @@ func NewResourceKeyEntry(doc *som.SpecDocument, path string) *ResourceKeyEntry {
 	return &ResourceKeyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResourceKeyEntry) Content() *ResourceKeyEntryContentForm {
 	return NewResourceKeyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33537,6 +36153,9 @@ func NewResourceKeyReferenceEntry(doc *som.SpecDocument, path string) *ResourceK
 	return &ResourceKeyReferenceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResourceKeyReferenceEntry) Content() *ResourceKeyReferenceEntryContentForm {
 	return NewResourceKeyReferenceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33557,6 +36176,9 @@ func (x *ResourceProtection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResourceProtection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33590,6 +36212,9 @@ func NewResourceRequirementEntry(doc *som.SpecDocument, path string) *ResourceRe
 	return &ResourceRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResourceRequirementEntry) Content() *ResourceRequirementEntryContentForm {
 	return NewResourceRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33604,6 +36229,9 @@ func NewResponsibilityChangeEntry(doc *som.SpecDocument, path string) *Responsib
 	return &ResponsibilityChangeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResponsibilityChangeEntry) Content() *ResponsibilityChangeEntryContentForm {
 	return NewResponsibilityChangeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33618,6 +36246,9 @@ func NewResponsibilityContacts(doc *som.SpecDocument, path string) *Responsibili
 	return &ResponsibilityContacts{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResponsibilityContacts) Content() *ResponsibilityContactsContentForm {
 	return NewResponsibilityContactsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33632,6 +36263,9 @@ func NewResponsibilityDetailEntry(doc *som.SpecDocument, path string) *Responsib
 	return &ResponsibilityDetailEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResponsibilityDetailEntry) Content() *ResponsibilityDetailEntryContentForm {
 	return NewResponsibilityDetailEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33650,6 +36284,9 @@ func NewResponsibilityEntry(doc *som.SpecDocument, path string) *ResponsibilityE
 	return &ResponsibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResponsibilityEntry) Content() *ResponsibilityEntryContentForm {
 	return NewResponsibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33695,6 +36332,9 @@ func NewResponsibilityFunctionDetails(doc *som.SpecDocument, path string) *Respo
 	return &ResponsibilityFunctionDetails{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResponsibilityFunctionDetails) Content() *ResponsibilityFunctionDetailsContentForm {
 	return NewResponsibilityFunctionDetailsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33709,6 +36349,9 @@ func NewResponsibilityReferenceEntry(doc *som.SpecDocument, path string) *Respon
 	return &ResponsibilityReferenceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResponsibilityReferenceEntry) Content() *ResponsibilityReferenceEntryContentForm {
 	return NewResponsibilityReferenceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33723,6 +36366,9 @@ func NewResponsibilitySystems(doc *som.SpecDocument, path string) *Responsibilit
 	return &ResponsibilitySystems{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResponsibilitySystems) Content() *ResponsibilitySystemsContentForm {
 	return NewResponsibilitySystemsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33745,6 +36391,9 @@ func (x *ResponsiveBehavior) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResponsiveBehavior) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33810,6 +36459,9 @@ func (x *ResponsiveDesign) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResponsiveDesign) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -33849,6 +36501,9 @@ func NewResponsiveScreenRuleEntry(doc *som.SpecDocument, path string) *Responsiv
 	return &ResponsiveScreenRuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResponsiveScreenRuleEntry) Content() *ResponsiveScreenRuleEntryContentForm {
 	return NewResponsiveScreenRuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33877,6 +36532,9 @@ func NewResultEnvelope(doc *som.SpecDocument, path string) *ResultEnvelope {
 	return &ResultEnvelope{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResultEnvelope) Content() *ResultEnvelopeContentForm {
 	return NewResultEnvelopeContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33905,6 +36563,9 @@ func NewResultFieldDetailEntry(doc *som.SpecDocument, path string) *ResultFieldD
 	return &ResultFieldDetailEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ResultFieldDetailEntry) Content() *ResultFieldDetailEntryContentForm {
 	return NewResultFieldDetailEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33919,6 +36580,9 @@ func NewRetentionPolicyEntry(doc *som.SpecDocument, path string) *RetentionPolic
 	return &RetentionPolicyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RetentionPolicyEntry) Content() *RetentionPolicyEntryContentForm {
 	return NewRetentionPolicyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33948,6 +36612,9 @@ func NewReusabilityPrinciples(doc *som.SpecDocument, path string) *ReusabilityPr
 	return &ReusabilityPrinciples{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReusabilityPrinciples) Content() *ReusabilityPrinciplesContentForm {
 	return NewReusabilityPrinciplesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -33991,6 +36658,9 @@ func (x *ReusableComponentsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReusableComponentsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34070,6 +36740,9 @@ func (x *ReusablePrototype) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReusablePrototype) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34114,6 +36787,9 @@ func NewReusableUiComponentEntry(doc *som.SpecDocument, path string) *ReusableUi
 	return &ReusableUiComponentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReusableUiComponentEntry) Content() *ReusableUiComponentEntryContentForm {
 	return NewReusableUiComponentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34156,6 +36832,9 @@ func NewReuseGoalEntry(doc *som.SpecDocument, path string) *ReuseGoalEntry {
 	return &ReuseGoalEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReuseGoalEntry) Content() *ReuseGoalEntryContentForm {
 	return NewReuseGoalEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34188,6 +36867,9 @@ func NewReviewCriterionEntry(doc *som.SpecDocument, path string) *ReviewCriterio
 	return &ReviewCriterionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ReviewCriterionEntry) Content() *ReviewCriterionEntryContentForm {
 	return NewReviewCriterionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34212,6 +36894,9 @@ func NewRevisionEntry(doc *som.SpecDocument, path string) *RevisionEntry {
 	return &RevisionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RevisionEntry) Content() *RevisionEntryContentForm {
 	return NewRevisionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34226,6 +36911,9 @@ func NewRiskBusinessImpact(doc *som.SpecDocument, path string) *RiskBusinessImpa
 	return &RiskBusinessImpact{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RiskBusinessImpact) Content() *RiskBusinessImpactContentForm {
 	return NewRiskBusinessImpactContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34260,6 +36948,9 @@ func (x *RiskEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RiskEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34315,6 +37006,9 @@ func NewRiskIdentification(doc *som.SpecDocument, path string) *RiskIdentificati
 	return &RiskIdentification{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RiskIdentification) Content() *RiskIdentificationContentForm {
 	return NewRiskIdentificationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34339,6 +37033,9 @@ func NewRiskMonitoring(doc *som.SpecDocument, path string) *RiskMonitoring {
 	return &RiskMonitoring{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RiskMonitoring) Content() *RiskMonitoringContentForm {
 	return NewRiskMonitoringContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34363,6 +37060,9 @@ func NewRiskRelationships(doc *som.SpecDocument, path string) *RiskRelationships
 	return &RiskRelationships{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RiskRelationships) Content() *RiskRelationshipsContentForm {
 	return NewRiskRelationshipsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34377,6 +37077,9 @@ func NewRiskResponse(doc *som.SpecDocument, path string) *RiskResponse {
 	return &RiskResponse{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RiskResponse) Content() *RiskResponseContentForm {
 	return NewRiskResponseContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34419,6 +37122,9 @@ func (x *RisksAndAssumptions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RisksAndAssumptions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34453,6 +37159,9 @@ func NewRoleAdjustmentEntry(doc *som.SpecDocument, path string) *RoleAdjustmentE
 	return &RoleAdjustmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleAdjustmentEntry) Content() *RoleAdjustmentEntryContentForm {
 	return NewRoleAdjustmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34502,6 +37211,9 @@ func (x *RoleAdjustments) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleAdjustments) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34550,6 +37262,9 @@ func (x *RoleCertificationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleCertificationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34574,6 +37289,9 @@ func NewRoleCombinationConstraintEntry(doc *som.SpecDocument, path string) *Role
 	return &RoleCombinationConstraintEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleCombinationConstraintEntry) Content() *RoleCombinationConstraintEntryContentForm {
 	return NewRoleCombinationConstraintEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34588,6 +37306,9 @@ func NewRoleCompetencyEntry(doc *som.SpecDocument, path string) *RoleCompetencyE
 	return &RoleCompetencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleCompetencyEntry) Content() *RoleCompetencyEntryContentForm {
 	return NewRoleCompetencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34605,6 +37326,9 @@ func NewRoleDataScopeEntry(doc *som.SpecDocument, path string) *RoleDataScopeEnt
 	return &RoleDataScopeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleDataScopeEntry) Content() *RoleDataScopeEntryContentForm {
 	return NewRoleDataScopeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34619,6 +37343,9 @@ func NewRoleExclusionEntry(doc *som.SpecDocument, path string) *RoleExclusionEnt
 	return &RoleExclusionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleExclusionEntry) Content() *RoleExclusionEntryContentForm {
 	return NewRoleExclusionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34643,6 +37370,9 @@ func (x *RoleHierarchy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleHierarchy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34704,6 +37434,9 @@ func (x *RoleHierarchyPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleHierarchyPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34725,6 +37458,9 @@ func NewRoleHolderEntry(doc *som.SpecDocument, path string) *RoleHolderEntry {
 	return &RoleHolderEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleHolderEntry) Content() *RoleHolderEntryContentForm {
 	return NewRoleHolderEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34742,6 +37478,9 @@ func NewRoleInheritanceRuleEntry(doc *som.SpecDocument, path string) *RoleInheri
 	return &RoleInheritanceRuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleInheritanceRuleEntry) Content() *RoleInheritanceRuleEntryContentForm {
 	return NewRoleInheritanceRuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34765,6 +37504,9 @@ func (x *RoleMatrix) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleMatrix) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34787,6 +37529,9 @@ func NewRolePermissionEntry(doc *som.SpecDocument, path string) *RolePermissionE
 	return &RolePermissionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RolePermissionEntry) Content() *RolePermissionEntryContentForm {
 	return NewRolePermissionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34801,6 +37546,9 @@ func NewRoleReferenceEntry(doc *som.SpecDocument, path string) *RoleReferenceEnt
 	return &RoleReferenceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RoleReferenceEntry) Content() *RoleReferenceEntryContentForm {
 	return NewRoleReferenceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34815,6 +37563,9 @@ func NewRollbackStrategy(doc *som.SpecDocument, path string) *RollbackStrategy {
 	return &RollbackStrategy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RollbackStrategy) Content() *RollbackStrategyContentForm {
 	return NewRollbackStrategyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34864,6 +37615,9 @@ func (x *RolloutPlan) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RolloutPlan) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34896,6 +37650,9 @@ func (x *RolloutTrainingMaterial) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RolloutTrainingMaterial) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34924,6 +37681,9 @@ func (x *RowLevelSecurityPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RowLevelSecurityPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -34945,6 +37705,9 @@ func NewRpoRtoRequirements(doc *som.SpecDocument, path string) *RpoRtoRequiremen
 	return &RpoRtoRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RpoRtoRequirements) Content() *RpoRtoRequirementsContentForm {
 	return NewRpoRtoRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34976,6 +37739,9 @@ func NewRuleExampleEntry(doc *som.SpecDocument, path string) *RuleExampleEntry {
 	return &RuleExampleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RuleExampleEntry) Content() *RuleExampleEntryContentForm {
 	return NewRuleExampleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -34999,6 +37765,9 @@ func (x *RuntimeDependencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RuntimeDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -35027,6 +37796,9 @@ func NewRuntimeDependencyEntry(doc *som.SpecDocument, path string) *RuntimeDepen
 	return &RuntimeDependencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RuntimeDependencyEntry) Content() *RuntimeDependencyEntryContentForm {
 	return NewRuntimeDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35066,6 +37838,9 @@ func NewRuntimeEnvironment(doc *som.SpecDocument, path string) *RuntimeEnvironme
 	return &RuntimeEnvironment{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *RuntimeEnvironment) Content() *RuntimeEnvironmentContentForm {
 	return NewRuntimeEnvironmentContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35120,6 +37895,9 @@ func NewScalabilityArchitecture(doc *som.SpecDocument, path string) *Scalability
 	return &ScalabilityArchitecture{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScalabilityArchitecture) Content() *ScalabilityArchitectureContentForm {
 	return NewScalabilityArchitectureContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35159,6 +37937,9 @@ func NewScalingRequirements(doc *som.SpecDocument, path string) *ScalingRequirem
 	return &ScalingRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScalingRequirements) Content() *ScalingRequirementsContentForm {
 	return NewScalingRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35193,6 +37974,9 @@ func NewScalingTriggersAndThresholds(doc *som.SpecDocument, path string) *Scalin
 	return &ScalingTriggersAndThresholds{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScalingTriggersAndThresholds) Content() *ScalingTriggersAndThresholdsContentForm {
 	return NewScalingTriggersAndThresholdsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35235,6 +38019,9 @@ func (x *ScenarioEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScenarioEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -35292,6 +38079,9 @@ func NewScenarioStepEntry(doc *som.SpecDocument, path string) *ScenarioStepEntry
 	return &ScenarioStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScenarioStepEntry) Content() *ScenarioStepEntryContentForm {
 	return NewScenarioStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35370,6 +38160,9 @@ func NewScheduledJobEntry(doc *som.SpecDocument, path string) *ScheduledJobEntry
 	return &ScheduledJobEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScheduledJobEntry) Content() *ScheduledJobEntryContentForm {
 	return NewScheduledJobEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35471,6 +38264,9 @@ func NewScheduledJobStepEntry(doc *som.SpecDocument, path string) *ScheduledJobS
 	return &ScheduledJobStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScheduledJobStepEntry) Content() *ScheduledJobStepEntryContentForm {
 	return NewScheduledJobStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35485,6 +38281,9 @@ func NewScheduledMaintenancePolicy(doc *som.SpecDocument, path string) *Schedule
 	return &ScheduledMaintenancePolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScheduledMaintenancePolicy) Content() *ScheduledMaintenancePolicyContentForm {
 	return NewScheduledMaintenancePolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35524,6 +38323,9 @@ func NewSchemaMigrationStepEntry(doc *som.SpecDocument, path string) *SchemaMigr
 	return &SchemaMigrationStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SchemaMigrationStepEntry) Content() *SchemaMigrationStepEntryContentForm {
 	return NewSchemaMigrationStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35573,6 +38375,9 @@ func NewSchemaVersioningAndMigration(doc *som.SpecDocument, path string) *Schema
 	return &SchemaVersioningAndMigration{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SchemaVersioningAndMigration) Content() *SchemaVersioningAndMigrationContentForm {
 	return NewSchemaVersioningAndMigrationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35611,6 +38416,9 @@ func (x *ScopeBoundaries) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScopeBoundaries) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -35657,6 +38465,9 @@ func NewScopeItemEntry(doc *som.SpecDocument, path string) *ScopeItemEntry {
 	return &ScopeItemEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScopeItemEntry) Content() *ScopeItemEntryContentForm {
 	return NewScopeItemEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35673,6 +38484,9 @@ func NewScreenActionEntry(doc *som.SpecDocument, path string) *ScreenActionEntry
 	return &ScreenActionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenActionEntry) Content() *ScreenActionEntryContentForm {
 	return NewScreenActionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35710,6 +38524,9 @@ func (x *ScreenActions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenActions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -35738,6 +38555,9 @@ func NewScreenBehaviorEntry(doc *som.SpecDocument, path string) *ScreenBehaviorE
 	return &ScreenBehaviorEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenBehaviorEntry) Content() *ScreenBehaviorEntryContentForm {
 	return NewScreenBehaviorEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35758,6 +38578,9 @@ func (x *ScreenDescriptions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenDescriptions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -35788,6 +38611,9 @@ func NewScreenElementAction(doc *som.SpecDocument, path string) *ScreenElementAc
 	return &ScreenElementAction{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenElementAction) Content() *ScreenElementActionContentForm {
 	return NewScreenElementActionContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35814,6 +38640,9 @@ func NewScreenElementDataDisplay(doc *som.SpecDocument, path string) *ScreenElem
 	return &ScreenElementDataDisplay{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenElementDataDisplay) Content() *ScreenElementDataDisplayContentForm {
 	return NewScreenElementDataDisplayContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35841,6 +38670,9 @@ func NewScreenElementEntry(doc *som.SpecDocument, path string) *ScreenElementEnt
 	return &ScreenElementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenElementEntry) Content() *ScreenElementEntryContentForm {
 	return NewScreenElementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35918,6 +38750,9 @@ func NewScreenElementFieldSpec(doc *som.SpecDocument, path string) *ScreenElemen
 	return &ScreenElementFieldSpec{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenElementFieldSpec) Content() *ScreenElementFieldSpecContentForm {
 	return NewScreenElementFieldSpecContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -35989,6 +38824,9 @@ func NewScreenEntry(doc *som.SpecDocument, path string) *ScreenEntry {
 	return &ScreenEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenEntry) Content() *ScreenEntryContentForm {
 	return NewScreenEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36069,6 +38907,9 @@ func NewScreenFieldEntry(doc *som.SpecDocument, path string) *ScreenFieldEntry {
 	return &ScreenFieldEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenFieldEntry) Content() *ScreenFieldEntryContentForm {
 	return NewScreenFieldEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36151,6 +38992,9 @@ func (x *ScreenFlowStructure) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenFlowStructure) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36191,6 +39035,9 @@ func (x *ScreenInventory) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenInventory) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36221,6 +39068,9 @@ func NewScreenResponsiveRuleEntry(doc *som.SpecDocument, path string) *ScreenRes
 	return &ScreenResponsiveRuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenResponsiveRuleEntry) Content() *ScreenResponsiveRuleEntryContentForm {
 	return NewScreenResponsiveRuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36235,6 +39085,9 @@ func NewScreenRouteEntry(doc *som.SpecDocument, path string) *ScreenRouteEntry {
 	return &ScreenRouteEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenRouteEntry) Content() *ScreenRouteEntryContentForm {
 	return NewScreenRouteEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36265,6 +39118,9 @@ func (x *ScreenRouteMap) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenRouteMap) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36309,6 +39165,9 @@ func NewScreenSectionEntry(doc *som.SpecDocument, path string) *ScreenSectionEnt
 	return &ScreenSectionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenSectionEntry) Content() *ScreenSectionEntryContentForm {
 	return NewScreenSectionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36348,6 +39207,9 @@ func (x *ScreenSections) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenSections) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36376,6 +39238,9 @@ func NewScreenStateEntry(doc *som.SpecDocument, path string) *ScreenStateEntry {
 	return &ScreenStateEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenStateEntry) Content() *ScreenStateEntryContentForm {
 	return NewScreenStateEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36398,6 +39263,9 @@ func (x *ScreenStates) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenStates) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36423,6 +39291,9 @@ func NewScreenTransitionEntry(doc *som.SpecDocument, path string) *ScreenTransit
 	return &ScreenTransitionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenTransitionEntry) Content() *ScreenTransitionEntryContentForm {
 	return NewScreenTransitionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36437,6 +39308,9 @@ func NewScreenUserCategoryEntry(doc *som.SpecDocument, path string) *ScreenUserC
 	return &ScreenUserCategoryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ScreenUserCategoryEntry) Content() *ScreenUserCategoryEntryContentForm {
 	return NewScreenUserCategoryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36459,6 +39333,9 @@ func (x *SecondaryNavigation) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecondaryNavigation) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36487,6 +39364,9 @@ func NewSecurity(doc *som.SpecDocument, path string) *Security {
 	return &Security{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Security) Content() *SecurityContentForm {
 	return NewSecurityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36530,6 +39410,9 @@ func (x *SecurityAndAccessModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityAndAccessModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36568,6 +39451,9 @@ func NewSecurityAuditEntry(doc *som.SpecDocument, path string) *SecurityAuditEnt
 	return &SecurityAuditEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityAuditEntry) Content() *SecurityAuditEntryContentForm {
 	return NewSecurityAuditEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36607,6 +39493,9 @@ func (x *SecurityAuditRequirementsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityAuditRequirementsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36666,6 +39555,9 @@ func NewSecurityCertificationRequirements(doc *som.SpecDocument, path string) *S
 	return &SecurityCertificationRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityCertificationRequirements) Content() *SecurityCertificationRequirementsContentForm {
 	return NewSecurityCertificationRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36710,6 +39602,9 @@ func (x *SecurityCharacteristic) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityCharacteristic) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36760,6 +39655,9 @@ func NewSecurityCodeReviewPolicy(doc *som.SpecDocument, path string) *SecurityCo
 	return &SecurityCodeReviewPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityCodeReviewPolicy) Content() *SecurityCodeReviewPolicyContentForm {
 	return NewSecurityCodeReviewPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36801,6 +39699,9 @@ func (x *SecurityComplianceFollowUp) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityComplianceFollowUp) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36824,6 +39725,9 @@ func NewSecurityControlEntry(doc *som.SpecDocument, path string) *SecurityContro
 	return &SecurityControlEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityControlEntry) Content() *SecurityControlEntryContentForm {
 	return NewSecurityControlEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36856,6 +39760,9 @@ func (x *SecurityControls) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityControls) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -36881,6 +39788,9 @@ func NewSecurityDevelopmentLifecycle(doc *som.SpecDocument, path string) *Securi
 	return &SecurityDevelopmentLifecycle{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityDevelopmentLifecycle) Content() *SecurityDevelopmentLifecycleContentForm {
 	return NewSecurityDevelopmentLifecycleContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36913,6 +39823,9 @@ func NewSecurityEventEntry(doc *som.SpecDocument, path string) *SecurityEventEnt
 	return &SecurityEventEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityEventEntry) Content() *SecurityEventEntryContentForm {
 	return NewSecurityEventEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36930,6 +39843,9 @@ func NewSecurityEventLoggingPolicy(doc *som.SpecDocument, path string) *Security
 	return &SecurityEventLoggingPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityEventLoggingPolicy) Content() *SecurityEventLoggingPolicyContentForm {
 	return NewSecurityEventLoggingPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -36957,6 +39873,9 @@ func (x *SecurityEventsDefinition) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityEventsDefinition) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -37034,6 +39953,9 @@ func (x *SecurityOperationsFollowUp) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityOperationsFollowUp) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -37065,6 +39987,9 @@ func NewSecurityRequirementEntry(doc *som.SpecDocument, path string) *SecurityRe
 	return &SecurityRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityRequirementEntry) Content() *SecurityRequirementEntryContentForm {
 	return NewSecurityRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37130,6 +40055,9 @@ func (x *SecurityRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -37160,6 +40088,9 @@ func NewSecurityStandardComplianceEntry(doc *som.SpecDocument, path string) *Sec
 	return &SecurityStandardComplianceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityStandardComplianceEntry) Content() *SecurityStandardComplianceEntryContentForm {
 	return NewSecurityStandardComplianceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37194,6 +40125,9 @@ func NewSecurityStandardEntry(doc *som.SpecDocument, path string) *SecurityStand
 	return &SecurityStandardEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityStandardEntry) Content() *SecurityStandardEntryContentForm {
 	return NewSecurityStandardEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37226,6 +40160,9 @@ func NewSecurityTestingAutomation(doc *som.SpecDocument, path string) *SecurityT
 	return &SecurityTestingAutomation{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SecurityTestingAutomation) Content() *SecurityTestingAutomationContentForm {
 	return NewSecurityTestingAutomationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37268,6 +40205,9 @@ func NewSelfRegistrationPolicy(doc *som.SpecDocument, path string) *SelfRegistra
 	return &SelfRegistrationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SelfRegistrationPolicy) Content() *SelfRegistrationPolicyContentForm {
 	return NewSelfRegistrationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37319,6 +40259,9 @@ func (x *SelfServiceAccountManagement) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SelfServiceAccountManagement) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -37346,6 +40289,9 @@ func (x *SensitiveDataEncryption) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SensitiveDataEncryption) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -37408,6 +40354,9 @@ func NewServerCallStepEntry(doc *som.SpecDocument, path string) *ServerCallStepE
 	return &ServerCallStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServerCallStepEntry) Content() *ServerCallStepEntryContentForm {
 	return NewServerCallStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37434,6 +40383,9 @@ func NewServerConfigurationSettingEntry(doc *som.SpecDocument, path string) *Ser
 	return &ServerConfigurationSettingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServerConfigurationSettingEntry) Content() *ServerConfigurationSettingEntryContentForm {
 	return NewServerConfigurationSettingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37448,6 +40400,9 @@ func NewServerEnvironmentEntry(doc *som.SpecDocument, path string) *ServerEnviro
 	return &ServerEnvironmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServerEnvironmentEntry) Content() *ServerEnvironmentEntryContentForm {
 	return NewServerEnvironmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37493,6 +40448,9 @@ func NewServerOperationEntry(doc *som.SpecDocument, path string) *ServerOperatio
 	return &ServerOperationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServerOperationEntry) Content() *ServerOperationEntryContentForm {
 	return NewServerOperationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37541,6 +40499,9 @@ func NewServerOperationMemberEntry(doc *som.SpecDocument, path string) *ServerOp
 	return &ServerOperationMemberEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServerOperationMemberEntry) Content() *ServerOperationMemberEntryContentForm {
 	return NewServerOperationMemberEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37587,6 +40548,9 @@ func (x *ServerOperationRegistry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServerOperationRegistry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -37612,6 +40576,9 @@ func NewServerOsRequirements(doc *som.SpecDocument, path string) *ServerOsRequir
 	return &ServerOsRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServerOsRequirements) Content() *ServerOsRequirementsContentForm {
 	return NewServerOsRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37655,6 +40622,9 @@ func (x *ServerRequirementsSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServerRequirementsSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -37730,6 +40700,9 @@ func NewServerRoleEntry(doc *som.SpecDocument, path string) *ServerRoleEntry {
 	return &ServerRoleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServerRoleEntry) Content() *ServerRoleEntryContentForm {
 	return NewServerRoleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37764,6 +40737,9 @@ func NewServerStorageRequirements(doc *som.SpecDocument, path string) *ServerSto
 	return &ServerStorageRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServerStorageRequirements) Content() *ServerStorageRequirementsContentForm {
 	return NewServerStorageRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37807,6 +40783,9 @@ func (x *ServiceAccountCredentialPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServiceAccountCredentialPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -37837,6 +40816,9 @@ func (x *ServiceAccountLifecycle) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServiceAccountLifecycle) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -37858,6 +40840,9 @@ func NewServiceLevel(doc *som.SpecDocument, path string) *ServiceLevel {
 	return &ServiceLevel{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServiceLevel) Content() *ServiceLevelContentForm {
 	return NewServiceLevelContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37907,6 +40892,9 @@ func NewServiceLevelAgreementEntry(doc *som.SpecDocument, path string) *ServiceL
 	return &ServiceLevelAgreementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServiceLevelAgreementEntry) Content() *ServiceLevelAgreementEntryContentForm {
 	return NewServiceLevelAgreementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37921,6 +40909,9 @@ func NewServiceLevelIndicators(doc *som.SpecDocument, path string) *ServiceLevel
 	return &ServiceLevelIndicators{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServiceLevelIndicators) Content() *ServiceLevelIndicatorsContentForm {
 	return NewServiceLevelIndicatorsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37950,6 +40941,9 @@ func NewServiceMeshAndGateway(doc *som.SpecDocument, path string) *ServiceMeshAn
 	return &ServiceMeshAndGateway{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ServiceMeshAndGateway) Content() *ServiceMeshAndGatewayContentForm {
 	return NewServiceMeshAndGatewayContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -37983,6 +40977,9 @@ func (x *SessionCreationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SessionCreationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38014,6 +41011,9 @@ func (x *SessionLifecycleMonitoring) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SessionLifecycleMonitoring) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38047,6 +41047,9 @@ func (x *SessionManagement) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SessionManagement) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38107,6 +41110,9 @@ func (x *SessionModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SessionModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38150,6 +41156,9 @@ func (x *SessionRevocationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SessionRevocationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38181,6 +41190,9 @@ func (x *SessionSecurityPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SessionSecurityPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38213,6 +41225,9 @@ func (x *SessionTimeoutPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SessionTimeoutPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38242,6 +41257,9 @@ func (x *SharedInfrastructureDependencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SharedInfrastructureDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38269,6 +41287,9 @@ func NewSharedInfrastructureEntry(doc *som.SpecDocument, path string) *SharedInf
 	return &SharedInfrastructureEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SharedInfrastructureEntry) Content() *SharedInfrastructureEntryContentForm {
 	return NewSharedInfrastructureEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38298,6 +41319,9 @@ func NewSharedLibraryComponentEntry(doc *som.SpecDocument, path string) *SharedL
 	return &SharedLibraryComponentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SharedLibraryComponentEntry) Content() *SharedLibraryComponentEntryContentForm {
 	return NewSharedLibraryComponentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38332,6 +41356,9 @@ func NewSharedLibraryEntry(doc *som.SpecDocument, path string) *SharedLibraryEnt
 	return &SharedLibraryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SharedLibraryEntry) Content() *SharedLibraryEntryContentForm {
 	return NewSharedLibraryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38365,6 +41392,9 @@ func NewSignOffProcess(doc *som.SpecDocument, path string) *SignOffProcess {
 	return &SignOffProcess{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SignOffProcess) Content() *SignOffProcessContentForm {
 	return NewSignOffProcessContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38410,6 +41440,9 @@ func NewSingleSignOnPolicy(doc *som.SpecDocument, path string) *SingleSignOnPoli
 	return &SingleSignOnPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SingleSignOnPolicy) Content() *SingleSignOnPolicyContentForm {
 	return NewSingleSignOnPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38455,6 +41488,9 @@ func (x *SlaAndSloMonitoring) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SlaAndSloMonitoring) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38509,6 +41545,9 @@ func NewSlaMonitoringRequirements(doc *som.SpecDocument, path string) *SlaMonito
 	return &SlaMonitoringRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SlaMonitoringRequirements) Content() *SlaMonitoringRequirementsContentForm {
 	return NewSlaMonitoringRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38543,6 +41582,9 @@ func NewSloEntry(doc *som.SpecDocument, path string) *SloEntry {
 	return &SloEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SloEntry) Content() *SloEntryContentForm {
 	return NewSloEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38573,6 +41615,9 @@ func (x *SoftwareDeliverables) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SoftwareDeliverables) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38604,6 +41649,9 @@ func (x *SoftwareDesignRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SoftwareDesignRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38637,6 +41685,9 @@ func NewSoftwareLayerEntry(doc *som.SpecDocument, path string) *SoftwareLayerEnt
 	return &SoftwareLayerEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SoftwareLayerEntry) Content() *SoftwareLayerEntryContentForm {
 	return NewSoftwareLayerEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38677,6 +41728,9 @@ func (x *SolutionArchitectureAndTechnology) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SolutionArchitectureAndTechnology) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38721,6 +41775,9 @@ func (x *SolutionArchitectureFollowUp) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SolutionArchitectureFollowUp) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38744,6 +41801,9 @@ func NewSpecializedEquipmentEntry(doc *som.SpecDocument, path string) *Specializ
 	return &SpecializedEquipmentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SpecializedEquipmentEntry) Content() *SpecializedEquipmentEntryContentForm {
 	return NewSpecializedEquipmentEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38777,6 +41837,9 @@ func (x *SsoPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SsoPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38798,6 +41861,9 @@ func NewStaffingBudget(doc *som.SpecDocument, path string) *StaffingBudget {
 	return &StaffingBudget{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StaffingBudget) Content() *StaffingBudgetContentForm {
 	return NewStaffingBudgetContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38825,6 +41891,9 @@ func NewStaffingEntry(doc *som.SpecDocument, path string) *StaffingEntry {
 	return &StaffingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StaffingEntry) Content() *StaffingEntryContentForm {
 	return NewStaffingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38865,6 +41934,9 @@ func (x *StaffingPlan) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StaffingPlan) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -38905,6 +41977,9 @@ func NewStageDependencies(doc *som.SpecDocument, path string) *StageDependencies
 	return &StageDependencies{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageDependencies) Content() *StageDependenciesContentForm {
 	return NewStageDependenciesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -38925,6 +42000,9 @@ func NewStageEntry(doc *som.SpecDocument, path string) *StageEntry {
 	return &StageEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageEntry) Content() *StageEntryContentForm {
 	return NewStageEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39025,6 +42103,9 @@ func NewStageGovernance(doc *som.SpecDocument, path string) *StageGovernance {
 	return &StageGovernance{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageGovernance) Content() *StageGovernanceContentForm {
 	return NewStageGovernanceContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39087,6 +42168,9 @@ func NewStageMigrationResources(doc *som.SpecDocument, path string) *StageMigrat
 	return &StageMigrationResources{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageMigrationResources) Content() *StageMigrationResourcesContentForm {
 	return NewStageMigrationResourcesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39106,6 +42190,9 @@ func NewStageMigrationRiskEntry(doc *som.SpecDocument, path string) *StageMigrat
 	return &StageMigrationRiskEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageMigrationRiskEntry) Content() *StageMigrationRiskEntryContentForm {
 	return NewStageMigrationRiskEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39164,6 +42251,9 @@ func NewStageMigrationRisks(doc *som.SpecDocument, path string) *StageMigrationR
 	return &StageMigrationRisks{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageMigrationRisks) Content() *StageMigrationRisksContentForm {
 	return NewStageMigrationRisksContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39195,6 +42285,9 @@ func NewStageOverview(doc *som.SpecDocument, path string) *StageOverview {
 	return &StageOverview{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageOverview) Content() *StageOverviewContentForm {
 	return NewStageOverviewContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39289,6 +42382,9 @@ func NewStageResources(doc *som.SpecDocument, path string) *StageResources {
 	return &StageResources{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageResources) Content() *StageResourcesContentForm {
 	return NewStageResourcesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39303,6 +42399,9 @@ func NewStageStakeholders(doc *som.SpecDocument, path string) *StageStakeholders
 	return &StageStakeholders{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageStakeholders) Content() *StageStakeholdersContentForm {
 	return NewStageStakeholdersContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39321,6 +42420,9 @@ func NewStageSuccessCriterionEntry(doc *som.SpecDocument, path string) *StageSuc
 	return &StageSuccessCriterionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageSuccessCriterionEntry) Content() *StageSuccessCriterionEntryContentForm {
 	return NewStageSuccessCriterionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39350,6 +42452,9 @@ func NewStageSummaryDependencies(doc *som.SpecDocument, path string) *StageSumma
 	return &StageSummaryDependencies{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageSummaryDependencies) Content() *StageSummaryDependenciesContentForm {
 	return NewStageSummaryDependenciesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39371,6 +42476,9 @@ func NewStageSummaryEntry(doc *som.SpecDocument, path string) *StageSummaryEntry
 	return &StageSummaryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageSummaryEntry) Content() *StageSummaryEntryContentForm {
 	return NewStageSummaryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39424,6 +42532,9 @@ func NewStageSummaryResources(doc *som.SpecDocument, path string) *StageSummaryR
 	return &StageSummaryResources{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StageSummaryResources) Content() *StageSummaryResourcesContentForm {
 	return NewStageSummaryResourcesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39438,6 +42549,9 @@ func NewStagingDependencies(doc *som.SpecDocument, path string) *StagingDependen
 	return &StagingDependencies{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StagingDependencies) Content() *StagingDependenciesContentForm {
 	return NewStagingDependenciesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39452,6 +42566,9 @@ func NewStagingDrivers(doc *som.SpecDocument, path string) *StagingDrivers {
 	return &StagingDrivers{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StagingDrivers) Content() *StagingDriversContentForm {
 	return NewStagingDriversContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39473,6 +42590,9 @@ func NewStagingStrategy(doc *som.SpecDocument, path string) *StagingStrategy {
 	return &StagingStrategy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StagingStrategy) Content() *StagingStrategyContentForm {
 	return NewStagingStrategyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39575,6 +42695,9 @@ func NewStakeholderEntry(doc *som.SpecDocument, path string) *StakeholderEntry {
 	return &StakeholderEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StakeholderEntry) Content() *StakeholderEntryContentForm {
 	return NewStakeholderEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39592,6 +42715,9 @@ func NewStakeholderRegisterEntry(doc *som.SpecDocument, path string) *Stakeholde
 	return &StakeholderRegisterEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StakeholderRegisterEntry) Content() *StakeholderRegisterEntryContentForm {
 	return NewStakeholderRegisterEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39618,6 +42744,9 @@ func (x *StakeholdersAndBeneficiaries) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StakeholdersAndBeneficiaries) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -39656,6 +42785,9 @@ func (x *StakeholdersAndGovernance) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StakeholdersAndGovernance) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -39718,6 +42850,9 @@ func NewStakeholdersAndInterests(doc *som.SpecDocument, path string) *Stakeholde
 	return &StakeholdersAndInterests{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StakeholdersAndInterests) Content() *StakeholdersAndInterestsContentForm {
 	return NewStakeholdersAndInterestsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -39738,6 +42873,9 @@ func (x *StandardSoftwareRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StandardSoftwareRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -39775,6 +42913,9 @@ func (x *StandardsComplianceSection) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StandardsComplianceSection) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -39873,6 +43014,9 @@ func (x *SteeringCommittee) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SteeringCommittee) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -39912,6 +43056,9 @@ func (x *StepUpAuthenticationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StepUpAuthenticationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -39947,6 +43094,9 @@ func (x *StorageEncryptionPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StorageEncryptionPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -39978,6 +43128,9 @@ func (x *StorageLifecyclePolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StorageLifecyclePolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -40008,6 +43161,9 @@ func (x *StrategicAlignment) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *StrategicAlignment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -40033,6 +43189,9 @@ func NewSubFunctionEntry(doc *som.SpecDocument, path string) *SubFunctionEntry {
 	return &SubFunctionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SubFunctionEntry) Content() *SubFunctionEntryContentForm {
 	return NewSubFunctionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40051,6 +43210,9 @@ func NewSubStageEntry(doc *som.SpecDocument, path string) *SubStageEntry {
 	return &SubStageEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SubStageEntry) Content() *SubStageEntryContentForm {
 	return NewSubStageEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40101,6 +43263,9 @@ func (x *SuccessCriteria) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SuccessCriteria) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -40161,6 +43326,9 @@ func (x *SuccessCriteriaByCategory) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SuccessCriteriaByCategory) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -40227,6 +43395,9 @@ func NewSuccessCriterionEntry(doc *som.SpecDocument, path string) *SuccessCriter
 	return &SuccessCriterionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SuccessCriterionEntry) Content() *SuccessCriterionEntryContentForm {
 	return NewSuccessCriterionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40273,6 +43444,9 @@ func NewSuccessCriterionRelationships(doc *som.SpecDocument, path string) *Succe
 	return &SuccessCriterionRelationships{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SuccessCriterionRelationships) Content() *SuccessCriterionRelationshipsContentForm {
 	return NewSuccessCriterionRelationshipsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40293,6 +43467,9 @@ func (x *SupportAccess) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SupportAccess) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -40353,6 +43530,9 @@ func (x *SupportDeliverables) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SupportDeliverables) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -40378,6 +43558,9 @@ func NewSupportedLocaleEntry(doc *som.SpecDocument, path string) *SupportedLocal
 	return &SupportedLocaleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SupportedLocaleEntry) Content() *SupportedLocaleEntryContentForm {
 	return NewSupportedLocaleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40413,6 +43596,9 @@ func (x *SystemArchitectureSpec) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemArchitectureSpec) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -40442,6 +43628,9 @@ func (x *SystemBoundaries) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemBoundaries) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -40519,6 +43708,9 @@ func NewSystemBusinessCriticality(doc *som.SpecDocument, path string) *SystemBus
 	return &SystemBusinessCriticality{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemBusinessCriticality) Content() *SystemBusinessCriticalityContentForm {
 	return NewSystemBusinessCriticalityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40557,6 +43749,9 @@ func NewSystemBusinessProcessEntry(doc *som.SpecDocument, path string) *SystemBu
 	return &SystemBusinessProcessEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemBusinessProcessEntry) Content() *SystemBusinessProcessEntryContentForm {
 	return NewSystemBusinessProcessEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40571,6 +43766,9 @@ func NewSystemBusinessUnitEntry(doc *som.SpecDocument, path string) *SystemBusin
 	return &SystemBusinessUnitEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemBusinessUnitEntry) Content() *SystemBusinessUnitEntryContentForm {
 	return NewSystemBusinessUnitEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40585,6 +43783,9 @@ func NewSystemConfigurationManagement(doc *som.SpecDocument, path string) *Syste
 	return &SystemConfigurationManagement{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemConfigurationManagement) Content() *SystemConfigurationManagementContentForm {
 	return NewSystemConfigurationManagementContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40631,6 +43832,9 @@ func (x *SystemContext) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemContext) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -40689,6 +43893,9 @@ func NewSystemCostAnalysis(doc *som.SpecDocument, path string) *SystemCostAnalys
 	return &SystemCostAnalysis{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemCostAnalysis) Content() *SystemCostAnalysisContentForm {
 	return NewSystemCostAnalysisContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40728,6 +43935,9 @@ func NewSystemDataScope(doc *som.SpecDocument, path string) *SystemDataScope {
 	return &SystemDataScope{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemDataScope) Content() *SystemDataScopeContentForm {
 	return NewSystemDataScopeContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40770,6 +43980,9 @@ func NewSystemDependencyEntry(doc *som.SpecDocument, path string) *SystemDepende
 	return &SystemDependencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemDependencyEntry) Content() *SystemDependencyEntryContentForm {
 	return NewSystemDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40837,6 +44050,9 @@ func (x *SystemDescription) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemDescription) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -40887,6 +44103,9 @@ func NewSystemDiagnosticTools(doc *som.SpecDocument, path string) *SystemDiagnos
 	return &SystemDiagnosticTools{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemDiagnosticTools) Content() *SystemDiagnosticToolsContentForm {
 	return NewSystemDiagnosticToolsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40916,6 +44135,9 @@ func NewSystemErrorCodeEntry(doc *som.SpecDocument, path string) *SystemErrorCod
 	return &SystemErrorCodeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemErrorCodeEntry) Content() *SystemErrorCodeEntryContentForm {
 	return NewSystemErrorCodeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -40949,6 +44171,9 @@ func (x *SystemErrorDisplay) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemErrorDisplay) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -41016,6 +44241,9 @@ func NewSystemIntegrationEntry(doc *som.SpecDocument, path string) *SystemIntegr
 	return &SystemIntegrationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemIntegrationEntry) Content() *SystemIntegrationEntryContentForm {
 	return NewSystemIntegrationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -41089,6 +44317,9 @@ func (x *SystemInventory) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemInventory) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -41114,6 +44345,9 @@ func NewSystemKnowledgeTransfer(doc *som.SpecDocument, path string) *SystemKnowl
 	return &SystemKnowledgeTransfer{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemKnowledgeTransfer) Content() *SystemKnowledgeTransferContentForm {
 	return NewSystemKnowledgeTransferContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -41146,6 +44380,9 @@ func (x *SystemLandscapeInventory) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemLandscapeInventory) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -41164,6 +44401,9 @@ func NewSystemMigrationPlan(doc *som.SpecDocument, path string) *SystemMigration
 	return &SystemMigrationPlan{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemMigrationPlan) Content() *SystemMigrationPlanContentForm {
 	return NewSystemMigrationPlanContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -41201,6 +44441,9 @@ func NewSystemMigrationRiskEntry(doc *som.SpecDocument, path string) *SystemMigr
 	return &SystemMigrationRiskEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemMigrationRiskEntry) Content() *SystemMigrationRiskEntryContentForm {
 	return NewSystemMigrationRiskEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -41221,6 +44464,9 @@ func (x *SystemOperation) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemOperation) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -41257,6 +44503,9 @@ func (x *SystemOperationAndMonitoring) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemOperationAndMonitoring) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -41300,6 +44549,9 @@ func (x *SystemPurpose) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemPurpose) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -41369,6 +44621,9 @@ func (x *SystemQualityGoals) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemQualityGoals) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -41505,6 +44760,9 @@ func NewSystemReplacementStrategy(doc *som.SpecDocument, path string) *SystemRep
 	return &SystemReplacementStrategy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemReplacementStrategy) Content() *SystemReplacementStrategyContentForm {
 	return NewSystemReplacementStrategyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -41552,6 +44810,9 @@ func (x *SystemRollout) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemRollout) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -41627,6 +44888,9 @@ func NewSystemStagePlan(doc *som.SpecDocument, path string) *SystemStagePlan {
 	return &SystemStagePlan{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemStagePlan) Content() *SystemStagePlanContentForm {
 	return NewSystemStagePlanContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -41698,6 +44962,9 @@ func NewSystemSummary(doc *som.SpecDocument, path string) *SystemSummary {
 	return &SystemSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemSummary) Content() *SystemSummaryContentForm {
 	return NewSystemSummaryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -41735,6 +45002,9 @@ func NewSystemTaskEntry(doc *som.SpecDocument, path string) *SystemTaskEntry {
 	return &SystemTaskEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemTaskEntry) Content() *SystemTaskEntryContentForm {
 	return NewSystemTaskEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -41800,6 +45070,9 @@ func NewSystemTechnicalAssessment(doc *som.SpecDocument, path string) *SystemTec
 	return &SystemTechnicalAssessment{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemTechnicalAssessment) Content() *SystemTechnicalAssessmentContentForm {
 	return NewSystemTechnicalAssessmentContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -41854,6 +45127,9 @@ func (x *SystemToReplaceEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemToReplaceEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -41944,6 +45220,9 @@ func NewSystemTrainingEntry(doc *som.SpecDocument, path string) *SystemTrainingE
 	return &SystemTrainingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemTrainingEntry) Content() *SystemTrainingEntryContentForm {
 	return NewSystemTrainingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -41973,6 +45252,9 @@ func NewSystemUserImpact(doc *som.SpecDocument, path string) *SystemUserImpact {
 	return &SystemUserImpact{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemUserImpact) Content() *SystemUserImpactContentForm {
 	return NewSystemUserImpactContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42020,6 +45302,9 @@ func (x *SystemsToReplace) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *SystemsToReplace) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42053,6 +45338,9 @@ func NewTabBarDefinitionEntry(doc *som.SpecDocument, path string) *TabBarDefinit
 	return &TabBarDefinitionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TabBarDefinitionEntry) Content() *TabBarDefinitionEntryContentForm {
 	return NewTabBarDefinitionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42084,6 +45372,9 @@ func NewTabItemEntry(doc *som.SpecDocument, path string) *TabItemEntry {
 	return &TabItemEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TabItemEntry) Content() *TabItemEntryContentForm {
 	return NewTabItemEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42116,6 +45407,9 @@ func (x *TargetOperatingModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TargetOperatingModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42144,6 +45438,9 @@ func NewTargetPlatformEntry(doc *som.SpecDocument, path string) *TargetPlatformE
 	return &TargetPlatformEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TargetPlatformEntry) Content() *TargetPlatformEntryContentForm {
 	return NewTargetPlatformEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42181,6 +45478,9 @@ func NewTeamMemberEntry(doc *som.SpecDocument, path string) *TeamMemberEntry {
 	return &TeamMemberEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TeamMemberEntry) Content() *TeamMemberEntryContentForm {
 	return NewTeamMemberEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42227,6 +45527,9 @@ func NewTeamMemberResponsibilityEntry(doc *som.SpecDocument, path string) *TeamM
 	return &TeamMemberResponsibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TeamMemberResponsibilityEntry) Content() *TeamMemberResponsibilityEntryContentForm {
 	return NewTeamMemberResponsibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42241,6 +45544,9 @@ func NewTeamMemberSkillEntry(doc *som.SpecDocument, path string) *TeamMemberSkil
 	return &TeamMemberSkillEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TeamMemberSkillEntry) Content() *TeamMemberSkillEntryContentForm {
 	return NewTeamMemberSkillEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42255,6 +45561,9 @@ func NewTeamMemberSkills(doc *som.SpecDocument, path string) *TeamMemberSkills {
 	return &TeamMemberSkills{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TeamMemberSkills) Content() *TeamMemberSkillsContentForm {
 	return NewTeamMemberSkillsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42276,6 +45585,9 @@ func NewTeamStructureOverview(doc *som.SpecDocument, path string) *TeamStructure
 	return &TeamStructureOverview{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TeamStructureOverview) Content() *TeamStructureOverviewContentForm {
 	return NewTeamStructureOverviewContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42293,6 +45605,9 @@ func NewTechnicalCharacteristicEntry(doc *som.SpecDocument, path string) *Techni
 	return &TechnicalCharacteristicEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalCharacteristicEntry) Content() *TechnicalCharacteristicEntryContentForm {
 	return NewTechnicalCharacteristicEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42307,6 +45622,9 @@ func NewTechnicalConstraintEntry(doc *som.SpecDocument, path string) *TechnicalC
 	return &TechnicalConstraintEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalConstraintEntry) Content() *TechnicalConstraintEntryContentForm {
 	return NewTechnicalConstraintEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42321,6 +45639,9 @@ func NewTechnicalDependencyEntry(doc *som.SpecDocument, path string) *TechnicalD
 	return &TechnicalDependencyEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalDependencyEntry) Content() *TechnicalDependencyEntryContentForm {
 	return NewTechnicalDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42347,6 +45668,9 @@ func (x *TechnicalEnvironment) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalEnvironment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42436,6 +45760,9 @@ func NewTechnicalEnvironmentNetwork(doc *som.SpecDocument, path string) *Technic
 	return &TechnicalEnvironmentNetwork{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalEnvironmentNetwork) Content() *TechnicalEnvironmentNetworkContentForm {
 	return NewTechnicalEnvironmentNetworkContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42473,6 +45800,9 @@ func (x *TechnicalFrameworkConcept) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalFrameworkConcept) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42544,6 +45874,9 @@ func (x *TechnicalGoalConstraints) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalGoalConstraints) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42577,6 +45910,9 @@ func (x *TechnicalGoalDependencies) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalGoalDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42605,6 +45941,9 @@ func NewTechnicalGoalEntry(doc *som.SpecDocument, path string) *TechnicalGoalEnt
 	return &TechnicalGoalEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalGoalEntry) Content() *TechnicalGoalEntryContentForm {
 	return NewTechnicalGoalEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42649,6 +45988,9 @@ func NewTechnicalGoalTestCaseEntry(doc *som.SpecDocument, path string) *Technica
 	return &TechnicalGoalTestCaseEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalGoalTestCaseEntry) Content() *TechnicalGoalTestCaseEntryContentForm {
 	return NewTechnicalGoalTestCaseEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42671,6 +46013,9 @@ func (x *TechnicalGoalTestCriteria) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalGoalTestCriteria) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42711,6 +46056,9 @@ func (x *TechnicalGoals) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalGoals) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42742,6 +46090,9 @@ func (x *TechnicalInfrastructure) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalInfrastructure) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42792,6 +46143,9 @@ func (x *TechnicalPainPoints) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalPainPoints) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42825,6 +46179,9 @@ func NewTechnicalRequirementEntry(doc *som.SpecDocument, path string) *Technical
 	return &TechnicalRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalRequirementEntry) Content() *TechnicalRequirementEntryContentForm {
 	return NewTechnicalRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42890,6 +46247,9 @@ func (x *TechnicalRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42926,6 +46286,9 @@ func (x *TechnicalSecurityRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnicalSecurityRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -42959,6 +46322,9 @@ func NewTechnologyDataVariations(doc *som.SpecDocument, path string) *Technology
 	return &TechnologyDataVariations{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnologyDataVariations) Content() *TechnologyDataVariationsContentForm {
 	return NewTechnologyDataVariationsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -42976,6 +46342,9 @@ func NewTechnologyStandardEntry(doc *som.SpecDocument, path string) *TechnologyS
 	return &TechnologyStandardEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TechnologyStandardEntry) Content() *TechnologyStandardEntryContentForm {
 	return NewTechnologyStandardEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43021,6 +46390,9 @@ func (x *TenantBoundaryEnforcementPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TenantBoundaryEnforcementPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43054,6 +46426,9 @@ func (x *TenantContextPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TenantContextPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43079,6 +46454,9 @@ func NewTenantCustomizationEntry(doc *som.SpecDocument, path string) *TenantCust
 	return &TenantCustomizationEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TenantCustomizationEntry) Content() *TenantCustomizationEntryContentForm {
 	return NewTenantCustomizationEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43102,6 +46480,9 @@ func (x *TenantDataIsolationPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TenantDataIsolationPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43137,6 +46518,9 @@ func (x *TenantIsolation) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TenantIsolation) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43196,6 +46580,9 @@ func (x *TenantOnboardingPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TenantOnboardingPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43222,6 +46609,9 @@ func NewTestScenarioEntry(doc *som.SpecDocument, path string) *TestScenarioEntry
 	return &TestScenarioEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TestScenarioEntry) Content() *TestScenarioEntryContentForm {
 	return NewTestScenarioEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43280,6 +46670,9 @@ func NewTestScenarioNotes(doc *som.SpecDocument, path string) *TestScenarioNotes
 	return &TestScenarioNotes{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TestScenarioNotes) Content() *TestScenarioNotesContentForm {
 	return NewTestScenarioNotesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43302,6 +46695,9 @@ func (x *TestStrategy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TestStrategy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43320,6 +46716,9 @@ func NewTestingStandards(doc *som.SpecDocument, path string) *TestingStandards {
 	return &TestingStandards{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TestingStandards) Content() *TestingStandardsContentForm {
 	return NewTestingStandardsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43354,6 +46753,9 @@ func NewThirdPartyApiIntegrations(doc *som.SpecDocument, path string) *ThirdPart
 	return &ThirdPartyApiIntegrations{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ThirdPartyApiIntegrations) Content() *ThirdPartyApiIntegrationsContentForm {
 	return NewThirdPartyApiIntegrationsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43398,6 +46800,9 @@ func NewThirdPartyCompatibilityEntry(doc *som.SpecDocument, path string) *ThirdP
 	return &ThirdPartyCompatibilityEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ThirdPartyCompatibilityEntry) Content() *ThirdPartyCompatibilityEntryContentForm {
 	return NewThirdPartyCompatibilityEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43432,6 +46837,9 @@ func NewThirdPartyLibraryEntry(doc *som.SpecDocument, path string) *ThirdPartyLi
 	return &ThirdPartyLibraryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ThirdPartyLibraryEntry) Content() *ThirdPartyLibraryEntryContentForm {
 	return NewThirdPartyLibraryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43479,6 +46887,9 @@ func (x *ThrowawayPrototype) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ThrowawayPrototype) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43533,6 +46944,9 @@ func (x *TlsProtocolPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TlsProtocolPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43554,6 +46968,9 @@ func NewTlsRequirements(doc *som.SpecDocument, path string) *TlsRequirements {
 	return &TlsRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TlsRequirements) Content() *TlsRequirementsContentForm {
 	return NewTlsRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43597,6 +47014,9 @@ func (x *TokenManagementPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TokenManagementPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43624,6 +47044,9 @@ func NewToolEntry(doc *som.SpecDocument, path string) *ToolEntry {
 	return &ToolEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ToolEntry) Content() *ToolEntryContentForm {
 	return NewToolEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43716,6 +47139,9 @@ func NewTooling(doc *som.SpecDocument, path string) *Tooling {
 	return &Tooling{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Tooling) Content() *ToolingContentForm {
 	return NewToolingContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43761,6 +47187,9 @@ func (x *ToolingAndEnvironments) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ToolingAndEnvironments) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43789,6 +47218,9 @@ func NewTourStepEntry(doc *som.SpecDocument, path string) *TourStepEntry {
 	return &TourStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TourStepEntry) Content() *TourStepEntryContentForm {
 	return NewTourStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43803,6 +47235,9 @@ func NewTradeOffDecisionEntry(doc *som.SpecDocument, path string) *TradeOffDecis
 	return &TradeOffDecisionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TradeOffDecisionEntry) Content() *TradeOffDecisionEntryContentForm {
 	return NewTradeOffDecisionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43853,6 +47288,9 @@ func (x *TradeOffDecisions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TradeOffDecisions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43894,6 +47332,9 @@ func NewTrainingAssessment(doc *som.SpecDocument, path string) *TrainingAssessme
 	return &TrainingAssessment{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TrainingAssessment) Content() *TrainingAssessmentContentForm {
 	return NewTrainingAssessmentContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -43937,6 +47378,9 @@ func (x *TrainingDeliverableRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TrainingDeliverableRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -43979,6 +47423,9 @@ func (x *TrainingDeliverables) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TrainingDeliverables) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44029,6 +47476,9 @@ func NewTrainingMaterials(doc *som.SpecDocument, path string) *TrainingMaterials
 	return &TrainingMaterials{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TrainingMaterials) Content() *TrainingMaterialsContentForm {
 	return NewTrainingMaterialsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44058,6 +47508,9 @@ func NewTrainingModuleEntry(doc *som.SpecDocument, path string) *TrainingModuleE
 	return &TrainingModuleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TrainingModuleEntry) Content() *TrainingModuleEntryContentForm {
 	return NewTrainingModuleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44080,6 +47533,9 @@ func (x *TrainingPrototype) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TrainingPrototype) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44128,6 +47584,9 @@ func (x *TrainingRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TrainingRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44189,6 +47648,9 @@ func NewTrainingTopicEntry(doc *som.SpecDocument, path string) *TrainingTopicEnt
 	return &TrainingTopicEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TrainingTopicEntry) Content() *TrainingTopicEntryContentForm {
 	return NewTrainingTopicEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44203,6 +47665,9 @@ func NewTransitionCommunicationChannels(doc *som.SpecDocument, path string) *Tra
 	return &TransitionCommunicationChannels{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionCommunicationChannels) Content() *TransitionCommunicationChannelsContentForm {
 	return NewTransitionCommunicationChannelsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44223,6 +47688,9 @@ func (x *TransitionCommunicationPlan) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionCommunicationPlan) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44260,6 +47728,9 @@ func NewTransitionEscalationPaths(doc *som.SpecDocument, path string) *Transitio
 	return &TransitionEscalationPaths{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionEscalationPaths) Content() *TransitionEscalationPathsContentForm {
 	return NewTransitionEscalationPathsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44274,6 +47745,9 @@ func NewTransitionMetricEntry(doc *som.SpecDocument, path string) *TransitionMet
 	return &TransitionMetricEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionMetricEntry) Content() *TransitionMetricEntryContentForm {
 	return NewTransitionMetricEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44298,6 +47772,9 @@ func NewTransitionMilestoneEntry(doc *som.SpecDocument, path string) *Transition
 	return &TransitionMilestoneEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionMilestoneEntry) Content() *TransitionMilestoneEntryContentForm {
 	return NewTransitionMilestoneEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44327,6 +47804,9 @@ func NewTransitionOverview(doc *som.SpecDocument, path string) *TransitionOvervi
 	return &TransitionOverview{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionOverview) Content() *TransitionOverviewContentForm {
 	return NewTransitionOverviewContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44351,6 +47831,9 @@ func NewTransitionPhaseActivities(doc *som.SpecDocument, path string) *Transitio
 	return &TransitionPhaseActivities{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionPhaseActivities) Content() *TransitionPhaseActivitiesContentForm {
 	return NewTransitionPhaseActivitiesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44373,6 +47856,9 @@ func (x *TransitionPhaseEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionPhaseEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44415,6 +47901,9 @@ func NewTransitionPhaseIdentification(doc *som.SpecDocument, path string) *Trans
 	return &TransitionPhaseIdentification{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionPhaseIdentification) Content() *TransitionPhaseIdentificationContentForm {
 	return NewTransitionPhaseIdentificationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44439,6 +47928,9 @@ func NewTransitionPhaseStakeholders(doc *som.SpecDocument, path string) *Transit
 	return &TransitionPhaseStakeholders{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionPhaseStakeholders) Content() *TransitionPhaseStakeholdersContentForm {
 	return NewTransitionPhaseStakeholdersContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44453,6 +47945,9 @@ func NewTransitionRiskEntry(doc *som.SpecDocument, path string) *TransitionRiskE
 	return &TransitionRiskEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionRiskEntry) Content() *TransitionRiskEntryContentForm {
 	return NewTransitionRiskEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44483,6 +47978,9 @@ func (x *TransitionSuccessMetrics) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionSuccessMetrics) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44513,6 +48011,9 @@ func NewTransitionSupportResourceEntry(doc *som.SpecDocument, path string) *Tran
 	return &TransitionSupportResourceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionSupportResourceEntry) Content() *TransitionSupportResourceEntryContentForm {
 	return NewTransitionSupportResourceEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44533,6 +48034,9 @@ func (x *TransitionSupportStructure) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransitionSupportStructure) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44578,6 +48082,9 @@ func (x *TranslationProcess) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TranslationProcess) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44642,6 +48149,9 @@ func (x *TranslationRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TranslationRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44691,6 +48201,9 @@ func NewTranslationVendorEntry(doc *som.SpecDocument, path string) *TranslationV
 	return &TranslationVendorEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TranslationVendorEntry) Content() *TranslationVendorEntryContentForm {
 	return NewTranslationVendorEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44715,6 +48228,9 @@ func (x *TransportSecurityPolicy) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TransportSecurityPolicy) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44736,6 +48252,9 @@ func NewTroubleshootingCapabilities(doc *som.SpecDocument, path string) *Trouble
 	return &TroubleshootingCapabilities{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TroubleshootingCapabilities) Content() *TroubleshootingCapabilitiesContentForm {
 	return NewTroubleshootingCapabilitiesContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44774,6 +48293,9 @@ func (x *TrustBoundaries) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TrustBoundaries) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -44799,6 +48321,9 @@ func NewTrustBoundaryEntry(doc *som.SpecDocument, path string) *TrustBoundaryEnt
 	return &TrustBoundaryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TrustBoundaryEntry) Content() *TrustBoundaryEntryContentForm {
 	return NewTrustBoundaryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44813,6 +48338,9 @@ func NewTypographyStyleEntry(doc *som.SpecDocument, path string) *TypographyStyl
 	return &TypographyStyleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *TypographyStyleEntry) Content() *TypographyStyleEntryContentForm {
 	return NewTypographyStyleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44827,6 +48355,9 @@ func NewUIRequirementsPreview(doc *som.SpecDocument, path string) *UIRequirement
 	return &UIRequirementsPreview{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UIRequirementsPreview) Content() *UIRequirementsPreviewContentForm {
 	return NewUIRequirementsPreviewContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44848,6 +48379,9 @@ func NewUatTestCycleEntry(doc *som.SpecDocument, path string) *UatTestCycleEntry
 	return &UatTestCycleEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UatTestCycleEntry) Content() *UatTestCycleEntryContentForm {
 	return NewUatTestCycleEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44876,6 +48410,9 @@ func NewUatTestStepEntry(doc *som.SpecDocument, path string) *UatTestStepEntry {
 	return &UatTestStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UatTestStepEntry) Content() *UatTestStepEntryContentForm {
 	return NewUatTestStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -44900,6 +48437,9 @@ func (x *UiComponentEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UiComponentEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45073,6 +48613,9 @@ func (x *UiComponents) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UiComponents) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45143,6 +48686,9 @@ func (x *UpgradeCycleFramework) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UpgradeCycleFramework) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45161,6 +48707,9 @@ func NewUsability(doc *som.SpecDocument, path string) *Usability {
 	return &Usability{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *Usability) Content() *UsabilityContentForm {
 	return NewUsabilityContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -45203,6 +48752,9 @@ func NewUseCaseExtensions(doc *som.SpecDocument, path string) *UseCaseExtensions
 	return &UseCaseExtensions{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UseCaseExtensions) Content() *UseCaseExtensionsContentForm {
 	return NewUseCaseExtensionsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -45232,6 +48784,9 @@ func (x *UseCaseTraceability) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UseCaseTraceability) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45255,6 +48810,9 @@ func NewUserAcceptanceTesting(doc *som.SpecDocument, path string) *UserAcceptanc
 	return &UserAcceptanceTesting{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserAcceptanceTesting) Content() *UserAcceptanceTestingContentForm {
 	return NewUserAcceptanceTestingContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -45349,6 +48907,9 @@ func (x *UserAccessPermissions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserAccessPermissions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45397,6 +48958,9 @@ func (x *UserAccessibilityNeeds) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserAccessibilityNeeds) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45429,6 +48993,9 @@ func (x *UserAccountStatesDefinition) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserAccountStatesDefinition) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45459,6 +49026,9 @@ func (x *UserAssistance) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserAssistance) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45516,6 +49086,9 @@ func NewUserAttributeEntry(doc *som.SpecDocument, path string) *UserAttributeEnt
 	return &UserAttributeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserAttributeEntry) Content() *UserAttributeEntryContentForm {
 	return NewUserAttributeEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -45536,6 +49109,9 @@ func (x *UserAttributes) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserAttributes) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45570,6 +49146,9 @@ func (x *UserAuthorization) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserAuthorization) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45631,6 +49210,9 @@ func NewUserCategoryDefinition(doc *som.SpecDocument, path string) *UserCategory
 	return &UserCategoryDefinition{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserCategoryDefinition) Content() *UserCategoryDefinitionContentForm {
 	return NewUserCategoryDefinitionContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -45648,6 +49230,9 @@ func NewUserCategoryEntry(doc *som.SpecDocument, path string) *UserCategoryEntry
 	return &UserCategoryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserCategoryEntry) Content() *UserCategoryEntryContentForm {
 	return NewUserCategoryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -45722,6 +49307,9 @@ func (x *UserDocumentationRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserDocumentationRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45761,6 +49349,9 @@ func NewUserGroupImpactEntry(doc *som.SpecDocument, path string) *UserGroupImpac
 	return &UserGroupImpactEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserGroupImpactEntry) Content() *UserGroupImpactEntryContentForm {
 	return NewUserGroupImpactEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -45775,6 +49366,9 @@ func NewUserGrowthProjections(doc *som.SpecDocument, path string) *UserGrowthPro
 	return &UserGrowthProjections{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserGrowthProjections) Content() *UserGrowthProjectionsContentForm {
 	return NewUserGrowthProjectionsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -45815,6 +49409,9 @@ func (x *UserInteractionModel) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserInteractionModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45901,6 +49498,9 @@ func (x *UserJourney) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserJourney) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -45968,6 +49568,9 @@ func (x *UserLifecycle) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserLifecycle) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46039,6 +49642,9 @@ func NewUserLifecycleTransitionEntry(doc *som.SpecDocument, path string) *UserLi
 	return &UserLifecycleTransitionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserLifecycleTransitionEntry) Content() *UserLifecycleTransitionEntryContentForm {
 	return NewUserLifecycleTransitionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46077,6 +49683,9 @@ func (x *UserLifecycleTransitions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserLifecycleTransitions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46114,6 +49723,9 @@ func (x *UserManagement) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserManagement) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46161,6 +49773,9 @@ func (x *UserManual) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserManual) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46213,6 +49828,9 @@ func (x *UserPersonaDetails) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserPersonaDetails) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46276,6 +49894,9 @@ func (x *UserPersonas) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserPersonas) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46304,6 +49925,9 @@ func NewUserProvisioningTools(doc *som.SpecDocument, path string) *UserProvision
 	return &UserProvisioningTools{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserProvisioningTools) Content() *UserProvisioningToolsContentForm {
 	return NewUserProvisioningToolsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46343,6 +49967,9 @@ func (x *UserRegistrationProcess) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserRegistrationProcess) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46371,6 +49998,9 @@ func NewUserSettingEntry(doc *som.SpecDocument, path string) *UserSettingEntry {
 	return &UserSettingEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserSettingEntry) Content() *UserSettingEntryContentForm {
 	return NewUserSettingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46402,6 +50032,9 @@ func (x *UserSettings) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserSettings) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46435,6 +50068,9 @@ func (x *UserTrainingRequirements) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UserTrainingRequirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46467,6 +50103,9 @@ func NewUtilityMenuItemEntry(doc *som.SpecDocument, path string) *UtilityMenuIte
 	return &UtilityMenuItemEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UtilityMenuItemEntry) Content() *UtilityMenuItemEntryContentForm {
 	return NewUtilityMenuItemEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46506,6 +50145,9 @@ func (x *UtilityNavigation) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UtilityNavigation) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46534,6 +50176,9 @@ func NewUtilityNavigationItemEntry(doc *som.SpecDocument, path string) *UtilityN
 	return &UtilityNavigationItemEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *UtilityNavigationItemEntry) Content() *UtilityNavigationItemEntryContentForm {
 	return NewUtilityNavigationItemEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46582,6 +50227,9 @@ func (x *ValidationConstraints) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ValidationConstraints) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46608,6 +50256,9 @@ func (x *ValidationFeedback) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ValidationFeedback) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46671,6 +50322,9 @@ func NewValidationMessageTemplate(doc *som.SpecDocument, path string) *Validatio
 	return &ValidationMessageTemplate{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ValidationMessageTemplate) Content() *ValidationMessageTemplateContentForm {
 	return NewValidationMessageTemplateContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46694,6 +50348,9 @@ func (x *ValueProposition) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *ValueProposition) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46734,6 +50391,9 @@ func NewVersionControlConfiguration(doc *som.SpecDocument, path string) *Version
 	return &VersionControlConfiguration{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *VersionControlConfiguration) Content() *VersionControlConfigurationContentForm {
 	return NewVersionControlConfigurationContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46768,6 +50428,9 @@ func NewVirtualizationRequirements(doc *som.SpecDocument, path string) *Virtuali
 	return &VirtualizationRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *VirtualizationRequirements) Content() *VirtualizationRequirementsContentForm {
 	return NewVirtualizationRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46802,6 +50465,9 @@ func NewVolumeMetricEntry(doc *som.SpecDocument, path string) *VolumeMetricEntry
 	return &VolumeMetricEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *VolumeMetricEntry) Content() *VolumeMetricEntryContentForm {
 	return NewVolumeMetricEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46816,6 +50482,9 @@ func NewVpnRequirementEntry(doc *som.SpecDocument, path string) *VpnRequirementE
 	return &VpnRequirementEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *VpnRequirementEntry) Content() *VpnRequirementEntryContentForm {
 	return NewVpnRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46850,6 +50519,9 @@ func NewVulnerabilityManagementPolicy(doc *som.SpecDocument, path string) *Vulne
 	return &VulnerabilityManagementPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *VulnerabilityManagementPolicy) Content() *VulnerabilityManagementPolicyContentForm {
 	return NewVulnerabilityManagementPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46888,6 +50560,9 @@ func (x *WarrantyAndSupport) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WarrantyAndSupport) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -46906,6 +50581,9 @@ func NewWarrantyServiceLevels(doc *som.SpecDocument, path string) *WarrantyServi
 	return &WarrantyServiceLevels{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WarrantyServiceLevels) Content() *WarrantyServiceLevelsContentForm {
 	return NewWarrantyServiceLevelsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46923,6 +50601,9 @@ func NewWarrantyTerms(doc *som.SpecDocument, path string) *WarrantyTerms {
 	return &WarrantyTerms{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WarrantyTerms) Content() *WarrantyTermsContentForm {
 	return NewWarrantyTermsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -46978,6 +50659,9 @@ func (x *WcagCompliance) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WcagCompliance) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -47029,6 +50713,9 @@ func NewWcagSuccessCriterionEntry(doc *som.SpecDocument, path string) *WcagSucce
 	return &WcagSuccessCriterionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WcagSuccessCriterionEntry) Content() *WcagSuccessCriterionEntryContentForm {
 	return NewWcagSuccessCriterionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47049,6 +50736,9 @@ func (x *WeightedQualityMatrix) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WeightedQualityMatrix) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -47103,6 +50793,9 @@ func (x *WireframesAndMockups) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WireframesAndMockups) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -47123,6 +50816,9 @@ func NewWorkflowActorEntry(doc *som.SpecDocument, path string) *WorkflowActorEnt
 	return &WorkflowActorEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowActorEntry) Content() *WorkflowActorEntryContentForm {
 	return NewWorkflowActorEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47144,6 +50840,9 @@ func NewWorkflowBusinessRule(doc *som.SpecDocument, path string) *WorkflowBusine
 	return &WorkflowBusinessRule{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowBusinessRule) Content() *WorkflowBusinessRuleContentForm {
 	return NewWorkflowBusinessRuleContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47158,6 +50857,9 @@ func NewWorkflowDecisionPoint(doc *som.SpecDocument, path string) *WorkflowDecis
 	return &WorkflowDecisionPoint{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowDecisionPoint) Content() *WorkflowDecisionPointContentForm {
 	return NewWorkflowDecisionPointContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47184,6 +50886,9 @@ func (x *WorkflowDescriptions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowDescriptions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -47223,6 +50928,9 @@ func NewWorkflowExceptionEntry(doc *som.SpecDocument, path string) *WorkflowExce
 	return &WorkflowExceptionEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowExceptionEntry) Content() *WorkflowExceptionEntryContentForm {
 	return NewWorkflowExceptionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47243,6 +50951,9 @@ func (x *WorkflowExceptions) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowExceptions) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -47268,6 +50979,9 @@ func NewWorkflowInputEntry(doc *som.SpecDocument, path string) *WorkflowInputEnt
 	return &WorkflowInputEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowInputEntry) Content() *WorkflowInputEntryContentForm {
 	return NewWorkflowInputEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47282,6 +50996,9 @@ func NewWorkflowOutputEntry(doc *som.SpecDocument, path string) *WorkflowOutputE
 	return &WorkflowOutputEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowOutputEntry) Content() *WorkflowOutputEntryContentForm {
 	return NewWorkflowOutputEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47298,6 +51015,9 @@ func NewWorkflowStepEntry(doc *som.SpecDocument, path string) *WorkflowStepEntry
 	return &WorkflowStepEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowStepEntry) Content() *WorkflowStepEntryContentForm {
 	return NewWorkflowStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47347,6 +51067,9 @@ func NewWorkflowStepIssue(doc *som.SpecDocument, path string) *WorkflowStepIssue
 	return &WorkflowStepIssue{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowStepIssue) Content() *WorkflowStepIssueContentForm {
 	return NewWorkflowStepIssueContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47367,6 +51090,9 @@ func (x *WorkflowStepSystem) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowStepSystem) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -47403,6 +51129,9 @@ func NewWorkflowSummaryEntry(doc *som.SpecDocument, path string) *WorkflowSummar
 	return &WorkflowSummaryEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowSummaryEntry) Content() *WorkflowSummaryEntryContentForm {
 	return NewWorkflowSummaryEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47417,6 +51146,9 @@ func NewWorkflowSummaryTable(doc *som.SpecDocument, path string) *WorkflowSummar
 	return &WorkflowSummaryTable{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowSummaryTable) Content() *WorkflowSummaryTableContentForm {
 	return NewWorkflowSummaryTableContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47438,6 +51170,9 @@ func NewWorkflowTriggerEntry(doc *som.SpecDocument, path string) *WorkflowTrigge
 	return &WorkflowTriggerEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowTriggerEntry) Content() *WorkflowTriggerEntryContentForm {
 	return NewWorkflowTriggerEntryContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47458,6 +51193,9 @@ func (x *WorkflowTriggers) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkflowTriggers) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -47493,6 +51231,9 @@ func (x *WorkplaceDescriptionEntry) CanHaveContent() bool {
 	return true
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkplaceDescriptionEntry) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -47541,6 +51282,9 @@ func NewWorkplaceSoftwareRequirements(doc *som.SpecDocument, path string) *Workp
 	return &WorkplaceSoftwareRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkplaceSoftwareRequirements) Content() *WorkplaceSoftwareRequirementsContentForm {
 	return NewWorkplaceSoftwareRequirementsContentForm(x.Doc(), x.Path()+"/content")
 }
@@ -47565,6 +51309,9 @@ func NewWorkplaceSupportResources(doc *som.SpecDocument, path string) *Workplace
 	return &WorkplaceSupportResources{SomNode: som.NewSomNode(doc, path)}
 }
 
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
 func (x *WorkplaceSupportResources) Content() *WorkplaceSupportResourcesContentForm {
 	return NewWorkplaceSupportResourcesContentForm(x.Doc(), x.Path()+"/content")
 }

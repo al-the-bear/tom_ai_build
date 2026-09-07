@@ -81,6 +81,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Formal acceptance criteria that must be met for project sign-off.\nCovers functional, non-functional, documentation, and training criteria.\nEach criterion must be:\n- Objectively verifiable (measurable or binary pass/fail)\n- Traceable to a requirement or deliverable\n- Assigned a verification method and responsible verifier\n- Categorized by type and priority\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -134,6 +135,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the acceptance framework before the must-pass, quality-gate and detailed-criteria subsections below. Cover who accepts, and on what evidence.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -253,6 +255,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AcceptanceCriterionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("given", "String", "Given (precondition/context)", false, "Precondition or context that holds before the action", 0),
             new SomFormFieldMeta("when", "String", "When (action/trigger)", false, "Action or trigger that occurs", 1),
@@ -291,6 +294,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Acceptance plan overview: defines how the project deliverables will be\nformally accepted by the client/business. Covers:\n- 14.2.1. Acceptance Criteria — what must be true for acceptance\n- 14.2.2. Acceptance Process — the workflow from testing to sign-off\n- 14.2.3. User Acceptance Testing — detailed UAT plan\n- 14.2.4. Defect Resolution — handling defects found during acceptance\n- 14.2.5. Sign-off Process — formal approval workflow\n- 14.2.6. Warranty — post-acceptance support terms\n\nSeeds the QAP (Quality & Acceptance Plan) for comprehensive quality planning.\nAll criteria must be objectively measurable and verifiable.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("AcceptanceCriteriaList", s, AcceptanceCriteriaListNav::metaChildren, (r, c) -> {
@@ -414,6 +418,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AcceptanceProcess", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("processName", "String", "Process Name", false, "e.g. \"Formal Acceptance Process v2\"", 0),
             new SomFormFieldMeta("processOwner", "String", "Process Owner", false, "Role responsible for managing the acceptance process", 1),
@@ -586,6 +591,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AcceptanceStepEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "String", "Step Number", true, "Sequential number — e.g. 1, 2, 3", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What happens in this step", 1),
@@ -654,6 +660,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of the access channel landscape and how channels collectively serve the user base.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -722,6 +729,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the constraints layered on top of assignments — separation of duties, time windows, network or device conditions, risk signals — and what triggers each.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -762,6 +770,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the access-control model: identities, authentication, resource protection, authorization, and roles.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("UserManagement", s, UserManagementNav::metaChildren, (r, c) -> {
@@ -871,6 +880,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "State the model chosen and the alternatives rejected, with the reasoning. This choice constrains everything below it, so record what would have to change to revisit it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -910,6 +920,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AccessLevelEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("levelRank", "int", "Level Rank", false, "Numeric rank (higher = more permissions)", 0)));
         out.add(n);
@@ -993,6 +1004,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of the access-level model and how levels structure authorization across the system.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -1073,6 +1085,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AccessRestrictionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("restrictionType", "String", "Restriction Type", false, "Role | Geographic | Temporal | Contextual | DataBased", 0),
             new SomFormFieldMeta("restriction", "String", "Restriction", true, "The specific access restriction", 1),
@@ -1109,6 +1122,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define the distinct categories of users who interact with the system. Each\ncategory should reflect different trust levels, access patterns, and business\nrelationships.\n\n**Typical user categories include:**\n- **End Users / Customers** — external users with limited, self-service access\n- **Internal Employees** — staff with role-based access to business functions\n- **Administrators** — privileged users managing system configuration\n- **Partners / B2B Users** — external parties with contractual access\n- **Service Accounts** — non-human identities for automation and integrations\n- **Support / Helpdesk** — staff with elevated access for user assistance\n- **Auditors** — read-only access for compliance and review\n\n**For each category, document:**\n- Estimated user count and growth projections\n- Authentication requirements (MFA, SSO, certificates)\n- Typical access patterns and session duration\n- Onboarding and offboarding processes\n- Data sensitivity level accessible by this category\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -1162,6 +1176,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the accessibility commitment before the WCAG, checklist, keyboard and screen-reader subsections below. Cover the target conformance level and who verifies it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -1339,6 +1354,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AccessibilityCheckEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("checkItem", "String", "Check Item", true, "What is being checked", 0),
             new SomFormFieldMeta("checkDescription", "String", "Check Description", false, "Detailed description", 1),
@@ -1424,6 +1440,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the verification checklist before the individual items below. Cover when the checklist is run and who signs it off.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -1508,6 +1525,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AccessibilityStandardEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 0),
             new SomFormFieldMeta("conformanceLevel", "String", "Conformance Level", true, "A, AA, AAA for WCAG", 1),
@@ -1610,6 +1628,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the path from pending to active: who or what verifies, who approves, and what is provisioned on activation. Say what happens to accounts that are never activated.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -1651,6 +1670,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Distinguish suspension from deactivation in plain terms: what each does to sessions, data and integrations, and how each is reversed.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -1692,6 +1712,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what deletion actually removes and what is retained, and cite the retention obligation behind each exception. Right-to-be-forgotten requests are answered from this text.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -1733,6 +1754,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the throttling and lockout behaviour and how a locked-out user gets back in. Weigh it explicitly against a third party locking a known account on purpose.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -1774,6 +1796,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe which attribute changes are self-service, which need an administrator, and which trigger re-verification. Note the attributes that must never change once set.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -1813,6 +1836,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ActionParameterEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceType", "String", "Source Type (Field, Constant, Context, User)", true, "Field, Constant, Context, or User", 0),
             new SomFormFieldMeta("sourceValue", "String", "Source Value / Field ID", false, "Source value or field ID supplying the parameter", 1),
@@ -1844,6 +1868,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ActorCharacteristics", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("domainKnowledge", "String", "Domain Knowledge — expertise level required", false, "Describe the business/domain expertise the actor needs", 0),
             new SomFormFieldMeta("technicalSkills", "String", "Technical Skills — IT proficiency", false, "Rate the actor’s general IT and tooling proficiency", 1),
@@ -1914,6 +1939,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this actor — their working context, motivation and constraints, beyond the characteristics, goals and permissions recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -2069,6 +2095,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ActorGoals", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("summaryGoals", "String", "Summary Goals — high-level organizational goals", false, "Capture high-level organisational goals at summary level", 0),
             new SomFormFieldMeta("userGoals", "String", "User Goals — main goals actor wants to achieve", false, "List the actor’s main user-level goals", 1),
@@ -2107,6 +2134,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Actors represent roles that interact with the system. Following UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.\n\n**Actor Categories:**\n- Primary — actors who initiate interactions to achieve goals\n- Secondary — actors who support primary actors\n- Offstage — stakeholders with interests but no direct interaction\n- System — external systems that interact via APIs/integrations\n- Timer/Scheduled — time-triggered automated actors\n\n**For Each Actor Document:**\n- Identification (ID, name, type, category, organizational unit)\n- Characteristics (skills, usage patterns, accessibility needs)\n- Goals (summary/user/subfunction goals, pain points, motivations)\n- Permissions (security clearance, RBAC roles, approval limits)\n- Technology profile (channels, devices, authentication methods)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -2199,6 +2227,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ActorPermissions", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("securityClearance", "String", "Security Clearance — data access level", false, "State the actor’s security clearance or data access level", 0),
             new SomFormFieldMeta("roleBasedPermissions", "String", "Role-Based Permissions — RBAC roles", false, "List the RBAC roles assigned to the actor", 1),
@@ -2237,6 +2266,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the actor landscape before the hierarchy and actor-system diagrams below. Cover which actors are human, which are systems, and how they generalize.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -2306,6 +2336,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AdminInterfaceRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("adminPortalType", "String", "Admin Portal Type", true, "Web dashboard, CLI, API, mobile", 0),
             new SomFormFieldMeta("adminPortalUrl", "String", "Admin Portal URL", false, "Dedicated admin subdomain or path", 1),
@@ -2395,6 +2426,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of administration requirements.\n\n**Include**:\n- Admin interface scope and features\n- Configuration management approach\n- User provisioning workflow\n- Secrets management strategy\n- Admin team access model\n\n**Best Practices**:\n- Implement least-privilege admin access\n- Audit all administrative actions\n- Automate common admin tasks\n- Provide self-service where safe\n- Regular admin access reviews\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -2533,6 +2565,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AdministrativeEventPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("logConfigurationChanges", "String", "Log Configuration Changes", false, "Yes / No — whether system configuration changes are logged", 0),
             new SomFormFieldMeta("logUserAdministration", "String", "Log User Administration", false, "Yes / No — whether user account administration is logged", 1),
@@ -2580,6 +2613,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AffectedDepartmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("departmentHead", "String", "Department Head", false, "Person leading the department", 0),
             new SomFormFieldMeta("employeeCount", "int", "Employee Count", false, "Number of employees in the department", 1),
@@ -2616,6 +2650,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AffectedFunctionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("triggerPoint", "String", "Trigger Point", false, "When in the function rule is triggered", 0),
             new SomFormFieldMeta("impact", "String", "Impact", false, "How the function is impacted", 1),
@@ -2661,6 +2696,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AffectedObjectEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("affectedAttributes", "String", "Affected Attributes", false, "Specific attributes affected", 0),
             new SomFormFieldMeta("impact", "String", "Impact", false, "How the object is impacted: Validated | Constrained | Modified | Created", 1),
@@ -2706,6 +2742,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AlertDefinitionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("alertDescription", "String", "Alert Description", false, "What this alert means", 0),
             new SomFormFieldMeta("severity", "String", "Severity", false, "Critical, Warning, Info", 1),
@@ -2791,6 +2828,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AlertEscalationPolicies", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("level1Responder", "String", "Level 1 Responder", false, "Primary on-call, response time", 0),
             new SomFormFieldMeta("level2Responder", "String", "Level 2 Responder", false, "Escalation if L1 no response", 1),
@@ -2875,6 +2913,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AlertNotificationChannels", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("pagingService", "String", "Paging Service", false, "PagerDuty, Opsgenie, VictorOps", 0),
             new SomFormFieldMeta("slackIntegration", "String", "Slack Integration", false, "Channel for alerts (#alerts, #incidents)", 1),
@@ -2959,6 +2998,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AlertRuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("alertDescription", "String", "Alert Description", false, "What this alert detects and why it matters", 0),
             new SomFormFieldMeta("severity", "String", "Severity", false, "Critical, Warning, Info", 1),
@@ -3043,6 +3083,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AlertSuppressionRules", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scheduledMaintenanceWindows", "String", "Scheduled Maintenance Windows", false, "Recurring maintenance window times", 0),
             new SomFormFieldMeta("adHocMaintenanceProcess", "String", "Ad-Hoc Maintenance Process", false, "How to create one-time maintenance windows", 1),
@@ -3083,6 +3124,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the alerting approach before the channel, rule, escalation and on-call subsections below. Cover what warrants an alert at all, and the noise-versus-coverage balance the rules aim for.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -3237,6 +3279,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AlertingRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("alertChannels", "String", "Alert Channels", false, "Email, Slack, PagerDuty", 0),
             new SomFormFieldMeta("primaryChannel", "String", "Primary Channel", false, "Primary alert channel", 1),
@@ -3338,6 +3381,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AlternativeFlowEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("flowType", "String", "Flow Type — alternative, exception, error", false, "One of alternative, exception, or error", 0),
             new SomFormFieldMeta("branchPoint", "String", "Branch Point — main-flow step", true, "The main-flow step this branch diverges at, as that step's section id (SCNST-STEP-…). The branch is taken instead of that step, so name the step the trigger condition is evaluated before — not the step before it, and not a restated step number.", 1, java.util.List.of(), java.util.List.of("SCNST.@sectionId")),
@@ -3413,6 +3457,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AlternativeStepEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "String", "Step Number", false, "Sequential position within the alternative flow", 0),
             new SomFormFieldMeta("action", "String", "Action", false, "The action taken in this step", 1),
@@ -3469,6 +3514,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AnomalyDetectionPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("behaviorBaseline", "String", "Behavior Baseline", false, "How normal behavior baseline is established", 0),
             new SomFormFieldMeta("anomalyTypes", "String", "Anomaly Types", false, "Types of anomalies detected (e.g., unusual access time, volume, location)", 1),
@@ -3517,6 +3563,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the abuse this API is likely to attract — enumeration, scraping, brute force, business-flow abuse — and the control for each. Keep it distinct from ordinary rate limiting.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -3558,6 +3605,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how each class of API consumer proves identity — end users, partner systems, internal services, webhooks — and why the mechanism suits that consumer.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -3599,6 +3647,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how the system decides a caller may touch a specific object, not merely a specific endpoint. Object-level authorization is OWASP API1; say where it is enforced.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -3638,6 +3687,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ApiCompatibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("apiType", "String", "API Type", false, "REST, GraphQL, gRPC, SOAP, WebSocket", 0),
             new SomFormFieldMeta("version", "String", "Version", true, "Supported API versions", 1)));
@@ -3739,6 +3789,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "State which origins are permitted and why, and whether credentials cross the origin boundary. A wildcard origin needs an explicit justification here.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -3780,6 +3831,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how API keys are issued, scoped, rotated and revoked, and who owns each key. Say how a leaked key is detected and how quickly it can be killed.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -3821,6 +3873,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how request bodies and parameters are validated, and whether validation is allow-list or deny-list. Say what a rejected request receives back.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -3862,6 +3915,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define security controls for all APIs exposed by the system, including\npublic-facing APIs, internal microservices, and webhooks.\n\n**API authentication (OWASP API1:2023):**\n- OAuth 2.0 with appropriate grant types (authorization code, client credentials)\n- API keys for simple integrations (with rotation and rate limiting)\n- Mutual TLS for service-to-service communication\n- JWT validation: signature, expiration, audience, issuer\n\n**API authorization (OWASP API5:2023):**\n- Function-level access control (which endpoints user can call)\n- Object-level access control (which resources user can access)\n- Field-level filtering in responses\n\n**Request validation (OWASP API8:2023):**\n- Schema validation (JSON Schema, OpenAPI)\n- Input sanitization against injection attacks\n- Rate limiting and quota enforcement\n- Request size limits\n\n**CORS security:**\n- Explicit allowed origins (no wildcard for credentialed requests)\n- Allowed methods and headers explicitly listed\n- Preflight caching configuration\n\n**Abuse protection:**\n- Rate limiting per user/IP/API key\n- DDoS protection at edge (WAF, CDN)\n- Anomaly detection for API abuse patterns\n\n**Reference:**\n- OWASP API Security Top 10 (2023)\n- OWASP REST Security Cheat Sheet\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -3993,6 +4047,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what API telemetry is collected and which patterns raise an alert. Cover endpoint inventory too: OWASP API9 is about the endpoints nobody remembers deploying.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -4032,6 +4087,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ApiVersioningStrategy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("versioningScheme", "String", "Versioning Scheme", true, "URL path, header, query parameter", 0),
             new SomFormFieldMeta("versionFormat", "String", "Version Format", false, "v1, v2.0, semver, date-based", 1),
@@ -4116,6 +4172,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ApplicableRegulationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("regulationCode", "String", "Regulation Code / Reference", false, "The code or reference identifier for this regulation", 0),
             new SomFormFieldMeta("regulationType", "String", "Regulation Type (Privacy, Security, Financial, Industry, Data Retention, Accessibility)", true, "The category of regulation", 1),
@@ -4168,6 +4225,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ApplicationDiagnostics", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("infoEndpoint", "String", "Info Endpoint", false, "/info — build version, git commit, environment", 0),
             new SomFormFieldMeta("metricsEndpoint", "String", "Metrics Endpoint", false, "/metrics — Prometheus, OpenMetrics format", 1),
@@ -4252,6 +4310,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ApplicationMetricsSpec", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requestRate", "bool", "Request Rate", false, "Requests per second", 0),
             new SomFormFieldMeta("errorRate", "bool", "Error Rate", false, "Error percentage", 1),
@@ -4337,6 +4396,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ApplicationPerformanceMonitoring", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("apmPlatform", "String", "APM Platform", false, "Datadog APM, New Relic, Dynatrace", 0),
             new SomFormFieldMeta("instrumentationMethod", "String", "Instrumentation Method", false, "Auto, manual, hybrid", 1),
@@ -4439,6 +4499,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ApplicationSecurityRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("owaspTop10Compliance", "String", "OWASP Top 10 Compliance", true, "Current OWASP Top 10 version addressed", 0),
             new SomFormFieldMeta("injectionPrevention", "String", "Injection Prevention", false, "SQL injection, XSS, command injection measures", 1),
@@ -4524,6 +4585,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ApprovalRecord", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("role", "String", "Approver Role", true, "Governance role accountable for the sign-off, e.g. \"Sponsor\".", 0),
             new SomFormFieldMeta("date", "String", "Approval Date", false, "Date the approval was granted (ISO 8601).", 1),
@@ -4555,6 +4617,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ArchitectureComponentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentType", "String", "Component Type", true, "Service, Module, Library, Package, Microservice, Function", 0),
             new SomFormFieldMeta("domain", "String", "Domain", false, "Business domain this belongs to", 1)));
@@ -4670,6 +4733,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ArchitectureDecisionRecord", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("date", "String", "Date", true, "When the decision was made", 0),
             new SomFormFieldMeta("status", "String", "Status", true, "Proposed, Accepted, Deprecated, Superseded", 1)));
@@ -4771,6 +4835,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ArchitectureOverview", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryStyle", "String", "Primary Architecture Style", true, "Monolith, Modular Monolith, Microservices, Event-Driven, Serverless, Hybrid", 0),
             new SomFormFieldMeta("secondaryStyles", "String", "Secondary Styles", false, "Additional architectural patterns used", 1),
@@ -4871,6 +4936,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ArchitecturePrincipleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category", false, "Design, Implementation, Deployment, Security, Performance, Data", 0),
             new SomFormFieldMeta("statement", "String", "Statement", true, "Clear statement of the principle", 1)));
@@ -4940,6 +5006,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide the architectural vision and primary style selection rationale.\n\n**Include**:\n- Primary architectural style with justification\n- Key architectural drivers (business and technical)\n- Quality attribute requirements (availability, performance, security)\n- Architectural trade-offs accepted and their rationale\n- Evolution path and migration strategy\n\n**Best Practices**:\n- Use Architecture Trade-off Analysis Method (ATAM)\n- Document quality attribute scenarios with measurable targets\n- Consider Conway's Law and team organization\n- Plan for architectural fitness functions\n- Establish architectural governance process\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ArchitectureOverview", s, ArchitectureOverviewNav::metaChildren, (r, c) -> {
@@ -5146,6 +5213,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.unused = true;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -5242,6 +5310,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AssumptionRegisterEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", true, null, 0),
             new SomFormFieldMeta("impact", "String", "Impact if invalid", false, null, 1),
@@ -5275,6 +5344,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the key assumptions the solution relies on and the constraints it must operate within.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("AssumptionConstraintDependencyRegister", s, AssumptionConstraintDependencyRegisterNav::metaChildren, (r, c) -> {
@@ -5319,6 +5389,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define security audit and logging requirements. Comprehensive logging enables\nincident detection, forensic investigation, and compliance reporting.\n\n**Logging objectives:**\n- Detect security incidents in real-time or near-real-time\n- Support forensic investigation after incidents\n- Demonstrate compliance to auditors\n- Enable trend analysis and security posture improvement\n\n**Key event categories:**\n- Authentication events (login success/failure, logout, MFA)\n- Authorization events (access granted/denied, privilege changes)\n- Data access events (CRUD operations on sensitive data)\n- Administrative events (config changes, user management)\n- Security events (input validation failures, anomalies)\n\n**Log format:**\n- Structured format (JSON) for machine parsing\n- Consistent timestamp format (ISO 8601 UTC)\n- Unique event IDs for correlation\n- Who, what, when, where, result for each event\n\n**Log protection:**\n- Immutable logs (append-only, write-once storage)\n- Integrity protection (hashing, signing)\n- Access control (limited read access, no delete)\n\n**Retention and compliance:**\n- Define retention periods per log type and regulation\n- PCI DSS: 1 year online, 3 months immediately available\n- HIPAA: 6 years for covered entity records\n- Secure deletion after retention period\n\n**Reference:**\n- OWASP Logging Cheat Sheet\n- NIST SP 800-92: Guide to Computer Security Log Management\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("SecurityEventsDefinition", s, SecurityEventsDefinitionNav::metaChildren, (r, c) -> {
@@ -5376,6 +5447,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AuditEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("auditType", "String", "Type (Internal/External)", false, "Whether the audit is internal or external", 0),
             new SomFormFieldMeta("auditor", "String", "Auditor", false, "Person or body conducting the audit", 1),
@@ -5410,6 +5482,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AuditEvidenceRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("documentationStandards", "String", "Documentation Standards", false, "Standards audit evidence documentation must follow", 0),
             new SomFormFieldMeta("retentionPeriod", "String", "Retention Period", false, "How long audit evidence must be retained", 1),
@@ -5466,6 +5539,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AuditEvidenceTypeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("evidenceType", "String", "Evidence Type", true, "Kind of audit evidence, e.g. logs, reports, sign-offs", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What this evidence demonstrates", 1),
@@ -5500,6 +5574,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define the structure and format of audit log entries for consistency,\nparsability, and forensic utility.\n\n**Essential fields (W5H):**\n- **When**: ISO 8601 timestamp in UTC (e.g., 2024-01-15T14:30:00.123Z)\n- **Who**: User ID, username, session ID, IP address, user agent\n- **What**: Action performed, event type, target resource\n- **Where**: Application, service, endpoint, server instance\n- **Result**: Success/failure, HTTP status, error code, error message\n- **How**: Method used (API, UI, batch), request ID for correlation\n\n**Format requirements:**\n- JSON preferred for machine parsing\n- Human-readable for investigation (pretty-print option)\n- Schema-validated for consistency\n- Version field for format evolution\n\n**Sensitive data handling:**\n- Never log passwords, tokens, or secrets\n- Mask or truncate PII (show last 4 of card numbers)\n- Log references to sensitive data, not the data itself\n\n**Log storage:**\n- Centralized log aggregation (ELK, Splunk, CloudWatch)\n- Separate storage from application data\n- Cross-region replication for availability\n- Name the storage *policy* here, never a credential to reach it. The fields in\n  this band are settings the model already names, so they carry values only and\n  cannot be marked secret. A remote sink's password or access key is authored as\n  its own server configuration setting entry (SCSET, under System Configuration\n  Management), which is the one place a secret may be declared.\n\n**Log protection:**\n- Append-only storage (no modification or deletion)\n- Integrity verification (hash chains, signing)\n- Encryption at rest and in transit\n- Access logging for audit logs (who viewed logs)\n\n**Retention policy:**\n- Define per-event-type retention periods\n- Comply with regulatory requirements (PCI: 1y, HIPAA: 6y)\n- Secure deletion after retention period expires\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("EventAttributePolicy", s, EventAttributePolicyNav::metaChildren, (r, c) -> {
@@ -5600,6 +5675,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of audit requirements and approach.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -5668,6 +5744,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of the authentication subsystem: methods supported, credential\npolicies, session management, and authentication flows.\n\n**This section covers:**\n- Authentication methods (passwords, MFA, SSO, certificates, biometrics)\n- Authentication flow (login lifecycle, token issuance, session creation)\n- Password and credential policy (complexity, rotation, recovery)\n- Session management (timeouts, concurrent sessions, revocation)\n\n**Design principles:**\n- Defense in depth — multiple authentication layers\n- Fail-secure — authentication failures deny access\n- Secure by default — strongest available method for each user category\n- Transparency — clear feedback on authentication requirements\n\n**Implementation considerations:**\n- Support for both web and native application authentication\n- API authentication (tokens, API keys, mutual TLS)\n- Service-to-service authentication (workload identity)\n- Authentication event logging for security monitoring\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("AuthenticationMethods", s, AuthenticationMethodsNav::metaChildren, (r, c) -> {
@@ -5757,6 +5834,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what the user sees on each class of failure and what the system records. The rule to state explicitly is how much the message may reveal about why authentication failed.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -5796,6 +5874,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AuthenticationEventPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("logSuccessfulLogins", "String", "Log Successful Logins", false, "Yes / No — whether successful logins are logged", 0),
             new SomFormFieldMeta("logFailedLogins", "String", "Log Failed Logins", false, "Yes / No — whether failed login attempts are logged", 1),
@@ -5845,6 +5924,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Document the end-to-end authentication flow from initial login request to\nestablished session. Include sequence diagrams for clarity.\n\n**Flow phases:**\n1. **Initiation**: User navigates to protected resource or login page\n2. **Identification**: Username/email entry, account lookup\n3. **Primary Authentication**: Password or primary credential verification\n4. **Step-Up Authentication**: MFA challenge if required\n5. **Token Issuance**: Generate access token, refresh token, ID token\n6. **Session Establishment**: Create server-side session, set cookies\n7. **Redirect**: Return user to requested resource\n\n**Error handling:**\n- Invalid credentials → lockout progression, brute-force protection\n- MFA failure → retry limits, fallback methods\n- Session conflicts → concurrent session policy enforcement\n- Token errors → silent refresh, re-authentication prompts\n\n**Security considerations:**\n- CSRF protection on login forms\n- Timing-safe credential comparison\n- Secure cookie attributes (HttpOnly, Secure, SameSite)\n- OAuth 2.0 PKCE for public clients\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -6010,6 +6090,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AuthenticationMethodEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("methodType", "String", "Method Type", false, "Password | TOTP | HOTP | FIDO2 | WebAuthn | SmartCard | Push | SMS | Email | Biometric | APIKey | Certificate", 0),
             new SomFormFieldMeta("authenticationFactor", "String", "Authentication Factor", false, "Knowledge | Possession | Inherence — NIST factor category", 1)));
@@ -6114,6 +6195,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Document all authentication methods supported by the system and their\napplicability to different user categories and use cases.\n\n**Primary authentication methods:**\n- **Passwords**: Traditional knowledge-based authentication\n- **Multi-Factor Authentication (MFA)**:\n  - Something you have: TOTP, SMS, push notifications, hardware tokens\n  - Something you are: fingerprint, face recognition, voice\n- **Single Sign-On (SSO)**: SAML 2.0, OpenID Connect, WS-Federation\n- **Certificates**: X.509 client certificates, smart cards, PIV\n- **Passwordless**: FIDO2/WebAuthn, magic links, passkeys\n\n**Per-method considerations:**\n- Required AAL level (AAL1/AAL2/AAL3)\n- Supported platforms (web, mobile, desktop, API)\n- User enrollment and recovery procedures\n- Fallback authentication for method unavailability\n- Phishing resistance and replay attack protection\n\n**Reference:**\n- NIST SP 800-63B Section 5: Authenticator and Verifier Requirements\n- OWASP Authentication Cheat Sheet\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -6253,6 +6335,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the authorization-compliance follow-up: UI adaptation to roles and permissions.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -6292,6 +6375,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AuthorizationEventPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("logAccessGranted", "String", "Log Access Granted", false, "Yes / No / Sensitive-Only — whether access grants are logged", 0),
             new SomFormFieldMeta("logAccessDenied", "String", "Log Access Denied", false, "Yes / No — whether access denial events are logged", 1),
@@ -6338,6 +6422,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AuthorizationGroupEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Short description", false, "Purpose of the group and the access it confers", 0),
             new SomFormFieldMeta("membershipCriteria", "String", "Membership Criteria", false, "Rule or attribute condition determining who belongs to this group (e.g. department = Finance)", 1)));
@@ -6394,6 +6479,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define the authorization model that governs who can do what in the system.\n\n**Access control models:**\n- **RBAC (Role-Based)**: Permissions assigned to roles; users assigned to roles\n  - Simple, auditable, good for well-defined job functions\n  - Risk of role explosion in complex organizations\n- **ABAC (Attribute-Based)**: Decisions based on user/resource/environment attributes\n  - Flexible, dynamic, supports complex policies\n  - XACML/ALFA policy languages; NIST SP 800-162\n- **ReBAC (Relationship-Based)**: Permissions based on relationships (e.g., \"owner of\")\n  - Natural for social apps, document sharing, organizational hierarchies\n  - Examples: Google Zanzibar, OpenFGA, Ory Keto\n- **Hybrid**: Combine models for different resource types\n\n**Permission granularity:**\n- Function-level: can user invoke this operation?\n- Data-level: can user access this resource instance?\n- Field-level: which fields can user read/write?\n\n**Permission composition:**\n- Additive: user gets union of all granted permissions\n- Deny-overrides: explicit deny supersedes grants\n- Most-specific-wins: closest match takes precedence\n\n**Evaluation behavior:**\n- Default-deny: no access unless explicitly granted\n- Fail-closed: errors result in access denied\n- Decision caching and invalidation strategy\n\n**Reference:**\n- NIST RBAC Model (NIST SP 800-207)\n- NIST ABAC Guide (NIST SP 800-162)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("AccessControlModelSelection", s, AccessControlModelSelectionNav::metaChildren, (r, c) -> {
@@ -6509,6 +6595,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "What a caller must satisfy to reach the guarded thing.\n\n**State it explicitly.** There is no default requirement. A guarded thing with\nno requirement authored is a specification defect, not an open door.\n\n**Pick the narrowest kind that says what you mean.** *Role* and *Resource Key*\nname entries in the security catalogues and are checked against them. *Group*\nand *Entitlement* match runtime principal data, so they are free-text and cannot\nbe checked at specification time — prefer a catalogued kind where one fits.\n\n**Graded** is for a thing that is not simply reachable or unreachable but has\ndegrees — hidden, visible-but-locked, readable, fully interactive. Use it only\nwhen the degrees genuinely differ; a thing that is either reachable or not is\none of the other nine kinds.\n\n**Do not author what the framework fixes.** How an unmet requirement renders —\nhidden, disabled, read-only — follows from the access state and is fixed by the\nframework. It is not something to restate per site.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requirementKind", "AuthorizationRequirementKind", "Requirement Kind", true, "What the caller must satisfy — selects the payload subsection below. Denied | Public | Authenticated | Guest carry no payload.", 0, java.util.List.of("role", "group", "entitlement", "resourceKey", "custom", "graded", "denied", "public", "authenticated", "guest")),
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this requirement and not a wider or narrower one", 1)));
@@ -6632,6 +6719,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AuthorizationRoleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleName", "String", "Role Name", true, "Unique name of the authorization role (e.g. FinanceApprover)", 0),
             new SomFormFieldMeta("description", "String", "Short description", false, "Purpose of the role and the access it grants", 1),
@@ -6878,6 +6966,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Availability", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("uptimeTargetPercentage", "String", "Uptime Target %", false, "99.9% (8.76h/year downtime)", 0),
             new SomFormFieldMeta("uptimeCalculationMethod", "String", "Uptime Calculation Method", false, "Excluding planned, including all", 1),
@@ -6991,6 +7080,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of backup and recovery strategy.\n\n**Include**:\n- Backup architecture and technologies\n- RPO/RTO targets by system/data type\n- Disaster recovery strategy and tier\n- Testing and verification schedule\n- Compliance requirements for data retention\n\n**Best Practices**:\n- Automate backup verification\n- Test restores regularly (quarterly minimum)\n- Document step-by-step recovery procedures\n- Cross-train team on recovery operations\n- Review and update DR plan annually\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -7159,6 +7249,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BackupCompliance", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("regulatoryRequirements", "String", "Regulatory Requirements", false, "GDPR, HIPAA, SOX etc.", 0),
             new SomFormFieldMeta("retentionCompliance", "String", "Retention Compliance", false, "Legal retention requirements", 1),
@@ -7244,6 +7335,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BackupDataClassification", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criticalData", "String", "Critical Data", false, "Data requiring highest protection", 0),
             new SomFormFieldMeta("highPriorityData", "String", "High Priority Data", false, "Important business data", 1),
@@ -7315,6 +7407,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how backups are encrypted and where those keys live — a backup encrypted with a key stored beside it is not encrypted. Say how restore is tested.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -7354,6 +7447,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BackupInfrastructure", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryStorage", "String", "Primary Backup Storage", false, "Primary storage system", 0),
             new SomFormFieldMeta("storageType", "String", "Storage Type", false, "Object, block, tape", 1),
@@ -7458,6 +7552,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BackupPolicyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataScope", "String", "Data Scope", false, "What this policy covers", 0),
             new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, High, Medium, Low", 1)));
@@ -7562,6 +7657,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BackupVerification", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("verificationFrequency", "String", "Verification Frequency", false, "How often to verify", 0),
             new SomFormFieldMeta("verificationMethod", "String", "Verification Method", false, "Checksum, test restore", 1),
@@ -7647,6 +7743,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BackwardsCompatibilityRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("compatibilityPolicy", "String", "Compatibility Policy", false, "How many versions supported", 0),
             new SomFormFieldMeta("breakingChangePolicy", "String", "Breaking Change Policy", false, "When breaking changes allowed", 1),
@@ -7747,6 +7844,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BandwidthRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalBandwidth", "String", "Total Bandwidth Required", false, "Total bandwidth capacity", 0),
             new SomFormFieldMeta("peakBandwidth", "String", "Peak Bandwidth", false, "Peak bandwidth requirements", 1),
@@ -7849,6 +7947,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of basic technical requirements and key decisions.\n\n**Include**:\n- Summary of platform and language choices\n- Architecture style justification\n- Key design patterns and standards adopted\n- Major technical constraints and their origins\n- Dependencies between technical choices\n\n**Best Practices**:\n- Use Architecture Decision Records (ADRs) for major decisions\n- Document rejected alternatives and reasons\n- Identify reversible vs. irreversible decisions\n- Plan technical debt management strategy\n- Establish technology evaluation criteria\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("PlatformAndLanguage", s, PlatformAndLanguageNav::metaChildren, (r, c) -> {
@@ -7922,6 +8021,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "Describe the ground rules every scheduled job runs under.\n\n**The scheduling substrate is fixed, so there is no engine decision to record\nhere.** Jobs are run by the framework's own scheduler; this section says under\nwhat rules they run, never with what.\n\n**Time zone is a system-wide choice, not a per-job one.** Every schedule is\ninterpreted in the scheduler's own clock zone, so state that zone once here\nrather than per job.\n\nThe jobs themselves are declared one by one in Scheduled Jobs (SCJOB); the\nsubsections below carry the defaults those declarations inherit.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("timeZoneHandling", "String", "Time Zone Handling", true, "The clock zone every schedule is interpreted in — UTC or the server's local zone", 0)));
         out.add(n);
@@ -8030,6 +8130,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BehaviorRuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("keyBusinessRules", "String", "Key Business Rules", false, "Primary business rules governing this object", 0),
             new SomFormFieldMeta("invariants", "String", "Invariants", false, "Conditions that must always be true", 1),
@@ -8065,6 +8166,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe where biometrics are used and what they unlock — under NIST SP 800-63B they activate an authenticator rather than authenticate on their own. Record the non-biometric alternative.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -8104,6 +8206,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BoundaryAssumptionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("assumption", "String", "Assumption Statement", true, "The condition assumed to hold true for the project", 0),
             new SomFormFieldMeta("category", "String", "Category (Technical, Organizational, External, Data, Resource)", false, "Classification of the assumption", 1)));
@@ -8174,6 +8277,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the assumptions the project depends on before the individual items below. Cover how an assumption is validated and what happens when one fails.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -8240,6 +8344,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Reusable interaction patterns applied at system boundaries. Distinct\nfrom `InteractionPatterns` which documents patterns\nwithin the target system.\n\n**What to capture:**\n- Pattern catalog (name, shape, rationale)\n- Synchronous request-reply flavors (REST, gRPC, GraphQL)\n- Asynchronous patterns (pub/sub, queue, event stream)\n- Batch and scheduled-transfer patterns\n- Pattern selection criteria per interaction\n- Delivery guarantees per pattern (at-most-once / at-least-once / exactly-once)\n- Idempotency and ordering expectations\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -8267,6 +8372,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BoundedContextEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("contextName", "String", "Context Name", true, "PascalCase noun or noun phrase naming this context (e.g., Sales, OrderFulfilment). This is the name every Bounded Context field elsewhere in the specification refers to, so it is written once here and quoted exactly thereafter", 0),
             new SomFormFieldMeta("domainArea", "String", "Domain Area", true, "Business domain this context covers", 1),
@@ -8371,6 +8477,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the breakpoint scheme before the individual breakpoints below. Cover the units used and the reasoning behind the chosen thresholds.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -8445,6 +8552,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BreakpointEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("breakpointId", "String", "Breakpoint ID", true, "The symbol the built layout carries for this breakpoint, e.g. TOM-MOBILE", 0),
             new SomFormFieldMeta("minWidth", "String", "Min Width", false, "Minimum width in logical pixels", 1),
@@ -8512,6 +8620,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BrowserCompatibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("browserEngine", "String", "Browser Engine", false, "Chromium, Gecko, WebKit", 0),
             new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 1),
@@ -8612,6 +8721,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BrowserRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("browserName", "String", "Browser Name", true, "E.g., Chrome, Firefox, Safari, Edge", 0),
             new SomFormFieldMeta("browserEngine", "String", "Browser Engine", false, "Chromium, Gecko, WebKit", 1),
@@ -8713,6 +8823,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BuildToolchainEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("toolCategory", "String", "Category", false, "Build System, Compiler, Bundler, Code Generator, Task Runner, Package Manager", 0),
             new SomFormFieldMeta("platform", "String", "Platform", false, "Which platform(s) this tool is used for", 1)));
@@ -8842,6 +8953,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BuildToolsConfiguration", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("packageManager", "String", "Package Manager", false, "Pub, npm, yarn, pnpm, Gradle", 0),
             new SomFormFieldMeta("packageManagerVersion", "String", "Package Manager Version", false, "Required version", 1),
@@ -8942,6 +9054,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BusinessComponentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentType", "String", "Component Type", false, "Service, Repository, UseCase, Validator, Calculator", 0),
             new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Context Name of the bounded context this component belongs to", 1, java.util.List.of(), java.util.List.of("BCE.contextName"))));
@@ -9059,6 +9172,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "High-level overview of the business domain and task area, explaining what business activities and processes this system will support.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DomainOverview", s, DomainOverviewNav::metaChildren, (r, c) -> {
@@ -9191,6 +9305,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BusinessGoalEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("goalCategory", "String", "Goal Category (Strategic, Tactical, Operational)", true, "Strategic, Tactical, or Operational", 0)));
         out.add(n);
@@ -9369,6 +9484,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of business goals and their relationship to organizational strategy. Explain how these goals support the business case and value proposition.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -9421,6 +9537,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BusinessMetricsSpec", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("activeUsers", "bool", "Active Users", false, "DAU, WAU, MAU", 0),
             new SomFormFieldMeta("sessionMetrics", "bool", "Session Metrics", false, "Session count, duration, depth", 1),
@@ -9519,6 +9636,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BusinessObjectAttributeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "Business meaning of this attribute", 0),
             new SomFormFieldMeta("type", "String", "Type", false, "Business type: Text | Number | Money | Date | DateTime | Boolean | Enum | Reference", 1)));
@@ -9602,6 +9720,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this business object — its role in the domain, beyond the attribute, state, rule and operation facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -9895,6 +10014,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Key business objects, their properties, states, and behaviors. Following\nDomain-Driven Design patterns for rich domain modeling.\n\n**Object Catalog Structure (per entry):**\n- Core Identity — name, alias, category, DDD stereotype (AggregateRoot, Entity, ValueObject)\n- Domain Context — bounded context, owning domain, ubiquitous language term\n- Lifecycle Summary — key states, transitions, terminal states\n- Behavior & Rules — invariants, operations, validation, calculated properties\n- Ownership & Versioning — data owner, concurrency control, audit trail\n- Integration Points — APIs exposed, events published/subscribed\n\n**Sub-elements per Object:**\n- Attributes — business-level attribute specifications (12 fields each)\n- States — detailed state definitions with entry/exit conditions\n- Business Rules — rules governing the object (8 fields each)\n- Lifecycle Transitions — state transitions with guards and actions (13 fields each)\n- Operations — domain operations with pre/post conditions (13 fields each)\n- Invariants — conditions that must always hold (7 fields each)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -9961,6 +10081,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of business pain points affecting strategic outcomes and growth.\nInclude revenue impact, compliance exposure, customer retention effects,\nand competitive positioning concerns.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -10035,6 +10156,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Target business processes at a high level. Each process will be expanded with\ndetailed workflows, triggers, decision points, and exception handling in the\nTOM (Target Operating Model) document.\n\n**Subsections:**\n- Process Vision — overall transformation vision and success criteria\n- Design Principles — guiding principles for process design\n- Process Catalog — comprehensive process definitions (1+ required)\n- Process Overview Diagram — landscape and value chain views\n- Improvement Summary — expected benefits and business case\n\n**Seeds:** TOM (Target Operating Model) document\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ProcessVision", s, ProcessVisionNav::metaChildren, (r, c) -> {
@@ -10242,6 +10364,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this business process — the story of how it actually runs, and anything the identification, trigger, role, performance and control facets below do not capture.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ProcessIdentification", s, ProcessIdentificationNav::metaChildren, (r, c) -> {
@@ -10418,6 +10541,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this business rule — the intent behind it, beyond the logic, enforcement and governance facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -10621,6 +10745,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BusinessRuleReferenceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleId", "String", "Rule ID", false, "The business rule this applies — a business rule section id (BIRU-BUSI-…)", 0, java.util.List.of(), java.util.List.of("BIRU.@sectionId")),
             new SomFormFieldMeta("ruleType", "String", "Rule Type", false, "Validation | Calculation | Constraint | Authorization | Workflow", 1),
@@ -10672,6 +10797,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of capacity planning approach.\n\n**Include**:\n- Growth projections and assumptions\n- Key capacity metrics to track\n- Scaling strategy and triggers\n- Current capacity headroom\n- Planning and review cadence\n\n**Best Practices**:\n- Plan for 2-3x peak capacity\n- Use data-driven forecasting\n- Implement auto-scaling where possible\n- Regular capacity reviews\n- Budget for growth in advance\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -10801,6 +10927,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CapacityReviewProcess", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("reviewFrequency", "String", "Review Frequency", true, "Monthly, quarterly, on-demand", 0),
             new SomFormFieldMeta("reviewParticipants", "String", "Review Participants", false, "Engineering, ops, finance stakeholders", 1),
@@ -10884,6 +11011,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CcbMemberEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("role", "String", "Role", false, "Role in the organization", 0),
             new SomFormFieldMeta("ccbRole", "String", "CCB Role", false, "Role on the CCB — Chair / Vice-Chair / Secretary / Member", 1),
@@ -10920,6 +11048,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe where certificate authentication applies and how certificates reach their holders. Cover revocation checking and what the system does when the check cannot complete.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -10959,6 +11088,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CertificateManagement", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("certificateAuthority", "String", "Certificate Authority", false, "Public CA, private PKI, Let's Encrypt", 0),
             new SomFormFieldMeta("certificateType", "String", "Certificate Type", false, "DV, OV, EV, Wildcard", 1)));
@@ -11061,6 +11191,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how certificates are obtained, renewed and monitored for expiry. An expired certificate is a self-inflicted outage, so say what automation prevents it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -11100,6 +11231,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CertificationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("issuingBody", "String", "Issuing Body — who certifies", false, null, 0)));
         out.add(n);
@@ -11209,6 +11341,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CertificationRequirementsSection", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requiredCertifications", "String", "Required Certifications", false, "List of required certs", 0),
             new SomFormFieldMeta("targetCertifications", "String", "Target Certifications", false, "Future certifications", 1),
@@ -11309,6 +11442,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ChangeCategoryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What types of changes fall into this category", 0)));
         out.add(n);
@@ -11391,6 +11525,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "Description of the Change Control Board composition, authority,\nand operating procedures. Define meeting schedule, quorum requirements,\nand decision-making rules.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("boardName", "String", "Board Name", false, "Official name of the change control board", 0),
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "Primary purpose and authority of the board", 1),
@@ -11499,6 +11634,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Criteria for assessing change impact across different dimensions.\nDefine thresholds that determine whether a change is minor, moderate,\nmajor, or critical, and the corresponding approval requirements.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -11574,6 +11710,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ChangeImpactCriterionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterion", "String", "Criterion Name", true, "Name of the impact dimension", 0),
             new SomFormFieldMeta("category", "String", "Category", false, "Scope / Schedule / Budget / Quality / Risk / Resource", 1)));
@@ -11675,6 +11812,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ChangeNotificationRules", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("submissionNotification", "String", "Submission Notification", false, "Who is notified when a change is submitted", 0),
             new SomFormFieldMeta("assessmentNotification", "String", "Assessment Notification", false, "Who is notified during assessment", 1),
@@ -11711,6 +11849,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of the change management process for project documents.\nDescribe the philosophy for change control, when formal change requests\nare required, and how the process balances agility with governance needs.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -11828,6 +11967,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "Detailed description of the change request workflow.\nDescribe each step from submission through closure, including\ndecision points, parallel activities, and notification triggers.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("processVersion", "String", "Process Version", false, "Version of this change process", 0),
             new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "When this process became effective", 1),
@@ -11970,6 +12110,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the readiness assessment before the individual criteria below. Cover how readiness is measured and what happens when a group is not ready.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -12042,6 +12183,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ChangeRoleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("responsibility", "String", "Responsibility", false, "What this role does in the process", 0),
             new SomFormFieldMeta("authority", "String", "Authority Level", false, "Decision authority this role has", 1),
@@ -12076,6 +12218,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ChangeStepEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "int", "Step Number", true, "Order of this step in the process", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "Detailed description of what happens in this step", 1)));
@@ -12193,6 +12336,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how this role's competency requirements shift before the new, removed and changed-level lists below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -12313,6 +12457,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this changed role — what the change means for the people currently in it, beyond the responsibility, competency and transition facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ChangedRoleIdentification", s, ChangedRoleIdentificationNav::metaChildren, (r, c) -> {
@@ -12445,6 +12590,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ChangedRoleIdentification", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("newRoleTitle", "String", "New Role Title — if title changes", false, "The role title after the change, if it differs", 0),
             new SomFormFieldMeta("changeRationale", "String", "Change Rationale — why this role is changing", false, "The business reason driving this role change", 1)));
@@ -12513,6 +12659,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how this role's responsibilities shift before the added, removed and modified lists below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -12632,6 +12779,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ChangedRoleTransition", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("transitionStart", "String", "Transition Start Date", false, "Date the role transition begins", 0),
             new SomFormFieldMeta("transitionEnd", "String", "Transition End Date", false, "Date the role transition completes", 1),
@@ -12701,6 +12849,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the current-to-target delta before the narrative, chart comparison and individual changes below. Cover which parts of the organization are deliberately left untouched.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -12828,6 +12977,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CiCdPipelineConfiguration", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("cicdPlatform", "String", "CI/CD Platform", false, "GitHub Actions, GitLab CI, Jenkins, CircleCI", 0),
             new SomFormFieldMeta("configurationLocation", "String", "Configuration Location", false, "Where pipeline configs live", 1),
@@ -12931,6 +13081,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CiCdPipelineRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("cicdPlatform", "String", "CI/CD Platform", false, "GitHub Actions, GitLab CI, Jenkins", 0),
             new SomFormFieldMeta("pipelineAsCode", "bool", "Pipeline as Code", false, "Pipeline definition in repo", 1),
@@ -13033,6 +13184,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ClientAccessibilityRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("screenReaderSupport", "String", "Screen Reader Support", false, "NVDA, VoiceOver, JAWS", 0),
             new SomFormFieldMeta("ariaCompliance", "String", "ARIA Compliance", false, "ARIA landmark/role support", 1),
@@ -13135,6 +13287,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("clientId", "String", "Client Id", true, "The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced", 0),
             new SomFormFieldMeta("clientKind", "ClientApplicationKind", "Client Kind", true, "What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)", 1, java.util.List.of("graphicalApplication", "commandLine", "server")),
@@ -13171,6 +13324,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Summarise how this client application is configured per install — which\ncategories of setting exist, which are shipped as defaults in the app's\nconfiguration resources, and which an operator or user may override on a\ngiven machine.\n\nDeclare the individual settings in the list below; keep this overview to\nthe shape and the policy.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -13222,6 +13376,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ClientConfigurationSettingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("settingKey", "String", "Setting Key", true, "The dotted key of the client setting, e.g. api.baseUrl", 0),
             new SomFormFieldMeta("client", "String", "Client", false, "The client application that declares this setting, by id. CE-CC is keyed by (client app, machine), so the owning client is part of the key. Empty where the system has a single client", 1, java.util.List.of(), java.util.List.of("CLIAPP.clientId")),
@@ -13255,6 +13410,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ClientHardwareRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minCpuCores", "String", "Minimum CPU Cores", false, "Minimum CPU cores", 0),
             new SomFormFieldMeta("recommendedCpuCores", "String", "Recommended CPU Cores", false, "Recommended CPU cores", 1),
@@ -13356,6 +13512,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ClientNetworkRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minDownloadSpeed", "String", "Minimum Download Speed", false, "Minimum download Mbps", 0),
             new SomFormFieldMeta("recommendedDownloadSpeed", "String", "Recommended Download Speed", false, "Recommended download Mbps", 1),
@@ -13458,6 +13615,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of client requirements and support strategy.\n\n**Include**:\n- Browser support matrix and testing approach\n- Mobile device tier definitions\n- Accessibility compliance target\n- Progressive enhancement strategy\n- Client update and compatibility policy\n\n**Best Practices**:\n- Test on real devices, not just emulators\n- Use browser usage analytics for prioritization\n- Plan for evergreen browser updates\n- Document graceful degradation strategy\n- Regular accessibility audits\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -13743,6 +13901,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ClientSecurityRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("localDataEncryption", "bool", "Local Data Encryption", false, "Encrypt local storage", 0),
             new SomFormFieldMeta("secureStorage", "String", "Secure Storage", false, "Keychain, encrypted prefs", 1),
@@ -13844,6 +14003,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CloudProviderRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryProvider", "String", "Primary Cloud Provider", false, "AWS, Azure, GCP, Private", 0),
             new SomFormFieldMeta("secondaryProvider", "String", "Secondary Provider", false, "Multi-cloud backup", 1),
@@ -13944,6 +14104,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CloudServiceIntegrations", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryCloudProvider", "String", "Primary Cloud Provider", false, "AWS, Azure, GCP, multi-cloud", 0),
             new SomFormFieldMeta("secondaryProviders", "String", "Secondary Providers", false, "Additional cloud providers", 1)));
@@ -14029,6 +14190,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CodeQualityMetrics", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("testCoverageMinimum", "String", "Test Coverage Minimum", false, "Minimum test coverage percentage", 0),
             new SomFormFieldMeta("branchCoverageMinimum", "String", "Branch Coverage Minimum", false, "Minimum branch coverage percentage", 1),
@@ -14146,6 +14308,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CodeReviewProcess", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("prRequired", "bool", "PR Required", false, "All changes via PR", 0),
             new SomFormFieldMeta("prTemplate", "String", "PR Template", false, "Pull request template", 1),
@@ -14249,6 +14412,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CodingStandardEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardCategory", "String", "Category", true, "Naming, Formatting, Comments, Structure, Imports", 0),
             new SomFormFieldMeta("applicableLanguage", "String", "Applicable Language", false, "Which programming language(s) this applies to", 1)));
@@ -14348,6 +14512,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CodingStandardsSection", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryLanguages", "String", "Primary Languages", false, "Main programming languages", 0),
             new SomFormFieldMeta("styleGuide", "String", "Style Guide", false, "Official style guide", 1),
@@ -14464,6 +14629,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ColorPaletteEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("paletteRole", "String", "Palette Role", false, "Brand, functional, semantic", 0),
             new SomFormFieldMeta("colorCount", "int", "Color Count", false, "Number of color stops in palette", 1),
@@ -14502,6 +14668,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Name the columns that are restricted, who may see each, and what a denied reader gets instead — absent, null or masked. Tie each restriction to a classification or regulation.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -14541,6 +14708,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CommitteeCharter", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "Why the committee exists and what it governs", 0),
             new SomFormFieldMeta("meetingFrequency", "String", "Meeting Frequency", false, "How often the committee convenes", 1),
@@ -14574,6 +14742,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CommitteeMemberEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("organizationRole", "String", "Organization Role", false, "Their role within their home organization", 0),
             new SomFormFieldMeta("department", "String", "Department", false, "Department or business unit they represent", 1),
@@ -14634,6 +14803,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CommitteeResponsibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("area", "String", "Responsibility Area", true, "Area of responsibility assigned to the committee", 0),
             new SomFormFieldMeta("scope", "String", "Scope", false, "Boundaries of this responsibility", 1),
@@ -14665,6 +14835,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CommunicationChannelEncryptionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("channelType", "String", "Channel Type", false, "HTTPS | gRPC | WebSocket | TCP | AMQP | MQTT | SMTP | Custom — transport protocol used by this channel", 0),
             new SomFormFieldMeta("tlsRequired", "bool", "TLS Required", true, "Yes | No — whether TLS encryption is mandatory for this channel (should be Yes for all channels carrying sensitive data)", 1),
@@ -14700,6 +14871,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CommunicationEventEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("eventType", "String", "Event Type — Announcement, Town Hall, Email, Workshop, Newsletter", false, "The kind of communication event: Announcement, Town Hall, Email, Workshop, Newsletter, etc.", 0),
             new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "The stakeholder group or audience this event is intended to reach", 1),
@@ -14768,6 +14940,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CommunicationMatrix", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("defaultCommunicationChannel", "String", "Default Communication Channel", false, "Primary channel for project communications — Email / Portal / Teams", 0),
             new SomFormFieldMeta("documentRepository", "String", "Document Repository", false, "Location where project documents are stored", 1),
@@ -14840,6 +15013,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CommunicationPatterns", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryPattern", "String", "Primary Communication Pattern", false, "Synchronous REST, Async messaging, Event-driven, RPC", 0),
             new SomFormFieldMeta("secondaryPatterns", "String", "Secondary Patterns", false, "Additional patterns used", 1),
@@ -14959,6 +15133,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of communication architecture and strategy.\n\n**Include**:\n- Primary communication patterns\n- Security requirements overview\n- External integration landscape\n- API design principles\n- Performance requirements\n\n**Best Practices**:\n- Design for failure (circuit breakers, retries)\n- Use asynchronous where possible\n- Implement proper error handling\n- Version APIs for backward compatibility\n- Monitor communication health\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ProtocolsAndStandardsSection", s, ProtocolsAndStandardsSectionNav::metaChildren, (r, c) -> {
@@ -15016,6 +15191,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CommunicationToolsRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("unifiedComms", "String", "Unified Communications Platform — Teams, Zoom, Webex", false, null, 0),
             new SomFormFieldMeta("voiceCapability", "String", "Voice Capability — softphone, desk phone, mobile", false, null, 1),
@@ -15054,6 +15230,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CommunicationTypeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("communicationType", "String", "Communication Type", true, "Type of communication — StatusReport / MilestoneAlert / IssueNotification / MeetingMinutes / ChangeRequest", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What this communication type covers", 1),
@@ -15093,6 +15270,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce compatibility for this system before any co-existence and interoperability detail below. Cover what the system must share an environment or an interface with.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -15150,6 +15328,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of compatibility requirements and testing strategy.\n\n**Include**:\n- Critical compatibility requirements\n- Testing approach and coverage\n- Known compatibility limitations\n- Browser/OS support policy\n- Deprecation and sunset timeline\n\n**Best Practices**:\n- Maintain live compatibility matrix\n- Automate compatibility testing in CI\n- Define clear support tiers (full, limited, best-effort)\n- Plan for mobile OS release cycles\n- Document workarounds for known issues\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -15426,6 +15605,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CompetencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this competency means in practice", 0),
             new SomFormFieldMeta("behavioralIndicators", "String", "Behavioral Indicators — observable behaviors", false, "Observable behaviors that demonstrate the competency", 1),
@@ -15463,6 +15643,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the competency framework before the core, technical and leadership competency lists below. Cover how proficiency levels are defined.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -15581,6 +15762,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CompetencyLevelChangeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("currentLevel", "String", "Current Required Level", false, "Proficiency level required before the change", 0),
             new SomFormFieldMeta("newLevel", "String", "New Required Level", false, "Proficiency level required after the change", 1),
@@ -15614,6 +15796,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComplianceAuditSchedule", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("internalAuditFrequency", "String", "Internal Audit Frequency", true, "How often internal security audits are conducted", 0),
             new SomFormFieldMeta("externalAuditFrequency", "String", "External Audit Frequency", true, "How often external/third-party audits are conducted", 1),
@@ -15700,6 +15883,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Explicit mapping from the access/auth controls in this concept to the\ncompliance frameworks the project must satisfy.\n\n**What to capture:**\n- Applicable frameworks (NIST 800-53, SOC 2 CC6.x, ISO 27001 A.9, OWASP ASVS)\n- Control mapping (our control → framework requirement)\n- Evidence artefacts per control (policies, logs, reports, screenshots)\n- Audit cadence and ownership\n- Gap analysis and remediation plan\n- Certification targets and timelines\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -15727,6 +15911,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComplianceMilestoneEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("regulation", "String", "Related Regulation", false, "Regulation this milestone supports", 0),
             new SomFormFieldMeta("dueDate", "String", "Due Date", false, "When the milestone must be completed", 1),
@@ -15762,6 +15947,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define compliance reporting requirements to satisfy regulatory audits and\ninternal governance.\n\n**Periodic access reviews:**\n- Quarterly/annual user access recertification\n- Manager certification of direct reports’ access\n- Privileged account review (monthly or more frequent)\n- Orphaned account detection and remediation\n- Dormant account reporting and deactivation\n\n**Privilege usage reports:**\n- Privileged action audit reports\n- Emergency access usage (break-glass)\n- Elevated privilege duration and justification\n- Segregation of duties violation reports\n\n**Anomaly detection:**\n- Unusual access patterns (time, location, volume)\n- Impossible travel detection\n- Behavioral analytics and UEBA integration\n- Automated alerting for high-risk anomalies\n\n**Regulatory audit support:**\n- Pre-built compliance reports (SOC 2, PCI, HIPAA)\n- Evidence collection automation\n- Audit trail export capabilities\n- Control attestation documentation\n\n**Report delivery:**\n- Automated scheduled reports to stakeholders\n- On-demand report generation\n- Dashboard views for continuous monitoring\n- Secure report storage and access control\n\n**Compliance frameworks:**\n- SOC 2: CC6.1–CC6.3 (access controls), CC7.1–CC7.5 (monitoring)\n- PCI DSS 10: Track and monitor access\n- HIPAA, section 164.312: Access controls and audit\n- ISO 27001: A.9 Access control, A.12 Logging\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("PeriodicReviewPolicy", s, PeriodicReviewPolicyNav::metaChildren, (r, c) -> {
@@ -15861,6 +16047,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComplianceRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sensitivityLevel", "String", "Sensitivity Level", false, "Data sensitivity: Public | Internal | Confidential | Restricted", 0),
             new SomFormFieldMeta("containsPii", "String", "Contains PII", false, "Whether entity contains personally identifiable information: Yes | No", 1),
@@ -15895,6 +16082,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComplianceVerificationSection", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("verificationStrategy", "String", "Verification Strategy", false, "Overall verification approach", 0),
             new SomFormFieldMeta("frequencyOfReview", "String", "Review Frequency", false, "How often to verify", 1),
@@ -16010,6 +16198,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentActionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actionId", "String", "Action ID", true, "The symbol the built component carries for this action, e.g. onSubmit", 0),
             new SomFormFieldMeta("actionTrigger", "String", "Action Trigger", false, "User interaction that triggers", 1),
@@ -16077,6 +16266,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentDocs", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("documentationQuality", "String", "Documentation Quality", false, "Poor / Adequate / Good / Excellent", 0),
             new SomFormFieldMeta("documentationUrl", "String", "Documentation URL", false, "Link to official documentation", 1),
@@ -16109,6 +16299,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category", false, "Database / Framework / Library / Service / Middleware", 0)));
         out.add(n);
@@ -16370,6 +16561,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentFamilyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("familyDescription", "String", "Family Description", false, "Purpose and scope of the family", 0),
             new SomFormFieldMeta("componentCount", "int", "Component Count", false, "Number of components in the family", 1),
@@ -16438,6 +16630,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentGovernance", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ownershipModel", "String", "Ownership Model", false, "Central team, federated, individual", 0),
             new SomFormFieldMeta("sharedComponentsTeam", "String", "Shared Components Team", false, "Team responsible for shared components", 1),
@@ -16538,6 +16731,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentInterfaceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("interfaceType", "String", "Interface Type", false, "REST / GraphQL / gRPC / WebSocket / MessageQueue / SDK / CLI / File", 0),
             new SomFormFieldMeta("protocol", "String", "Protocol", false, "HTTP/1.1 / HTTP/2 / AMQP / MQTT / TCP / UDP", 1)));
@@ -16658,6 +16852,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the design system before the token, colour and typography subsections below. Cover where the foundations come from and how they are versioned.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -16874,6 +17069,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentLicensingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("licenseModel", "String", "License Model", false, "PerSeat / PerCore / PerInstance / Site / Metered / OpenSource", 0),
             new SomFormFieldMeta("licenseName", "String", "License Name / SPDX", false, "SPDX identifier or commercial license name, e.g. Apache-2.0, Enterprise v3", 1),
@@ -16990,6 +17186,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentOrganization", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("organizationStrategy", "String", "Organization Strategy", false, "By feature, by layer, by domain, hybrid", 0),
             new SomFormFieldMeta("boundaryDefinition", "String", "Boundary Definition", false, "How component boundaries are defined", 1),
@@ -17089,6 +17286,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentPropertyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("propertyId", "String", "Property ID", true, "The name the built component gives this property, e.g. isDense", 0),
             new SomFormFieldMeta("propertyType", "String", "Property Type", false, "bool, String, Color, int", 1),
@@ -17126,6 +17324,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentRegistry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("registryType", "String", "Registry Type", false, "Wiki, catalog tool, package registry", 0),
             new SomFormFieldMeta("registryLocation", "String", "Registry Location", false, "URL or location of registry", 1),
@@ -17226,6 +17425,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentResponsibilitiesEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryOwner", "String", "Primary Owner", false, "Team or person primarily responsible", 0),
             new SomFormFieldMeta("backupOwner", "String", "Backup Owner", false, "Secondary contact when primary is unavailable", 1),
@@ -17330,6 +17530,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Risk Assessment (12.6)\n\nComponent risk assessment and contingency planning.\n\n### Risk Categories\n- **Vendor risks** — Abandonment, acquisition, pricing changes\n- **Technical risks** — Security vulnerabilities, performance\n- **Licensing risks** — License changes, compliance issues\n- **Operational risks** — Support quality, documentation gaps\n\n### Risk Analysis\nEach risk includes:\n- Probability and impact\n- Current mitigation status\n- Monitoring approach\n- Escalation triggers\n\n### Subsections\n- **12.6.1 Component Risks** — Individual risk entries\n- **12.6.2 Contingency Plans** — Response plans for critical risks\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -17396,6 +17597,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentRiskEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentRef", "String", "Component", false, "The component this risk applies to — a component section id (CMPNT-COMP-…)", 0, java.util.List.of(), java.util.List.of("CMPNT.@sectionId"))));
         out.add(n);
@@ -17513,6 +17715,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentSlotEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("slotId", "String", "Slot ID", true, "The symbol the built component carries for this slot, e.g. leading", 0),
             new SomFormFieldMeta("slotDescription", "String", "Slot Description", false, "Purpose of this slot", 1),
@@ -17548,6 +17751,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentStateEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stateId", "String", "State ID", true, "The symbol the built component carries for this state, e.g. disabled", 0),
             new SomFormFieldMeta("stateDescription", "String", "State Description", false, "What this state represents", 1)));
@@ -17642,6 +17846,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentStrategy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("buildVsBuyPhilosophy", "String", "Build vs. Buy Philosophy", false, "BuildFirst / BuyFirst / BestOfBreed / CaseByCase — default stance for component decisions", 0),
             new SomFormFieldMeta("buildVsBuyThreshold", "String", "Build vs. Buy Decision Threshold", false, "Criteria for when to build, e.g. \"Build if <40h and core differentiator\"", 1),
@@ -17799,6 +18004,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentVariantEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("variantId", "String", "Variant ID", true, "The symbol the built component carries for this variant, e.g. primary", 0),
             new SomFormFieldMeta("variantDescription", "String", "Variant Description", false, "What distinguishes this variant", 1),
@@ -17879,6 +18085,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Components and Dependencies (Chapter 12)\n\nExternal and standard components planned for the system.\n\n### Subsections\n- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence\n- **12.2 Component Catalog** — Individual component specifications\n- **12.3 Component Role in System** — Mapping to architecture\n- **12.4 Runtime Dependencies** — Startup order, health checks, failover\n- **12.5 Maintenance Dependencies** — Version matrix, update sequences\n- **12.6 Risk Assessment** — Component risks and contingency plans\n\n### Seeds\nAll subsections seed the **ATS (Architecture & Technology Specification)** document.\n\n### Specification Depth\nEach component should specify:\n- Identity (name, version, vendor)\n- Licensing and costs\n- Integration interfaces\n- Security baseline\n- Support model\n- Risk profile\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ComponentStrategy", s, ComponentStrategyNav::metaChildren, (r, c) -> {
@@ -18002,6 +18209,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComputeResourceRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minCpuCores", "String", "Minimum CPU Cores", false, "Total minimum CPU cores", 0),
             new SomFormFieldMeta("recommendedCpuCores", "String", "Recommended CPU Cores", false, "Recommended CPU cores", 1),
@@ -18088,6 +18296,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComputingEquipmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("deviceType", "String", "Device Type — desktop, laptop, workstation, thin client", false, null, 0),
             new SomFormFieldMeta("brand", "String", "Brand — manufacturer preference", false, null, 1),
@@ -18171,6 +18380,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what happens when the same account signs in again elsewhere: allowed, limited, or the older session ended. Say whether the user is notified.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -18210,6 +18420,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ConfidentialInfoCategoryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What information falls into this category", 0),
             new SomFormFieldMeta("classificationLevel", "String", "Classification Level", false, "Sensitivity level, e.g. Public, Internal, Confidential", 1),
@@ -18242,6 +18453,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ConfidentialityRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ndaType", "String", "NDA Type (Mutual/One-way)", false, "Whether the NDA is mutual or one-way", 0),
             new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "When the confidentiality obligation begins", 1),
@@ -18316,6 +18528,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ConfigurationManagement", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("configStorage", "String", "Configuration Storage", false, "ConfigMaps, SSM, Consul", 0),
             new SomFormFieldMeta("secretsManagement", "String", "Secrets Management", false, "Vault, AWS Secrets, Azure KV", 1),
@@ -18416,6 +18629,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ConnectivityResilience", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("failoverStrategy", "String", "Failover Strategy", false, "Active-passive, active-active, DNS failover", 0),
             new SomFormFieldMeta("redundantConnections", "bool", "Redundant Connections", false, "Multiple ISP or network paths", 1),
@@ -18498,6 +18712,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ConsentManagementRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("consentCollectionMethod", "String", "Collection Method", true, "How consent is obtained: opt-in checkboxes, cookie banners, in-app dialogs", 0),
             new SomFormFieldMeta("consentGranularity", "String", "Consent Granularity", true, "Per-purpose consent, bundled consent, tiered consent model", 1),
@@ -18614,6 +18829,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ConstraintRegisterEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", true, null, 0),
             new SomFormFieldMeta("type", "String", "Type (Technical, Regulatory, Budget, Schedule)", false, null, 1),
@@ -18648,6 +18864,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what uploaded content is scanned for, when the scan happens relative to acceptance, and what a positive result does. Say how quarantined content is reviewed.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -18689,6 +18906,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide a narrative overview of the context diagram and what the depicted black-box view represents.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -18745,6 +18963,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce on-screen contextual help before the inline, panel and rich-help subsections below. Cover which surfaces carry help and how it is kept current.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -18895,6 +19114,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Contextual Navigation (10.3.1.6)\n\nBreadcrumbs, back navigation, related links.\n\n### Breadcrumbs\n- Platform visibility (desktop-only typical)\n- Max visible items before collapse\n- Home item configuration\n- Separator style\n- Position in page layout\n\n### Back Navigation\n- System back vs in-app back\n- Platform-specific behavior\n\n### Related Links\n- \"See also\" navigation\n- Cross-entity links\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -18970,6 +19190,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ContingencyPlanEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "Specific event or threshold that activates this plan", 0)));
         out.add(n);
@@ -19090,6 +19311,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Contingency Plans (12.6.2)\n\nPlans for responding to component risk events.\n\n### Plan Components\n- **Trigger conditions** — What activates the plan\n- **Immediate actions** — Containment steps\n- **Recovery actions** — Full restoration\n- **RTO/RPO** — Recovery time/point objectives\n- **Communication** — Internal and external messaging\n\n### Testing\n- Tabletop exercises\n- Simulated failures\n- Post-test improvements\n\n### Dependencies\nDocument tools, access, and backups required to execute.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -19141,6 +19363,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Correctness", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("defectDensityTarget", "String", "Defect Density Target", false, "Defects per KLOC, per function point", 0),
             new SomFormFieldMeta("criticalDefectTarget", "String", "Critical Defect Target", false, "Zero critical/blocking, <N major", 1),
@@ -19237,6 +19460,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the signals monitored — breach corpora, credential stuffing patterns, impossible travel — and the automated response to each. Say what the affected user is told.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -19278,6 +19502,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe each recovery path and how identity is re-established on it. Recovery is often the weakest link, so state why each path is no weaker than normal authentication.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -19319,6 +19544,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Policy for how failures propagate or are contained across boundary\ninteractions. Complements per-interface `InterfaceErrorHandling` which\ncaptures partner-specific logic.\n\n**What to capture:**\n- Error-taxonomy shared across boundaries (network, protocol, business)\n- Propagation policy (fail-fast / absorb / translate)\n- Retry and backoff conventions\n- Dead-letter and poison-message handling\n- User-visible messaging for cross-boundary failures\n- Alerting thresholds per error class\n- Post-mortem and reconciliation procedures\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -19348,6 +19574,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Operational considerations that span all boundary interactions rather\nthan being specific to one partner.\n\n**What to capture:**\n- Aggregate SLA expectations across partners\n- Rate-limit budgeting (per-partner vs. system-wide)\n- Change-window coordination (our releases vs. partners' releases)\n- Observability conventions (metrics, log fields, trace IDs)\n- Disaster-recovery posture for boundary interactions\n- Capacity planning across partners\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -19375,6 +19602,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CrossCuttingConcerns", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("loggingStrategy", "String", "Logging Strategy", false, "Centralized logging approach", 0),
             new SomFormFieldMeta("logLevels", "String", "Log Levels", false, "Available log levels and usage", 1),
@@ -19493,6 +19721,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Cross-cutting view of how processes interact: shared entities, data\nexchanged, synchronization points, and conflicts.\n\n**What to capture:**\n- Shared business entities and which processes create / read / update them\n- Synchronization points (process A must complete before B)\n- Conflict analysis (processes competing for the same resource)\n- Event flows between processes\n- Matrix view of processes x shared artifacts\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -19522,6 +19751,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "State whether cross-tenant access exists at all, and if so what authorizes it and who sees the audit trail. If it does not exist, say that plainly — it is a strong guarantee.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -19563,6 +19793,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the architecture as it stands today, not as it was designed: deployment topology, integration patterns, shared services and data stores. Note where the running system has drifted from its documentation.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -19647,6 +19878,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CurrentBusinessProcess", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("processOwner", "String", "Process Owner", false, null, 0),
             new SomFormFieldMeta("processCategory", "String", "Category (e.g., Core, Support, Management)", false, null, 1),
@@ -19747,6 +19979,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the processes the project will impact, replace or enhance, and say how they were established — workshops, observation, existing documentation. One subsection per process follows below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -19863,6 +20096,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of data classification in the organization. Describe the classification\nframework, sensitivity levels, handling requirements, and current classification\ncoverage.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -19964,6 +20198,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the current data landscape. Summarize the overall data\nsituation, key data assets, major challenges, and strategic importance of data\nto the organization. Highlight critical data dependencies and risks.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -20193,6 +20428,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive summary of the current state: existing systems landscape, business\nprocesses today, known pain points, current data landscape, operational\nmetrics, and risks tied to the current state or to replacement. Seeds the CS\ndocument alongside the systems-to-replace inventory.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ExistingSystemsLandscape", s, ExistingSystemsLandscapeNav::metaChildren, (r, c) -> {
@@ -20327,6 +20563,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Captures measurable operational characteristics of the current systems\nlandscape. Feeds requirement derivation (target throughput, peak-load\nhandling, availability targets) and risk assessment (what degrades if the\nreplacement underperforms the baseline).\n\n**What to capture:**\n- Transaction volumes (per day/week/month) and peak factors\n- User counts (active / concurrent / peak)\n- Response-time baselines for key operations\n- Availability / uptime historicals\n- Error rates and incident frequency\n- Storage growth rates and retention sizing\n- Integration volumes (messages, API calls per interval)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -20354,6 +20591,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CurrentProcessImprovementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("improvementArea", "String", "Improvement Area", true, null, 0),
             new SomFormFieldMeta("currentState", "String", "Current State", false, null, 1),
@@ -20390,6 +20628,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Risks that originate from the current systems landscape or from the act of\nreplacing them. Not to be confused with target-state risks.\n\n**What to capture:**\n- Stability / reliability risks of the current systems\n- Vendor / contract risks (EOL, licensing, support)\n- Knowledge risks (key-person dependencies on legacy systems)\n- Data-integrity risks during transition\n- Operational-continuity risks (cutover windows, parallel-run exposure)\n- Compliance risks of keeping legacy systems in operation\n- Replacement-specific risks (scope creep, timeline, migration failures)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -20417,6 +20656,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CurrentWorkflowEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("workflowId", "String", "Workflow ID (internal identifier)", false, "The code the organisation already uses for this workflow — a process catalogue or BPM identifier, if one exists. Owned outside this document", 0),
             new SomFormFieldMeta("workflowType", "String", "Type (e.g., Operational, Approval, Exception)", false, null, 1),
@@ -20659,6 +20899,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CustomDistributionGroup", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "Why this group exists", 0),
             new SomFormFieldMeta("informationScope", "String", "Information Scope", false, "What information this group receives", 1),
@@ -20715,6 +20956,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CustomMetricEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("metricType", "String", "Metric Type", false, "Counter, gauge, histogram, summary", 0),
             new SomFormFieldMeta("metricDescription", "String", "Metric Description", false, "What this metric measures", 1),
@@ -20753,6 +20995,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Cutover runbook: the operational plan that executes the go-live moment.\nDeliberately more tactical than the Rollout Plan — which sets cohorts and\nwaves — and than the Migration Plan — which covers data execution.\n\n**What to capture:**\n- Cutover timeline (freeze, migration, verification, open)\n- Task checklist with owners, start/end times, dependencies\n- Communication touchpoints (internal / external, pre / during / post)\n- Go / no-go criteria at each gate\n- Contingency scripts (partial-failure recovery, rollback trigger)\n- Command center / war-room setup\n- Post-cutover verification checks\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -20782,6 +21025,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.unused = true;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentControl", s, DocumentControlNav::metaChildren, (r, c) -> {
@@ -21024,6 +21268,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the current-state analysis that motivates the project.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -21203,6 +21448,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the target business process model.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -21421,6 +21667,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the business data model.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -21772,6 +22019,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the requirements catalog and its traceability model.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -21932,6 +22180,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the use-case model and its coverage.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -22095,6 +22344,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the technical-requirements set.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -22334,6 +22584,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the system-boundary interaction specification.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -22559,6 +22810,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the access and authorization concept.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -22746,6 +22998,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the UI prototype and design system.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -23009,6 +23262,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the business quality plan.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -23357,6 +23611,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the phase plan and its gate model.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -23552,6 +23807,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the rollout approach.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -23792,6 +24048,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of the CodeSpecs generation input: which blueprint subtrees feed generation and how they route across the shared/client/server split.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -24097,6 +24354,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DashboardEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dashboardCategory", "String", "Dashboard Category", false, "Executive, operational, service, infrastructure", 0),
             new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "Who uses this dashboard", 1)));
@@ -24162,6 +24420,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DashboardRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dashboardPlatform", "String", "Dashboard Platform", false, "Grafana, Datadog, custom", 0),
             new SomFormFieldMeta("dashboardAsCode", "bool", "Dashboards as Code", false, "Version-controlled dashboards", 1),
@@ -24262,6 +24521,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DashboardTemplates", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("serviceTemplateLayout", "String", "Service Template Layout", false, "Standard panels for service dashboards", 0),
             new SomFormFieldMeta("serviceTemplateVariables", "String", "Service Template Variables", false, "Configurable variables", 1),
@@ -24300,6 +24560,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe which data accesses are audited, what the record contains, and who reviews it. State the retention period and the compliance requirement it satisfies.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -24339,6 +24600,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataAccessEventPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("logDataCreation", "String", "Log Data Creation", false, "Yes / No / Sensitive-Only — whether data creation is logged", 0),
             new SomFormFieldMeta("logDataModification", "String", "Log Data Modification", false, "Yes / No / Sensitive-Only — whether data updates are logged", 1),
@@ -24386,6 +24648,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataArchitecture", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataStrategy", "String", "Data Strategy", false, "Centralized, Distributed, Federated, Mesh", 0),
             new SomFormFieldMeta("dataOwnership", "String", "Data Ownership Model", false, "How data ownership is assigned", 1),
@@ -24503,6 +24766,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataAttributeConstraintEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("mandatory", "String", "Mandatory", false, "Whether attribute is required: Required | Optional | ConditionallyRequired", 0),
             new SomFormFieldMeta("nullable", "String", "Nullable", false, "Whether database allows NULL: Yes | No", 1),
@@ -24541,6 +24805,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this attribute — what it means and how it is used, beyond the type, constraint and lineage facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -24801,6 +25066,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the classification framework before the individual levels below. Cover who classifies data and when a classification is reviewed.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -24871,6 +25137,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this classification level — what kind of data belongs in it, beyond the storage, access and retention rules below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -25034,6 +25301,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataClassificationLevelEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("levelOrder", "int", "Level Order", false, "Numeric order, 1=lowest sensitivity", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What this level means", 1),
@@ -25071,6 +25339,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataClassificationStatusEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataDomain", "String", "Data Domain", true, "Business area or data domain", 0),
             new SomFormFieldMeta("classificationStatus", "String", "Classification Status", false, "Complete / InProgress / NotStarted", 1),
@@ -25107,6 +25376,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Single authoritative registry for data attributes across the system.\n\n**What to capture:**\n- Attribute name, data type, and allowed values\n- Source entity, semantic description, and synonyms\n- Business rules that constrain the attribute\n- Provenance (where the attribute is first set, where it is read)\n- Format / unit / precision conventions\n- Default value and required-ness\n- Cross-references to validation constraints\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -25136,6 +25406,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of data duplication across the organization. Describe the extent\nof duplication, its causes, impacts, and any ongoing deduplication efforts.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -25222,6 +25493,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataDuplicationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "Description of the duplication scenario", 0),
             new SomFormFieldMeta("dataElement", "String", "Data Element", false, "What data is duplicated", 1)));
@@ -25306,6 +25578,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this data entity — what it represents in the business, beyond the identity, attribute and key facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -25506,6 +25779,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataEntityMigrationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("recordCount", "String", "Record Count", false, "Approximate number of records for this entity", 0),
             new SomFormFieldMeta("targetMapping", "String", "Target Mapping", false, "Where the entity maps to in the target system", 1),
@@ -25539,6 +25813,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataEntityReferenceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("crudOperations", "String", "CRUD Operations (Create, Read, Update, Delete)", true, "Which of Create, Read, Update, Delete are performed", 0),
             new SomFormFieldMeta("attributes", "String", "Attributes (specific fields involved)", false, "Specific fields/attributes involved", 1),
@@ -25586,6 +25861,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataFormatCompatibility", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("defaultEncoding", "String", "Default Encoding", false, "UTF-8, UTF-16, ISO-8859-1", 0),
             new SomFormFieldMeta("supportedEncodings", "String", "Supported Encodings", false, "All supported encodings", 1),
@@ -25688,6 +25964,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of data governance in the organization. Describe the governance\nframework, organizational structure, policies, and current maturity level.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -25777,6 +26054,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataGovernancePolicyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("policyArea", "String", "Policy Area", false, "DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "Brief description of the policy", 1)));
@@ -25842,6 +26120,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataGrowthProjections", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("currentDataVolume", "String", "Current Data Volume", true, "Total data size (e.g. 500 GB)", 0),
             new SomFormFieldMeta("currentDatabaseSize", "String", "Current Database Size", false, "Primary database storage usage", 1),
@@ -25942,6 +26221,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataIntegrationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What data is exchanged and why", 0)));
         out.add(n);
@@ -26046,6 +26326,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of data integration across the organization. Describe the integration\narchitecture, major data flows, technologies used, and integration challenges.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -26137,6 +26418,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define data-level security controls that protect sensitive information\nwithin databases and data stores.\n\n**Database access controls:**\n- Application uses dedicated service accounts with minimal privileges\n- No shared credentials; secrets managed via vault or managed identities\n- Separation of read and write access where appropriate\n\n**Row-Level Security (RLS):**\n- Automatic filtering of queries based on user context (tenant, ownership)\n- Implemented at database level (PostgreSQL RLS, SQL Server RLS)\n- Or enforced at ORM/application layer with mandatory predicates\n\n**Column-Level Security:**\n- Sensitive columns encrypted or masked at database level\n- Dynamic masking for non-privileged users (shown as ****)\n- Tokenization for PCI data (card numbers, CVV)\n\n**Tenant data isolation:**\n- Strict segregation for multi-tenant applications\n- Separate schemas, row-level predicates, or separate databases\n- Cross-tenant access explicitly denied by default\n\n**Data masking:**\n- Production data never copied to non-production unmasked\n- Dynamic masking for support/debug access\n- Pseudonymization for analytics and testing\n\n**Audit logging:**\n- Log all data access to sensitive tables\n- Capture user identity, timestamp, query, affected rows\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -26268,6 +26550,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what is masked, where, and by which technique, keeping static (copied data) and dynamic (runtime) masking apart. Say whether masked data must stay referentially consistent.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -26307,6 +26590,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataMigrationStrategy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("migrationApproach", "String", "Migration Approach", true, "BigBang / Trickle / ParallelRun / Phased / Hybrid", 0),
             new SomFormFieldMeta("migrationMethodology", "String", "Migration Methodology", true, "ETL-Centric / API-First / CDC-Based / ReplicationBased / Hybrid", 1),
@@ -26652,6 +26936,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with attributes, keys, indexes, and constraints\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Attributes, key attributes, indexes, and constraints\n\nPer-entity operational facets (volume metrics, compliance requirements,\ntechnical characteristics, migration mappings) and the model-wide ER diagram\nare authored in the Data Model Follow-up Facets section (7.9).\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -26786,6 +27071,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Follow-up facets for the data model. These describe operational, capacity,\ncompliance, and migration concerns that accompany — but are not part of — the\ncore entity/attribute schema.\n\n**Subsections:**\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Per-entity follow-up facets — Volume, compliance, technical characteristics,\n  and migration mappings for each entity in the data model\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -26851,6 +27137,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of data ownership and stewardship across the organization. Describe\nthe ownership model, roles and responsibilities, and any gaps in accountability.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -26938,6 +27225,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataOwnershipEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataDomain", "String", "Data Domain", true, "Business area or data domain", 0),
             new SomFormFieldMeta("dataAssets", "String", "Data Assets", false, "Specific data assets in this domain", 1),
@@ -27005,6 +27293,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataProcessingAgreementRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dpaTemplate", "String", "DPA Template", true, "Standard data processing agreement template used", 0),
             new SomFormFieldMeta("processorObligations", "String", "Processor Obligations", true, "Article 28 GDPR: security measures, sub-processing, audits, deletion", 1),
@@ -27107,6 +27396,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of data protection and privacy strategy.\n\n**Include**:\n- Applicable privacy regulations\n- Data residency requirements\n- Consent management approach\n- Data subject rights implementation\n- Privacy governance structure\n\n**Best Practices**:\n- Implement privacy by design from start\n- Maintain data inventory and mapping\n- Automate data subject requests\n- Regular privacy impact assessments\n- Privacy training for all staff\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -27251,6 +27541,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataProtectionClassification", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("classificationLevels", "String", "Classification Levels", true, "Public, Internal, Confidential, Restricted, Top Secret", 0),
             new SomFormFieldMeta("personalDataCategories", "String", "Personal Data Categories", true, "Basic identity, contact, financial, health, biometric, genetic", 1),
@@ -27354,6 +27645,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of data quality across the organization. Describe the assessment\nmethodology, scope, key findings, and overall data quality posture.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -27467,6 +27759,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataQualityInitiativeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What the initiative aims to achieve", 0),
             new SomFormFieldMeta("targetIssues", "String", "Target Issues", false, "Quality issues this initiative addresses", 1),
@@ -27500,6 +27793,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataQualityIssueEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Detailed Description", false, "Full description of the issue and its manifestation", 0),
             new SomFormFieldMeta("affectedDataSource", "String", "Affected Data Source", false, "Which data source(s) are impacted", 1)));
@@ -27583,6 +27877,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataResidencyRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryDataRegion", "String", "Primary Data Region", true, "Geographic region for primary data storage", 0),
             new SomFormFieldMeta("allowedDataRegions", "String", "Allowed Data Regions", false, "All permitted regions for data storage and processing", 1),
@@ -27669,6 +27964,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of data retention policies and lifecycle management. Describe the\npolicy framework, regulatory drivers, implementation status, and any gaps.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -27744,6 +28040,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataSourceEntityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this entity represents", 0),
             new SomFormFieldMeta("recordCount", "String", "Record Count", false, "Approximate number of records", 1),
@@ -27777,6 +28074,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataSourceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataStoreName", "String", "Data Store Name", true, "Name of the data store or source", 0),
             new SomFormFieldMeta("criticality", "String", "Business Criticality", false, "Critical / High / Medium / Low", 1)));
@@ -27981,6 +28279,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of the data source inventory. Describe the methodology used to\ncatalog data sources, coverage of the inventory, and any known gaps.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -28045,6 +28344,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataSubjectRightsManagement", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("rightOfAccessProcess", "String", "Right of Access Process", true, "How data subjects request and receive copies of their data", 0),
             new SomFormFieldMeta("accessRequestTimeline", "String", "Access Request Timeline", true, "Response timeline — GDPR requires within 1 month", 1),
@@ -28177,6 +28477,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataVolumeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataSource", "String", "Data Source", true, "Name of the data source", 0),
             new SomFormFieldMeta("currentVolume", "String", "Current Volume", false, "Current data volume", 1),
@@ -28214,6 +28515,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataVolumeSummary", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalCurrentVolume", "String", "Total Current Volume", false, "Total data volume, e.g. 45 TB", 0),
             new SomFormFieldMeta("structuredDataVolume", "String", "Structured Data Volume", false, "Volume of structured data", 1),
@@ -28298,6 +28600,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of data volumes and growth patterns across the organization.\nDescribe current total volumes, growth trends, capacity constraints,\nand forecasting methodology.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DataVolumeSummary", s, DataVolumeSummaryNav::metaChildren, (r, c) -> {
@@ -28380,6 +28683,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe which principals reach the database and with what privileges, and how application credentials differ from administrative ones. Justify every privilege beyond least privilege.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -28419,6 +28723,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DatabaseCompatibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("databaseType", "String", "Type", false, "RDBMS, Document, Key-Value, Graph", 0),
             new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 1),
@@ -28520,6 +28825,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what database encryption covers and what it costs: encrypted columns cannot be indexed or searched normally, so say how queries against them work.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -28559,6 +28865,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DebuggingConfiguration", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("debuggerTool", "String", "Debugger Tool", false, "IDE debugger, DevTools, custom", 0),
             new SomFormFieldMeta("debuggerConfiguration", "String", "Debugger Configuration", false, "Launch configurations", 1),
@@ -28675,6 +28982,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DecisionAuthorityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("decisionArea", "String", "Decision Area", true, "Area or category of decisions this authority covers", 0),
             new SomFormFieldMeta("authorityLevel", "String", "Authority Level", false, "Level at which this decision can be made", 1),
@@ -28708,6 +29016,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DecisionMakerEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("department", "String", "Department", false, "Department the decision maker belongs to", 0),
             new SomFormFieldMeta("decisionAuthority", "String", "Authority (Executive Sponsor, Steering Committee, Budget Owner, etc.)", false, "Type of authority this person holds", 1),
@@ -28744,6 +29053,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DecisionOptionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("option", "String", "Option Name", true, "Short name — e.g. Build In-House, Buy Commercial, Open Source + Customize", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "Detailed description of what this option entails", 1)));
@@ -28846,6 +29156,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DecisionPointEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("decisionPoint", "String", "Decision Point", true, "Short name — e.g. Go/No-Go for Production, Technology Stack Selection", 0),
             new SomFormFieldMeta("decisionCategory", "String", "Decision Category", true, "GoNoGo / ScopeChange / ResourceReallocation / TechnologySelection / VendorSelection / ArchitectureChange / RiskResponse", 1)));
@@ -28946,6 +29257,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DecisionPointEntryResolution", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("selectedOption", "String", "Selected Option", false, "Which option was chosen — references option ID or name", 0),
             new SomFormFieldMeta("decisionRationale", "String", "Decision Rationale", false, "Why this option was selected — trade-off analysis summary", 1),
@@ -29017,6 +29329,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DecisionPoints", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalDecisionPoints", "String", "Total Decision Points", false, "Number of formal decision points defined", 0),
             new SomFormFieldMeta("decisionRecordingMethod", "String", "Decision Recording Method", false, "How decisions are documented — ADR, decision log, meeting minutes, wiki", 1),
@@ -29088,6 +29401,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeepLinkPatternEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("patternId", "String", "Pattern ID", true, "The symbol the built client carries for this deep-link pattern, e.g. pattern-order-detail", 0),
             new SomFormFieldMeta("urlPattern", "String", "URL Pattern", true, "Route pattern, e.g., /orders/:orderId", 1),
@@ -29139,6 +29453,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Deep Linking (10.3.1.7)\n\nExternal entry points and shareable URLs.\n\n### Pattern Properties\n- URL pattern with parameters\n- Target screen and description\n- Authentication requirements\n- Permission checks\n- Fallback routes\n- Share enablement\n\n### Use Cases\n- Email links to specific records\n- Push notification targets\n- External system integrations\n- Bookmarkable pages\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -29202,6 +29517,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DefectResolution", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("severityScheme", "String", "Severity Scheme", false, "Severity levels defined — e.g. Sev-1 Critical, Sev-2 Major, Sev-3 Minor, Sev-4 Trivial", 0),
             new SomFormFieldMeta("priorityScheme", "String", "Priority Scheme", false, "Priority levels — Urgent / High / Medium / Low — determines fix sequencing", 1),
@@ -29319,6 +29635,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeferredScopeItemEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("itemDescription", "String", "Item Description", true, "Describe the item being deferred to a future phase", 0),
             new SomFormFieldMeta("category", "String", "Category (Feature, Process, etc.)", false, "Feature, Process, etc.", 1),
@@ -29353,6 +29670,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeliverableDependencies", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependsOn", "String", "Depends On", false, "Other deliverables this depends on — deliverable section ids (DLVEN-ITEM-…), comma-separated", 0, java.util.List.of(), java.util.List.of("DLVEN.@sectionId")),
             new SomFormFieldMeta("prerequisiteForDelivery", "String", "Prerequisites", false, "Conditions that must be met before delivery", 1)));
@@ -29383,6 +29701,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeliverableEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("priority", "String", "Priority", false, "Critical / High / Medium / Low", 0)));
         out.add(n);
@@ -29559,6 +29878,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeliveryAcceptanceCriterionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterion", "String", "Criterion Statement", true, "Clear, measurable statement of what must be true", 0),
             new SomFormFieldMeta("category", "String", "Category", false, "Functional / Performance / Security / Usability / Documentation / Training / Operational / Compliance", 1)));
@@ -29675,6 +29995,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Defines what is delivered as part of this project across four categories:\n- Software deliverables (application components, libraries, configurations)\n- Documentation deliverables (user, technical, operations docs)\n- Training deliverables (sessions, materials, train-the-trainer)\n- Support deliverables (transition support, warranty, ongoing support)\n\nEach deliverable entry specifies format, delivery mechanism, acceptance\ncriteria, and responsible party. Deliverables are contractually binding\ncommitments.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("SoftwareDeliverables", s, SoftwareDeliverablesNav::metaChildren, (r, c) -> {
@@ -29764,6 +30085,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Chapter overview: defines agreements regarding delivery scope and acceptance\nfor the system. Covers two major subsections:\n- 14.1. Delivery and Service Scope — what is delivered (software, documentation,\n  training, support)\n- 14.2. Acceptance Plan — how deliverables are accepted (criteria, process, UAT,\n  defect resolution, sign-off, warranty)\n\nSeeds the QAP (Quality & Acceptance Plan) document for full quality planning.\nAll deliverable and acceptance definitions should be objectively verifiable\nand contractually precise.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DeliveryScope", s, DeliveryScopeNav::metaChildren, (r, c) -> {
@@ -29825,6 +30147,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.unused = true;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("SystemStagePlan", s, SystemStagePlanNav::metaChildren, (r, c) -> {
@@ -29918,6 +30241,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Name each dependency between current systems, on external services and on shared infrastructure, and say which of them are fragile. A fragile integration point is a migration risk, so record why it is fragile, not just that it is.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -30039,6 +30363,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DependencyHealthMonitoring", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("databaseHealthCheck", "String", "Database Health Check", false, "Connection test, query test, replication lag", 0),
             new SomFormFieldMeta("databaseLatencyThreshold", "String", "DB Latency Threshold", false, "Alert threshold for slow queries", 1),
@@ -30137,6 +30462,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DependencyInjectionStructure", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("diFramework", "String", "DI Framework", false, "GetIt, Riverpod, Provider, Injectable, etc.", 0),
             new SomFormFieldMeta("registrationPattern", "String", "Registration Pattern", false, "How dependencies are registered", 1),
@@ -30236,6 +30562,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DependencyManagement", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryPackageManager", "String", "Primary Package Manager", false, "E.g., pub.dev, npm, pip, Maven", 0),
             new SomFormFieldMeta("secondaryPackageManagers", "String", "Secondary Package Managers", false, "Additional package managers used", 1),
@@ -30334,6 +30661,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DependencyRegisterEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", true, null, 0),
             new SomFormFieldMeta("type", "String", "Type (System, Team, Vendor, Deliverable, Framework)", false, null, 1),
@@ -30367,6 +30695,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DependencyScanningRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scaScanningTool", "String", "SCA Scanning Tool", true, "Software Composition Analysis tool: Snyk, Dependabot, OWASP Dependency-Check, Trivy", 0),
             new SomFormFieldMeta("scanFrequency", "String", "Scan Frequency", true, "Every build, daily, weekly, on dependency change", 1),
@@ -30469,6 +30798,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide a narrative overview of the deployment context before the structured deployment details below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -30518,6 +30848,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeploymentEnvironmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("environmentType", "String", "Type", false, "Development, Staging, Production", 0),
             new SomFormFieldMeta("url", "String", "URL", false, "Environment URL", 1)));
@@ -30615,6 +30946,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeploymentModelRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("deploymentModel", "String", "Deployment Model", false, "Containerized, VM-based, Serverless, Hybrid", 0),
             new SomFormFieldMeta("containerRuntime", "String", "Container Runtime", false, "Docker, containerd, CRI-O", 1),
@@ -30716,6 +31048,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeploymentSecurity", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("pipelineSecrets", "String", "Pipeline Secrets", false, "How secrets are injected", 0),
             new SomFormFieldMeta("serviceAccounts", "String", "Service Accounts", false, "Deployment service accounts", 1),
@@ -30804,6 +31137,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of deployment strategy and pipeline.\n\n**Include**:\n- Deployment model and orchestration\n- CI/CD pipeline overview\n- Release strategy selection and rationale\n- Rollback procedures and triggers\n- Deployment metrics and goals\n\n**Best Practices**:\n- Deploy frequently in small batches\n- Automate everything, minimize manual steps\n- Implement comprehensive deployment testing\n- Monitor deployments with automated rollback\n- Document deployment runbooks\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -30963,6 +31297,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeploymentTargetEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("targetCategory", "String", "Category", false, "Web, Mobile App, Desktop App, Cloud Service, Container, Embedded", 0),
             new SomFormFieldMeta("targetEnvironment", "String", "Environment", false, "Development, Staging, Production", 1)));
@@ -31082,6 +31417,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeploymentTopology", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("topologyType", "String", "Topology Type", false, "Single-tier, Multi-tier, Distributed, Cloud-native", 0),
             new SomFormFieldMeta("deploymentModel", "String", "Deployment Model", false, "On-premise, Cloud, Hybrid, Multi-cloud", 1),
@@ -31199,6 +31535,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DesignFoundationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryColor", "String", "Primary Color", false, "Primary brand color (hex or semantic name)", 0),
             new SomFormFieldMeta("fontFamilyPrimary", "String", "Primary Font Family", false, "Primary font family (typeface name)", 1),
@@ -31230,6 +31567,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DesignGoalEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Goal Description", false, "What this goal means for the UI", 0),
             new SomFormFieldMeta("priority", "String", "Priority", false, "Critical/High/Medium/Low", 1),
@@ -31266,6 +31604,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Design Goals (10.1.1)\n\nPrioritized UI objectives the system must achieve.\n\n### Goal Categories\n- **Usability** — Task completion, learnability, error prevention\n- **Performance** — Perceived speed, responsiveness, load times\n- **Accessibility** — WCAG compliance level, assistive tech support\n- **Aesthetics** — Visual appeal, brand alignment, delight\n- **Engagement** — User retention, feature adoption\n\n### Form Fields Guide\n**goalName**: Concise label (\"Zero-Click Ordering\")\n**measurementCriteria**: Specific test (\"95% can complete in <3 clicks\")\n**targetMetric**: Quantified target (\"<2s load time on 3G\")\n**relatedPrinciples**: Cross-reference to VIS-PRI entries\n\n### Tom UI Mapping\nGoals drive widget configuration — e.g., performance goals → lazy loading, \naccessibility goals → semantic labels and focus management.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -31329,6 +31668,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DesignPatternEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("patternCategory", "String", "Category", true, "Creational, Structural, Behavioral, Architectural, UI", 0),
             new SomFormFieldMeta("patternSource", "String", "Source", false, "GoF, Enterprise Patterns, DDD, UI Patterns", 1),
@@ -31445,6 +31785,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of the design patterns and standards approach.\n\n**Include**:\n- Core pattern library with usage guidelines\n- Coding standards summary with enforcement mechanisms\n- Industry compliance requirements and evidence\n- Code quality metrics and thresholds\n- Exception handling and error patterns\n\n**Best Practices**:\n- Create pattern catalog with examples and anti-patterns\n- Automate standards enforcement in CI/CD pipeline\n- Document when NOT to use certain patterns\n- Plan regular pattern and standards reviews\n- Establish technical debt tracking for standards violations\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -31640,6 +31981,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DesignPrincipleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this principle means", 0),
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this principle matters", 1),
@@ -31677,6 +32019,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Design Principles (10.1.2)\n\nGuiding principles for all UI decisions.\n\n### Principle Categories\n- **Visual** — Hierarchy, whitespace, color usage, typography\n- **Interaction** — Feedback, affordance, direct manipulation\n- **Accessibility** — Perceivable, operable, understandable, robust\n- **Information** — Progressive disclosure, chunking, scent\n- **Navigation** — Wayfinding, landmarks, predictability\n\n### Form Fields Guide\n**principleName**: Clear label (\"Progressive Disclosure\")\n**rationale**: Why it matters for this project\n**examples**: Concrete UI manifestations\n**exceptions**: When deviation is acceptable\n\n### Tom UI Mapping\nPrinciples configure shared behaviors:\n- Animation curves via `TomAnimations`\n- Feedback patterns via `TomFeedback`\n- Spacing/rhythm via `TomSpacing`\n- Typography scale via `TomTypography`\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -31742,6 +32085,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Design Vision (10.1)\n\nOverall design vision governing all UI decisions.\n\n### Subsections\n- **10.1.1 Design Goals** — Prioritized UI objectives (simplicity, efficiency, accessibility)\n- **10.1.2 Design Principles** — Guiding principles (progressive disclosure, direct manipulation)\n- **10.1.3 User Personas** — Distinct user archetypes with goals/pain points\n\n### Tom UI Framework Context\nDesign vision informs:\n- Widget selection and customization\n- Color schemes and theming via `TomTheme`\n- Spacing and typography scales\n- Interaction patterns and feedback timing\n\n### Specification Notes\nDocument the visual language and interaction vocabulary — how the Tom UI component \nlibrary will be configured and extended to express this vision.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DesignGoals", s, DesignGoalsNav::metaChildren, (r, c) -> {
@@ -31814,6 +32158,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DesktopOsRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("osName", "String", "Operating System", true, "E.g., Windows, macOS, Linux", 0),
             new SomFormFieldMeta("osFamily", "String", "OS Family", false, "Windows, macOS, Unix", 1),
@@ -31917,6 +32262,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Step-level detail for each process in the catalog: activity sequence,\ndecision points, handoffs, swim lanes, timing, and system-actor vs human\nactor responsibility.\n\n**What to capture:**\n- Activity list with inputs / outputs per step\n- Decision points with branch conditions\n- Handoff points between actors / systems\n- Timing expectations and SLAs per step\n- Error and exception branches\n- BPMN-style diagram per process\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -31944,6 +32290,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeveloperOnboarding", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("onboardingGuide", "String", "Onboarding Guide", false, "Location of onboarding documentation", 0),
             new SomFormFieldMeta("architectureOverview", "String", "Architecture Overview", false, "System architecture docs", 1),
@@ -32060,6 +32407,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DevelopmentConventionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("conventionCategory", "String", "Category", true, "Version Control, Code Review, Branching, Commit, CI/CD, Deployment", 0),
             new SomFormFieldMeta("description", "String", "Description", true, "What the convention requires", 1)));
@@ -32176,6 +32524,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of the development environment philosophy.\n\n**Include**:\n- Tooling philosophy and selection criteria\n- Developer onboarding target time\n- \"Works on my machine\" prevention strategy\n- Environment parity across dev/staging/production\n- Development metrics and productivity tracking\n\n**Best Practices**:\n- Use devcontainers or Nix for reproducible environments\n- Document \"getting started\" in under 30 minutes\n- Automate environment setup scripts\n- Establish development environment SLAs\n- Regular tooling retrospectives and updates\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -32374,6 +32723,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DevelopmentQualityGates", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("staticAnalysis", "String", "Static Analysis", false, "Required static analysis tools", 0),
             new SomFormFieldMeta("linterConfiguration", "String", "Linter Configuration", false, "Linter rules and configuration", 1),
@@ -32491,6 +32841,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DeviceSettingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("settingKey", "String", "Setting Key", true, "The dotted key of the device setting, e.g. window.layout", 0),
             new SomFormFieldMeta("valueType", "String", "Value Type", false, "string / int / double / bool / enum", 1),
@@ -32524,6 +32875,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Summarise which settings this system keeps per (user, device) rather than\nper user — the ones that describe how *this* machine is set up and would be\nwrong to carry to another one.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy and the reasoning for the device scope.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -32575,6 +32927,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DisasterRecoveryRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("drStrategy", "String", "DR Strategy", false, "Hot, Warm, Cold standby", 0),
             new SomFormFieldMeta("drSite", "String", "DR Site Location", false, "DR site location", 1),
@@ -32676,6 +33029,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DisplayEquipmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("displayType", "String", "Display Type — monitor, projector, video wall", false, null, 0),
             new SomFormFieldMeta("screenSize", "String", "Screen Size — diagonal inches", false, null, 1),
@@ -32755,6 +33109,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DisplayPropertyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("displayOrder", "String", "Display Order", false, "Order when displaying in forms/tables", 0),
             new SomFormFieldMeta("displayGroup", "String", "Display Group", false, "Grouping for UI layout", 1),
@@ -32786,6 +33141,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DisplayRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minResolution", "String", "Minimum Resolution", false, "1024x768, 1280x720", 0),
             new SomFormFieldMeta("recommendedResolution", "String", "Recommended Resolution", false, "Recommended screen resolution", 1),
@@ -32887,6 +33243,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DistributedTracingSpec", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("tracingBackend", "String", "Tracing Backend", false, "Jaeger, Zipkin, Tempo, X-Ray", 0),
             new SomFormFieldMeta("tracingProtocol", "String", "Tracing Protocol", false, "OTLP, Jaeger Thrift, Zipkin JSON", 1),
@@ -32972,6 +33329,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DistributionGroupSummary", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("recipientCount", "int", "Recipient Count", false, "Number of recipients in this group", 0),
             new SomFormFieldMeta("internalCount", "int", "Internal Recipients", false, "Number of internal recipients", 1),
@@ -33007,6 +33365,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of project communication and distribution approach.\nDescribe the different stakeholder groups, their information needs,\nand how documents and updates are distributed. Define the communication\nchannels and frequency for different types of information.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("CommunicationMatrix", s, CommunicationMatrixNav::metaChildren, (r, c) -> {
@@ -33103,6 +33462,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DistributionRecipientEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("role", "String", "Role", false, "Project or organizational role", 0),
             new SomFormFieldMeta("organization", "String", "Organization", false, "Department or company", 1)));
@@ -33230,6 +33590,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DistributionRecipientPreferences", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("distributionMethod", "String", "Distribution Method", false, "Email / Portal / Physical", 0),
             new SomFormFieldMeta("preferredFormat", "String", "Preferred Format", false, "PDF / Word / HTML / Link", 1),
@@ -33263,6 +33624,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DnsRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dnsProvider", "String", "DNS Provider", false, "Route 53, Cloudflare, etc.", 0),
             new SomFormFieldMeta("dnsHosting", "String", "DNS Hosting", false, "Managed, self-hosted", 1),
@@ -33363,6 +33725,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DocChangeability", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("versioningStrategy", "String", "Versioning Strategy", false, "Semantic, date-based, product-aligned", 0),
             new SomFormFieldMeta("versionHistoryTracking", "String", "Version History Tracking", false, "Changelog, git history", 1),
@@ -33457,6 +33820,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DocCompleteness", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requiredTopics", "String", "Required Topics", false, "List of required documentation topics", 0),
             new SomFormFieldMeta("topicCoverageTarget", "String", "Topic Coverage Target %", false, "100% of required, 80% of optional", 1),
@@ -33507,6 +33871,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DocCorrectness", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("spellingGrammarCheck", "String", "Spelling/Grammar Check", false, "Automated tools, manual review", 0),
             new SomFormFieldMeta("technicalAccuracyReview", "String", "Technical Accuracy Review", false, "SME review, testing against product", 1),
@@ -33815,6 +34180,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.unused = true;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DocumentHeader", s, DocumentHeaderNav::metaChildren, (r, c) -> {
@@ -33920,6 +34286,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DocumentHeader", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("documentId", "String", "Document Id", false, null, 0),
             new SomFormFieldMeta("project", "String", "Project", false, null, 1),
@@ -33955,6 +34322,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Describe how this document relates to other reference documents in the catalog.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -34006,6 +34374,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DocumentRelevantSections", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sectionReference", "String", "Section Reference (chapter, section, or page number)", true, "Locate the section: chapter, clause, or page number.", 0),
             new SomFormFieldMeta("sectionTitle", "String", "Section Title or Description", true, "Title or short description of the section.", 1),
@@ -34064,6 +34433,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Documentation deliverables: user guides, technical documentation,\noperations runbooks, API documentation, architecture decision records,\nrelease notes Template. Define format (PDF, HTML, Markdown, wiki),\ndelivery channel, language(s), and maintenance responsibility post-delivery.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -34117,6 +34487,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the documentation quality bar before the readability, completeness, correctness and changeability subsections below. Cover which deliverables the criteria apply to.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -34236,6 +34607,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DocumentationStandards", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("publicApiDocRequired", "bool", "Public API Doc Required", false, "All public APIs must be documented", 0),
             new SomFormFieldMeta("docCommentFormat", "String", "Doc Comment Format", false, "Dartdoc, JSDoc, Javadoc format", 1),
@@ -34353,6 +34725,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DocumentationStandardsSection", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("documentationPolicy", "String", "Documentation Policy", false, "Overall documentation policy", 0),
             new SomFormFieldMeta("templateStandards", "String", "Template Standards", false, "Required templates", 1),
@@ -34456,6 +34829,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Draw the bounded context: what belongs to this domain, what belongs to neighbouring ones, and what the shared language is at each seam.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -34547,6 +34921,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DomainBusinessRuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleType", "String", "Rule Type (Constraint, Calculation, Derivation, Action-Trigger, Authorization, Validation)", true, "Constraint / Calculation / Derivation / Action-Trigger / Authorization / Validation", 0),
             new SomFormFieldMeta("description", "String", "Description (plain language)", true, "Plain-language statement of what this rule requires", 1)));
@@ -34614,6 +34989,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of business rules and their importance in this domain.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -34665,6 +35041,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DomainEnumEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("enumName", "String", "Enum Name", true, "Logical enum name in PascalCase (e.g. OrderStatus, Currency)", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What this value set represents and where it is used", 1),
@@ -34724,6 +35101,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- `domainEnum` code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -34775,6 +35153,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DomainEnumValueEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("valueId", "String", "Value Id", true, "Stable value identifier (the enum constant / @Case token)", 0),
             new SomFormFieldMeta("backingValue", "String", "Backing Value", false, "Persisted/serialized code (int or string), if distinct from the id", 1),
@@ -34807,6 +35186,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DomainEventEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("eventDescription", "String", "Event Description", true, "What this event represents in the business", 0),
             new SomFormFieldMeta("eventType", "String", "Event Type (State Change, Action Completed, Time-based, External)", false, "State Change / Action Completed / Time-based / External", 1),
@@ -34845,6 +35225,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of key domain events and their significance.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -34896,6 +35277,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DomainInterfaceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("adjacentDomain", "String", "Adjacent Domain Name", true, "Name of the adjacent domain this interface connects to", 0),
             new SomFormFieldMeta("interfaceType", "String", "Interface Type (Shared Kernel, Customer-Supplier, Conformist, Anti-Corruption Layer, Published Language)", true, "Shared Kernel / Customer-Supplier / Conformist / Anti-Corruption Layer / Published Language", 1),
@@ -34933,6 +35315,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the business domain in its own vocabulary: what it is responsible for, where it sits in the business, and who owns it. Avoid solution language here.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -34981,6 +35364,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DomainProcessEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("processDescription", "String", "Process Description", true, "What this process does and why it exists", 0),
             new SomFormFieldMeta("processType", "String", "Process Type (Core, Support, Management)", false, "Core / Support / Management", 1),
@@ -35062,6 +35446,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the domain's main workflows at a level a business reader recognises. The detail belongs in the business process model; here, show how the activities fit together.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -35127,6 +35512,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DomainTermEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("term", "String", "Term", true, "The domain term being defined", 0),
             new SomFormFieldMeta("definition", "String", "Definition", true, "Precise meaning of the term in this domain", 1),
@@ -35165,6 +35551,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Introduction to the domain vocabulary and guidelines for using consistent terminology.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -35217,6 +35604,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Efficiency", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("responseTimeP50Target", "String", "Response Time P50", false, "Median response time (e.g., <100ms)", 0),
             new SomFormFieldMeta("responseTimeP95Target", "String", "Response Time P95", false, "95th percentile (e.g., <300ms)", 1),
@@ -35313,6 +35701,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ElementValidationRuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleType", "String", "Rule Type", true, "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", 0),
             new SomFormFieldMeta("ruleExpression", "String", "Rule Expression", false, "Validation expression or pattern", 1),
@@ -35347,6 +35736,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EmergencyMaintenanceProcedures", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("emergencyTriggers", "String", "Emergency Triggers", false, "What triggers emergency maintenance", 0),
             new SomFormFieldMeta("securityPatchPolicy", "String", "Security Patch Policy", false, "Critical security patch handling", 1),
@@ -35430,6 +35820,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EncryptedDataCategoryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataClassification", "String", "Data Classification", true, "Public | Internal | Confidential | Restricted | Secret — sensitivity classification of the data category", 0),
             new SomFormFieldMeta("encryptionApproach", "String", "Encryption Approach", false, "FieldLevel | ColumnLevel | TableLevel | DatabaseLevel | FileLevel | VolumeLevel — at what granularity this data category is encrypted", 1),
@@ -35467,6 +35858,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define how stored data is encrypted to protect against unauthorized access,\ndata breaches, and physical media theft.\n\n**Encryption layers:**\n1. **Full-disk encryption (FDE)**: Protects against physical theft\n2. **Database encryption (TDE)**: Transparent database-level encryption\n3. **Application encryption**: Field-level encryption for sensitive data\n4. **Hardware encryption**: HSM-backed encryption for highest assurance\n\n**Algorithm requirements:**\n- Symmetric: AES-256-GCM or AES-256-CBC with HMAC\n- Key derivation: PBKDF2, scrypt, or Argon2 for password-derived keys\n- Random IVs/nonces for each encryption operation\n\n**Data categories to encrypt:**\n- Credentials and secrets (highest priority)\n- PII: names, addresses, identifiers\n- Financial data: payment card numbers, bank details\n- Health data: PHI under HIPAA\n- Business confidential: trade secrets, contracts\n\n**Backup encryption:**\n- All backups encrypted with separate key set\n- Offline key escrow for disaster recovery\n- Test restoration of encrypted backups regularly\n\n**Compliance notes:**\n- PCI DSS 3.4: render PAN unreadable anywhere it is stored\n- HIPAA: encryption is addressable safeguard for PHI\n- GDPR: encryption as appropriate technical measure\n\n**Reference:**\n- OWASP Cryptographic Storage Cheat Sheet\n- NIST SP 800-111: Guide to Storage Encryption\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("EncryptionAtRestPolicy", s, EncryptionAtRestPolicyNav::metaChildren, (r, c) -> {
@@ -35592,6 +35984,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "State the default algorithm and key length and the layer encryption is applied at. Explain what this protects against — an at-rest scheme does not protect a running system.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -35633,6 +36026,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define how data is protected while moving over networks, both externally\n(internet) and internally (service-to-service).\n\n**TLS configuration:**\n- Minimum version: TLS 1.2 (TLS 1.3 preferred)\n- Disable: SSLv2, SSLv3, TLS 1.0, TLS 1.1\n- Cipher suites: AEAD ciphers only (GCM, ChaCha20-Poly1305)\n- Disable: NULL, EXPORT, DES, RC4, CBC (for TLS 1.2 prefer GCM)\n- Forward secrecy: require ECDHE or DHE key exchange\n\n**Certificate management:**\n- Use certificates from trusted CAs (or well-managed internal PKI)\n- Minimum 2048-bit RSA or 256-bit ECDSA keys\n- Automated renewal before expiration (ACME/Let's Encrypt)\n- Certificate transparency logging\n\n**HSTS (HTTP Strict Transport Security):**\n- Enable with long max-age (1 year recommended)\n- Include subdomains\n- Consider HSTS preload list submission\n\n**Mutual TLS (mTLS):**\n- Client certificate authentication for service-to-service\n- Zero-trust network architecture\n- Certificate rotation automation\n\n**Internal communication:**\n- Encrypt all internal service-to-service traffic\n- Service mesh (Istio, Linkerd) for automatic mTLS\n- No plaintext communication even within VPC\n\n**Reference:**\n- OWASP Transport Layer Security Cheat Sheet\n- NIST SP 800-52: Guidelines for TLS Implementations\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("TlsProtocolPolicy", s, TlsProtocolPolicyNav::metaChildren, (r, c) -> {
@@ -35758,6 +36152,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "End-to-end test scenarios derived from use cases and key user journeys.\nFeeds BQP test strategy and the Phase 5 test derivation step.\n\n**What to capture:**\n- Scenario catalog (name, user journey, success criteria)\n- Actor, data, and system preconditions\n- Step-by-step expected behavior\n- Variation matrix (happy path + key alternates)\n- Exit criteria for each scenario\n- Cross-reference to use cases and requirements\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -35785,6 +36180,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EnterpriseSystemCompatibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("systemType", "String", "System Type", false, "ERP, CRM, HR, Finance, Supply Chain", 0),
             new SomFormFieldMeta("vendor", "String", "Vendor", false, "System vendor", 1),
@@ -35885,6 +36281,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EntitlementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("entitlementName", "String", "Entitlement Name", true, "Name of the entitlement.", 0),
             new SomFormFieldMeta("description", "String", "Short description", false, "Brief description.", 1),
@@ -35941,6 +36338,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EntitlementReferenceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("entitlementName", "String", "Entitlement Name", true, "Name of the entitlement.", 0, java.util.List.of(), java.util.List.of("ENT.entitlementName")),
             new SomFormFieldMeta("grantType", "String", "Grant Type", false, "Full | ReadOnly | Conditional | TimeLimited — type of access granted through this entitlement", 1),
@@ -35973,6 +36371,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EntityConstraintEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("constraintType", "String", "Constraint Type", false, "Check | Unique | Exclusion | Custom", 0),
             new SomFormFieldMeta("expression", "String", "Expression", false, "Constraint expression or rule", 1),
@@ -36009,6 +36408,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this entity's follow-up facets — operational context the volume, compliance, technical and migration lists below do not capture.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -36146,6 +36546,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EntityIndexEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("indexType", "String", "Index Type", false, "BTree | Hash | GiST | GIN | FullText | Spatial", 0),
             new SomFormFieldMeta("columns", "String", "Column(s)", false, "Indexed columns in order, with direction (e.g., \"created_at DESC\")", 1),
@@ -36184,6 +36585,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this relationship — the business fact it records, beyond the cardinality and referential-integrity facets below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -36362,6 +36764,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Relationship specifications between data entities. Captures cardinality,\nreferential integrity rules, and navigation patterns.\n\n**Per Relationship (29 fields):**\n- Identity — name, type, description, justification, implementation type\n- Participants — source/target entities with role names\n- Cardinality — source/target cardinality, participation (mandatory/optional)\n- Referential Integrity — ON DELETE/UPDATE actions, enforcement, cascade scope\n- Navigation — bidirectional/unidirectional, loading strategy, FK location\n- Relationship Attributes — for relationships with their own properties\n\n**Relationship Types:**\n- Association — general relationship between entities\n- Aggregation — \"has-a\" with independent lifecycle\n- Composition — \"owns-a\" with dependent lifecycle\n- Generalization — inheritance/specialization\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -36413,6 +36816,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EntryPointEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("entryPoint", "String", "Entry Point", true, "Where the user comes from", 0),
             new SomFormFieldMeta("source", "String", "Source", false, "Source screen, navigation item, or external link", 1),
@@ -36444,6 +36848,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EnvironmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("environmentType", "String", "Environment Type", false, "Development / Testing / QA / UAT / Staging / Production / DR", 0)));
         out.add(n);
@@ -36707,6 +37112,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EnvironmentManagement", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("environmentTypes", "String", "Environment Types", false, "development, staging, production, etc.", 0),
             new SomFormFieldMeta("environmentNaming", "String", "Environment Naming", false, "Naming convention for environments", 1),
@@ -36807,6 +37213,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EnvironmentStrategy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("environmentTiers", "String", "Environment Tiers", false, "Dev, Test, Staging, Prod", 0),
             new SomFormFieldMeta("environmentParity", "String", "Environment Parity", false, "How similar envs are to prod", 1),
@@ -36923,6 +37330,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Environments", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("promotionPath", "String", "Promotion Path", false, "Deployment flow, e.g. Dev -> QA -> Staging -> Prod", 0),
             new SomFormFieldMeta("environmentTopology", "String", "Environment Topology", false, "High-level network/architecture topology across environments", 1),
@@ -36984,6 +37392,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the equipment provision for this workplace before the computing, display, input and peripheral lists below. Cover the standard issue and what is granted only by exception.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -37163,6 +37572,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ErrorBudgetTracking", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("budgetCalculationMethod", "String", "Budget Calculation Method", false, "How error budget is calculated", 0),
             new SomFormFieldMeta("budgetWindow", "String", "Budget Window", false, "Rolling or calendar window", 1),
@@ -37230,6 +37640,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ErrorCodeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("code", "String", "Code", true, "Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) — the join key for CE-VA rules, CE-ER and CE-TX copy", 0),
             new SomFormFieldMeta("category", "String", "Category", false, "Grouping: Validation | Authorization | NotFound | Conflict | BusinessRule | System", 1),
@@ -37266,6 +37677,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Catalogue the shared application error codes. Add one entry per code; each\ncode is referenced by:\n- CE-VA validation rules (a rule's error code on fail),\n- the CE-ER Result envelope (the error arm's `code`),\n- CE-TX error copy (the message keyed by the code).\n\nAuthor the code **once here**; everything else references it by id so the\nvocabulary never diverges. This is the *application* error registry — distinct\nfrom D09's system/network/display error catalogue.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -37319,6 +37731,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the error-handling experience before the validation, system-error and recovery subsections below. Cover the tone errors are written in and the balance struck between prevention and recovery.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -37499,6 +37912,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ErrorHandlingStandards", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("errorPhilosophy", "String", "Error Handling Philosophy", false, "Exceptions, Result types, Either, Error codes", 0),
             new SomFormFieldMeta("failFastApproach", "String", "Fail-Fast Approach", false, "When and how to fail fast", 1),
@@ -37617,6 +38031,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how a user gets back on track after an error before the preservation, retry and guided-recovery subsections below. Cover what work must never be lost.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -37804,6 +38219,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Evaluation Criteria (12.1.2)\n\nCriteria for evaluating candidate components.\n\n### Standard Categories\n- **Technical** — Performance, scalability, security, API quality\n- **Commercial** — Cost, licensing, vendor stability\n- **Operational** — Support model, documentation, update frequency\n- **Strategic** — Alignment with stack, vendor relationship\n- **Compliance** — Regulatory requirements, certifications\n\n### Scoring Approach\nEach criterion includes:\n- Weight (% of total)\n- Scoring scale (1-5, Pass/Fail)\n- Minimum threshold\n- Eliminatory flag\n- Evidence requirements\n- Evaluation method\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -37855,6 +38271,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EvaluationCriterionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterion", "String", "Criterion Name", true, "Short name, e.g. Vendor Stability", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What this criterion evaluates", 1),
@@ -37940,6 +38357,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EventAttributePolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("timestampFormat", "String", "Timestamp Format", false, "Date/time format (e.g., ISO 8601, UTC, with timezone)", 0),
             new SomFormFieldMeta("applicationIdentifier", "String", "Application Identifier", false, "How application is identified (e.g., name, version, instance)", 1),
@@ -37991,6 +38409,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "List of stakeholders who receive executive summaries only.\nThese are typically senior executives and sponsors who need\nhigh-level progress updates without operational details.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DistributionGroupSummary", s, DistributionGroupSummaryNav::metaChildren, (r, c) -> {
@@ -38057,6 +38476,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("systemId", "String", "System ID/Code (internal identifier)", false, "The catalogue or CMDB code the organisation already uses for this system, if any — owned outside this document", 0),
             new SomFormFieldMeta("systemVersion", "String", "Current Version", false, "Release or version currently in production, e.g. \"ECC 6.0\".", 1),
@@ -38267,6 +38687,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "High-level overview of the existing systems landscape. Include a context diagram showing how systems interact.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("SystemInventory", s, SystemInventoryNav::metaChildren, (r, c) -> {
@@ -38339,6 +38760,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExpectedImprovements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("efficiencyGains", "String", "Efficiency Gains — throughput, cycle time improvements", false, "Expected gains in speed or throughput", 0),
             new SomFormFieldMeta("qualityImprovements", "String", "Quality Improvements — error reduction, consistency", false, "Expected reduction in errors or defects", 1),
@@ -38379,6 +38801,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an executive overview of the User Interface Design, establishing the\nfoundation for all visual and interactive aspects of the application.\n\n**Purpose:**\nThis section bridges business requirements and visual implementation. It ensures\nthe UI supports all business processes, respects authorization boundaries, and\nprovides a consistent user experience across all application areas.\n\n**Section structure:**\n1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions\n2. **Screen Descriptions** — Detailed inventory of all application screens\n3. **Screen Flow Structure** — Navigation paths and user journeys through the application\n4. **Print Layout** — Reports, exports, and print output formats\n5. **Data Structure Alignment** — Mapping of UI fields to data model entities\n6. **Authorization Compliance** — UI adaptation based on user roles and permissions\n7. **Error Handling** — User feedback for validation errors and system failures\n8. **User Assistance** — Contextual help, tooltips, onboarding, and documentation\n9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support\n10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile\n11. **UI Components** — Reusable component library and design system\n12. **Multi-language Support** — Internationalization and localization approach\n13. **Prototype** — Clickable prototype deliverables and fidelity levels\n\n**Flutter UI framework context:**\nThis specification targets Flutter-based UI using the Tom UI framework:\n- Observable state binding via `TomObject<T>` and `TomClass`\n- Form system with typed fields, validation, and resource lookup\n- Action system for user interactions and command execution\n- Authorization-aware widgets with four-state visibility model\n- Resource-based text, icons, and configuration\n- Theming system for consistent visual styling\n\n**Specification depth:**\nThe UI specification should be detailed enough to specify every screen, field,\nbutton, icon, label, tooltip, error message, layout breakpoint, and interaction\npattern. The structure allows progressive refinement from high-level wireframes\nto pixel-perfect designs with exact typography and spacing.\n\n**Cross-references:**\n- Data Model (section 7) → field mappings and data types\n- Security & Access Model (section 9) → role-based UI visibility\n- Business Processes (section 6) → user task flows\n- Requirements (section 4) → functional requirements for each screen\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ExperienceCodeSpecs", s, ExperienceCodeSpecsNav::metaChildren, (r, c) -> {
@@ -38482,6 +38905,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the CodeSpecs UI-generation subtree: screens, navigation, error handling, responsive design, and components.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ScreenDescriptions", s, ScreenDescriptionsNav::metaChildren, (r, c) -> {
@@ -38607,6 +39031,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the design follow-up: vision, print layout, user assistance, accessibility, prototype, and wireframes.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DesignVision", s, DesignVisionNav::metaChildren, (r, c) -> {
@@ -38737,6 +39162,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the localization follow-up: the multi-language / internationalization approach.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("MultiLanguageSupport", s, MultiLanguageSupportNav::metaChildren, (r, c) -> {
@@ -38779,6 +39205,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExportFieldMappingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("mappingId", "String", "Mapping ID", true, "The identifier this mapping carries in the generated export — unique within the export, e.g. FLD-01", 0),
             new SomFormFieldMeta("sourceField", "String", "Source Field", true, "Data model field path, e.g. order.customer.name", 1),
@@ -38959,6 +39386,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExportFormatEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("formatType", "String", "Format Type", false, "CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width", 0)));
         out.add(n);
@@ -39177,6 +39605,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExportSizeSettings", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("maxRows", "int", "Maximum Rows", false, "Row limit; 0 = unlimited", 0),
             new SomFormFieldMeta("splitLargeFiles", "String", "Split Large Files", false, "Yes / No — split into chunks", 1),
@@ -39208,6 +39637,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExportTemplateEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("baseFormatType", "String", "Base Format Type", false, "CSV / Excel / PDF / JSON / XML / HTML", 0)));
         out.add(n);
@@ -39325,6 +39755,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExtensionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("branchPoint", "String", "Branch Point — main-scenario step", true, "The main-scenario step this branch leaves from, as that step's section id (MNSST-STEP-…). The branch is taken instead of that step, so name the step the condition is evaluated before — not the step before it, and not a restated step number.", 0, java.util.List.of(), java.util.List.of("MNSST.@sectionId")),
             new SomFormFieldMeta("condition", "String", "Condition — when this extension triggers", false, "Condition under which the branch is taken", 1),
@@ -39400,6 +39831,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExtensionStepEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "String", "Step Number (e.g., 3a1)", false, "Extension step id such as 3a1", 0),
             new SomFormFieldMeta("action", "String", "Action", false, "What the actor does in this extension step", 1),
@@ -39455,6 +39887,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExternalActorEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actorType", "String", "Actor Type (Internal User, External User, Organization, Partner, Customer, Regulator, etc.)", true, "The category of actor", 0),
             new SomFormFieldMeta("description", "String", "Actor Description", false, "A short description of this actor", 1),
@@ -39537,6 +39970,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of external actors and their interaction patterns with the system.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -39591,6 +40025,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of external connectivity landscape.\n\n**Include**:\n- Key partner and integration landscape\n- Cloud service dependencies\n- Critical third-party APIs\n- Gateway and mesh architecture\n- Resilience strategy\n\n**Best Practices**:\n- Abstract external dependencies with adapters\n- Implement comprehensive error handling\n- Monitor external dependency health\n- Have fallback strategies for critical integrations\n- Regular vendor review and risk assessment\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -39731,6 +40166,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this interface — the business need it serves and the partner behind it, beyond the technical, data and security facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -39899,6 +40335,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the external-integration landscape before the individual interfaces below. Cover the integration style favoured and the governance around adding one.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -39989,6 +40426,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExternalNetworkRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("internetAccess", "String", "Internet Access", false, "Direct, NAT gateway, proxy", 0),
             new SomFormFieldMeta("ispRedundancy", "String", "ISP Redundancy", false, "Multi-ISP, single ISP", 1),
@@ -40089,6 +40527,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExternalPartnerConnectionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("partnerType", "String", "Partner Type", false, "Vendor, customer, regulatory body, payment provider", 0),
             new SomFormFieldMeta("connectionPurpose", "String", "Connection Purpose", false, "Business purpose of this integration", 1)));
@@ -40233,6 +40672,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExternalPartnerOperations", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("contactPerson", "String", "Contact Person", false, "Technical contact at partner", 0),
             new SomFormFieldMeta("escalationProcess", "String", "Escalation Process", false, "Issue escalation path", 1),
@@ -40267,6 +40707,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of external service dependencies and vendor relationships.");
         n.contentHelp = "Describe reliance on external services. Include vendor risk assessment, contract status, and contingency planning.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -40318,6 +40759,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExternalServiceDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("serviceProvider", "String", "Service Provider/Vendor", false, "Company providing the service, e.g. \"Stripe, Inc.\".", 0),
             new SomFormFieldMeta("serviceType", "String", "Service Type", false, "SaaS / PaaS / IaaS / API Service / Data Feed / Payment Gateway / etc.", 1)));
@@ -40422,6 +40864,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExternalSystemContextEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("systemOwner", "String", "System Owner (organization/department)", false, "The organization or department that owns this system", 0),
             new SomFormFieldMeta("systemType", "String", "System Type (ERP, CRM, Database, API, SaaS, Legacy, etc.)", true, "The category of external system", 1)));
@@ -40518,6 +40961,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of external system integrations and integration architecture.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -40569,6 +41013,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FamilyComponentRef", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentId", "String", "Component ID", true, "The referenced component — a component section id (CMPNT-COMP-…)", 0, java.util.List.of(), java.util.List.of("CMPNT.@sectionId")),
             new SomFormFieldMeta("familyRole", "String", "Family Role", false, "Primary, secondary, specialized", 1),
@@ -40600,6 +41045,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeatureDependencies", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalDependencyCount", "String", "Total Dependency Count", false, "Total number of inter-feature dependencies", 0),
             new SomFormFieldMeta("crossStageDependencyCount", "String", "Cross-Stage Dependency Count", false, "Dependencies spanning stage boundaries — highest scheduling risk", 1),
@@ -40670,6 +41116,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeatureDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceFeatureId", "String", "Source Feature ID", true, "The feature that has the dependency (the dependent) — a feature section id (FPE-ITEM-…)", 0, java.util.List.of(), java.util.List.of("FPE.@sectionId")),
             new SomFormFieldMeta("targetFeatureId", "String", "Target Feature ID", true, "The feature that must be delivered first (the prerequisite) — a feature section id (FPE-ITEM-…)", 1, java.util.List.of(), java.util.List.of("FPE.@sectionId")),
@@ -40708,6 +41155,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeatureModuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("featureArea", "String", "Feature Area", false, "Business area this feature belongs to", 0),
             new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Context Name of the owning bounded context", 1, java.util.List.of(), java.util.List.of("BCE.contextName"))));
@@ -40824,6 +41272,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeaturePrioritization", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("prioritizationMethodology", "String", "Prioritization Methodology", true, "MoSCoW / WSJF / ValueVsEffort / Kano / Hybrid", 0),
             new SomFormFieldMeta("prioritizationOwner", "String", "Prioritization Owner", true, "Role or person with final authority", 1),
@@ -41033,6 +41482,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeaturePriorityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("priorityRank", "String", "Priority Rank", true, "Ordinal rank — 1 = highest", 0)));
         out.add(n);
@@ -41248,6 +41698,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeaturePriorityRegister", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalRegisteredFeatures", "String", "Total Registered Features", false, "Total number of features in the register", 0),
             new SomFormFieldMeta("registerLastUpdated", "String", "Register Last Updated", false, "Date the register was last fully reviewed", 1),
@@ -41304,6 +41755,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeatureStageMapping", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry stages — a feature section id declared by the Feature Priority Register (FPE-ITEM-…)", 0, java.util.List.of(), java.util.List.of("FPE.@sectionId"))));
         out.add(n);
@@ -41401,6 +41853,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeatureStageMatrix", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalMappedFeatures", "String", "Total Mapped Features", false, "Number of features mapped to stages", 0),
             new SomFormFieldMeta("unmappedFeatures", "String", "Unmapped Features", false, "Features not yet assigned to any stage", 1),
@@ -41472,6 +41925,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeatureStakeholders", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requestedBy", "String", "Requested By", false, "Person, team, or customer who requested this", 0),
             new SomFormFieldMeta("businessOwner", "String", "Business Owner", true, "Business stakeholder accountable", 1),
@@ -41507,6 +41961,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeatureTourEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("tourDescription", "String", "Tour Description", false, "Short summary of what the tour covers", 0),
             new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "New users, specific role, all", 1),
@@ -41566,6 +42021,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FieldHelpEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldId", "String", "Field ID", true, "Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name", 0, java.util.List.of(), java.util.List.of("SCREL.elementId")),
             new SomFormFieldMeta("tooltipText", "String", "Tooltip Text", false, "Brief tooltip content", 1),
@@ -41601,6 +42057,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FieldValidationRule", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleType", "String", "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)", true, "Required, Pattern, Range, Length, Custom, or CrossField", 0),
             new SomFormFieldMeta("ruleExpression", "String", "Rule Expression / Formula", false, "Expression or formula implementing the rule", 1),
@@ -41637,6 +42094,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe who may read, change, share and delete files, and how the decision is enforced on every access path — including direct storage URLs.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -41678,6 +42136,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define security controls for user-uploaded files, generated documents,\nand all stored media.\n\n**File upload validation:**\n- Allowlist of permitted file extensions (not blocklist)\n- Content-type validation (check magic bytes, not just extension)\n- Maximum file size limits per file type\n- Filename sanitization (remove path traversal, special characters)\n- Re-encode/re-compress files to strip malicious payloads\n\n**Malware scanning:**\n- Scan all uploads before acceptance\n- Quarantine suspicious files for review\n- Block known-malicious file signatures\n\n**Storage encryption:**\n- Encrypt files at rest (AES-256-GCM or equivalent)\n- Server-side encryption with customer-managed keys (BYOK) option\n- Secure key management via HSM or cloud KMS\n\n**Access control:**\n- Signed URLs for time-limited access to private files\n- Authorization check before serving any file\n- No direct filesystem access to uploaded content\n\n**Download protection:**\n- Content-Disposition header to force downloads for executable types\n- X-Content-Type-Options: nosniff\n- Serve user content from separate domain (sandbox)\n\n**Storage lifecycle:**\n- Automatic deletion of orphaned files\n- Retention policies per file type and classification\n- Secure deletion (cryptographic erasure)\n\n**Reference:**\n- OWASP File Upload Cheat Sheet\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -41809,6 +42268,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how downloads are authorized and throttled, and which content-disposition and security headers are set. Cover hot-linking and shared-link expiry.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -41850,6 +42310,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how file and blob storage is encrypted and how signed URLs interact with it. Cover local copies on devices, which are usually the weakest point.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -41891,6 +42352,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the validation layers an upload passes and the order they run in. Extension checks alone are not validation — state how the file's actual content is confirmed.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -41930,6 +42392,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FirewallRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("firewallArchitecture", "String", "Firewall Architecture", false, "Perimeter, distributed, cloud", 0),
             new SomFormFieldMeta("firewallVendor", "String", "Firewall Vendor/Product", false, "Firewall product used", 1),
@@ -42031,6 +42494,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Flexibility", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentArchitecture", "String", "Component Architecture", false, "Microservices, modular monolith, plugins", 0),
             new SomFormFieldMeta("componentGranularity", "String", "Component Granularity", false, "Fine-grained, coarse-grained", 1),
@@ -42127,6 +42591,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce flexibility for this system before the adaptability and portability subsections below. Cover the changes the system is expected to absorb without redesign.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -42212,6 +42677,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FormScreenAssignmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("formId", "String", "Form ID", true, "The form shown on this route — a screen section id (SCREN-ITEM-…) whose screen category is Form", 0, java.util.List.of(), java.util.List.of("SCREN.@sectionId")),
             new SomFormFieldMeta("routeId", "String", "Route ID", true, "Route ID (SCRTEN registry) that hosts the form", 1, java.util.List.of(), java.util.List.of("SCRTEN.routeId")),
@@ -42243,6 +42709,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FrameworkRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("frameworkCategory", "String", "Category", false, "UI Framework, Backend Framework, Testing, State Management", 0),
             new SomFormFieldMeta("purpose", "String", "Purpose", true, "What problem this framework solves", 1)));
@@ -42380,6 +42847,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "List of stakeholders who receive complete project documentation.\nThese are typically core team members and key stakeholders who need\nfull visibility into all project activities and decisions.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DistributionGroupSummary", s, DistributionGroupSummaryNav::metaChildren, (r, c) -> {
@@ -42446,6 +42914,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FunctionDataMatrixEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("entityName", "String", "Entity Name", true, "Data entity being accessed", 0),
             new SomFormFieldMeta("accessType", "String", "Access Type", false, "CRUD access: C | R | U | D or combinations", 1),
@@ -42479,6 +42948,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FunctionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this function accomplishes", 0),
             new SomFormFieldMeta("parentFunction", "String", "Parent Function", false, "Parent function in hierarchy", 1)));
@@ -42585,6 +43055,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the function model before the decomposition, matrix and rule lists below. Cover how deep the decomposition goes and how functions are mapped onto data.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -42719,6 +43190,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FunctionalCompleteness", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("featureCoverageTarget", "String", "Feature Coverage Target %", false, "Percentage of specified features implemented", 0),
             new SomFormFieldMeta("coreWorkflowCoverage", "String", "Core Workflow Coverage", false, "100% of core, 80% of secondary", 1),
@@ -42768,6 +43240,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FunctionalRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("status", "String", "Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)", true, "Draft, Proposed, Approved, Implemented, Verified, or Deferred", 0)));
         out.add(n);
@@ -43007,6 +43480,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the functional requirement set and how it is organised. Individual requirements go in the subsections below; use this text for scope, conventions and how completeness was judged.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -43078,6 +43552,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FunctionalResponsibilities", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("responsibilityMatrixApproach", "String", "Responsibility Matrix Approach", false, "RACI, RASCI, DACI — methodology used for responsibility assignment", 0),
             new SomFormFieldMeta("governanceModel", "String", "Governance Model", false, "Centralized, federated, distributed — how responsibilities are governed", 1),
@@ -43151,6 +43626,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce functional suitability for this system before the completeness and correctness subsections below. Cover what \"the right functions, done correctly\" means here.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -43237,6 +43713,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("GapEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("gapCategory", "String", "Gap Category", false, "Functional / Process / Data / Integration / Compliance / Security / Performance / Usability", 0),
             new SomFormFieldMeta("severity", "String", "Severity", false, "Critical / High / Medium / Low", 1)));
@@ -43341,6 +43818,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("GeographicDistributionRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryRegion", "String", "Primary Region", false, "Primary deployment region", 0),
             new SomFormFieldMeta("secondaryRegions", "String", "Secondary Regions", false, "Secondary/backup regions", 1),
@@ -43441,6 +43919,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("GlobalRoleExclusionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("excludedRoleA", "String", "Excluded Role A", true, "First mutually exclusive role", 0),
             new SomFormFieldMeta("excludedRoleB", "String", "Excluded Role B", true, "Second mutually exclusive role", 1),
@@ -43475,6 +43954,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Introduce the glossary: scope, conventions, and how terms are maintained.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -43526,6 +44006,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("GlossaryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("term", "String", "Term", true, null, 0),
             new SomFormFieldMeta("definition", "String", "Definition", true, null, 1),
@@ -43559,6 +44040,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of dependencies and their impact on goal achievement timeline.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -43610,6 +44092,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("GoalDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependencyType", "String", "Dependency Type (Internal Goal, External Project, Resource, Regulatory, Technical, Organizational)", true, "e.g., Internal Goal, External Project, Resource, Regulatory", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "Details of the dependency", 1),
@@ -43660,6 +44143,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of key results and how they collectively demonstrate goal achievement.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -43711,6 +44195,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("GoalMilestoneEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this milestone represents", 0),
             new SomFormFieldMeta("targetDate", "String", "Target Date", true, "Planned date for reaching the milestone", 1),
@@ -43747,6 +44232,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of milestone approach and how milestones relate to goal progress.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -43800,6 +44286,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "List what achieving the goal needs — people, budget, systems, external parties — and say which of them are not yet secured.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -43870,6 +44357,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("GoalRiskEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What the risk is and how it could materialize", 0),
             new SomFormFieldMeta("riskCategory", "String", "Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", false, "e.g., Market, Operational, Technical, Resource, Regulatory", 1)));
@@ -43937,6 +44425,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of risks affecting this goal and overall risk posture.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -43990,6 +44479,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the goal set and the methodology behind it, OKR or otherwise. Each goal gets its own subsection below; use this text for how the goals were agreed and how progress is reviewed.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -44077,6 +44567,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("GovernanceModel", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("decisionFramework", "String", "Decision-Making Framework", false, "How project decisions are made — consensus, authority, RACI", 0),
             new SomFormFieldMeta("escalationPaths", "String", "Escalation Paths", false, "How and to whom unresolved issues are escalated", 1),
@@ -44134,6 +44625,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "One access state and what earns it.\n\nThe requirement kinds are the same as for an ungraded requirement, minus\n*Graded* — an access state is already the outcome of a grading, so it cannot\nitself be graded.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("accessLevel", "GradedAccessLevel", "Access Level", true, "The state this requirement earns. Full | Read | Disabled — each authored at most once per graded requirement.", 0, java.util.List.of("full", "read", "disabled")),
             new SomFormFieldMeta("requirementKind", "BasicAuthorizationRequirementKind", "Requirement Kind", true, "What the caller must satisfy to reach this access state — selects the payload subsection below", 1, java.util.List.of("role", "group", "entitlement", "resourceKey", "custom", "denied", "public", "authenticated", "guest"))));
@@ -44242,6 +44734,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "The requirement for each access state, from the most permissive down.\n\n**Author only what differs.** The levels default downwards: a caller who meets\n*Full* also has *Read*, and a caller who meets *Read* also has *Disabled*. Omit\na level to inherit the one above it. A caller meeting none of them gets no\naccess and the thing is not shown, which is why there is no \"none\" level to\nauthor.\n\n**Author each state at most once.** The three states are a ladder, not a set of\nindependent rules.\n\n**What the states mean is fixed by the framework** — no access hides the thing,\ndisabled shows it locked, read shows its value, full makes it interactive. Do\nnot restate that here; author only *who* reaches each state.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("gradingRationale", "String", "Grading Rationale", false, "Why this thing is graded rather than simply reachable or not", 0)));
         out.add(n);
@@ -44295,6 +44788,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("HandlingRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requirementType", "String", "Requirement Type", false, "Processing | Storage | Transmission | Display | Disposal", 0),
             new SomFormFieldMeta("requirement", "String", "Requirement", true, "The specific handling requirement", 1),
@@ -44331,6 +44825,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of hardware strategy and infrastructure approach.\n\n**Include**:\n- Infrastructure strategy (cloud, on-prem, hybrid)\n- Key capacity requirements\n- Cost optimization approach\n- Disaster recovery infrastructure\n- Hardware refresh and upgrade plan\n\n**Best Practices**:\n- Use Infrastructure as Code (Terraform, Pulumi)\n- Plan for 3x peak capacity\n- Implement auto-scaling where possible\n- Document hardware assumptions and risks\n- Regular capacity reviews and forecasting\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ServerRequirementsSection", s, ServerRequirementsSectionNav::metaChildren, (r, c) -> {
@@ -44403,6 +44898,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("HealthCheckEndpoints", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("livenessEndpoint", "String", "Liveness Endpoint", true, "/health/live — is the process running", 0),
             new SomFormFieldMeta("readinessEndpoint", "String", "Readiness Endpoint", true, "/health/ready — can it serve traffic", 1),
@@ -44494,6 +44990,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of health check and diagnostics strategy.\n\n**Include**:\n- Health check architecture\n- Diagnostics capabilities\n- Troubleshooting workflow\n- Self-healing mechanisms\n- Integration with monitoring\n\n**Best Practices**:\n- Implement all three probe types\n- Keep health checks fast and reliable\n- Include dependency health in deep checks\n- Correlate logs and traces\n- Document troubleshooting procedures\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -44608,6 +45105,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("HighAvailabilityRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("availabilityTarget", "String", "Availability Target", false, "99.9%, 99.99%, etc.", 0),
             new SomFormFieldMeta("downtimeBudgetMonthly", "String", "Monthly Downtime Budget", false, "Allowed downtime/month", 1),
@@ -44709,6 +45207,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IdeRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("version", "String", "Version Requirements", false, "Minimum version or version range", 0),
             new SomFormFieldMeta("platform", "String", "Platform", false, "Windows, macOS, Linux, Web", 1)));
@@ -44792,6 +45291,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Identification", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("identityModelApproach", "String", "Identity Model Approach", false, "Centralized / Federated / Decentralized / Hybrid — how identities are architecturally managed", 0),
             new SomFormFieldMeta("identityNamespace", "String", "Identity Namespace", false, "Namespace/scheme for identifiers, e.g. email, UPN, employeeId, UUID", 1),
@@ -44949,6 +45449,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define how users prove their identity to the system. Authentication is the\nfoundation of access control — all authorization decisions depend on reliable\nuser identification.\n\n**Key topics to address:**\n- Authentication Assurance Levels (AAL) per NIST SP 800-63B:\n  - AAL1: Single-factor (passwords)\n  - AAL2: Two-factor (password + OTP, push notification)\n  - AAL3: Hardware-bound authenticators (FIDO2, PIV)\n- Authenticator types supported (what you know, have, are)\n- Credential lifecycle (issuance, rotation, recovery, revocation)\n- Session management and token handling\n\n**Industry standards:**\n- NIST SP 800-63B: Digital Identity Guidelines — Authentication\n- FIDO2/WebAuthn: Passwordless authentication\n- OAuth 2.0 / OpenID Connect: Federated authentication\n- OWASP Authentication Cheat Sheet\n\n**Business context:**\n- Balance security vs. user experience\n- Support for legacy systems and gradual migration\n- Regulatory requirements (PCI DSS, HIPAA, SOX)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("Identification", s, IdentificationNav::metaChildren, (r, c) -> {
@@ -45006,6 +45507,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IdentityAttributeMappingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceAttribute", "String", "Source Attribute", true, "Attribute name in the source system, e.g. mail, sAMAccountName, sub", 0),
             new SomFormFieldMeta("sourceSystem", "String", "Source System", false, "Identity source or IdP this mapping applies to, e.g. AzureAD, LDAP, AllSources", 1),
@@ -45089,6 +45591,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IdentityProviderDetails", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("providerProduct", "String", "Provider Product", false, "Specific product, e.g. Azure AD, Okta, Keycloak", 0),
             new SomFormFieldMeta("protocolVersion", "String", "Protocol Version", false, "Protocol version, e.g. SAML 2.0, OIDC 1.0", 1),
@@ -45120,6 +45623,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IdentityProviderEndpoints", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("endpointUrl", "String", "Endpoint URL", false, "Primary endpoint URL for authentication", 0),
             new SomFormFieldMeta("metadataUrl", "String", "Metadata URL", false, "SAML metadata URL or OIDC discovery endpoint", 1),
@@ -45153,6 +45657,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IdentityProviderEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("providerType", "String", "Provider Type", false, "SAML / OIDC / LDAP / ActiveDirectory / OAuth2", 0),
             new SomFormFieldMeta("enabled", "String", "Enabled", false, "Yes / No — whether this provider is currently active", 1)));
@@ -45285,6 +45790,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IdentitySourceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceType", "String", "Source Type", false, "InternalDirectory / LDAP / ActiveDirectory / ExternalIdP / SocialProvider / SelfRegistration / HRSystem / SCIM / Manual", 0),
             new SomFormFieldMeta("sourceProduct", "String", "Source Product", false, "Specific product/service, e.g. Azure AD, Okta, Google Workspace", 1)));
@@ -45386,6 +45892,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IdentityVerificationPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("verificationLevel", "String", "Verification Level", false, "None / Basic / Enhanced / Strict — overall identity proofing rigor", 0),
             new SomFormFieldMeta("nistIalTarget", "String", "NIST IAL Target", false, "IAL1 / IAL2 / IAL3 — NIST SP 800-63A Identity Assurance Level target", 1),
@@ -45513,6 +46020,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ImpactLevelDefinitions", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minorDefinition", "String", "Minor Impact Definition", false, "What constitutes a minor change", 0),
             new SomFormFieldMeta("minorApproval", "String", "Minor Approval", false, "Who approves minor changes", 1),
@@ -45549,6 +46057,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IncidentManagementRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("incidentProcess", "String", "Incident Process", false, "Incident management process", 0),
             new SomFormFieldMeta("severityDefinitions", "String", "Severity Definitions", false, "SEV1, SEV2, SEV3 definitions", 1),
@@ -45650,6 +46159,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IncidentResponsePlan", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("incidentSeverityLevels", "String", "Incident Severity Levels", true, "SEV1-SEV4 definitions for security incidents", 0),
             new SomFormFieldMeta("incidentCategories", "String", "Incident Categories", false, "Data breach, unauthorized access, malware, DDoS", 1),
@@ -45735,6 +46245,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IndustryProtocolComplianceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category", false, "Network, Messaging, Security, Data exchange", 0),
             new SomFormFieldMeta("specificationVersion", "String", "Specification Version", true, "Protocol version", 1),
@@ -45835,6 +46346,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IndustryStandardEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardBody", "String", "Standard Body", false, "ISO, IEEE, OWASP, NIST, ECMA", 0),
             new SomFormFieldMeta("version", "String", "Version", false, "Version of the standard", 1),
@@ -45952,6 +46464,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Conceptual overview of the business data the system manages. This chapter\nestablishes the foundation for all data-related specifications and seeds the\nIFM (Information Model) document.\n\n**Key Components:**\n- **Data Model** — Entity definitions with attributes, keys, indexes, and relationships\n- **Business Object Model** — Domain objects with lifecycle states, operations, and invariants\n- **Function Model** — Business functions with decomposition and data access matrix\n\n**Best Practices:**\n- Follow Domain-Driven Design patterns (AggregateRoot, Entity, ValueObject)\n- Use SBVR-style business rule statements\n- Apply data classification framework (ISO 27001, NIST)\n- Document CRUD access patterns in function-to-data matrix\n- Include compliance frameworks (GDPR, HIPAA, SOX, PCI-DSS) for PII/PHI data\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DataModel", s, DataModelNav::metaChildren, (r, c) -> {
@@ -46134,6 +46647,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Information Architecture (10.2.2)\n\nOverall content organization and navigation structure.\n\n### Components\n- **Site Map** — Full screen hierarchy\n- **Content Hierarchy** — Logical grouping of features\n- **Navigation Structure** — How users move between screens\n- **Global Entry Points** — External access points\n- **Architecture Diagram** — Visual representation (mermaid)\n\n### Design Principles\n- Maximum 3 clicks to any feature\n- Clear wayfinding landmarks\n- Consistent mental model\n- Graceful degradation for authorization\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -46225,6 +46739,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "User documentation requirements: deliverables, formats, platforms, versioning, and documentation localization.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("UserDocumentationRequirements", s, UserDocumentationRequirementsNav::metaChildren, (r, c) -> {
@@ -46269,6 +46784,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InfrastructureAsCode", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("iacTool", "String", "IaC Tool", false, "Terraform, Pulumi, CloudFormation", 0),
             new SomFormFieldMeta("iacRepository", "String", "IaC Repository", false, "Where IaC code lives", 1),
@@ -46370,6 +46886,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InfrastructureComponentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentType", "String", "Component Type", false, "Logging, Caching, Messaging, Storage, Network", 0),
             new SomFormFieldMeta("layer", "String", "Layer", false, "Infrastructure layer", 1)));
@@ -46486,6 +47003,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InfrastructureMetricsSpec", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("cpuMetrics", "bool", "CPU Metrics", false, "User, system, iowait, idle", 0),
             new SomFormFieldMeta("memoryMetrics", "bool", "Memory Metrics", false, "Used, available, cached, buffered", 1),
@@ -46570,6 +47088,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InfrastructureSecurityHardening", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("osHardeningBaseline", "String", "OS Hardening Baseline", true, "CIS Benchmark, DISA STIG, custom baseline", 0),
             new SomFormFieldMeta("patchManagementPolicy", "String", "Patch Management Policy", false, "Patching cadence, critical patch SLA", 1),
@@ -46657,6 +47176,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describes how the initial-development phases hand off to each other:\ndependencies, parallel work streams, and synchronization points.\n\n**What to capture:**\n- Phase dependency graph (which phase must end before another begins)\n- Parallelization opportunities (work streams that can proceed concurrently)\n- Synchronization points / integration checkpoints\n- Shared artifact touchpoints (same document updated in multiple phases)\n- Team coordination model during the initial build\n- Transition criteria to post-development (where DRM-UPG takes over)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -46684,6 +47204,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InitialTrainingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, null, 0)));
         out.add(n);
@@ -46799,6 +47320,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InputDeviceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("deviceType", "String", "Device Type — keyboard, mouse, trackpad, stylus, touchscreen", false, null, 0),
             new SomFormFieldMeta("ergonomicDesign", "String", "Ergonomic Design — split keyboard, vertical mouse", false, null, 1),
@@ -46834,6 +47356,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InsuranceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("insuranceType", "String", "Insurance Type", true, "Kind of insurance, e.g. liability, professional indemnity", 0),
             new SomFormFieldMeta("minimumCoverage", "String", "Minimum Coverage", false, "Minimum coverage amount required", 1),
@@ -46869,6 +47392,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of insurance and liability framework.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -46944,6 +47468,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IntegrationArchitecture", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("integrationStrategy", "String", "Integration Strategy", false, "Point-to-point, Hub-and-spoke, ESB, API-led", 0),
             new SomFormFieldMeta("integrationPatterns", "String", "Integration Patterns", false, "Adapters, Facades, Gateways", 1),
@@ -47060,6 +47585,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IntegrationConstraintEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("constraintDescription", "String", "Description", false, "Detailed description of the integration constraint", 0)));
         out.add(n);
@@ -47157,6 +47683,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IntegrationHealthSummary", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("overallHealthRating", "String", "Overall Health Rating", false, "Healthy / Acceptable / Concerning / Critical", 0),
             new SomFormFieldMeta("totalDependencies", "int", "Total Dependencies Documented", false, null, 1),
@@ -47209,6 +47736,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IntegrationPointEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("exposedInApis", "String", "Exposed In APIs", false, "Which APIs expose this object: Internal | Public | Partner", 0),
             new SomFormFieldMeta("eventPublished", "String", "Events Published", false, "Domain events this object publishes", 1),
@@ -47243,6 +47771,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of system integrations and data exchange patterns.");
         n.contentHelp = "Describe the integration patterns in use. Identify standards vs custom integrations, and areas of complexity.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -47296,6 +47825,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Integrity rules that preserve invariants across the data model.\nStronger guarantees than validation (which is typically user-facing);\nintegrity constraints must hold in every persistent state.\n\n**What to capture:**\n- Referential integrity (which references must never dangle)\n- Uniqueness constraints (per scope / tenant)\n- State-machine invariants (entity cannot skip states)\n- Aggregate-boundary rules (what must be atomic together)\n- Temporal constraints (effective-from ≤ effective-to)\n- Conservation rules (sums / counts that must balance)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -47323,6 +47853,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IntellectualPropertyRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ownershipModel", "String", "Ownership Model", true, "How IP ownership is allocated between parties", 0),
             new SomFormFieldMeta("preExistingIp", "String", "Pre-existing IP", false, "IP brought into the project by either party", 1),
@@ -47379,6 +47910,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InteractionBusinessRules", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("validationRules", "String", "Validation Rules — BR-xxx for validation", false, "BR-xxx rules governing input validation", 0),
             new SomFormFieldMeta("calculationRules", "String", "Calculation Rules — BR-xxx for calculations", false, "BR-xxx rules governing calculations", 1),
@@ -47415,6 +47947,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce interaction capability for this system before the usability subsection below. Cover the user groups whose experience sets the bar.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -47491,6 +48024,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Container for key interaction descriptions. Each interaction seeds a use case\nfollowing Cockburn's fully dressed use case template.\n\n**For Each Interaction Document:**\n- Identification (use case name, goal level, design scope)\n- Scope & context (system boundary, assumptions, dependencies)\n- Stakeholders & interests (who cares and why)\n- Preconditions & triggers (what must be true, what starts it)\n- Postconditions & guarantees (minimal + success guarantees)\n- Main success scenario (numbered steps with actor/system actions)\n- Extensions (alternative and exception flows with branch points)\n- UI requirements preview (screens, forms, feedback)\n- Performance & security (response time, auth, audit)\n- Business rules & traceability (BR-xxx, REQ-xxx references)\n\n**Prioritize Using MoSCoW:**\n- Must Have — essential for MVP\n- Should Have — important but deferrable\n- Could Have — nice to have\n- Won't Have — explicitly out of scope\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -47586,6 +48120,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InteractionChannelEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("channelType", "String", "Channel Type", true, "Web, Mobile Native, Mobile Hybrid, Desktop, API, CLI, Voice, Kiosk, Embedded, IoT", 0)));
         out.add(n);
@@ -47737,6 +48272,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "What happens when external interactions are slow or unavailable, and\nwhich of them lie on the critical path of user-facing flows.\n\n**What to capture:**\n- Critical-path map per business flow\n- Degraded-mode behavior (feature off, read-only, queue-and-retry)\n- Cache strategies for graceful degradation\n- Circuit-breaker / bulkhead configuration per interaction\n- Timeout budgets and retry policies\n- User-visible error handling for unavailable partners\n- Recovery behavior when partners come back online\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -47766,6 +48302,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this interaction — the situation it arises in and why it matters, beyond the scope, flow and rule facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -48066,6 +48603,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InteractionPatternEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("patternType", "String", "Pattern Type", true, "Synchronous, Asynchronous, Batch, Scheduled, Event-driven, Workflow, Polling, Streaming", 0)));
         out.add(n);
@@ -48163,6 +48701,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of interaction patterns and when each pattern is used.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -48217,6 +48756,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Strategy for testing boundary interactions specifically. Complements the\nbroader system-wide test strategy.\n\n**What to capture:**\n- Contract-testing approach (consumer-driven / provider-driven)\n- Integration-test scope per boundary\n- Failure-mode and chaos-style tests (partner down, slow, malformed)\n- Stub / simulator strategy for non-prod environments\n- Performance-envelope tests per interaction\n- Test-data management for boundary tests\n- CI/CD integration for contract verification\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -48244,6 +48784,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceBusinessContext", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("businessPurpose", "String", "Business Purpose", false, "What business need this interface serves", 0),
             new SomFormFieldMeta("businessValue", "String", "Business Value", false, "Value delivered by the integration", 1),
@@ -48303,6 +48844,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceBusinessProcessEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("processId", "String", "Process ID", false, "The business process that depends on this interface — a process section id (BPREN-PROC-…)", 0, java.util.List.of(), java.util.List.of("BPREN.@sectionId")),
             new SomFormFieldMeta("dependencyType", "String", "Dependency (Critical Path, Supporting)", false, "Nature of the dependency on the interface", 1),
@@ -48334,6 +48876,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceDataEntityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("direction", "String", "Direction (Send, Receive)", false, "Whether the entity is sent or received", 0),
             new SomFormFieldMeta("fieldCount", "int", "Field Count", false, "Number of fields in the entity", 1),
@@ -48368,6 +48911,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceDataSpec", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataExchangeSummary", "String", "Data Exchange Summary", false, "High-level summary of data exchanged", 0),
             new SomFormFieldMeta("dataDirection", "String", "Data Flow (Send, Receive, Bidirectional)", false, "Direction of data flow", 1),
@@ -48460,6 +49004,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceErrorHandling", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("errorFormat", "String", "Error Response Format", false, "Format/schema of error responses", 0),
             new SomFormFieldMeta("errorCodes", "String", "Error Codes Used", false, "Error codes the interface returns", 1, java.util.List.of(), java.util.List.of("ERCEN.code")),
@@ -48559,6 +49104,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceGovernance", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("externalOwner", "String", "External System Owner", false, "Owner on the external system side", 0),
             new SomFormFieldMeta("internalOwner", "String", "Internal Owner/Steward", false, "Internal owner accountable for the interface", 1),
@@ -48640,6 +49186,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceOperationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("operationId", "String", "Operation ID", true, "The name the built interface exposes for this operation, e.g. createOrder", 0),
             new SomFormFieldMeta("httpMethod", "String", "HTTP Method (GET, POST, PUT, DELETE, etc.)", false, "HTTP verb used by the operation", 1),
@@ -48677,6 +49224,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceOperational", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("availabilitySla", "String", "Availability SLA (e.g., 99.9%)", false, "Committed availability target", 0),
             new SomFormFieldMeta("scheduledDowntime", "String", "Scheduled Downtime Windows", false, "Planned maintenance windows", 1),
@@ -48777,6 +49325,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceSecurity", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("authMethod", "String", "Authentication (API Key, OAuth 2.0, mTLS, Basic, SAML, etc.)", false, "Authentication mechanism used", 0),
             new SomFormFieldMeta("authDetails", "String", "Authentication Details", false, "Details of the authentication setup", 1),
@@ -48872,6 +49421,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceSpecificationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("specificationVersion", "String", "Version", false, "Specification version", 0),
             new SomFormFieldMeta("standardsBody", "String", "Standards Body", false, "IETF, W3C, OASIS, etc.", 1)));
@@ -48972,6 +49522,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceTechnicalSpec", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("protocol", "String", "Protocol (REST/HTTPS, SOAP/HTTPS, gRPC, GraphQL, SFTP, etc.)", false, "Transport/application protocol used", 0),
             new SomFormFieldMeta("transportSecurity", "String", "Transport Security (TLS 1.2, TLS 1.3)", false, "Transport-layer security applied", 1),
@@ -49084,6 +49635,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceTestScenarioEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scenarioType", "String", "Type (Happy Path, Error, Edge Case)", false, "Category of the test scenario", 0),
             new SomFormFieldMeta("preconditions", "String", "Preconditions", false, "State required before running the scenario", 1),
@@ -49117,6 +49669,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InterfaceTesting", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sandboxAvailable", "bool", "Sandbox Environment Available", false, "Whether a sandbox environment exists", 0),
             new SomFormFieldMeta("sandboxUrl", "String", "Sandbox URL", false, "Base URL of the sandbox environment", 1),
@@ -49211,6 +49764,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of internal system dependencies.");
         n.contentHelp = "Describe the overall pattern of internal dependencies. Identify clusters of tightly coupled systems and potential cascading failure risks.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -49262,6 +49816,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InternalNetworkRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("networkTopology", "String", "Network Topology", false, "Hub-spoke, mesh, star", 0),
             new SomFormFieldMeta("vpcStructure", "String", "VPC Structure", false, "VPC/VLAN organization", 1),
@@ -49362,6 +49917,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InteroperabilityRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("interopStrategy", "String", "Interoperability Strategy", false, "Overall interop approach", 0),
             new SomFormFieldMeta("integrationPatterns", "String", "Integration Patterns", false, "API, Events, File, Message", 1),
@@ -49464,6 +50020,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive summary of the system being specified.\nProvide a high-level overview that allows readers to quickly understand:\n- What system is being built\n- Why it is being built (business drivers)\n- Who will use it\n- What are the major scope boundaries\n- What are the key risks and assumptions\n\nThis section should be readable by executives and stakeholders who need\na quick understanding without reading the full specification.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("SystemSummary", s, SystemSummaryNav::metaChildren, (r, c) -> {
@@ -49631,6 +50188,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IpOwnershipEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("assetType", "String", "Asset Type", true, "Kind of IP asset, e.g. source code, design, trademark", 0),
             new SomFormFieldMeta("assetDescription", "String", "Description", false, "What the asset is", 1),
@@ -49665,6 +50223,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize how the quality goals cover the eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned by the SystemQualityGoals characteristic spine; this is a derived coverage view, not a second copy of the taxonomy.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -49715,6 +50274,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Iso25010CoverageEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("characteristic", "Iso25010Characteristic", "ISO/IEC 25010:2023 Characteristic", true, null, 0, java.util.List.of("functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility")),
             new SomFormFieldMeta("addressedBy", "String", "Addressed By (which quality goals / NFRs)", false, null, 1),
@@ -49748,6 +50308,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide a narrative overview of the system's position within the IT landscape before the structured details below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -49796,6 +50357,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ItSecurityOperations", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("accessControlModel", "String", "Access Control Model", false, "RBAC, ABAC, zero-trust", 0),
             new SomFormFieldMeta("drPlanRequired", "bool", "DR Plan Required", false, "Whether a disaster recovery plan is required", 1),
@@ -49912,6 +50474,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of IT security standards approach.\n\n**Include**:\n- Security standards adopted (OWASP, CIS, NIST)\n- Application security requirements\n- Infrastructure security baseline\n- Vulnerability management program\n- Security development integration\n\n**Best Practices**:\n- Automate security testing in CI/CD\n- Regular security training for developers\n- Maintain security champions in teams\n- Track security metrics and trends\n- Continuous security improvement\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -50050,6 +50613,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ItStandardComplianceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardBody", "String", "Standard Body", true, "ISO, IEEE, NIST, OASIS, W3C", 0),
             new SomFormFieldMeta("standardId", "String", "Standard ID", false, "The identifier the issuing body gives this standard, e.g. ISO/IEC 27001 — owned outside this document", 1),
@@ -50166,6 +50730,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the role changes before the new, changed and removed role lists below. Cover the net headcount effect and the sourcing approach.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -50318,6 +50883,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("JourneyStageEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stageDescription", "String", "Stage Description", false, "Brief description of what happens in this stage", 0),
             new SomFormFieldMeta("userGoal", "String", "User Goal (what they want to achieve)", false, "What the user wants to achieve in this stage", 1),
@@ -50354,6 +50920,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("KeyAttributeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("keyType", "String", "Key Type", false, "Primary | Foreign | Alternate | Composite | Natural | Surrogate", 0),
             new SomFormFieldMeta("keyColumns", "String", "Key Column(s)", false, "Column(s) comprising the key, comma-separated for composite", 1),
@@ -50449,6 +51016,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("KeyCompromiseRecoveryPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("compromiseDetection", "String", "Compromise Detection", false, "How key compromise is detected (e.g., anomaly monitoring, audit log alerts, third-party notification)", 0),
             new SomFormFieldMeta("notificationProcedure", "String", "Notification Procedure", false, "Personnel and channels notified upon compromise (e.g., security team, CISO, affected data owners)", 1),
@@ -50497,6 +51065,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("KeyConceptEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("conceptType", "String", "Concept Type (Entity, Value Object, Aggregate Root, Event, Service)", true, "Entity / Value Object / Aggregate Root / Event / Service", 0),
             new SomFormFieldMeta("description", "String", "Description", true, "What this concept represents in the domain", 1),
@@ -50560,6 +51129,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define the core concepts and entities of the domain with their attributes and relationships — a conceptual model, not a data model. Use the terms the business actually uses.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -50626,6 +51196,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("KeyEscrowAndBackupPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("escrowEnabled", "String", "Escrow Enabled", false, "Whether key escrow is used (Yes / No / Conditional)", 0),
             new SomFormFieldMeta("escrowProvider", "String", "Escrow Provider", false, "Escrow provider or mechanism (e.g., Certificate Authority, KMS, internal escrow service)", 1),
@@ -50672,6 +51243,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("KeyGenerationPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("generationMethod", "String", "Generation Method", false, "Key generation method (e.g., HSM, software module, cloud KMS)", 0),
             new SomFormFieldMeta("cryptographicModuleCompliance", "String", "Module Compliance", false, "Required cryptographic module compliance level (e.g., FIPS 140-2 Level 2, FIPS 140-3)", 1),
@@ -50721,6 +51293,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define policies for the complete lifecycle of cryptographic keys. Proper\nkey management is essential — poor key management can negate all encryption.\n\n**Key hierarchy:**\n- Master keys (KEKs): protect data encryption keys, stored in HSM\n- Data encryption keys (DEKs): encrypt actual data, wrapped by KEKs\n- Key-per-tenant: separate DEKs for tenant isolation (optional)\n\n**Key generation:**\n- Use cryptographically secure random number generators (CSPRNG)\n- Generate in HSM or FIPS 140-2/140-3 validated modules for compliance\n- Minimum key lengths: 256-bit symmetric, 2048-bit RSA, 256-bit ECC\n\n**Key storage:**\n- Never store keys alongside encrypted data\n- HSM for production master keys (FIPS 140-2 Level 3+)\n- Cloud KMS for managed key storage (AWS KMS, Azure Key Vault, GCP KMS)\n- Secret managers for application secrets (HashiCorp Vault, AWS Secrets Mgr)\n\n**Key rotation:**\n- Periodic rotation (e.g., annually for DEKs, less frequent for KEKs)\n- Immediate rotation on compromise or employee departure\n- Re-encryption of data with rotated keys (or envelope encryption)\n\n**Key escrow and backup:**\n- Secure backup of master keys for disaster recovery\n- Split key custody (M-of-N threshold schemes)\n- Geographic distribution of key backups\n\n**Compromise recovery:**\n- Immediate key revocation and rotation\n- Notification to affected parties\n- Re-encryption of all affected data\n- Forensic analysis to determine breach scope\n\n**Reference:**\n- OWASP Key Management Cheat Sheet\n- NIST SP 800-57: Recommendation for Key Management\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("KeyGenerationPolicy", s, KeyGenerationPolicyNav::metaChildren, (r, c) -> {
@@ -50835,6 +51408,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("KeyResultEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("keyResult", "String", "Key Result (measurable outcome)", true, "The measurable outcome that signals progress", 0),
             new SomFormFieldMeta("metric", "String", "Metric (what is measured)", false, "What quantity is measured", 1),
@@ -50872,6 +51446,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("KeyRotationPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("rotationSchedule", "String", "Rotation Schedule", false, "Rotation frequency per key type (e.g., encryption keys every 90 days, signing keys annually)", 0),
             new SomFormFieldMeta("automaticRotation", "String", "Automatic Rotation", false, "Whether rotation is automated (e.g., fully automatic via KMS, semi-automatic, manual)", 1),
@@ -50920,6 +51495,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "End-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions. Scenarios bridge the gap between individual\ninteractions and complete user journeys.\n\n**Scenario Types:**\n- Happy path — normal successful completion\n- Alternative flow — valid variations from main path\n- Exception/error — handling of failures and edge cases\n\n**For Each Scenario Document:**\n- Identification (ID, name, type, priority, complexity)\n- Context (preconditions, trigger, success/failure conditions)\n- Steps (numbered with actor, action, system response, UI element)\n- Alternative flows (branch points, conditions, outcomes)\n- Data requirements (input/output, test data, transformations)\n- Timing (total duration, user time, system time, wait time)\n- Validation (acceptance criteria, test scenario references)\n\n**Example Format:**\n\"A new customer discovers the service, registers, completes verification,\nand places their first order.\"\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -50991,6 +51567,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("KeyStoragePolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("storageMethod", "String", "Storage Method", false, "Primary key storage mechanism (e.g., HSM, HashiCorp Vault, AWS KMS, Azure Key Vault)", 0),
             new SomFormFieldMeta("keyEncryptionKeyPolicy", "String", "KEK Policy", false, "Key-encryption-key (KEK) requirements: algorithm and minimum strength for wrapping keys", 1),
@@ -51040,6 +51617,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Formal handover of system knowledge to operations and support teams.\n\n**What to capture:**\n- Knowledge artifact catalog (runbooks, diagrams, configs, credentials)\n- Handover sessions (audience, agenda, duration, proof-of-comprehension)\n- Sign-off criteria for operations readiness\n- Shadow / co-ownership period before full handover\n- Reference contacts for escalation post-handover\n- Artifact storage location and access model\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -51069,6 +51647,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the language and country picker before the default, persistence and fallback subsections below. Cover where the picker appears and when a user first meets it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -51206,6 +51785,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LayerCommunicationRules", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("communicationDirection", "String", "Communication Direction", false, "Top-down only, bottom-up callbacks, etc.", 0),
             new SomFormFieldMeta("dependencyRule", "String", "Dependency Rule", false, "Dependencies always point inward/downward", 1),
@@ -51291,6 +51871,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of the layering and modularization strategy.\n\n**Include**:\n- Chosen layering approach with rationale\n- Module organization principles\n- Dependency rules and enforcement mechanism\n- Cross-cutting concerns handling (logging, auth, transactions)\n- Module communication patterns\n\n**Best Practices**:\n- Create layer/module diagrams with dependency arrows\n- Define public API contracts for each module\n- Use automated architecture tests\n- Document exception cases and technical debt\n- Plan for module extraction and scaling\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -51525,6 +52106,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LegacyCompatibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("systemName", "String", "System Name", true, "Legacy system name", 0),
             new SomFormFieldMeta("systemAge", "String", "System Age", false, "How old the system is", 1),
@@ -51625,6 +52207,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of additional administrative requirements and their impact on the project.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("IntellectualPropertyRequirements", s, IntellectualPropertyRequirementsNav::metaChildren, (r, c) -> {
@@ -51751,6 +52334,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LiabilityLimitations", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("maxLiability", "String", "Maximum Liability", false, "Cap on total liability", 0),
             new SomFormFieldMeta("exclusions", "String", "Exclusions", false, "Categories of loss excluded from liability", 1),
@@ -51783,6 +52367,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LifecycleTransitionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fromState", "String", "From State", true, "Source state", 0),
             new SomFormFieldMeta("toState", "String", "To State", true, "Target state", 1)));
@@ -51864,6 +52449,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LimitationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("limitation", "String", "Limitation", true, "The limitation itself, e.g. \"No multi-currency support\".", 0),
             new SomFormFieldMeta("impact", "String", "Impact assessment", false, "Effect on operations and any workaround in place.", 1)));
@@ -51894,6 +52480,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LoadProfileRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("peakConcurrentUsers", "String", "Peak Concurrent Users", false, "Maximum concurrent users", 0),
             new SomFormFieldMeta("averageConcurrentUsers", "String", "Average Concurrent Users", false, "Typical concurrent users", 1),
@@ -51980,6 +52567,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LocalDevelopmentSetup", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("systemRequirements", "String", "System Requirements", false, "OS, RAM, disk space requirements", 0),
             new SomFormFieldMeta("prerequisiteSoftware", "String", "Prerequisite Software", false, "Required software before setup", 1),
@@ -52097,6 +52685,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LocaleHandlingRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("localeFormat", "String", "Locale Format", false, "BCP 47, ISO 639-1, custom", 0),
             new SomFormFieldMeta("countryVariants", "String", "Country Variants", false, "en-US vs en-GB, de-DE vs de-AT", 1),
@@ -52131,6 +52720,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the localization workflow before the review, formatting and deployment subsections below. Cover how translatable content is identified and externalized.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -52254,6 +52844,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.unused = true;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("LocalizationProcess", s, LocalizationProcessNav::metaChildren, (r, c) -> {
@@ -52316,6 +52907,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Localization and translation requirements: supported locales, i18n framework, formatting, RTL, pluralization.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("TranslationRequirements", s, TranslationRequirementsNav::metaChildren, (r, c) -> {
@@ -52375,6 +52967,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LogAggregationRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("logPlatform", "String", "Log Platform", true, "ELK Stack, Loki/Grafana, CloudWatch, Datadog", 0),
             new SomFormFieldMeta("logFormat", "String", "Log Format", false, "Structured JSON, plain text, syslog", 1),
@@ -52463,6 +53056,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LogManagementRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("logSources", "String", "Log Sources", false, "Application, system, container", 0),
             new SomFormFieldMeta("logFormat", "String", "Log Format", false, "JSON, structured, unstructured", 1),
@@ -52564,6 +53158,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LogProtectionPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("tamperDetection", "String", "Tamper Detection", false, "Tamper detection mechanism (e.g., cryptographic hash, MAC, digital signature, write-once media)", 0),
             new SomFormFieldMeta("integrityVerification", "String", "Integrity Verification", false, "How log integrity is verified (e.g., periodic hash check, blockchain-style chaining)", 1),
@@ -52610,6 +53205,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LogRetentionPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minimumRetention", "String", "Minimum Retention", false, "Minimum retention period (e.g., 90 days, 1 year, 7 years)", 0),
             new SomFormFieldMeta("maximumRetention", "String", "Maximum Retention", false, "Maximum retention period (privacy/legal constraints)", 1),
@@ -52656,6 +53252,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LogStoragePolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryStorage", "String", "Primary Storage", false, "Primary log storage (e.g., file system, database, cloud)", 0),
             new SomFormFieldMeta("storageFormat", "String", "Storage Format", false, "Log format (e.g., JSON, CEF, LEEF, Syslog, plaintext)", 1),
@@ -52704,6 +53301,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Walk through the login flow step by step, including pre-authentication checks and post-authentication actions. Name the entry points and say which ones behave differently.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -52743,6 +53341,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LoginFlowStepEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepOrder", "String", "Step Order", false, "Numeric order in the flow sequence (1, 2, 3, ...)", 0),
             new SomFormFieldMeta("stepType", "String", "Step Type", false, "EntryPoint | CredentialInput | Validation | MfaChallenge | ConsentScreen | TokenIssuance | SessionCreation | Redirect | ErrorHandling", 1),
@@ -52825,6 +53424,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MainScenarioStepEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "int", "Step Number", true, "Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", 0),
             new SomFormFieldMeta("actorAction", "String", "Actor Action — what actor does", false, "What the actor does in this step", 1),
@@ -52885,6 +53485,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MainSuccessScenario", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scenarioSummary", "String", "Scenario Summary — overview", false, "One-paragraph overview of the happy path", 0),
             new SomFormFieldMeta("estimatedDuration", "String", "Estimated Duration — typical completion time", false, "Typical time to complete the whole flow", 1),
@@ -52941,6 +53542,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Maintainability", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("adaptabilityTarget", "String", "Adaptability Target", false, "Change implementation time", 0),
             new SomFormFieldMeta("changeImpactLimit", "String", "Change Impact Limit", false, "Max components affected by change", 1)));
@@ -53055,6 +53657,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce maintainability for this system before the maintainability subsection below. Cover who will maintain it, and over what horizon.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -53125,6 +53728,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MaintenanceChangeManagement", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("changeProcess", "String", "Change Process", false, "ITIL, custom change process", 0),
             new SomFormFieldMeta("changeCategories", "String", "Change Categories", false, "Standard, Normal, Emergency", 1),
@@ -53225,6 +53829,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Maintenance Dependencies (12.5)\n\nMaintenance relationships and update coordination.\n\n### Compatibility Matrix\n- Version compatibility between components\n- Breaking change impact analysis\n- Required coordinated updates\n\n### Update Sequences\n- Dependent component update order\n- Rollback procedures\n- Compatibility windows\n\n### Lifecycle Management\n- End-of-life monitoring\n- Migration planning\n- Deprecation handling\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -53276,6 +53881,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MaintenanceDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("version", "String", "Current Version", false, "Version currently in use", 0),
             new SomFormFieldMeta("versionConstraint", "String", "Version Constraint", false, "Acceptable version range, e.g. >=3.2 <4.0", 1)));
@@ -53359,6 +53965,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MaintenanceUserImpact", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("advanceNotification", "String", "Advance Notification", false, "How users are notified in advance", 0),
             new SomFormFieldMeta("inAppNotification", "bool", "In-App Notification", false, "Banner or popup in app", 1),
@@ -53445,6 +54052,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MaintenanceWindowEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("windowType", "String", "Window Type", false, "Routine, Patch, Upgrade, Migration", 0),
             new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, Standard, Low", 1),
@@ -53549,6 +54157,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of maintenance strategy and policies.\n\n**Include**:\n- Maintenance window schedule and policy\n- Communication and notification plan\n- Change management process\n- Zero-downtime goals and approach\n- Emergency maintenance procedures\n\n**Best Practices**:\n- Minimize maintenance windows through automation\n- Test changes in staging first\n- Have rollback plan for every change\n- Communicate early and often\n- Track maintenance metrics and trends\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -53687,6 +54296,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MasterDataDomainEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this master data domain covers", 0),
             new SomFormFieldMeta("goldenRecordSource", "String", "Golden Record Source", false, "Authoritative system for this master data", 1)));
@@ -53771,6 +54381,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of master data management in the organization. Describe the MDM\nstrategy, master data domains, golden record sources, and synchronization\napproach.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -53847,6 +54458,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MessageFormatStandards", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryFormat", "String", "Primary Format", true, "JSON, Protocol Buffers, XML", 0),
             new SomFormFieldMeta("secondaryFormats", "String", "Secondary Formats", false, "Additional supported formats", 1)));
@@ -53948,6 +54560,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MessageKeyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("key", "String", "Message Key", true, "Stable message key referenced everywhere (e.g. order.status.pending, error.user.notFound). Dotted, namespaced.", 0),
             new SomFormFieldMeta("defaultCopy", "String", "Default Copy", true, "The default (base-locale) user-facing text. May contain named placeholders like {count} or {name}.", 1),
@@ -54006,6 +54619,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- `domainEnum` value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -54057,6 +54671,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MessageLocaleVariantEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("locale", "String", "Locale", true, "BCP-47 locale tag (e.g. en, en-US, de, fr-CA)", 0),
             new SomFormFieldMeta("copy", "String", "Copy", true, "The user-facing text for this locale", 1)));
@@ -54089,6 +54704,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the observability approach before the application, infrastructure, business and tracing subsections below. Cover which questions the telemetry has to answer, and the retention and cost trade-off behind it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -54235,6 +54851,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MetricsBaselineEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("baselineValue", "String", "Baseline Value (current state)", false, null, 0),
             new SomFormFieldMeta("baselineDate", "String", "Baseline Date", false, null, 1),
@@ -54271,6 +54888,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Baseline tracking approach and comparison periods.");
         n.contentHelp = "Document how baseline metrics will be used to measure improvement. Include comparison periods and target improvement percentages.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -54322,6 +54940,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MetricsCollectionRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("cpuMetrics", "bool", "CPU Metrics", false, "CPU utilization, load", 0),
             new SomFormFieldMeta("memoryMetrics", "bool", "Memory Metrics", false, "Memory usage, swap", 1),
@@ -54423,6 +55042,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MetricsDashboardSummary", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("measurementPeriod", "String", "Measurement Period", false, "Time period covered by these metrics, e.g., Q1 2024", 0),
             new SomFormFieldMeta("dataQuality", "String", "Data Quality Assessment", false, "High / Medium / Low - confidence in metric accuracy", 1),
@@ -54461,6 +55081,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MfaCategoryRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("userCategory", "String", "User Category", true, "Name of the user category (e.g., Administrator, Employee, Customer, Partner, API)", 0),
             new SomFormFieldMeta("mfaRequired", "String", "MFA Required", false, "Yes | No | Conditional — whether MFA is required for this category", 1),
@@ -54546,6 +55167,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe which users and operations require MFA, which factors are offered, and the AAL targeted. Record the fallback path when a factor is unavailable and why it is safe.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -54590,6 +55212,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the portfolio-wide migration approach before the resource, risk and coordination subsections below. Cover the sequencing principle that applies across systems.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -54789,6 +55412,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationEnvironments", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("migrationEnvironments", "String", "Migration Environments", true, "Environments used for migration", 0),
             new SomFormFieldMeta("environmentDataSubsetting", "String", "Environment Data Subsetting", false, "Data subsetting strategy for lower environments", 1),
@@ -54823,6 +55447,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Transitional interactions that exist only during the migration window:\ndual-write bridges, reconciliation feeds, freeze/replay mechanisms.\n\n**What to capture:**\n- Bridge / shim catalog (purpose, lifetime, owner)\n- Dual-run reconciliation endpoints and rules\n- Data-replay mechanisms (forward, reverse, selective)\n- Freeze windows and cutover ordering\n- Decommission criteria for each transitional interaction\n- Observability hooks specific to migration\n- Risk and rollback plan per transitional interaction\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -54850,6 +55475,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationMappingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceSystem", "String", "Source System", true, "Name of the source system", 0),
             new SomFormFieldMeta("sourceTable", "String", "Source Table", false, "Source table or file name", 1),
@@ -54888,6 +55514,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationMilestoneEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("targetDate", "String", "Target Date", false, "Planned date the milestone is reached", 0),
             new SomFormFieldMeta("systemsIncluded", "String", "Systems Included", false, "Systems covered by this milestone", 1),
@@ -54921,6 +55548,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationPhaseDryRuns", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dryRunsPlanned", "String", "Dry Runs Planned", false, "Number of rehearsals", 0),
             new SomFormFieldMeta("dryRunSchedule", "String", "Dry Run Schedule", false, "Dates for rehearsals", 1),
@@ -54956,6 +55584,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationPhaseEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("phaseNumber", "String", "Phase Number", true, "1, 2, 3… — sequential phase ordering", 0),
             new SomFormFieldMeta("phaseType", "String", "Phase Type", true, "MasterData / ReferenceData / Transactional / Historical / Documents", 1)));
@@ -55212,6 +55841,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationPhaseResources", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("assignedTeamMembers", "String", "Assigned Team Members", false, "Team members for this phase", 0),
             new SomFormFieldMeta("estimatedEffort", "String", "Estimated Effort", false, "Person-days of effort", 1)));
@@ -55242,6 +55872,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationPhases", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalPhases", "String", "Total Phases", true, "Number of distinct migration phases — e.g. 5 phases covering 3 source systems", 0),
             new SomFormFieldMeta("phaseExecutionModel", "String", "Phase Execution Model", true, "Sequential / Overlapping / Parallel / WaterfallWithinAgileAcross — how phases relate temporally", 1),
@@ -55318,6 +55949,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "System migration plan distinct from the per-data-entity migration\nmapping. Focuses on the execution plan.\n\n**What to capture:**\n- Migration scope (systems, data domains, users, integrations)\n- Migration approach (big-bang / trickle / parallel run)\n- Data extract / transform / load windows\n- Validation rules and reconciliation approach\n- Dress-rehearsal schedule and acceptance criteria\n- Fallback / rollback procedure and triggers\n- Roles and responsibilities during migration\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -55345,6 +55977,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationResources", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("migrationLead", "String", "Migration Lead", false, "Person accountable for the migration program", 0),
             new SomFormFieldMeta("technicalResources", "String", "Technical Resources", false, "Engineering staff and skills needed", 1),
@@ -55395,6 +56028,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationRiskEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskOwner", "String", "Risk Owner", true, "Accountable for risk management", 0)));
         out.add(n);
@@ -55663,6 +56297,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationRiskIndicators", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("earlyWarningIndicators", "String", "Early Warning Indicators", false, "Signs risk is about to materialize", 0),
             new SomFormFieldMeta("riskTriggers", "String", "Risk Triggers", false, "Events that would realize the risk", 1),
@@ -55698,6 +56333,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the program-level migration risk framework before the governance, category and response subsections below. Cover the risk appetite the program works to.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -55961,6 +56597,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationStakeholders", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataOwnerSignoffRequired", "String", "Data Owner Sign-off Required", false, "Yes / No", 0),
             new SomFormFieldMeta("businessSignoffProcess", "String", "Business Sign-off Process", false, "How business validates migration", 1),
@@ -55993,6 +56630,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationSystems", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceSystemInventory", "String", "Source System Inventory", false, "List of source systems", 0),
             new SomFormFieldMeta("targetSystemDescription", "String", "Target System Description", false, "Target platform and architecture", 1),
@@ -56025,6 +56663,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationTargetEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("targetName", "String", "Target Name", true, "The identifier migration artifacts use to name this target", 0),
             new SomFormFieldMeta("dataSourceName", "String", "Data Source Name", true, "The registered data source the artifacts are applied against", 1),
@@ -56057,6 +56696,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MobileCompatibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("platform", "String", "Platform", true, "iOS, Android, Cross-platform", 0),
             new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum OS version", 1),
@@ -56157,6 +56797,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MobileDeviceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("deviceType", "String", "Device Type — smartphone, tablet, rugged device", false, null, 0),
             new SomFormFieldMeta("operatingSystem", "String", "Operating System — iOS, Android", false, null, 1),
@@ -56222,6 +56863,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MobileDeviceRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("platform", "String", "Platform", true, "iOS, Android, iPadOS", 0),
             new SomFormFieldMeta("minOsVersion", "String", "Minimum OS Version", true, "Minimum OS version", 1),
@@ -56323,6 +56965,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ModuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("moduleType", "String", "Module Type", false, "Core, Feature, Shared, Platform, Plugin", 0),
             new SomFormFieldMeta("version", "String", "Version", false, "Current module version", 1)));
@@ -56440,6 +57083,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ModuleVersioningStrategy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("versioningScheme", "String", "Versioning Scheme", false, "SemVer, CalVer, custom", 0),
             new SomFormFieldMeta("majorVersionPolicy", "String", "Major Version Policy", false, "When to bump major version", 1),
@@ -56542,6 +57186,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the monitoring approach before the health-check, alerting, metrics, dashboard and SLA subsections below. Cover what is monitored, who watches it, and how a finding reaches an operator.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -56682,6 +57327,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of monitoring and observability strategy.\n\n**Include**:\n- Monitoring architecture and tools\n- Key SLIs and SLOs\n- Alerting philosophy and coverage\n- On-call structure and escalation\n- Dashboard and visualization approach\n\n**Best Practices**:\n- Monitor user-facing metrics (SLIs)\n- Set meaningful alert thresholds\n- Implement structured logging\n- Create actionable runbooks for alerts\n- Regular monitoring coverage reviews\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -56882,6 +57528,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the dashboard landscape before the individual dashboards and templates below. Cover who each dashboard is for and what decision it supports.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -56992,6 +57639,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MonitoringInfrastructure", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("monitoringPlatform", "String", "Monitoring Platform", false, "Datadog, Prometheus, CloudWatch", 0),
             new SomFormFieldMeta("metricsBackend", "String", "Metrics Backend", false, "Prometheus, InfluxDB, Graphite", 1),
@@ -57077,6 +57725,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MoscowAnalysis", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("mustHaveCount", "String", "Must-Have Count", false, "Number of Must-have features", 0),
             new SomFormFieldMeta("shouldHaveCount", "String", "Should-Have Count", false, "Number of Should-have features", 1),
@@ -57151,6 +57800,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MoscowEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry classifies — a feature section id declared by the Feature Priority Register (FPE-ITEM-…)", 0, java.util.List.of(), java.util.List.of("FPE.@sectionId"))));
         out.add(n);
@@ -57250,6 +57900,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of how a consistent experience is maintained across channels and during channel switching.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -57301,6 +57952,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce multi-language support before the selection and supported-locale subsections below. Cover which languages ship first and what drives adding another.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -57401,6 +58053,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the must-pass criteria before the individual items below. Cover what makes a criterion must-pass rather than merely desirable.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -57483,6 +58136,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MustPassCriterionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("verificationMethod", "String", "Verification Method", true, "Test, demonstration, analysis, inspection", 0)));
         out.add(n);
@@ -57600,6 +58254,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe where mTLS applies, how client certificates are issued and revoked, and what happens when validation fails. State whether any fallback exists.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -57639,6 +58294,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NativeAppRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("appStoreDistribution", "bool", "App Store Distribution", false, "Distributed via app stores", 0),
             new SomFormFieldMeta("enterpriseDistribution", "bool", "Enterprise Distribution", false, "MDM/enterprise deployment", 1),
@@ -57739,6 +58395,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NavigationGroupEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("groupId", "String", "Group ID", true, "The symbol the built navigation carries for this group, e.g. nav-grp-sales", 0),
             new SomFormFieldMeta("groupLabel", "String", "Label Resource", true, "Message key (MSGKR registry) for display label", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
@@ -57847,6 +58504,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NavigationGuardEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("guardId", "String", "Guard ID", true, "The symbol the built navigation carries for this guard, e.g. guard-unsaved-changes", 0),
             new SomFormFieldMeta("guardType", "String", "Guard Type", false, "Unsaved-Changes/Authentication/Permission/Feature-Flag/Onboarding/Maintenance", 1),
@@ -57915,6 +58573,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Navigation Guards (10.3.1.8)\n\nRoute protection for unsaved changes, auth, permissions.\n\n### Guard Types\n- **Unsaved-Changes** — Confirm discard\n- **Authentication** — Redirect to login\n- **Permission** — Block/redirect unauthorized\n- **Feature-Flag** — Hide unreleased features\n- **Onboarding** — Require initial setup\n- **Maintenance** — Show maintenance page\n\n### Guard Properties\n- Trigger condition (e.g., form.isDirty)\n- Routes/screens covered\n- Dialog resources (title, message, buttons)\n- Redirect target\n- Priority for multi-guard ordering\n\n### Tom UI Mapping\nGuards integrate with `TomRouter` middleware.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -57980,6 +58639,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Navigation Hierarchy (10.3.1.2)\n\nFull navigation tree: groups and items.\n\n### Structure\n- **Groups** — Logical groupings (Sales, Admin, Reports)\n- **Items** — Individual destinations within groups\n\n### Group Properties\n- Label, icon, description resources\n- Display order and collapsibility\n- Authorization (roles, permissions)\n- Badge aggregation from children\n\n### Item Properties\n- Target screen and route\n- Icons (normal and active variants)\n- Authorization and visibility conditions\n- Badges (count, dot, text)\n- Keyboard shortcuts\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -58043,6 +58703,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NavigationItemEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("itemId", "String", "Item ID", true, "The symbol the built navigation carries for this item, e.g. nav-customers", 0),
             new SomFormFieldMeta("label", "String", "Label Resource", true, "Message key (MSGKR registry) for display label", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
@@ -58178,6 +58839,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Navigation Model (10.3.1)\n\nComprehensive navigation structure definition.\n\n### Subsections\n- **10.3.1.1 Overview** — Strategy and landing screens\n- **10.3.1.2 Hierarchy** — Full navigation tree\n- **10.3.1.3 Primary** — Drawer/sidebar/bottom nav\n- **10.3.1.4 Secondary** — Tab bars, segmented controls\n- **10.3.1.5 Utility** — User menu, notifications, help\n- **10.3.1.6 Contextual** — Breadcrumbs, back, related links\n- **10.3.1.7 Deep Linking** — External URL entry points\n- **10.3.1.8 Guards** — Route protection (auth, unsaved)\n\n### Tom UI Mapping\nNavigation model generates:\n- `TomNavigator` configuration\n- `TomShell` scaffold setup\n- Route guards and redirects\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("NavigationOverview", s, NavigationOverviewNav::metaChildren, (r, c) -> {
@@ -58325,6 +58987,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NavigationOverview", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("navigationStrategy", "String", "Navigation Strategy", false, "URL-based/State-based/Hybrid", 0),
             new SomFormFieldMeta("maxNavigationDepth", "int", "Max Navigation Depth", false, "Maximum levels of nesting the user encounters", 1),
@@ -58372,6 +59035,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NetworkAvailabilityRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("availabilityTarget", "String", "Availability Target", false, "99.99%, 99.999%", 0),
             new SomFormFieldMeta("monthlyDowntime", "String", "Monthly Downtime Budget", false, "Allowed downtime/month", 1),
@@ -58472,6 +59136,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NetworkLatencyRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("maxLatency", "String", "Maximum Latency", false, "Maximum acceptable latency", 0),
             new SomFormFieldMeta("targetLatency", "String", "Target Latency", false, "Target p50 latency", 1),
@@ -58572,6 +59237,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NetworkLoadBalancingRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("loadBalancerType", "String", "Load Balancer Type", false, "L4, L7, DNS-based", 0),
             new SomFormFieldMeta("loadBalancerProduct", "String", "Load Balancer Product", false, "ALB, NLB, HAProxy, etc.", 1),
@@ -58675,6 +59341,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of network strategy and architecture.\n\n**Include**:\n- Network architecture overview\n- Key performance and availability requirements\n- Security perimeter design\n- Geographic distribution strategy\n- Cost and capacity considerations\n\n**Best Practices**:\n- Design for zero-trust networking\n- Implement defense in depth\n- Use Infrastructure as Code for network config\n- Monitor network performance continuously\n- Plan for network capacity growth\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -58888,6 +59555,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NetworkSecurityPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("firewallType", "String", "Firewall Type", false, "WAF, network firewall, host-based", 0),
             new SomFormFieldMeta("wafProvider", "String", "WAF Provider", false, "AWS WAF, Cloudflare, Azure Front Door", 1),
@@ -59005,6 +59673,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NetworkSecurityRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("encryptionInTransit", "String", "Encryption in Transit", false, "TLS requirements", 0),
             new SomFormFieldMeta("minTlsVersion", "String", "Minimum TLS Version", false, "TLS 1.2, TLS 1.3", 1),
@@ -59108,6 +59777,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the target organization structure before the change and transition-timeline subsections below. Cover the design principle behind the new shape.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -59180,6 +59850,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this new role — why it is needed and how it fits the organization, beyond the responsibility, qualification and access facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -59350,6 +60021,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NewRoleQualifications", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("education", "String", "Education — minimum education requirement", false, "Minimum education level required", 0),
             new SomFormFieldMeta("preferredEducation", "String", "Preferred Education — ideal education", false, "Ideal but non-mandatory education", 1),
@@ -59443,6 +60115,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce what this role is accountable for before the primary, secondary and decision-authority subsections below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -59539,6 +60212,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NotificationChannelEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("channelId", "String", "Channel ID", false, "The channel name the built system carries — the TomMessageChannel name, e.g. email", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "Purpose and scope of this notification channel", 1),
@@ -59575,6 +60249,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of notification strategy.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -59675,6 +60350,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NotificationTypeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("notificationType", "String", "Notification Type", true, "e.g., Order Confirmation, Password Reset, System Alert", 0),
             new SomFormFieldMeta("typeId", "String", "Type ID", false, "The type id the built system carries — the TomNotificationType id, e.g. order.shipped", 1),
@@ -59713,6 +60389,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ObjectInvariantEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this invariant means", 0),
             new SomFormFieldMeta("expression", "String", "Expression", false, "Logic or pseudo-code expressing the invariant", 1),
@@ -59747,6 +60424,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ObjectOperationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this operation does", 0),
             new SomFormFieldMeta("operationType", "String", "Operation Type", false, "Command | Query | Event", 1)));
@@ -59829,6 +60507,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ObjectStateEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stateCode", "String", "State Code", false, "Technical state code or enum value", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What this state means in business terms", 1),
@@ -59866,6 +60545,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OnCallProcedures", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("onCallTool", "String", "On-Call Tool", false, "PagerDuty, OpsGenie, VictorOps", 0),
             new SomFormFieldMeta("rotationSchedule", "String", "Rotation Schedule", false, "Weekly, daily rotation", 1),
@@ -59967,6 +60647,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OnCallScheduleConfig", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("rotationSchedule", "String", "Rotation Schedule", false, "Weekly, bi-weekly, custom rotation", 0),
             new SomFormFieldMeta("scheduleTimezone", "String", "Schedule Timezone", false, "UTC, local, follow-the-sun", 1),
@@ -60037,6 +60718,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the onboarding experience before the tour, sample-data and checklist subsections below. Cover what a first-time user must reach before onboarding counts as done.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -60202,6 +60884,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OngoingTrainingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, null, 0),
             new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, null, 1)));
@@ -60285,6 +60968,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the environment the system will run in before the organizational, functional and technical subsections below. Cover the environmental factors that most constrain the design.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -60387,6 +61071,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OperationalMonitoring", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scalabilityMonitoringApproach", "String", "Scalability Monitoring", false, "Auto-scaling triggers, capacity alerts", 0),
             new SomFormFieldMeta("capacityPlanningProcess", "String", "Capacity Planning Process", false, "How capacity is planned", 1),
@@ -60504,6 +61189,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of operational pain points affecting day-to-day activities.\nInclude patterns of recurring issues, seasonal variations, and dependencies\non specific systems or personnel.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -60577,6 +61263,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of operational philosophy and key requirements.\n\n**Include**:\n- Operations team structure and responsibilities\n- Key operational metrics and targets\n- Automation maturity and goals\n- On-call and incident management approach\n- Runbook and documentation strategy\n\n**Best Practices**:\n- Implement SLOs and error budgets\n- Automate toil reduction\n- Practice chaos engineering\n- Regular disaster recovery testing\n- Continuous operational improvement\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("BackupAndRecoverySection", s, BackupAndRecoverySectionNav::metaChildren, (r, c) -> {
@@ -60666,6 +61353,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what becomes possible that is not possible today — new capabilities, new markets, better economics. Keep it distinct from the problem statement: this is upside, not pain.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -60714,6 +61402,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OrgChangeRisks", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("risks", "String", "Risks", false, "Potential risks from this change", 0),
             new SomFormFieldMeta("mitigations", "String", "Mitigations", false, "Actions to reduce risks", 1),
@@ -60745,6 +61434,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OrgImplementationActivity", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What the activity entails", 0),
             new SomFormFieldMeta("owner", "String", "Owner", false, "Person or role responsible for the activity", 1),
@@ -60781,6 +61471,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Set out how this organizational change is actually made: sequence, owner, timing, and what has to be true before it can start.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -60857,6 +61548,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.unused = true;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("OrganizationalFramework", s, OrganizationalFrameworkNav::metaChildren, (r, c) -> {
@@ -60918,6 +61610,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Project organization chart with reporting lines, governance model, and escalation paths.");
         n.contentHelp = "Insert project organization chart showing reporting lines. Describe the governance model: who decides what, escalation paths, meeting cadence.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("GovernanceModel", s, GovernanceModelNav::metaChildren, (r, c) -> {
@@ -60972,6 +61665,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OrganizationalChangeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("changeType", "String", "Change Type", false, "Restructure, Merge, Split, Create, Eliminate, Relocate", 0)));
         out.add(n);
@@ -61141,6 +61835,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide a narrative overview of the organizational context before the structured organizational-unit entries below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -61207,6 +61902,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the organizational context before the structure, department and decision-making subsections below. Cover the reporting reality the project has to work within.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -61424,6 +62120,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the organizational changes the system requires before the structure, role and workplace subsections below. Cover the scale of the change and the organization's appetite for it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -61518,6 +62215,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OrganizationalRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description (detailed statement)", true, "Full statement of the organizational change needed", 0)));
         out.add(n);
@@ -61653,6 +62351,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the changes the organization itself must make for the system to succeed — process, roles, training, support. These fail projects more often than technical requirements do.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -61726,6 +62425,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the organizational transition before the phase, readiness, communication and support subsections below. Cover the pace of change and what sets it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("TransitionOverview", s, TransitionOverviewNav::metaChildren, (r, c) -> {
@@ -61900,6 +62600,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OrganizationalUnitContextEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("unitType", "String", "Unit Type (Department, Division, Team, Business Unit, Subsidiary, External Partner)", false, "The category of organizational unit", 0),
             new SomFormFieldMeta("role", "String", "Role (Primary User, Secondary User, Data Provider, Beneficiary, Sponsor)", false, "The role this unit plays relative to the system", 1),
@@ -61935,6 +62636,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OsCompatibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("osFamily", "String", "OS Family", false, "Windows, Unix, Mobile", 0),
             new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 1),
@@ -62035,6 +62737,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OtherAgreementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("agreementType", "String", "Type", false, "Kind of agreement, e.g. MOU, SLA, partnership", 0),
             new SomFormFieldMeta("parties", "String", "Parties", false, "Parties bound by the agreement", 1),
@@ -62072,6 +62775,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the exclusions before the individual out-of-scope items below. Cover the principle by which something was excluded and where it might be picked up later.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -62136,6 +62840,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OutOfScopeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("itemId", "String", "Item ID", false, "Unique identifier for this exclusion", 0),
             new SomFormFieldMeta("item", "String", "Out of Scope Item", true, "Name of the feature, system, or integration being excluded", 1),
@@ -62203,6 +62908,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PackageOrganization", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("namingConvention", "String", "Naming Convention", false, "Package/module naming pattern", 0),
             new SomFormFieldMeta("prefixStrategy", "String", "Prefix Strategy", false, "Prefix for all packages (e.g., org name)", 1),
@@ -62304,6 +63010,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PainPointEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("painPoint", "String", "Pain Point Name", true, "Concise name for the pain point", 0),
             new SomFormFieldMeta("severity", "String", "Severity", false, "Critical / High / Medium / Low", 1)));
@@ -62474,6 +63181,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Analysis of relationships between documented pain points and capability gaps.\nShows which gaps cause which pain points, and which pain points indicate\nunderlying gaps that may not be explicitly documented.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -62539,6 +63247,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PainPointGapCorrelationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("painPointId", "String", "Pain Point ID", true, "The pain point this entry correlates — a pain point section id (PAPE-ITEM-…)", 0, java.util.List.of(), java.util.List.of("PAPE.@sectionId")),
             new SomFormFieldMeta("gapId", "String", "Gap ID", true, "The gap this pain point correlates to — a gap section id (GAPE-ITEM-…)", 1, java.util.List.of(), java.util.List.of("GAPE.@sectionId")),
@@ -62572,6 +63281,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PainPointRelationships", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedPainPoints", "String", "Related Pain Points", false, "Related pain points — pain point section ids (PAPE-ITEM-…), comma-separated", 0, java.util.List.of(), java.util.List.of("PAPE.@sectionId")),
             new SomFormFieldMeta("relatedGaps", "String", "Related Gaps", false, "Gap entries that this pain point stems from", 1),
@@ -62605,6 +63315,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive overview of pain points and gaps in the current state.\nSummarize the most critical issues affecting operations, business outcomes,\nand technical capabilities. Highlight interdependencies between pain points.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -62767,6 +63478,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ParticipantEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceEntityName", "String", "Source Entity", false, "Name of the source/parent entity", 0),
             new SomFormFieldMeta("sourceRole", "String", "Source Role", false, "Role name on the source end (e.g., \"placer\" in Customer places Order)", 1),
@@ -62801,6 +63513,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define the complete password and credential policy. NIST SP 800-63B (2024\nrevision) emphasizes length over complexity and discourages forced rotation.\n\n**Password requirements (NIST-aligned):**\n- Minimum length: 8 characters (15+ recommended for privileged accounts)\n- Maximum length: at least 64 characters\n- No composition rules (uppercase, digits, symbols not required)\n- Block common passwords (breach databases, dictionary words)\n- Allow all Unicode characters and spaces\n\n**Password storage:**\n- Use modern password hashing: Argon2id, bcrypt, or scrypt\n- Never store plaintext or reversibly encrypted passwords\n- Implement secure comparison to prevent timing attacks\n\n**Credential lifecycle:**\n- No periodic expiration unless compromise is suspected\n- Force reset on breach detection or password in known-compromised list\n- Secure credential recovery (not security questions)\n\n**Account lockout:**\n- Throttle repeated failures (exponential backoff or CAPTCHA)\n- Avoid hard lockouts that enable denial-of-service\n- Log and alert on brute-force patterns\n\n**MFA per user category:**\n- Define which user categories require MFA\n- Specify acceptable second factors per AAL level\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -62971,6 +63684,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe when a password change is required and when it is not. NIST SP 800-63B advises against periodic expiry — if the project forces it anyway, record the reason here.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -63012,6 +63726,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "State the password rules and the guidance shown while a user chooses one. NIST SP 800-63B favours length and breach screening over composition rules — record any deviation and why.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -63053,6 +63768,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the hashing scheme, its parameters, and how they will be re-tuned over time. Say how existing hashes are upgraded when the parameters change.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -63092,6 +63808,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PeakLoadPatterns", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dailyPeakHours", "String", "Daily Peak Hours", true, "Hours of highest daily traffic", 0),
             new SomFormFieldMeta("weeklyPeakDays", "String", "Weekly Peak Days", false, "Highest traffic days of the week", 1),
@@ -63177,6 +63894,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PenetrationTestingRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("pentestScope", "String", "Penetration Test Scope", true, "External network, internal network, web application, mobile app, API", 0),
             new SomFormFieldMeta("pentestMethodology", "String", "Testing Methodology", true, "OWASP WSTG, PTES, OSSTMM, NIST SP 800-115", 1),
@@ -63265,6 +63983,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce performance efficiency for this system before the efficiency subsection below. Cover the load profile the targets are stated against.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -63338,6 +64057,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PeriodicReviewPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("accessReviewFrequency", "String", "Access Review Frequency", false, "How often access rights are reviewed (e.g., quarterly, annually)", 0),
             new SomFormFieldMeta("privilegedAccountReview", "String", "Privileged Account Review", false, "Review frequency for privileged accounts (e.g., monthly, bi-annually)", 1),
@@ -63384,6 +64104,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PeripheralEquipmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("peripheralType", "String", "Peripheral Type — printer, scanner, webcam, headset, docking station", false, null, 0),
             new SomFormFieldMeta("brand", "String", "Brand", false, null, 1),
@@ -63423,6 +64144,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how permissions from roles, groups and attributes combine, and the rule when they conflict. State whether deny overrides allow and give a worked example.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -63464,6 +64186,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe when and where a permission check runs, what is cached and for how long, and what happens when the decision point is unreachable. Fail-closed or fail-open is the decision to record.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -63505,6 +64228,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "State how fine permissions go and where the project deliberately stops. Over-fine granularity is unmanageable, so name the practical unit of permission here.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -63544,6 +64268,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PermissionMatrixEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("resource", "String", "Resource (what is being accessed)", true, "The resource or entity being accessed", 0),
             new SomFormFieldMeta("action", "String", "Action (Create, Read, Update, Delete, Execute)", true, "Create / Read / Update / Delete / Execute", 1),
@@ -63577,6 +64302,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PersonaEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("age", "String", "Age", false, "Age or age range", 0),
             new SomFormFieldMeta("role", "String", "Role", false, "Job title and responsibilities", 1)));
@@ -63705,6 +64431,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PersonaGoalEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("goal", "String", "Goal", true, "The concrete action or outcome the persona wants to achieve", 0),
             new SomFormFieldMeta("priority", "String", "Priority", false, "Critical/High/Medium/Low", 1),
@@ -63740,6 +64467,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Persona Goals (10.1.3.n.1)\n\nSpecific goals for this persona that drive feature requirements.\n\n### Form Fields Guide\n**goal**: Clear action (\"Quickly approve pending invoices\")\n**priority**: Critical/High/Medium/Low\n**frequency**: Daily/Weekly/Monthly/Occasional\n**desiredOutcome**: Success state description\n\n### Mapping to Screens\nGoals link to screens via requiredScreens in PersonaScenarios.\nHigh-priority goals drive primary screen actions and dashboard widgets.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -63791,6 +64519,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PersonaPainPointEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("painPoint", "String", "Pain Point", true, "The specific frustration or obstacle the persona encounters", 0),
             new SomFormFieldMeta("severity", "String", "Severity", false, "Critical/High/Medium/Low", 1),
@@ -63827,6 +64556,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Persona Pain Points (10.1.3.n.2)\n\nFrustrations and obstacles this persona faces.\n\n### Form Fields Guide\n**painPoint**: Specific frustration (\"Manual data re-entry across systems\")\n**severity**: Critical/High/Medium/Low\n**impact**: Effect on productivity/satisfaction\n**workaround**: Current coping strategy\n**desiredSolution**: What would help\n\n### Design Implications\nHigh-severity pain points become design priorities:\n- Automation opportunities\n- Error prevention patterns\n- Streamlined workflows\n- Contextual help placement\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -63878,6 +64608,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PersonaScenarioEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What the persona is trying to accomplish", 0),
             new SomFormFieldMeta("frequency", "String", "Frequency", false, "Daily/Weekly/Monthly/Occasional", 1),
@@ -63914,6 +64645,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Persona Scenarios (10.1.3.n.3)\n\nKey usage scenarios for this persona — maps personas to screens/flows.\n\n### Form Fields Guide\n**scenarioName**: Action-oriented (\"Approve Pending Orders\")\n**frequency**: Daily/Weekly/Monthly/Occasional\n**urgency**: Time-sensitive nature\n**context**: Where/when this occurs\n**requiredScreens**: SCR-INV references needed\n**successMetric**: Measurable outcome\n\n### Traceability\nScenarios link to:\n- Screen Inventory (SCR-INV) via requiredScreens\n- Screen Flow (SCF) via navigation paths\n- Use Cases (ISC-xxx) via related requirements\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -63965,6 +64697,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PhaseGateReviewEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stage", "String", "Stage", true, "Stage this gate is associated with", 0)));
         out.add(n);
@@ -64136,6 +64869,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PhaseGateReviews", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("gateNamingConvention", "String", "Gate Naming Convention", false, "How gates are named — G0/G1/G2, Alpha/Beta/GA, or stage-aligned like Stage1Exit", 0),
             new SomFormFieldMeta("totalGateCount", "String", "Total Gate Count", false, "Number of formal gates in the stage plan", 1),
@@ -64241,6 +64975,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PhysicalWorkplaceRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("workplaceType", "String", "Workplace Type — office, cubicle, open plan, home office, mobile", false, null, 0),
             new SomFormFieldMeta("workstationLayout", "String", "Workstation Layout — desk configuration, monitor arrangement", false, null, 1),
@@ -64309,6 +65044,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Pilot definition: who participates, what is in/out of pilot scope, how\nsuccess is measured, and the decision gate that authorizes rollout.\n\n**What to capture:**\n- Pilot cohort (sites, users, transaction volume)\n- Pilot scope (functional / technical / geographic subset)\n- Pilot duration and schedule\n- Success criteria (quantitative + qualitative)\n- Feedback collection mechanism\n- Exit decision rules (proceed / extend / abort)\n- Risk and rollback plan\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -64336,6 +65072,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PipelineJobEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("parentStage", "String", "Parent Stage", false, "Stage this job belongs to", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What this job does", 1)));
@@ -64435,6 +65172,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PipelineStageEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stageOrder", "String", "Order", false, "Execution order", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What this stage does", 1)));
@@ -64534,6 +65272,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide a strategic overview of platform and technology selections.\n\n**Include**:\n- Executive summary of technology stack\n- Primary vs. secondary platform priorities\n- Polyglot strategy rationale (if using multiple languages)\n- Platform-specific considerations and trade-offs\n- Technology adoption timeline and migration paths\n\n**Best Practices**:\n- Document minimum viable versions with EOL dates\n- Specify LTS (Long-Term Support) requirements\n- Plan for breaking changes in major version upgrades\n- Consider developer experience and productivity\n- Evaluate total cost of ownership (licensing, training, tooling)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -64723,6 +65462,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Portability", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("targetPlatforms", "String", "Target Platforms", false, "iOS, Android, Web, Windows, macOS, Linux", 0),
             new SomFormFieldMeta("browserSupport", "String", "Browser Support", false, "Chrome, Firefox, Safari, Edge versions", 1),
@@ -64773,6 +65513,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PostMaintenanceValidation", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("smokeTests", "bool", "Smoke Tests", false, "Run smoke tests after", 0),
             new SomFormFieldMeta("functionalTests", "bool", "Functional Tests", false, "Run functional test suite", 1),
@@ -64841,6 +65582,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PostconditionsAndGuarantees", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minimalGuarantees", "String", "Minimal Guarantees — always true after, even on failure", false, "What the system promises even when the flow fails", 0),
             new SomFormFieldMeta("successGuarantees", "String", "Success Guarantees — true after successful completion", false, "What holds true only after successful completion", 1),
@@ -64876,6 +65618,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PreconditionsAndTriggers", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("precondition", "String", "Preconditions — must be true before", false, "State assumed true before the interaction starts", 0),
             new SomFormFieldMeta("trigger", "String", "Trigger — what initiates this use case", false, "The event that starts the interaction", 1),
@@ -64911,6 +65654,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PrimaryNavigation", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("mobilePattern", "String", "Mobile Pattern", false, "Drawer/Bottom-Nav/Bottom-Nav+Drawer", 0),
             new SomFormFieldMeta("tabletPattern", "String", "Tablet Pattern", false, "Rail/Collapsible-Sidebar/Drawer", 1),
@@ -65007,6 +65751,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PrintAndExportLayout", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("printStrategy", "String", "Print Strategy", false, "Browser-native / Server-side-PDF / Hybrid / Third-party-service", 0),
             new SomFormFieldMeta("defaultPaperSize", "String", "Default Paper Size", false, "A4 / Letter / Legal / A3 / Custom", 1),
@@ -65181,6 +65926,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PrivacyImpactAssessmentProcess", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dpiaThreshold", "String", "DPIA Threshold", true, "Criteria triggering a DPIA: new processing, high risk, large-scale profiling", 0),
             new SomFormFieldMeta("dpiaScreeningProcess", "String", "Screening Process", false, "Initial screening to determine if full DPIA is needed", 1),
@@ -65268,6 +66014,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PrivacyRegulationCompliance", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("applicableRegulations", "String", "Applicable Regulations", true, "GDPR, CCPA/CPRA, LGPD, PIPA, PIPEDA, PDPA, etc.", 0),
             new SomFormFieldMeta("primaryJurisdiction", "String", "Primary Jurisdiction", true, "Main legal jurisdiction for data processing", 1),
@@ -65369,6 +66116,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PrivilegeUsageReporting", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("adminActivityReports", "String", "Admin Activity Reports", false, "Reports on administrative actions (e.g., daily summary, on-demand)", 0),
             new SomFormFieldMeta("privilegeEscalationReports", "String", "Escalation Reports", false, "Reports on privilege escalation events", 1),
@@ -65417,6 +66165,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the problem concretely: who suffers it, how often, and what it costs today. Quantify the impact where you can, and say how urgent a fix is.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -65481,6 +66230,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessAdjustmentDetails", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("adjustmentDescription", "String", "Adjustment Description", false, "Detailed description of what changed", 0),
             new SomFormFieldMeta("newPosition", "String", "New Position", false, "If reordered, new position in process", 1),
@@ -65514,6 +66264,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessAdjustmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardStepName", "String", "Standard Step Name", true, "Original process step being adjusted", 0),
             new SomFormFieldMeta("adjustmentType", "String", "Adjustment Type", false, "Skipped / Modified / Reordered / Parallelized / Added", 1)));
@@ -65661,6 +66412,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of process adjustments for this project. Explain why standard\nprocess steps are modified, what project constraints drove the changes,\nand how process integrity is maintained despite deviations.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -65751,6 +66503,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the process catalog before the classification scheme and the process entries below. Cover the scope of the catalog and what is deliberately outside it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -65847,6 +66600,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessCharacteristics", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("complexity", "String", "Complexity — low, medium, high, very high", false, "Overall complexity level of the process", 0),
             new SomFormFieldMeta("frequency", "String", "Frequency — how often the process runs", false, "How often the process executes", 1),
@@ -65915,6 +66669,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessControlEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("controlType", "String", "Control Type — preventive, detective, corrective", false, "Classify the control type", 0),
             new SomFormFieldMeta("controlCategory", "String", "Control Category — authorization, validation, reconciliation", false, "Classify the control category", 1)));
@@ -65983,6 +66738,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the control framework for this process before the individual controls below. Cover which risks the controls address and who tests them.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -66056,6 +66812,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceProcess", "String", "Source Process", true, null, 0),
             new SomFormFieldMeta("targetProcess", "String", "Target Process", true, null, 1),
@@ -66092,6 +66849,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessDesignPrincipleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category — efficiency, quality, compliance, user experience", false, "The dimension this principle addresses", 0),
             new SomFormFieldMeta("statement", "String", "Statement — the principle statement", false, "The principle expressed as a directive", 1),
@@ -66130,6 +66888,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the design principles before the individual principles below. Cover where they came from and how a conflict between two of them is resolved.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -66199,6 +66958,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessEndEventEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("endEventType", "String", "End Event Type — success, error, cancellation, timeout", false, "BPMN end-event type", 0),
             new SomFormFieldMeta("outcome", "String", "Outcome — what this end state means", false, "What reaching this end state means", 1),
@@ -66233,6 +66993,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessExceptionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("exceptionType", "String", "Exception Type — data error, system error, business rule, timeout", false, "Classify the exception type", 0),
             new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition — what causes this exception", false, "Describe what triggers the exception", 1)));
@@ -66301,6 +67062,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Handling of exceptions that interrupt a normal process flow. Distinct\nfrom UI-level error handling — this is about business\nprocess recovery.\n\n**What to capture:**\n- Exception catalog (what can go wrong at which step)\n- Escalation matrix (who is notified, who decides)\n- Compensation / rollback activities\n- Retry strategies and timeouts\n- Manual-intervention procedures\n- Audit requirements for handled exceptions\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -66330,6 +67092,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the exception-handling philosophy for this process before the individual exception scenarios below. Cover what is handled in-process and what is escalated out of it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -66402,6 +67165,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessIdentification", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("processLevel", "String", "Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)", false, "Level in the process hierarchy", 0)));
         out.add(n);
@@ -66484,6 +67248,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessImprovementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category — efficiency, quality, cost, experience", false, "Classify the improvement category", 0),
             new SomFormFieldMeta("currentState", "String", "Current State — baseline measurement", false, "Give the current-state baseline", 1)));
@@ -66552,6 +67317,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the improvements expected over the current processes before the itemized improvements and the business case below. Cover the baseline they are measured against.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -66643,6 +67409,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessInputEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("inputType", "String", "Input Type — data, document, authorization, resource", false, "Kind of input consumed", 0),
             new SomFormFieldMeta("source", "String", "Source — where input comes from", false, "Where the input originates", 1),
@@ -66681,6 +67448,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the data this process consumes and produces before the input and output lists below. Cover where the inputs originate and who consumes the outputs.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -66775,6 +67543,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Show which processes trigger, feed or block each other; a table or matrix reads better than prose here. Call out the couplings that constrain migration sequencing.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -66840,6 +67609,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessKpiEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category — time, quality, cost, volume, satisfaction", false, "Classify the KPI dimension", 0),
             new SomFormFieldMeta("definition", "String", "Definition — how KPI is calculated", false, "Describe the calculation formula", 1)));
@@ -66908,6 +67678,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "How each business process is measured for success once in production.\n\n**What to capture:**\n- KPI catalog per process (name, formula, target, tolerance)\n- Leading vs lagging indicators\n- Measurement frequency and data source\n- Dashboard / report ownership\n- Thresholds for corrective action\n- Baseline values for comparison\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -66936,6 +67707,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Category-level summary of metrics.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -66987,6 +67759,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessMetricEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", 0),
             new SomFormFieldMeta("currentValue", "String", "Current Value", false, null, 1),
@@ -67073,6 +67846,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of process metrics and measurement approach.");
         n.contentHelp = "Describe the overall approach to measuring process performance. Include data collection methods, measurement periods, and data quality notes.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("MetricsDashboardSummary", s, MetricsDashboardSummaryNav::metaChildren, (r, c) -> {
@@ -67281,6 +68055,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessOutputEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("outputType", "String", "Output Type — data, document, notification, state change", false, "Kind of output produced", 0),
             new SomFormFieldMeta("destination", "String", "Destination — where output goes", false, "Where the output is sent", 1),
@@ -67319,6 +68094,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the process landscape before the landscape, hierarchy and value-chain diagrams below. Cover the reading order and the level of detail each diagram shows.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -67402,6 +68178,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Known issues, inefficiencies, and improvement opportunities specific to this process.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -67455,6 +68232,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how this process is measured before the KPI and SLA lists below. Cover the measurement period and the data source behind the numbers.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -67552,6 +68330,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessPerformanceSummary", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("overallMaturity", "String", "Overall Process Maturity", false, "Ad-hoc / Defined / Managed / Optimized", 0),
             new SomFormFieldMeta("automationLevel", "String", "Automation Level", false, "Manual / Partially Automated / Highly Automated / Fully Automated", 1),
@@ -67612,6 +68391,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessRelationshipEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceProcess", "String", "Source Process", false, "Name the source process", 0),
             new SomFormFieldMeta("targetProcess", "String", "Target Process", false, "Name the target process", 1),
@@ -67649,6 +68429,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Process relationships map dependencies, data flows, and sequencing between\nprocesses. Understanding these relationships is critical for integration\ndesign and identifying optimization opportunities.\n\n**Relationship Types:**\n- Triggers — one process starts another\n- Feeds — output of one becomes input to another\n- Depends on — must complete before another starts\n- Parallel with — can run concurrently with another\n\n**Best Practices:**\n- Map all inter-process data exchanges\n- Identify timing dependencies and constraints\n- Document API/integration points between processes\n- Highlight bottleneck relationships for optimization\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -67700,6 +68481,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessRoleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("raciType", "String", "RACI Type — Responsible, Accountable, Consulted, Informed", false, "The RACI assignment for this role", 0),
             new SomFormFieldMeta("responsibilities", "String", "Responsibilities — what this role does", false, "What this role is responsible for", 1)));
@@ -67768,6 +68550,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the participants in this process before the per-role entries below. Cover how responsibility is split and where the hand-offs occur.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -67838,6 +68621,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessScopeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("rationale", "String", "Rationale - why this scope decision", false, "Why the process is in or out of scope, and to what extent — record here if it is only partially included", 0),
             new SomFormFieldMeta("impactIfExcluded", "String", "Impact If Excluded", false, null, 1),
@@ -67869,6 +68653,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessScopeSummary", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalProcessesIdentified", "int", "Total Processes Identified", false, null, 0),
             new SomFormFieldMeta("processesInScope", "int", "Processes In Scope", false, null, 1),
@@ -67950,6 +68735,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessSlaEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("serviceDescription", "String", "Service Description — what is promised", false, "Describe the promised service", 0),
             new SomFormFieldMeta("targetLevel", "String", "Target Level — commitment", false, "State the committed target level", 1),
@@ -67988,6 +68774,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Key process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC (Interaction Scenarios) document.\n\n**Subsections:**\n- Actor Overview — comprehensive actor definitions with goals and permissions\n- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)\n- Key Scenarios — end-to-end user journey descriptions (1+ required)\n\n**Best Practices:**\n- Follow Cockburn goal levels: +summary, !user, -subfunction\n- Use active verb phrases for interaction names (\"Submit Registration\")\n- Include MoSCoW prioritization (must/should/could/won't)\n- Map interactions to processes (TOM-xxx) and requirements (REQ-xxx)\n\n**Seeds:** ISC (Interaction Scenarios) document\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ProcessStepsOverview", s, ProcessStepsOverviewNav::metaChildren, (r, c) -> {
@@ -68136,6 +68923,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessStepsOverview", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("useCaseScope", "String", "Use Case Scope — system, organization, subsystem", false, "State the design scope of the use cases", 0),
             new SomFormFieldMeta("primaryActorFocus", "String", "Primary Actor Focus — main user types", false, "Name the main actor types the interactions center on", 1),
@@ -68172,6 +68960,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessTechnology", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primarySystem", "String", "Primary System — main system supporting process", false, "Name the main supporting system", 0),
             new SomFormFieldMeta("supportingSystems", "String", "Supporting Systems — other systems involved", false, "List other systems involved", 1),
@@ -68239,6 +69028,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessTriggerEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("triggerType", "String", "Trigger Type — user action, system event, timer, message, signal", false, "BPMN start-event type of the trigger", 0),
             new SomFormFieldMeta("triggerSource", "String", "Trigger Source — where trigger originates", false, "Where the trigger originates", 1),
@@ -68276,6 +69066,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how this process starts and ends before the trigger and end-event lists below. Cover whether it is event-, schedule- or request-driven.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -68372,6 +69163,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the target-state process vision before the narrative, improvement and success-criteria subsections below. Cover what changes about how the work is done, and for whom.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -68479,6 +69271,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProgrammingLanguageEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("languageVariant", "String", "Variant", false, "E.g., Sound null safety, Strict mode", 0),
             new SomFormFieldMeta("minimumVersion", "String", "Minimum Version", true, "Earliest supported language version", 1)));
@@ -68599,6 +69392,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of project organization structure including reporting lines,\nsteering committee composition, and governance arrangements.\nDescribe the organizational model and key decision-making paths.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("OrganizationStructure", s, OrganizationStructureNav::metaChildren, (r, c) -> {
@@ -68658,6 +69452,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive summary of project-specific methodology deviations.\nExplain why this project requires deviations from standard TomSpecs practices,\nthe overall impact on governance, and how deviations are tracked and approved.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -68783,6 +69578,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of team structure, staffing approach, and resource planning considerations.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("TeamStructureOverview", s, TeamStructureOverviewNav::metaChildren, (r, c) -> {
@@ -68874,6 +69670,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProtocolComplianceRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("corsPolicy", "String", "CORS Policy", false, "Allowed origins, methods, headers", 0),
             new SomFormFieldMeta("contentSecurityPolicy", "String", "Content Security Policy", false, "CSP header directives", 1),
@@ -68957,6 +69754,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProtocolEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("protocolType", "String", "Protocol Type", false, "Request-response, streaming, pub-sub, event-driven", 0),
             new SomFormFieldMeta("protocolVersion", "String", "Protocol Version", false, "HTTP/2, MQTT 5.0, gRPC 1.x", 1),
@@ -68992,6 +69790,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of protocol and standards approach.\n\n**Include**:\n- Primary protocols and selection rationale\n- TLS/security configuration\n- Certificate management strategy\n- API versioning approach\n- Data format standards\n\n**Best Practices**:\n- Use TLS 1.3 where supported\n- Automate certificate renewal\n- Implement proper API versioning from start\n- Document protocol requirements clearly\n- Monitor protocol compliance\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -69147,6 +69946,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the prototype effort before the goal, feature-subset and type subsections below. Cover why a prototype is needed and which decision it is meant to inform.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -69312,6 +70112,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PrototypeFeatureEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry describes — a feature section id (FPE-ITEM-…)", 0, java.util.List.of(), java.util.List.of("FPE.@sectionId")),
             new SomFormFieldMeta("inclusionReason", "String", "Inclusion Reason", false, "Why this feature is included", 1),
@@ -69349,6 +70150,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the feature selection before the individual features below. Cover the criterion that put a feature in or left it out.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -69464,6 +70266,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PrototypeGoalEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("goalDescription", "String", "Goal Description", true, "What the goal validates", 0),
             new SomFormFieldMeta("goalCategory", "String", "Goal Category", false, "Usability, technical, business", 1),
@@ -69501,6 +70304,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce what the prototype must validate before the individual goals below. Cover the risk that makes the validation worth the effort.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -69618,6 +70422,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the prototype classification before the reusable, training and throwaway subsections below. Cover which type applies and what follows from that choice.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -69709,6 +70514,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PwaRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("pwaEnabled", "bool", "PWA Enabled", false, "PWA functionality enabled", 0),
             new SomFormFieldMeta("appName", "String", "App Name", false, "PWA display name", 1),
@@ -69812,6 +70618,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.unused = true;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("SystemQualityGoals", s, SystemQualityGoalsNav::metaChildren, (r, c) -> {
@@ -69885,6 +70692,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("QualityCategoryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("categoryWeight", "int", "Category Weight (1-100)", false, "Relative importance in overall quality", 0)));
         out.add(n);
@@ -69999,6 +70807,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the quality framework before the objective, category and verification subsections below. Cover how quality work is organized and governed.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -70160,6 +70969,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("QualityGateAdjustmentDetails", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("gatePhase", "String", "Gate Phase", false, "Project phase — Planning / Design / Build / Test / Deploy", 0),
             new SomFormFieldMeta("adjustmentDescription", "String", "Adjustment Description", false, "Detailed description of what changed", 1),
@@ -70193,6 +71003,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("QualityGateAdjustmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardGateName", "String", "Standard Gate Name", true, "Original TomSpecs quality gate being adjusted", 0),
             new SomFormFieldMeta("adjustmentType", "String", "Adjustment Type", false, "Skipped / Added / Modified / Deferred / Relaxed", 1)));
@@ -70306,6 +71117,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of quality gate adjustments for this project. Explain why standard\ngates are modified, what project characteristics drove the changes, and\nhow quality assurance is maintained despite deviations.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -70392,6 +71204,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("QualityGateCheckEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("checkItem", "String", "Check Item", true, "What is being checked", 0),
             new SomFormFieldMeta("verificationMethod", "String", "Verification Method", true, "How check is verified", 1)));
@@ -70511,6 +71324,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the quality gates before the individual checklist items below. Cover when each gate is run and who may waive one.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -70595,6 +71409,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how quality attributes are ranked before the weighted-matrix and trade-off subsections below. Cover who decides the ranking and how a dispute is settled.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -70684,6 +71499,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("QualityScenarioEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("source", "String", "Source (who/what generates the stimulus)", true, "Who/what generates the stimulus", 0),
             new SomFormFieldMeta("stimulus", "String", "Stimulus (event or condition that triggers the scenario)", true, "Event or condition that triggers the scenario", 1),
@@ -70721,6 +71537,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of quality scenarios and how they verify achievement of the parent technical goal.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -70772,6 +71589,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("QualityStandardEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("maturityLevel", "String", "Maturity Level", false, "For CMMI: Level 1-5", 0),
             new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 1),
@@ -70872,6 +71690,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("QualityWeightEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("qualityAttribute", "String", "Quality Attribute", true, null, 0),
             new SomFormFieldMeta("qualityCategory", "String", "Category", false, "User, Technical, Operations, Documentation", 1),
@@ -70907,6 +71726,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RateLimitingPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("rateLimitingStrategy", "String", "Rate Limiting Strategy", true, "Token bucket, sliding window, fixed window", 0),
             new SomFormFieldMeta("rateLimitScope", "String", "Rate Limit Scope", false, "Global, per-client, per-endpoint, per-tenant", 1)));
@@ -70990,6 +71810,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Readability", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("terminologyStandard", "String", "Terminology Standard", false, "Glossary, controlled vocabulary", 0),
             new SomFormFieldMeta("ambiguityPrevention", "String", "Ambiguity Prevention", false, "Review checklist, automated checks", 1),
@@ -71101,6 +71922,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReadinessCriteriaEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stakeholderGroup", "String", "Stakeholder Group", true, "The stakeholder group whose change readiness this entry assesses", 0),
             new SomFormFieldMeta("awarenessLevel", "String", "Awareness Level — understanding of change (1-5)", false, "The group's level of awareness of the change, rated 1 (none) to 5 (full understanding)", 1),
@@ -71139,6 +71961,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RecoveryProcedures", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("granularRecovery", "String", "Granular Recovery", false, "File/item-level recovery", 0),
             new SomFormFieldMeta("volumeRecovery", "String", "Volume Recovery", false, "Volume-level recovery", 1),
@@ -71240,6 +72063,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RecoveryScenarioEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "What error triggers this scenario", 0),
             new SomFormFieldMeta("userImpact", "String", "User Impact", false, "How user is affected", 1),
@@ -71290,6 +72114,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how return URLs and callbacks are validated. Open redirects are the risk to write about here: state the allow-list rule and the behaviour on a rejected target.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -71329,6 +72154,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReferenceDocumentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("documentId", "String", "Document ID (internal reference number)", false, "The catalogue or internal reference number this document is filed under, if any — owned outside this document", 0),
             new SomFormFieldMeta("version", "String", "Version", false, "Version or edition of the referenced document.", 1)));
@@ -71448,6 +72274,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of reference document categories and their relevance to the project.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -71499,6 +72326,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RegulatoryAuditSupport", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("applicableRegulations", "String", "Applicable Regulations", false, "Regulations requiring audit support (e.g., SOX, HIPAA, GDPR, PCI-DSS)", 0),
             new SomFormFieldMeta("auditTrailAvailability", "String", "Audit Trail Availability", false, "How audit trails are made available to auditors", 1),
@@ -71545,6 +72373,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RegulatoryComplianceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("regulationName", "String", "Regulation Name", true, "E.g., GDPR, HIPAA, PCI-DSS, SOX", 0),
             new SomFormFieldMeta("jurisdiction", "String", "Jurisdiction", true, "Geographic/industry scope", 1),
@@ -71647,6 +72476,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of regulatory landscape and compliance approach.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -71723,6 +72553,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of the regulatory environment and compliance requirements affecting this system.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -71774,6 +72605,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RegulatoryRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("regulationName", "String", "Regulation Name", true, "Name of the regulation that applies", 0),
             new SomFormFieldMeta("regulatoryBody", "String", "Regulatory Body", false, "Authority that issues and enforces the regulation", 1),
@@ -71810,6 +72642,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RelatedDocumentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedDocumentId", "String", "Related Document ID", true, "The related reference document — a reference document section id (RFDOC-DOCU-…)", 0, java.util.List.of(), java.util.List.of("RFDOC.@sectionId")),
             new SomFormFieldMeta("relationshipType", "String", "Relationship Type (Depends On, Referenced By, Supersedes, Complements, Conflicts With, Parent Of, Child Of)", false, "Nature of the link, e.g. Depends On, Supersedes, Complements.", 1),
@@ -71841,6 +72674,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RelationshipAttributeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("hasRelationshipAttributes", "String", "Has Relationship Attributes", false, "Whether the relationship has its own attributes: Yes | No", 0),
             new SomFormFieldMeta("relationshipAttributes", "String", "Relationship Attributes", false, "Attributes on the relationship itself (e.g., quantity on OrderItem)", 1),
@@ -71872,6 +72706,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReleaseStrategy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("releaseMethodology", "String", "Release Methodology", false, "Blue-green, Canary, Rolling, A/B", 0),
             new SomFormFieldMeta("releaseFrequency", "String", "Release Frequency", false, "Daily, Weekly, Bi-weekly", 1),
@@ -71977,6 +72812,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RelevantSectionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sectionReference", "String", "Section Reference (chapter, section, or page number)", true, "Locate the section: chapter, clause, or page number.", 0),
             new SomFormFieldMeta("relevance", "String", "Relevance (how this section applies to the project)", false, "Explain how this section applies to the project.", 1),
@@ -72009,6 +72845,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Reliability", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("uptimeTarget", "String", "Uptime Target", false, "99.9%, 99.95%, 99.99%", 0),
             new SomFormFieldMeta("plannedDowntimeWindow", "String", "Planned Downtime Window", false, "Maintenance window schedule", 1),
@@ -72123,6 +72960,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce reliability for this system before the availability, service-level and monitoring subsections below. Cover the cost of downtime that justifies the targets.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -72244,6 +73082,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what persistent login grants and what it does not: which operations still re-prompt, how the device is trusted, and how the user revokes it from elsewhere.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -72283,6 +73122,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RemovedRoleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("department", "String", "Department", false, "Department the removed role belongs to", 0),
             new SomFormFieldMeta("removalReason", "String", "Removal Reason — automation, restructuring, outsourcing, redundancy", false, "Why the role is being eliminated", 1),
@@ -72367,6 +73207,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the replacement inventory before the individual systems below. Cover the portfolio-level metrics and the sequencing logic.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -72444,6 +73285,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReplacementPhaseEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("phaseNumber", "int", "Phase Number", true, "Ordinal position of the phase", 0),
             new SomFormFieldMeta("phaseScope", "String", "Scope", false, "What this phase covers", 1),
@@ -72477,6 +73319,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReplacementSystemDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("integrationId", "String", "Integration ID", false, "Identifier for the integration", 0),
             new SomFormFieldMeta("connectedSystem", "String", "Connected System", true, "The other system this one integrates with", 1),
@@ -72519,6 +73362,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportChartAxes", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataSource", "String", "Data Source", false, "Data source or query if different from section", 0),
             new SomFormFieldMeta("xAxisField", "String", "X-Axis Field", false, "Field mapped to X-axis / category axis", 1),
@@ -72558,6 +73402,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportChartEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("chartId", "String", "Chart ID", true, "The identifier this chart carries in the generated report — unique within the section, e.g. CHT-01", 0),
             new SomFormFieldMeta("chartType", "String", "Chart Type", false, "Bar / Line / Pie / Donut / Scatter / Gauge / Heatmap", 1)));
@@ -72683,6 +73528,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportColumnEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("columnId", "String", "Column ID", true, "The identifier this column carries in the generated report — unique within the section, e.g. COL-01", 0),
             new SomFormFieldMeta("displayLabel", "String", "Display Label", true, "Column header text shown in report", 1)));
@@ -72883,6 +73729,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the report definitions: which reports exist, what each projects over the domain model, and how they are delivered.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -72934,6 +73781,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportDistributionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("distributionId", "String", "Distribution ID", true, "The identifier this distribution carries in the running report job — unique within the report, e.g. DST-01", 0),
             new SomFormFieldMeta("channel", "String", "Channel", true, "Email / Dashboard / File-Share / API / Print / Push-Notification / Webhook / SFTP", 1),
@@ -73024,6 +73872,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("reportType", "String", "Report Type", false, "Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed", 0)));
         out.add(n);
@@ -73385,6 +74234,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportFilterEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("filterId", "String", "Filter ID", true, "The identifier this filter carries in the generated report — unique within the report, e.g. FLT-01", 0),
             new SomFormFieldMeta("displayLabel", "String", "Display Label", true, "Label shown in parameter form", 1)));
@@ -73573,6 +74423,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportRecipientEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("recipientId", "String", "Recipient ID", true, "The identifier this recipient carries in the running report job — unique within the report, e.g. REC-01", 0),
             new SomFormFieldMeta("recipientType", "String", "Recipient Type", false, "User / Role / Group / Email / Distribution-List / External-Contact / System-Account", 1),
@@ -73657,6 +74508,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportScheduleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scheduleId", "String", "Schedule ID", true, "The identifier this schedule carries in the running report job — unique within the report, e.g. SCH-01", 0),
             new SomFormFieldMeta("frequency", "String", "Frequency", false, "Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered", 1)));
@@ -73762,6 +74614,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportSectionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sectionId", "String", "Section ID", true, "The identifier this section carries in the generated report — unique within the report, e.g. SEC-01", 0),
             new SomFormFieldMeta("sectionType", "String", "Section Type", false, "Table / Chart / Summary / Text / KPI-Card / Mixed", 1)));
@@ -73918,6 +74771,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of acceptance approach and test coverage expectations.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -73969,6 +74823,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RequirementBusinessRuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleType", "String", "Rule Type (Constraint, Computation, Derivation, Inference, Condition, Action, Workflow, Authorization)", false, "Constraint, Computation, Derivation, Inference, Condition, etc.", 0),
             new SomFormFieldMeta("ruleStatement", "String", "Rule Statement (IF/WHEN condition THEN action)", true, "IF/WHEN condition THEN action statement", 1),
@@ -74006,6 +74861,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of business rules associated with this requirement.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -74059,6 +74915,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Reports coverage of requirements from multiple angles to ensure nothing\nfalls through.\n\n**What to capture:**\n- Goal coverage (every goal has ≥1 requirement supporting it)\n- Use case coverage (every use case references its requirements)\n- Test coverage (every requirement has ≥1 test scenario)\n- Gap analysis (requirements without owners / tests / acceptance criteria)\n- Coverage trend snapshot over the project timeline\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -74087,6 +74944,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of data requirements and CRUD (Create, Read, Update, Delete) operations.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -74139,6 +74997,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of requirement dependencies and implementation order.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -74190,6 +75049,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RequirementDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependencyType", "String", "Dependency Type (Prerequisite, Bidirectional, Parent-Child, Conflict, Refinement)", true, "Prerequisite, Bidirectional, Parent-Child, Conflict, or Refinement", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "Description of the dependency", 1),
@@ -74237,6 +75097,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Explicit relationships between requirements: dependencies, conflicts,\nrefinements, and derivations. Ties individual requirement entries from\nFUN/TEC/SEC/ORG into a network.\n\n**What to capture:**\n- Relationship catalog (depends-on, conflicts-with, refines, derived-from)\n- Per-requirement neighborhood (incoming / outgoing edges)\n- Conflict resolution outcomes and decisions\n- Derivation chains from goals to requirements\n- Visualizations (matrix, graph, layered view)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -74264,6 +75125,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RequirementScreenActionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actionId", "String", "Action ID", true, "The symbol the built screen carries for this action — unique within the screen, e.g. act-save", 0),
             new SomFormFieldMeta("actionType", "String", "Action Type (Submit, Cancel, Navigate, API Call, Dialog, Download, Print, Delete, Duplicate, Export, Import, Refresh, Save, SaveAndNew, SaveAndClose, Custom)", true, "Submit, Cancel, Navigate, API Call, Dialog, Save, etc.", 1),
@@ -74335,6 +75197,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RequirementTestCaseEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("testType", "String", "Test Type (Unit, Integration, System, Acceptance, UAT, Regression)", false, "Unit, Integration, System, Acceptance, UAT, or Regression", 0),
             new SomFormFieldMeta("testCategory", "String", "Test Category (Positive, Negative, Boundary, Error, Performance)", false, "Positive, Negative, Boundary, Error, or Performance", 1),
@@ -74415,6 +75278,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of test coverage for this requirement.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -74468,6 +75332,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Link this requirement upward to goals and business drivers and downward to use cases, processes and tests. A requirement that traces to nothing is a requirement nobody asked for.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -74549,6 +75414,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the screens, forms and interactions this requirement needs, in Tom UI terms: what the user sees, what they can do, and what feedback the system gives.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -74694,6 +75560,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the functional and non-functional requirement landscape; seeds the Requirements Specification (RSP).");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("RequirementsFollowUp", s, RequirementsFollowUpNav::metaChildren, (r, c) -> {
@@ -74737,6 +75604,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the follow-up (non-generated) NFR sub-areas: localization, information-for-use, and training.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("LocalizationTranslationRequirements", s, LocalizationTranslationRequirementsNav::metaChildren, (r, c) -> {
@@ -74811,6 +75679,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the requirements set: how requirements were gathered, how they are identified, and how they will be carried into the RSP. Note the standard followed — IEEE 830, ISO 29148, Volere.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -74978,6 +75847,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResourceAllocationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("resourceType", "String", "Resource Type (Personnel, Budget, Tool, System, External)", true, "Personnel, Budget, Tool, System, or External", 0),
             new SomFormFieldMeta("quantity", "String", "Quantity or Allocation", false, "Amount or share of the resource allocated", 1),
@@ -75013,6 +75883,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResourceCapacityBaselines", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("cpuBaseline", "String", "CPU Baseline", true, "Normal CPU utilization per service", 0),
             new SomFormFieldMeta("memoryBaseline", "String", "Memory Baseline", false, "Normal memory usage per service", 1),
@@ -75111,6 +75982,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResourceKeyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("resourceKey", "String", "Resource Key", true, "Unique key of the resource.", 0),
             new SomFormFieldMeta("resourceType", "String", "Resource Type", false, "Type of the resource.", 1),
@@ -75143,6 +76015,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResourceKeyReferenceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("resourceKey", "String", "Resource Key", true, "Unique key of the referenced resource.", 0, java.util.List.of(), java.util.List.of("RESKEY.resourceKey"))));
         out.add(n);
@@ -75174,6 +76047,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of resource protection strategies covering data, APIs, and file\nstorage. Resource protection ensures that authenticated and authorized users\ncan only access the specific resources they are entitled to.\n\n**Resource categories:**\n- **Data**: Database records, tenant data, PII, business-critical information\n- **APIs**: REST/GraphQL endpoints, internal services, webhooks\n- **Files**: User uploads, documents, media, configuration files\n\n**Protection layers:**\n1. Network layer: firewalls, WAF, DDoS protection\n2. Transport layer: TLS encryption, certificate validation\n3. Application layer: authentication, authorization, input validation\n4. Data layer: encryption at rest, row/column-level security, masking\n\n**Defense in depth:**\n- Multiple overlapping controls at each layer\n- Fail-secure defaults (deny access on error)\n- Principle of least privilege for all access\n- Continuous monitoring and anomaly detection\n\n**Compliance alignment:**\n- OWASP Top 10 and API Security Top 10\n- PCI DSS requirements for cardholder data\n- GDPR requirements for personal data protection\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("DataLevelSecurity", s, DataLevelSecurityNav::metaChildren, (r, c) -> {
@@ -75246,6 +76120,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResourceRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleName", "String", "Role Name", true, "Name of the role to be staffed", 0),
             new SomFormFieldMeta("skillsRequired", "String", "Required Skills", false, "Skills the position requires", 1),
@@ -75281,6 +76156,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResponsibilityChangeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("responsibility", "String", "Responsibility", true, "The responsibility affected by this change", 0),
             new SomFormFieldMeta("currentState", "String", "Current State — how done today", false, "How this responsibility is handled before the change", 1),
@@ -75317,6 +76193,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResponsibilityContacts", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("domainOwner", "String", "Domain Owner", false, "Business owner for this functional area", 0),
             new SomFormFieldMeta("datasteward", "String", "Data Steward", false, "Person responsible for data quality", 1),
@@ -75350,6 +76227,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResponsibilityDetailEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("responsibility", "String", "Responsibility", true, "Short statement of the duty", 0),
             new SomFormFieldMeta("description", "String", "Description — detailed explanation", false, "Detailed explanation of what is done", 1),
@@ -75386,6 +76264,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResponsibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("functionId", "String", "Function ID", true, "Unique identifier, e.g. FUNC-001", 0),
             new SomFormFieldMeta("functionName", "String", "Function Name", true, "Short descriptive name", 1),
@@ -75529,6 +76408,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResponsibilityFunctionDetails", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("functionDescription", "String", "Description", false, "Detailed description of the functional responsibility", 0),
             new SomFormFieldMeta("functionScope", "String", "Scope", false, "Boundaries of this functional responsibility", 1),
@@ -75560,6 +76440,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResponsibilityReferenceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("responsibility", "String", "Responsibility", true, "Name of the responsibility.", 0),
             new SomFormFieldMeta("description", "String", "Short description", false, "Brief description.", 1),
@@ -75592,6 +76473,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResponsibilitySystems", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primarySystems", "String", "Primary Systems", false, "Systems primarily used for this function", 0),
             new SomFormFieldMeta("dataOwnership", "String", "Data Ownership", false, "Data entities owned by this function", 1),
@@ -75625,6 +76507,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how the interface adapts across breakpoints before the layout, navigation and visibility subsections below. Cover what is hidden rather than reflowed, and why.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -75776,6 +76659,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the responsive strategy before the breakpoint and behaviour subsections below. Cover the device classes supported and which of them is designed for first.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -75867,6 +76751,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResponsiveScreenRuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("screenId", "String", "Screen ID", true, "The screen this rule applies to — a screen section id (SCREN-ITEM-…)", 0, java.util.List.of(), java.util.List.of("SCREN.@sectionId")),
             new SomFormFieldMeta("mobileLayout", "String", "Mobile Layout", false, "How this screen is laid out on mobile", 1),
@@ -75900,6 +76785,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResultEnvelope", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("discriminatorField", "String", "Is-Success Discriminator", true, "The boolean field that distinguishes the arms (default: success)", 0),
             new SomFormFieldMeta("successArm", "String", "Success Arm", false, "The success payload — the value type carried when success is true (may be empty for operations returning nothing)", 1),
@@ -75957,6 +76843,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResultFieldDetailEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldPath", "String", "Field Path", true, "The field (or dotted path) the error applies to (e.g. email, address.postalCode)", 0),
             new SomFormFieldMeta("errorCodeRef", "String", "Error Code", false, "Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code", 1, java.util.List.of(), java.util.List.of("ERCEN.code")),
@@ -75988,6 +76875,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RetentionPolicyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataCategory", "String", "Data Category", true, "Category of data this policy applies to", 0),
             new SomFormFieldMeta("appliesTo", "String", "Applies To", false, "Specific data sources or entities", 1)));
@@ -76069,6 +76957,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReusabilityPrinciples", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("reuseFirstPolicy", "String", "Reuse-First Policy", false, "Policy on preferring existing components", 0),
             new SomFormFieldMeta("extractionCriteria", "String", "Extraction Criteria", false, "When to extract code into reusable components", 1),
@@ -76170,6 +77059,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of the reusability strategy and component library.\n\n**Include**:\n- Reuse-first culture and policies\n- Component library organization\n- Contribution and adoption process\n- Success metrics (reuse rate, contribution rate)\n- Key shared components and their purposes\n\n**Best Practices**:\n- Start with \"extract when needed\" not \"build speculatively\"\n- Establish inner-source practices for contributions\n- Create component design guidelines\n- Track component usage and dependencies\n- Plan for breaking change management\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -76376,6 +77266,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the reusable prototype before the architecture, integration and transition subsections below. Cover the quality bar it must meet to survive into the product.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -76482,6 +77373,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReusableUiComponentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentCategory", "String", "Category", false, "Input, Display, Navigation, Layout, Feedback, Data", 0),
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "What this component does", 1)));
@@ -76601,6 +77493,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReuseGoalEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("goal", "String", "Reuse Goal", true, "What should be reused, e.g. Centralize auth via shared login SDK", 0),
             new SomFormFieldMeta("rationale", "String", "Business Rationale", false, "Why reuse matters here — cost savings, consistency, time-to-market", 1),
@@ -76685,6 +77578,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReviewCriterionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterion", "String", "Criterion", true, "What is being evaluated — e.g. All unit tests pass, Security review complete, UX approval obtained", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "Detailed description of what this criterion covers", 1),
@@ -76752,6 +77646,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RevisionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("version", "String", "Version", true, "Semantic version of this revision, e.g. \"1.2.0\".", 0),
             new SomFormFieldMeta("date", "String", "Date", true, "Date the revision was published (ISO 8601).", 1),
@@ -76784,6 +77679,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RiskBusinessImpact", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("costImpact", "String", "Cost Impact — potential cost if risk materializes", false, "Potential cost if the risk materializes", 0),
             new SomFormFieldMeta("scheduleImpact", "String", "Schedule Impact — potential delay (days, weeks, phases)", false, "Potential schedule delay if the risk occurs", 1),
@@ -76854,6 +77750,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this risk — how it would actually play out, beyond the analysis, response and monitoring facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("RiskIdentification", s, RiskIdentificationNav::metaChildren, (r, c) -> {
@@ -77011,6 +77908,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RiskIdentification", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description — detailed risk event and potential causes", false, "Detailed description of the risk event and its causes", 0),
             new SomFormFieldMeta("category", "String", "Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational", false, "Top-level risk category", 1),
@@ -77076,6 +77974,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RiskMonitoring", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("reviewFrequency", "String", "Review Frequency — Daily, Weekly, Bi-weekly, Monthly", false, "How often the risk is reviewed", 0),
             new SomFormFieldMeta("lastReviewDate", "String", "Last Review Date", false, "Date of the most recent review", 1),
@@ -77143,6 +78042,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RiskRelationships", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedRisks", "String", "Related Risks — other risks that are related or dependent", false, "Other risks related to or dependent on this one", 0),
             new SomFormFieldMeta("relatedAssumptions", "String", "Related Assumptions — assumptions that could affect this risk", false, "Assumptions that could affect this risk", 1),
@@ -77179,6 +78079,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RiskResponse", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("responseStrategy", "String", "Response Strategy — Avoid, Transfer, Mitigate, Accept (or Exploit, Share, Enhance for opportunities)", false, "Strategy chosen to treat the risk", 0),
             new SomFormFieldMeta("responseDescription", "String", "Response Description — planned approach", false, "Description of the planned response approach", 1),
@@ -77248,6 +78149,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the risk register before the individual risks below. Cover how risks are identified, how often the register is reviewed, and who owns it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -77322,6 +78224,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RoleAdjustmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardRoleName", "String", "Standard Role Name", true, "Original TomSpecs role being adjusted", 0),
             new SomFormFieldMeta("adjustmentType", "String", "Adjustment Type", false, "Merged / Split / Modified / Omitted / Added", 1)));
@@ -77443,6 +78346,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of role adjustments for this project. Explain why standard role\ndefinitions don't fit, what stakeholder or organizational factors drove\nthe changes, and how role clarity is maintained despite deviations.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -77531,6 +78435,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the review cycle: who certifies which assignments, how often, and what happens to an assignment nobody re-certifies. Privilege creep is what this section prevents.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -77570,6 +78475,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RoleCombinationConstraintEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("constraintType", "String", "Constraint Type", true, "MutualExclusion | Prerequisite | Corequisite | MaxCombination — type of combination constraint", 0),
             new SomFormFieldMeta("roleA", "String", "Role A", true, "First role in the constraint", 1),
@@ -77605,6 +78511,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RoleCompetencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("competencyType", "String", "Competency Type — Core, Technical, Leadership", false, "Category such as core, technical or leadership", 0),
             new SomFormFieldMeta("requiredLevel", "String", "Required Level — minimum proficiency", false, "Minimum proficiency that is mandatory", 1),
@@ -77638,6 +78545,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RoleDataScopeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataCategory", "String", "Data Category", true, "Business data category (e.g. CustomerRecords, FinancialData, HRData, AuditLogs, SystemConfiguration)", 0),
             new SomFormFieldMeta("accessLevel", "String", "Access Level", false, "Full | Filtered | Aggregated | Masked | ReadOnly | None — level of access to this data category", 1),
@@ -77670,6 +78578,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RoleExclusionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("excludedRole", "String", "Excluded Role", true, "Role that must not be held together with this one.", 0),
             new SomFormFieldMeta("reason", "String", "Reason", false, "Business reason for the mutual exclusion (separation of duties)", 1),
@@ -77704,6 +78613,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define role inheritance and combination rules. A well-designed role hierarchy\nsimplifies administration and ensures consistent access control.\n\n**Inheritance rules:**\n- Senior roles inherit all permissions of junior roles\n- Example: Manager inherits Employee permissions\n- Maximum hierarchy depth (typically 3–5 levels)\n- Circular inheritance detection and prevention\n\n**Mutual exclusions (Separation of Duties):**\n- Roles that cannot be held simultaneously\n- Example: Payment Approver and Payment Initiator\n- Enforce at assignment time and during role evaluation\n\n**Role combination constraints:**\n- Required role combinations (must have both A and B)\n- Forbidden combinations (cannot have both X and Y)\n- Cardinality limits (max N users per role)\n\n**Role certification:**\n- Periodic review of role assignments\n- Manager/owner approval for sensitive roles\n- Automatic revocation of uncertified access\n\n**Implementation:**\n- Pre-compute effective permissions at assignment time (fast evaluation)\n- Or evaluate hierarchy at runtime (flexible but slower)\n- Cache invalidation on role/hierarchy changes\n\n**Reference:**\n- NIST RBAC Model — Hierarchical RBAC (RBAC₂)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("RoleHierarchyPolicy", s, RoleHierarchyPolicyNav::metaChildren, (r, c) -> {
@@ -77847,6 +78757,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the shape of the role hierarchy and what inheritance means in it. State the depth limit and why — deep hierarchies make effective permissions unpredictable.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -77886,6 +78797,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RoleHolderEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("holderDescription", "String", "Holder Description", true, "Description of the role holder.", 0),
             new SomFormFieldMeta("department", "String", "Department", false, "Department of the role holder.", 1),
@@ -77919,6 +78831,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RoleInheritanceRuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("parentRole", "String", "Parent Role", true, "Name of the parent role whose permissions are inherited", 0),
             new SomFormFieldMeta("childRole", "String", "Child Role", true, "Name of the child role that inherits permissions", 1),
@@ -77955,6 +78868,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Authoritative mapping of system roles to the permissions they hold.\nComplements the User Authorization section which describes the\nauthorization model; this section captures the concrete assignment.\n\n**What to capture:**\n- Role catalog (role name, description, owner)\n- Permission catalog (object, action, scope)\n- Role × permission matrix cells (granted / denied / conditional)\n- Inheritance / composition relationships between roles\n- Segregation-of-duties constraints (roles that must not co-assign)\n- Review and re-certification cadence\n- Exceptions register for elevated / time-limited access\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -77982,6 +78896,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RolePermissionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("permissionKey", "String", "Permission Key", true, "Dot-notation permission identifier (e.g. user.create, config.manage, report.export)", 0),
             new SomFormFieldMeta("accessType", "String", "Access Type", false, "Read | Write | Execute | Delete | Manage | All — type of access this permission grants", 1),
@@ -78014,6 +78929,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RoleReferenceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleName", "String", "Role Name", true, "Name of an existing authorization role being referenced", 0, java.util.List.of(), java.util.List.of("AZRO.roleName"))));
         out.add(n);
@@ -78043,6 +78959,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RollbackStrategy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("rollbackMethod", "String", "Rollback Method", false, "Redeploy, traffic switch, restore", 0),
             new SomFormFieldMeta("autoRollbackEnabled", "bool", "Auto-Rollback Enabled", false, "Automatic rollback on failure", 1)));
@@ -78161,6 +79078,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Rollout plan: sequencing, waves, and criteria for moving each cohort from\npre-go-live to production.\n\n**What to capture:**\n- Rollout strategy (big-bang / phased / pilot-first / hybrid)\n- Wave definitions (who goes when, success criteria to advance a wave)\n- Entry and exit criteria per wave\n- Rollback decision authority and triggers\n- Communication plan per wave\n- Dependencies between waves (data migration, integration readiness)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -78190,6 +79108,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Training plan and materials: courses, content packages, trainers, and\ndelivery mechanism. Complements the training-module catalogue which\ncaptures the catalog of training modules.\n\n**What to capture:**\n- Training catalog per user category (course names, duration, format)\n- Delivery mechanism (instructor-led, e-learning, blended)\n- Train-the-trainer approach\n- Hands-on environment requirements\n- Certification / proficiency-check criteria\n- Post-go-live refresher / onboarding approach\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -78219,6 +79138,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the predicate that decides row visibility and where it is enforced — database, ORM or application. Say what happens if the enforcing layer is bypassed.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -78258,6 +79178,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RpoRtoRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("overallRpo", "String", "Overall RPO", false, "Maximum acceptable data loss", 0),
             new SomFormFieldMeta("overallRto", "String", "Overall RTO", false, "Maximum acceptable downtime", 1)));
@@ -78345,6 +79266,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RuleExampleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scenario", "String", "Scenario", false, "Description of the example scenario", 0),
             new SomFormFieldMeta("inputData", "String", "Input Data", false, "Example input values", 1),
@@ -78379,6 +79301,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Runtime Dependencies (12.4)\n\nRuntime dependencies between components.\n\n### Dependency Properties\n- **Startup order** — Boot sequence priority\n- **Health checks** — Verification method and interval\n- **Failover behavior** — Graceful degradation, circuit breaker\n- **Version constraints** — Required versions or ranges\n- **Criticality** — Impact if unavailable\n\n### Dependency Types\n- **Critical** — System cannot function without\n- **Optional** — Enhances functionality but not required\n- **Conditional** — Required only in specific configurations\n\n### Documentation\nFor each dependency, document latency tolerance, caching\nstrategy, and fallback alternatives.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -78430,6 +79353,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RuntimeDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("version", "String", "Required Version", false, "Version or version range required", 0),
             new SomFormFieldMeta("dependencyType", "String", "Dependency Type", false, "Runtime / Optional / Peer / Conditional", 1)));
@@ -78545,6 +79469,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RuntimeEnvironment", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minimumMemory", "String", "Minimum Memory", false, "Minimum RAM for runtime", 0),
             new SomFormFieldMeta("recommendedMemory", "String", "Recommended Memory", false, "Recommended RAM for optimal performance", 1),
@@ -78705,6 +79630,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScalabilityArchitecture", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scalabilityModel", "String", "Scalability Model", false, "Horizontal, Vertical, Both", 0),
             new SomFormFieldMeta("elasticityApproach", "String", "Elasticity Approach", false, "Manual, Auto-scaling, Serverless", 1),
@@ -78822,6 +79748,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScalingRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scalingStrategy", "String", "Scaling Strategy", false, "Horizontal, Vertical, Both", 0),
             new SomFormFieldMeta("scalingApproach", "String", "Scaling Approach", false, "Manual, Auto, Scheduled", 1),
@@ -78923,6 +79850,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScalingTriggersAndThresholds", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("cpuScaleUpThreshold", "String", "CPU Scale-Up Threshold", true, "CPU % triggering scale-up (e.g. 70%)", 0),
             new SomFormFieldMeta("cpuScaleDownThreshold", "String", "CPU Scale-Down Threshold", false, "CPU % triggering scale-down (e.g. 30%)", 1)));
@@ -79025,6 +79953,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this scenario — the end-to-end story it tells, beyond the steps, data and timing recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -79203,6 +80132,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScenarioStepEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "int", "Step Number", true, "Sequential position of this step. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", 0),
             new SomFormFieldMeta("actor", "String", "Actor — who performs this step", false, "The actor performing this step", 1),
@@ -79294,6 +80224,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("purpose", "String", "Purpose", true, "Why this job exists — the operational or business reason it runs on its own rather than as part of a request", 0),
             new SomFormFieldMeta("triggerKind", "ScheduledJobTrigger", "Trigger Kind", true, "What starts the job — selects the trigger subsection below", 1, java.util.List.of("cron", "calendar", "event")),
@@ -79436,6 +80367,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "Say what the job does at this point in the sequence, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("systemAction", "String", "System Action", true, "What the job does in this step — one action, stated as what happens rather than how it is coded", 0),
             new SomFormFieldMeta("condition", "String", "Condition", false, "The condition under which this step runs, if it is not unconditional (e.g. only when the previous run left unsettled records). Leave empty for a step that always runs.", 1)));
@@ -79466,6 +80398,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScheduledMaintenancePolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("maintenancePolicy", "String", "Maintenance Policy", false, "Overall maintenance approach", 0),
             new SomFormFieldMeta("zeroDowntimeGoal", "bool", "Zero-Downtime Goal", false, "Strive for zero downtime", 1),
@@ -79568,6 +80501,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "One artifact in the migration set.\n\n**Ordering.** Artifacts are applied in ascending version order across the whole\nset for a target, so the version is what places this artifact in the sequence.\n\n**Environments.** Leave *Environments* empty to apply the artifact everywhere.\nNaming one or more deployment environments restricts it to those — the way to\nseed development or test data that must never reach production. Use the\nenvironment names exactly as they are configured; they are matched verbatim.\n\n**Immutability.** Once this artifact has been applied anywhere, do not edit it.\nAuthor the further change as a new entry with the next version.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("version", "String", "Version", true, "The version that orders this artifact in the set (e.g. 7, 42)", 0),
             new SomFormFieldMeta("description", "String", "Description", true, "What this artifact does and why", 1),
@@ -79654,6 +80588,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "Describe how the database schema is versioned and how schema changes are\nauthored, ordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback steps are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n- The data sources and schemas the artifacts target (7.4.1)\n- The ordered artifact set itself (7.4.2)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Reference data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Schema change** — the append-only evolution steps applied per release\n\n**The migration engine is fixed, so there is no tooling decision to record\nhere.** Artifacts are applied by the framework's own migration engine; this\nsection says *what* to apply and *where*, never *with what*.\n\n**Applied artifacts are immutable.** The engine records each applied artifact\nand, on re-encountering it, verifies rather than re-applies it. An artifact\nthat has been applied anywhere is never edited — a further schema change is\nalways a *new* artifact with the next version. Author revisions of an already\nreleased artifact as an additional entry, not as a change to the existing one.\n\n**The artifact chain must converge on the data model.** The cumulative effect\nof a schema's artifacts must produce exactly the shape the entities and\nattributes of the Data Model (7.1) declare. That convergence is a mechanical\ncheck, so a divergence is a defect in one of the two — not a matter of\nauthoring judgement.\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: reference data is\nthe new system's own initial data, while old→new data mapping and cutover from\nlegacy systems stay in the migration-mapping sections (MIGME).\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("versioningStrategy", "String", "Versioning Strategy", false, "Sequential numbered | Timestamped | Semantic", 0),
             new SomFormFieldMeta("forwardOnly", "bool", "Forward-Only", false, "Whether schema changes are forward-only (no down steps)", 1),
@@ -79736,6 +80671,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "State explicitly what is in scope and — more importantly — what is out. Out-of-scope items are the ones that prevent scope creep, so name them even when they seem obvious.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -79851,6 +80787,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScopeItemEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("itemDescription", "String", "Item Description", true, "Describe the feature, process, or system in scope or excluded", 0),
             new SomFormFieldMeta("category", "String", "Category (Feature, Process, User Group, System, Data, Geography, etc.)", false, "Feature, Process, User Group, System, Data, Geography, etc.", 1),
@@ -79883,6 +80820,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenActionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actionId", "String", "Action ID", true, "The symbol the built screen carries for this action — unique within the screen, e.g. act-submit-order", 0),
             new SomFormFieldMeta("actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", 1),
@@ -79972,6 +80910,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Screen Actions (10.2.1.n.2)\n\nTop-level actions available on the screen.\n\n### Action Placements\n- **App-Bar** — Always visible, max 2-3 icons\n- **Toolbar** — Below app bar, primary operations\n- **FAB** — Prominent single primary action\n- **Context-Menu** — Right-click/long-press\n- **Overflow-Menu** — Secondary actions in ... menu\n\n### Tom UI Mapping\nActions integrate with `TomAction` system:\n- Authorization checks via permission field\n- Confirmation dialogs via confirmationRequired\n- Keyboard shortcuts via keyboardShortcut\n- Success/error feedback via message resources\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -80023,6 +80962,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenBehaviorEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("behaviorId", "String", "Behavior ID", true, "The symbol the built screen carries for this behaviour — unique within the screen, e.g. bhv-autosave", 0),
             new SomFormFieldMeta("behaviorType", "String", "Behavior Type (ConditionalVisibility, ConditionalRequired, Calculation, CascadingSelect, AutoPopulate, CrossFieldValidation, DynamicDefault, FieldFormatting, LiveSearch, InlineEdit)", true, "ConditionalVisibility, Calculation, CascadingSelect, etc.", 1),
@@ -80062,6 +81002,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Screen Descriptions (10.2)\n\nComprehensive screen specifications for the application.\n\n### Subsections\n- **10.2.1 Screen Inventory** — Individual screen definitions\n- **10.2.2 Information Architecture** — Content organization and hierarchy\n\n### Tom UI Framework Integration\nScreens map to Flutter route definitions and scaffold configurations.\nEach screen specifies:\n- Layout structure (zones, sections)\n- UI elements (fields, buttons, displays)\n- Actions and their authorization\n- State management requirements\n\n### Specification Depth\nEach screen should have enough detail to generate:\n- Route registration\n- Scaffold layout code\n- State holder classes\n- Authorization checks\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ScreenInventory", s, ScreenInventoryNav::metaChildren, (r, c) -> {
@@ -80119,6 +81060,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenElementAction", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actionId", "String", "Action ID", false, "Reference to action system action", 0, java.util.List.of(), java.util.List.of("SCRAC.actionId")),
             new SomFormFieldMeta("actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh/Custom", 1),
@@ -80189,6 +81131,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenElementDataDisplay", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataSource", "String", "Data Source", false, "Data entity or query reference", 0),
             new SomFormFieldMeta("displayFormat", "String", "Display Format", false, "How data is formatted for display", 1),
@@ -80256,6 +81199,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenElementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("elementId", "String", "Element ID", true, "The symbol the built screen carries for this element — unique within the screen, e.g. btn-submit, fld-customer-name", 0),
             new SomFormFieldMeta("elementType", "ScreenElementKind", "Element Type", true, "The semantic element kind — selects the facet subsection.", 1, java.util.List.of("actionButton", "link", "textField", "numberField", "dateField", "selectField", "checkbox", "toggle", "dataDisplay", "dataTable", "card", "chart", "statusIndicator", "icon", "label", "image", "badge", "divider", "spacer", "tabBar"))));
@@ -80445,6 +81389,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenElementFieldSpec", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldName", "String", "Field Name", false, "Logical form field name, maps to data model attribute", 0),
             new SomFormFieldMeta("dataType", "ScreenElementFieldKind", "Data Type", false, "The input data kind — selects the promoted options subsection.", 1, java.util.List.of("string", "integer", "decimal", "currency", "date", "dateTime", "time", "boolean", "enumeration", "email", "phone", "url", "password", "richText", "color", "file")),
@@ -80599,6 +81544,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "Business purpose — what the user accomplishes here", 0)));
         out.add(n);
@@ -80826,6 +81772,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenFieldEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldId", "String", "Field ID", true, "The symbol the built screen carries for this field — unique within the screen, e.g. fld-customer-name", 0),
             new SomFormFieldMeta("fieldType", "ScreenFieldKind", "Field Type", true, "The kind of value the user supplies — selects the type-specific constraint and presentation subsections", 1, java.util.List.of("text", "multilineText", "email", "phone", "url", "password", "integer", "decimal", "currency", "date", "dateTime", "time", "singleSelect", "multiSelect", "file", "boolean"))));
@@ -81034,6 +81981,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n- **10.3.3 Screen Route Map** — Routes, form placement, and transitions\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("NavigationModel", s, NavigationModelNav::metaChildren, (r, c) -> {
@@ -81105,6 +82053,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Screen Inventory (10.2.1)\n\nComplete catalog of application screens.\n\n### Screen Categories\n- **List** — Data tables with filtering/sorting\n- **Detail** — Single record view\n- **Form** — Data entry/editing\n- **Dashboard** — Aggregated metrics and widgets\n- **Settings** — Configuration screens\n- **Wizard** — Multi-step guided flows\n- **Dialog** — Modal interactions\n- **Report** — Formatted output views\n- **Landing** — Entry points and navigation hubs\n\n### Screen Entry Structure\nEach ScreenEntry includes:\n- Identity (ID, name, route pattern)\n- Authorization (roles, permissions, effect)\n- Sections (layout zones)\n- Elements (fields, displays, actions)\n- States (loading, empty, error, success)\n\n### Tom UI Mapping\nScreens generate TomScaffold configurations with:\n- AppBar setup\n- Drawer/navigation\n- Body layout\n- FAB/action buttons\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -81169,6 +82118,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenResponsiveRuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("breakpoint", "String", "Breakpoint", true, "Mobile/Tablet/Desktop/Large-Desktop", 0),
             new SomFormFieldMeta("layoutChanges", "String", "Layout Changes", false, "How layout adapts, e.g., 3-col → 1-col", 1),
@@ -81202,6 +82152,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenRouteEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("routeId", "String", "Route ID", true, "Stable identifier referenced by every navigation target, e.g., order-edit", 0),
             new SomFormFieldMeta("routePath", "String", "Route Path", false, "URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference", 1),
@@ -81236,6 +82187,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Screen Route Map (10.3.3)\n\nThe addressable screens of the application and the movement between them.\n\n### Subsections\n- **Routes** — One entry per addressable screen, each with a stable route ID\n- **Form Placement** — Which form is shown on which route, and how\n- **Transitions** — Which screen an action leads to, per outcome\n\n### Why route IDs\nRoutes are referenced by ID, not by path. A path is presentation (and changes);\nthe ID is the stable handle that form placement, transitions, navigation\ntargets, and deep links all point at. Every navigation target elsewhere in the\nspecification must name a route ID declared here.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -81347,6 +82299,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenSectionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sectionId", "String", "Section ID", true, "The symbol the built screen carries for this section — unique within the screen, e.g. header, filter-bar, main-content", 0),
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "What this zone contains", 1),
@@ -81439,6 +82392,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Screen Sections (10.2.1.n.1)\n\nLogical zones within a screen that group related elements.\n\n### Section Types\n- **Header** — Title bar and global actions\n- **Toolbar** — Primary action buttons\n- **Filter-Bar** — Search and filter controls\n- **Content-Primary** — Main content area\n- **Content-Secondary** — Supporting content\n- **Sidebar** — Navigation or context panels\n- **Footer** — Status and secondary actions\n- **Tab-Panel** — Tabbed content containers\n- **Accordion-Panel** — Collapsible sections\n- **Drawer** — Slide-out panels\n- **Action-Bar** — Contextual action buttons\n- **Form-Group** — Logical field groupings\n\n### Tom UI Mapping\nSections map to Flutter layout widgets:\n- Row/Column for directional layout\n- Wrap for responsive content\n- GridView for structured grids\n- Visibility for collapsible sections\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -81490,6 +82444,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenStateEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stateId", "String", "State Id", true, "The symbol the built screen carries for this state — unique within the screen, and the source of the state class name (distinct from the entry headline, which names it for people), e.g. empty-queue", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "When this state occurs", 1),
@@ -81528,6 +82483,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Screen States (10.2.1.n.3)\n\nVisual/behavioral states the screen can be in.\n\n### Common Screen States\n- **Loading** — Data fetching in progress\n- **Empty** — No data to display\n- **Error** — Load/save failure\n- **Permission-Denied** — Unauthorized access\n- **First-Use** — Onboarding prompts\n- **Offline** — No connectivity\n- **Success** — Transient confirmation\n\n### State Display\nEach state specifies:\n- Message and icon resources\n- Illustration (empty state graphic)\n- Primary/secondary actions\n- Auto-retry behavior\n\n### Tom UI Mapping\nStates map to `TomStateWidget` with standardized skeletons,\nempty states, and error displays.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -81579,6 +82535,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenTransitionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceRouteId", "String", "Source Route ID", true, "Route ID (SCRTEN registry) the user is on when the action runs", 0, java.util.List.of(), java.util.List.of("SCRTEN.routeId")),
             new SomFormFieldMeta("actionId", "String", "Action ID", true, "ID of the triggering action (SCRAC registry) or of the screen element that raises it", 1, java.util.List.of(), java.util.List.of("SCRAC.actionId")),
@@ -81613,6 +82570,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenUserCategoryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this user category sees/can do", 0),
             new SomFormFieldMeta("contentVariations", "String", "Content Variations", false, "How screen content differs for this category", 1)));
@@ -81645,6 +82603,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Secondary Navigation (10.3.1.4)\n\nIn-page navigation: tab bars and segmented controls.\n\n### Tab Bar Properties\n- Host screen ID\n- Style (Material/Segmented/Pill/Scrollable)\n- Position (Top/Bottom/Left)\n- Default tab and persistence\n- Swipe and lazy loading behavior\n\n### Tab Item Properties\n- Label, icon, and content screen\n- Authorization and visibility\n- Badges for attention\n\n### Tom UI Mapping\nTab bars map to `TomTabBar` with:\n- Swipe navigation on mobile\n- Lazy content loading\n- Permission-aware tab visibility\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -81708,6 +82667,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Security", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("encryptionAtRest", "String", "Encryption at Rest", false, "AES-256, database-level, disk-level", 0),
             new SomFormFieldMeta("encryptionInTransit", "String", "Encryption in Transit", false, "TLS 1.2+, certificate requirements", 1),
@@ -81823,6 +82783,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide a high-level overview of the application's security architecture for\nprotecting data and functions. This section serves as the entry point for all\naccess and authorization concerns.\n\n**Key topics to address:**\n- Overall security philosophy (zero trust, defense in depth, least privilege)\n- Applicable security frameworks (NIST, ISO 27001, SOC 2, OWASP)\n- Regulatory requirements affecting access control (GDPR, HIPAA, PCI DSS)\n- Integration points with enterprise identity and access management (IAM)\n- Risk-based approach to authorization decisions\n\n**Cross-references:**\n- User Management → defines who accesses the system\n- Authentication → proves user identity\n- Authorization → controls what authenticated users can do\n- Resource Protection → secures data and APIs\n- Encryption → protects sensitive data\n- Audit → logs security events for compliance\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("AccessControlModel", s, AccessControlModelNav::metaChildren, (r, c) -> {
@@ -81911,6 +82872,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityAuditEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("auditCategory", "String", "Audit Category", false, "Penetration test, compliance audit, code audit, infrastructure audit", 0),
             new SomFormFieldMeta("auditDescription", "String", "Description", false, "Detailed description of what the audit covers", 1),
@@ -81996,6 +82958,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of security audit strategy.\n\n**Include**:\n- Penetration testing program\n- Security code review process\n- Dependency scanning approach\n- Certification roadmap\n- Audit schedule and responsibilities\n\n**Best Practices**:\n- Integrate security testing in CI/CD\n- Act on audit findings promptly\n- Maintain audit evidence repository\n- Regular security review meetings\n- Continuous improvement from findings\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -82149,6 +83112,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityCertificationRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("targetCertifications", "String", "Target Certifications", true, "ISO 27001, SOC 2 Type II, PCI DSS, HIPAA, FedRAMP, CSA STAR", 0),
             new SomFormFieldMeta("certificationTimeline", "String", "Certification Timeline", false, "Target dates for achieving each certification", 1),
@@ -82251,6 +83215,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the security quality expectations before the security and IT-security-operations subsections below. Cover the threat model the expectations answer to.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -82336,6 +83301,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityCodeReviewPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("securityReviewTriggers", "String", "Security Review Triggers", true, "New features, auth changes, crypto code, data handling changes, third-party integrations", 0),
             new SomFormFieldMeta("securityReviewScope", "String", "Review Scope", false, "Authentication, authorization, input validation, cryptography, session management", 1),
@@ -82420,6 +83386,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the compliance follow-up: the regulatory and audit compliance framework.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ComplianceFramework", s, ComplianceFrameworkNav::metaChildren, (r, c) -> {
@@ -82463,6 +83430,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityControlEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("controlType", "String", "Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)", true, "Preventive, Detective, Corrective, Deterrent, or Compensating", 0),
             new SomFormFieldMeta("implementationType", "String", "Implementation Type (Technical, Administrative, Physical)", false, "Technical, Administrative, or Physical", 1)));
@@ -82529,6 +83497,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of security controls for this requirement.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -82580,6 +83549,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityDevelopmentLifecycle", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("threatModeling", "String", "Threat Modeling", true, "STRIDE, PASTA, Attack Trees methodology", 0),
             new SomFormFieldMeta("threatModelingFrequency", "String", "Threat Modeling Frequency", false, "Per feature, per release, quarterly", 1),
@@ -82666,6 +83636,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityEventEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("eventCategory", "String", "Event Category", false, "Category (e.g., BusinessLogic, Integration, Compliance)", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What triggers this event", 1),
@@ -82700,6 +83671,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityEventLoggingPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("defaultLoggingLevel", "String", "Default Logging Level", false, "Default logging verbosity (e.g., Info, Warning, Error, Debug)", 0),
             new SomFormFieldMeta("piiHandling", "String", "PII Handling", false, "How PII is handled in logs (e.g., masked, hashed, excluded, encrypted)", 1),
@@ -82748,6 +83720,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define which security-relevant events must be captured in audit logs.\nBalance comprehensive coverage with log volume management.\n\n**Authentication events (OWASP ASVS V7.1):**\n- Login success and failure (with reason for failure)\n- Logout (user-initiated and timeout)\n- Password changes and resets\n- MFA enrollment, verification success/failure\n- Session creation, renewal, termination\n- Account lockout and unlock\n\n**Authorization events (OWASP ASVS V7.2):**\n- Access denied events (who tried to access what)\n- Privilege escalation (role changes, permission grants)\n- Sensitive data access (who accessed what PII/PHI)\n- Administrative actions (user creation, config changes)\n\n**Data events:**\n- CRUD operations on sensitive data\n- Bulk data exports or downloads\n- Data deletion (especially irreversible)\n- Schema changes\n\n**Security events:**\n- Input validation failures (potential attack indicators)\n- CSRF/XSS attempt detection\n- Rate limit breaches\n- Suspicious patterns (brute force, credential stuffing)\n\n**Implementation tips:**\n- Log at appropriate level (don't log sensitive data values)\n- Include enough context for investigation\n- Consider log sampling for high-volume, low-risk events\n- Alert on high-severity events in real-time\n\n**Reference:**\n- OWASP ASVS V7: Error Handling and Logging\n- OWASP Logging Cheat Sheet\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("SecurityEventLoggingPolicy", s, SecurityEventLoggingPolicyNav::metaChildren, (r, c) -> {
@@ -82875,6 +83848,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the operational security follow-up: encryption / key management and audit review / reporting routines.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("SensitiveDataEncryption", s, SensitiveDataEncryptionNav::metaChildren, (r, c) -> {
@@ -82933,6 +83907,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description (The system shall... detailed statement)", true, "Full requirement statement, e.g., The system shall encrypt data at rest", 0)));
         out.add(n);
@@ -83098,6 +84073,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the security requirement set and the frameworks it follows, such as OWASP and ISO 27001. Record the threat model or risk assessment the requirements were derived from.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -83169,6 +84145,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityStandardComplianceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardType", "String", "Standard Type", false, "Framework, Certification, Benchmark", 0),
             new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 1),
@@ -83269,6 +84246,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityStandardEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardVersion", "String", "Standard Version", false, "Version or year of the standard", 0),
             new SomFormFieldMeta("standardType", "String", "Standard Type", false, "Framework, Certification, Guideline, Benchmark", 1),
@@ -83354,6 +84332,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityTestingAutomation", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sastTool", "String", "SAST Tool", true, "Static Application Security Testing: SonarQube, Semgrep, Fortify, Checkmarx", 0),
             new SomFormFieldMeta("sastIntegration", "String", "SAST Integration", false, "CI/CD pipeline integration point: pre-commit, PR, build", 1),
@@ -83469,6 +84448,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SelfRegistrationPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("selfRegistrationEnabled", "String", "Self-Registration Enabled", false, "Yes / No / InviteOnly — whether users can create their own identity", 0),
             new SomFormFieldMeta("registrationFlowType", "String", "Registration Flow Type", false, "SingleStep / MultiStep / Wizard / SocialOneTap / InvitationBased", 1),
@@ -83602,6 +84582,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Say what users may do to their own accounts unaided and where the line to administrator involvement is drawn. Explain the reasoning — that line is a risk decision.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -83643,6 +84624,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define encryption requirements for sensitive data both at rest and in transit.\nEncryption is a critical defense-in-depth layer that protects data even when\nother controls fail.\n\n**Data classification:**\n- Identify sensitive data categories (PII, PHI, financial, credentials)\n- Map each category to encryption requirements\n- Document regulatory drivers (GDPR, HIPAA, PCI DSS)\n\n**Encryption scope:**\n- **At Rest**: Stored data in databases, filesystems, backups\n- **In Transit**: Data moving over networks (internal and external)\n- **In Use**: Data in memory (future consideration for confidential computing)\n\n**Key management:**\n- Cryptographic key lifecycle (generation, storage, rotation, destruction)\n- Key hierarchy (master keys, data encryption keys)\n- Separation of duties (key custodians vs. data operators)\n\n**Algorithm selection:**\n- Use approved algorithms (AES-256-GCM, ChaCha20-Poly1305)\n- Avoid deprecated algorithms (DES, 3DES, RC4, MD5, SHA-1)\n- Plan for post-quantum cryptography migration\n\n**Compliance alignment:**\n- PCI DSS: encrypt cardholder data at rest and in transit\n- HIPAA: protect PHI with appropriate safeguards\n- GDPR: implement appropriate technical measures\n\n**Reference:**\n- OWASP Cryptographic Storage Cheat Sheet\n- NIST SP 800-175B: Cryptographic Standards and Guidelines\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("EncryptionAtRest", s, EncryptionAtRestNav::metaChildren, (r, c) -> {
@@ -83716,6 +84698,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentHelp = "Say which of the three handling roles this step belongs to, then what happens in it, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("role", "ServerCallRole", "Role", true, "Which of the call's three handling roles this step belongs to: assembleRequest (before the call), handleResponse (after a successful one) or handleError (after a failed one).", 0, java.util.List.of("assembleRequest", "handleResponse", "handleError")),
             new SomFormFieldMeta("systemAction", "String", "System Action", true, "What happens in this step — one action, stated as what happens rather than how it is coded. Nothing outside the system acts here: assembling, applying and surfacing are system work throughout.", 1),
@@ -83747,6 +84730,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServerConfigurationSettingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("settingKey", "String", "Setting Key", true, "The dotted key of the server setting, e.g. server.isolateCount", 0),
             new SomFormFieldMeta("valueType", "String", "Value Type", false, "string / int / double / bool / enum", 1),
@@ -83782,6 +84766,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServerEnvironmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("environmentType", "String", "Environment Type", false, "Development, QA, UAT, Staging, Production, DR", 0),
             new SomFormFieldMeta("environmentCode", "String", "Environment Code", false, "dev, stg, prod, dr", 1),
@@ -83882,6 +84867,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServerOperationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("operationName", "String", "Operation Name", true, "The single identifier callers use, e.g., placeOrder — a stable token of the specified system, not a restatement of the headline", 0),
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 1),
@@ -83978,6 +84964,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServerOperationMemberEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("memberType", "String", "Member Type", true, "Text | Number | Integer | Decimal | Boolean | Date | Timestamp | Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, name the source in the field below.", 0),
             new SomFormFieldMeta("multiValued", "bool", "Multi-Valued", false, "Whether the member carries a collection of the type rather than a single value", 1),
@@ -84014,6 +85001,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -84065,6 +85053,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServerOsRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryOs", "String", "Primary OS", true, "Linux, Windows Server", 0),
             new SomFormFieldMeta("osDistribution", "String", "OS Distribution", false, "Ubuntu, RHEL, CentOS, Debian", 1),
@@ -84168,6 +85157,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of server infrastructure strategy.\n\n**Include**:\n- Server tier definitions and sizing\n- Scaling strategy and limits\n- High availability approach\n- Cloud provider selection rationale\n- Cost estimates and optimization plan\n\n**Best Practices**:\n- Right-size instances based on actual usage\n- Use reserved instances for stable workloads\n- Implement cost allocation tagging\n- Plan for zone and region redundancy\n- Document capacity planning assumptions\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -84375,6 +85365,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServerRoleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleType", "String", "Role Type", false, "App, Web, Database, Cache, Queue, Gateway", 0),
             new SomFormFieldMeta("roleAbbreviation", "String", "Abbreviation", false, "Short code for role", 1)));
@@ -84473,6 +85464,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServerStorageRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryStorageType", "String", "Primary Storage Type", false, "SSD, NVMe, HDD", 0),
             new SomFormFieldMeta("primaryStorageCapacity", "String", "Primary Storage Capacity", false, "Total primary storage", 1),
@@ -84575,6 +85567,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how machine credentials are issued, stored and rotated without human intervention, and where the root of trust sits. Name the owner for each credential class.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -84616,6 +85609,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how non-human accounts differ from human ones here: ownership, review, rotation and decommissioning. An unowned service account is the usual failure.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -84655,6 +85649,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServiceLevel", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("supportTierStructure", "String", "Support Tier Structure", false, "L1/L2/L3, single tier", 0),
             new SomFormFieldMeta("criticalResponseTime", "String", "Critical Response Time", false, "Response time for P1 issues", 1),
@@ -84806,6 +85801,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServiceLevelAgreementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("slaId", "String", "SLA ID", false, "SLA-001, unique identifier", 0),
             new SomFormFieldMeta("slaName", "String", "SLA Name", true, "Uptime SLA, Response Time SLA", 1),
@@ -84843,6 +85839,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServiceLevelIndicators", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("availabilitySli", "String", "Availability SLI", false, "How availability is measured", 0),
             new SomFormFieldMeta("availabilityExclusions", "String", "Availability Exclusions", false, "What is excluded from availability", 1)));
@@ -84925,6 +85922,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServiceMeshAndGateway", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("apiGateway", "String", "API Gateway", false, "Kong, AWS API Gateway, Apigee, Azure APIM", 0),
             new SomFormFieldMeta("gatewayFeatures", "String", "Gateway Features", false, "Auth, throttling, transformation, caching", 1),
@@ -84996,6 +85994,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what a session is bound to — device, address, client — and what properties it carries from the moment of creation. Say what happens when a binding no longer matches.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -85037,6 +86036,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe which session events are logged, what each record contains, and who reviews them. Say how long session logs are kept and how the personal data in them is handled.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -85078,6 +86078,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define session management policies that balance security with user experience.\n\n**Session timeouts:**\n- Idle timeout: 15–30 min for standard apps, 2–5 min for high-value operations\n- Absolute timeout: 4–24 hours maximum session lifetime\n- Re-authentication for sensitive actions (step-up authentication)\n\n**Concurrent session control:**\n- Maximum simultaneous sessions per user\n- Behavior on new login: terminate oldest, deny new, or allow all\n- Device binding and trusted device management\n\n**Session revocation:**\n- Immediate revocation on logout, password change, or admin action\n- Token blacklisting or short-lived tokens with refresh rotation\n- Propagation delay for distributed systems\n\n**Remember-me / persistent sessions:**\n- Extended validity with reduced privileges\n- Device fingerprinting and anomaly detection\n- Explicit user opt-in with clear security implications\n\n**Session security hardening:**\n- Secure cookie attributes: HttpOnly, Secure, SameSite=Lax/Strict\n- Session ID rotation after authentication\n- Protection against session fixation and hijacking\n\n**Reference:**\n- OWASP Session Management Cheat Sheet\n- NIST SP 800-63B Section 7: Session Management\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -85209,6 +86210,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of the session management approach for the system.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -85291,6 +86293,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe every way a session ends other than timing out — logout, administrative termination, privilege change, credential change — and how fast each takes effect.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -85332,6 +86335,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the hardening measures — fixation defence, binding, anomaly detection, cache control — and what each protects against. State the response when an anomaly fires.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -85373,6 +86377,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Justify the idle and absolute timeouts against the data a session can reach, and describe the warning and renewal experience. Note where per-AAL differentiation applies.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -85414,6 +86419,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of shared infrastructure and cross-cutting dependencies.");
         n.contentHelp = "Describe shared infrastructure components (networks, databases, messaging systems, identity providers) that multiple systems depend on. Identify single points of failure.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -85465,6 +86471,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SharedInfrastructureEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentName", "String", "Infrastructure Component Name", true, "Name of the component, e.g. \"Prod Oracle RAC cluster\".", 0),
             new SomFormFieldMeta("componentType", "String", "Component Type", false, "Database Cluster / Message Broker / Load Balancer / Identity Provider / DNS / Certificate Authority / Logging Platform / Monitoring System / Network Segment", 1),
@@ -85549,6 +86556,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SharedLibraryComponentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentType", "String", "Component Type", false, "Core, Utility, Domain, Integration, Extension", 0),
             new SomFormFieldMeta("version", "String", "Version", false, "Current version", 1)));
@@ -85653,6 +86661,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SharedLibraryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("libraryType", "String", "Library Type", false, "Utility, Domain, Infrastructure, UI", 0),
             new SomFormFieldMeta("version", "String", "Version", false, "Current version", 1)));
@@ -85737,6 +86746,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SignOffProcess", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("signOffAuthority", "String", "Sign-Off Authority", true, "Primary role/body authorized to sign — e.g. Business Acceptance Board, Project Sponsor", 0),
             new SomFormFieldMeta("technicalSignOff", "String", "Technical Sign-Off", false, "Role for technical acceptance — e.g. Technical Lead, Solution Architect", 1),
@@ -85867,6 +86877,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SingleSignOnPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ssoEnabled", "String", "SSO Enabled", false, "Yes / No — whether SSO is enabled for this project", 0),
             new SomFormFieldMeta("ssoScope", "String", "SSO Scope", false, "EnterpriseWide / ApplicationSpecific / CrossDomain / BusinessUnit", 1),
@@ -85983,6 +86994,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the service-level regime before the SLI, SLO and error-budget subsections below. Cover which agreements are contractual and which are internal objectives.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -86098,6 +87110,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SlaMonitoringRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("availabilitySla", "String", "Availability SLA", false, "99.9%, 99.99%", 0),
             new SomFormFieldMeta("performanceSla", "String", "Performance SLA", false, "Latency SLA", 1),
@@ -86198,6 +87211,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SloEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sloDescription", "String", "SLO Description", false, "What this SLO covers", 0),
             new SomFormFieldMeta("serviceName", "String", "Service Name", false, "Service the SLO applies to", 1)));
@@ -86266,6 +87280,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Software deliverables: application components, libraries, tools, scripts,\nconfiguration files, deployment artifacts. Define for each:\n- Delivery format (container images, packages, installers, source code)\n- Delivery mechanism (registry, artifact repository, file transfer)\n- Version requirements and compatibility constraints\n- Licensing terms applicable to the deliverable\n- Environment-specific variants (production, staging, development)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -86319,6 +87334,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of software design approach and key decisions.\n\n**Include**:\n- Software layering strategy summary\n- Development environment philosophy\n- Component reuse strategy and governance\n- Key design principles adopted\n- Developer experience priorities\n\n**Best Practices**:\n- Document dependency direction rules\n- Define clear module boundaries and contracts\n- Establish internal open-source practices for shared code\n- Plan for refactoring and architecture evolution\n- Create architecture fitness functions\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("LayeringAndModuleStructure", s, LayeringAndModuleStructureNav::metaChildren, (r, c) -> {
@@ -86391,6 +87407,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SoftwareLayerEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("layerLevel", "String", "Level", false, "Numeric level (0 = bottom, higher = top)", 0),
             new SomFormFieldMeta("layerPattern", "String", "Pattern", false, "E.g., Clean Architecture, Onion, Hexagonal, N-Tier", 1)));
@@ -86492,6 +87509,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.unused = true;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("TechnicalFrameworkConcept", s, TechnicalFrameworkConceptNav::metaChildren, (r, c) -> {
@@ -86551,6 +87569,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Summarize the descriptive-architecture follow-up: the component-reuse rationale and dependency strategy.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ComponentsAndDependencies", s, ComponentsAndDependenciesNav::metaChildren, (r, c) -> {
@@ -86595,6 +87614,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SpecializedEquipmentEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("equipmentType", "String", "Equipment Type — barcode scanner, card reader, signature pad", false, null, 0),
             new SomFormFieldMeta("brand", "String", "Brand", false, null, 1),
@@ -86661,6 +87681,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the federation topology: which identity providers, which protocol, and what happens to users outside SSO. State how attributes and group memberships map into this system.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -86700,6 +87721,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StaffingBudget", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalBudget", "String", "Total Staffing Budget", false, "Overall budget for all staffing activities", 0),
             new SomFormFieldMeta("currencyCode", "String", "Currency", false, "Budget currency code — e.g. EUR, USD, GBP", 1),
@@ -86767,6 +87789,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StaffingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleTitle", "String", "Role Title", true, "Job title for this position", 0),
             new SomFormFieldMeta("jobFamily", "String", "Job Family", false, "Job family or career track — e.g. Engineering, Finance", 1),
@@ -86872,6 +87895,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the staffing approach before the budget, position and timeline subsections below. Cover build-versus-buy and the constraints on hiring.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -86983,6 +88007,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageDependencies", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("prerequisiteStages", "String", "Prerequisite Stages", false, "Stages that must complete before this stage can start", 0),
             new SomFormFieldMeta("parallelStages", "String", "Parallel Stages", false, "Stages running concurrently with this stage", 1),
@@ -87015,6 +88040,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stageNumber", "String", "Stage Number", true, "1, 2, 3… — sequential stage number", 0),
             new SomFormFieldMeta("currentStatus", "String", "Current Status", false, "Planned / Active / Completed / OnHold / Cancelled", 1)));
@@ -87328,6 +88354,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageGovernance", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("governanceModel", "String", "Governance Model", true, "PhaseGate / Agile / Hybrid / Continuous / Federated", 0),
             new SomFormFieldMeta("governanceFramework", "String", "Governance Framework", true, "PMBOK / PRINCE2 / SAFe / DAD / Custom", 1),
@@ -87527,6 +88554,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageMigrationResources", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("migrationBudget", "String", "Migration Budget", false, "Total budget for migration activities", 0),
             new SomFormFieldMeta("teamComposition", "String", "Team Composition", false, "Key roles", 1),
@@ -87558,6 +88586,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageMigrationRiskEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskCategory", "String", "Risk Category", true, "DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach", 0)));
         out.add(n);
@@ -87724,6 +88753,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageMigrationRisks", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalIdentifiedRisks", "String", "Total Identified Risks", true, "Number of migration-specific risks — e.g. 18 risks across 5 categories", 0),
             new SomFormFieldMeta("criticalRiskCount", "String", "Critical Risk Count", false, "Number of risks rated Critical or High — requiring active mitigation", 1),
@@ -87799,6 +88829,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageOverview", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("numberOfStages", "String", "Number of Stages", true, "Total number of major stages in the plan, e.g. 4", 0),
             new SomFormFieldMeta("totalDurationMonths", "String", "Total Duration", false, "End-to-end planned duration from first stage start to last stage completion, e.g. 18 months", 1),
@@ -88146,6 +89177,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageResources", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("teamSize", "String", "Team Size", false, "Number of team members allocated", 0),
             new SomFormFieldMeta("keyRoles", "String", "Key Roles Required", false, "Critical roles needed", 1),
@@ -88179,6 +89211,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageStakeholders", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stageOwner", "String", "Stage Owner", false, "Person accountable for stage delivery", 0),
             new SomFormFieldMeta("businessSponsor", "String", "Business Sponsor", false, "Business stakeholder sponsoring this stage", 1),
@@ -88215,6 +89248,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageSuccessCriterionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterion", "String", "Criterion", true, "Description of the success criterion", 0),
             new SomFormFieldMeta("category", "String", "Category", false, "Functional / Performance / Adoption / Quality / Security / Compliance / Operational", 1),
@@ -88296,6 +89330,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageSummaryDependencies", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("predecessorStages", "String", "Predecessor Stages", false, "Stages that must complete before this one", 0),
             new SomFormFieldMeta("successorStages", "String", "Successor Stages", false, "Stages that depend on this one", 1),
@@ -88329,6 +89364,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageSummaryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stageNumber", "String", "Stage Number", true, "1, 2, 3… — sequential stage number", 0),
             new SomFormFieldMeta("scopeSummary", "String", "Scope Summary", true, "One-line summary of what this stage delivers", 1)));
@@ -88487,6 +89523,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageSummaryResources", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("teamSize", "String", "Team Size", false, "Number of team members, e.g. 12 FTEs", 0),
             new SomFormFieldMeta("keyRoles", "String", "Key Roles", false, "Critical roles — architect, UX designer, backend lead", 1),
@@ -88520,6 +89557,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StagingDependencies", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criticalPrerequisites", "String", "Critical Prerequisites", false, "Prerequisites before staged deployment can begin", 0),
             new SomFormFieldMeta("externalDependencies", "String", "External Dependencies", false, "Dependencies on external parties", 1),
@@ -88552,6 +89590,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StagingDrivers", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryDrivers", "String", "Primary Drivers", false, "Key factors driving the staging approach", 0),
             new SomFormFieldMeta("businessConstraints", "String", "Business Constraints", false, "Business factors constraining staging", 1),
@@ -88586,6 +89625,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StagingStrategy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stagingApproachType", "String", "Staging Approach Type", true, "BigBang / PhasedByFunction / PhasedByGeography / Hybrid / Pilot", 0),
             new SomFormFieldMeta("primaryRationale", "String", "Primary Rationale", true, "Main reason for choosing this staging approach", 1),
@@ -88913,6 +89953,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StakeholderEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stakeholderType", "String", "Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)", false, "Sponsor, User, Customer, Partner, Regulator, etc.", 0),
             new SomFormFieldMeta("expectedBenefits", "String", "Expected Benefits (the scope-framing value this group gains from the system)", false, "The scope-framing value this group gains from the system", 1)));
@@ -88943,6 +89984,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StakeholderRegisterEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("role", "String", "Role", true, null, 0),
             new SomFormFieldMeta("interest", "String", "Interest (what they care about)", false, null, 1),
@@ -88977,6 +90019,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of the stakeholder landscape framed by benefit; reference the canonical SBP.4 StakeholderRegister for the full role/interest/influence/engagement attributes.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -89055,6 +90098,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive summary of the project's stakeholder and governance arrangements.\nDescribe the overall governance model, communication approach, and key\nadministrative agreements that govern this project. Highlight any deviations\nfrom standard organizational project governance procedures.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -89220,6 +90264,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StakeholdersAndInterests", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryActorInterest", "String", "Primary Actor Interest — what they want", false, "The goal the initiating actor is pursuing", 0),
             new SomFormFieldMeta("systemOwnerInterest", "String", "System Owner Interest — business value", false, "The business value the owner expects", 1),
@@ -89256,6 +90301,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of standard software requirements approach.\n\n**Include**:\n- Build vs. buy decision criteria\n- Preferred vendor and technology partners\n- Compatibility priority matrix\n- Standards compliance roadmap\n- Migration plans for legacy systems\n\n**Best Practices**:\n- Create technology evaluation scorecards\n- Document vendor relationship management\n- Plan for software sunset and replacement\n- Maintain compatibility testing matrix\n- Establish proof-of-concept requirements\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("CompatibilityRequirementsSection", s, CompatibilityRequirementsSectionNav::metaChildren, (r, c) -> {
@@ -89315,6 +90361,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of standards compliance strategy and roadmap.\n\n**Include**:\n- Applicable standards and regulations\n- Current compliance status\n- Gap analysis and remediation plan\n- Certification timeline and budget\n- Ongoing compliance maintenance\n\n**Best Practices**:\n- Map standards to specific controls\n- Automate compliance evidence collection\n- Schedule regular compliance reviews\n- Train team on compliance requirements\n- Engage compliance consultants for audits\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -89583,6 +90630,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of steering committee composition and responsibilities.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("CommitteeCharter", s, CommitteeCharterNav::metaChildren, (r, c) -> {
@@ -89652,6 +90700,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe which operations demand a higher assurance level and what signals trigger an adaptive challenge. Say how long an elevated level lasts.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -89696,6 +90745,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what is encrypted where, and who holds the keys for each storage tier. Say whether the storage provider can read the data and whether that is acceptable.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -89737,6 +90787,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how long files live, when they move to cheaper tiers, and how they are destroyed. Say what secure deletion means here and how it is verified.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -89778,6 +90829,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Name the organizational strategies, goals or initiatives this system serves and show the link to each. If it also competes with an initiative for the same resources, say so.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -89826,6 +90878,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SubFunctionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this sub-function does", 0),
             new SomFormFieldMeta("dataAccess", "String", "Data Access", false, "Entities accessed with CRUD notation", 1),
@@ -89857,6 +90910,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SubStageEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("subStageType", "String", "Type", false, "Alpha / Beta / RC / Pilot / GA / Milestone / Sprint / Iteration / Hardening", 0),
             new SomFormFieldMeta("sequenceNumber", "String", "Sequence Number", false, "Order within the parent stage — 1, 2, 3…", 1)));
@@ -89971,6 +91025,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of how project success is determined and which dimensions the criteria collectively cover.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -90124,6 +91179,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the success criteria before the per-category buckets below. Cover who judges success and at what point the judgement is made.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -90221,6 +91277,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SuccessCriterionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category", true, "Business, Technical, User, Compliance, Budget, Timeline", 0)));
         out.add(n);
@@ -90366,6 +91423,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SuccessCriterionRelationships", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedGoals", "String", "Related Goals", false, "Related business goals — business goal section ids (BGE-GOAL-…), comma-separated", 0),
             new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements", false, "Requirement ids that contribute to this criterion, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
@@ -90400,6 +91458,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how users reach support before the help-centre, live-support and ticket subsections below. Cover which channels exist and when each is available.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -90547,6 +91606,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Support deliverables: transition support during go-live, warranty support\npost-acceptance, knowledge transfer sessions, escalation contacts,\nSLA definitions, support tooling and access. Define support hours,\nresponse times, coverage period, and handover criteria.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -90598,6 +91658,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SupportedLocaleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("localeCode", "String", "Locale Code", true, "BCP 47 code (e.g., en-US)", 0),
             new SomFormFieldMeta("languageName", "String", "Language Name", true, "English name", 1),
@@ -90667,6 +91728,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "System-level architecture description: layering, package structure,\nsignificant design patterns, boundary definitions, and architectural\ndrivers / trade-offs.\n\n**What to capture:**\n- Layering strategy (presentation / application / domain / infrastructure)\n- Package / module structure and dependency direction rules\n- Design patterns adopted (CQRS, event sourcing, hexagonal, etc.)\n- Architectural drivers (performance, security, maintainability)\n- Trade-offs explicitly accepted\n- Reference architecture diagrams (high-level + key views)\n- Technology-radar alignment (Adopt / Trial / Assess / Hold)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -90696,6 +91758,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the system boundary before the interface, out-of-scope and assumption subsections below. Cover what sits inside the boundary and what the system merely talks to.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -90923,6 +91986,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemBusinessCriticality", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criticalityRating", "String", "Criticality (1=Mission Critical, 2=Business, 3=Operational)", true, "How critical the system is to business operations", 0),
             new SomFormFieldMeta("businessValueScore", "int", "Business Value Score (1-10)", false, "Relative business value on a 1-10 scale", 1),
@@ -91038,6 +92102,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemBusinessProcessEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("processId", "String", "Process ID", false, "The code the organisation already uses for this process, if one exists — owned outside this document", 0),
             new SomFormFieldMeta("systemRole", "String", "System Role (Primary, Data Source, etc.)", false, "Role the system plays in the process", 1),
@@ -91070,6 +92135,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemBusinessUnitEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("userCount", "int", "User Count", false, "Number of users in this unit", 0),
             new SomFormFieldMeta("usagePattern", "String", "Usage Pattern (Daily, Weekly, etc.)", false, "How frequently the unit uses the system", 1),
@@ -91102,6 +92168,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemConfigurationManagement", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("configurationSource", "String", "Configuration Source", true, "Environment variables, config files, vault", 0),
             new SomFormFieldMeta("configurationFormat", "String", "Configuration Format", false, "YAML, JSON, TOML, properties", 1),
@@ -91211,6 +92278,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "High-level overview of the system context and its position in the overall enterprise architecture.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ContextDiagram", s, ContextDiagramNav::metaChildren, (r, c) -> {
@@ -91358,6 +92426,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemCostAnalysis", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("annualLicenseCost", "String", "Annual License Cost", false, "Yearly licensing cost of the current system", 0),
             new SomFormFieldMeta("annualMaintenanceCost", "String", "Annual Maintenance Cost", false, "Yearly maintenance cost of the current system", 1),
@@ -91470,6 +92539,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemDataScope", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalRecords", "String", "Total Records", false, "Approximate total number of records", 0),
             new SomFormFieldMeta("dataSize", "String", "Data Size (GB/TB)", false, "Total size of the data set", 1),
@@ -91577,6 +92647,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependencyType", "String", "Dependency Type", false, "Data / Functional / Operational / Temporal / Transactional", 0),
             new SomFormFieldMeta("direction", "String", "Direction", false, "Upstream / Downstream / Bidirectional", 1)));
@@ -91717,6 +92788,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Concise description of the system to be created.\nDescribe the primary purpose of the system and the business domain it\naddresses. Focus on WHAT the system does, not HOW it does it.\nThis section should establish a shared vocabulary and mental model\nthat all stakeholders can refer to.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -91857,6 +92929,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemDiagnosticTools", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("remoteDebugging", "bool", "Remote Debugging", false, "Attach debugger to running service", 0),
             new SomFormFieldMeta("profiling", "String", "Profiling", false, "CPU, memory, I/O profiling tools", 1),
@@ -91940,6 +93013,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemErrorCodeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("errorCode", "String", "Error Code", true, "System error code (e.g., ERR-NET-001)", 0),
             new SomFormFieldMeta("httpStatus", "int", "HTTP Status", false, "Associated HTTP status code", 1),
@@ -92009,6 +93083,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how system-side failures are presented before the error-type, display and fallback subsections below. Cover what the user is told and what is deliberately withheld.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -92179,6 +93254,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemIntegrationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("integrationType", "String", "Integration Type", false, "RealTime / Batch / EventDriven / RequestResponse / Manual", 0),
             new SomFormFieldMeta("integrationPattern", "String", "Integration Pattern", false, "PointToPoint / HubSpoke / PubSub / ESB / ApiGateway", 1)));
@@ -92351,6 +93427,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Introduction to the system inventory. Describe the criteria for including systems and the overall landscape.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -92403,6 +93480,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemKnowledgeTransfer", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("technicalDocStatus", "String", "Technical Doc Status (Complete, Partial, Outdated, Missing)", false, "Completeness of technical documentation", 0),
             new SomFormFieldMeta("businessDocStatus", "String", "Business Documentation Status", false, "Completeness of business documentation", 1),
@@ -92471,6 +93549,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Enumerates every external system the target system interacts with, with\nenough metadata to support dependency and impact analysis across the\norganization's landscape.\n\n**What to capture:**\n- System name, owner, criticality tier\n- Deployment footprint (cloud / on-prem / SaaS / vendor)\n- Lifecycle status (active / planned retirement / replacement)\n- Relationship class (upstream source, downstream consumer, peer)\n- Technology and protocol fingerprint\n- Data-sensitivity classification of the exchange\n- Governance contacts and escalation routing\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -92498,6 +93577,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemMigrationPlan", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("migrationApproach", "String", "Approach (Big Bang, Phased, Parallel, Strangler)", false, "Overall migration strategy for the system", 0),
             new SomFormFieldMeta("dataTransformationNeeds", "String", "Data Transformation Needs", false, "Data transformations the migration requires", 1),
@@ -92615,6 +93695,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemMigrationRiskEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskDescription", "String", "Risk Description", true, "What the risk is", 0),
             new SomFormFieldMeta("probability", "String", "Probability (High, Medium, Low)", false, "Likelihood the risk occurs", 1),
@@ -92652,6 +93733,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of system operation approach.\n\n**Include**:\n- Key administrative functions\n- Maintenance procedures summary\n- Automation coverage and goals\n- Documentation standards\n- Operational team interfaces\n\n**Best Practices**:\n- Automate everything possible\n- Create self-service capabilities\n- Document procedures in runbooks\n- Review and update procedures regularly\n- Track operational metrics\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("AdministrationRequirementsSection", s, AdministrationRequirementsSectionNav::metaChildren, (r, c) -> {
@@ -92711,6 +93793,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of operational approach and responsibilities.\n\n**Include**:\n- Operational model (dedicated ops, DevOps, SRE)\n- Key operational metrics and targets\n- Automation and tooling strategy\n- Team structure and responsibilities\n- Continuous improvement process\n\n**Best Practices**:\n- Document everything in runbooks\n- Automate repetitive tasks\n- Implement comprehensive monitoring\n- Practice incident response\n- Regular operational reviews\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("SystemOperation", s, SystemOperationNav::metaChildren, (r, c) -> {
@@ -92785,6 +93868,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "State in a few sentences why the system exists and who benefits. Keep it readable by someone outside the project — the problem, opportunity and value subsections below carry the detail.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -92918,6 +94002,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the quality goals before the governance, per-characteristic and acceptance subsections below. Cover which quality attributes matter most for this system, and why.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -93308,6 +94393,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemReplacementStrategy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("strategyType", "String", "Strategy (Replace, Consolidate, Retire, Rehost, Replatform)", true, "Disposition strategy chosen for the system", 0),
             new SomFormFieldMeta("strategyRationale", "String", "Rationale", false, "Why this strategy was selected", 1),
@@ -93429,6 +94515,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Executive summary of the rollout approach: from pilot through phased\nrollout, migration, user enablement, cutover, knowledge transfer, and\npost-go-live support. Seeds the TRP document (Phase 3) together with the\nlocalization, translation, and documentation subtrees.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("RolloutPlan", s, RolloutPlanNav::metaChildren, (r, c) -> {
@@ -93584,6 +94671,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemStagePlan", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalStagesPlanned", "String", "Total Stages Planned", true, "Number of major stages in the rollout plan", 0),
             new SomFormFieldMeta("stagingPhilosophy", "String", "Overall Staging Philosophy", false, "BigBang / PhasedByFunction / PhasedByGeography / PhasedByUserGroup / Incremental / Hybrid", 1),
@@ -93800,6 +94888,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemSummary", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("systemName", "String", "System Name", true, "Official name of the system being built", 0),
             new SomFormFieldMeta("systemAcronym", "String", "System Acronym", false, "Short acronym if used", 1),
@@ -93899,6 +94988,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemTaskEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description (what the user does)", false, "What the user does when performing this task", 0)));
         out.add(n);
@@ -94024,6 +95114,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemTechnicalAssessment", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryTechnology", "String", "Primary Technology/Platform", false, "Core technology or platform the system runs on", 0),
             new SomFormFieldMeta("technologyVersion", "String", "Version", false, "Version of the primary technology", 1),
@@ -94143,6 +95234,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this legacy system — its history and the reason it is being replaced, beyond the technical, business and migration facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -94365,6 +95457,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemTrainingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("modulesCovered", "String", "Modules Covered — system modules in scope", false, null, 0),
             new SomFormFieldMeta("userRoleFocus", "String", "User Role Focus — specific role training", false, null, 1)));
@@ -94445,6 +95538,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemUserImpact", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalUserCount", "int", "Total Users", false, "Total number of users of the system", 0),
             new SomFormFieldMeta("activeUserCount", "int", "Active Users (last 30 days)", false, "Users active within the last 30 days", 1),
@@ -94554,6 +95648,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the replacement portfolio before the inventory and migration-considerations subsections below. Cover the rationalization strategy behind the selection.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -94626,6 +95721,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TabBarDefinitionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("tabBarId", "String", "Tab Bar ID", true, "The symbol the built client carries for this tab bar, e.g. tabs-customer-detail", 0),
             new SomFormFieldMeta("hostScreenId", "String", "Host Screen ID", false, "The screen that contains this tab bar — a screen section id (SCREN-ITEM-…)", 1, java.util.List.of(), java.util.List.of("SCREN.@sectionId")),
@@ -94717,6 +95813,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TabItemEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("tabId", "String", "Tab ID", true, "The symbol the built tab bar carries for this tab — unique within the tab bar, e.g. tab-orders", 0),
             new SomFormFieldMeta("label", "String", "Label Resource", true, "Message key (MSGKR registry) for tab label", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
@@ -94770,6 +95867,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.unused = true;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("OrganizationAndProcessConcept", s, OrganizationAndProcessConceptNav::metaChildren, (r, c) -> {
@@ -94829,6 +95927,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TargetPlatformEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("platformCategory", "String", "Category", false, "Operating System, Runtime Environment, Container Platform, Cloud Platform", 0),
             new SomFormFieldMeta("platformType", "String", "Type", false, "Server, Desktop, Mobile, IoT", 1)));
@@ -94928,6 +96027,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TeamMemberEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("projectRole", "String", "Project Role", true, "Role this person plays on the project", 0),
             new SomFormFieldMeta("organization", "String", "Organization/Department", false, "Their home organization or department", 1),
@@ -95069,6 +96169,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TeamMemberResponsibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("area", "String", "Responsibility Area", true, "Area of responsibility for this team member", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What this responsibility entails", 1),
@@ -95101,6 +96202,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TeamMemberSkillEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("proficiencyLevel", "String", "Proficiency (Expert/Advanced/Intermediate/Beginner)", false, "Expert / Advanced / Intermediate / Beginner", 0),
             new SomFormFieldMeta("yearsUsing", "int", "Years Using", false, "How many years they have used this skill", 1),
@@ -95132,6 +96234,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TeamMemberSkills", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primarySkills", "String", "Primary Skills", false, "Their core, most-relied-on skills", 0),
             new SomFormFieldMeta("secondarySkills", "String", "Secondary Skills", false, "Supporting or supplementary skills", 1),
@@ -95189,6 +96292,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TeamStructureOverview", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("teamSize", "int", "Total Team Size", false, "Total number of people on the team", 0),
             new SomFormFieldMeta("internalResources", "int", "Internal Resources", false, "Number of internal staff members", 1),
@@ -95235,6 +96339,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnicalCharacteristicEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("indexingStrategy", "String", "Indexing Strategy", false, "Primary index and secondary indexes planned", 0),
             new SomFormFieldMeta("cachingStrategy", "String", "Caching Strategy", false, "Cache policy: NoCache | ReadThrough | WriteThrough | CacheAside", 1),
@@ -95269,6 +96374,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnicalConstraintEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("constraintType", "String", "Constraint Type (Technology, Standard, Resource, Compatibility, Budget, Timeline, Regulatory)", false, "Technology, Standard, Resource, Compatibility, Budget, etc.", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What the constraint requires", 1),
@@ -95303,6 +96409,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnicalDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependencyType", "String", "Dependency Type (Infrastructure, API, Library, Service, Hardware, Network, Third-party)", false, "Infrastructure, API, Library, Service, Hardware, etc.", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "What the dependency provides", 1),
@@ -95339,6 +96446,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the pre-existing technical landscape before the governance, standards and infrastructure subsections below. Cover what is mandated and what is merely current practice.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -95566,6 +96674,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnicalEnvironmentNetwork", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("networkArchitecture", "String", "Network Architecture", false, "Network topology, DMZ, segmentation approach", 0),
             new SomFormFieldMeta("firewallPolicies", "String", "Firewall Policies", false, "Standard firewall rules and policies", 1),
@@ -95644,6 +96753,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an executive summary of the technical framework approach.\n\n**Include**:\n- Key architectural decisions and rationale\n- Critical technology choices and constraints\n- Major technical risks and mitigation strategies\n- Technology evaluation criteria used\n- Timeline for technical decisions and reviews\n\n**Best Practices**:\n- Reference industry standards (ISO 42010, TOGAF, IEEE 1471)\n- Document trade-offs explicitly (e.g., time-to-market vs. scalability)\n- Include technology radar assessment (Adopt, Trial, Assess, Hold)\n- Cross-reference with business drivers from project overview\n- Plan for technology obsolescence and migration paths\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("BasicTechnicalRequirements", s, BasicTechnicalRequirementsNav::metaChildren, (r, c) -> {
@@ -95816,6 +96926,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of constraints affecting this technical goal.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -95868,6 +96979,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of technical dependencies and their impact on achieving this goal.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -95919,6 +97031,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnicalGoalEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description (detailed explanation of the technical objective)", false, "Detailed explanation of the technical objective", 0),
             new SomFormFieldMeta("goalCategory", "String", "Goal Category (Performance, Scalability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance)", true, "Quality attribute category, e.g. Performance, Security", 1),
@@ -96049,6 +97162,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnicalGoalTestCaseEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What this test case verifies", 0),
             new SomFormFieldMeta("testProcedure", "String", "Test Procedure", false, "Steps to execute the test", 1),
@@ -96084,6 +97198,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Summarize the overall testing approach for verifying this technical goal.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -96157,6 +97272,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of technical goals and their relationship to business requirements. Explain the technical vision and quality attribute priorities.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -96211,6 +97327,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the technical infrastructure this workplace depends on before the connectivity, software and remote-access subsections below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -96323,6 +97440,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Overview of technical pain points affecting system development, maintenance,\nand evolution. Include technology obsolescence risks, security posture,\nintegration complexity, and team capability constraints.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -96396,6 +97514,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnicalRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("status", "String", "Status (Draft, Proposed, Approved, Verified, Deferred)", true, "Draft, Proposed, Approved, Verified, or Deferred", 0)));
         out.add(n);
@@ -96562,6 +97681,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the technical requirement set — the constraints on how the system is built. Say which are externally imposed and which are choices, since only the choices are negotiable.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -96634,6 +97754,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Provide an overview of security approach and governance.\n\n**Include**:\n- Security principles and philosophy\n- Key security domains and controls\n- Compliance and certification requirements\n- Security team and responsibilities\n- Security metrics and reporting\n\n**Best Practices**:\n- Shift security left (earlier in SDLC)\n- Automate security testing\n- Regular security training\n- Threat modeling for new features\n- Continuous security improvement\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("ItSecurityStandardsSection", s, ItSecurityStandardsSectionNav::metaChildren, (r, c) -> {
@@ -96706,6 +97827,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnologyDataVariations", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataVariations", "String", "Data Variations — different data formats, sources", false, "Different data formats or sources handled", 0),
             new SomFormFieldMeta("technologyVariations", "String", "Technology Variations — different platforms, devices", false, "Platform or device differences to support", 1),
@@ -96740,6 +97862,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnologyStandardEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardCategory", "String", "Category", false, "Security, Development, Infrastructure, Integration, Data, DevOps", 0)));
         out.add(n);
@@ -96842,6 +97965,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe where the tenant boundary is enforced and how a request that crosses it is stopped. Cover shared services and users who legitimately belong to several tenants.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -96883,6 +98007,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how tenant context is determined on each request and how it travels between services. State the behaviour when context is absent or ambiguous — it must not default.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -96922,6 +98047,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TenantCustomizationEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("customizationType", "String", "Customization Type", true, "Roles | Permissions | Policies | Workflows | All — area of authorization that can be customized per tenant", 0),
             new SomFormFieldMeta("scopingMechanism", "String", "Scoping Mechanism", false, "TenantConfig | TenantOverride | TenantExtension | Inheritance — how tenant-specific customizations are applied", 1),
@@ -96961,6 +98087,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the isolation model and the single mechanism that guarantees it. Say how the guarantee is tested; an untested isolation claim is the classic multi-tenant failure.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -97002,6 +98129,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define how multi-tenant authorization is structured at the application layer.\nComplements data-level tenant isolation.\n\n**Tenant context establishment:**\n- How tenant is identified (subdomain, header, token claim, path)\n- Validation of tenant context (user belongs to claimed tenant)\n- Propagation through request lifecycle (thread-local, context object)\n\n**Cross-tenant access prevention:**\n- Default: all access is tenant-scoped\n- Authorization checks include tenant predicate\n- API responses filtered to current tenant only\n\n**Controlled cross-tenant access:**\n- Super-admin/platform-admin access across tenants\n- Partner/reseller access to managed tenants\n- Explicit grants with audit logging\n\n**Per-tenant customization:**\n- Custom roles and entitlements within tenant\n- Tenant-specific password policies\n- Tenant branding and configuration\n\n**Tenant lifecycle:**\n- Onboarding: default roles, admin user, initial configuration\n- Offboarding: data deletion, user deactivation, audit retention\n\n**Boundary enforcement:**\n- Mandatory tenant context on all protected endpoints\n- Fail-closed if tenant context is missing or invalid\n- Logging of tenant context for all operations\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("TenantContextPolicy", s, TenantContextPolicyNav::metaChildren, (r, c) -> {
@@ -97127,6 +98255,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe what authorization state a new tenant starts with and who its first administrator is. Cover offboarding with equal care: what is deleted, what is retained, and for how long.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -97166,6 +98295,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TestScenarioEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("priority", "String", "Priority", false, "Critical / High / Medium / Low", 0)));
         out.add(n);
@@ -97350,6 +98480,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TestScenarioNotes", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("assumptions", "String", "Assumptions", false, "Assumptions made when designing", 0),
             new SomFormFieldMeta("risksAndMitigations", "String", "Risks & Mitigations", false, "Known risks and mitigation strategies", 1),
@@ -97383,6 +98514,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "High-level strategy for verifying quality across the system. Distinct\nfrom the acceptance plan and from the per-quality-attribute\ncriteria in the usability, technical, operational, and documentation\nquality-goal sections; this section integrates them.\n\n**What to capture:**\n- Test levels (unit, integration, system, acceptance, regression)\n- Test approach per level (TDD, BDD, model-based, exploratory)\n- Automation strategy and coverage targets\n- Test environment topology and data strategy\n- Entry / exit criteria per level\n- Defect management lifecycle\n- Traceability from requirements to tests\n- Risk-based test prioritization\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -97410,6 +98542,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TestingStandards", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("unitTestRequired", "bool", "Unit Test Required", false, "Unit tests required for all code", 0),
             new SomFormFieldMeta("integrationTestRequired", "bool", "Integration Test Required", false, "Integration tests required", 1),
@@ -97515,6 +98648,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ThirdPartyApiIntegrations", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("paymentGateways", "String", "Payment Gateways", false, "Stripe, PayPal, Adyen", 0),
             new SomFormFieldMeta("paymentCompliance", "String", "Payment Compliance", false, "PCI DSS level, tokenization", 1)));
@@ -97645,6 +98779,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ThirdPartyCompatibilityEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("softwareName", "String", "Software Name", true, "Third-party software name", 0),
             new SomFormFieldMeta("vendor", "String", "Vendor", false, "Software vendor", 1),
@@ -97745,6 +98880,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ThirdPartyLibraryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("packageSource", "String", "Package Source", false, "pub.dev, npm, Maven, GitHub", 0),
             new SomFormFieldMeta("version", "String", "Version", true, "Version constraint", 1)));
@@ -97864,6 +99000,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the throwaway prototype before the findings, disposition and value subsections below. Cover how the findings are captured before the artifact is discarded.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -97972,6 +99109,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "State the minimum protocol version and cipher suites, and when the policy is next reviewed. Record any legacy client that forces an exception and the date it is retired.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -98011,6 +99149,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TlsRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minimumTlsVersion", "String", "Minimum TLS Version", true, "TLS 1.2, TLS 1.3", 0),
             new SomFormFieldMeta("preferredTlsVersion", "String", "Preferred TLS Version", false, "TLS 1.3", 1),
@@ -98113,6 +99252,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the token types in use, what each carries, where it is stored and how it is revoked. Justify the lifetimes — they are the main security-versus-usability trade-off here.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -98152,6 +99292,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ToolEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes, caveats, or context", 0)));
         out.add(n);
@@ -98515,6 +99656,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Tooling", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("toolStrategyOverview", "String", "Tool Strategy Overview", false, "High-level approach to tooling — standardisation goals, preferred vendors, stack alignment", 0),
             new SomFormFieldMeta("standardToolStackDescription", "String", "Standard Tool Stack Description", false, "Summary of the baseline tool stack all teams are expected to use", 1),
@@ -98638,6 +99780,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.unused = true;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("Tooling", s, ToolingNav::metaChildren, (r, c) -> {
@@ -98695,6 +99838,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TourStepEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepOrder", "int", "Step Order", true, "Sequence position of this step", 0),
             new SomFormFieldMeta("targetElement", "String", "Target Element", false, "Element to highlight", 1),
@@ -98729,6 +99873,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TradeOffDecisionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("decisionStatus", "String", "Status", false, "Proposed, approved, implemented, reversed", 0)));
         out.add(n);
@@ -98862,6 +100007,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the trade-off decisions before the individual items below. Cover how a trade-off is raised, decided and revisited.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -98943,6 +100089,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TrainingAssessment", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("assessmentStrategy", "String", "Assessment Strategy — how learning is measured", false, null, 0),
             new SomFormFieldMeta("preAssessment", "String", "Pre-Assessment — baseline knowledge check", false, null, 1),
@@ -99027,6 +100174,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the end-user training deliverables before the module catalogue below. Cover the audiences, the delivery mode, and when training happens relative to rollout.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -99114,6 +100262,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Training deliverables: instructor-led sessions, e-learning modules,\ntrain-the-trainer programs, quick reference cards, video tutorials,\nsandbox environments. Define target audience, duration, prerequisites,\nassessment criteria, and ongoing refresh schedule.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -99215,6 +100364,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TrainingMaterials", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("userGuides", "String", "User Guides — printed/digital manuals", false, null, 0),
             new SomFormFieldMeta("quickReferenceCards", "String", "Quick Reference Cards — job aids", false, null, 1),
@@ -99297,6 +100447,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TrainingModuleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "End users, admins, power users", 0),
             new SomFormFieldMeta("duration", "String", "Duration", false, "Expected length (e.g., 2 hours, half day)", 1),
@@ -99333,6 +100484,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the training prototype before the disposition and output subsections below. Cover which concepts are meant to carry forward once the code does not.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -99426,6 +100578,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the training program for this workplace before the initial, ongoing, certification and assessment subsections below. Cover the learning objectives it is built around.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -99594,6 +100747,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TrainingTopicEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "Brief description of what this topic covers", 0),
             new SomFormFieldMeta("learningObjectives", "String", "Learning Objectives", false, "What learners should be able to do after this topic", 1),
@@ -99627,6 +100781,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TransitionCommunicationChannels", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryChannels", "String", "Primary Channels — main communication methods", false, "The main channels used for routine transition communications, e.g. email, intranet, team meetings", 0),
             new SomFormFieldMeta("urgentChannels", "String", "Urgent Channels — for time-sensitive communications", false, "The channels reserved for time-sensitive or urgent communications, e.g. SMS, alerts, calls", 1),
@@ -99663,6 +100818,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the communication approach before the event and channel lists below. Cover the key messages and who delivers them.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -99760,6 +100916,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TransitionEscalationPaths", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("level1", "String", "Level 1 — first-line support", false, "The first-line support tier that handles initial user requests", 0),
             new SomFormFieldMeta("level2", "String", "Level 2 — specialist support", false, "The specialist support tier that issues escalate to from first-line", 1),
@@ -99795,6 +100952,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TransitionMetricEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category — Adoption, Performance, Quality, Satisfaction, Efficiency", false, "The category of this metric: Adoption, Performance, Quality, Satisfaction, or Efficiency", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "A description of what this metric measures and why it matters", 1),
@@ -99863,6 +101021,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TransitionMilestoneEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("milestoneType", "String", "Milestone Type — Decision Gate, Checkpoint, Go-Live, Closure", false, "The kind of milestone: Decision Gate, Checkpoint, Go-Live, or Closure", 0),
             new SomFormFieldMeta("targetDate", "String", "Target Date", false, "The planned date by which the milestone should be achieved", 1),
@@ -99945,6 +101104,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TransitionOverview", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("transitionApproach", "String", "Transition Approach — phased, big-bang, parallel run, pilot", false, "Overall approach to the transition: phased rollout, big-bang cutover, parallel run, or pilot-first", 0),
             new SomFormFieldMeta("changeManagementMethodology", "String", "Change Management Methodology — PROSCI ADKAR, Kotter, Lewin, custom", false, "The change-management framework guiding the transition: PROSCI ADKAR, Kotter 8-step, Lewin, or a custom methodology", 1),
@@ -100012,6 +101172,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TransitionPhaseActivities", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("keyActivities", "String", "Key Activities — main tasks to complete in this phase", false, "The main tasks that must be completed during this phase", 0),
             new SomFormFieldMeta("trainingActivities", "String", "Training Activities — training to deliver", false, "The training sessions or materials to be delivered in this phase", 1),
@@ -100050,6 +101211,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this transition phase — what it looks like on the ground, beyond the activity, stakeholder and exit-criteria facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("TransitionPhaseIdentification", s, TransitionPhaseIdentificationNav::metaChildren, (r, c) -> {
@@ -100159,6 +101321,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TransitionPhaseIdentification", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("phaseType", "String", "Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure", false, "The kind of phase: Preparation, Pilot, Rollout, Stabilization, or Closure", 0),
             new SomFormFieldMeta("phaseOwner", "String", "Phase Owner", false, "The person or role accountable for delivering this phase", 1)));
@@ -100225,6 +101388,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TransitionPhaseStakeholders", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryStakeholders", "String", "Primary Stakeholders — directly impacted groups", false, "The groups directly impacted by this phase", 0),
             new SomFormFieldMeta("engagementApproach", "String", "Engagement Approach — how stakeholders are involved", false, "How stakeholders are involved and engaged during this phase", 1),
@@ -100258,6 +101422,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TransitionRiskEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskCategory", "String", "Risk Category — Resistance, Capacity, Timing, Resources, Dependencies", false, "The category of this risk: Resistance, Capacity, Timing, Resources, or Dependencies", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "A description of the risk, including what could go wrong and its potential consequences", 1)));
@@ -100326,6 +101491,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how transition success is judged before the individual metrics below. Cover the baseline and the point at which the measurement is taken.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -100398,6 +101564,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TransitionSupportResourceEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("resourceType", "String", "Resource Type — Help Desk, Super User, Floor Walker, Coach, FAQ", true, "The kind of support resource: Help Desk, Super User, Floor Walker, Coach, FAQ, etc.", 0),
             new SomFormFieldMeta("availabilityPeriod", "String", "Availability Period — start/end dates", false, "The start and end dates during which this resource is available", 1),
@@ -100436,6 +101603,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the transition support model before the resource and escalation lists below. Cover how long enhanced support lasts.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -100535,6 +101703,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the translation workflow before the tooling, quality, terminology and vendor subsections below. Cover who translates and how translation quality is judged.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -100685,6 +101854,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the internationalization framework before the RTL, formatting and technical subsections below. Cover the string-externalization format and the locale-resolution rule.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -100811,6 +101981,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TranslationVendorEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("vendorType", "String", "Vendor Type", false, "LSP, freelance, in-house", 0),
             new SomFormFieldMeta("languages", "String", "Languages", false, "Languages handled by vendor", 1),
@@ -100847,6 +102018,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe HSTS settings, HTTP-to-HTTPS behaviour, cookie flags and cache rules for sensitive responses. Note that HSTS preloading is hard to reverse.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -100886,6 +102058,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TroubleshootingCapabilities", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("debugMode", "String", "Debug Mode", false, "How to enable verbose diagnostics", 0),
             new SomFormFieldMeta("diagnosticDump", "bool", "Diagnostic Dump", false, "Generate full diagnostic report on demand", 1),
@@ -100970,6 +102143,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Overview of trust boundaries and security zones relevant to this system.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -101021,6 +102195,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TrustBoundaryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("boundaryType", "String", "Boundary Type (Network Zone, Authentication Domain, Organizational, Legal/Regulatory, Cloud/On-Prem)", true, "The category of trust boundary", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "A short description of this boundary", 1),
@@ -101055,6 +102230,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TypographyStyleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fontFamily", "String", "Font Family", false, "Typeface family name", 0),
             new SomFormFieldMeta("fontSize", "String", "Font Size", false, "Size in logical pixels", 1),
@@ -101090,6 +102266,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UIRequirementsPreview", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("primaryScreen", "String", "Primary Screen — main UI screen", false, "The main screen where the interaction happens", 0),
             new SomFormFieldMeta("screenFlow", "String", "Screen Flow — navigation path", false, "Navigation path across screens", 1),
@@ -101138,6 +102315,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UatTestCycleEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("cycleObjective", "String", "Cycle Objective", false, "Purpose: full execution, regression, retest only, or targeted", 0),
             new SomFormFieldMeta("plannedStartDate", "String", "Planned Start Date", false, "Start date for this cycle", 1),
@@ -101204,6 +102382,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UatTestStepEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "String", "Step Number", true, "Sequential number — e.g. 1, 2, 3", 0),
             new SomFormFieldMeta("action", "String", "Action", false, "What the tester does — e.g. \"Navigate to Invoice screen and select order\"", 1),
@@ -101241,6 +102420,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this component — what it is for and when to reach for it, beyond the visual, behaviour and data-binding facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -101709,6 +102889,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the component library before the design system, per-component specifications and family lists below. Cover what is reused, what is built, and the rule for adding a new component.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -101869,6 +103050,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_specs_project_flow.md` §PF-UPG process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -101896,6 +103078,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Usability", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("operabilityTarget", "String", "Operability Target", false, "Ease of operation: intuitive, training-required", 0),
             new SomFormFieldMeta("ergonomicsStandard", "String", "Ergonomics Standard", false, "ISO 9241, platform guidelines", 1),
@@ -102024,6 +103207,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UseCaseExtensions", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("extensionSummary", "String", "Extension Summary — overview of variations", false, "Overview of the alternative and exception flows", 0),
             new SomFormFieldMeta("extensionCount", "int", "Extension Count — number of extensions", false, "How many extensions are documented", 1)));
@@ -102080,6 +103264,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Traceability matrix linking use cases to requirements, processes, and\ntests. Ensures every use case is justified and covered.\n\n**What to capture:**\n- UC × RC matrix (which requirements each use case realizes)\n- UC × BP matrix (which processes each use case participates in)\n- UC × test matrix (which tests cover each use case)\n- Orphan detection (UCs without requirements or tests)\n- Change-impact helper (navigate from a changed UC to affected artifacts)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -102107,6 +103292,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserAcceptanceTesting", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("uatObjective", "String", "UAT Objective", false, "Primary goal — e.g. validate business requirements before go-live", 0),
             new SomFormFieldMeta("uatApproach", "String", "UAT Approach", false, "Scripted / Exploratory / Hybrid", 1),
@@ -102401,6 +103587,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "State what this user category may see and do, and what it must never be able to do. Record the reasoning — the access model later has to justify each grant.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -102506,6 +103693,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Record the accessibility requirements this category actually has — vision, motor, cognitive, situational — and the accommodations that follow. Name the WCAG level committed to.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -102556,6 +103744,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe each account state in words and what a user in it can and cannot do. The form captures the state names; the content is where the semantics live, including any project-specific states.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -102597,6 +103786,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the in-app help system before the contextual-help, onboarding and support-access subsections below. Cover when help is offered unprompted and when it has to be sought.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -102747,6 +103937,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserAttributeEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataType", "String", "Data Type", false, "Data type of the attribute value.", 0),
             new SomFormFieldMeta("placement", "UserAttributePlacement", "Placement", false, "public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).", 1, java.util.List.of("public", "encrypted")),
@@ -102782,6 +103973,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define the user profile attributes captured and managed by the system. These\nattributes support authentication, authorization, personalization, and\ncompliance requirements.\n\n**Core identity attributes:**\n- Unique identifier (UUID, employee ID, email)\n- Display name, legal name, preferred name\n- Email addresses (primary, secondary)\n- Phone numbers (mobile for MFA, business)\n- Account status and creation timestamps\n\n**Organizational attributes:**\n- Department, division, cost center\n- Job title, role, reporting hierarchy\n- Office location, timezone, locale preferences\n\n**Access control attributes:**\n- User category/type (customer, employee, partner)\n- Security clearance level\n- Group memberships and role assignments\n- Tenant/organization affiliation\n\n**Compliance considerations:**\n- PII classification per attribute (GDPR, CCPA)\n- Data minimization — collect only what is necessary\n- Attribute source (self-declared, HR system, IdP assertion)\n- Retention and deletion policies per attribute type\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -102835,6 +104027,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Define the complete authorization structure that controls what users can do.\nAligned with Tom Core authorization model.\n\n**Authorization hierarchy:**\n1. **Groups**: Organizational containers for users (departments, teams, projects)\n2. **Roles**: Named collections of entitlements assigned to users or groups\n3. **Entitlements**: Atomic permissions representing specific actions\n4. **Resource Keys**: Fine-grained identifiers for protected resources\n\n**Key components:**\n- Authorization model (RBAC, ABAC, ReBAC, or hybrid)\n- Role definitions with assigned entitlements\n- Role hierarchy and inheritance rules\n- Tenant isolation for multi-tenant deployments\n\n**Design principles:**\n- Least privilege: users get minimum permissions needed\n- Separation of duties: critical operations require multiple approvals\n- Default deny: no access unless explicitly granted\n- Clear ownership: every role/entitlement has an owner\n\n**Compliance considerations:**\n- SOX: segregation of duties, access recertification\n- GDPR: data access controls, right to be forgotten\n- PCI DSS: need-to-know for cardholder data\n- SOC 2: logical access controls (CC6.1-CC6.3)\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("AuthorizationModel", s, AuthorizationModelNav::metaChildren, (r, c) -> {
@@ -103005,6 +104198,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserCategoryDefinition", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Short description", false, "Brief description of this category.", 0),
             new SomFormFieldMeta("accessLevel", "String", "Access Level", false, "Typical access level for this category.", 1),
@@ -103036,6 +104230,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserCategoryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description (brief summary of this user type)", true, "One- or two-sentence summary of this user type", 0),
             new SomFormFieldMeta("userType", "String", "User Type (Internal, External, Partner, Customer, Administrator, etc.)", true, "Internal / External / Partner / Customer / Administrator", 1)));
@@ -103227,6 +104422,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the end-user documentation deliverables before the format and localization subsections below. Cover the audiences served and the channel each deliverable reaches them through.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -103319,6 +104515,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserGroupImpactEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("userCount", "int", "User Count", false, "Number of users in the group", 0),
             new SomFormFieldMeta("impactLevel", "String", "Impact Level (High, Medium, Low)", false, "How strongly the group is impacted", 1),
@@ -103351,6 +104548,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserGrowthProjections", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("currentActiveUsers", "int", "Current Active Users", true, "Current monthly active user count", 0),
             new SomFormFieldMeta("currentRegisteredUsers", "int", "Current Registered Users", false, "Total registered user accounts", 1),
@@ -103436,6 +104634,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "High-level overview of user interaction model explaining how users access and interact with the system across different channels and contexts.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("UserInteractionModelSummary", s, UserInteractionModelSummaryNav::metaChildren, (r, c) -> {
@@ -103599,6 +104798,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Map this category's touchpoints end to end, including what happens before and after they use the system. Mark the moments where the experience currently breaks.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -103709,6 +104909,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Document the complete lifecycle of user accounts from creation to permanent\ndeletion. A well-defined lifecycle ensures proper access control, auditability,\nand compliance with data retention requirements.\n\n**Lifecycle phases:**\n1. **Registration** — how users request or receive accounts\n2. **Activation** — approval workflows and initial credential issuance\n3. **Active Usage** — ongoing access and periodic re-verification\n4. **Modification** — attribute updates, role changes, transfers\n5. **Suspension** — temporary disablement (leave, investigation)\n6. **Deactivation** — permanent disablement (termination, contract end)\n7. **Deletion** — data removal per retention policies\n\n**Key considerations:**\n- Joiner-mover-leaver (JML) process integration with HR systems\n- Self-service vs. admin-driven operations\n- Approval workflows and segregation of duties\n- Grace periods and notification requirements\n- Compliance with GDPR right to erasure and data retention laws\n- Audit trail requirements for lifecycle events\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -103892,6 +105093,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserLifecycleTransitionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fromState", "String", "From State", true, "Source lifecycle state", 0),
             new SomFormFieldMeta("toState", "String", "To State", true, "Target lifecycle state", 1),
@@ -103977,6 +105179,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the permitted state transitions as a flow, naming who can trigger each and what approval it needs. The transitions you deliberately forbid are worth stating too.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -104054,6 +105257,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe how users are organized, categorized, and managed throughout their\nrelationship with the system. This section establishes the foundation for\nauthentication and authorization by defining who the users are.\n\n**Key topics to address:**\n- User taxonomy (employees, customers, partners, service accounts)\n- User provisioning sources (self-registration, admin-created, SCIM, HR sync)\n- User directory integration (LDAP, Active Directory, cloud identity providers)\n- Account lifecycle governance and oversight responsibilities\n- User metadata and attribute management strategy\n\n**Industry context:**\n- NIST SP 800-63A covers identity proofing requirements\n- SCIM 2.0 (RFC 7643/7644) for cross-domain user management\n- SOC 2 CC6.1-CC6.3 for logical and physical access controls\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       out.add(metaCx("AccessUserCategories", s, AccessUserCategoriesNav::metaChildren, (r, c) -> {
@@ -104128,6 +105332,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "User manual deliverables: what documents are produced, for which user\ncategories, in which languages, on what delivery channel (in-app help,\nPDF, wiki, print). Not the in-app contextual help itself (that lives in\nthe help-concept section).\n\n**What to capture:**\n- Document catalog (title, audience, scope, format)\n- Production workflow and ownership\n- Localization / translation path\n- Review and approval process\n- Distribution channels\n- Versioning and maintenance approach post-go-live\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -104186,6 +105391,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Sketch the person, not the role: working context, technical confidence, goals and frustrations. A persona is only useful if a designer can picture them.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -104313,6 +105519,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## User Personas (10.1.3)\n\nUser archetype definitions driving UI personalization.\n\n### Persona Structure\nEach persona includes:\n- Demographics and role context\n- Technical proficiency and device preferences\n- Goals, pain points, and key scenarios\n- Accessibility needs\n\n### Form Fields Guide\n**personaName**: Name + role (\"Marco, Finance Manager\")\n**technicalProficiency**: Beginner/Intermediate/Advanced with context\n**accessibilityNeeds**: Visual/Motor/Cognitive/None\n**quote**: Representative voice capturing their perspective\n\n### Tom UI Mapping\nPersonas inform:\n- Default settings per user category\n- Feature visibility/hiding\n- Onboarding flows\n- Help topic prioritization\n- Responsive breakpoint priorities\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -104377,6 +105584,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserProvisioningTools", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("provisioningMethod", "String", "Provisioning Method", true, "Manual, SCIM, LDAP sync, JIT provisioning", 0),
             new SomFormFieldMeta("bulkProvisioning", "bool", "Bulk Provisioning", false, "Import users via CSV/file upload", 1),
@@ -104465,6 +105673,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Walk through registration from the user's first action to a usable account, per registration method. Record why the chosen identity-proofing level is sufficient for this system's risk.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -104516,6 +105725,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserSettingEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("settingKey", "String", "Setting Key", true, "The dotted key of the user setting, e.g. ui.theme", 0),
             new SomFormFieldMeta("valueType", "String", "Value Type", false, "string / int / double / bool / enum", 1),
@@ -104550,6 +105760,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Summarise which settings follow the user rather than the device — the choices\na user expects to find already applied the first time they sign in on a new\nmachine.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy, and to how the settings are re-materialised at sign-in.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -104603,6 +105814,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Say what this category must learn before it can work with the system, how the training is delivered, and how much of it is ongoing rather than one-off.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -104676,6 +105888,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UtilityMenuItemEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("menuItemId", "String", "Menu Item ID", true, "The symbol the built menu carries for this item, e.g. menu-item-logout", 0),
             new SomFormFieldMeta("icon", "String", "Icon Resource", false, "Leading icon", 1),
@@ -104758,6 +105971,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "## Utility Navigation (10.3.1.5)\n\nAlways-visible utility items in app bar.\n\n### Common Utilities\n- **User Menu** — Avatar with profile/settings/logout\n- **Notifications** — Bell with unread count\n- **Help** — Documentation access\n- **Settings** — Quick preferences\n\n### Item Properties\n- Position (AppBar-Leading/Trailing, Drawer-Footer)\n- Widget type (Icon-Button/Avatar/Dropdown/Popup)\n- Badge display (count, dot)\n- Interaction (Navigate/Popup/Drawer/Sheet/Dialog)\n\n### Menu Items\nDropdown/popup menus have nested items with:\n- Label, icon, display order\n- Action type (Navigate/Action/External)\n- Danger styling and confirmation\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -104809,6 +106023,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UtilityNavigationItemEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("utilityId", "String", "Utility ID", true, "The symbol the built navigation carries for this utility, e.g. util-user-menu, util-notifications", 0),
             new SomFormFieldMeta("icon", "String", "Icon Resource", true, "Primary icon", 1),
@@ -104916,6 +106131,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Business-level validation rules enforced on data. Distinct from schema\nconstraints (which are database-level) and from per-field form hints\n(which are UI-level).\n\n**What to capture:**\n- Rule catalog (name, scope, severity)\n- Cross-field rules (field A must match format of field B)\n- Cross-entity rules (order total must match line-item sum)\n- Conditional rules (required only when X, forbidden when Y)\n- Validation trigger points (on entry, on save, on batch, on publish)\n- Error-message catalog for each rule\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -104945,6 +106161,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce how input errors are surfaced before the placement, message and rule subsections below. Cover when validation runs — on change, on blur, or on submit.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -105112,6 +106329,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ValidationMessageTemplate", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("validationType", "String", "Validation Type", true, "Required, format, range, length, custom", 0),
             new SomFormFieldMeta("fieldTypes", "String", "Applicable Field Types", false, "Text, email, number, date, select", 1),
@@ -105151,6 +106369,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Articulate the value in the terms the funding decision uses: quantified benefits, cost avoided, and the return-on-investment argument. State the assumptions the numbers rest on.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -105244,6 +106463,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("VersionControlConfiguration", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("vcsSystem", "String", "VCS System", false, "Git, Mercurial, SVN", 0),
             new SomFormFieldMeta("vcsVersion", "String", "VCS Version", false, "Minimum version required", 1),
@@ -105347,6 +106567,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("VirtualizationRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("deploymentModel", "String", "Deployment Model", false, "Bare metal, VM, Container", 0),
             new SomFormFieldMeta("primaryPlatform", "String", "Primary Platform", false, "VMware, Docker, Kubernetes", 1),
@@ -105448,6 +106669,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("VolumeMetricEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("estimatedRecordCount", "String", "Estimated Record Count", false, "Initial record count with source (e.g., 120,000 from migration)", 0),
             new SomFormFieldMeta("growthRate", "String", "Growth Rate", false, "Expected growth rate (e.g., 10% annually, 5,000/month)", 1),
@@ -105482,6 +106704,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("VpnRequirementEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("vpnType", "String", "VPN Type", false, "Site-to-Site, Client, SSL", 0),
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "Purpose of this VPN", 1)));
@@ -105581,6 +106804,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("VulnerabilityManagementPolicy", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("vulnerabilityScanningTool", "String", "Vulnerability Scanning Tool", true, "Nessus, Qualys, Tenable, Trivy", 0),
             new SomFormFieldMeta("scanFrequency", "String", "Scan Frequency", false, "Daily, weekly, on each deployment", 1),
@@ -105668,6 +106892,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Terms governing the warranty window that follows acceptance. Distinct\nfrom the long-term operations SLA (the acceptance-plan warranty section\ncovers acceptance-time warranty; this entry captures the execution plan).\n\n**What to capture:**\n- Warranty period length and scope (functional / non-functional / data)\n- Defect classification and response-time expectations\n- Support channels and escalation path during warranty\n- Change-request handling during warranty\n- Transition from warranty to BAU support\n- Exit criteria for warranty closure\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -105695,6 +106920,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WarrantyServiceLevels", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("supportHours", "String", "Support Hours", false, "Hours during which warranty support is available", 0),
             new SomFormFieldMeta("responseTimeSev1", "String", "Response Time Sev-1", false, "Initial response time — e.g. 1 hour", 1),
@@ -105729,6 +106955,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WarrantyTerms", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("warrantyDuration", "String", "Warranty Duration", true, "Length of warranty period — e.g. 90 days, 6 months", 0),
             new SomFormFieldMeta("warrantyStartTrigger", "String", "Warranty Start Trigger", false, "What starts the warranty — sign-off date, go-live date", 1),
@@ -105884,6 +107111,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the WCAG conformance target before the per-principle subsections and the success-criteria list below. Cover the level claimed and any documented exception to it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -106015,6 +107243,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WcagSuccessCriterionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterionId", "String", "Criterion ID", true, "The WCAG success criterion number, e.g. 1.4.3 — owned by the WCAG specification", 0),
             new SomFormFieldMeta("level", "String", "Level", false, "A, AA, AAA", 1),
@@ -106052,6 +107281,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the weighting scheme before the individual weights below. Cover the scale used and how stakeholder input was gathered.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -106149,6 +107379,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Catalog of wireframes and mockups across the UI. Complements the\nper-screen content in the screen-design section with cross-cutting,\ncomparison, and narrative-flow views.\n\n**What to capture:**\n- Wireframe catalog (name, fidelity level, screen coverage)\n- Mockup catalog (static / interactive / click-through)\n- Fidelity progression (sketch → wireframe → mockup → prototype)\n- Tooling conventions (Figma / Sketch / etc., file naming)\n- Storyboard / user-journey visuals\n- Review and sign-off status per artifact\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       return out;
@@ -106176,6 +107407,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowActorEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actorType", "String", "Actor Type (e.g., Role, System, Department, External)", false, null, 0),
             new SomFormFieldMeta("role", "String", "Role in this workflow", false, null, 1),
@@ -106233,6 +107465,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowBusinessRule", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleDescription", "String", "Description", false, null, 0),
             new SomFormFieldMeta("ruleLogic", "String", "Rule Logic (business logic in plain language)", false, null, 1),
@@ -106265,6 +107498,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowDecisionPoint", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("decisionCriteria", "String", "Decision Criteria", false, null, 0),
             new SomFormFieldMeta("decisionMaker", "String", "Decision Maker", false, null, 1),
@@ -106300,6 +107534,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Introduce the workflows of this business process and add one subsection per workflow relevant to the project. Say which workflows are in scope for change and which are recorded only as context.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -106382,6 +107617,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowExceptionEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("exceptionType", "String", "Type (e.g., Validation, System, Business)", false, null, 0),
             new SomFormFieldMeta("frequency", "String", "Frequency", false, null, 1),
@@ -106416,6 +107652,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "How exceptions are handled in this workflow.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -106467,6 +107704,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowInputEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("inputType", "String", "Type (data type or document type)", false, null, 0),
             new SomFormFieldMeta("source", "String", "Source", false, null, 1),
@@ -106500,6 +107738,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowOutputEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("outputType", "String", "Type (data type or document type)", false, null, 0),
             new SomFormFieldMeta("destination", "String", "Destination", false, null, 1),
@@ -106532,6 +107771,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowStepEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "int", "Step Number (sequence order)", false, null, 0),
             new SomFormFieldMeta("description", "String", "Description", false, null, 1),
@@ -106688,6 +107928,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowStepIssue", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("issueDescription", "String", "Description", false, null, 0),
             new SomFormFieldMeta("frequency", "String", "Frequency of occurrence", false, null, 1),
@@ -106722,6 +107963,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Notes on how this workflow step uses the named system — the function it performs there, and any limitation of the system that shapes the step.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -106763,6 +108005,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowSummaryEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("workflowType", "String", "Type", false, null, 0),
             new SomFormFieldMeta("frequency", "String", "Frequency", false, null, 1),
@@ -106799,6 +108042,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowSummaryTable", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("totalWorkflows", "int", "Total Workflows in Process", false, null, 0),
             new SomFormFieldMeta("primaryWorkflows", "int", "Primary/Happy-Path Workflows", false, null, 1),
@@ -106856,6 +108100,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkflowTriggerEntry", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("triggerType", "String", "Type (e.g., Event, Schedule, Manual, System)", false, null, 0),
             new SomFormFieldMeta("triggerSource", "String", "Source - origin of the trigger", false, null, 1),
@@ -106889,6 +108134,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("description", "Conditions that initiate this workflow.");
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -106942,6 +108188,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Narrative for this workplace category — how these users actually work, beyond the physical, equipment, infrastructure and training facets recorded below.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
       {
@@ -107067,6 +108314,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkplaceSoftwareRequirements", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("operatingSystem", "String", "Operating System — version, edition", false, null, 0),
             new SomFormFieldMeta("productivitySuite", "String", "Productivity Suite — Office 365, Google Workspace", false, null, 1),
@@ -107133,6 +108381,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WorkplaceSupportResources", SomMetaKind.FORM, "String");
         n.memberName = "content";
         n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("helpDeskAccess", "String", "Help Desk Access — phone, email, chat, portal", false, null, 0),
             new SomFormFieldMeta("helpDeskHours", "String", "Help Desk Hours — support availability", false, null, 1),

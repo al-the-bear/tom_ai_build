@@ -101,18 +101,18 @@ function testRootAndParity(): void {
 function testModelVersion(): void {
   check(
     'version.classattr',
-    D00SolutionBlueprint.MODEL_VERSION === '1.0',
+    D00SolutionBlueprint.MODEL_VERSION === '1.1',
     D00SolutionBlueprint.MODEL_VERSION,
   );
   const pd = new D00SolutionBlueprint(new SpecDocument());
-  check('version.accessor', pd.objectModelVersion === '1.0', pd.objectModelVersion);
+  check('version.accessor', pd.objectModelVersion === '1.1', pd.objectModelVersion);
 }
 
 function testVersionCheck(): void {
   // New / equal-stamp document → accepted.
   try {
     new D00SolutionBlueprint(new SpecDocument());
-    new D00SolutionBlueprint(new SpecDocument(), '1.0');
+    new D00SolutionBlueprint(new SpecDocument(), '1.1');
     check('version.editable', true);
   } catch (e) {
     check('version.editable', false, String(e));
@@ -120,7 +120,7 @@ function testVersionCheck(): void {
 
   // Newer minor → rejected.
   try {
-    new D00SolutionBlueprint(new SpecDocument(), '1.1');
+    new D00SolutionBlueprint(new SpecDocument(), '1.2');
     check('version.newer-rejected', false, 'expected SomVersionError');
   } catch (e) {
     check('version.newer-rejected', e instanceof SomVersionError, String(e));

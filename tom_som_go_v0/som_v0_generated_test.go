@@ -9,7 +9,7 @@
 //   - a content leaf round-trips typed → generic and generic → typed;
 //   - a nested complex section derives its path under the root;
 //   - the typed `SomList` collection maps onto the generic list store;
-//   - the generated model-version accessor / constant return `1.0`;
+//   - the generated model-version accessor / constant return `1.1`;
 //   - the instantiation-time version check (SOM §4.2) accepts an editable stamp and
 //     rejects a newer-minor / cross-major stamp with a *som.SomVersionError;
 //   - the live-document conformance case (YRD8 / dsa11): the shared Meridian
@@ -195,13 +195,13 @@ func sliceEqual(a, b []string) bool {
 }
 
 func TestModelVersion(t *testing.T) {
-	if D00SolutionBlueprintModelVersion != "1.0" {
-		t.Errorf("D00SolutionBlueprintModelVersion = %q, want 1.0",
+	if D00SolutionBlueprintModelVersion != "1.1" {
+		t.Errorf("D00SolutionBlueprintModelVersion = %q, want 1.1",
 			D00SolutionBlueprintModelVersion)
 	}
 	pd, _ := NewD00SolutionBlueprint(som.NewSpecDocument(), "")
-	if pd.ObjectModelVersion() != "1.0" {
-		t.Errorf("ObjectModelVersion() = %q, want 1.0", pd.ObjectModelVersion())
+	if pd.ObjectModelVersion() != "1.1" {
+		t.Errorf("ObjectModelVersion() = %q, want 1.1", pd.ObjectModelVersion())
 	}
 }
 
@@ -210,12 +210,12 @@ func TestVersionCheck(t *testing.T) {
 	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), ""); err != nil {
 		t.Errorf("empty stamp rejected: %v", err)
 	}
-	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "1.0"); err != nil {
+	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "1.1"); err != nil {
 		t.Errorf("equal stamp rejected: %v", err)
 	}
 
 	// Newer minor → rejected with a SomVersionError.
-	_, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "1.1")
+	_, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "1.2")
 	var verr *som.SomVersionError
 	if err == nil || !errors.As(err, &verr) {
 		t.Errorf("newer-minor stamp: got %v, want *SomVersionError", err)

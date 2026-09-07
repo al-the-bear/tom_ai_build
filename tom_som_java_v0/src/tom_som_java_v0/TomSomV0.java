@@ -23,6 +23,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -57,6 +60,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -114,6 +120,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AcceptanceCriterionEntryContentForm content() {
       return new AcceptanceCriterionEntryContentForm(doc, path + "/content");
     }
@@ -130,6 +139,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -180,6 +192,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AcceptanceProcessContentForm content() {
       return new AcceptanceProcessContentForm(doc, path + "/content");
     }
@@ -232,6 +247,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AcceptanceStepEntryContentForm content() {
       return new AcceptanceStepEntryContentForm(doc, path + "/content");
     }
@@ -261,6 +279,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -301,6 +322,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -333,6 +357,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -382,6 +409,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -401,6 +431,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AccessLevelEntryContentForm content() {
       return new AccessLevelEntryContentForm(doc, path + "/content");
     }
@@ -435,6 +468,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -478,6 +514,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AccessRestrictionEntryContentForm content() {
       return new AccessRestrictionEntryContentForm(doc, path + "/content");
     }
@@ -494,6 +533,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -523,6 +565,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -585,6 +630,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AccessibilityCheckEntryContentForm content() {
       return new AccessibilityCheckEntryContentForm(doc, path + "/content");
     }
@@ -618,6 +666,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -650,6 +701,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AccessibilityStandardEntryContentForm content() {
       return new AccessibilityStandardEntryContentForm(doc, path + "/content");
     }
@@ -689,6 +743,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -717,6 +774,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -744,6 +804,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -772,6 +835,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -799,6 +865,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -818,6 +887,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ActionParameterEntryContentForm content() {
       return new ActionParameterEntryContentForm(doc, path + "/content");
     }
@@ -829,6 +901,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ActorCharacteristicsContentForm content() {
       return new ActorCharacteristicsContentForm(doc, path + "/content");
     }
@@ -857,6 +932,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -903,6 +981,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ActorGoalsContentForm content() {
       return new ActorGoalsContentForm(doc, path + "/content");
     }
@@ -922,6 +1003,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -953,6 +1037,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ActorPermissionsContentForm content() {
       return new ActorPermissionsContentForm(doc, path + "/content");
     }
@@ -969,6 +1056,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -996,6 +1086,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AdminInterfaceRequirementsContentForm content() {
       return new AdminInterfaceRequirementsContentForm(doc, path + "/content");
     }
@@ -1027,6 +1120,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1078,6 +1174,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AdministrativeEventPolicyContentForm content() {
       return new AdministrativeEventPolicyContentForm(doc, path + "/content");
     }
@@ -1092,6 +1191,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AffectedDepartmentEntryContentForm content() {
       return new AffectedDepartmentEntryContentForm(doc, path + "/content");
     }
@@ -1105,6 +1207,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AffectedFunctionEntryContentForm content() {
       return new AffectedFunctionEntryContentForm(doc, path + "/content");
     }
@@ -1134,6 +1239,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AffectedObjectEntryContentForm content() {
       return new AffectedObjectEntryContentForm(doc, path + "/content");
     }
@@ -1162,6 +1270,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AlertDefinitionEntryContentForm content() {
       return new AlertDefinitionEntryContentForm(doc, path + "/content");
     }
@@ -1188,6 +1299,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AlertEscalationPoliciesContentForm content() {
       return new AlertEscalationPoliciesContentForm(doc, path + "/content");
     }
@@ -1214,6 +1328,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AlertNotificationChannelsContentForm content() {
       return new AlertNotificationChannelsContentForm(doc, path + "/content");
     }
@@ -1240,6 +1357,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AlertRuleEntryContentForm content() {
       return new AlertRuleEntryContentForm(doc, path + "/content");
     }
@@ -1266,6 +1386,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AlertSuppressionRulesContentForm content() {
       return new AlertSuppressionRulesContentForm(doc, path + "/content");
     }
@@ -1285,6 +1408,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1346,6 +1472,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AlertingRequirementsContentForm content() {
       return new AlertingRequirementsContentForm(doc, path + "/content");
     }
@@ -1377,6 +1506,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AlternativeFlowEntryContentForm content() {
       return new AlternativeFlowEntryContentForm(doc, path + "/content");
     }
@@ -1404,6 +1536,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AlternativeStepEntryContentForm content() {
       return new AlternativeStepEntryContentForm(doc, path + "/content");
     }
@@ -1440,6 +1575,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AnomalyDetectionPolicyContentForm content() {
       return new AnomalyDetectionPolicyContentForm(doc, path + "/content");
     }
@@ -1464,6 +1602,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1491,6 +1632,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1519,6 +1663,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1538,6 +1685,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ApiCompatibilityEntryContentForm content() {
       return new ApiCompatibilityEntryContentForm(doc, path + "/content");
     }
@@ -1579,6 +1729,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1606,6 +1759,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1635,6 +1791,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1664,6 +1823,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1724,6 +1886,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1743,6 +1908,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ApiVersioningStrategyContentForm content() {
       return new ApiVersioningStrategyContentForm(doc, path + "/content");
     }
@@ -1769,6 +1937,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ApplicableRegulationEntryContentForm content() {
       return new ApplicableRegulationEntryContentForm(doc, path + "/content");
     }
@@ -1785,6 +1956,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ApplicationDiagnosticsContentForm content() {
       return new ApplicationDiagnosticsContentForm(doc, path + "/content");
     }
@@ -1811,6 +1985,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ApplicationMetricsSpecContentForm content() {
       return new ApplicationMetricsSpecContentForm(doc, path + "/content");
     }
@@ -1837,6 +2014,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ApplicationPerformanceMonitoringContentForm content() {
       return new ApplicationPerformanceMonitoringContentForm(doc, path + "/content");
     }
@@ -1868,6 +2048,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ApplicationSecurityRequirementsContentForm content() {
       return new ApplicationSecurityRequirementsContentForm(doc, path + "/content");
     }
@@ -1894,6 +2077,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ApprovalRecordContentForm content() {
       return new ApprovalRecordContentForm(doc, path + "/content");
     }
@@ -1905,6 +2091,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ArchitectureComponentEntryContentForm content() {
       return new ArchitectureComponentEntryContentForm(doc, path + "/content");
     }
@@ -1941,6 +2130,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ArchitectureDecisionRecordContentForm content() {
       return new ArchitectureDecisionRecordContentForm(doc, path + "/content");
     }
@@ -1972,6 +2164,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ArchitectureOverviewContentForm content() {
       return new ArchitectureOverviewContentForm(doc, path + "/content");
     }
@@ -2003,6 +2198,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ArchitecturePrincipleEntryContentForm content() {
       return new ArchitecturePrincipleEntryContentForm(doc, path + "/content");
     }
@@ -2034,6 +2232,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2105,6 +2306,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2140,6 +2344,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AssumptionRegisterEntryContentForm content() {
       return new AssumptionRegisterEntryContentForm(doc, path + "/content");
     }
@@ -2156,6 +2363,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2194,6 +2404,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2220,6 +2433,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AuditEntryContentForm content() {
       return new AuditEntryContentForm(doc, path + "/content");
     }
@@ -2231,6 +2447,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AuditEvidenceRequirementsContentForm content() {
       return new AuditEvidenceRequirementsContentForm(doc, path + "/content");
     }
@@ -2247,6 +2466,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AuditEvidenceTypeEntryContentForm content() {
       return new AuditEvidenceTypeEntryContentForm(doc, path + "/content");
     }
@@ -2266,6 +2488,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2312,6 +2537,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2343,6 +2571,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2387,6 +2618,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2408,6 +2642,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AuthenticationEventPolicyContentForm content() {
       return new AuthenticationEventPolicyContentForm(doc, path + "/content");
     }
@@ -2432,6 +2669,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2492,6 +2732,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AuthenticationMethodEntryContentForm content() {
       return new AuthenticationMethodEntryContentForm(doc, path + "/content");
     }
@@ -2533,6 +2776,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2595,6 +2841,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2616,6 +2865,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AuthorizationEventPolicyContentForm content() {
       return new AuthorizationEventPolicyContentForm(doc, path + "/content");
     }
@@ -2630,6 +2882,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AuthorizationGroupEntryContentForm content() {
       return new AuthorizationGroupEntryContentForm(doc, path + "/content");
     }
@@ -2656,6 +2911,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2705,6 +2963,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AuthorizationRequirementSpecContentForm content() {
       return new AuthorizationRequirementSpecContentForm(doc, path + "/content");
     }
@@ -2750,6 +3011,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AuthorizationRoleEntryContentForm content() {
       return new AuthorizationRoleEntryContentForm(doc, path + "/content");
     }
@@ -2811,6 +3075,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public AvailabilityContentForm content() {
       return new AvailabilityContentForm(doc, path + "/content");
     }
@@ -2853,6 +3120,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2912,6 +3182,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BackupComplianceContentForm content() {
       return new BackupComplianceContentForm(doc, path + "/content");
     }
@@ -2938,6 +3211,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BackupDataClassificationContentForm content() {
       return new BackupDataClassificationContentForm(doc, path + "/content");
     }
@@ -2968,6 +3244,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2987,6 +3266,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BackupInfrastructureContentForm content() {
       return new BackupInfrastructureContentForm(doc, path + "/content");
     }
@@ -3018,6 +3300,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BackupPolicyEntryContentForm content() {
       return new BackupPolicyEntryContentForm(doc, path + "/content");
     }
@@ -3049,6 +3334,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BackupVerificationContentForm content() {
       return new BackupVerificationContentForm(doc, path + "/content");
     }
@@ -3075,6 +3363,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BackwardsCompatibilityRequirementsContentForm content() {
       return new BackwardsCompatibilityRequirementsContentForm(doc, path + "/content");
     }
@@ -3106,6 +3397,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BandwidthRequirementsContentForm content() {
       return new BandwidthRequirementsContentForm(doc, path + "/content");
     }
@@ -3142,6 +3436,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3184,6 +3481,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BatchJobManagementContentForm content() {
       return new BatchJobManagementContentForm(doc, path + "/content");
     }
@@ -3249,6 +3549,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BehaviorRuleEntryContentForm content() {
       return new BehaviorRuleEntryContentForm(doc, path + "/content");
     }
@@ -3269,6 +3572,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3288,6 +3594,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BoundaryAssumptionEntryContentForm content() {
       return new BoundaryAssumptionEntryContentForm(doc, path + "/content");
     }
@@ -3319,6 +3628,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3352,6 +3664,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3373,6 +3688,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BoundedContextEntryContentForm content() {
       return new BoundedContextEntryContentForm(doc, path + "/content");
     }
@@ -3411,6 +3729,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3440,6 +3761,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BreakpointEntryContentForm content() {
       return new BreakpointEntryContentForm(doc, path + "/content");
     }
@@ -3461,6 +3785,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BrowserCompatibilityEntryContentForm content() {
       return new BrowserCompatibilityEntryContentForm(doc, path + "/content");
     }
@@ -3492,6 +3819,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BrowserRequirementEntryContentForm content() {
       return new BrowserRequirementEntryContentForm(doc, path + "/content");
     }
@@ -3523,6 +3853,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BuildToolchainEntryContentForm content() {
       return new BuildToolchainEntryContentForm(doc, path + "/content");
     }
@@ -3564,6 +3897,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BuildToolsConfigurationContentForm content() {
       return new BuildToolsConfigurationContentForm(doc, path + "/content");
     }
@@ -3595,6 +3931,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BusinessComponentEntryContentForm content() {
       return new BusinessComponentEntryContentForm(doc, path + "/content");
     }
@@ -3641,6 +3980,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3695,6 +4037,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BusinessGoalEntryContentForm content() {
       return new BusinessGoalEntryContentForm(doc, path + "/content");
     }
@@ -3768,6 +4113,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3789,6 +4137,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BusinessMetricsSpecContentForm content() {
       return new BusinessMetricsSpecContentForm(doc, path + "/content");
     }
@@ -3823,6 +4174,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BusinessObjectAttributeEntryContentForm content() {
       return new BusinessObjectAttributeEntryContentForm(doc, path + "/content");
     }
@@ -3858,6 +4212,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3988,6 +4345,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4020,6 +4380,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4055,6 +4418,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4128,6 +4494,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4199,6 +4568,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4311,6 +4683,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public BusinessRuleReferenceEntryContentForm content() {
       return new BusinessRuleReferenceEntryContentForm(doc, path + "/content");
     }
@@ -4344,6 +4719,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4393,6 +4771,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CapacityReviewProcessContentForm content() {
       return new CapacityReviewProcessContentForm(doc, path + "/content");
     }
@@ -4419,6 +4800,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CcbMemberEntryContentForm content() {
       return new CcbMemberEntryContentForm(doc, path + "/content");
     }
@@ -4438,6 +4822,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4457,6 +4844,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CertificateManagementContentForm content() {
       return new CertificateManagementContentForm(doc, path + "/content");
     }
@@ -4497,6 +4887,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4516,6 +4909,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CertificationEntryContentForm content() {
       return new CertificationEntryContentForm(doc, path + "/content");
     }
@@ -4552,6 +4948,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CertificationRequirementsSectionContentForm content() {
       return new CertificationRequirementsSectionContentForm(doc, path + "/content");
     }
@@ -4585,6 +4984,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ChangeCategoryEntryContentForm content() {
       return new ChangeCategoryEntryContentForm(doc, path + "/content");
     }
@@ -4613,6 +5015,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ChangeControlBoardContentForm content() {
       return new ChangeControlBoardContentForm(doc, path + "/content");
     }
@@ -4652,6 +5057,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4680,6 +5088,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ChangeImpactCriterionEntryContentForm content() {
       return new ChangeImpactCriterionEntryContentForm(doc, path + "/content");
     }
@@ -4711,6 +5122,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ChangeNotificationRulesContentForm content() {
       return new ChangeNotificationRulesContentForm(doc, path + "/content");
     }
@@ -4731,6 +5145,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4775,6 +5192,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ChangeProcessContentForm content() {
       return new ChangeProcessContentForm(doc, path + "/content");
     }
@@ -4814,6 +5234,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4840,6 +5263,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ChangeRoleEntryContentForm content() {
       return new ChangeRoleEntryContentForm(doc, path + "/content");
     }
@@ -4853,6 +5279,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ChangeStepEntryContentForm content() {
       return new ChangeStepEntryContentForm(doc, path + "/content");
     }
@@ -4892,6 +5321,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4936,6 +5368,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4982,6 +5417,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ChangedRoleIdentificationContentForm content() {
       return new ChangedRoleIdentificationContentForm(doc, path + "/content");
     }
@@ -5008,6 +5446,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -5044,6 +5485,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ChangedRoleTransitionContentForm content() {
       return new ChangedRoleTransitionContentForm(doc, path + "/content");
     }
@@ -5074,6 +5518,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -5143,6 +5590,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CiCdPipelineConfigurationContentForm content() {
       return new CiCdPipelineConfigurationContentForm(doc, path + "/content");
     }
@@ -5169,6 +5619,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CiCdPipelineRequirementsContentForm content() {
       return new CiCdPipelineRequirementsContentForm(doc, path + "/content");
     }
@@ -5200,6 +5653,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ClientAccessibilityRequirementsContentForm content() {
       return new ClientAccessibilityRequirementsContentForm(doc, path + "/content");
     }
@@ -5253,6 +5709,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ClientApplicationEntryContentForm content() {
       return new ClientApplicationEntryContentForm(doc, path + "/content");
     }
@@ -5275,6 +5734,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -5301,6 +5763,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ClientConfigurationSettingEntryContentForm content() {
       return new ClientConfigurationSettingEntryContentForm(doc, path + "/content");
     }
@@ -5312,6 +5777,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ClientHardwareRequirementsContentForm content() {
       return new ClientHardwareRequirementsContentForm(doc, path + "/content");
     }
@@ -5343,6 +5811,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ClientNetworkRequirementsContentForm content() {
       return new ClientNetworkRequirementsContentForm(doc, path + "/content");
     }
@@ -5392,6 +5863,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -5481,6 +5955,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ClientSecurityRequirementsContentForm content() {
       return new ClientSecurityRequirementsContentForm(doc, path + "/content");
     }
@@ -5512,6 +5989,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CloudProviderRequirementsContentForm content() {
       return new CloudProviderRequirementsContentForm(doc, path + "/content");
     }
@@ -5543,6 +6023,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CloudServiceIntegrationsContentForm content() {
       return new CloudServiceIntegrationsContentForm(doc, path + "/content");
     }
@@ -5569,6 +6052,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CodeQualityMetricsContentForm content() {
       return new CodeQualityMetricsContentForm(doc, path + "/content");
     }
@@ -5605,6 +6091,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CodeReviewProcessContentForm content() {
       return new CodeReviewProcessContentForm(doc, path + "/content");
     }
@@ -5636,6 +6125,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CodingStandardEntryContentForm content() {
       return new CodingStandardEntryContentForm(doc, path + "/content");
     }
@@ -5667,6 +6159,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CodingStandardsSectionContentForm content() {
       return new CodingStandardsSectionContentForm(doc, path + "/content");
     }
@@ -5703,6 +6198,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ColorPaletteEntryContentForm content() {
       return new ColorPaletteEntryContentForm(doc, path + "/content");
     }
@@ -5722,6 +6220,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -5741,6 +6242,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CommitteeCharterContentForm content() {
       return new CommitteeCharterContentForm(doc, path + "/content");
     }
@@ -5754,6 +6258,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CommitteeMemberEntryContentForm content() {
       return new CommitteeMemberEntryContentForm(doc, path + "/content");
     }
@@ -5770,6 +6277,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CommitteeResponsibilityEntryContentForm content() {
       return new CommitteeResponsibilityEntryContentForm(doc, path + "/content");
     }
@@ -5787,6 +6297,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CommunicationChannelEncryptionEntryContentForm content() {
       return new CommunicationChannelEncryptionEntryContentForm(doc, path + "/content");
     }
@@ -5798,6 +6311,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CommunicationEventEntryContentForm content() {
       return new CommunicationEventEntryContentForm(doc, path + "/content");
     }
@@ -5819,6 +6335,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CommunicationMatrixContentForm content() {
       return new CommunicationMatrixContentForm(doc, path + "/content");
     }
@@ -5845,6 +6364,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CommunicationPatternsContentForm content() {
       return new CommunicationPatternsContentForm(doc, path + "/content");
     }
@@ -5886,6 +6408,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -5912,6 +6437,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CommunicationToolsRequirementsContentForm content() {
       return new CommunicationToolsRequirementsContentForm(doc, path + "/content");
     }
@@ -5923,6 +6451,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CommunicationTypeEntryContentForm content() {
       return new CommunicationTypeEntryContentForm(doc, path + "/content");
     }
@@ -5944,6 +6475,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -5984,6 +6518,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -6058,6 +6595,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CompetencyEntryContentForm content() {
       return new CompetencyEntryContentForm(doc, path + "/content");
     }
@@ -6074,6 +6614,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -6110,6 +6653,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CompetencyLevelChangeEntryContentForm content() {
       return new CompetencyLevelChangeEntryContentForm(doc, path + "/content");
     }
@@ -6121,6 +6667,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComplianceAuditScheduleContentForm content() {
       return new ComplianceAuditScheduleContentForm(doc, path + "/content");
     }
@@ -6156,6 +6705,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -6172,6 +6724,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComplianceMilestoneEntryContentForm content() {
       return new ComplianceMilestoneEntryContentForm(doc, path + "/content");
     }
@@ -6199,6 +6754,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -6238,6 +6796,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComplianceRequirementEntryContentForm content() {
       return new ComplianceRequirementEntryContentForm(doc, path + "/content");
     }
@@ -6249,6 +6810,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComplianceVerificationSectionContentForm content() {
       return new ComplianceVerificationSectionContentForm(doc, path + "/content");
     }
@@ -6287,6 +6851,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentActionEntryContentForm content() {
       return new ComponentActionEntryContentForm(doc, path + "/content");
     }
@@ -6308,6 +6875,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentDocsContentForm content() {
       return new ComponentDocsContentForm(doc, path + "/content");
     }
@@ -6323,6 +6893,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentEntryContentForm content() {
       return new ComponentEntryContentForm(doc, path + "/content");
     }
@@ -6399,6 +6972,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentFamilyEntryContentForm content() {
       return new ComponentFamilyEntryContentForm(doc, path + "/content");
     }
@@ -6418,6 +6994,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentGovernanceContentForm content() {
       return new ComponentGovernanceContentForm(doc, path + "/content");
     }
@@ -6452,6 +7031,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentInterfaceEntryContentForm content() {
       return new ComponentInterfaceEntryContentForm(doc, path + "/content");
     }
@@ -6495,6 +7077,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -6563,6 +7148,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentLicensingEntryContentForm content() {
       return new ComponentLicensingEntryContentForm(doc, path + "/content");
     }
@@ -6599,6 +7187,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentOrganizationContentForm content() {
       return new ComponentOrganizationContentForm(doc, path + "/content");
     }
@@ -6632,6 +7223,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentPropertyEntryContentForm content() {
       return new ComponentPropertyEntryContentForm(doc, path + "/content");
     }
@@ -6643,6 +7237,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentRegistryContentForm content() {
       return new ComponentRegistryContentForm(doc, path + "/content");
     }
@@ -6677,6 +7274,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentResponsibilitiesEntryContentForm content() {
       return new ComponentResponsibilitiesEntryContentForm(doc, path + "/content");
     }
@@ -6716,6 +7316,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -6745,6 +7348,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentRiskEntryContentForm content() {
       return new ComponentRiskEntryContentForm(doc, path + "/content");
     }
@@ -6783,6 +7389,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentSlotEntryContentForm content() {
       return new ComponentSlotEntryContentForm(doc, path + "/content");
     }
@@ -6796,6 +7405,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentStateEntryContentForm content() {
       return new ComponentStateEntryContentForm(doc, path + "/content");
     }
@@ -6829,6 +7441,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentStrategyContentForm content() {
       return new ComponentStrategyContentForm(doc, path + "/content");
     }
@@ -6877,6 +7492,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComponentVariantEntryContentForm content() {
       return new ComponentVariantEntryContentForm(doc, path + "/content");
     }
@@ -6911,6 +7529,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -6955,6 +7576,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComputeResourceRequirementsContentForm content() {
       return new ComputeResourceRequirementsContentForm(doc, path + "/content");
     }
@@ -6981,6 +7605,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ComputingEquipmentEntryContentForm content() {
       return new ComputingEquipmentEntryContentForm(doc, path + "/content");
     }
@@ -7016,6 +7643,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7035,6 +7665,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ConfidentialInfoCategoryEntryContentForm content() {
       return new ConfidentialInfoCategoryEntryContentForm(doc, path + "/content");
     }
@@ -7048,6 +7681,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ConfidentialityRequirementsContentForm content() {
       return new ConfidentialityRequirementsContentForm(doc, path + "/content");
     }
@@ -7069,6 +7705,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ConfigurationManagementContentForm content() {
       return new ConfigurationManagementContentForm(doc, path + "/content");
     }
@@ -7100,6 +7739,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ConnectivityResilienceContentForm content() {
       return new ConnectivityResilienceContentForm(doc, path + "/content");
     }
@@ -7126,6 +7768,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ConsentManagementRequirementsContentForm content() {
       return new ConsentManagementRequirementsContentForm(doc, path + "/content");
     }
@@ -7165,6 +7810,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ConstraintRegisterEntryContentForm content() {
       return new ConstraintRegisterEntryContentForm(doc, path + "/content");
     }
@@ -7185,6 +7833,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7212,6 +7863,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7253,6 +7907,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7313,6 +7970,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7343,6 +8003,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ContingencyPlanEntryContentForm content() {
       return new ContingencyPlanEntryContentForm(doc, path + "/content");
     }
@@ -7386,6 +8049,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7407,6 +8073,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CorrectnessContentForm content() {
       return new CorrectnessContentForm(doc, path + "/content");
     }
@@ -7444,6 +8113,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7471,6 +8143,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7498,6 +8173,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7523,6 +8201,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7539,6 +8220,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CrossCuttingConcernsContentForm content() {
       return new CrossCuttingConcernsContentForm(doc, path + "/content");
     }
@@ -7583,6 +8267,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7609,6 +8296,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7636,6 +8326,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7685,6 +8378,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CurrentBusinessProcessContentForm content() {
       return new CurrentBusinessProcessContentForm(doc, path + "/content");
     }
@@ -7726,6 +8422,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7780,6 +8479,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7820,6 +8522,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7919,6 +8624,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7974,6 +8682,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7990,6 +8701,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CurrentProcessImprovementEntryContentForm content() {
       return new CurrentProcessImprovementEntryContentForm(doc, path + "/content");
     }
@@ -8009,6 +8723,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -8028,6 +8745,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CurrentWorkflowEntryContentForm content() {
       return new CurrentWorkflowEntryContentForm(doc, path + "/content");
     }
@@ -8094,6 +8814,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CustomDistributionGroupContentForm content() {
       return new CustomDistributionGroupContentForm(doc, path + "/content");
     }
@@ -8110,6 +8833,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public CustomMetricEntryContentForm content() {
       return new CustomMetricEntryContentForm(doc, path + "/content");
     }
@@ -8129,6 +8855,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -8193,6 +8922,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -8328,6 +9060,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -8438,6 +9173,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -8559,6 +9297,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -8740,6 +9481,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -8854,6 +9598,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -8960,6 +9707,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -9090,6 +9840,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -9211,6 +9964,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -9334,6 +10090,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -9470,6 +10229,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -9636,6 +10398,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -9752,6 +10517,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -9893,6 +10661,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10096,6 +10867,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DashboardEntryContentForm content() {
       return new DashboardEntryContentForm(doc, path + "/content");
     }
@@ -10117,6 +10891,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DashboardRequirementsContentForm content() {
       return new DashboardRequirementsContentForm(doc, path + "/content");
     }
@@ -10148,6 +10925,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DashboardTemplatesContentForm content() {
       return new DashboardTemplatesContentForm(doc, path + "/content");
     }
@@ -10167,6 +10947,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10188,6 +10971,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataAccessEventPolicyContentForm content() {
       return new DataAccessEventPolicyContentForm(doc, path + "/content");
     }
@@ -10202,6 +10988,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataArchitectureContentForm content() {
       return new DataArchitectureContentForm(doc, path + "/content");
     }
@@ -10238,6 +11027,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataAttributeConstraintEntryContentForm content() {
       return new DataAttributeConstraintEntryContentForm(doc, path + "/content");
     }
@@ -10256,6 +11048,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10455,6 +11250,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10496,6 +11294,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10592,6 +11393,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataClassificationLevelEntryContentForm content() {
       return new DataClassificationLevelEntryContentForm(doc, path + "/content");
     }
@@ -10603,6 +11407,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataClassificationStatusEntryContentForm content() {
       return new DataClassificationStatusEntryContentForm(doc, path + "/content");
     }
@@ -10622,6 +11429,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10646,6 +11456,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10682,6 +11495,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataDuplicationEntryContentForm content() {
       return new DataDuplicationEntryContentForm(doc, path + "/content");
     }
@@ -10732,6 +11548,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10824,6 +11643,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataEntityMigrationEntryContentForm content() {
       return new DataEntityMigrationEntryContentForm(doc, path + "/content");
     }
@@ -10835,6 +11657,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataEntityReferenceEntryContentForm content() {
       return new DataEntityReferenceEntryContentForm(doc, path + "/content");
     }
@@ -10867,6 +11692,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataFormatCompatibilityContentForm content() {
       return new DataFormatCompatibilityContentForm(doc, path + "/content");
     }
@@ -10905,6 +11733,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10941,6 +11772,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataGovernancePolicyEntryContentForm content() {
       return new DataGovernancePolicyEntryContentForm(doc, path + "/content");
     }
@@ -10962,6 +11796,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataGrowthProjectionsContentForm content() {
       return new DataGrowthProjectionsContentForm(doc, path + "/content");
     }
@@ -10993,6 +11830,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataIntegrationEntryContentForm content() {
       return new DataIntegrationEntryContentForm(doc, path + "/content");
     }
@@ -11032,6 +11872,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11078,6 +11921,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11136,6 +11982,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11161,6 +12010,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataMigrationStrategyContentForm content() {
       return new DataMigrationStrategyContentForm(doc, path + "/content");
     }
@@ -11255,6 +12107,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11319,6 +12174,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11351,6 +12209,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11387,6 +12248,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataOwnershipEntryContentForm content() {
       return new DataOwnershipEntryContentForm(doc, path + "/content");
     }
@@ -11408,6 +12272,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataProcessingAgreementRequirementsContentForm content() {
       return new DataProcessingAgreementRequirementsContentForm(doc, path + "/content");
     }
@@ -11449,6 +12316,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11506,6 +12376,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataProtectionClassificationContentForm content() {
       return new DataProtectionClassificationContentForm(doc, path + "/content");
     }
@@ -11545,6 +12418,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11586,6 +12462,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataQualityInitiativeEntryContentForm content() {
       return new DataQualityInitiativeEntryContentForm(doc, path + "/content");
     }
@@ -11597,6 +12476,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataQualityIssueEntryContentForm content() {
       return new DataQualityIssueEntryContentForm(doc, path + "/content");
     }
@@ -11623,6 +12505,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataResidencyRequirementsContentForm content() {
       return new DataResidencyRequirementsContentForm(doc, path + "/content");
     }
@@ -11657,6 +12542,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11683,6 +12571,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataSourceEntityEntryContentForm content() {
       return new DataSourceEntityEntryContentForm(doc, path + "/content");
     }
@@ -11697,6 +12588,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataSourceEntryContentForm content() {
       return new DataSourceEntryContentForm(doc, path + "/content");
     }
@@ -11761,6 +12655,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11795,6 +12692,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataSubjectRightsManagementContentForm content() {
       return new DataSubjectRightsManagementContentForm(doc, path + "/content");
     }
@@ -11836,6 +12736,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataVolumeEntryContentForm content() {
       return new DataVolumeEntryContentForm(doc, path + "/content");
     }
@@ -11847,6 +12750,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DataVolumeSummaryContentForm content() {
       return new DataVolumeSummaryContentForm(doc, path + "/content");
     }
@@ -11881,6 +12787,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11926,6 +12835,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11945,6 +12857,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DatabaseCompatibilityEntryContentForm content() {
       return new DatabaseCompatibilityEntryContentForm(doc, path + "/content");
     }
@@ -11985,6 +12900,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12004,6 +12922,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DebuggingConfigurationContentForm content() {
       return new DebuggingConfigurationContentForm(doc, path + "/content");
     }
@@ -12040,6 +12961,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DecisionAuthorityEntryContentForm content() {
       return new DecisionAuthorityEntryContentForm(doc, path + "/content");
     }
@@ -12051,6 +12975,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DecisionMakerEntryContentForm content() {
       return new DecisionMakerEntryContentForm(doc, path + "/content");
     }
@@ -12065,6 +12992,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DecisionOptionEntryContentForm content() {
       return new DecisionOptionEntryContentForm(doc, path + "/content");
     }
@@ -12100,6 +13030,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DecisionPointEntryContentForm content() {
       return new DecisionPointEntryContentForm(doc, path + "/content");
     }
@@ -12131,6 +13064,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DecisionPointEntryResolutionContentForm content() {
       return new DecisionPointEntryResolutionContentForm(doc, path + "/content");
     }
@@ -12155,6 +13091,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DecisionPointsContentForm content() {
       return new DecisionPointsContentForm(doc, path + "/content");
     }
@@ -12174,6 +13113,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeepLinkPatternEntryContentForm content() {
       return new DeepLinkPatternEntryContentForm(doc, path + "/content");
     }
@@ -12201,6 +13143,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12229,6 +13174,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DefectResolutionContentForm content() {
       return new DefectResolutionContentForm(doc, path + "/content");
     }
@@ -12263,6 +13211,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeferredScopeItemEntryContentForm content() {
       return new DeferredScopeItemEntryContentForm(doc, path + "/content");
     }
@@ -12274,6 +13225,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeliverableDependenciesContentForm content() {
       return new DeliverableDependenciesContentForm(doc, path + "/content");
     }
@@ -12289,6 +13243,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeliverableEntryContentForm content() {
       return new DeliverableEntryContentForm(doc, path + "/content");
     }
@@ -12344,6 +13301,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeliveryAcceptanceCriterionEntryContentForm content() {
       return new DeliveryAcceptanceCriterionEntryContentForm(doc, path + "/content");
     }
@@ -12385,6 +13345,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12426,6 +13389,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12457,6 +13423,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12504,6 +13473,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12555,6 +13527,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DependencyHealthMonitoringContentForm content() {
       return new DependencyHealthMonitoringContentForm(doc, path + "/content");
     }
@@ -12586,6 +13561,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DependencyInjectionStructureContentForm content() {
       return new DependencyInjectionStructureContentForm(doc, path + "/content");
     }
@@ -12617,6 +13595,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DependencyManagementContentForm content() {
       return new DependencyManagementContentForm(doc, path + "/content");
     }
@@ -12654,6 +13635,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DependencyRegisterEntryContentForm content() {
       return new DependencyRegisterEntryContentForm(doc, path + "/content");
     }
@@ -12665,6 +13649,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DependencyScanningRequirementsContentForm content() {
       return new DependencyScanningRequirementsContentForm(doc, path + "/content");
     }
@@ -12704,6 +13691,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12725,6 +13715,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeploymentEnvironmentEntryContentForm content() {
       return new DeploymentEnvironmentEntryContentForm(doc, path + "/content");
     }
@@ -12756,6 +13749,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeploymentModelRequirementsContentForm content() {
       return new DeploymentModelRequirementsContentForm(doc, path + "/content");
     }
@@ -12787,6 +13783,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeploymentSecurityContentForm content() {
       return new DeploymentSecurityContentForm(doc, path + "/content");
     }
@@ -12821,6 +13820,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12880,6 +13882,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeploymentTargetEntryContentForm content() {
       return new DeploymentTargetEntryContentForm(doc, path + "/content");
     }
@@ -12916,6 +13921,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeploymentTopologyContentForm content() {
       return new DeploymentTopologyContentForm(doc, path + "/content");
     }
@@ -12952,6 +13960,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DesignFoundationEntryContentForm content() {
       return new DesignFoundationEntryContentForm(doc, path + "/content");
     }
@@ -12965,6 +13976,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DesignGoalEntryContentForm content() {
       return new DesignGoalEntryContentForm(doc, path + "/content");
     }
@@ -12984,6 +13998,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13008,6 +14025,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DesignPatternEntryContentForm content() {
       return new DesignPatternEntryContentForm(doc, path + "/content");
     }
@@ -13052,6 +14072,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13113,6 +14136,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DesignPrincipleEntryContentForm content() {
       return new DesignPrincipleEntryContentForm(doc, path + "/content");
     }
@@ -13132,6 +14158,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13164,6 +14193,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13195,6 +14227,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DesktopOsRequirementEntryContentForm content() {
       return new DesktopOsRequirementEntryContentForm(doc, path + "/content");
     }
@@ -13234,6 +14269,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13250,6 +14288,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeveloperOnboardingContentForm content() {
       return new DeveloperOnboardingContentForm(doc, path + "/content");
     }
@@ -13287,6 +14328,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DevelopmentConventionEntryContentForm content() {
       return new DevelopmentConventionEntryContentForm(doc, path + "/content");
     }
@@ -13331,6 +14375,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13400,6 +14447,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DevelopmentQualityGatesContentForm content() {
       return new DevelopmentQualityGatesContentForm(doc, path + "/content");
     }
@@ -13445,6 +14495,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DeviceSettingEntryContentForm content() {
       return new DeviceSettingEntryContentForm(doc, path + "/content");
     }
@@ -13469,6 +14522,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13490,6 +14546,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DisasterRecoveryRequirementsContentForm content() {
       return new DisasterRecoveryRequirementsContentForm(doc, path + "/content");
     }
@@ -13521,6 +14580,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DisplayEquipmentEntryContentForm content() {
       return new DisplayEquipmentEntryContentForm(doc, path + "/content");
     }
@@ -13547,6 +14609,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DisplayPropertyEntryContentForm content() {
       return new DisplayPropertyEntryContentForm(doc, path + "/content");
     }
@@ -13558,6 +14623,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DisplayRequirementsContentForm content() {
       return new DisplayRequirementsContentForm(doc, path + "/content");
     }
@@ -13589,6 +14657,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DistributedTracingSpecContentForm content() {
       return new DistributedTracingSpecContentForm(doc, path + "/content");
     }
@@ -13615,6 +14686,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DistributionGroupSummaryContentForm content() {
       return new DistributionGroupSummaryContentForm(doc, path + "/content");
     }
@@ -13635,6 +14709,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13674,6 +14751,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DistributionRecipientEntryContentForm content() {
       return new DistributionRecipientEntryContentForm(doc, path + "/content");
     }
@@ -13710,6 +14790,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DistributionRecipientPreferencesContentForm content() {
       return new DistributionRecipientPreferencesContentForm(doc, path + "/content");
     }
@@ -13721,6 +14804,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DnsRequirementsContentForm content() {
       return new DnsRequirementsContentForm(doc, path + "/content");
     }
@@ -13752,6 +14838,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DocChangeabilityContentForm content() {
       return new DocChangeabilityContentForm(doc, path + "/content");
     }
@@ -13781,6 +14870,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DocCompletenessContentForm content() {
       return new DocCompletenessContentForm(doc, path + "/content");
     }
@@ -13795,6 +14887,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DocCorrectnessContentForm content() {
       return new DocCorrectnessContentForm(doc, path + "/content");
     }
@@ -13828,6 +14923,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13872,6 +14970,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DocumentHeaderContentForm content() {
       return new DocumentHeaderContentForm(doc, path + "/content");
     }
@@ -13888,6 +14989,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13909,6 +15013,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DocumentRelevantSectionsContentForm content() {
       return new DocumentRelevantSectionsContentForm(doc, path + "/content");
     }
@@ -13930,6 +15037,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13964,6 +15074,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14017,6 +15130,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DocumentationStandardsContentForm content() {
       return new DocumentationStandardsContentForm(doc, path + "/content");
     }
@@ -14053,6 +15169,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DocumentationStandardsSectionContentForm content() {
       return new DocumentationStandardsSectionContentForm(doc, path + "/content");
     }
@@ -14092,6 +15211,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14143,6 +15265,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DomainBusinessRuleEntryContentForm content() {
       return new DomainBusinessRuleEntryContentForm(doc, path + "/content");
     }
@@ -14172,6 +15297,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14199,6 +15327,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DomainEnumEntryContentForm content() {
       return new DomainEnumEntryContentForm(doc, path + "/content");
     }
@@ -14240,6 +15371,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14268,6 +15402,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DomainEnumValueEntryContentForm content() {
       return new DomainEnumValueEntryContentForm(doc, path + "/content");
     }
@@ -14279,6 +15416,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DomainEventEntryContentForm content() {
       return new DomainEventEntryContentForm(doc, path + "/content");
     }
@@ -14298,6 +15438,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14319,6 +15462,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DomainInterfaceEntryContentForm content() {
       return new DomainInterfaceEntryContentForm(doc, path + "/content");
     }
@@ -14338,6 +15484,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14359,6 +15508,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DomainProcessEntryContentForm content() {
       return new DomainProcessEntryContentForm(doc, path + "/content");
     }
@@ -14391,6 +15543,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14422,6 +15577,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public DomainTermEntryContentForm content() {
       return new DomainTermEntryContentForm(doc, path + "/content");
     }
@@ -14441,6 +15599,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14462,6 +15623,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EfficiencyContentForm content() {
       return new EfficiencyContentForm(doc, path + "/content");
     }
@@ -14491,6 +15655,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ElementValidationRuleEntryContentForm content() {
       return new ElementValidationRuleEntryContentForm(doc, path + "/content");
     }
@@ -14502,6 +15669,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EmergencyMaintenanceProceduresContentForm content() {
       return new EmergencyMaintenanceProceduresContentForm(doc, path + "/content");
     }
@@ -14533,6 +15703,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EncryptedDataCategoryEntryContentForm content() {
       return new EncryptedDataCategoryEntryContentForm(doc, path + "/content");
     }
@@ -14555,6 +15728,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14608,6 +15784,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14637,6 +15816,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14689,6 +15871,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14705,6 +15890,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EnterpriseSystemCompatibilityEntryContentForm content() {
       return new EnterpriseSystemCompatibilityEntryContentForm(doc, path + "/content");
     }
@@ -14736,6 +15924,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EntitlementEntryContentForm content() {
       return new EntitlementEntryContentForm(doc, path + "/content");
     }
@@ -14752,6 +15943,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EntitlementReferenceEntryContentForm content() {
       return new EntitlementReferenceEntryContentForm(doc, path + "/content");
     }
@@ -14765,6 +15959,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EntityConstraintEntryContentForm content() {
       return new EntityConstraintEntryContentForm(doc, path + "/content");
     }
@@ -14784,6 +15981,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14867,6 +16067,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EntityIndexEntryContentForm content() {
       return new EntityIndexEntryContentForm(doc, path + "/content");
     }
@@ -14886,6 +16089,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15022,6 +16228,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15043,6 +16252,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EntryPointEntryContentForm content() {
       return new EntryPointEntryContentForm(doc, path + "/content");
     }
@@ -15060,6 +16272,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EnvironmentEntryContentForm content() {
       return new EnvironmentEntryContentForm(doc, path + "/content");
     }
@@ -15131,6 +16346,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EnvironmentManagementContentForm content() {
       return new EnvironmentManagementContentForm(doc, path + "/content");
     }
@@ -15162,6 +16380,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EnvironmentStrategyContentForm content() {
       return new EnvironmentStrategyContentForm(doc, path + "/content");
     }
@@ -15203,6 +16424,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EnvironmentsContentForm content() {
       return new EnvironmentsContentForm(doc, path + "/content");
     }
@@ -15226,6 +16450,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15277,6 +16504,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ErrorBudgetTrackingContentForm content() {
       return new ErrorBudgetTrackingContentForm(doc, path + "/content");
     }
@@ -15305,6 +16535,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ErrorCodeEntryContentForm content() {
       return new ErrorCodeEntryContentForm(doc, path + "/content");
     }
@@ -15337,6 +16570,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15367,6 +16603,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15431,6 +16670,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ErrorHandlingStandardsContentForm content() {
       return new ErrorHandlingStandardsContentForm(doc, path + "/content");
     }
@@ -15475,6 +16717,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15545,6 +16790,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15569,6 +16817,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EvaluationCriterionEntryContentForm content() {
       return new EvaluationCriterionEntryContentForm(doc, path + "/content");
     }
@@ -15598,6 +16849,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public EventAttributePolicyContentForm content() {
       return new EventAttributePolicyContentForm(doc, path + "/content");
     }
@@ -15619,6 +16873,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15648,6 +16905,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExistingSystemEntryContentForm content() {
       return new ExistingSystemEntryContentForm(doc, path + "/content");
     }
@@ -15707,6 +16967,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15738,6 +17001,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExpectedImprovementsContentForm content() {
       return new ExpectedImprovementsContentForm(doc, path + "/content");
     }
@@ -15754,6 +17020,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15809,6 +17078,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15876,6 +17148,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15939,6 +17214,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15960,6 +17238,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExportFieldMappingEntryContentForm content() {
       return new ExportFieldMappingEntryContentForm(doc, path + "/content");
     }
@@ -16032,6 +17313,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExportFormatEntryContentForm content() {
       return new ExportFormatEntryContentForm(doc, path + "/content");
     }
@@ -16095,6 +17379,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExportSizeSettingsContentForm content() {
       return new ExportSizeSettingsContentForm(doc, path + "/content");
     }
@@ -16106,6 +17393,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExportTemplateEntryContentForm content() {
       return new ExportTemplateEntryContentForm(doc, path + "/content");
     }
@@ -16144,6 +17434,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExtensionEntryContentForm content() {
       return new ExtensionEntryContentForm(doc, path + "/content");
     }
@@ -16171,6 +17464,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExtensionStepEntryContentForm content() {
       return new ExtensionStepEntryContentForm(doc, path + "/content");
     }
@@ -16203,6 +17499,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExternalActorEntryContentForm content() {
       return new ExternalActorEntryContentForm(doc, path + "/content");
     }
@@ -16237,6 +17536,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -16263,6 +17565,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -16323,6 +17628,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -16409,6 +17717,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -16439,6 +17750,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExternalNetworkRequirementsContentForm content() {
       return new ExternalNetworkRequirementsContentForm(doc, path + "/content");
     }
@@ -16470,6 +17784,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExternalPartnerConnectionEntryContentForm content() {
       return new ExternalPartnerConnectionEntryContentForm(doc, path + "/content");
     }
@@ -16511,6 +17828,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExternalPartnerOperationsContentForm content() {
       return new ExternalPartnerOperationsContentForm(doc, path + "/content");
     }
@@ -16530,6 +17850,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -16554,6 +17877,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExternalServiceDependencyEntryContentForm content() {
       return new ExternalServiceDependencyEntryContentForm(doc, path + "/content");
     }
@@ -16596,6 +17922,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ExternalSystemContextEntryContentForm content() {
       return new ExternalSystemContextEntryContentForm(doc, path + "/content");
     }
@@ -16639,6 +17968,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -16660,6 +17992,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FamilyComponentRefContentForm content() {
       return new FamilyComponentRefContentForm(doc, path + "/content");
     }
@@ -16674,6 +18009,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FeatureDependenciesContentForm content() {
       return new FeatureDependenciesContentForm(doc, path + "/content");
     }
@@ -16696,6 +18034,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FeatureDependencyEntryContentForm content() {
       return new FeatureDependencyEntryContentForm(doc, path + "/content");
     }
@@ -16707,6 +18048,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FeatureModuleEntryContentForm content() {
       return new FeatureModuleEntryContentForm(doc, path + "/content");
     }
@@ -16749,6 +18093,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FeaturePrioritizationContentForm content() {
       return new FeaturePrioritizationContentForm(doc, path + "/content");
     }
@@ -16820,6 +18167,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FeaturePriorityEntryContentForm content() {
       return new FeaturePriorityEntryContentForm(doc, path + "/content");
     }
@@ -16885,6 +18235,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FeaturePriorityRegisterContentForm content() {
       return new FeaturePriorityRegisterContentForm(doc, path + "/content");
     }
@@ -16904,6 +18257,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FeatureStageMappingContentForm content() {
       return new FeatureStageMappingContentForm(doc, path + "/content");
     }
@@ -16940,6 +18296,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FeatureStageMatrixContentForm content() {
       return new FeatureStageMatrixContentForm(doc, path + "/content");
     }
@@ -16959,6 +18318,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FeatureStakeholdersContentForm content() {
       return new FeatureStakeholdersContentForm(doc, path + "/content");
     }
@@ -16970,6 +18332,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FeatureTourEntryContentForm content() {
       return new FeatureTourEntryContentForm(doc, path + "/content");
     }
@@ -16986,6 +18351,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FieldHelpEntryContentForm content() {
       return new FieldHelpEntryContentForm(doc, path + "/content");
     }
@@ -16997,6 +18365,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FieldValidationRuleContentForm content() {
       return new FieldValidationRuleContentForm(doc, path + "/content");
     }
@@ -17017,6 +18388,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17046,6 +18420,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17104,6 +18481,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17132,6 +18512,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17161,6 +18544,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17180,6 +18566,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FirewallRequirementsContentForm content() {
       return new FirewallRequirementsContentForm(doc, path + "/content");
     }
@@ -17211,6 +18600,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FlexibilityContentForm content() {
       return new FlexibilityContentForm(doc, path + "/content");
     }
@@ -17250,6 +18642,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17294,6 +18689,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FormScreenAssignmentEntryContentForm content() {
       return new FormScreenAssignmentEntryContentForm(doc, path + "/content");
     }
@@ -17305,6 +18703,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FrameworkRequirementEntryContentForm content() {
       return new FrameworkRequirementEntryContentForm(doc, path + "/content");
     }
@@ -17353,6 +18754,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17381,6 +18785,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FunctionDataMatrixEntryContentForm content() {
       return new FunctionDataMatrixEntryContentForm(doc, path + "/content");
     }
@@ -17394,6 +18801,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FunctionEntryContentForm content() {
       return new FunctionEntryContentForm(doc, path + "/content");
     }
@@ -17432,6 +18842,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17490,6 +18903,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FunctionalCompletenessContentForm content() {
       return new FunctionalCompletenessContentForm(doc, path + "/content");
     }
@@ -17508,6 +18924,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FunctionalRequirementEntryContentForm content() {
       return new FunctionalRequirementEntryContentForm(doc, path + "/content");
     }
@@ -17594,6 +19013,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17625,6 +19047,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public FunctionalResponsibilitiesContentForm content() {
       return new FunctionalResponsibilitiesContentForm(doc, path + "/content");
     }
@@ -17653,6 +19078,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17700,6 +19128,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public GapEntryContentForm content() {
       return new GapEntryContentForm(doc, path + "/content");
     }
@@ -17731,6 +19162,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public GeographicDistributionRequirementsContentForm content() {
       return new GeographicDistributionRequirementsContentForm(doc, path + "/content");
     }
@@ -17765,6 +19199,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public GlobalRoleExclusionEntryContentForm content() {
       return new GlobalRoleExclusionEntryContentForm(doc, path + "/content");
     }
@@ -17781,6 +19218,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17802,6 +19242,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public GlossaryEntryContentForm content() {
       return new GlossaryEntryContentForm(doc, path + "/content");
     }
@@ -17820,6 +19263,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17841,6 +19287,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public GoalDependencyEntryContentForm content() {
       return new GoalDependencyEntryContentForm(doc, path + "/content");
     }
@@ -17882,6 +19331,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17903,6 +19355,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public GoalMilestoneEntryContentForm content() {
       return new GoalMilestoneEntryContentForm(doc, path + "/content");
     }
@@ -17921,6 +19376,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17949,6 +19407,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17975,6 +19436,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public GoalRiskEntryContentForm content() {
       return new GoalRiskEntryContentForm(doc, path + "/content");
     }
@@ -18003,6 +19467,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18048,6 +19515,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18089,6 +19559,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public GovernanceModelContentForm content() {
       return new GovernanceModelContentForm(doc, path + "/content");
     }
@@ -18110,6 +19583,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public GradedAccessLevelEntryContentForm content() {
       return new GradedAccessLevelEntryContentForm(doc, path + "/content");
     }
@@ -18163,6 +19639,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public GradedAuthorizationRequirementContentForm content() {
       return new GradedAuthorizationRequirementContentForm(doc, path + "/content");
     }
@@ -18181,6 +19660,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public HandlingRequirementEntryContentForm content() {
       return new HandlingRequirementEntryContentForm(doc, path + "/content");
     }
@@ -18197,6 +19679,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18228,6 +19713,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public HealthCheckEndpointsContentForm content() {
       return new HealthCheckEndpointsContentForm(doc, path + "/content");
     }
@@ -18259,6 +19747,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18303,6 +19794,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public HighAvailabilityRequirementsContentForm content() {
       return new HighAvailabilityRequirementsContentForm(doc, path + "/content");
     }
@@ -18334,6 +19828,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IdeRequirementEntryContentForm content() {
       return new IdeRequirementEntryContentForm(doc, path + "/content");
     }
@@ -18365,6 +19862,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IdentificationContentForm content() {
       return new IdentificationContentForm(doc, path + "/content");
     }
@@ -18411,6 +19911,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18440,6 +19943,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IdentityAttributeMappingEntryContentForm content() {
       return new IdentityAttributeMappingEntryContentForm(doc, path + "/content");
     }
@@ -18466,6 +19972,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IdentityProviderDetailsContentForm content() {
       return new IdentityProviderDetailsContentForm(doc, path + "/content");
     }
@@ -18477,6 +19986,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IdentityProviderEndpointsContentForm content() {
       return new IdentityProviderEndpointsContentForm(doc, path + "/content");
     }
@@ -18491,6 +20003,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IdentityProviderEntryContentForm content() {
       return new IdentityProviderEntryContentForm(doc, path + "/content");
     }
@@ -18530,6 +20045,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IdentitySourceEntryContentForm content() {
       return new IdentitySourceEntryContentForm(doc, path + "/content");
     }
@@ -18564,6 +20082,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IdentityVerificationPolicyContentForm content() {
       return new IdentityVerificationPolicyContentForm(doc, path + "/content");
     }
@@ -18603,6 +20124,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ImpactLevelDefinitionsContentForm content() {
       return new ImpactLevelDefinitionsContentForm(doc, path + "/content");
     }
@@ -18614,6 +20138,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IncidentManagementRequirementsContentForm content() {
       return new IncidentManagementRequirementsContentForm(doc, path + "/content");
     }
@@ -18645,6 +20172,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IncidentResponsePlanContentForm content() {
       return new IncidentResponsePlanContentForm(doc, path + "/content");
     }
@@ -18671,6 +20201,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IndustryProtocolComplianceEntryContentForm content() {
       return new IndustryProtocolComplianceEntryContentForm(doc, path + "/content");
     }
@@ -18702,6 +20235,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IndustryStandardEntryContentForm content() {
       return new IndustryStandardEntryContentForm(doc, path + "/content");
     }
@@ -18743,6 +20279,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18828,6 +20367,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18873,6 +20415,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18894,6 +20439,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InfrastructureAsCodeContentForm content() {
       return new InfrastructureAsCodeContentForm(doc, path + "/content");
     }
@@ -18925,6 +20473,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InfrastructureComponentEntryContentForm content() {
       return new InfrastructureComponentEntryContentForm(doc, path + "/content");
     }
@@ -18961,6 +20512,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InfrastructureMetricsSpecContentForm content() {
       return new InfrastructureMetricsSpecContentForm(doc, path + "/content");
     }
@@ -18987,6 +20541,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InfrastructureSecurityHardeningContentForm content() {
       return new InfrastructureSecurityHardeningContentForm(doc, path + "/content");
     }
@@ -19022,6 +20579,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19038,6 +20598,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InitialTrainingEntryContentForm content() {
       return new InitialTrainingEntryContentForm(doc, path + "/content");
     }
@@ -19074,6 +20637,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InputDeviceEntryContentForm content() {
       return new InputDeviceEntryContentForm(doc, path + "/content");
     }
@@ -19085,6 +20651,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InsuranceEntryContentForm content() {
       return new InsuranceEntryContentForm(doc, path + "/content");
     }
@@ -19103,6 +20672,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19129,6 +20701,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IntegrationArchitectureContentForm content() {
       return new IntegrationArchitectureContentForm(doc, path + "/content");
     }
@@ -19168,6 +20743,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IntegrationConstraintEntryContentForm content() {
       return new IntegrationConstraintEntryContentForm(doc, path + "/content");
     }
@@ -19201,6 +20779,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IntegrationHealthSummaryContentForm content() {
       return new IntegrationHealthSummaryContentForm(doc, path + "/content");
     }
@@ -19224,6 +20805,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IntegrationPointEntryContentForm content() {
       return new IntegrationPointEntryContentForm(doc, path + "/content");
     }
@@ -19243,6 +20827,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19271,6 +20858,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19289,6 +20879,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IntellectualPropertyRequirementsContentForm content() {
       return new IntellectualPropertyRequirementsContentForm(doc, path + "/content");
     }
@@ -19305,6 +20898,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InteractionBusinessRulesContentForm content() {
       return new InteractionBusinessRulesContentForm(doc, path + "/content");
     }
@@ -19326,6 +20922,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19374,6 +20973,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19408,6 +21010,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InteractionChannelEntryContentForm content() {
       return new InteractionChannelEntryContentForm(doc, path + "/content");
     }
@@ -19457,6 +21062,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19481,6 +21089,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19565,6 +21176,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InteractionPatternEntryContentForm content() {
       return new InteractionPatternEntryContentForm(doc, path + "/content");
     }
@@ -19604,6 +21218,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19633,6 +21250,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19649,6 +21269,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceBusinessContextContentForm content() {
       return new InterfaceBusinessContextContentForm(doc, path + "/content");
     }
@@ -19665,6 +21288,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceBusinessProcessEntryContentForm content() {
       return new InterfaceBusinessProcessEntryContentForm(doc, path + "/content");
     }
@@ -19676,6 +21302,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceDataEntityEntryContentForm content() {
       return new InterfaceDataEntityEntryContentForm(doc, path + "/content");
     }
@@ -19687,6 +21316,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceDataSpecContentForm content() {
       return new InterfaceDataSpecContentForm(doc, path + "/content");
     }
@@ -19713,6 +21345,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceErrorHandlingContentForm content() {
       return new InterfaceErrorHandlingContentForm(doc, path + "/content");
     }
@@ -19744,6 +21379,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceGovernanceContentForm content() {
       return new InterfaceGovernanceContentForm(doc, path + "/content");
     }
@@ -19777,6 +21415,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceOperationEntryContentForm content() {
       return new InterfaceOperationEntryContentForm(doc, path + "/content");
     }
@@ -19788,6 +21429,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceOperationalContentForm content() {
       return new InterfaceOperationalContentForm(doc, path + "/content");
     }
@@ -19819,6 +21463,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceSecurityContentForm content() {
       return new InterfaceSecurityContentForm(doc, path + "/content");
     }
@@ -19848,6 +21495,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceSpecificationEntryContentForm content() {
       return new InterfaceSpecificationEntryContentForm(doc, path + "/content");
     }
@@ -19879,6 +21529,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceTechnicalSpecContentForm content() {
       return new InterfaceTechnicalSpecContentForm(doc, path + "/content");
     }
@@ -19910,6 +21563,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceTestScenarioEntryContentForm content() {
       return new InterfaceTestScenarioEntryContentForm(doc, path + "/content");
     }
@@ -19921,6 +21577,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InterfaceTestingContentForm content() {
       return new InterfaceTestingContentForm(doc, path + "/content");
     }
@@ -19954,6 +21613,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19975,6 +21637,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InternalNetworkRequirementsContentForm content() {
       return new InternalNetworkRequirementsContentForm(doc, path + "/content");
     }
@@ -20006,6 +21671,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public InteroperabilityRequirementsContentForm content() {
       return new InteroperabilityRequirementsContentForm(doc, path + "/content");
     }
@@ -20046,6 +21714,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20120,6 +21791,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public IpOwnershipEntryContentForm content() {
       return new IpOwnershipEntryContentForm(doc, path + "/content");
     }
@@ -20144,6 +21818,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20165,6 +21842,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public Iso25010CoverageEntryContentForm content() {
       return new Iso25010CoverageEntryContentForm(doc, path + "/content");
     }
@@ -20184,6 +21864,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20205,6 +21888,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ItSecurityOperationsContentForm content() {
       return new ItSecurityOperationsContentForm(doc, path + "/content");
     }
@@ -20244,6 +21930,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20293,6 +21982,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ItStandardComplianceEntryContentForm content() {
       return new ItStandardComplianceEntryContentForm(doc, path + "/content");
     }
@@ -20338,6 +22030,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20384,6 +22079,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public JourneyStageEntryContentForm content() {
       return new JourneyStageEntryContentForm(doc, path + "/content");
     }
@@ -20397,6 +22095,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public KeyAttributeEntryContentForm content() {
       return new KeyAttributeEntryContentForm(doc, path + "/content");
     }
@@ -20445,6 +22146,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public KeyCompromiseRecoveryPolicyContentForm content() {
       return new KeyCompromiseRecoveryPolicyContentForm(doc, path + "/content");
     }
@@ -20459,6 +22163,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public KeyConceptEntryContentForm content() {
       return new KeyConceptEntryContentForm(doc, path + "/content");
     }
@@ -20484,6 +22191,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20519,6 +22229,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public KeyEscrowAndBackupPolicyContentForm content() {
       return new KeyEscrowAndBackupPolicyContentForm(doc, path + "/content");
     }
@@ -20537,6 +22250,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public KeyGenerationPolicyContentForm content() {
       return new KeyGenerationPolicyContentForm(doc, path + "/content");
     }
@@ -20561,6 +22277,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20605,6 +22324,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public KeyResultEntryContentForm content() {
       return new KeyResultEntryContentForm(doc, path + "/content");
     }
@@ -20619,6 +22341,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public KeyRotationPolicyContentForm content() {
       return new KeyRotationPolicyContentForm(doc, path + "/content");
     }
@@ -20641,6 +22366,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20672,6 +22400,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public KeyStoragePolicyContentForm content() {
       return new KeyStoragePolicyContentForm(doc, path + "/content");
     }
@@ -20694,6 +22425,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20724,6 +22458,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20779,6 +22516,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LayerCommunicationRulesContentForm content() {
       return new LayerCommunicationRulesContentForm(doc, path + "/content");
     }
@@ -20814,6 +22554,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20883,6 +22626,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LegacyCompatibilityEntryContentForm content() {
       return new LegacyCompatibilityEntryContentForm(doc, path + "/content");
     }
@@ -20923,6 +22669,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20969,6 +22718,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LiabilityLimitationsContentForm content() {
       return new LiabilityLimitationsContentForm(doc, path + "/content");
     }
@@ -20982,6 +22734,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LifecycleTransitionEntryContentForm content() {
       return new LifecycleTransitionEntryContentForm(doc, path + "/content");
     }
@@ -21008,6 +22763,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LimitationEntryContentForm content() {
       return new LimitationEntryContentForm(doc, path + "/content");
     }
@@ -21019,6 +22777,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LoadProfileRequirementsContentForm content() {
       return new LoadProfileRequirementsContentForm(doc, path + "/content");
     }
@@ -21045,6 +22806,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LocalDevelopmentSetupContentForm content() {
       return new LocalDevelopmentSetupContentForm(doc, path + "/content");
     }
@@ -21081,6 +22845,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LocaleHandlingRequirementsContentForm content() {
       return new LocaleHandlingRequirementsContentForm(doc, path + "/content");
     }
@@ -21099,6 +22866,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21153,6 +22923,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21186,6 +22959,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21212,6 +22988,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LogAggregationRequirementsContentForm content() {
       return new LogAggregationRequirementsContentForm(doc, path + "/content");
     }
@@ -21238,6 +23017,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LogManagementRequirementsContentForm content() {
       return new LogManagementRequirementsContentForm(doc, path + "/content");
     }
@@ -21271,6 +23053,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LogProtectionPolicyContentForm content() {
       return new LogProtectionPolicyContentForm(doc, path + "/content");
     }
@@ -21287,6 +23072,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LogRetentionPolicyContentForm content() {
       return new LogRetentionPolicyContentForm(doc, path + "/content");
     }
@@ -21303,6 +23091,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LogStoragePolicyContentForm content() {
       return new LogStoragePolicyContentForm(doc, path + "/content");
     }
@@ -21326,6 +23117,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21365,6 +23159,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public LoginFlowStepEntryContentForm content() {
       return new LoginFlowStepEntryContentForm(doc, path + "/content");
     }
@@ -21391,6 +23188,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MainScenarioStepEntryContentForm content() {
       return new MainScenarioStepEntryContentForm(doc, path + "/content");
     }
@@ -21424,6 +23224,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MainSuccessScenarioContentForm content() {
       return new MainSuccessScenarioContentForm(doc, path + "/content");
     }
@@ -21440,6 +23243,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MaintainabilityContentForm content() {
       return new MaintainabilityContentForm(doc, path + "/content");
     }
@@ -21483,6 +23289,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21522,6 +23331,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MaintenanceChangeManagementContentForm content() {
       return new MaintenanceChangeManagementContentForm(doc, path + "/content");
     }
@@ -21561,6 +23373,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21585,6 +23400,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MaintenanceDependencyEntryContentForm content() {
       return new MaintenanceDependencyEntryContentForm(doc, path + "/content");
     }
@@ -21611,6 +23429,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MaintenanceUserImpactContentForm content() {
       return new MaintenanceUserImpactContentForm(doc, path + "/content");
     }
@@ -21637,6 +23458,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MaintenanceWindowEntryContentForm content() {
       return new MaintenanceWindowEntryContentForm(doc, path + "/content");
     }
@@ -21676,6 +23500,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21725,6 +23552,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MasterDataDomainEntryContentForm content() {
       return new MasterDataDomainEntryContentForm(doc, path + "/content");
     }
@@ -21759,6 +23589,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21785,6 +23618,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MessageFormatStandardsContentForm content() {
       return new MessageFormatStandardsContentForm(doc, path + "/content");
     }
@@ -21822,6 +23658,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MessageKeyEntryContentForm content() {
       return new MessageKeyEntryContentForm(doc, path + "/content");
     }
@@ -21865,6 +23704,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21891,6 +23733,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MessageLocaleVariantEntryContentForm content() {
       return new MessageLocaleVariantEntryContentForm(doc, path + "/content");
     }
@@ -21910,6 +23755,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21971,6 +23819,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MetricsBaselineEntryContentForm content() {
       return new MetricsBaselineEntryContentForm(doc, path + "/content");
     }
@@ -21987,6 +23838,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22008,6 +23862,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MetricsCollectionRequirementsContentForm content() {
       return new MetricsCollectionRequirementsContentForm(doc, path + "/content");
     }
@@ -22039,6 +23896,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MetricsDashboardSummaryContentForm content() {
       return new MetricsDashboardSummaryContentForm(doc, path + "/content");
     }
@@ -22053,6 +23913,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MfaCategoryRequirementEntryContentForm content() {
       return new MfaCategoryRequirementEntryContentForm(doc, path + "/content");
     }
@@ -22087,6 +23950,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22117,6 +23983,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22192,6 +24061,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationEnvironmentsContentForm content() {
       return new MigrationEnvironmentsContentForm(doc, path + "/content");
     }
@@ -22212,6 +24084,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22230,6 +24105,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationMappingEntryContentForm content() {
       return new MigrationMappingEntryContentForm(doc, path + "/content");
     }
@@ -22241,6 +24119,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationMilestoneEntryContentForm content() {
       return new MigrationMilestoneEntryContentForm(doc, path + "/content");
     }
@@ -22252,6 +24133,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationPhaseDryRunsContentForm content() {
       return new MigrationPhaseDryRunsContentForm(doc, path + "/content");
     }
@@ -22269,6 +24153,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationPhaseEntryContentForm content() {
       return new MigrationPhaseEntryContentForm(doc, path + "/content");
     }
@@ -22335,6 +24222,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationPhaseResourcesContentForm content() {
       return new MigrationPhaseResourcesContentForm(doc, path + "/content");
     }
@@ -22351,6 +24241,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationPhasesContentForm content() {
       return new MigrationPhasesContentForm(doc, path + "/content");
     }
@@ -22384,6 +24277,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22400,6 +24296,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationResourcesContentForm content() {
       return new MigrationResourcesContentForm(doc, path + "/content");
     }
@@ -22418,6 +24317,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationRiskEntryContentForm content() {
       return new MigrationRiskEntryContentForm(doc, path + "/content");
     }
@@ -22485,6 +24387,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationRiskIndicatorsContentForm content() {
       return new MigrationRiskIndicatorsContentForm(doc, path + "/content");
     }
@@ -22506,6 +24411,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22598,6 +24506,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationStakeholdersContentForm content() {
       return new MigrationStakeholdersContentForm(doc, path + "/content");
     }
@@ -22609,6 +24520,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationSystemsContentForm content() {
       return new MigrationSystemsContentForm(doc, path + "/content");
     }
@@ -22625,6 +24539,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MigrationTargetEntryContentForm content() {
       return new MigrationTargetEntryContentForm(doc, path + "/content");
     }
@@ -22636,6 +24553,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MobileCompatibilityEntryContentForm content() {
       return new MobileCompatibilityEntryContentForm(doc, path + "/content");
     }
@@ -22667,6 +24587,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MobileDeviceEntryContentForm content() {
       return new MobileDeviceEntryContentForm(doc, path + "/content");
     }
@@ -22688,6 +24611,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MobileDeviceRequirementEntryContentForm content() {
       return new MobileDeviceRequirementEntryContentForm(doc, path + "/content");
     }
@@ -22719,6 +24645,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ModuleEntryContentForm content() {
       return new ModuleEntryContentForm(doc, path + "/content");
     }
@@ -22755,6 +24684,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ModuleVersioningStrategyContentForm content() {
       return new ModuleVersioningStrategyContentForm(doc, path + "/content");
     }
@@ -22794,6 +24726,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22863,6 +24798,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22939,6 +24877,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22984,6 +24925,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MonitoringInfrastructureContentForm content() {
       return new MonitoringInfrastructureContentForm(doc, path + "/content");
     }
@@ -23015,6 +24959,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MoscowAnalysisContentForm content() {
       return new MoscowAnalysisContentForm(doc, path + "/content");
     }
@@ -23037,6 +24984,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MoscowEntryContentForm content() {
       return new MoscowEntryContentForm(doc, path + "/content");
     }
@@ -23076,6 +25026,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23108,6 +25061,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23152,6 +25108,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23189,6 +25148,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public MustPassCriterionEntryContentForm content() {
       return new MustPassCriterionEntryContentForm(doc, path + "/content");
     }
@@ -23232,6 +25194,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23251,6 +25216,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NativeAppRequirementsContentForm content() {
       return new NativeAppRequirementsContentForm(doc, path + "/content");
     }
@@ -23284,6 +25252,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NavigationGroupEntryContentForm content() {
       return new NavigationGroupEntryContentForm(doc, path + "/content");
     }
@@ -23320,6 +25291,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NavigationGuardEntryContentForm content() {
       return new NavigationGuardEntryContentForm(doc, path + "/content");
     }
@@ -23348,6 +25322,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23380,6 +25357,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23406,6 +25386,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NavigationItemEntryContentForm content() {
       return new NavigationItemEntryContentForm(doc, path + "/content");
     }
@@ -23462,6 +25445,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23520,6 +25506,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NavigationOverviewContentForm content() {
       return new NavigationOverviewContentForm(doc, path + "/content");
     }
@@ -23534,6 +25523,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NetworkAvailabilityRequirementsContentForm content() {
       return new NetworkAvailabilityRequirementsContentForm(doc, path + "/content");
     }
@@ -23565,6 +25557,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NetworkLatencyRequirementsContentForm content() {
       return new NetworkLatencyRequirementsContentForm(doc, path + "/content");
     }
@@ -23596,6 +25591,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NetworkLoadBalancingRequirementsContentForm content() {
       return new NetworkLoadBalancingRequirementsContentForm(doc, path + "/content");
     }
@@ -23635,6 +25633,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23709,6 +25710,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NetworkSecurityPolicyContentForm content() {
       return new NetworkSecurityPolicyContentForm(doc, path + "/content");
     }
@@ -23745,6 +25749,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NetworkSecurityRequirementsContentForm content() {
       return new NetworkSecurityRequirementsContentForm(doc, path + "/content");
     }
@@ -23786,6 +25793,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23823,6 +25833,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23874,6 +25887,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NewRoleQualificationsContentForm content() {
       return new NewRoleQualificationsContentForm(doc, path + "/content");
     }
@@ -23905,6 +25921,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23936,6 +25955,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NotificationChannelEntryContentForm content() {
       return new NotificationChannelEntryContentForm(doc, path + "/content");
     }
@@ -23955,6 +25977,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23986,6 +26011,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public NotificationTypeEntryContentForm content() {
       return new NotificationTypeEntryContentForm(doc, path + "/content");
     }
@@ -23999,6 +26027,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ObjectInvariantEntryContentForm content() {
       return new ObjectInvariantEntryContentForm(doc, path + "/content");
     }
@@ -24012,6 +26043,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ObjectOperationEntryContentForm content() {
       return new ObjectOperationEntryContentForm(doc, path + "/content");
     }
@@ -24040,6 +26074,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ObjectStateEntryContentForm content() {
       return new ObjectStateEntryContentForm(doc, path + "/content");
     }
@@ -24051,6 +26088,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OnCallProceduresContentForm content() {
       return new OnCallProceduresContentForm(doc, path + "/content");
     }
@@ -24082,6 +26122,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OnCallScheduleConfigContentForm content() {
       return new OnCallScheduleConfigContentForm(doc, path + "/content");
     }
@@ -24108,6 +26151,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24165,6 +26211,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OngoingTrainingEntryContentForm content() {
       return new OngoingTrainingEntryContentForm(doc, path + "/content");
     }
@@ -24201,6 +26250,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24245,6 +26297,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OperationalMonitoringContentForm content() {
       return new OperationalMonitoringContentForm(doc, path + "/content");
     }
@@ -24287,6 +26342,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24318,6 +26376,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24362,6 +26423,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24383,6 +26447,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OrgChangeRisksContentForm content() {
       return new OrgChangeRisksContentForm(doc, path + "/content");
     }
@@ -24394,6 +26461,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OrgImplementationActivityContentForm content() {
       return new OrgImplementationActivityContentForm(doc, path + "/content");
     }
@@ -24412,6 +26482,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24457,6 +26530,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24488,6 +26564,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24515,6 +26594,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OrganizationalChangeEntryContentForm content() {
       return new OrganizationalChangeEntryContentForm(doc, path + "/content");
     }
@@ -24569,6 +26651,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24610,6 +26695,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24695,6 +26783,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24736,6 +26827,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OrganizationalRequirementEntryContentForm content() {
       return new OrganizationalRequirementEntryContentForm(doc, path + "/content");
     }
@@ -24787,6 +26881,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24823,6 +26920,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24879,6 +26979,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OrganizationalUnitContextEntryContentForm content() {
       return new OrganizationalUnitContextEntryContentForm(doc, path + "/content");
     }
@@ -24890,6 +26993,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OsCompatibilityEntryContentForm content() {
       return new OsCompatibilityEntryContentForm(doc, path + "/content");
     }
@@ -24921,6 +27027,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OtherAgreementEntryContentForm content() {
       return new OtherAgreementEntryContentForm(doc, path + "/content");
     }
@@ -24941,6 +27050,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24965,6 +27077,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public OutOfScopeEntryContentForm content() {
       return new OutOfScopeEntryContentForm(doc, path + "/content");
     }
@@ -24986,6 +27101,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PackageOrganizationContentForm content() {
       return new PackageOrganizationContentForm(doc, path + "/content");
     }
@@ -25021,6 +27139,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PainPointEntryContentForm content() {
       return new PainPointEntryContentForm(doc, path + "/content");
     }
@@ -25072,6 +27193,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25103,6 +27227,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PainPointGapCorrelationEntryContentForm content() {
       return new PainPointGapCorrelationEntryContentForm(doc, path + "/content");
     }
@@ -25114,6 +27241,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PainPointRelationshipsContentForm content() {
       return new PainPointRelationshipsContentForm(doc, path + "/content");
     }
@@ -25134,6 +27264,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25200,6 +27333,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ParticipantEntryContentForm content() {
       return new ParticipantEntryContentForm(doc, path + "/content");
     }
@@ -25221,6 +27357,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25289,6 +27428,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25317,6 +27459,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25344,6 +27489,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25363,6 +27511,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PeakLoadPatternsContentForm content() {
       return new PeakLoadPatternsContentForm(doc, path + "/content");
     }
@@ -25389,6 +27540,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PenetrationTestingRequirementsContentForm content() {
       return new PenetrationTestingRequirementsContentForm(doc, path + "/content");
     }
@@ -25425,6 +27579,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25465,6 +27622,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PeriodicReviewPolicyContentForm content() {
       return new PeriodicReviewPolicyContentForm(doc, path + "/content");
     }
@@ -25479,6 +27639,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PeripheralEquipmentEntryContentForm content() {
       return new PeripheralEquipmentEntryContentForm(doc, path + "/content");
     }
@@ -25498,6 +27661,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25525,6 +27691,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25552,6 +27721,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25571,6 +27743,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PermissionMatrixEntryContentForm content() {
       return new PermissionMatrixEntryContentForm(doc, path + "/content");
     }
@@ -25584,6 +27759,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PersonaEntryContentForm content() {
       return new PersonaEntryContentForm(doc, path + "/content");
     }
@@ -25625,6 +27803,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PersonaGoalEntryContentForm content() {
       return new PersonaGoalEntryContentForm(doc, path + "/content");
     }
@@ -25641,6 +27822,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25662,6 +27846,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PersonaPainPointEntryContentForm content() {
       return new PersonaPainPointEntryContentForm(doc, path + "/content");
     }
@@ -25678,6 +27865,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25699,6 +27889,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PersonaScenarioEntryContentForm content() {
       return new PersonaScenarioEntryContentForm(doc, path + "/content");
     }
@@ -25717,6 +27910,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25741,6 +27937,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PhaseGateReviewEntryContentForm content() {
       return new PhaseGateReviewEntryContentForm(doc, path + "/content");
     }
@@ -25794,6 +27993,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PhaseGateReviewsContentForm content() {
       return new PhaseGateReviewsContentForm(doc, path + "/content");
     }
@@ -25823,6 +28025,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PhysicalWorkplaceRequirementsContentForm content() {
       return new PhysicalWorkplaceRequirementsContentForm(doc, path + "/content");
     }
@@ -25851,6 +28056,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25867,6 +28075,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PipelineJobEntryContentForm content() {
       return new PipelineJobEntryContentForm(doc, path + "/content");
     }
@@ -25898,6 +28109,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PipelineStageEntryContentForm content() {
       return new PipelineStageEntryContentForm(doc, path + "/content");
     }
@@ -25937,6 +28151,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25991,6 +28208,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PortabilityContentForm content() {
       return new PortabilityContentForm(doc, path + "/content");
     }
@@ -26005,6 +28225,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PostMaintenanceValidationContentForm content() {
       return new PostMaintenanceValidationContentForm(doc, path + "/content");
     }
@@ -26026,6 +28249,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PostconditionsAndGuaranteesContentForm content() {
       return new PostconditionsAndGuaranteesContentForm(doc, path + "/content");
     }
@@ -26037,6 +28263,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PreconditionsAndTriggersContentForm content() {
       return new PreconditionsAndTriggersContentForm(doc, path + "/content");
     }
@@ -26051,6 +28280,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PrimaryNavigationContentForm content() {
       return new PrimaryNavigationContentForm(doc, path + "/content");
     }
@@ -26080,6 +28312,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PrintAndExportLayoutContentForm content() {
       return new PrintAndExportLayoutContentForm(doc, path + "/content");
     }
@@ -26127,6 +28362,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PrivacyImpactAssessmentProcessContentForm content() {
       return new PrivacyImpactAssessmentProcessContentForm(doc, path + "/content");
     }
@@ -26153,6 +28391,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PrivacyRegulationComplianceContentForm content() {
       return new PrivacyRegulationComplianceContentForm(doc, path + "/content");
     }
@@ -26186,6 +28427,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PrivilegeUsageReportingContentForm content() {
       return new PrivilegeUsageReportingContentForm(doc, path + "/content");
     }
@@ -26208,6 +28452,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26234,6 +28481,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessAdjustmentDetailsContentForm content() {
       return new ProcessAdjustmentDetailsContentForm(doc, path + "/content");
     }
@@ -26249,6 +28499,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessAdjustmentEntryContentForm content() {
       return new ProcessAdjustmentEntryContentForm(doc, path + "/content");
     }
@@ -26300,6 +28553,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26343,6 +28599,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26374,6 +28633,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessCharacteristicsContentForm content() {
       return new ProcessCharacteristicsContentForm(doc, path + "/content");
     }
@@ -26395,6 +28657,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessControlEntryContentForm content() {
       return new ProcessControlEntryContentForm(doc, path + "/content");
     }
@@ -26421,6 +28686,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26447,6 +28715,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessDependencyEntryContentForm content() {
       return new ProcessDependencyEntryContentForm(doc, path + "/content");
     }
@@ -26458,6 +28729,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessDesignPrincipleEntryContentForm content() {
       return new ProcessDesignPrincipleEntryContentForm(doc, path + "/content");
     }
@@ -26476,6 +28750,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26502,6 +28779,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessEndEventEntryContentForm content() {
       return new ProcessEndEventEntryContentForm(doc, path + "/content");
     }
@@ -26513,6 +28793,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessExceptionEntryContentForm content() {
       return new ProcessExceptionEntryContentForm(doc, path + "/content");
     }
@@ -26541,6 +28824,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26562,6 +28848,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26588,6 +28877,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessIdentificationContentForm content() {
       return new ProcessIdentificationContentForm(doc, path + "/content");
     }
@@ -26614,6 +28906,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessImprovementEntryContentForm content() {
       return new ProcessImprovementEntryContentForm(doc, path + "/content");
     }
@@ -26642,6 +28937,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26673,6 +28971,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessInputEntryContentForm content() {
       return new ProcessInputEntryContentForm(doc, path + "/content");
     }
@@ -26689,6 +28990,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26725,6 +29029,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26756,6 +29063,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessKpiEntryContentForm content() {
       return new ProcessKpiEntryContentForm(doc, path + "/content");
     }
@@ -26784,6 +29094,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26805,6 +29118,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26828,6 +29144,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessMetricEntryContentForm content() {
       return new ProcessMetricEntryContentForm(doc, path + "/content");
     }
@@ -26873,6 +29192,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26929,6 +29251,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessOutputEntryContentForm content() {
       return new ProcessOutputEntryContentForm(doc, path + "/content");
     }
@@ -26947,6 +29272,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26982,6 +29310,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27008,6 +29339,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27039,6 +29373,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessPerformanceSummaryContentForm content() {
       return new ProcessPerformanceSummaryContentForm(doc, path + "/content");
     }
@@ -27055,6 +29392,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessRelationshipEntryContentForm content() {
       return new ProcessRelationshipEntryContentForm(doc, path + "/content");
     }
@@ -27071,6 +29411,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27092,6 +29435,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessRoleEntryContentForm content() {
       return new ProcessRoleEntryContentForm(doc, path + "/content");
     }
@@ -27118,6 +29464,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27144,6 +29493,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessScopeEntryContentForm content() {
       return new ProcessScopeEntryContentForm(doc, path + "/content");
     }
@@ -27155,6 +29507,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessScopeSummaryContentForm content() {
       return new ProcessScopeSummaryContentForm(doc, path + "/content");
     }
@@ -27176,6 +29531,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessSlaEntryContentForm content() {
       return new ProcessSlaEntryContentForm(doc, path + "/content");
     }
@@ -27197,6 +29555,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27248,6 +29609,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessStepsOverviewContentForm content() {
       return new ProcessStepsOverviewContentForm(doc, path + "/content");
     }
@@ -27259,6 +29623,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessTechnologyContentForm content() {
       return new ProcessTechnologyContentForm(doc, path + "/content");
     }
@@ -27280,6 +29647,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProcessTriggerEntryContentForm content() {
       return new ProcessTriggerEntryContentForm(doc, path + "/content");
     }
@@ -27296,6 +29666,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27334,6 +29707,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27368,6 +29744,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProgrammingLanguageEntryContentForm content() {
       return new ProgrammingLanguageEntryContentForm(doc, path + "/content");
     }
@@ -27409,6 +29788,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27444,6 +29826,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27503,6 +29888,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27534,6 +29922,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProtocolComplianceRequirementsContentForm content() {
       return new ProtocolComplianceRequirementsContentForm(doc, path + "/content");
     }
@@ -27560,6 +29951,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ProtocolEntryContentForm content() {
       return new ProtocolEntryContentForm(doc, path + "/content");
     }
@@ -27576,6 +29970,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27638,6 +30035,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27698,6 +30098,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PrototypeFeatureEntryContentForm content() {
       return new PrototypeFeatureEntryContentForm(doc, path + "/content");
     }
@@ -27716,6 +30119,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27758,6 +30164,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PrototypeGoalEntryContentForm content() {
       return new PrototypeGoalEntryContentForm(doc, path + "/content");
     }
@@ -27776,6 +30185,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27825,6 +30237,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27864,6 +30279,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public PwaRequirementsContentForm content() {
       return new PwaRequirementsContentForm(doc, path + "/content");
     }
@@ -27900,6 +30318,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27935,6 +30356,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public QualityCategoryEntryContentForm content() {
       return new QualityCategoryEntryContentForm(doc, path + "/content");
     }
@@ -27977,6 +30401,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28038,6 +30465,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public QualityGateAdjustmentDetailsContentForm content() {
       return new QualityGateAdjustmentDetailsContentForm(doc, path + "/content");
     }
@@ -28053,6 +30483,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public QualityGateAdjustmentEntryContentForm content() {
       return new QualityGateAdjustmentEntryContentForm(doc, path + "/content");
     }
@@ -28093,6 +30526,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28129,6 +30565,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public QualityGateCheckEntryContentForm content() {
       return new QualityGateCheckEntryContentForm(doc, path + "/content");
     }
@@ -28172,6 +30611,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28217,6 +30659,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28260,6 +30705,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public QualityScenarioEntryContentForm content() {
       return new QualityScenarioEntryContentForm(doc, path + "/content");
     }
@@ -28279,6 +30727,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28300,6 +30751,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public QualityStandardEntryContentForm content() {
       return new QualityStandardEntryContentForm(doc, path + "/content");
     }
@@ -28331,6 +30785,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public QualityWeightEntryContentForm content() {
       return new QualityWeightEntryContentForm(doc, path + "/content");
     }
@@ -28342,6 +30799,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RateLimitingPolicyContentForm content() {
       return new RateLimitingPolicyContentForm(doc, path + "/content");
     }
@@ -28368,6 +30828,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReadabilityContentForm content() {
       return new ReadabilityContentForm(doc, path + "/content");
     }
@@ -28402,6 +30865,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReadinessCriteriaEntryContentForm content() {
       return new ReadinessCriteriaEntryContentForm(doc, path + "/content");
     }
@@ -28413,6 +30879,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RecoveryProceduresContentForm content() {
       return new RecoveryProceduresContentForm(doc, path + "/content");
     }
@@ -28444,6 +30913,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RecoveryScenarioEntryContentForm content() {
       return new RecoveryScenarioEntryContentForm(doc, path + "/content");
     }
@@ -28466,6 +30938,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28488,6 +30963,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReferenceDocumentEntryContentForm content() {
       return new ReferenceDocumentEntryContentForm(doc, path + "/content");
     }
@@ -28533,6 +31011,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28556,6 +31037,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RegulatoryAuditSupportContentForm content() {
       return new RegulatoryAuditSupportContentForm(doc, path + "/content");
     }
@@ -28570,6 +31054,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RegulatoryComplianceEntryContentForm content() {
       return new RegulatoryComplianceEntryContentForm(doc, path + "/content");
     }
@@ -28608,6 +31095,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28642,6 +31132,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28663,6 +31156,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RegulatoryRequirementEntryContentForm content() {
       return new RegulatoryRequirementEntryContentForm(doc, path + "/content");
     }
@@ -28674,6 +31170,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RelatedDocumentEntryContentForm content() {
       return new RelatedDocumentEntryContentForm(doc, path + "/content");
     }
@@ -28685,6 +31184,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RelationshipAttributeEntryContentForm content() {
       return new RelationshipAttributeEntryContentForm(doc, path + "/content");
     }
@@ -28696,6 +31198,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReleaseStrategyContentForm content() {
       return new ReleaseStrategyContentForm(doc, path + "/content");
     }
@@ -28727,6 +31232,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RelevantSectionEntryContentForm content() {
       return new RelevantSectionEntryContentForm(doc, path + "/content");
     }
@@ -28738,6 +31246,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReliabilityContentForm content() {
       return new ReliabilityContentForm(doc, path + "/content");
     }
@@ -28784,6 +31295,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28846,6 +31360,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28867,6 +31384,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RemovedRoleEntryContentForm content() {
       return new RemovedRoleEntryContentForm(doc, path + "/content");
     }
@@ -28901,6 +31421,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28928,6 +31451,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReplacementPhaseEntryContentForm content() {
       return new ReplacementPhaseEntryContentForm(doc, path + "/content");
     }
@@ -28941,6 +31467,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReplacementSystemDependencyEntryContentForm content() {
       return new ReplacementSystemDependencyEntryContentForm(doc, path + "/content");
     }
@@ -28952,6 +31481,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReportChartAxesContentForm content() {
       return new ReportChartAxesContentForm(doc, path + "/content");
     }
@@ -28964,6 +31496,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReportChartEntryContentForm content() {
       return new ReportChartEntryContentForm(doc, path + "/content");
     }
@@ -29001,6 +31536,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReportColumnEntryContentForm content() {
       return new ReportColumnEntryContentForm(doc, path + "/content");
     }
@@ -29089,6 +31627,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29110,6 +31651,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReportDistributionEntryContentForm content() {
       return new ReportDistributionEntryContentForm(doc, path + "/content");
     }
@@ -29136,6 +31680,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReportEntryContentForm content() {
       return new ReportEntryContentForm(doc, path + "/content");
     }
@@ -29234,6 +31781,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReportFilterEntryContentForm content() {
       return new ReportFilterEntryContentForm(doc, path + "/content");
     }
@@ -29310,6 +31860,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReportRecipientEntryContentForm content() {
       return new ReportRecipientEntryContentForm(doc, path + "/content");
     }
@@ -29337,6 +31890,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReportScheduleEntryContentForm content() {
       return new ReportScheduleEntryContentForm(doc, path + "/content");
     }
@@ -29368,6 +31924,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReportSectionEntryContentForm content() {
       return new ReportSectionEntryContentForm(doc, path + "/content");
     }
@@ -29417,6 +31976,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29438,6 +32000,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RequirementBusinessRuleEntryContentForm content() {
       return new RequirementBusinessRuleEntryContentForm(doc, path + "/content");
     }
@@ -29456,6 +32021,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29484,6 +32052,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29507,6 +32078,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29535,6 +32109,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29556,6 +32133,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RequirementDependencyEntryContentForm content() {
       return new RequirementDependencyEntryContentForm(doc, path + "/content");
     }
@@ -29596,6 +32176,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29614,6 +32197,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RequirementScreenActionEntryContentForm content() {
       return new RequirementScreenActionEntryContentForm(doc, path + "/content");
     }
@@ -29630,6 +32216,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RequirementTestCaseEntryContentForm content() {
       return new RequirementTestCaseEntryContentForm(doc, path + "/content");
     }
@@ -29679,6 +32268,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29707,6 +32299,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29747,6 +32342,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29819,6 +32417,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29860,6 +32461,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29902,6 +32506,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -29963,6 +32570,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResourceAllocationEntryContentForm content() {
       return new ResourceAllocationEntryContentForm(doc, path + "/content");
     }
@@ -29974,6 +32584,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResourceCapacityBaselinesContentForm content() {
       return new ResourceCapacityBaselinesContentForm(doc, path + "/content");
     }
@@ -30005,6 +32618,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResourceKeyEntryContentForm content() {
       return new ResourceKeyEntryContentForm(doc, path + "/content");
     }
@@ -30016,6 +32632,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResourceKeyReferenceEntryContentForm content() {
       return new ResourceKeyReferenceEntryContentForm(doc, path + "/content");
     }
@@ -30032,6 +32651,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30063,6 +32685,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResourceRequirementEntryContentForm content() {
       return new ResourceRequirementEntryContentForm(doc, path + "/content");
     }
@@ -30074,6 +32699,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResponsibilityChangeEntryContentForm content() {
       return new ResponsibilityChangeEntryContentForm(doc, path + "/content");
     }
@@ -30085,6 +32713,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResponsibilityContactsContentForm content() {
       return new ResponsibilityContactsContentForm(doc, path + "/content");
     }
@@ -30096,6 +32727,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResponsibilityDetailEntryContentForm content() {
       return new ResponsibilityDetailEntryContentForm(doc, path + "/content");
     }
@@ -30111,6 +32745,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResponsibilityEntryContentForm content() {
       return new ResponsibilityEntryContentForm(doc, path + "/content");
     }
@@ -30147,6 +32784,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResponsibilityFunctionDetailsContentForm content() {
       return new ResponsibilityFunctionDetailsContentForm(doc, path + "/content");
     }
@@ -30158,6 +32798,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResponsibilityReferenceEntryContentForm content() {
       return new ResponsibilityReferenceEntryContentForm(doc, path + "/content");
     }
@@ -30169,6 +32812,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResponsibilitySystemsContentForm content() {
       return new ResponsibilitySystemsContentForm(doc, path + "/content");
     }
@@ -30187,6 +32833,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30247,6 +32896,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30284,6 +32936,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResponsiveScreenRuleEntryContentForm content() {
       return new ResponsiveScreenRuleEntryContentForm(doc, path + "/content");
     }
@@ -30309,6 +32964,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResultEnvelopeContentForm content() {
       return new ResultEnvelopeContentForm(doc, path + "/content");
     }
@@ -30332,6 +32990,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ResultFieldDetailEntryContentForm content() {
       return new ResultFieldDetailEntryContentForm(doc, path + "/content");
     }
@@ -30343,6 +33004,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RetentionPolicyEntryContentForm content() {
       return new RetentionPolicyEntryContentForm(doc, path + "/content");
     }
@@ -30369,6 +33033,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReusabilityPrinciplesContentForm content() {
       return new ReusabilityPrinciplesContentForm(doc, path + "/content");
     }
@@ -30408,6 +33075,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30474,6 +33144,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30516,6 +33189,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReusableUiComponentEntryContentForm content() {
       return new ReusableUiComponentEntryContentForm(doc, path + "/content");
     }
@@ -30555,6 +33231,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReuseGoalEntryContentForm content() {
       return new ReuseGoalEntryContentForm(doc, path + "/content");
     }
@@ -30584,6 +33263,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ReviewCriterionEntryContentForm content() {
       return new ReviewCriterionEntryContentForm(doc, path + "/content");
     }
@@ -30605,6 +33287,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RevisionEntryContentForm content() {
       return new RevisionEntryContentForm(doc, path + "/content");
     }
@@ -30616,6 +33301,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RiskBusinessImpactContentForm content() {
       return new RiskBusinessImpactContentForm(doc, path + "/content");
     }
@@ -30646,6 +33334,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30697,6 +33388,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RiskIdentificationContentForm content() {
       return new RiskIdentificationContentForm(doc, path + "/content");
     }
@@ -30718,6 +33412,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RiskMonitoringContentForm content() {
       return new RiskMonitoringContentForm(doc, path + "/content");
     }
@@ -30739,6 +33436,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RiskRelationshipsContentForm content() {
       return new RiskRelationshipsContentForm(doc, path + "/content");
     }
@@ -30750,6 +33450,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RiskResponseContentForm content() {
       return new RiskResponseContentForm(doc, path + "/content");
     }
@@ -30788,6 +33491,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30818,6 +33524,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RoleAdjustmentEntryContentForm content() {
       return new RoleAdjustmentEntryContentForm(doc, path + "/content");
     }
@@ -30863,6 +33572,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30907,6 +33619,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30929,6 +33644,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RoleCombinationConstraintEntryContentForm content() {
       return new RoleCombinationConstraintEntryContentForm(doc, path + "/content");
     }
@@ -30940,6 +33658,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RoleCompetencyEntryContentForm content() {
       return new RoleCompetencyEntryContentForm(doc, path + "/content");
     }
@@ -30954,6 +33675,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RoleDataScopeEntryContentForm content() {
       return new RoleDataScopeEntryContentForm(doc, path + "/content");
     }
@@ -30965,6 +33689,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RoleExclusionEntryContentForm content() {
       return new RoleExclusionEntryContentForm(doc, path + "/content");
     }
@@ -30985,6 +33712,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31037,6 +33767,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31056,6 +33789,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RoleHolderEntryContentForm content() {
       return new RoleHolderEntryContentForm(doc, path + "/content");
     }
@@ -31070,6 +33806,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RoleInheritanceRuleEntryContentForm content() {
       return new RoleInheritanceRuleEntryContentForm(doc, path + "/content");
     }
@@ -31089,6 +33828,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31109,6 +33851,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RolePermissionEntryContentForm content() {
       return new RolePermissionEntryContentForm(doc, path + "/content");
     }
@@ -31120,6 +33865,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RoleReferenceEntryContentForm content() {
       return new RoleReferenceEntryContentForm(doc, path + "/content");
     }
@@ -31131,6 +33879,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RollbackStrategyContentForm content() {
       return new RollbackStrategyContentForm(doc, path + "/content");
     }
@@ -31176,6 +33927,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31205,6 +33959,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31230,6 +33987,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31249,6 +34009,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RpoRtoRequirementsContentForm content() {
       return new RpoRtoRequirementsContentForm(doc, path + "/content");
     }
@@ -31277,6 +34040,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RuleExampleEntryContentForm content() {
       return new RuleExampleEntryContentForm(doc, path + "/content");
     }
@@ -31296,6 +34062,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31320,6 +34089,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RuntimeDependencyEntryContentForm content() {
       return new RuntimeDependencyEntryContentForm(doc, path + "/content");
     }
@@ -31356,6 +34128,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public RuntimeEnvironmentContentForm content() {
       return new RuntimeEnvironmentContentForm(doc, path + "/content");
     }
@@ -31407,6 +34182,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScalabilityArchitectureContentForm content() {
       return new ScalabilityArchitectureContentForm(doc, path + "/content");
     }
@@ -31443,6 +34221,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScalingRequirementsContentForm content() {
       return new ScalingRequirementsContentForm(doc, path + "/content");
     }
@@ -31474,6 +34255,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScalingTriggersAndThresholdsContentForm content() {
       return new ScalingTriggersAndThresholdsContentForm(doc, path + "/content");
     }
@@ -31512,6 +34296,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31563,6 +34350,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScenarioStepEntryContentForm content() {
       return new ScenarioStepEntryContentForm(doc, path + "/content");
     }
@@ -31636,6 +34426,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScheduledJobEntryContentForm content() {
       return new ScheduledJobEntryContentForm(doc, path + "/content");
     }
@@ -31732,6 +34525,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScheduledJobStepEntryContentForm content() {
       return new ScheduledJobStepEntryContentForm(doc, path + "/content");
     }
@@ -31743,6 +34539,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScheduledMaintenancePolicyContentForm content() {
       return new ScheduledMaintenancePolicyContentForm(doc, path + "/content");
     }
@@ -31779,6 +34578,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SchemaMigrationStepEntryContentForm content() {
       return new SchemaMigrationStepEntryContentForm(doc, path + "/content");
     }
@@ -31825,6 +34627,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SchemaVersioningAndMigrationContentForm content() {
       return new SchemaVersioningAndMigrationContentForm(doc, path + "/content");
     }
@@ -31855,6 +34660,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31891,6 +34699,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScopeItemEntryContentForm content() {
       return new ScopeItemEntryContentForm(doc, path + "/content");
     }
@@ -31904,6 +34715,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenActionEntryContentForm content() {
       return new ScreenActionEntryContentForm(doc, path + "/content");
     }
@@ -31937,6 +34751,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31961,6 +34778,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenBehaviorEntryContentForm content() {
       return new ScreenBehaviorEntryContentForm(doc, path + "/content");
     }
@@ -31977,6 +34797,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32005,6 +34828,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenElementActionContentForm content() {
       return new ScreenElementActionContentForm(doc, path + "/content");
     }
@@ -32028,6 +34854,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenElementDataDisplayContentForm content() {
       return new ScreenElementDataDisplayContentForm(doc, path + "/content");
     }
@@ -32052,6 +34881,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenElementEntryContentForm content() {
       return new ScreenElementEntryContentForm(doc, path + "/content");
     }
@@ -32124,6 +34956,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenElementFieldSpecContentForm content() {
       return new ScreenElementFieldSpecContentForm(doc, path + "/content");
     }
@@ -32192,6 +35027,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenEntryContentForm content() {
       return new ScreenEntryContentForm(doc, path + "/content");
     }
@@ -32263,6 +35101,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenFieldEntryContentForm content() {
       return new ScreenFieldEntryContentForm(doc, path + "/content");
     }
@@ -32339,6 +35180,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32376,6 +35220,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32402,6 +35249,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenResponsiveRuleEntryContentForm content() {
       return new ScreenResponsiveRuleEntryContentForm(doc, path + "/content");
     }
@@ -32413,6 +35263,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenRouteEntryContentForm content() {
       return new ScreenRouteEntryContentForm(doc, path + "/content");
     }
@@ -32439,6 +35292,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32475,6 +35331,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenSectionEntryContentForm content() {
       return new ScreenSectionEntryContentForm(doc, path + "/content");
     }
@@ -32508,6 +35367,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32532,6 +35394,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenStateEntryContentForm content() {
       return new ScreenStateEntryContentForm(doc, path + "/content");
     }
@@ -32550,6 +35415,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32571,6 +35439,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenTransitionEntryContentForm content() {
       return new ScreenTransitionEntryContentForm(doc, path + "/content");
     }
@@ -32582,6 +35453,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ScreenUserCategoryEntryContentForm content() {
       return new ScreenUserCategoryEntryContentForm(doc, path + "/content");
     }
@@ -32600,6 +35474,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32624,6 +35501,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityContentForm content() {
       return new SecurityContentForm(doc, path + "/content");
     }
@@ -32663,6 +35543,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32699,6 +35582,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityAuditEntryContentForm content() {
       return new SecurityAuditEntryContentForm(doc, path + "/content");
     }
@@ -32734,6 +35620,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32789,6 +35678,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityCertificationRequirementsContentForm content() {
       return new SecurityCertificationRequirementsContentForm(doc, path + "/content");
     }
@@ -32829,6 +35721,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32877,6 +35772,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityCodeReviewPolicyContentForm content() {
       return new SecurityCodeReviewPolicyContentForm(doc, path + "/content");
     }
@@ -32914,6 +35812,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32935,6 +35836,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityControlEntryContentForm content() {
       return new SecurityControlEntryContentForm(doc, path + "/content");
     }
@@ -32963,6 +35867,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32984,6 +35891,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityDevelopmentLifecycleContentForm content() {
       return new SecurityDevelopmentLifecycleContentForm(doc, path + "/content");
     }
@@ -33013,6 +35923,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityEventEntryContentForm content() {
       return new SecurityEventEntryContentForm(doc, path + "/content");
     }
@@ -33027,6 +35940,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityEventLoggingPolicyContentForm content() {
       return new SecurityEventLoggingPolicyContentForm(doc, path + "/content");
     }
@@ -33050,6 +35966,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33122,6 +36041,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33151,6 +36073,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityRequirementEntryContentForm content() {
       return new SecurityRequirementEntryContentForm(doc, path + "/content");
     }
@@ -33212,6 +36137,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33238,6 +36166,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityStandardComplianceEntryContentForm content() {
       return new SecurityStandardComplianceEntryContentForm(doc, path + "/content");
     }
@@ -33269,6 +36200,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityStandardEntryContentForm content() {
       return new SecurityStandardEntryContentForm(doc, path + "/content");
     }
@@ -33298,6 +36232,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SecurityTestingAutomationContentForm content() {
       return new SecurityTestingAutomationContentForm(doc, path + "/content");
     }
@@ -33337,6 +36274,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SelfRegistrationPolicyContentForm content() {
       return new SelfRegistrationPolicyContentForm(doc, path + "/content");
     }
@@ -33384,6 +36324,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33408,6 +36351,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33468,6 +36414,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServerCallStepEntryContentForm content() {
       return new ServerCallStepEntryContentForm(doc, path + "/content");
     }
@@ -33491,6 +36440,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServerConfigurationSettingEntryContentForm content() {
       return new ServerConfigurationSettingEntryContentForm(doc, path + "/content");
     }
@@ -33502,6 +36454,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServerEnvironmentEntryContentForm content() {
       return new ServerEnvironmentEntryContentForm(doc, path + "/content");
     }
@@ -33544,6 +36499,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServerOperationEntryContentForm content() {
       return new ServerOperationEntryContentForm(doc, path + "/content");
     }
@@ -33585,6 +36543,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServerOperationMemberEntryContentForm content() {
       return new ServerOperationMemberEntryContentForm(doc, path + "/content");
     }
@@ -33627,6 +36588,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33648,6 +36612,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServerOsRequirementsContentForm content() {
       return new ServerOsRequirementsContentForm(doc, path + "/content");
     }
@@ -33687,6 +36654,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33756,6 +36726,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServerRoleEntryContentForm content() {
       return new ServerRoleEntryContentForm(doc, path + "/content");
     }
@@ -33787,6 +36760,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServerStorageRequirementsContentForm content() {
       return new ServerStorageRequirementsContentForm(doc, path + "/content");
     }
@@ -33826,6 +36802,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33853,6 +36832,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33872,6 +36854,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServiceLevelContentForm content() {
       return new ServiceLevelContentForm(doc, path + "/content");
     }
@@ -33916,6 +36901,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServiceLevelAgreementEntryContentForm content() {
       return new ServiceLevelAgreementEntryContentForm(doc, path + "/content");
     }
@@ -33927,6 +36915,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServiceLevelIndicatorsContentForm content() {
       return new ServiceLevelIndicatorsContentForm(doc, path + "/content");
     }
@@ -33953,6 +36944,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ServiceMeshAndGatewayContentForm content() {
       return new ServiceMeshAndGatewayContentForm(doc, path + "/content");
     }
@@ -33982,6 +36976,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34010,6 +37007,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34040,6 +37040,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34097,6 +37100,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34137,6 +37143,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34165,6 +37174,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34194,6 +37206,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34220,6 +37235,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34243,6 +37261,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SharedInfrastructureEntryContentForm content() {
       return new SharedInfrastructureEntryContentForm(doc, path + "/content");
     }
@@ -34269,6 +37290,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SharedLibraryComponentEntryContentForm content() {
       return new SharedLibraryComponentEntryContentForm(doc, path + "/content");
     }
@@ -34300,6 +37324,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SharedLibraryEntryContentForm content() {
       return new SharedLibraryEntryContentForm(doc, path + "/content");
     }
@@ -34330,6 +37357,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SignOffProcessContentForm content() {
       return new SignOffProcessContentForm(doc, path + "/content");
     }
@@ -34372,6 +37402,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SingleSignOnPolicyContentForm content() {
       return new SingleSignOnPolicyContentForm(doc, path + "/content");
     }
@@ -34413,6 +37446,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34463,6 +37499,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SlaMonitoringRequirementsContentForm content() {
       return new SlaMonitoringRequirementsContentForm(doc, path + "/content");
     }
@@ -34494,6 +37533,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SloEntryContentForm content() {
       return new SloEntryContentForm(doc, path + "/content");
     }
@@ -34520,6 +37562,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34546,6 +37591,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34577,6 +37625,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SoftwareLayerEntryContentForm content() {
       return new SoftwareLayerEntryContentForm(doc, path + "/content");
     }
@@ -34613,6 +37664,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34654,6 +37708,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34675,6 +37732,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SpecializedEquipmentEntryContentForm content() {
       return new SpecializedEquipmentEntryContentForm(doc, path + "/content");
     }
@@ -34704,6 +37764,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34723,6 +37786,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StaffingBudgetContentForm content() {
       return new StaffingBudgetContentForm(doc, path + "/content");
     }
@@ -34747,6 +37813,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StaffingEntryContentForm content() {
       return new StaffingEntryContentForm(doc, path + "/content");
     }
@@ -34783,6 +37852,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34819,6 +37891,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageDependenciesContentForm content() {
       return new StageDependenciesContentForm(doc, path + "/content");
     }
@@ -34836,6 +37911,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageEntryContentForm content() {
       return new StageEntryContentForm(doc, path + "/content");
     }
@@ -34923,6 +38001,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageGovernanceContentForm content() {
       return new StageGovernanceContentForm(doc, path + "/content");
     }
@@ -34982,6 +38063,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageMigrationResourcesContentForm content() {
       return new StageMigrationResourcesContentForm(doc, path + "/content");
     }
@@ -34998,6 +38082,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageMigrationRiskEntryContentForm content() {
       return new StageMigrationRiskEntryContentForm(doc, path + "/content");
     }
@@ -35053,6 +38140,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageMigrationRisksContentForm content() {
       return new StageMigrationRisksContentForm(doc, path + "/content");
     }
@@ -35079,6 +38169,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageOverviewContentForm content() {
       return new StageOverviewContentForm(doc, path + "/content");
     }
@@ -35168,6 +38261,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageResourcesContentForm content() {
       return new StageResourcesContentForm(doc, path + "/content");
     }
@@ -35179,6 +38275,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageStakeholdersContentForm content() {
       return new StageStakeholdersContentForm(doc, path + "/content");
     }
@@ -35194,6 +38293,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageSuccessCriterionEntryContentForm content() {
       return new StageSuccessCriterionEntryContentForm(doc, path + "/content");
     }
@@ -35220,6 +38322,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageSummaryDependenciesContentForm content() {
       return new StageSummaryDependenciesContentForm(doc, path + "/content");
     }
@@ -35238,6 +38343,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageSummaryEntryContentForm content() {
       return new StageSummaryEntryContentForm(doc, path + "/content");
     }
@@ -35284,6 +38392,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StageSummaryResourcesContentForm content() {
       return new StageSummaryResourcesContentForm(doc, path + "/content");
     }
@@ -35295,6 +38406,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StagingDependenciesContentForm content() {
       return new StagingDependenciesContentForm(doc, path + "/content");
     }
@@ -35306,6 +38420,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StagingDriversContentForm content() {
       return new StagingDriversContentForm(doc, path + "/content");
     }
@@ -35324,6 +38441,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StagingStrategyContentForm content() {
       return new StagingStrategyContentForm(doc, path + "/content");
     }
@@ -35415,6 +38535,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StakeholderEntryContentForm content() {
       return new StakeholderEntryContentForm(doc, path + "/content");
     }
@@ -35429,6 +38552,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StakeholderRegisterEntryContentForm content() {
       return new StakeholderRegisterEntryContentForm(doc, path + "/content");
     }
@@ -35451,6 +38577,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35482,6 +38611,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35540,6 +38672,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public StakeholdersAndInterestsContentForm content() {
       return new StakeholdersAndInterestsContentForm(doc, path + "/content");
     }
@@ -35556,6 +38691,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35590,6 +38728,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35671,6 +38812,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35705,6 +38849,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35735,6 +38882,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35763,6 +38913,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35790,6 +38943,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35813,6 +38969,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SubFunctionEntryContentForm content() {
       return new SubFunctionEntryContentForm(doc, path + "/content");
     }
@@ -35828,6 +38987,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SubStageEntryContentForm content() {
       return new SubStageEntryContentForm(doc, path + "/content");
     }
@@ -35874,6 +39036,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35930,6 +39095,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35999,6 +39167,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SuccessCriterionEntryContentForm content() {
       return new SuccessCriterionEntryContentForm(doc, path + "/content");
     }
@@ -36040,6 +39211,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SuccessCriterionRelationshipsContentForm content() {
       return new SuccessCriterionRelationshipsContentForm(doc, path + "/content");
     }
@@ -36056,6 +39230,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36113,6 +39290,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36134,6 +39314,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SupportedLocaleEntryContentForm content() {
       return new SupportedLocaleEntryContentForm(doc, path + "/content");
     }
@@ -36166,6 +39349,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36192,6 +39378,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36261,6 +39450,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemBusinessCriticalityContentForm content() {
       return new SystemBusinessCriticalityContentForm(doc, path + "/content");
     }
@@ -36292,6 +39484,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemBusinessProcessEntryContentForm content() {
       return new SystemBusinessProcessEntryContentForm(doc, path + "/content");
     }
@@ -36303,6 +39498,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemBusinessUnitEntryContentForm content() {
       return new SystemBusinessUnitEntryContentForm(doc, path + "/content");
     }
@@ -36314,6 +39512,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemConfigurationManagementContentForm content() {
       return new SystemConfigurationManagementContentForm(doc, path + "/content");
     }
@@ -36354,6 +39555,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36410,6 +39614,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemCostAnalysisContentForm content() {
       return new SystemCostAnalysisContentForm(doc, path + "/content");
     }
@@ -36444,6 +39651,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemDataScopeContentForm content() {
       return new SystemDataScopeContentForm(doc, path + "/content");
     }
@@ -36479,6 +39689,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemDependencyEntryContentForm content() {
       return new SystemDependencyEntryContentForm(doc, path + "/content");
     }
@@ -36542,6 +39755,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36588,6 +39804,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemDiagnosticToolsContentForm content() {
       return new SystemDiagnosticToolsContentForm(doc, path + "/content");
     }
@@ -36614,6 +39833,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemErrorCodeEntryContentForm content() {
       return new SystemErrorCodeEntryContentForm(doc, path + "/content");
     }
@@ -36643,6 +39865,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36704,6 +39929,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemIntegrationEntryContentForm content() {
       return new SystemIntegrationEntryContentForm(doc, path + "/content");
     }
@@ -36773,6 +40001,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36794,6 +40025,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemKnowledgeTransferContentForm content() {
       return new SystemKnowledgeTransferContentForm(doc, path + "/content");
     }
@@ -36820,6 +40054,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36836,6 +40073,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemMigrationPlanContentForm content() {
       return new SystemMigrationPlanContentForm(doc, path + "/content");
     }
@@ -36868,6 +40108,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemMigrationRiskEntryContentForm content() {
       return new SystemMigrationRiskEntryContentForm(doc, path + "/content");
     }
@@ -36884,6 +40127,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36915,6 +40161,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36955,6 +40204,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37022,6 +40274,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37154,6 +40409,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemReplacementStrategyContentForm content() {
       return new SystemReplacementStrategyContentForm(doc, path + "/content");
     }
@@ -37193,6 +40451,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37266,6 +40527,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemStagePlanContentForm content() {
       return new SystemStagePlanContentForm(doc, path + "/content");
     }
@@ -37332,6 +40596,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemSummaryContentForm content() {
       return new SystemSummaryContentForm(doc, path + "/content");
     }
@@ -37366,6 +40633,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemTaskEntryContentForm content() {
       return new SystemTaskEntryContentForm(doc, path + "/content");
     }
@@ -37425,6 +40695,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemTechnicalAssessmentContentForm content() {
       return new SystemTechnicalAssessmentContentForm(doc, path + "/content");
     }
@@ -37471,6 +40744,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37557,6 +40833,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemTrainingEntryContentForm content() {
       return new SystemTrainingEntryContentForm(doc, path + "/content");
     }
@@ -37583,6 +40862,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public SystemUserImpactContentForm content() {
       return new SystemUserImpactContentForm(doc, path + "/content");
     }
@@ -37624,6 +40906,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37655,6 +40940,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TabBarDefinitionEntryContentForm content() {
       return new TabBarDefinitionEntryContentForm(doc, path + "/content");
     }
@@ -37681,6 +40969,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TabItemEntryContentForm content() {
       return new TabItemEntryContentForm(doc, path + "/content");
     }
@@ -37709,6 +41000,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37735,6 +41029,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TargetPlatformEntryContentForm content() {
       return new TargetPlatformEntryContentForm(doc, path + "/content");
     }
@@ -37769,6 +41066,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TeamMemberEntryContentForm content() {
       return new TeamMemberEntryContentForm(doc, path + "/content");
     }
@@ -37810,6 +41110,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TeamMemberResponsibilityEntryContentForm content() {
       return new TeamMemberResponsibilityEntryContentForm(doc, path + "/content");
     }
@@ -37821,6 +41124,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TeamMemberSkillEntryContentForm content() {
       return new TeamMemberSkillEntryContentForm(doc, path + "/content");
     }
@@ -37832,6 +41138,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TeamMemberSkillsContentForm content() {
       return new TeamMemberSkillsContentForm(doc, path + "/content");
     }
@@ -37848,6 +41157,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TeamStructureOverviewContentForm content() {
       return new TeamStructureOverviewContentForm(doc, path + "/content");
     }
@@ -37862,6 +41174,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TechnicalCharacteristicEntryContentForm content() {
       return new TechnicalCharacteristicEntryContentForm(doc, path + "/content");
     }
@@ -37873,6 +41188,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TechnicalConstraintEntryContentForm content() {
       return new TechnicalConstraintEntryContentForm(doc, path + "/content");
     }
@@ -37884,6 +41202,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TechnicalDependencyEntryContentForm content() {
       return new TechnicalDependencyEntryContentForm(doc, path + "/content");
     }
@@ -37906,6 +41227,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37987,6 +41311,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TechnicalEnvironmentNetworkContentForm content() {
       return new TechnicalEnvironmentNetworkContentForm(doc, path + "/content");
     }
@@ -38016,6 +41343,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38084,6 +41414,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38112,6 +41445,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38136,6 +41472,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TechnicalGoalEntryContentForm content() {
       return new TechnicalGoalEntryContentForm(doc, path + "/content");
     }
@@ -38177,6 +41516,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TechnicalGoalTestCaseEntryContentForm content() {
       return new TechnicalGoalTestCaseEntryContentForm(doc, path + "/content");
     }
@@ -38195,6 +41537,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38230,6 +41575,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38256,6 +41604,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38301,6 +41652,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38330,6 +41684,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TechnicalRequirementEntryContentForm content() {
       return new TechnicalRequirementEntryContentForm(doc, path + "/content");
     }
@@ -38391,6 +41748,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38422,6 +41782,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38453,6 +41816,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TechnologyDataVariationsContentForm content() {
       return new TechnologyDataVariationsContentForm(doc, path + "/content");
     }
@@ -38467,6 +41833,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TechnologyStandardEntryContentForm content() {
       return new TechnologyStandardEntryContentForm(doc, path + "/content");
     }
@@ -38508,6 +41877,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38538,6 +41910,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38561,6 +41936,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TenantCustomizationEntryContentForm content() {
       return new TenantCustomizationEntryContentForm(doc, path + "/content");
     }
@@ -38580,6 +41958,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38612,6 +41993,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38666,6 +42050,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38690,6 +42077,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TestScenarioEntryContentForm content() {
       return new TestScenarioEntryContentForm(doc, path + "/content");
     }
@@ -38741,6 +42131,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TestScenarioNotesContentForm content() {
       return new TestScenarioNotesContentForm(doc, path + "/content");
     }
@@ -38759,6 +42152,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38775,6 +42171,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TestingStandardsContentForm content() {
       return new TestingStandardsContentForm(doc, path + "/content");
     }
@@ -38806,6 +42205,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ThirdPartyApiIntegrationsContentForm content() {
       return new ThirdPartyApiIntegrationsContentForm(doc, path + "/content");
     }
@@ -38847,6 +42249,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ThirdPartyCompatibilityEntryContentForm content() {
       return new ThirdPartyCompatibilityEntryContentForm(doc, path + "/content");
     }
@@ -38878,6 +42283,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ThirdPartyLibraryEntryContentForm content() {
       return new ThirdPartyLibraryEntryContentForm(doc, path + "/content");
     }
@@ -38921,6 +42329,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38972,6 +42383,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38991,6 +42405,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TlsRequirementsContentForm content() {
       return new TlsRequirementsContentForm(doc, path + "/content");
     }
@@ -39030,6 +42447,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39055,6 +42475,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ToolEntryContentForm content() {
       return new ToolEntryContentForm(doc, path + "/content");
     }
@@ -39144,6 +42567,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ToolingContentForm content() {
       return new ToolingContentForm(doc, path + "/content");
     }
@@ -39183,6 +42609,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39209,6 +42638,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TourStepEntryContentForm content() {
       return new TourStepEntryContentForm(doc, path + "/content");
     }
@@ -39220,6 +42652,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TradeOffDecisionEntryContentForm content() {
       return new TradeOffDecisionEntryContentForm(doc, path + "/content");
     }
@@ -39266,6 +42701,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39303,6 +42741,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TrainingAssessmentContentForm content() {
       return new TrainingAssessmentContentForm(doc, path + "/content");
     }
@@ -39342,6 +42783,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39379,6 +42823,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39422,6 +42869,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TrainingMaterialsContentForm content() {
       return new TrainingMaterialsContentForm(doc, path + "/content");
     }
@@ -39448,6 +42898,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TrainingModuleEntryContentForm content() {
       return new TrainingModuleEntryContentForm(doc, path + "/content");
     }
@@ -39466,6 +42919,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39511,6 +42967,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39562,6 +43021,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TrainingTopicEntryContentForm content() {
       return new TrainingTopicEntryContentForm(doc, path + "/content");
     }
@@ -39573,6 +43035,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TransitionCommunicationChannelsContentForm content() {
       return new TransitionCommunicationChannelsContentForm(doc, path + "/content");
     }
@@ -39589,6 +43054,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39620,6 +43088,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TransitionEscalationPathsContentForm content() {
       return new TransitionEscalationPathsContentForm(doc, path + "/content");
     }
@@ -39631,6 +43102,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TransitionMetricEntryContentForm content() {
       return new TransitionMetricEntryContentForm(doc, path + "/content");
     }
@@ -39652,6 +43126,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TransitionMilestoneEntryContentForm content() {
       return new TransitionMilestoneEntryContentForm(doc, path + "/content");
     }
@@ -39678,6 +43155,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TransitionOverviewContentForm content() {
       return new TransitionOverviewContentForm(doc, path + "/content");
     }
@@ -39699,6 +43179,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TransitionPhaseActivitiesContentForm content() {
       return new TransitionPhaseActivitiesContentForm(doc, path + "/content");
     }
@@ -39717,6 +43200,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39753,6 +43239,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TransitionPhaseIdentificationContentForm content() {
       return new TransitionPhaseIdentificationContentForm(doc, path + "/content");
     }
@@ -39774,6 +43263,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TransitionPhaseStakeholdersContentForm content() {
       return new TransitionPhaseStakeholdersContentForm(doc, path + "/content");
     }
@@ -39785,6 +43277,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TransitionRiskEntryContentForm content() {
       return new TransitionRiskEntryContentForm(doc, path + "/content");
     }
@@ -39811,6 +43306,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39837,6 +43335,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TransitionSupportResourceEntryContentForm content() {
       return new TransitionSupportResourceEntryContentForm(doc, path + "/content");
     }
@@ -39853,6 +43354,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39891,6 +43395,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39950,6 +43457,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39997,6 +43507,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TranslationVendorEntryContentForm content() {
       return new TranslationVendorEntryContentForm(doc, path + "/content");
     }
@@ -40017,6 +43530,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40036,6 +43552,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TroubleshootingCapabilitiesContentForm content() {
       return new TroubleshootingCapabilitiesContentForm(doc, path + "/content");
     }
@@ -40070,6 +43589,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40091,6 +43613,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TrustBoundaryEntryContentForm content() {
       return new TrustBoundaryEntryContentForm(doc, path + "/content");
     }
@@ -40102,6 +43627,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public TypographyStyleEntryContentForm content() {
       return new TypographyStyleEntryContentForm(doc, path + "/content");
     }
@@ -40113,6 +43641,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UIRequirementsPreviewContentForm content() {
       return new UIRequirementsPreviewContentForm(doc, path + "/content");
     }
@@ -40131,6 +43662,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UatTestCycleEntryContentForm content() {
       return new UatTestCycleEntryContentForm(doc, path + "/content");
     }
@@ -40156,6 +43690,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UatTestStepEntryContentForm content() {
       return new UatTestStepEntryContentForm(doc, path + "/content");
     }
@@ -40176,6 +43713,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40336,6 +43876,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40399,6 +43942,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40415,6 +43961,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UsabilityContentForm content() {
       return new UsabilityContentForm(doc, path + "/content");
     }
@@ -40454,6 +44003,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UseCaseExtensionsContentForm content() {
       return new UseCaseExtensionsContentForm(doc, path + "/content");
     }
@@ -40477,6 +44029,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40498,6 +44053,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UserAcceptanceTestingContentForm content() {
       return new UserAcceptanceTestingContentForm(doc, path + "/content");
     }
@@ -40584,6 +44142,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40627,6 +44188,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40656,6 +44220,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40683,6 +44250,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40738,6 +44308,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UserAttributeEntryContentForm content() {
       return new UserAttributeEntryContentForm(doc, path + "/content");
     }
@@ -40754,6 +44327,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40783,6 +44359,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40834,6 +44413,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UserCategoryDefinitionContentForm content() {
       return new UserCategoryDefinitionContentForm(doc, path + "/content");
     }
@@ -40848,6 +44430,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UserCategoryEntryContentForm content() {
       return new UserCategoryEntryContentForm(doc, path + "/content");
     }
@@ -40916,6 +44501,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40953,6 +44541,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UserGroupImpactEntryContentForm content() {
       return new UserGroupImpactEntryContentForm(doc, path + "/content");
     }
@@ -40964,6 +44555,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UserGrowthProjectionsContentForm content() {
       return new UserGrowthProjectionsContentForm(doc, path + "/content");
     }
@@ -41000,6 +44594,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41080,6 +44677,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41140,6 +44740,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41207,6 +44810,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UserLifecycleTransitionEntryContentForm content() {
       return new UserLifecycleTransitionEntryContentForm(doc, path + "/content");
     }
@@ -41241,6 +44847,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41273,6 +44882,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41317,6 +44929,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41363,6 +44978,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41422,6 +45040,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41446,6 +45067,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UserProvisioningToolsContentForm content() {
       return new UserProvisioningToolsContentForm(doc, path + "/content");
     }
@@ -41481,6 +45105,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41507,6 +45134,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UserSettingEntryContentForm content() {
       return new UserSettingEntryContentForm(doc, path + "/content");
     }
@@ -41534,6 +45164,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41562,6 +45195,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41590,6 +45226,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UtilityMenuItemEntryContentForm content() {
       return new UtilityMenuItemEntryContentForm(doc, path + "/content");
     }
@@ -41625,6 +45264,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41649,6 +45291,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public UtilityNavigationItemEntryContentForm content() {
       return new UtilityNavigationItemEntryContentForm(doc, path + "/content");
     }
@@ -41691,6 +45336,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41714,6 +45362,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41771,6 +45422,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public ValidationMessageTemplateContentForm content() {
       return new ValidationMessageTemplateContentForm(doc, path + "/content");
     }
@@ -41790,6 +45444,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41826,6 +45483,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public VersionControlConfigurationContentForm content() {
       return new VersionControlConfigurationContentForm(doc, path + "/content");
     }
@@ -41857,6 +45517,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public VirtualizationRequirementsContentForm content() {
       return new VirtualizationRequirementsContentForm(doc, path + "/content");
     }
@@ -41888,6 +45551,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public VolumeMetricEntryContentForm content() {
       return new VolumeMetricEntryContentForm(doc, path + "/content");
     }
@@ -41899,6 +45565,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public VpnRequirementEntryContentForm content() {
       return new VpnRequirementEntryContentForm(doc, path + "/content");
     }
@@ -41930,6 +45599,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public VulnerabilityManagementPolicyContentForm content() {
       return new VulnerabilityManagementPolicyContentForm(doc, path + "/content");
     }
@@ -41964,6 +45636,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41980,6 +45655,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WarrantyServiceLevelsContentForm content() {
       return new WarrantyServiceLevelsContentForm(doc, path + "/content");
     }
@@ -41994,6 +45672,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WarrantyTermsContentForm content() {
       return new WarrantyTermsContentForm(doc, path + "/content");
     }
@@ -42043,6 +45724,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42090,6 +45774,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WcagSuccessCriterionEntryContentForm content() {
       return new WcagSuccessCriterionEntryContentForm(doc, path + "/content");
     }
@@ -42106,6 +45793,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42155,6 +45845,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42173,6 +45866,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowActorEntryContentForm content() {
       return new WorkflowActorEntryContentForm(doc, path + "/content");
     }
@@ -42189,6 +45885,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowBusinessRuleContentForm content() {
       return new WorkflowBusinessRuleContentForm(doc, path + "/content");
     }
@@ -42200,6 +45899,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowDecisionPointContentForm content() {
       return new WorkflowDecisionPointContentForm(doc, path + "/content");
     }
@@ -42222,6 +45924,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42258,6 +45963,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowExceptionEntryContentForm content() {
       return new WorkflowExceptionEntryContentForm(doc, path + "/content");
     }
@@ -42274,6 +45982,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42295,6 +46006,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowInputEntryContentForm content() {
       return new WorkflowInputEntryContentForm(doc, path + "/content");
     }
@@ -42306,6 +46020,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowOutputEntryContentForm content() {
       return new WorkflowOutputEntryContentForm(doc, path + "/content");
     }
@@ -42319,6 +46036,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowStepEntryContentForm content() {
       return new WorkflowStepEntryContentForm(doc, path + "/content");
     }
@@ -42355,6 +46075,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowStepIssueContentForm content() {
       return new WorkflowStepIssueContentForm(doc, path + "/content");
     }
@@ -42371,6 +46094,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42406,6 +46132,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowSummaryEntryContentForm content() {
       return new WorkflowSummaryEntryContentForm(doc, path + "/content");
     }
@@ -42417,6 +46146,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowSummaryTableContentForm content() {
       return new WorkflowSummaryTableContentForm(doc, path + "/content");
     }
@@ -42433,6 +46165,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkflowTriggerEntryContentForm content() {
       return new WorkflowTriggerEntryContentForm(doc, path + "/content");
     }
@@ -42449,6 +46184,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42479,6 +46217,9 @@ public final class TomSomV0 {
       return true;
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42525,6 +46266,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkplaceSoftwareRequirementsContentForm content() {
       return new WorkplaceSoftwareRequirementsContentForm(doc, path + "/content");
     }
@@ -42546,6 +46290,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
     public WorkplaceSupportResourcesContentForm content() {
       return new WorkplaceSupportResourcesContentForm(doc, path + "/content");
     }

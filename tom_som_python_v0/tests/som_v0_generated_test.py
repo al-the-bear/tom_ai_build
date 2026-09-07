@@ -121,10 +121,10 @@ def test_root_and_parity() -> None:
 
 
 def test_model_version() -> None:
-    _check("version.classattr", m.D00SolutionBlueprint.model_version == "1.0",
+    _check("version.classattr", m.D00SolutionBlueprint.model_version == "1.1",
            m.D00SolutionBlueprint.model_version)
     pd = m.D00SolutionBlueprint(SpecDocument())
-    _check("version.accessor", pd.object_model_version == "1.0",
+    _check("version.accessor", pd.object_model_version == "1.1",
            pd.object_model_version)
 
 
@@ -132,6 +132,7 @@ def test_version_check() -> None:
     # New / equal-stamp document → accepted.
     try:
         m.D00SolutionBlueprint(SpecDocument())
+        m.D00SolutionBlueprint(SpecDocument(), document_version="1.1")
         m.D00SolutionBlueprint(SpecDocument(), document_version="1.0")
         _check("version.editable", True)
     except SomVersionError as e:  # pragma: no cover
@@ -139,7 +140,7 @@ def test_version_check() -> None:
 
     # Newer minor → rejected.
     try:
-        m.D00SolutionBlueprint(SpecDocument(), document_version="1.1")
+        m.D00SolutionBlueprint(SpecDocument(), document_version="1.2")
         _check("version.newer-rejected", False, "expected SomVersionError")
     except SomVersionError:
         _check("version.newer-rejected", True)
@@ -160,10 +161,13 @@ def test_editability_for() -> None:
            m.D00SolutionBlueprint.editability_for(None) ==
            SomEditability.EDITABLE)
     _check("editability.equal",
+           m.D00SolutionBlueprint.editability_for("1.1") ==
+           SomEditability.EDITABLE)
+    _check("editability.older-minor",
            m.D00SolutionBlueprint.editability_for("1.0") ==
            SomEditability.EDITABLE)
     _check("editability.newer-minor",
-           m.D00SolutionBlueprint.editability_for("1.1") ==
+           m.D00SolutionBlueprint.editability_for("1.2") ==
            SomEditability.REJECTED_NEWER_MINOR)
     _check("editability.cross-major",
            m.D00SolutionBlueprint.editability_for("2.0") ==
@@ -174,7 +178,7 @@ def test_editability_for() -> None:
 
     # ``editable`` iff the constructor accepts the same stamp — the non-throwing
     # classifier and the throwing SOM §4.2 gate agree on every stamp.
-    for stamp in (None, "1.0", "1.1", "2.0", "nope"):
+    for stamp in (None, "1.0", "1.1", "1.2", "2.0", "nope"):
         editable = (m.D00SolutionBlueprint.editability_for(stamp) ==
                     SomEditability.EDITABLE)
         try:

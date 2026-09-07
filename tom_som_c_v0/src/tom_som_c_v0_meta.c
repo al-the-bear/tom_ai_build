@@ -12070,6 +12070,7 @@ static void meta_build_acceptance_criteria_list_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Formal acceptance criteria that must be met for project sign-off.\nCovers functional, non-functional, documentation, and training criteria.\nEach criterion must be:\n- Objectively verifiable (measurable or binary pass/fail)\n- Traceable to a requirement or deliverable\n- Assigned a verification method and responsible verifier\n- Categorized by type and priority\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_acceptance_criteria_list_items(SomMetaNode *n) {
   meta_set(&n->class_name, "AcceptanceCriteriaList");
@@ -12106,6 +12107,7 @@ static void meta_build_acceptance_criteria_summary_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the acceptance framework before the must-pass, quality-gate and detailed-criteria subsections below. Cover who accepts, and on what evidence.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_acceptance_criteria_summary_acceptance_framework_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AcceptanceCriteriaSummary");
@@ -12229,6 +12231,7 @@ static void meta_build_acceptance_criterion_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -12292,6 +12295,7 @@ static void meta_build_acceptance_plan_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Acceptance plan overview: defines how the project deliverables will be\nformally accepted by the client/business. Covers:\n- 14.2.1. Acceptance Criteria — what must be true for acceptance\n- 14.2.2. Acceptance Process — the workflow from testing to sign-off\n- 14.2.3. User Acceptance Testing — detailed UAT plan\n- 14.2.4. Defect Resolution — handling defects found during acceptance\n- 14.2.5. Sign-off Process — formal approval workflow\n- 14.2.6. Warranty — post-acceptance support terms\n\nSeeds the QAP (Quality & Acceptance Plan) for comprehensive quality planning.\nAll criteria must be objectively measurable and verifiable.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_acceptance_plan_acceptance_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "AcceptanceCriteriaList");
@@ -12372,6 +12376,7 @@ static void meta_build_acceptance_process_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -12660,6 +12665,7 @@ static void meta_build_acceptance_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -12769,6 +12775,7 @@ static void meta_build_access_channels_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of the access channel landscape and how channels collectively serve the user base.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_access_channels_channel_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessChannels");
@@ -12821,6 +12828,7 @@ static void meta_build_access_constraint_policies_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the constraints layered on top of assignments — separation of duties, time windows, network or device conditions, risk signals — and what triggers each.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_access_constraint_policies_access_constraint_details(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessConstraintPolicies");
@@ -12844,6 +12852,7 @@ static void meta_build_access_control_model_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the access-control model: identities, authentication, resource protection, authorization, and roles.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_access_control_model_user_management(SomMetaNode *n) {
   meta_set(&n->class_name, "UserManagement");
@@ -12916,6 +12925,7 @@ static void meta_build_access_control_model_selection_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "State the model chosen and the alternatives rejected, with the reasoning. This choice constrains everything below it, so record what would have to change to revisit it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_access_control_model_selection_access_control_model_details(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessControlModelSelection");
@@ -12936,6 +12946,7 @@ static void meta_build_access_level_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -13068,6 +13079,7 @@ static void meta_build_access_levels_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of the access-level model and how levels structure authorization across the system.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_access_levels_access_level_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessLevels");
@@ -13130,6 +13142,7 @@ static void meta_build_access_restriction_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -13181,6 +13194,7 @@ static void meta_build_access_user_categories_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define the distinct categories of users who interact with the system. Each\ncategory should reflect different trust levels, access patterns, and business\nrelationships.\n\n**Typical user categories include:**\n- **End Users / Customers** — external users with limited, self-service access\n- **Internal Employees** — staff with role-based access to business functions\n- **Administrators** — privileged users managing system configuration\n- **Partners / B2B Users** — external parties with contractual access\n- **Service Accounts** — non-human identities for automation and integrations\n- **Support / Helpdesk** — staff with elevated access for user assistance\n- **Auditors** — read-only access for compliance and review\n\n**For each category, document:**\n- Estimated user count and growth projections\n- Authentication requirements (MFA, SSO, certificates)\n- Typical access patterns and session duration\n- Onboarding and offboarding processes\n- Data sensitivity level accessible by this category\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_access_user_categories_items(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessUserCategories");
@@ -13217,6 +13231,7 @@ static void meta_build_accessibility_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the accessibility commitment before the WCAG, checklist, keyboard and screen-reader subsections below. Cover the target conformance level and who verifies it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_accessibility_accessibility_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "Accessibility");
@@ -13441,6 +13456,7 @@ static void meta_build_accessibility_check_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -13585,6 +13601,7 @@ static void meta_build_accessibility_checklist_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the verification checklist before the individual items below. Cover when the checklist is run and who signs it off.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_accessibility_checklist_checklist_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessibilityChecklist");
@@ -13690,6 +13707,7 @@ static void meta_build_accessibility_standard_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -13869,6 +13887,7 @@ static void meta_build_account_activation_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the path from pending to active: who or what verifies, who approves, and what is provisioned on activation. Say what happens to accounts that are never activated.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_account_activation_policy_activation_flow_description(SomMetaNode *n) {
   meta_set(&n->class_name, "AccountActivationPolicy");
@@ -13893,6 +13912,7 @@ static void meta_build_account_deactivation_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Distinguish suspension from deactivation in plain terms: what each does to sessions, data and integrations, and how each is reversed.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_account_deactivation_policy_deactivation_process_description(SomMetaNode *n) {
   meta_set(&n->class_name, "AccountDeactivationPolicy");
@@ -13917,6 +13937,7 @@ static void meta_build_account_deletion_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what deletion actually removes and what is retained, and cite the retention obligation behind each exception. Right-to-be-forgotten requests are answered from this text.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_account_deletion_policy_deletion_process_description(SomMetaNode *n) {
   meta_set(&n->class_name, "AccountDeletionPolicy");
@@ -13941,6 +13962,7 @@ static void meta_build_account_lockout_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the throttling and lockout behaviour and how a locked-out user gets back in. Weigh it explicitly against a third party locking a known account on purpose.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_account_lockout_policy_account_lockout_details(SomMetaNode *n) {
   meta_set(&n->class_name, "AccountLockoutPolicy");
@@ -13965,6 +13987,7 @@ static void meta_build_account_modification_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe which attribute changes are self-service, which need an administrator, and which trigger re-verification. Note the attributes that must never change once set.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_account_modification_policy_modification_rules_description(SomMetaNode *n) {
   meta_set(&n->class_name, "AccountModificationPolicy");
@@ -13985,6 +14008,7 @@ static void meta_build_action_parameter_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -14014,6 +14038,7 @@ static void meta_build_actor_characteristics_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -14135,6 +14160,7 @@ static void meta_build_actor_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this actor — their working context, motivation and constraints, beyond the characteristics, goals and permissions recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_actor_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "ActorEntry");
@@ -14391,6 +14417,7 @@ static void meta_build_actor_goals_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -14454,6 +14481,7 @@ static void meta_build_actor_overview_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Actors represent roles that interact with the system. Following UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.\n\n**Actor Categories:**\n- Primary — actors who initiate interactions to achieve goals\n- Secondary — actors who support primary actors\n- Offstage — stakeholders with interests but no direct interaction\n- System — external systems that interact via APIs/integrations\n- Timer/Scheduled — time-triggered automated actors\n\n**For Each Actor Document:**\n- Identification (ID, name, type, category, organizational unit)\n- Characteristics (skills, usage patterns, accessibility needs)\n- Goals (summary/user/subfunction goals, pain points, motivations)\n- Permissions (security clearance, RBAC roles, approval limits)\n- Technology profile (channels, devices, authentication methods)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_actor_overview_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ActorOverview");
@@ -14594,6 +14622,7 @@ static void meta_build_actor_permissions_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -14657,6 +14686,7 @@ static void meta_build_actor_relationship_diagram_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the actor landscape before the hierarchy and actor-system diagrams below. Cover which actors are human, which are systems, and how they generalize.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_actor_relationship_diagram_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ActorRelationshipDiagram");
@@ -14730,6 +14760,7 @@ static void meta_build_admin_interface_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -14898,6 +14929,7 @@ static void meta_build_administration_requirements_section_content(SomMetaNode *
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of administration requirements.\n\n**Include**:\n- Admin interface scope and features\n- Configuration management approach\n- User provisioning workflow\n- Secrets management strategy\n- Admin team access model\n\n**Best Practices**:\n- Implement least-privilege admin access\n- Audit all administrative actions\n- Automate common admin tasks\n- Provide self-service where safe\n- Regular admin access reviews\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_administration_requirements_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "AdministrationRequirementsSection");
@@ -15050,6 +15082,7 @@ static void meta_build_administrative_event_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -15115,6 +15148,7 @@ static void meta_build_affected_department_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -15174,6 +15208,7 @@ static void meta_build_affected_function_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -15220,6 +15255,7 @@ static void meta_build_affected_object_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -15266,6 +15302,7 @@ static void meta_build_alert_definition_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -15418,6 +15455,7 @@ static void meta_build_alert_escalation_policies_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -15564,6 +15602,7 @@ static void meta_build_alert_notification_channels_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -15710,6 +15749,7 @@ static void meta_build_alert_rule_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -15856,6 +15896,7 @@ static void meta_build_alert_suppression_rules_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -15931,6 +15972,7 @@ static void meta_build_alerting_configuration_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the alerting approach before the channel, rule, escalation and on-call subsections below. Cover what warrants an alert at all, and the noise-versus-coverage balance the rules aim for.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_alerting_configuration_alerting_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "AlertingConfiguration");
@@ -16099,6 +16141,7 @@ static void meta_build_alerting_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -16280,6 +16323,7 @@ static void meta_build_alternative_flow_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -16398,6 +16442,7 @@ static void meta_build_alternative_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -16462,6 +16507,7 @@ static void meta_build_anomaly_detection_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -16525,6 +16571,7 @@ static void meta_build_api_abuse_protection_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the abuse this API is likely to attract — enumeration, scraping, brute force, business-flow abuse — and the control for each. Keep it distinct from ordinary rate limiting.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_api_abuse_protection_abuse_protection_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ApiAbuseProtection");
@@ -16549,6 +16596,7 @@ static void meta_build_api_authentication_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how each class of API consumer proves identity — end users, partner systems, internal services, webhooks — and why the mechanism suits that consumer.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_api_authentication_policy_api_authentication_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ApiAuthenticationPolicy");
@@ -16573,6 +16621,7 @@ static void meta_build_api_authorization_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how the system decides a caller may touch a specific object, not merely a specific endpoint. Object-level authorization is OWASP API1; say where it is enforced.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_api_authorization_policy_api_authorization_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ApiAuthorizationPolicy");
@@ -16593,6 +16642,7 @@ static void meta_build_api_compatibility_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -16766,6 +16816,7 @@ static void meta_build_api_cors_security_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "State which origins are permitted and why, and whether credentials cross the origin boundary. A wildcard origin needs an explicit justification here.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_api_cors_security_cors_security_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ApiCorsSecurity");
@@ -16790,6 +16841,7 @@ static void meta_build_api_key_management_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how API keys are issued, scoped, rotated and revoked, and who owns each key. Say how a leaked key is detected and how quickly it can be killed.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_api_key_management_policy_api_key_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ApiKeyManagementPolicy");
@@ -16814,6 +16866,7 @@ static void meta_build_api_request_validation_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how request bodies and parameters are validated, and whether validation is allow-list or deny-list. Say what a rejected request receives back.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_api_request_validation_policy_request_validation_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ApiRequestValidationPolicy");
@@ -16838,6 +16891,7 @@ static void meta_build_api_security_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define security controls for all APIs exposed by the system, including\npublic-facing APIs, internal microservices, and webhooks.\n\n**API authentication (OWASP API1:2023):**\n- OAuth 2.0 with appropriate grant types (authorization code, client credentials)\n- API keys for simple integrations (with rotation and rate limiting)\n- Mutual TLS for service-to-service communication\n- JWT validation: signature, expiration, audience, issuer\n\n**API authorization (OWASP API5:2023):**\n- Function-level access control (which endpoints user can call)\n- Object-level access control (which resources user can access)\n- Field-level filtering in responses\n\n**Request validation (OWASP API8:2023):**\n- Schema validation (JSON Schema, OpenAPI)\n- Input sanitization against injection attacks\n- Rate limiting and quota enforcement\n- Request size limits\n\n**CORS security:**\n- Explicit allowed origins (no wildcard for credentialed requests)\n- Allowed methods and headers explicitly listed\n- Preflight caching configuration\n\n**Abuse protection:**\n- Rate limiting per user/IP/API key\n- DDoS protection at edge (WAF, CDN)\n- Anomaly detection for API abuse patterns\n\n**Reference:**\n- OWASP API Security Top 10 (2023)\n- OWASP REST Security Cheat Sheet\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_api_security_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ApiSecurity");
@@ -16928,6 +16982,7 @@ static void meta_build_api_security_monitoring_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what API telemetry is collected and which patterns raise an alert. Cover endpoint inventory too: OWASP API9 is about the endpoints nobody remembers deploying.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_api_security_monitoring_api_security_monitoring_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ApiSecurityMonitoring");
@@ -16948,6 +17003,7 @@ static void meta_build_api_versioning_strategy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -17094,6 +17150,7 @@ static void meta_build_applicable_regulation_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -17175,6 +17232,7 @@ static void meta_build_application_diagnostics_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -17321,6 +17379,7 @@ static void meta_build_application_metrics_spec_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -17473,6 +17532,7 @@ static void meta_build_application_performance_monitoring_content(SomMetaNode *n
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -17660,6 +17720,7 @@ static void meta_build_application_security_requirements_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -17812,6 +17873,7 @@ static void meta_build_approval_record_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -17841,6 +17903,7 @@ static void meta_build_architecture_component_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -18039,6 +18102,7 @@ static void meta_build_architecture_decision_record_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -18220,6 +18284,7 @@ static void meta_build_architecture_overview_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -18395,6 +18460,7 @@ static void meta_build_architecture_principle_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -18510,6 +18576,7 @@ static void meta_build_architecture_style_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide the architectural vision and primary style selection rationale.\n\n**Include**:\n- Primary architectural style with justification\n- Key architectural drivers (business and technical)\n- Quality attribute requirements (availability, performance, security)\n- Architectural trade-offs accepted and their rationale\n- Evolution path and migration strategy\n\n**Best Practices**:\n- Use Architecture Trade-off Analysis Method (ATAM)\n- Document quality attribute scenarios with measurable targets\n- Consider Conway's Law and team organization\n- Plan for architectural fitness functions\n- Establish architectural governance process\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_architecture_style_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ArchitectureOverview");
@@ -18671,6 +18738,7 @@ static void meta_build_assumption_constraint_dependency_register_content(SomMeta
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_assumption_constraint_dependency_register_assumptions(SomMetaNode *n) {
   meta_set(&n->class_name, "AssumptionConstraintDependencyRegister");
@@ -18739,6 +18807,7 @@ static void meta_build_assumption_register_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -18777,6 +18846,7 @@ static void meta_build_assumptions_constraints_dependencies_content(SomMetaNode 
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the key assumptions the solution relies on and the constraints it must operate within.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_assumptions_constraints_dependencies_register(SomMetaNode *n) {
   meta_set(&n->class_name, "AssumptionConstraintDependencyRegister");
@@ -18800,6 +18870,7 @@ static void meta_build_audit_and_logging_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define security audit and logging requirements. Comprehensive logging enables\nincident detection, forensic investigation, and compliance reporting.\n\n**Logging objectives:**\n- Detect security incidents in real-time or near-real-time\n- Support forensic investigation after incidents\n- Demonstrate compliance to auditors\n- Enable trend analysis and security posture improvement\n\n**Key event categories:**\n- Authentication events (login success/failure, logout, MFA)\n- Authorization events (access granted/denied, privilege changes)\n- Data access events (CRUD operations on sensitive data)\n- Administrative events (config changes, user management)\n- Security events (input validation failures, anomalies)\n\n**Log format:**\n- Structured format (JSON) for machine parsing\n- Consistent timestamp format (ISO 8601 UTC)\n- Unique event IDs for correlation\n- Who, what, when, where, result for each event\n\n**Log protection:**\n- Immutable logs (append-only, write-once storage)\n- Integrity protection (hashing, signing)\n- Access control (limited read access, no delete)\n\n**Retention and compliance:**\n- Define retention periods per log type and regulation\n- PCI DSS: 1 year online, 3 months immediately available\n- HIPAA: 6 years for covered entity records\n- Secure deletion after retention period\n\n**Reference:**\n- OWASP Logging Cheat Sheet\n- NIST SP 800-92: Guide to Computer Security Log Management\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_audit_and_logging_security_events(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityEventsDefinition");
@@ -18830,6 +18901,7 @@ static void meta_build_audit_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -18877,6 +18949,7 @@ static void meta_build_audit_evidence_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -18936,6 +19009,7 @@ static void meta_build_audit_evidence_type_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -18975,6 +19049,7 @@ static void meta_build_audit_log_format_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define the structure and format of audit log entries for consistency,\nparsability, and forensic utility.\n\n**Essential fields (W5H):**\n- **When**: ISO 8601 timestamp in UTC (e.g., 2024-01-15T14:30:00.123Z)\n- **Who**: User ID, username, session ID, IP address, user agent\n- **What**: Action performed, event type, target resource\n- **Where**: Application, service, endpoint, server instance\n- **Result**: Success/failure, HTTP status, error code, error message\n- **How**: Method used (API, UI, batch), request ID for correlation\n\n**Format requirements:**\n- JSON preferred for machine parsing\n- Human-readable for investigation (pretty-print option)\n- Schema-validated for consistency\n- Version field for format evolution\n\n**Sensitive data handling:**\n- Never log passwords, tokens, or secrets\n- Mask or truncate PII (show last 4 of card numbers)\n- Log references to sensitive data, not the data itself\n\n**Log storage:**\n- Centralized log aggregation (ELK, Splunk, CloudWatch)\n- Separate storage from application data\n- Cross-region replication for availability\n- Name the storage *policy* here, never a credential to reach it. The fields in\n  this band are settings the model already names, so they carry values only and\n  cannot be marked secret. A remote sink's password or access key is authored as\n  its own server configuration setting entry (SCSET, under System Configuration\n  Management), which is the one place a secret may be declared.\n\n**Log protection:**\n- Append-only storage (no modification or deletion)\n- Integrity verification (hash chains, signing)\n- Encryption at rest and in transit\n- Access logging for audit logs (who viewed logs)\n\n**Retention policy:**\n- Define per-event-type retention periods\n- Comply with regulatory requirements (PCI: 1y, HIPAA: 6y)\n- Secure deletion after retention period expires\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_audit_log_format_event_attributes(SomMetaNode *n) {
   meta_set(&n->class_name, "EventAttributePolicy");
@@ -19042,6 +19117,7 @@ static void meta_build_audit_requirements_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of audit requirements and approach.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_audit_requirements_audits(SomMetaNode *n) {
   meta_set(&n->class_name, "AuditRequirements");
@@ -19089,6 +19165,7 @@ static void meta_build_authentication_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of the authentication subsystem: methods supported, credential\npolicies, session management, and authentication flows.\n\n**This section covers:**\n- Authentication methods (passwords, MFA, SSO, certificates, biometrics)\n- Authentication flow (login lifecycle, token issuance, session creation)\n- Password and credential policy (complexity, rotation, recovery)\n- Session management (timeouts, concurrent sessions, revocation)\n\n**Design principles:**\n- Defense in depth — multiple authentication layers\n- Fail-secure — authentication failures deny access\n- Secure by default — strongest available method for each user category\n- Transparency — clear feedback on authentication requirements\n\n**Implementation considerations:**\n- Support for both web and native application authentication\n- API authentication (tokens, API keys, mutual TLS)\n- Service-to-service authentication (workload identity)\n- Authentication event logging for security monitoring\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_authentication_authentication_methods(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthenticationMethods");
@@ -19145,6 +19222,7 @@ static void meta_build_authentication_error_handling_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what the user sees on each class of failure and what the system records. The rule to state explicitly is how much the message may reveal about why authentication failed.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_authentication_error_handling_error_handling_details(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthenticationErrorHandling");
@@ -19165,6 +19243,7 @@ static void meta_build_authentication_event_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -19234,6 +19313,7 @@ static void meta_build_authentication_flow_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Document the end-to-end authentication flow from initial login request to\nestablished session. Include sequence diagrams for clarity.\n\n**Flow phases:**\n1. **Initiation**: User navigates to protected resource or login page\n2. **Identification**: Username/email entry, account lookup\n3. **Primary Authentication**: Password or primary credential verification\n4. **Step-Up Authentication**: MFA challenge if required\n5. **Token Issuance**: Generate access token, refresh token, ID token\n6. **Session Establishment**: Create server-side session, set cookies\n7. **Redirect**: Return user to requested resource\n\n**Error handling:**\n- Invalid credentials → lockout progression, brute-force protection\n- MFA failure → retry limits, fallback methods\n- Session conflicts → concurrent session policy enforcement\n- Token errors → silent refresh, re-authentication prompts\n\n**Security considerations:**\n- CSRF protection on login forms\n- Timing-safe credential comparison\n- Secure cookie attributes (HttpOnly, Secure, SameSite)\n- OAuth 2.0 PKCE for public clients\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_authentication_flow_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthenticationFlow");
@@ -19356,6 +19436,7 @@ static void meta_build_authentication_method_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -19547,6 +19628,7 @@ static void meta_build_authentication_methods_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Document all authentication methods supported by the system and their\napplicability to different user categories and use cases.\n\n**Primary authentication methods:**\n- **Passwords**: Traditional knowledge-based authentication\n- **Multi-Factor Authentication (MFA)**:\n  - Something you have: TOTP, SMS, push notifications, hardware tokens\n  - Something you are: fingerprint, face recognition, voice\n- **Single Sign-On (SSO)**: SAML 2.0, OpenID Connect, WS-Federation\n- **Certificates**: X.509 client certificates, smart cards, PIV\n- **Passwordless**: FIDO2/WebAuthn, magic links, passkeys\n\n**Per-method considerations:**\n- Required AAL level (AAL1/AAL2/AAL3)\n- Supported platforms (web, mobile, desktop, API)\n- User enrollment and recovery procedures\n- Fallback authentication for method unavailability\n- Phishing resistance and replay attack protection\n\n**Reference:**\n- NIST SP 800-63B Section 5: Authenticator and Verifier Requirements\n- OWASP Authentication Cheat Sheet\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_authentication_methods_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthenticationMethods");
@@ -19649,6 +19731,7 @@ static void meta_build_authorization_compliance_follow_up_content(SomMetaNode *n
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the authorization-compliance follow-up: UI adaptation to roles and permissions.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_authorization_compliance_follow_up_authorization_compliance(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthorizationComplianceFollowUp");
@@ -19669,6 +19752,7 @@ static void meta_build_authorization_event_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -19728,6 +19812,7 @@ static void meta_build_authorization_group_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -19779,6 +19864,7 @@ static void meta_build_authorization_model_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define the authorization model that governs who can do what in the system.\n\n**Access control models:**\n- **RBAC (Role-Based)**: Permissions assigned to roles; users assigned to roles\n  - Simple, auditable, good for well-defined job functions\n  - Risk of role explosion in complex organizations\n- **ABAC (Attribute-Based)**: Decisions based on user/resource/environment attributes\n  - Flexible, dynamic, supports complex policies\n  - XACML/ALFA policy languages; NIST SP 800-162\n- **ReBAC (Relationship-Based)**: Permissions based on relationships (e.g., \"owner of\")\n  - Natural for social apps, document sharing, organizational hierarchies\n  - Examples: Google Zanzibar, OpenFGA, Ory Keto\n- **Hybrid**: Combine models for different resource types\n\n**Permission granularity:**\n- Function-level: can user invoke this operation?\n- Data-level: can user access this resource instance?\n- Field-level: which fields can user read/write?\n\n**Permission composition:**\n- Additive: user gets union of all granted permissions\n- Deny-overrides: explicit deny supersedes grants\n- Most-specific-wins: closest match takes precedence\n\n**Evaluation behavior:**\n- Default-deny: no access unless explicitly granted\n- Fail-closed: errors result in access denied\n- Decision caching and invalidation strategy\n\n**Reference:**\n- NIST RBAC Model (NIST SP 800-207)\n- NIST ABAC Guide (NIST SP 800-162)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_authorization_model_access_control_model_selection(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessControlModelSelection");
@@ -19855,6 +19941,7 @@ static void meta_build_authorization_requirement_spec_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "What a caller must satisfy to reach the guarded thing.\n\n**State it explicitly.** There is no default requirement. A guarded thing with\nno requirement authored is a specification defect, not an open door.\n\n**Pick the narrowest kind that says what you mean.** *Role* and *Resource Key*\nname entries in the security catalogues and are checked against them. *Group*\nand *Entitlement* match runtime principal data, so they are free-text and cannot\nbe checked at specification time — prefer a catalogued kind where one fits.\n\n**Graded** is for a thing that is not simply reachable or unreachable but has\ndegrees — hidden, visible-but-locked, readable, fully interactive. Use it only\nwhen the degrees genuinely differ; a thing that is either reachable or not is\none of the other nine kinds.\n\n**Do not author what the framework fixes.** How an unmet requirement renders —\nhidden, disabled, read-only — follows from the access state and is fixed by the\nframework. It is not something to restate per site.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -20038,6 +20125,7 @@ static void meta_build_authorization_role_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -20369,6 +20457,7 @@ static void meta_build_availability_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -20554,6 +20643,7 @@ static void meta_build_backup_and_recovery_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of backup and recovery strategy.\n\n**Include**:\n- Backup architecture and technologies\n- RPO/RTO targets by system/data type\n- Disaster recovery strategy and tier\n- Testing and verification schedule\n- Compliance requirements for data retention\n\n**Best Practices**:\n- Automate backup verification\n- Test restores regularly (quarterly minimum)\n- Document step-by-step recovery procedures\n- Cross-train team on recovery operations\n- Review and update DR plan annually\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_backup_and_recovery_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "BackupAndRecoverySection");
@@ -20675,6 +20765,7 @@ static void meta_build_backup_compliance_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -20827,6 +20918,7 @@ static void meta_build_backup_data_classification_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -20954,6 +21046,7 @@ static void meta_build_backup_encryption_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how backups are encrypted and where those keys live — a backup encrypted with a key stored beside it is not encrypted. Say how restore is tested.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_backup_encryption_policy_backup_encryption_details(SomMetaNode *n) {
   meta_set(&n->class_name, "BackupEncryptionPolicy");
@@ -20974,6 +21067,7 @@ static void meta_build_backup_infrastructure_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -21173,6 +21267,7 @@ static void meta_build_backup_policy_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -21372,6 +21467,7 @@ static void meta_build_backup_verification_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -21524,6 +21620,7 @@ static void meta_build_backwards_compatibility_requirements_content(SomMetaNode 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -21699,6 +21796,7 @@ static void meta_build_bandwidth_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -21878,6 +21976,7 @@ static void meta_build_basic_technical_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of basic technical requirements and key decisions.\n\n**Include**:\n- Summary of platform and language choices\n- Architecture style justification\n- Key design patterns and standards adopted\n- Major technical constraints and their origins\n- Dependencies between technical choices\n\n**Best Practices**:\n- Use Architecture Decision Records (ADRs) for major decisions\n- Document rejected alternatives and reasons\n- Identify reversible vs. irreversible decisions\n- Plan technical debt management strategy\n- Establish technology evaluation criteria\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_basic_technical_requirements_platform_and_language(SomMetaNode *n) {
   meta_set(&n->class_name, "PlatformAndLanguage");
@@ -21920,6 +22019,7 @@ static void meta_build_batch_job_management_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "Describe the ground rules every scheduled job runs under.\n\n**The scheduling substrate is fixed, so there is no engine decision to record\nhere.** Jobs are run by the framework's own scheduler; this section says under\nwhat rules they run, never with what.\n\n**Time zone is a system-wide choice, not a per-job one.** Every schedule is\ninterpreted in the scheduler's own clock zone, so state that zone once here\nrather than per job.\n\nThe jobs themselves are declared one by one in Scheduled Jobs (SCJOB); the\nsubsections below carry the defaults those declarations inherit.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -22080,6 +22180,7 @@ static void meta_build_behavior_rule_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -22125,6 +22226,7 @@ static void meta_build_biometric_authentication_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe where biometrics are used and what they unlock — under NIST SP 800-63B they activate an authenticator rather than authenticate on their own. Record the non-biometric alternative.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_biometric_authentication_policy_biometric_details(SomMetaNode *n) {
   meta_set(&n->class_name, "BiometricAuthenticationPolicy");
@@ -22145,6 +22247,7 @@ static void meta_build_boundary_assumption_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -22269,6 +22372,7 @@ static void meta_build_boundary_assumptions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the assumptions the project depends on before the individual items below. Cover how an assumption is validated and what happens when one fails.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_boundary_assumptions_assumption_approach(SomMetaNode *n) {
   meta_set(&n->class_name, "BoundaryAssumptions");
@@ -22318,6 +22422,7 @@ static void meta_build_boundary_interaction_patterns_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Reusable interaction patterns applied at system boundaries. Distinct\nfrom `InteractionPatterns` which documents patterns\nwithin the target system.\n\n**What to capture:**\n- Pattern catalog (name, shape, rationale)\n- Synchronous request-reply flavors (REST, gRPC, GraphQL)\n- Asynchronous patterns (pub/sub, queue, event stream)\n- Batch and scheduled-transfer patterns\n- Pattern selection criteria per interaction\n- Delivery guarantees per pattern (at-most-once / at-least-once / exactly-once)\n- Idempotency and ordering expectations\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_bounded_context_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "BoundedContextEntry");
@@ -22326,6 +22431,7 @@ static void meta_build_bounded_context_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -22517,6 +22623,7 @@ static void meta_build_breakpoint_configuration_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the breakpoint scheme before the individual breakpoints below. Cover the units used and the reasoning behind the chosen thresholds.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_breakpoint_configuration_breakpoint_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "BreakpointConfiguration");
@@ -22622,6 +22729,7 @@ static void meta_build_breakpoint_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -22733,6 +22841,7 @@ static void meta_build_browser_compatibility_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -22908,6 +23017,7 @@ static void meta_build_browser_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -23089,6 +23199,7 @@ static void meta_build_build_toolchain_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -23304,6 +23415,7 @@ static void meta_build_build_tools_configuration_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -23479,6 +23591,7 @@ static void meta_build_business_component_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -23689,6 +23802,7 @@ static void meta_build_business_domain_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("High-level overview of the business domain and task area, explaining what business activities and processes this system will support.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_business_domain_domain_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainOverview");
@@ -23774,6 +23888,7 @@ static void meta_build_business_goal_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -24019,6 +24134,7 @@ static void meta_build_business_goals_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of business goals and their relationship to organizational strategy. Explain how these goals support the business case and value proposition.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_business_goals_goals(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessGoals");
@@ -24053,6 +24169,7 @@ static void meta_build_business_metrics_spec_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -24216,6 +24333,7 @@ static void meta_build_business_object_attribute_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -24348,6 +24466,7 @@ static void meta_build_business_object_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this business object — its role in the domain, beyond the attribute, state, rule and operation facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_business_object_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectEntry");
@@ -24727,6 +24846,7 @@ static void meta_build_business_object_model_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Key business objects, their properties, states, and behaviors. Following\nDomain-Driven Design patterns for rich domain modeling.\n\n**Object Catalog Structure (per entry):**\n- Core Identity — name, alias, category, DDD stereotype (AggregateRoot, Entity, ValueObject)\n- Domain Context — bounded context, owning domain, ubiquitous language term\n- Lifecycle Summary — key states, transitions, terminal states\n- Behavior & Rules — invariants, operations, validation, calculated properties\n- Ownership & Versioning — data owner, concurrency control, audit trail\n- Integration Points — APIs exposed, events published/subscribed\n\n**Sub-elements per Object:**\n- Attributes — business-level attribute specifications (12 fields each)\n- States — detailed state definitions with entry/exit conditions\n- Business Rules — rules governing the object (8 fields each)\n- Lifecycle Transitions — state transitions with guards and actions (13 fields each)\n- Operations — domain operations with pre/post conditions (13 fields each)\n- Invariants — conditions that must always hold (7 fields each)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_business_object_model_objects(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectModel");
@@ -24777,6 +24897,7 @@ static void meta_build_business_pain_points_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of business pain points affecting strategic outcomes and growth.\nInclude revenue impact, compliance exposure, customer retention effects,\nand competitive positioning concerns.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_business_pain_points_category_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessPainPoints");
@@ -24867,6 +24988,7 @@ static void meta_build_business_process_descriptions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Target business processes at a high level. Each process will be expanded with\ndetailed workflows, triggers, decision points, and exception handling in the\nTOM (Target Operating Model) document.\n\n**Subsections:**\n- Process Vision — overall transformation vision and success criteria\n- Design Principles — guiding principles for process design\n- Process Catalog — comprehensive process definitions (1+ required)\n- Process Overview Diagram — landscape and value chain views\n- Improvement Summary — expected benefits and business case\n\n**Seeds:** TOM (Target Operating Model) document\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_business_process_descriptions_process_vision(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessVision");
@@ -25025,6 +25147,7 @@ static void meta_build_business_process_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this business process — the story of how it actually runs, and anything the identification, trigger, role, performance and control facets below do not capture.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_business_process_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessIdentification");
@@ -25148,6 +25271,7 @@ static void meta_build_business_rule_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this business rule — the intent behind it, beyond the logic, enforcement and governance facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_business_rule_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessRuleEntry");
@@ -25462,6 +25586,7 @@ static void meta_build_business_rule_reference_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -25539,6 +25664,7 @@ static void meta_build_capacity_planning_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of capacity planning approach.\n\n**Include**:\n- Growth projections and assumptions\n- Key capacity metrics to track\n- Scaling strategy and triggers\n- Current capacity headroom\n- Planning and review cadence\n\n**Best Practices**:\n- Plan for 2-3x peak capacity\n- Use data-driven forecasting\n- Implement auto-scaling where possible\n- Regular capacity reviews\n- Budget for growth in advance\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_capacity_planning_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "CapacityPlanningSection");
@@ -25625,6 +25751,7 @@ static void meta_build_capacity_review_process_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -25765,6 +25892,7 @@ static void meta_build_ccb_member_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -25816,6 +25944,7 @@ static void meta_build_certificate_authentication_policy_content(SomMetaNode *n)
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe where certificate authentication applies and how certificates reach their holders. Cover revocation checking and what the system does when the check cannot complete.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_certificate_authentication_policy_certificate_details(SomMetaNode *n) {
   meta_set(&n->class_name, "CertificateAuthenticationPolicy");
@@ -25836,6 +25965,7 @@ static void meta_build_certificate_management_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -26015,6 +26145,7 @@ static void meta_build_certificate_management_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how certificates are obtained, renewed and monitored for expiry. An expired certificate is a self-inflicted outage, so say what automation prevents it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_certificate_management_policy_certificate_management_details(SomMetaNode *n) {
   meta_set(&n->class_name, "CertificateManagementPolicy");
@@ -26035,6 +26166,7 @@ static void meta_build_certification_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -26207,6 +26339,7 @@ static void meta_build_certification_requirements_section_content(SomMetaNode *n
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -26382,6 +26515,7 @@ static void meta_build_change_category_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -26511,6 +26645,7 @@ static void meta_build_change_control_board_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "Description of the Change Control Board composition, authority,\nand operating procedures. Define meeting schedule, quorum requirements,\nand decision-making rules.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -26669,6 +26804,7 @@ static void meta_build_change_impact_criteria_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Criteria for assessing change impact across different dimensions.\nDefine thresholds that determine whether a change is minor, moderate,\nmajor, or critical, and the corresponding approval requirements.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_change_impact_criteria_impact_levels(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangeImpactCriteria");
@@ -26725,6 +26861,7 @@ static void meta_build_change_impact_criterion_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -26906,6 +27043,7 @@ static void meta_build_change_notification_rules_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -26957,6 +27095,7 @@ static void meta_build_change_procedure_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of the change management process for project documents.\nDescribe the philosophy for change control, when formal change requests\nare required, and how the process balances agility with governance needs.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_change_procedure_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangeProcedure");
@@ -27076,6 +27215,7 @@ static void meta_build_change_process_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "Detailed description of the change request workflow.\nDescribe each step from submission through closure, including\ndecision points, parallel activities, and notification triggers.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -27276,6 +27416,7 @@ static void meta_build_change_readiness_assessment_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the readiness assessment before the individual criteria below. Cover how readiness is measured and what happens when a group is not ready.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_change_readiness_assessment_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangeReadinessAssessment");
@@ -27367,6 +27508,7 @@ static void meta_build_change_role_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -27414,6 +27556,7 @@ static void meta_build_change_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -27623,6 +27766,7 @@ static void meta_build_changed_role_competencies_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how this role's competency requirements shift before the new, removed and changed-level lists below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_changed_role_competencies_new_competencies(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangedRoleCompetencies");
@@ -27754,6 +27898,7 @@ static void meta_build_changed_role_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this changed role — what the change means for the people currently in it, beyond the responsibility, competency and transition facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_changed_role_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangedRoleIdentification");
@@ -27942,6 +28087,7 @@ static void meta_build_changed_role_identification_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -28051,6 +28197,7 @@ static void meta_build_changed_role_responsibilities_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how this role's responsibilities shift before the added, removed and modified lists below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_changed_role_responsibilities_added_responsibilities(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangedRoleResponsibilities");
@@ -28184,6 +28331,7 @@ static void meta_build_changed_role_transition_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -28299,6 +28447,7 @@ static void meta_build_changes_from_current_structure_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the current-to-target delta before the narrative, chart comparison and individual changes below. Cover which parts of the organization are deliberately left untouched.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_changes_from_current_structure_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangesFromCurrentStructure");
@@ -28430,6 +28579,7 @@ static void meta_build_ci_cd_pipeline_configuration_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -28531,6 +28681,7 @@ static void meta_build_ci_cd_pipeline_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -28718,6 +28869,7 @@ static void meta_build_client_accessibility_requirements_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -28900,6 +29052,7 @@ static void meta_build_client_application_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -28967,6 +29120,7 @@ static void meta_build_client_configuration_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Summarise how this client application is configured per install — which\ncategories of setting exist, which are shipped as defaults in the app's\nconfiguration resources, and which an operator or user may override on a\ngiven machine.\n\nDeclare the individual settings in the list below; keep this overview to\nthe shape and the policy.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_client_configuration_settings(SomMetaNode *n) {
   meta_set(&n->class_name, "ClientConfiguration");
@@ -28999,6 +29153,7 @@ static void meta_build_client_configuration_setting_entry_content(SomMetaNode *n
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -29043,6 +29198,7 @@ static void meta_build_client_hardware_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -29224,6 +29380,7 @@ static void meta_build_client_network_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -29403,6 +29560,7 @@ static void meta_build_client_requirements_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of client requirements and support strategy.\n\n**Include**:\n- Browser support matrix and testing approach\n- Mobile device tier definitions\n- Accessibility compliance target\n- Progressive enhancement strategy\n- Client update and compatibility policy\n\n**Best Practices**:\n- Test on real devices, not just emulators\n- Use browser usage analytics for prioritization\n- Plan for evergreen browser updates\n- Document graceful degradation strategy\n- Regular accessibility audits\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_client_requirements_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ClientRequirementsSection");
@@ -29629,6 +29787,7 @@ static void meta_build_client_security_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -29810,6 +29969,7 @@ static void meta_build_cloud_provider_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -29985,6 +30145,7 @@ static void meta_build_cloud_service_integrations_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -30137,6 +30298,7 @@ static void meta_build_code_quality_metrics_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -30347,6 +30509,7 @@ static void meta_build_code_review_process_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -30540,6 +30703,7 @@ static void meta_build_coding_standard_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -30709,6 +30873,7 @@ static void meta_build_coding_standards_section_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -30913,6 +31078,7 @@ static void meta_build_color_palette_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -30976,6 +31142,7 @@ static void meta_build_column_level_security_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Name the columns that are restricted, who may see each, and what a denied reader gets instead — absent, null or masked. Tie each restriction to a classification or regulation.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_column_level_security_policy_column_level_security_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ColumnLevelSecurityPolicy");
@@ -30996,6 +31163,7 @@ static void meta_build_committee_charter_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -31037,6 +31205,7 @@ static void meta_build_committee_member_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -31120,6 +31289,7 @@ static void meta_build_committee_responsibility_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -31149,6 +31319,7 @@ static void meta_build_communication_channel_encryption_entry_content(SomMetaNod
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -31202,6 +31373,7 @@ static void meta_build_communication_event_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -31319,6 +31491,7 @@ static void meta_build_communication_matrix_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -31409,6 +31582,7 @@ static void meta_build_communication_patterns_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -31623,6 +31797,7 @@ static void meta_build_communication_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of communication architecture and strategy.\n\n**Include**:\n- Primary communication patterns\n- Security requirements overview\n- External integration landscape\n- API design principles\n- Performance requirements\n\n**Best Practices**:\n- Design for failure (circuit breakers, retries)\n- Use asynchronous where possible\n- Implement proper error handling\n- Version APIs for backward compatibility\n- Monitor communication health\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_communication_requirements_protocols_and_standards(SomMetaNode *n) {
   meta_set(&n->class_name, "ProtocolsAndStandardsSection");
@@ -31653,6 +31828,7 @@ static void meta_build_communication_tools_requirements_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -31724,6 +31900,7 @@ static void meta_build_communication_type_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -31793,6 +31970,7 @@ static void meta_build_compatibility_characteristic_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce compatibility for this system before any co-existence and interoperability detail below. Cover what the system must share an environment or an interface with.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_compatibility_characteristic_compatibility_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityCharacteristic");
@@ -31843,6 +32021,7 @@ static void meta_build_compatibility_requirements_section_content(SomMetaNode *n
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of compatibility requirements and testing strategy.\n\n**Include**:\n- Critical compatibility requirements\n- Testing approach and coverage\n- Known compatibility limitations\n- Browser/OS support policy\n- Deprecation and sunset timeline\n\n**Best Practices**:\n- Maintain live compatibility matrix\n- Automate compatibility testing in CI\n- Define clear support tiers (full, limited, best-effort)\n- Plan for mobile OS release cycles\n- Document workarounds for known issues\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_compatibility_requirements_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityRequirementsSection");
@@ -32088,6 +32267,7 @@ static void meta_build_competency_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -32145,6 +32325,7 @@ static void meta_build_competency_framework_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the competency framework before the core, technical and leadership competency lists below. Cover how proficiency levels are defined.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_competency_framework_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "CompetencyFramework");
@@ -32272,6 +32453,7 @@ static void meta_build_competency_level_change_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -32313,6 +32495,7 @@ static void meta_build_compliance_audit_schedule_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -32463,6 +32646,7 @@ static void meta_build_compliance_framework_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Explicit mapping from the access/auth controls in this concept to the\ncompliance frameworks the project must satisfy.\n\n**What to capture:**\n- Applicable frameworks (NIST 800-53, SOC 2 CC6.x, ISO 27001 A.9, OWASP ASVS)\n- Control mapping (our control → framework requirement)\n- Evidence artefacts per control (policies, logs, reports, screenshots)\n- Audit cadence and ownership\n- Gap analysis and remediation plan\n- Certification targets and timelines\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_compliance_milestone_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ComplianceMilestoneEntry");
@@ -32471,6 +32655,7 @@ static void meta_build_compliance_milestone_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -32516,6 +32701,7 @@ static void meta_build_compliance_reporting_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define compliance reporting requirements to satisfy regulatory audits and\ninternal governance.\n\n**Periodic access reviews:**\n- Quarterly/annual user access recertification\n- Manager certification of direct reports’ access\n- Privileged account review (monthly or more frequent)\n- Orphaned account detection and remediation\n- Dormant account reporting and deactivation\n\n**Privilege usage reports:**\n- Privileged action audit reports\n- Emergency access usage (break-glass)\n- Elevated privilege duration and justification\n- Segregation of duties violation reports\n\n**Anomaly detection:**\n- Unusual access patterns (time, location, volume)\n- Impossible travel detection\n- Behavioral analytics and UEBA integration\n- Automated alerting for high-risk anomalies\n\n**Regulatory audit support:**\n- Pre-built compliance reports (SOC 2, PCI, HIPAA)\n- Evidence collection automation\n- Audit trail export capabilities\n- Control attestation documentation\n\n**Report delivery:**\n- Automated scheduled reports to stakeholders\n- On-demand report generation\n- Dashboard views for continuous monitoring\n- Secure report storage and access control\n\n**Compliance frameworks:**\n- SOC 2: CC6.1–CC6.3 (access controls), CC7.1–CC7.5 (monitoring)\n- PCI DSS 10: Track and monitor access\n- HIPAA, section 164.312: Access controls and audit\n- ISO 27001: A.9 Access control, A.12 Logging\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_compliance_reporting_periodic_reviews(SomMetaNode *n) {
   meta_set(&n->class_name, "PeriodicReviewPolicy");
@@ -32580,6 +32766,7 @@ static void meta_build_compliance_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -32627,6 +32814,7 @@ static void meta_build_compliance_verification_section_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -32825,6 +33013,7 @@ static void meta_build_component_action_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -32936,6 +33125,7 @@ static void meta_build_component_docs_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -32971,6 +33161,7 @@ static void meta_build_component_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -33345,6 +33536,7 @@ static void meta_build_component_family_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -33416,6 +33608,7 @@ static void meta_build_component_governance_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -33591,6 +33784,7 @@ static void meta_build_component_interface_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -33811,6 +34005,7 @@ static void meta_build_component_library_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the design system before the token, colour and typography subsections below. Cover where the foundations come from and how they are versioned.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_component_library_design_foundations(SomMetaNode *n) {
   meta_set(&n->class_name, "ComponentLibrary");
@@ -34128,6 +34323,7 @@ static void meta_build_component_licensing_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -34332,6 +34528,7 @@ static void meta_build_component_organization_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -34501,6 +34698,7 @@ static void meta_build_component_property_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -34566,6 +34764,7 @@ static void meta_build_component_registry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -34741,6 +34940,7 @@ static void meta_build_component_responsibilities_entry_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -34932,6 +35132,7 @@ static void meta_build_component_risk_assessment_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Risk Assessment (12.6)\n\nComponent risk assessment and contingency planning.\n\n### Risk Categories\n- **Vendor risks** — Abandonment, acquisition, pricing changes\n- **Technical risks** — Security vulnerabilities, performance\n- **Licensing risks** — License changes, compliance issues\n- **Operational risks** — Support quality, documentation gaps\n\n### Risk Analysis\nEach risk includes:\n- Probability and impact\n- Current mitigation status\n- Monitoring approach\n- Escalation triggers\n\n### Subsections\n- **12.6.1 Component Risks** — Individual risk entries\n- **12.6.2 Contingency Plans** — Response plans for critical risks\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_component_risk_assessment_risks(SomMetaNode *n) {
   meta_set(&n->class_name, "ComponentRiskAssessment");
@@ -34975,6 +35176,7 @@ static void meta_build_component_risk_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -35191,6 +35393,7 @@ static void meta_build_component_slot_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -35244,6 +35447,7 @@ static void meta_build_component_state_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -35390,6 +35594,7 @@ static void meta_build_component_strategy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -35641,6 +35846,7 @@ static void meta_build_component_variant_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -35762,6 +35968,7 @@ static void meta_build_components_and_dependencies_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Components and Dependencies (Chapter 12)\n\nExternal and standard components planned for the system.\n\n### Subsections\n- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence\n- **12.2 Component Catalog** — Individual component specifications\n- **12.3 Component Role in System** — Mapping to architecture\n- **12.4 Runtime Dependencies** — Startup order, health checks, failover\n- **12.5 Maintenance Dependencies** — Version matrix, update sequences\n- **12.6 Risk Assessment** — Component risks and contingency plans\n\n### Seeds\nAll subsections seed the **ATS (Architecture & Technology Specification)** document.\n\n### Specification Depth\nEach component should specify:\n- Identity (name, version, vendor)\n- Licensing and costs\n- Integration interfaces\n- Security baseline\n- Support model\n- Risk profile\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_components_and_dependencies_strategy(SomMetaNode *n) {
   meta_set(&n->class_name, "ComponentStrategy");
@@ -35850,6 +36057,7 @@ static void meta_build_compute_resource_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -36008,6 +36216,7 @@ static void meta_build_computing_equipment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -36146,6 +36355,7 @@ static void meta_build_concurrent_session_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what happens when the same account signs in again elsewhere: allowed, limited, or the older session ended. Say whether the user is notified.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_concurrent_session_policy_concurrent_session_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ConcurrentSessionPolicy");
@@ -36166,6 +36376,7 @@ static void meta_build_confidential_info_category_entry_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -36201,6 +36412,7 @@ static void meta_build_confidentiality_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -36301,6 +36513,7 @@ static void meta_build_configuration_management_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -36476,6 +36689,7 @@ static void meta_build_connectivity_resilience_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -36610,6 +36824,7 @@ static void meta_build_consent_management_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -36814,6 +37029,7 @@ static void meta_build_constraint_register_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -36853,6 +37069,7 @@ static void meta_build_content_scanning_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what uploaded content is scanned for, when the scan happens relative to acceptance, and what a positive result does. Say how quarantined content is reviewed.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_content_scanning_policy_content_scanning_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ContentScanningPolicy");
@@ -36877,6 +37094,7 @@ static void meta_build_context_diagram_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide a narrative overview of the context diagram and what the depicted black-box view represents.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_context_diagram_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "ContextDiagram");
@@ -36916,6 +37134,7 @@ static void meta_build_contextual_help_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce on-screen contextual help before the inline, panel and rich-help subsections below. Cover which surfaces carry help and how it is kept current.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_contextual_help_contextual_help_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ContextualHelp");
@@ -37141,6 +37360,7 @@ static void meta_build_contextual_navigation_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Contextual Navigation (10.3.1.6)\n\nBreadcrumbs, back navigation, related links.\n\n### Breadcrumbs\n- Platform visibility (desktop-only typical)\n- Max visible items before collapse\n- Home item configuration\n- Separator style\n- Position in page layout\n\n### Back Navigation\n- System back vs in-app back\n- Platform-specific behavior\n\n### Related Links\n- \"See also\" navigation\n- Cross-entity links\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_contextual_navigation_breadcrumbs(SomMetaNode *n) {
   meta_set(&n->class_name, "ContextualNavigation");
@@ -37253,6 +37473,7 @@ static void meta_build_contingency_plan_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -37479,6 +37700,7 @@ static void meta_build_contingency_plans_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Contingency Plans (12.6.2)\n\nPlans for responding to component risk events.\n\n### Plan Components\n- **Trigger conditions** — What activates the plan\n- **Immediate actions** — Containment steps\n- **Recovery actions** — Full restoration\n- **RTO/RPO** — Recovery time/point objectives\n- **Communication** — Internal and external messaging\n\n### Testing\n- Tabletop exercises\n- Simulated failures\n- Post-test improvements\n\n### Dependencies\nDocument tools, access, and backups required to execute.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_contingency_plans_items(SomMetaNode *n) {
   meta_set(&n->class_name, "ContingencyPlans");
@@ -37511,6 +37733,7 @@ static void meta_build_correctness_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -37661,6 +37884,7 @@ static void meta_build_credential_compromise_detection_policy_content(SomMetaNod
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the signals monitored — breach corpora, credential stuffing patterns, impossible travel — and the automated response to each. Say what the affected user is told.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_credential_compromise_detection_policy_compromise_detection_details(SomMetaNode *n) {
   meta_set(&n->class_name, "CredentialCompromiseDetectionPolicy");
@@ -37685,6 +37909,7 @@ static void meta_build_credential_recovery_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe each recovery path and how identity is re-established on it. Recovery is often the weakest link, so state why each path is no weaker than normal authentication.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_credential_recovery_policy_credential_recovery_details(SomMetaNode *n) {
   meta_set(&n->class_name, "CredentialRecoveryPolicy");
@@ -37709,6 +37934,7 @@ static void meta_build_cross_boundary_error_handling_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Policy for how failures propagate or are contained across boundary\ninteractions. Complements per-interface `InterfaceErrorHandling` which\ncaptures partner-specific logic.\n\n**What to capture:**\n- Error-taxonomy shared across boundaries (network, protocol, business)\n- Propagation policy (fail-fast / absorb / translate)\n- Retry and backoff conventions\n- Dead-letter and poison-message handling\n- User-visible messaging for cross-boundary failures\n- Alerting thresholds per error class\n- Post-mortem and reconciliation procedures\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_cross_boundary_operational_considerations_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CrossBoundaryOperationalConsiderations");
@@ -37721,6 +37947,7 @@ static void meta_build_cross_boundary_operational_considerations_content(SomMeta
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Operational considerations that span all boundary interactions rather\nthan being specific to one partner.\n\n**What to capture:**\n- Aggregate SLA expectations across partners\n- Rate-limit budgeting (per-partner vs. system-wide)\n- Change-window coordination (our releases vs. partners' releases)\n- Observability conventions (metrics, log fields, trace IDs)\n- Disaster-recovery posture for boundary interactions\n- Capacity planning across partners\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_cross_cutting_concerns_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CrossCuttingConcerns");
@@ -37729,6 +37956,7 @@ static void meta_build_cross_cutting_concerns_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -37937,6 +38165,7 @@ static void meta_build_cross_process_analysis_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Cross-cutting view of how processes interact: shared entities, data\nexchanged, synchronization points, and conflicts.\n\n**What to capture:**\n- Shared business entities and which processes create / read / update them\n- Synchronization points (process A must complete before B)\n- Conflict analysis (processes competing for the same resource)\n- Event flows between processes\n- Matrix view of processes x shared artifacts\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_cross_tenant_access_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CrossTenantAccessPolicy");
@@ -37949,6 +38178,7 @@ static void meta_build_cross_tenant_access_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "State whether cross-tenant access exists at all, and if so what authorizes it and who sees the audit trail. If it does not exist, say that plainly — it is a strong guarantee.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_cross_tenant_access_policy_cross_tenant_access_policy_details(SomMetaNode *n) {
   meta_set(&n->class_name, "CrossTenantAccessPolicy");
@@ -37973,6 +38203,7 @@ static void meta_build_current_architecture_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the architecture as it stands today, not as it was designed: deployment topology, integration patterns, shared services and data stores. Note where the running system has drifted from its documentation.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_current_architecture_architecture_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentArchitecture");
@@ -38040,6 +38271,7 @@ static void meta_build_current_business_process_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -38166,6 +38398,7 @@ static void meta_build_current_business_processes_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the processes the project will impact, replace or enhance, and say how they were established — workshops, observation, existing documentation. One subsection per process follows below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_current_business_processes_process_landscape_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentBusinessProcesses");
@@ -38254,6 +38487,7 @@ static void meta_build_current_data_classification_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of data classification in the organization. Describe the classification\nframework, sensitivity levels, handling requirements, and current classification\ncoverage.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_current_data_classification_classification_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentDataClassification");
@@ -38387,6 +38621,7 @@ static void meta_build_current_data_landscape_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the current data landscape. Summarize the overall data\nsituation, key data assets, major challenges, and strategic importance of data\nto the organization. Highlight critical data dependencies and risks.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_current_data_landscape_data_landscape_overview_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentDataLandscape");
@@ -38612,6 +38847,7 @@ static void meta_build_current_landscape_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive summary of the current state: existing systems landscape, business\nprocesses today, known pain points, current data landscape, operational\nmetrics, and risks tied to the current state or to replacement. Seeds the CS\ndocument alongside the systems-to-replace inventory.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_current_landscape_existing_systems_landscape(SomMetaNode *n) {
   meta_set(&n->class_name, "ExistingSystemsLandscape");
@@ -38709,6 +38945,7 @@ static void meta_build_current_operational_metric_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Captures measurable operational characteristics of the current systems\nlandscape. Feeds requirement derivation (target throughput, peak-load\nhandling, availability targets) and risk assessment (what degrades if the\nreplacement underperforms the baseline).\n\n**What to capture:**\n- Transaction volumes (per day/week/month) and peak factors\n- User counts (active / concurrent / peak)\n- Response-time baselines for key operations\n- Availability / uptime historicals\n- Error rates and incident frequency\n- Storage growth rates and retention sizing\n- Integration volumes (messages, API calls per interval)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_current_process_improvement_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentProcessImprovementEntry");
@@ -38717,6 +38954,7 @@ static void meta_build_current_process_improvement_entry_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -38768,6 +39006,7 @@ static void meta_build_current_state_risk_assessment_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Risks that originate from the current systems landscape or from the act of\nreplacing them. Not to be confused with target-state risks.\n\n**What to capture:**\n- Stability / reliability risks of the current systems\n- Vendor / contract risks (EOL, licensing, support)\n- Knowledge risks (key-person dependencies on legacy systems)\n- Data-integrity risks during transition\n- Operational-continuity risks (cutover windows, parallel-run exposure)\n- Compliance risks of keeping legacy systems in operation\n- Replacement-specific risks (scope creep, timeline, migration failures)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_current_workflow_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentWorkflowEntry");
@@ -38776,6 +39015,7 @@ static void meta_build_current_workflow_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -39056,6 +39296,7 @@ static void meta_build_custom_distribution_group_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -39115,6 +39356,7 @@ static void meta_build_custom_metric_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -39178,6 +39420,7 @@ static void meta_build_cutover_procedure_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Cutover runbook: the operational plan that executes the go-live moment.\nDeliberately more tactical than the Rollout Plan — which sets cohorts and\nwaves — and than the Migration Plan — which covers data execution.\n\n**What to capture:**\n- Cutover timeline (freeze, migration, verification, open)\n- Task checklist with owners, start/end times, dependencies\n- Communication touchpoints (internal / external, pre / during / post)\n- Go / no-go criteria at each gate\n- Contingency scripts (partial-failure recovery, rollback trigger)\n- Command center / war-room setup\n- Post-cutover verification checks\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d00_solution_blueprint_content(SomMetaNode *n) {
   meta_set(&n->class_name, "D00SolutionBlueprint");
@@ -39190,6 +39433,7 @@ static void meta_build_d00_solution_blueprint_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d00_solution_blueprint_document_control(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentControl");
@@ -39359,6 +39603,7 @@ static void meta_build_d01_current_landscape_assessment_content(SomMetaNode *n) 
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the current-state analysis that motivates the project.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d01_current_landscape_assessment_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -39486,6 +39731,7 @@ static void meta_build_d02_target_operating_model_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the target business process model.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d02_target_operating_model_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -39645,6 +39891,7 @@ static void meta_build_d03_information_model_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the business data model.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d03_information_model_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -39919,6 +40166,7 @@ static void meta_build_d04_requirements_specification_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the requirements catalog and its traceability model.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d04_requirements_specification_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -40035,6 +40283,7 @@ static void meta_build_d05_interaction_scenarios_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the use-case model and its coverage.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d05_interaction_scenarios_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -40150,6 +40399,7 @@ static void meta_build_d06_architecture_technology_specification_content(SomMeta
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the technical-requirements set.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d06_architecture_technology_specification_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -40320,6 +40570,7 @@ static void meta_build_d07_integration_interface_specification_content(SomMetaNo
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the system-boundary interaction specification.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d07_integration_interface_specification_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -40487,6 +40738,7 @@ static void meta_build_d08_security_access_specification_content(SomMetaNode *n)
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the access and authorization concept.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d08_security_access_specification_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -40617,6 +40869,7 @@ static void meta_build_d09_experience_design_specification_content(SomMetaNode *
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the UI prototype and design system.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d09_experience_design_specification_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -40807,6 +41060,7 @@ static void meta_build_d10_quality_acceptance_plan_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the business quality plan.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d10_quality_acceptance_plan_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -41058,6 +41312,7 @@ static void meta_build_d11_delivery_roadmap_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the phase plan and its gate model.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d11_delivery_roadmap_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -41198,6 +41453,7 @@ static void meta_build_d12_transition_rollout_plan_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the rollout approach.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d12_transition_rollout_plan_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -41369,6 +41625,7 @@ static void meta_build_d13_code_specs_projection_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of the CodeSpecs generation input: which blueprint subtrees feed generation and how they route across the shared/client/server split.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_d13_code_specs_projection_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -41587,6 +41844,7 @@ static void meta_build_dashboard_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -41686,6 +41944,7 @@ static void meta_build_dashboard_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -41861,6 +42120,7 @@ static void meta_build_dashboard_templates_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -41924,6 +42184,7 @@ static void meta_build_data_access_audit_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe which data accesses are audited, what the record contains, and who reviews it. State the retention period and the compliance requirement it satisfies.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_access_audit_policy_data_access_audit_details(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAccessAuditPolicy");
@@ -41944,6 +42205,7 @@ static void meta_build_data_access_event_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -42009,6 +42271,7 @@ static void meta_build_data_architecture_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -42219,6 +42482,7 @@ static void meta_build_data_attribute_constraint_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -42282,6 +42546,7 @@ static void meta_build_data_attribute_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this attribute — what it means and how it is used, beyond the type, constraint and lineage facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_attribute_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
@@ -42745,6 +43010,7 @@ static void meta_build_data_classification_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the classification framework before the individual levels below. Cover who classifies data and when a classification is reviewed.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_classification_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DataClassification");
@@ -42818,6 +43084,7 @@ static void meta_build_data_classification_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this classification level — what kind of data belongs in it, beyond the storage, access and retention rules below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_classification_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataClassificationEntry");
@@ -43077,6 +43344,7 @@ static void meta_build_data_classification_level_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -43142,6 +43410,7 @@ static void meta_build_data_classification_status_entry_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -43193,6 +43462,7 @@ static void meta_build_data_dictionary_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Single authoritative registry for data attributes across the system.\n\n**What to capture:**\n- Attribute name, data type, and allowed values\n- Source entity, semantic description, and synonyms\n- Business rules that constrain the attribute\n- Provenance (where the attribute is first set, where it is read)\n- Format / unit / precision conventions\n- Default value and required-ness\n- Cross-references to validation constraints\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_duplication_analysis_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DataDuplicationAnalysis");
@@ -43205,6 +43475,7 @@ static void meta_build_data_duplication_analysis_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of data duplication across the organization. Describe the extent\nof duplication, its causes, impacts, and any ongoing deduplication efforts.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_duplication_analysis_duplication_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "DataDuplicationAnalysis");
@@ -43315,6 +43586,7 @@ static void meta_build_data_duplication_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -43453,6 +43725,7 @@ static void meta_build_data_entity_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this data entity — what it represents in the business, beyond the identity, attribute and key facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_entity_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityEntry");
@@ -43768,6 +44041,7 @@ static void meta_build_data_entity_migration_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -43809,6 +44083,7 @@ static void meta_build_data_entity_reference_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -43867,6 +44142,7 @@ static void meta_build_data_format_compatibility_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -44046,6 +44322,7 @@ static void meta_build_data_governance_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of data governance in the organization. Describe the governance\nframework, organizational structure, policies, and current maturity level.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_governance_governance_maturity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataGovernance");
@@ -44170,6 +44447,7 @@ static void meta_build_data_governance_policy_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -44269,6 +44547,7 @@ static void meta_build_data_growth_projections_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -44444,6 +44723,7 @@ static void meta_build_data_integration_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -44635,6 +44915,7 @@ static void meta_build_data_integration_points_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of data integration across the organization. Describe the integration\narchitecture, major data flows, technologies used, and integration challenges.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_integration_points_integration_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "DataIntegrationPoints");
@@ -44763,6 +45044,7 @@ static void meta_build_data_level_security_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define data-level security controls that protect sensitive information\nwithin databases and data stores.\n\n**Database access controls:**\n- Application uses dedicated service accounts with minimal privileges\n- No shared credentials; secrets managed via vault or managed identities\n- Separation of read and write access where appropriate\n\n**Row-Level Security (RLS):**\n- Automatic filtering of queries based on user context (tenant, ownership)\n- Implemented at database level (PostgreSQL RLS, SQL Server RLS)\n- Or enforced at ORM/application layer with mandatory predicates\n\n**Column-Level Security:**\n- Sensitive columns encrypted or masked at database level\n- Dynamic masking for non-privileged users (shown as ****)\n- Tokenization for PCI data (card numbers, CVV)\n\n**Tenant data isolation:**\n- Strict segregation for multi-tenant applications\n- Separate schemas, row-level predicates, or separate databases\n- Cross-tenant access explicitly denied by default\n\n**Data masking:**\n- Production data never copied to non-production unmasked\n- Dynamic masking for support/debug access\n- Pseudonymization for analytics and testing\n\n**Audit logging:**\n- Log all data access to sensitive tables\n- Capture user identity, timestamp, query, affected rows\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_level_security_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DataLevelSecurity");
@@ -44853,6 +45135,7 @@ static void meta_build_data_masking_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what is masked, where, and by which technique, keeping static (copied data) and dynamic (runtime) masking apart. Say whether masked data must stay referentially consistent.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_masking_policy_data_masking_details(SomMetaNode *n) {
   meta_set(&n->class_name, "DataMaskingPolicy");
@@ -44873,6 +45156,7 @@ static void meta_build_data_migration_strategy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -45472,6 +45756,7 @@ static void meta_build_data_model_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Conceptual data model from a business perspective. Defines the entities,\nattributes, relationships, and constraints that represent core business data.\n\n**Subsections:**\n- Entity Overview — Comprehensive entity definitions with attributes, keys, indexes, and constraints\n- Entity Relationships — Relationship specifications with cardinality and referential integrity\n- Data Classification — Security classification framework with handling requirements\n\n**Entity Coverage per Entry:**\n- Core Identity (name, table, alias, description, stereotype)\n- Classification (category, bounded context, domain, ownership)\n- Lifecycle Policy (retention, archival, anonymization, audit)\n- Relationships Summary (parent, child, referenced, cross-domain)\n- Attributes, key attributes, indexes, and constraints\n\nPer-entity operational facets (volume metrics, compliance requirements,\ntechnical characteristics, migration mappings) and the model-wide ER diagram\nare authored in the Data Model Follow-up Facets section (7.9).\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_model_entities(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModel");
@@ -45570,6 +45855,7 @@ static void meta_build_data_model_follow_up_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Follow-up facets for the data model. These describe operational, capacity,\ncompliance, and migration concerns that accompany — but are not part of — the\ncore entity/attribute schema.\n\n**Subsections:**\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Per-entity follow-up facets — Volume, compliance, technical characteristics,\n  and migration mappings for each entity in the data model\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_model_follow_up_er_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModelFollowUp");
@@ -45618,6 +45904,7 @@ static void meta_build_data_ownership_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of data ownership and stewardship across the organization. Describe\nthe ownership model, roles and responsibilities, and any gaps in accountability.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_ownership_ownership_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "DataOwnership");
@@ -45730,6 +46017,7 @@ static void meta_build_data_ownership_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -45841,6 +46129,7 @@ static void meta_build_data_processing_agreement_requirements_content(SomMetaNod
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -46020,6 +46309,7 @@ static void meta_build_data_protection_and_privacy_section_content(SomMetaNode *
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of data protection and privacy strategy.\n\n**Include**:\n- Applicable privacy regulations\n- Data residency requirements\n- Consent management approach\n- Data subject rights implementation\n- Privacy governance structure\n\n**Best Practices**:\n- Implement privacy by design from start\n- Maintain data inventory and mapping\n- Automate data subject requests\n- Regular privacy impact assessments\n- Privacy training for all staff\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_protection_and_privacy_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DataProtectionAndPrivacySection");
@@ -46117,6 +46407,7 @@ static void meta_build_data_protection_classification_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -46302,6 +46593,7 @@ static void meta_build_data_quality_assessment_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of data quality across the organization. Describe the assessment\nmethodology, scope, key findings, and overall data quality posture.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_quality_assessment_dimensions_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "DataQualityAssessment");
@@ -46450,6 +46742,7 @@ static void meta_build_data_quality_initiative_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -46491,6 +46784,7 @@ static void meta_build_data_quality_issue_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -46631,6 +46925,7 @@ static void meta_build_data_residency_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -46781,6 +47076,7 @@ static void meta_build_data_retention_policies_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of data retention policies and lifecycle management. Describe the\npolicy framework, regulatory drivers, implementation status, and any gaps.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_retention_policies_policy_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "DataRetentionPolicies");
@@ -46886,6 +47182,7 @@ static void meta_build_data_source_entity_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -46927,6 +47224,7 @@ static void meta_build_data_source_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -47326,6 +47624,7 @@ static void meta_build_data_source_inventory_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of the data source inventory. Describe the methodology used to\ncatalog data sources, coverage of the inventory, and any known gaps.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_source_inventory_data_source_map_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "DataSourceInventory");
@@ -47371,6 +47670,7 @@ static void meta_build_data_subject_rights_management_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -47604,6 +47904,7 @@ static void meta_build_data_volume_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -47669,6 +47970,7 @@ static void meta_build_data_volume_summary_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -47807,6 +48109,7 @@ static void meta_build_data_volumes_and_growth_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of data volumes and growth patterns across the organization.\nDescribe current total volumes, growth trends, capacity constraints,\nand forecasting methodology.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_data_volumes_and_growth_volume_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "DataVolumeSummary");
@@ -47869,6 +48172,7 @@ static void meta_build_database_access_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe which principals reach the database and with what privileges, and how application credentials differ from administrative ones. Justify every privilege beyond least privilege.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_database_access_policy_database_access_details(SomMetaNode *n) {
   meta_set(&n->class_name, "DatabaseAccessPolicy");
@@ -47889,6 +48193,7 @@ static void meta_build_database_compatibility_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -48062,6 +48367,7 @@ static void meta_build_database_encryption_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what database encryption covers and what it costs: encrypted columns cannot be indexed or searched normally, so say how queries against them work.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_database_encryption_policy_database_encryption_details(SomMetaNode *n) {
   meta_set(&n->class_name, "DatabaseEncryptionPolicy");
@@ -48082,6 +48388,7 @@ static void meta_build_debugging_configuration_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -48286,6 +48593,7 @@ static void meta_build_decision_authority_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -48327,6 +48635,7 @@ static void meta_build_decision_maker_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -48386,6 +48695,7 @@ static void meta_build_decision_option_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -48573,6 +48883,7 @@ static void meta_build_decision_point_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -48736,6 +49047,7 @@ static void meta_build_decision_point_entry_resolution_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -48820,6 +49132,7 @@ static void meta_build_decision_points_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -48904,6 +49217,7 @@ static void meta_build_deep_link_pattern_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -48969,6 +49283,7 @@ static void meta_build_deep_linking_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Deep Linking (10.3.1.7)\n\nExternal entry points and shareable URLs.\n\n### Pattern Properties\n- URL pattern with parameters\n- Target screen and description\n- Authentication requirements\n- Permission checks\n- Fallback routes\n- Share enablement\n\n### Use Cases\n- Email links to specific records\n- Push notification targets\n- External system integrations\n- Bookmarkable pages\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_deep_linking_strategy(SomMetaNode *n) {
   meta_set(&n->class_name, "DeepLinking");
@@ -49013,6 +49328,7 @@ static void meta_build_defect_resolution_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -49225,6 +49541,7 @@ static void meta_build_deferred_scope_item_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -49272,6 +49589,7 @@ static void meta_build_deliverable_dependencies_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -49298,6 +49616,7 @@ static void meta_build_deliverable_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -49611,6 +49930,7 @@ static void meta_build_delivery_acceptance_criterion_entry_content(SomMetaNode *
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -49819,6 +50139,7 @@ static void meta_build_delivery_scope_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Defines what is delivered as part of this project across four categories:\n- Software deliverables (application components, libraries, configurations)\n- Documentation deliverables (user, technical, operations docs)\n- Training deliverables (sessions, materials, train-the-trainer)\n- Support deliverables (transition support, warranty, ongoing support)\n\nEach deliverable entry specifies format, delivery mechanism, acceptance\ncriteria, and responsible party. Deliverables are contractually binding\ncommitments.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_delivery_scope_software_deliverables(SomMetaNode *n) {
   meta_set(&n->class_name, "SoftwareDeliverables");
@@ -49875,6 +50196,7 @@ static void meta_build_delivery_scope_and_acceptance_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Chapter overview: defines agreements regarding delivery scope and acceptance\nfor the system. Covers two major subsections:\n- 14.1. Delivery and Service Scope — what is delivered (software, documentation,\n  training, support)\n- 14.2. Acceptance Plan — how deliverables are accepted (criteria, process, UAT,\n  defect resolution, sign-off, warranty)\n\nSeeds the QAP (Quality & Acceptance Plan) document for full quality planning.\nAll deliverable and acceptance definitions should be objectively verifiable\nand contractually precise.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_delivery_scope_and_acceptance_delivery_scope(SomMetaNode *n) {
   meta_set(&n->class_name, "DeliveryScope");
@@ -49911,6 +50233,7 @@ static void meta_build_delivery_transition_and_rollout_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_delivery_transition_and_rollout_system_stage_plan(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemStagePlan");
@@ -49993,6 +50316,7 @@ static void meta_build_dependencies_and_integrations_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Name each dependency between current systems, on external services and on shared infrastructure, and say which of them are fragile. A fragile integration point is a migration risk, so record why it is fragile, not just that it is.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_dependencies_and_integrations_dependency_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "DependenciesAndIntegrations");
@@ -50075,6 +50399,7 @@ static void meta_build_dependency_health_monitoring_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -50238,6 +50563,7 @@ static void meta_build_dependency_injection_structure_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -50407,6 +50733,7 @@ static void meta_build_dependency_management_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -50570,6 +50897,7 @@ static void meta_build_dependency_register_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -50611,6 +50939,7 @@ static void meta_build_dependency_scanning_requirements_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -50790,6 +51119,7 @@ static void meta_build_deployment_context_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide a narrative overview of the deployment context before the structured deployment details below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_deployment_context_deployment_details(SomMetaNode *n) {
   meta_set(&n->class_name, "DeploymentContext");
@@ -50870,6 +51200,7 @@ static void meta_build_deployment_environment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -51027,6 +51358,7 @@ static void meta_build_deployment_model_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -51208,6 +51540,7 @@ static void meta_build_deployment_security_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -51370,6 +51703,7 @@ static void meta_build_deployment_strategy_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of deployment strategy and pipeline.\n\n**Include**:\n- Deployment model and orchestration\n- CI/CD pipeline overview\n- Release strategy selection and rationale\n- Rollback procedures and triggers\n- Deployment metrics and goals\n\n**Best Practices**:\n- Deploy frequently in small batches\n- Automate everything, minimize manual steps\n- Implement comprehensive deployment testing\n- Monitor deployments with automated rollback\n- Document deployment runbooks\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_deployment_strategy_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DeploymentStrategySection");
@@ -51478,6 +51812,7 @@ static void meta_build_deployment_target_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -51700,6 +52035,7 @@ static void meta_build_deployment_topology_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -51910,6 +52246,7 @@ static void meta_build_design_foundation_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -51939,6 +52276,7 @@ static void meta_build_design_goal_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -51990,6 +52328,7 @@ static void meta_build_design_goals_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Design Goals (10.1.1)\n\nPrioritized UI objectives the system must achieve.\n\n### Goal Categories\n- **Usability** — Task completion, learnability, error prevention\n- **Performance** — Perceived speed, responsiveness, load times\n- **Accessibility** — WCAG compliance level, assistive tech support\n- **Aesthetics** — Visual appeal, brand alignment, delight\n- **Engagement** — User retention, feature adoption\n\n### Form Fields Guide\n**goalName**: Concise label (\"Zero-Click Ordering\")\n**measurementCriteria**: Specific test (\"95% can complete in <3 clicks\")\n**targetMetric**: Quantified target (\"<2s load time on 3G\")\n**relatedPrinciples**: Cross-reference to VIS-PRI entries\n\n### Tom UI Mapping\nGoals drive widget configuration — e.g., performance goals → lazy loading, \naccessibility goals → semantic labels and focus management.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_design_goals_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignGoals");
@@ -52034,6 +52373,7 @@ static void meta_build_design_pattern_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -52230,6 +52570,7 @@ static void meta_build_design_patterns_and_standards_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of the design patterns and standards approach.\n\n**Include**:\n- Core pattern library with usage guidelines\n- Coding standards summary with enforcement mechanisms\n- Industry compliance requirements and evidence\n- Code quality metrics and thresholds\n- Exception handling and error patterns\n\n**Best Practices**:\n- Create pattern catalog with examples and anti-patterns\n- Automate standards enforcement in CI/CD pipeline\n- Document when NOT to use certain patterns\n- Plan regular pattern and standards reviews\n- Establish technical debt tracking for standards violations\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_design_patterns_and_standards_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignPatternsAndStandards");
@@ -52390,6 +52731,7 @@ static void meta_build_design_principle_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -52447,6 +52789,7 @@ static void meta_build_design_principles_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Design Principles (10.1.2)\n\nGuiding principles for all UI decisions.\n\n### Principle Categories\n- **Visual** — Hierarchy, whitespace, color usage, typography\n- **Interaction** — Feedback, affordance, direct manipulation\n- **Accessibility** — Perceivable, operable, understandable, robust\n- **Information** — Progressive disclosure, chunking, scent\n- **Navigation** — Wayfinding, landmarks, predictability\n\n### Form Fields Guide\n**principleName**: Clear label (\"Progressive Disclosure\")\n**rationale**: Why it matters for this project\n**examples**: Concrete UI manifestations\n**exceptions**: When deviation is acceptable\n\n### Tom UI Mapping\nPrinciples configure shared behaviors:\n- Animation curves via `TomAnimations`\n- Feedback patterns via `TomFeedback`\n- Spacing/rhythm via `TomSpacing`\n- Typography scale via `TomTypography`\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_design_principles_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignPrinciples");
@@ -52495,6 +52838,7 @@ static void meta_build_design_vision_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Design Vision (10.1)\n\nOverall design vision governing all UI decisions.\n\n### Subsections\n- **10.1.1 Design Goals** — Prioritized UI objectives (simplicity, efficiency, accessibility)\n- **10.1.2 Design Principles** — Guiding principles (progressive disclosure, direct manipulation)\n- **10.1.3 User Personas** — Distinct user archetypes with goals/pain points\n\n### Tom UI Framework Context\nDesign vision informs:\n- Widget selection and customization\n- Color schemes and theming via `TomTheme`\n- Spacing and typography scales\n- Interaction patterns and feedback timing\n\n### Specification Notes\nDocument the visual language and interaction vocabulary — how the Tom UI component \nlibrary will be configured and extended to express this vision.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_design_vision_design_goals(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignGoals");
@@ -52536,6 +52880,7 @@ static void meta_build_desktop_os_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -52721,6 +53066,7 @@ static void meta_build_detailed_process_workflow_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Step-level detail for each process in the catalog: activity sequence,\ndecision points, handoffs, swim lanes, timing, and system-actor vs human\nactor responsibility.\n\n**What to capture:**\n- Activity list with inputs / outputs per step\n- Decision points with branch conditions\n- Handoff points between actors / systems\n- Timing expectations and SLAs per step\n- Error and exception branches\n- BPMN-style diagram per process\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_developer_onboarding_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DeveloperOnboarding");
@@ -52729,6 +53075,7 @@ static void meta_build_developer_onboarding_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -52933,6 +53280,7 @@ static void meta_build_development_convention_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -53129,6 +53477,7 @@ static void meta_build_development_environment_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of the development environment philosophy.\n\n**Include**:\n- Tooling philosophy and selection criteria\n- Developer onboarding target time\n- \"Works on my machine\" prevention strategy\n- Environment parity across dev/staging/production\n- Development metrics and productivity tracking\n\n**Best Practices**:\n- Use devcontainers or Nix for reproducible environments\n- Document \"getting started\" in under 30 minutes\n- Automate environment setup scripts\n- Establish development environment SLAs\n- Regular tooling retrospectives and updates\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_development_environment_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DevelopmentEnvironment");
@@ -53272,6 +53621,7 @@ static void meta_build_development_quality_gates_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -53482,6 +53832,7 @@ static void meta_build_device_setting_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -53515,6 +53866,7 @@ static void meta_build_device_settings_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Summarise which settings this system keeps per (user, device) rather than\nper user — the ones that describe how *this* machine is set up and would be\nwrong to carry to another one.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy and the reasoning for the device scope.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_device_settings_settings(SomMetaNode *n) {
   meta_set(&n->class_name, "DeviceSettings");
@@ -53547,6 +53899,7 @@ static void meta_build_disaster_recovery_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -53728,6 +54081,7 @@ static void meta_build_display_equipment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -53850,6 +54204,7 @@ static void meta_build_display_property_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -53879,6 +54234,7 @@ static void meta_build_display_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -54060,6 +54416,7 @@ static void meta_build_distributed_tracing_spec_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -54212,6 +54569,7 @@ static void meta_build_distribution_group_summary_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -54257,6 +54615,7 @@ static void meta_build_distribution_list_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of project communication and distribution approach.\nDescribe the different stakeholder groups, their information needs,\nand how documents and updates are distributed. Define the communication\nchannels and frequency for different types of information.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_distribution_list_communication_matrix(SomMetaNode *n) {
   meta_set(&n->class_name, "CommunicationMatrix");
@@ -54322,6 +54681,7 @@ static void meta_build_distribution_recipient_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -54539,6 +54899,7 @@ static void meta_build_distribution_recipient_preferences_content(SomMetaNode *n
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -54580,6 +54941,7 @@ static void meta_build_dns_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -54755,6 +55117,7 @@ static void meta_build_doc_changeability_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -54901,6 +55264,7 @@ static void meta_build_doc_completeness_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -54984,6 +55348,7 @@ static void meta_build_doc_correctness_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -55111,6 +55476,7 @@ static void meta_build_document_control_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_document_control_header(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentHeader");
@@ -55189,6 +55555,7 @@ static void meta_build_document_header_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -55239,6 +55606,7 @@ static void meta_build_document_relationships_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Describe how this document relates to other reference documents in the catalog.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_document_relationships_related_documents(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentRelationships");
@@ -55271,6 +55639,7 @@ static void meta_build_document_relevant_sections_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -55334,6 +55703,7 @@ static void meta_build_documentation_deliverables_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Documentation deliverables: user guides, technical documentation,\noperations runbooks, API documentation, architecture decision records,\nrelease notes Template. Define format (PDF, HTML, Markdown, wiki),\ndelivery channel, language(s), and maintenance responsibility post-delivery.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_documentation_deliverables_items(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentationDeliverables");
@@ -55370,6 +55740,7 @@ static void meta_build_documentation_quality_criteria_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the documentation quality bar before the readability, completeness, correctness and changeability subsections below. Cover which deliverables the criteria apply to.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_documentation_quality_criteria_documentation_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentationQualityCriteria");
@@ -55484,6 +55855,7 @@ static void meta_build_documentation_standards_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -55694,6 +56066,7 @@ static void meta_build_documentation_standards_section_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -55879,6 +56252,7 @@ static void meta_build_domain_boundaries_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Draw the bounded context: what belongs to this domain, what belongs to neighbouring ones, and what the shared language is at each seam.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_domain_boundaries_context_map(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainBoundaries");
@@ -55951,6 +56325,7 @@ static void meta_build_domain_business_rule_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -56059,6 +56434,7 @@ static void meta_build_domain_business_rules_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of business rules and their importance in this domain.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_domain_business_rules_rules(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainBusinessRules");
@@ -56091,6 +56467,7 @@ static void meta_build_domain_enum_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -56156,6 +56533,7 @@ static void meta_build_domain_enum_registry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- `domainEnum` code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_domain_enum_registry_enums(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainEnumRegistry");
@@ -56188,6 +56566,7 @@ static void meta_build_domain_enum_value_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -56226,6 +56605,7 @@ static void meta_build_domain_event_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -56294,6 +56674,7 @@ static void meta_build_domain_events_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of key domain events and their significance.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_domain_events_events(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainEvents");
@@ -56326,6 +56707,7 @@ static void meta_build_domain_interface_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -56383,6 +56765,7 @@ static void meta_build_domain_overview_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the business domain in its own vocabulary: what it is responsible for, where it sits in the business, and who owns it. Avoid solution language here.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_domain_overview_domain_details(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainOverview");
@@ -56457,6 +56840,7 @@ static void meta_build_domain_process_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -56584,6 +56968,7 @@ static void meta_build_domain_processes_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the domain's main workflows at a level a business reader recognises. The detail belongs in the business process model; here, show how the activities fit together.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_domain_processes_process_overview_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainProcesses");
@@ -56630,6 +57015,7 @@ static void meta_build_domain_term_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -56698,6 +57084,7 @@ static void meta_build_domain_vocabulary_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Introduction to the domain vocabulary and guidelines for using consistent terminology.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_domain_vocabulary_terms(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainVocabulary");
@@ -56732,6 +57119,7 @@ static void meta_build_efficiency_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -56890,6 +57278,7 @@ static void meta_build_element_validation_rule_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -56943,6 +57332,7 @@ static void meta_build_emergency_maintenance_procedures_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -57083,6 +57473,7 @@ static void meta_build_encrypted_data_category_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -57140,6 +57531,7 @@ static void meta_build_encryption_at_rest_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define how stored data is encrypted to protect against unauthorized access,\ndata breaches, and physical media theft.\n\n**Encryption layers:**\n1. **Full-disk encryption (FDE)**: Protects against physical theft\n2. **Database encryption (TDE)**: Transparent database-level encryption\n3. **Application encryption**: Field-level encryption for sensitive data\n4. **Hardware encryption**: HSM-backed encryption for highest assurance\n\n**Algorithm requirements:**\n- Symmetric: AES-256-GCM or AES-256-CBC with HMAC\n- Key derivation: PBKDF2, scrypt, or Argon2 for password-derived keys\n- Random IVs/nonces for each encryption operation\n\n**Data categories to encrypt:**\n- Credentials and secrets (highest priority)\n- PII: names, addresses, identifiers\n- Financial data: payment card numbers, bank details\n- Health data: PHI under HIPAA\n- Business confidential: trade secrets, contracts\n\n**Backup encryption:**\n- All backups encrypted with separate key set\n- Offline key escrow for disaster recovery\n- Test restoration of encrypted backups regularly\n\n**Compliance notes:**\n- PCI DSS 3.4: render PAN unreadable anywhere it is stored\n- HIPAA: encryption is addressable safeguard for PHI\n- GDPR: encryption as appropriate technical measure\n\n**Reference:**\n- OWASP Cryptographic Storage Cheat Sheet\n- NIST SP 800-111: Guide to Storage Encryption\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_encryption_at_rest_encryption_policy(SomMetaNode *n) {
   meta_set(&n->class_name, "EncryptionAtRestPolicy");
@@ -57232,6 +57624,7 @@ static void meta_build_encryption_at_rest_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "State the default algorithm and key length and the layer encryption is applied at. Explain what this protects against — an at-rest scheme does not protect a running system.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_encryption_at_rest_policy_encryption_at_rest_policy_details(SomMetaNode *n) {
   meta_set(&n->class_name, "EncryptionAtRestPolicy");
@@ -57256,6 +57649,7 @@ static void meta_build_encryption_in_transit_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define how data is protected while moving over networks, both externally\n(internet) and internally (service-to-service).\n\n**TLS configuration:**\n- Minimum version: TLS 1.2 (TLS 1.3 preferred)\n- Disable: SSLv2, SSLv3, TLS 1.0, TLS 1.1\n- Cipher suites: AEAD ciphers only (GCM, ChaCha20-Poly1305)\n- Disable: NULL, EXPORT, DES, RC4, CBC (for TLS 1.2 prefer GCM)\n- Forward secrecy: require ECDHE or DHE key exchange\n\n**Certificate management:**\n- Use certificates from trusted CAs (or well-managed internal PKI)\n- Minimum 2048-bit RSA or 256-bit ECDSA keys\n- Automated renewal before expiration (ACME/Let's Encrypt)\n- Certificate transparency logging\n\n**HSTS (HTTP Strict Transport Security):**\n- Enable with long max-age (1 year recommended)\n- Include subdomains\n- Consider HSTS preload list submission\n\n**Mutual TLS (mTLS):**\n- Client certificate authentication for service-to-service\n- Zero-trust network architecture\n- Certificate rotation automation\n\n**Internal communication:**\n- Encrypt all internal service-to-service traffic\n- Service mesh (Istio, Linkerd) for automatic mTLS\n- No plaintext communication even within VPC\n\n**Reference:**\n- OWASP Transport Layer Security Cheat Sheet\n- NIST SP 800-52: Guidelines for TLS Implementations\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_encryption_in_transit_tls_protocol_policy(SomMetaNode *n) {
   meta_set(&n->class_name, "TlsProtocolPolicy");
@@ -57348,6 +57742,7 @@ static void meta_build_end_to_end_test_scenario_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "End-to-end test scenarios derived from use cases and key user journeys.\nFeeds BQP test strategy and the Phase 5 test derivation step.\n\n**What to capture:**\n- Scenario catalog (name, user journey, success criteria)\n- Actor, data, and system preconditions\n- Step-by-step expected behavior\n- Variation matrix (happy path + key alternates)\n- Exit criteria for each scenario\n- Cross-reference to use cases and requirements\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_enterprise_system_compatibility_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "EnterpriseSystemCompatibilityEntry");
@@ -57356,6 +57751,7 @@ static void meta_build_enterprise_system_compatibility_entry_content(SomMetaNode
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -57531,6 +57927,7 @@ static void meta_build_entitlement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -57590,6 +57987,7 @@ static void meta_build_entitlement_reference_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -57628,6 +58026,7 @@ static void meta_build_entity_constraint_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -57682,6 +58081,7 @@ static void meta_build_entity_follow_up_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this entity's follow-up facets — operational context the volume, compliance, technical and migration lists below do not capture.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_entity_follow_up_entry_entity_ref(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityFollowUpEntry");
@@ -57805,6 +58205,7 @@ static void meta_build_entity_index_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -57868,6 +58269,7 @@ static void meta_build_entity_relationship_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this relationship — the business fact it records, beyond the cardinality and referential-integrity facets below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_entity_relationship_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationshipEntry");
@@ -58140,6 +58542,7 @@ static void meta_build_entity_relationships_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Relationship specifications between data entities. Captures cardinality,\nreferential integrity rules, and navigation patterns.\n\n**Per Relationship (29 fields):**\n- Identity — name, type, description, justification, implementation type\n- Participants — source/target entities with role names\n- Cardinality — source/target cardinality, participation (mandatory/optional)\n- Referential Integrity — ON DELETE/UPDATE actions, enforcement, cascade scope\n- Navigation — bidirectional/unidirectional, loading strategy, FK location\n- Relationship Attributes — for relationships with their own properties\n\n**Relationship Types:**\n- Association — general relationship between entities\n- Aggregation — \"has-a\" with independent lifecycle\n- Composition — \"owns-a\" with dependent lifecycle\n- Generalization — inheritance/specialization\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_entity_relationships_items(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationships");
@@ -58172,6 +58575,7 @@ static void meta_build_entry_point_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -58201,6 +58605,7 @@ static void meta_build_environment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -58818,6 +59223,7 @@ static void meta_build_environment_management_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -58993,6 +59399,7 @@ static void meta_build_environment_strategy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -59197,6 +59604,7 @@ static void meta_build_environments_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -59278,6 +59686,7 @@ static void meta_build_equipment_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the equipment provision for this workplace before the computing, display, input and peripheral lists below. Cover the standard issue and what is granted only by exception.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_equipment_requirements_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "EquipmentRequirements");
@@ -59455,6 +59864,7 @@ static void meta_build_error_budget_tracking_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -59566,6 +59976,7 @@ static void meta_build_error_code_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -59620,6 +60031,7 @@ static void meta_build_error_code_registry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Catalogue the shared application error codes. Add one entry per code; each\ncode is referenced by:\n- CE-VA validation rules (a rule's error code on fail),\n- the CE-ER Result envelope (the error arm's `code`),\n- CE-TX error copy (the message keyed by the code).\n\nAuthor the code **once here**; everything else references it by id so the\nvocabulary never diverges. This is the *application* error registry — distinct\nfrom D09's system/network/display error catalogue.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_error_code_registry_error_codes(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorCodeRegistry");
@@ -59656,6 +60068,7 @@ static void meta_build_error_handling_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the error-handling experience before the validation, system-error and recovery subsections below. Cover the tone errors are written in and the balance struck between prevention and recovery.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_error_handling_error_philosophy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorHandling");
@@ -59884,6 +60297,7 @@ static void meta_build_error_handling_standards_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -60092,6 +60506,7 @@ static void meta_build_error_recovery_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how a user gets back on track after an error before the preservation, retry and guided-recovery subsections below. Cover what work must never be lost.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_error_recovery_recovery_mechanisms_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorRecovery");
@@ -60393,6 +60808,7 @@ static void meta_build_evaluation_criteria_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Evaluation Criteria (12.1.2)\n\nCriteria for evaluating candidate components.\n\n### Standard Categories\n- **Technical** — Performance, scalability, security, API quality\n- **Commercial** — Cost, licensing, vendor stability\n- **Operational** — Support model, documentation, update frequency\n- **Strategic** — Alignment with stack, vendor relationship\n- **Compliance** — Regulatory requirements, certifications\n\n### Scoring Approach\nEach criterion includes:\n- Weight (% of total)\n- Scoring scale (1-5, Pass/Fail)\n- Minimum threshold\n- Eliminatory flag\n- Evidence requirements\n- Evaluation method\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_evaluation_criteria_items(SomMetaNode *n) {
   meta_set(&n->class_name, "EvaluationCriteria");
@@ -60425,6 +60841,7 @@ static void meta_build_evaluation_criterion_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -60577,6 +60994,7 @@ static void meta_build_event_attribute_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -60658,6 +61076,7 @@ static void meta_build_executive_summary_distribution_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "List of stakeholders who receive executive summaries only.\nThese are typically senior executives and sponsors who need\nhigh-level progress updates without operational details.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_executive_summary_distribution_group_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "DistributionGroupSummary");
@@ -60701,6 +61120,7 @@ static void meta_build_existing_system_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -61177,6 +61597,7 @@ static void meta_build_existing_systems_landscape_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("High-level overview of the existing systems landscape. Include a context diagram showing how systems interact.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_existing_systems_landscape_system_inventory(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemInventory");
@@ -61218,6 +61639,7 @@ static void meta_build_expected_improvements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -61293,6 +61715,7 @@ static void meta_build_experience_and_interface_design_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an executive overview of the User Interface Design, establishing the\nfoundation for all visual and interactive aspects of the application.\n\n**Purpose:**\nThis section bridges business requirements and visual implementation. It ensures\nthe UI supports all business processes, respects authorization boundaries, and\nprovides a consistent user experience across all application areas.\n\n**Section structure:**\n1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions\n2. **Screen Descriptions** — Detailed inventory of all application screens\n3. **Screen Flow Structure** — Navigation paths and user journeys through the application\n4. **Print Layout** — Reports, exports, and print output formats\n5. **Data Structure Alignment** — Mapping of UI fields to data model entities\n6. **Authorization Compliance** — UI adaptation based on user roles and permissions\n7. **Error Handling** — User feedback for validation errors and system failures\n8. **User Assistance** — Contextual help, tooltips, onboarding, and documentation\n9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support\n10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile\n11. **UI Components** — Reusable component library and design system\n12. **Multi-language Support** — Internationalization and localization approach\n13. **Prototype** — Clickable prototype deliverables and fidelity levels\n\n**Flutter UI framework context:**\nThis specification targets Flutter-based UI using the Tom UI framework:\n- Observable state binding via `TomObject<T>` and `TomClass`\n- Form system with typed fields, validation, and resource lookup\n- Action system for user interactions and command execution\n- Authorization-aware widgets with four-state visibility model\n- Resource-based text, icons, and configuration\n- Theming system for consistent visual styling\n\n**Specification depth:**\nThe UI specification should be detailed enough to specify every screen, field,\nbutton, icon, label, tooltip, error message, layout breakpoint, and interaction\npattern. The structure allows progressive refinement from high-level wireframes\nto pixel-perfect designs with exact typography and spacing.\n\n**Cross-references:**\n- Data Model (section 7) → field mappings and data types\n- Security & Access Model (section 9) → role-based UI visibility\n- Business Processes (section 6) → user task flows\n- Requirements (section 4) → functional requirements for each screen\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_experience_and_interface_design_experience_code_specs(SomMetaNode *n) {
   meta_set(&n->class_name, "ExperienceCodeSpecs");
@@ -61359,6 +61782,7 @@ static void meta_build_experience_code_specs_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the CodeSpecs UI-generation subtree: screens, navigation, error handling, responsive design, and components.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_experience_code_specs_screens(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenDescriptions");
@@ -61447,6 +61871,7 @@ static void meta_build_experience_design_follow_up_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the design follow-up: vision, print layout, user assistance, accessibility, prototype, and wireframes.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_experience_design_follow_up_design_vision(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignVision");
@@ -61536,6 +61961,7 @@ static void meta_build_experience_localization_follow_up_content(SomMetaNode *n)
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the localization follow-up: the multi-language / internationalization approach.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_experience_localization_follow_up_multi_language_support(SomMetaNode *n) {
   meta_set(&n->class_name, "MultiLanguageSupport");
@@ -61555,6 +61981,7 @@ static void meta_build_export_field_mapping_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -61898,6 +62325,7 @@ static void meta_build_export_format_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -62261,6 +62689,7 @@ static void meta_build_export_size_settings_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -62290,6 +62719,7 @@ static void meta_build_export_template_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -62488,6 +62918,7 @@ static void meta_build_extension_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -62606,6 +63037,7 @@ static void meta_build_extension_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -62664,6 +63096,7 @@ static void meta_build_external_actor_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -62788,6 +63221,7 @@ static void meta_build_external_actors_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of external actors and their interaction patterns with the system.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_external_actors_actors(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalActors");
@@ -62826,6 +63260,7 @@ static void meta_build_external_connectivity_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of external connectivity landscape.\n\n**Include**:\n- Key partner and integration landscape\n- Cloud service dependencies\n- Critical third-party APIs\n- Gateway and mesh architecture\n- Resilience strategy\n\n**Best Practices**:\n- Abstract external dependencies with adapters\n- Implement comprehensive error handling\n- Monitor external dependency health\n- Have fallback strategies for critical integrations\n- Regular vendor review and risk assessment\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_external_connectivity_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalConnectivitySection");
@@ -62929,6 +63364,7 @@ static void meta_build_external_interface_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this interface — the business need it serves and the partner behind it, beyond the technical, data and security facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_external_interface_entry_identification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalInterfaceEntry");
@@ -63078,6 +63514,7 @@ static void meta_build_external_interfaces_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the external-integration landscape before the individual interfaces below. Cover the integration style favoured and the governance around adding one.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_external_interfaces_integration_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalInterfaces");
@@ -63149,6 +63586,7 @@ static void meta_build_external_network_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -63324,6 +63762,7 @@ static void meta_build_external_partner_connection_entry_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -63576,6 +64015,7 @@ static void meta_build_external_partner_operations_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -63615,6 +64055,7 @@ static void meta_build_external_service_dependencies_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of external service dependencies and vendor relationships.");
   meta_set(&n->content_help, "Describe reliance on external services. Include vendor risk assessment, contract status, and contingency planning.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_external_service_dependencies_items(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalServiceDependencies");
@@ -63647,6 +64088,7 @@ static void meta_build_external_service_dependency_entry_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -63827,6 +64269,7 @@ static void meta_build_external_system_context_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -63977,6 +64420,7 @@ static void meta_build_external_systems_context_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of external system integrations and integration architecture.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_external_systems_context_systems(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalSystemsContext");
@@ -64009,6 +64453,7 @@ static void meta_build_family_component_ref_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -64041,6 +64486,7 @@ static void meta_build_feature_dependencies_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -64119,6 +64565,7 @@ static void meta_build_feature_dependency_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -64196,6 +64643,7 @@ static void meta_build_feature_module_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -64403,6 +64851,7 @@ static void meta_build_feature_prioritization_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -64717,6 +65166,7 @@ static void meta_build_feature_priority_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -65215,6 +65665,7 @@ static void meta_build_feature_priority_register_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -65270,6 +65721,7 @@ static void meta_build_feature_stage_mapping_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -65433,6 +65885,7 @@ static void meta_build_feature_stage_matrix_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -65517,6 +65970,7 @@ static void meta_build_feature_stakeholders_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -65570,6 +66024,7 @@ static void meta_build_feature_tour_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -65647,6 +66102,7 @@ static void meta_build_field_help_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -65703,6 +66159,7 @@ static void meta_build_field_validation_rule_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -65757,6 +66214,7 @@ static void meta_build_file_access_control_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe who may read, change, share and delete files, and how the decision is enforced on every access path — including direct storage URLs.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_file_access_control_policy_file_access_control_details(SomMetaNode *n) {
   meta_set(&n->class_name, "FileAccessControlPolicy");
@@ -65781,6 +66239,7 @@ static void meta_build_file_and_storage_security_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define security controls for user-uploaded files, generated documents,\nand all stored media.\n\n**File upload validation:**\n- Allowlist of permitted file extensions (not blocklist)\n- Content-type validation (check magic bytes, not just extension)\n- Maximum file size limits per file type\n- Filename sanitization (remove path traversal, special characters)\n- Re-encode/re-compress files to strip malicious payloads\n\n**Malware scanning:**\n- Scan all uploads before acceptance\n- Quarantine suspicious files for review\n- Block known-malicious file signatures\n\n**Storage encryption:**\n- Encrypt files at rest (AES-256-GCM or equivalent)\n- Server-side encryption with customer-managed keys (BYOK) option\n- Secure key management via HSM or cloud KMS\n\n**Access control:**\n- Signed URLs for time-limited access to private files\n- Authorization check before serving any file\n- No direct filesystem access to uploaded content\n\n**Download protection:**\n- Content-Disposition header to force downloads for executable types\n- X-Content-Type-Options: nosniff\n- Serve user content from separate domain (sandbox)\n\n**Storage lifecycle:**\n- Automatic deletion of orphaned files\n- Retention policies per file type and classification\n- Secure deletion (cryptographic erasure)\n\n**Reference:**\n- OWASP File Upload Cheat Sheet\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_file_and_storage_security_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "FileAndStorageSecurity");
@@ -65871,6 +66330,7 @@ static void meta_build_file_download_security_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how downloads are authorized and throttled, and which content-disposition and security headers are set. Cover hot-linking and shared-link expiry.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_file_download_security_policy_download_security_details(SomMetaNode *n) {
   meta_set(&n->class_name, "FileDownloadSecurityPolicy");
@@ -65895,6 +66355,7 @@ static void meta_build_file_storage_encryption_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how file and blob storage is encrypted and how signed URLs interact with it. Cover local copies on devices, which are usually the weakest point.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_file_storage_encryption_policy_file_storage_encryption_details(SomMetaNode *n) {
   meta_set(&n->class_name, "FileStorageEncryptionPolicy");
@@ -65919,6 +66380,7 @@ static void meta_build_file_upload_validation_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the validation layers an upload passes and the order they run in. Extension checks alone are not validation — state how the file's actual content is confirmed.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_file_upload_validation_policy_upload_validation_details(SomMetaNode *n) {
   meta_set(&n->class_name, "FileUploadValidationPolicy");
@@ -65939,6 +66401,7 @@ static void meta_build_firewall_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -66120,6 +66583,7 @@ static void meta_build_flexibility_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -66270,6 +66734,7 @@ static void meta_build_flexibility_characteristic_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce flexibility for this system before the adaptability and portability subsections below. Cover the changes the system is expected to absorb without redesign.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_flexibility_characteristic_flexibility_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FlexibilityCharacteristic");
@@ -66338,6 +66803,7 @@ static void meta_build_form_screen_assignment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -66377,6 +66843,7 @@ static void meta_build_framework_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -66632,6 +67099,7 @@ static void meta_build_full_distribution_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "List of stakeholders who receive complete project documentation.\nThese are typically core team members and key stakeholders who need\nfull visibility into all project activities and decisions.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_full_distribution_group_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "DistributionGroupSummary");
@@ -66675,6 +67143,7 @@ static void meta_build_function_data_matrix_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -66716,6 +67185,7 @@ static void meta_build_function_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -66866,6 +67336,7 @@ static void meta_build_function_model_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the function model before the decomposition, matrix and rule lists below. Cover how deep the decomposition goes and how functions are mapped onto data.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_function_model_decomposition_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionModel");
@@ -67022,6 +67493,7 @@ static void meta_build_functional_completeness_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -67099,6 +67571,7 @@ static void meta_build_functional_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -67413,6 +67886,7 @@ static void meta_build_functional_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the functional requirement set and how it is organised. Individual requirements go in the subsections below; use this text for scope, conventions and how completeness was judged.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_functional_requirements_summary_form(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionalRequirements");
@@ -67496,6 +67970,7 @@ static void meta_build_functional_responsibilities_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -67584,6 +68059,7 @@ static void meta_build_functional_suitability_characteristic_content(SomMetaNode
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce functional suitability for this system before the completeness and correctness subsections below. Cover what \"the right functions, done correctly\" means here.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_functional_suitability_characteristic_functional_suitability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionalSuitabilityCharacteristic");
@@ -67658,6 +68134,7 @@ static void meta_build_gap_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -67857,6 +68334,7 @@ static void meta_build_geographic_distribution_requirements_content(SomMetaNode 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -68032,6 +68510,7 @@ static void meta_build_global_role_exclusion_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -68076,6 +68555,7 @@ static void meta_build_glossary_and_abbreviations_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Introduce the glossary: scope, conventions, and how terms are maintained.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_glossary_and_abbreviations_glossary(SomMetaNode *n) {
   meta_set(&n->class_name, "GlossaryAndAbbreviations");
@@ -68108,6 +68588,7 @@ static void meta_build_glossary_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -68146,6 +68627,7 @@ static void meta_build_goal_dependencies_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of dependencies and their impact on goal achievement timeline.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_goal_dependencies_items(SomMetaNode *n) {
   meta_set(&n->class_name, "GoalDependencies");
@@ -68178,6 +68660,7 @@ static void meta_build_goal_dependency_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -68251,6 +68734,7 @@ static void meta_build_goal_key_results_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of key results and how they collectively demonstrate goal achievement.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_goal_key_results_items(SomMetaNode *n) {
   meta_set(&n->class_name, "GoalKeyResults");
@@ -68283,6 +68767,7 @@ static void meta_build_goal_milestone_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -68339,6 +68824,7 @@ static void meta_build_goal_milestones_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of milestone approach and how milestones relate to goal progress.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_goal_milestones_items(SomMetaNode *n) {
   meta_set(&n->class_name, "GoalMilestones");
@@ -68375,6 +68861,7 @@ static void meta_build_goal_resources_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "List what achieving the goal needs — people, budget, systems, external parties — and say which of them are not yet secured.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_goal_resources_resources_form(SomMetaNode *n) {
   meta_set(&n->class_name, "GoalResources");
@@ -68456,6 +68943,7 @@ static void meta_build_goal_risk_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -68564,6 +69052,7 @@ static void meta_build_goal_risks_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of risks affecting this goal and overall risk posture.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_goal_risks_items(SomMetaNode *n) {
   meta_set(&n->class_name, "GoalRisks");
@@ -68600,6 +69089,7 @@ static void meta_build_goals_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the goal set and the methodology behind it, OKR or otherwise. Each goal gets its own subsection below; use this text for how the goals were agreed and how progress is reviewed.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_goals_goal_hierarchy_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "Goals");
@@ -68656,6 +69146,7 @@ static void meta_build_governance_model_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -68716,6 +69207,7 @@ static void meta_build_graded_access_level_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "One access state and what earns it.\n\nThe requirement kinds are the same as for an ungraded requirement, minus\n*Graded* — an access state is already the outcome of a grading, so it cannot\nitself be graded.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -68889,6 +69381,7 @@ static void meta_build_graded_authorization_requirement_content(SomMetaNode *n) 
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "The requirement for each access state, from the most permissive down.\n\n**Author only what differs.** The levels default downwards: a caller who meets\n*Full* also has *Read*, and a caller who meets *Read* also has *Disabled*. Omit\na level to inherit the one above it. A caller meeting none of them gets no\naccess and the thing is not shown, which is why there is no \"none\" level to\nauthor.\n\n**Author each state at most once.** The three states are a ladder, not a set of\nindependent rules.\n\n**What the states mean is fixed by the framework** — no access hides the thing,\ndisabled shows it locked, read shows its value, full makes it interactive. Do\nnot restate that here; author only *who* reaches each state.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -68928,6 +69421,7 @@ static void meta_build_handling_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -68979,6 +69473,7 @@ static void meta_build_hardware_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of hardware strategy and infrastructure approach.\n\n**Include**:\n- Infrastructure strategy (cloud, on-prem, hybrid)\n- Key capacity requirements\n- Cost optimization approach\n- Disaster recovery infrastructure\n- Hardware refresh and upgrade plan\n\n**Best Practices**:\n- Use Infrastructure as Code (Terraform, Pulumi)\n- Plan for 3x peak capacity\n- Implement auto-scaling where possible\n- Document hardware assumptions and risks\n- Regular capacity reviews and forecasting\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_hardware_requirements_server_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerRequirementsSection");
@@ -69020,6 +69515,7 @@ static void meta_build_health_check_endpoints_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -69200,6 +69696,7 @@ static void meta_build_health_checks_and_diagnostics_section_content(SomMetaNode
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of health check and diagnostics strategy.\n\n**Include**:\n- Health check architecture\n- Diagnostics capabilities\n- Troubleshooting workflow\n- Self-healing mechanisms\n- Integration with monitoring\n\n**Best Practices**:\n- Implement all three probe types\n- Keep health checks fast and reliable\n- Include dependency health in deep checks\n- Correlate logs and traces\n- Document troubleshooting procedures\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_health_checks_and_diagnostics_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "HealthChecksAndDiagnosticsSection");
@@ -69275,6 +69772,7 @@ static void meta_build_high_availability_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -69456,6 +69954,7 @@ static void meta_build_ide_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -69596,6 +70095,7 @@ static void meta_build_identification_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -69776,6 +70276,7 @@ static void meta_build_identification_and_authentication_content(SomMetaNode *n)
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define how users prove their identity to the system. Authentication is the\nfoundation of access control — all authorization decisions depend on reliable\nuser identification.\n\n**Key topics to address:**\n- Authentication Assurance Levels (AAL) per NIST SP 800-63B:\n  - AAL1: Single-factor (passwords)\n  - AAL2: Two-factor (password + OTP, push notification)\n  - AAL3: Hardware-bound authenticators (FIDO2, PIV)\n- Authenticator types supported (what you know, have, are)\n- Credential lifecycle (issuance, rotation, recovery, revocation)\n- Session management and token handling\n\n**Industry standards:**\n- NIST SP 800-63B: Digital Identity Guidelines — Authentication\n- FIDO2/WebAuthn: Passwordless authentication\n- OAuth 2.0 / OpenID Connect: Federated authentication\n- OWASP Authentication Cheat Sheet\n\n**Business context:**\n- Balance security vs. user experience\n- Support for legacy systems and gradual migration\n- Regulatory requirements (PCI DSS, HIPAA, SOX)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_identification_and_authentication_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "Identification");
@@ -69806,6 +70307,7 @@ static void meta_build_identity_attribute_mapping_entry_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -69946,6 +70448,7 @@ static void meta_build_identity_provider_details_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -69975,6 +70478,7 @@ static void meta_build_identity_provider_endpoints_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -70016,6 +70520,7 @@ static void meta_build_identity_provider_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -70210,6 +70715,7 @@ static void meta_build_identity_source_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -70391,6 +70897,7 @@ static void meta_build_identity_verification_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -70601,6 +71108,7 @@ static void meta_build_impact_level_definitions_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -70660,6 +71168,7 @@ static void meta_build_incident_management_requirements_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -70841,6 +71350,7 @@ static void meta_build_incident_response_plan_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -70993,6 +71503,7 @@ static void meta_build_industry_protocol_compliance_entry_content(SomMetaNode *n
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -71168,6 +71679,7 @@ static void meta_build_industry_standard_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -71370,6 +71882,7 @@ static void meta_build_information_and_data_model_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Conceptual overview of the business data the system manages. This chapter\nestablishes the foundation for all data-related specifications and seeds the\nIFM (Information Model) document.\n\n**Key Components:**\n- **Data Model** — Entity definitions with attributes, keys, indexes, and relationships\n- **Business Object Model** — Domain objects with lifecycle states, operations, and invariants\n- **Function Model** — Business functions with decomposition and data access matrix\n\n**Best Practices:**\n- Follow Domain-Driven Design patterns (AggregateRoot, Entity, ValueObject)\n- Use SBVR-style business rule statements\n- Apply data classification framework (ISO 27001, NIST)\n- Document CRUD access patterns in function-to-data matrix\n- Include compliance frameworks (GDPR, HIPAA, SOX, PCI-DSS) for PII/PHI data\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_information_and_data_model_data_model(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModel");
@@ -71495,6 +72008,7 @@ static void meta_build_information_architecture_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Information Architecture (10.2.2)\n\nOverall content organization and navigation structure.\n\n### Components\n- **Site Map** — Full screen hierarchy\n- **Content Hierarchy** — Logical grouping of features\n- **Navigation Structure** — How users move between screens\n- **Global Entry Points** — External access points\n- **Architecture Diagram** — Visual representation (mermaid)\n\n### Design Principles\n- Maximum 3 clicks to any feature\n- Clear wayfinding landmarks\n- Consistent mental model\n- Graceful degradation for authorization\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_information_architecture_site_map(SomMetaNode *n) {
   meta_set(&n->class_name, "InformationArchitecture");
@@ -71570,6 +72084,7 @@ static void meta_build_information_for_use_requirements_content(SomMetaNode *n) 
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("User documentation requirements: deliverables, formats, platforms, versioning, and documentation localization.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_information_for_use_requirements_user_documentation(SomMetaNode *n) {
   meta_set(&n->class_name, "UserDocumentationRequirements");
@@ -71591,6 +72106,7 @@ static void meta_build_infrastructure_as_code_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -71772,6 +72288,7 @@ static void meta_build_infrastructure_component_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -71976,6 +72493,7 @@ static void meta_build_infrastructure_metrics_spec_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -72122,6 +72640,7 @@ static void meta_build_infrastructure_security_hardening_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -72278,6 +72797,7 @@ static void meta_build_initial_development_flow_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describes how the initial-development phases hand off to each other:\ndependencies, parallel work streams, and synchronization points.\n\n**What to capture:**\n- Phase dependency graph (which phase must end before another begins)\n- Parallelization opportunities (work streams that can proceed concurrently)\n- Synchronization points / integration checkpoints\n- Shared artifact touchpoints (same document updated in multiple phases)\n- Team coordination model during the initial build\n- Transition criteria to post-development (where DRM-UPG takes over)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_initial_training_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InitialTrainingEntry");
@@ -72286,6 +72806,7 @@ static void meta_build_initial_training_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -72494,6 +73015,7 @@ static void meta_build_input_device_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -72547,6 +73069,7 @@ static void meta_build_insurance_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -72597,6 +73120,7 @@ static void meta_build_insurance_liability_requirements_content(SomMetaNode *n) 
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of insurance and liability framework.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_insurance_liability_requirements_insurance_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "InsuranceLiabilityRequirements");
@@ -72653,6 +73177,7 @@ static void meta_build_integration_architecture_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -72857,6 +73382,7 @@ static void meta_build_integration_constraint_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -73014,6 +73540,7 @@ static void meta_build_integration_health_summary_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -73095,6 +73622,7 @@ static void meta_build_integration_point_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -73134,6 +73662,7 @@ static void meta_build_integrations_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of system integrations and data exchange patterns.");
   meta_set(&n->content_help, "Describe the integration patterns in use. Identify standards vs custom integrations, and areas of complexity.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_integrations_items(SomMetaNode *n) {
   meta_set(&n->class_name, "Integrations");
@@ -73170,6 +73699,7 @@ static void meta_build_integrity_constraints_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Integrity rules that preserve invariants across the data model.\nStronger guarantees than validation (which is typically user-facing);\nintegrity constraints must hold in every persistent state.\n\n**What to capture:**\n- Referential integrity (which references must never dangle)\n- Uniqueness constraints (per scope / tenant)\n- State-machine invariants (entity cannot skip states)\n- Aggregate-boundary rules (what must be atomic together)\n- Temporal constraints (effective-from ≤ effective-to)\n- Conservation rules (sums / counts that must balance)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_intellectual_property_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "IntellectualPropertyRequirements");
@@ -73178,6 +73708,7 @@ static void meta_build_intellectual_property_requirements_content(SomMetaNode *n
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -73237,6 +73768,7 @@ static void meta_build_interaction_business_rules_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -73288,6 +73820,7 @@ static void meta_build_interaction_capability_characteristic_content(SomMetaNode
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce interaction capability for this system before the usability subsection below. Cover the user groups whose experience sets the bar.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_interaction_capability_characteristic_interaction_capability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InteractionCapabilityCharacteristic");
@@ -73373,6 +73906,7 @@ static void meta_build_interaction_catalog_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Container for key interaction descriptions. Each interaction seeds a use case\nfollowing Cockburn's fully dressed use case template.\n\n**For Each Interaction Document:**\n- Identification (use case name, goal level, design scope)\n- Scope & context (system boundary, assumptions, dependencies)\n- Stakeholders & interests (who cares and why)\n- Preconditions & triggers (what must be true, what starts it)\n- Postconditions & guarantees (minimal + success guarantees)\n- Main success scenario (numbered steps with actor/system actions)\n- Extensions (alternative and exception flows with branch points)\n- UI requirements preview (screens, forms, feedback)\n- Performance & security (response time, auth, audit)\n- Business rules & traceability (BR-xxx, REQ-xxx references)\n\n**Prioritize Using MoSCoW:**\n- Must Have — essential for MVP\n- Should Have — important but deferrable\n- Could Have — nice to have\n- Won't Have — explicitly out of scope\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_interaction_catalog_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "InteractionCatalog");
@@ -73531,6 +74065,7 @@ static void meta_build_interaction_channel_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -73820,6 +74355,7 @@ static void meta_build_interaction_dependency_analysis_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "What happens when external interactions are slow or unavailable, and\nwhich of them lie on the critical path of user-facing flows.\n\n**What to capture:**\n- Critical-path map per business flow\n- Degraded-mode behavior (feature off, read-only, queue-and-retry)\n- Cache strategies for graceful degradation\n- Circuit-breaker / bulkhead configuration per interaction\n- Timeout budgets and retry policies\n- User-visible error handling for unavailable partners\n- Recovery behavior when partners come back online\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_interaction_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InteractionEntry");
@@ -73832,6 +74368,7 @@ static void meta_build_interaction_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this interaction — the situation it arises in and why it matters, beyond the scope, flow and rule facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_interaction_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "InteractionEntry");
@@ -74312,6 +74849,7 @@ static void meta_build_interaction_pattern_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -74466,6 +75004,7 @@ static void meta_build_interaction_patterns_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of interaction patterns and when each pattern is used.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_interaction_patterns_patterns(SomMetaNode *n) {
   meta_set(&n->class_name, "InteractionPatterns");
@@ -74504,6 +75043,7 @@ static void meta_build_interaction_testing_strategy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Strategy for testing boundary interactions specifically. Complements the\nbroader system-wide test strategy.\n\n**What to capture:**\n- Contract-testing approach (consumer-driven / provider-driven)\n- Integration-test scope per boundary\n- Failure-mode and chaos-style tests (partner down, slow, malformed)\n- Stub / simulator strategy for non-prod environments\n- Performance-envelope tests per interaction\n- Test-data management for boundary tests\n- CI/CD integration for contract verification\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_interface_business_context_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceBusinessContext");
@@ -74512,6 +75052,7 @@ static void meta_build_interface_business_context_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -74589,6 +75130,7 @@ static void meta_build_interface_business_process_entry_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -74621,6 +75163,7 @@ static void meta_build_interface_data_entity_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -74668,6 +75211,7 @@ static void meta_build_interface_data_spec_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -74795,6 +75339,7 @@ static void meta_build_interface_error_handling_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -74960,6 +75505,7 @@ static void meta_build_interface_governance_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -75095,6 +75641,7 @@ static void meta_build_interface_operation_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -75160,6 +75707,7 @@ static void meta_build_interface_operational_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -75328,6 +75876,7 @@ static void meta_build_interface_security_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -75480,6 +76029,7 @@ static void meta_build_interface_specification_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -75655,6 +76205,7 @@ static void meta_build_interface_technical_spec_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -75849,6 +76400,7 @@ static void meta_build_interface_test_scenario_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -75890,6 +76442,7 @@ static void meta_build_interface_testing_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -76035,6 +76588,7 @@ static void meta_build_internal_dependencies_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of internal system dependencies.");
   meta_set(&n->content_help, "Describe the overall pattern of internal dependencies. Identify clusters of tightly coupled systems and potential cascading failure risks.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_internal_dependencies_items(SomMetaNode *n) {
   meta_set(&n->class_name, "InternalDependencies");
@@ -76067,6 +76621,7 @@ static void meta_build_internal_network_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -76242,6 +76797,7 @@ static void meta_build_interoperability_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -76421,6 +76977,7 @@ static void meta_build_introduction_and_scope_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive summary of the system being specified.\nProvide a high-level overview that allows readers to quickly understand:\n- What system is being built\n- Why it is being built (business drivers)\n- Who will use it\n- What are the major scope boundaries\n- What are the key risks and assumptions\n\nThis section should be readable by executives and stakeholders who need\na quick understanding without reading the full specification.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_introduction_and_scope_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemSummary");
@@ -76537,6 +77094,7 @@ static void meta_build_ip_ownership_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -76581,6 +77139,7 @@ static void meta_build_iso25010_coverage_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize how the quality goals cover the eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned by the SystemQualityGoals characteristic spine; this is a derived coverage view, not a second copy of the taxonomy.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_iso25010_coverage_characteristics(SomMetaNode *n) {
   meta_set(&n->class_name, "Iso25010Coverage");
@@ -76609,6 +77168,7 @@ static void meta_build_iso25010_coverage_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -76652,6 +77212,7 @@ static void meta_build_it_landscape_position_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide a narrative overview of the system's position within the IT landscape before the structured details below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_it_landscape_position_position_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ItLandscapePosition");
@@ -76726,6 +77287,7 @@ static void meta_build_it_security_operations_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -76929,6 +77491,7 @@ static void meta_build_it_security_standards_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of IT security standards approach.\n\n**Include**:\n- Security standards adopted (OWASP, CIS, NIST)\n- Application security requirements\n- Infrastructure security baseline\n- Vulnerability management program\n- Security development integration\n\n**Best Practices**:\n- Automate security testing in CI/CD\n- Regular security training for developers\n- Maintain security champions in teams\n- Track security metrics and trends\n- Continuous security improvement\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_it_security_standards_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ItSecurityStandardsSection");
@@ -77028,6 +77591,7 @@ static void meta_build_it_standard_compliance_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -77224,6 +77788,7 @@ static void meta_build_job_descriptions_and_staffing_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the role changes before the new, changed and removed role lists below. Cover the net headcount effect and the sourcing approach.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_job_descriptions_and_staffing_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "JobDescriptionsAndStaffing");
@@ -77397,6 +77962,7 @@ static void meta_build_journey_stage_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -77456,6 +78022,7 @@ static void meta_build_key_attribute_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -77601,6 +78168,7 @@ static void meta_build_key_compromise_recovery_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -77672,6 +78240,7 @@ static void meta_build_key_concept_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -77765,6 +78334,7 @@ static void meta_build_key_concepts_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define the core concepts and entities of the domain with their attributes and relationships — a conceptual model, not a data model. Use the terms the business actually uses.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_key_concepts_conceptual_model_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "KeyConcepts");
@@ -77813,6 +78383,7 @@ static void meta_build_key_escrow_and_backup_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -77872,6 +78443,7 @@ static void meta_build_key_generation_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -77941,6 +78513,7 @@ static void meta_build_key_management_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define policies for the complete lifecycle of cryptographic keys. Proper\nkey management is essential — poor key management can negate all encryption.\n\n**Key hierarchy:**\n- Master keys (KEKs): protect data encryption keys, stored in HSM\n- Data encryption keys (DEKs): encrypt actual data, wrapped by KEKs\n- Key-per-tenant: separate DEKs for tenant isolation (optional)\n\n**Key generation:**\n- Use cryptographically secure random number generators (CSPRNG)\n- Generate in HSM or FIPS 140-2/140-3 validated modules for compliance\n- Minimum key lengths: 256-bit symmetric, 2048-bit RSA, 256-bit ECC\n\n**Key storage:**\n- Never store keys alongside encrypted data\n- HSM for production master keys (FIPS 140-2 Level 3+)\n- Cloud KMS for managed key storage (AWS KMS, Azure Key Vault, GCP KMS)\n- Secret managers for application secrets (HashiCorp Vault, AWS Secrets Mgr)\n\n**Key rotation:**\n- Periodic rotation (e.g., annually for DEKs, less frequent for KEKs)\n- Immediate rotation on compromise or employee departure\n- Re-encryption of data with rotated keys (or envelope encryption)\n\n**Key escrow and backup:**\n- Secure backup of master keys for disaster recovery\n- Split key custody (M-of-N threshold schemes)\n- Geographic distribution of key backups\n\n**Compromise recovery:**\n- Immediate key revocation and rotation\n- Notification to affected parties\n- Re-encryption of all affected data\n- Forensic analysis to determine breach scope\n\n**Reference:**\n- OWASP Key Management Cheat Sheet\n- NIST SP 800-57: Recommendation for Key Management\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_key_management_key_generation_policy(SomMetaNode *n) {
   meta_set(&n->class_name, "KeyGenerationPolicy");
@@ -78016,6 +78589,7 @@ static void meta_build_key_result_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -78081,6 +78655,7 @@ static void meta_build_key_rotation_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -78144,6 +78719,7 @@ static void meta_build_key_scenarios_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "End-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions. Scenarios bridge the gap between individual\ninteractions and complete user journeys.\n\n**Scenario Types:**\n- Happy path — normal successful completion\n- Alternative flow — valid variations from main path\n- Exception/error — handling of failures and edge cases\n\n**For Each Scenario Document:**\n- Identification (ID, name, type, priority, complexity)\n- Context (preconditions, trigger, success/failure conditions)\n- Steps (numbered with actor, action, system response, UI element)\n- Alternative flows (branch points, conditions, outcomes)\n- Data requirements (input/output, test data, transformations)\n- Timing (total duration, user time, system time, wait time)\n- Validation (acceptance criteria, test scenario references)\n\n**Example Format:**\n\"A new customer discovers the service, registers, completes verification,\nand places their first order.\"\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_key_scenarios_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "KeyScenarios");
@@ -78225,6 +78801,7 @@ static void meta_build_key_storage_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -78294,6 +78871,7 @@ static void meta_build_knowledge_transfer_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Formal handover of system knowledge to operations and support teams.\n\n**What to capture:**\n- Knowledge artifact catalog (runbooks, diagrams, configs, credentials)\n- Handover sessions (audience, agenda, duration, proof-of-comprehension)\n- Sign-off criteria for operations readiness\n- Shadow / co-ownership period before full handover\n- Reference contacts for escalation post-handover\n- Artifact storage location and access model\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_language_country_selection_content(SomMetaNode *n) {
   meta_set(&n->class_name, "LanguageCountrySelection");
@@ -78306,6 +78884,7 @@ static void meta_build_language_country_selection_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the language and country picker before the default, persistence and fallback subsections below. Cover where the picker appears and when a user first meets it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_language_country_selection_language_selection_content(SomMetaNode *n) {
   meta_set(&n->class_name, "LanguageCountrySelection");
@@ -78521,6 +79100,7 @@ static void meta_build_layer_communication_rules_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -78665,6 +79245,7 @@ static void meta_build_layering_and_module_structure_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of the layering and modularization strategy.\n\n**Include**:\n- Chosen layering approach with rationale\n- Module organization principles\n- Dependency rules and enforcement mechanism\n- Cross-cutting concerns handling (logging, auth, transactions)\n- Module communication patterns\n\n**Best Practices**:\n- Create layer/module diagrams with dependency arrows\n- Define public API contracts for each module\n- Use automated architecture tests\n- Document exception cases and technical debt\n- Plan for module extraction and scaling\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_layering_and_module_structure_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "LayeringAndModuleStructure");
@@ -78860,6 +79441,7 @@ static void meta_build_legacy_compatibility_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -79032,6 +79614,7 @@ static void meta_build_legal_and_contractual_requirements_content(SomMetaNode *n
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of additional administrative requirements and their impact on the project.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_legal_and_contractual_requirements_intellectual_property(SomMetaNode *n) {
   meta_set(&n->class_name, "IntellectualPropertyRequirements");
@@ -79119,6 +79702,7 @@ static void meta_build_liability_limitations_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -79154,6 +79738,7 @@ static void meta_build_lifecycle_transition_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -79282,6 +79867,7 @@ static void meta_build_limitation_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -79305,6 +79891,7 @@ static void meta_build_load_profile_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -79463,6 +80050,7 @@ static void meta_build_local_development_setup_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -79673,6 +80261,7 @@ static void meta_build_locale_handling_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -79712,6 +80301,7 @@ static void meta_build_localization_process_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the localization workflow before the review, formatting and deployment subsections below. Cover how translatable content is identified and externalized.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_localization_process_localization_process_content(SomMetaNode *n) {
   meta_set(&n->class_name, "LocalizationProcess");
@@ -79902,6 +80492,7 @@ static void meta_build_localization_translation_process_content(SomMetaNode *n) 
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_localization_translation_process_localization_process(SomMetaNode *n) {
   meta_set(&n->class_name, "LocalizationProcess");
@@ -79939,6 +80530,7 @@ static void meta_build_localization_translation_requirements_content(SomMetaNode
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Localization and translation requirements: supported locales, i18n framework, formatting, RTL, pluralization.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_localization_translation_requirements_translation_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "TranslationRequirements");
@@ -79971,6 +80563,7 @@ static void meta_build_log_aggregation_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -80141,6 +80734,7 @@ static void meta_build_log_management_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -80322,6 +80916,7 @@ static void meta_build_log_protection_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -80381,6 +80976,7 @@ static void meta_build_log_retention_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -80440,6 +81036,7 @@ static void meta_build_log_storage_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -80503,6 +81100,7 @@ static void meta_build_login_flow_configuration_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Walk through the login flow step by step, including pre-authentication checks and post-authentication actions. Name the entry points and say which ones behave differently.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_login_flow_configuration_login_flow_details(SomMetaNode *n) {
   meta_set(&n->class_name, "LoginFlowConfiguration");
@@ -80523,6 +81121,7 @@ static void meta_build_login_flow_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -80652,6 +81251,7 @@ static void meta_build_main_scenario_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -80740,6 +81340,7 @@ static void meta_build_main_success_scenario_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -80795,6 +81396,7 @@ static void meta_build_maintainability_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -80986,6 +81588,7 @@ static void meta_build_maintainability_characteristic_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce maintainability for this system before the maintainability subsection below. Cover who will maintain it, and over what horizon.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_maintainability_characteristic_maintainability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MaintainabilityCharacteristic");
@@ -81043,6 +81646,7 @@ static void meta_build_maintenance_change_management_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -81210,6 +81814,7 @@ static void meta_build_maintenance_dependencies_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Maintenance Dependencies (12.5)\n\nMaintenance relationships and update coordination.\n\n### Compatibility Matrix\n- Version compatibility between components\n- Breaking change impact analysis\n- Required coordinated updates\n\n### Update Sequences\n- Dependent component update order\n- Rollback procedures\n- Compatibility windows\n\n### Lifecycle Management\n- End-of-life monitoring\n- Migration planning\n- Deprecation handling\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_maintenance_dependencies_items(SomMetaNode *n) {
   meta_set(&n->class_name, "MaintenanceDependencies");
@@ -81242,6 +81847,7 @@ static void meta_build_maintenance_dependency_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -81382,6 +81988,7 @@ static void meta_build_maintenance_user_impact_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -81540,6 +82147,7 @@ static void meta_build_maintenance_window_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -81731,6 +82339,7 @@ static void meta_build_maintenance_windows_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of maintenance strategy and policies.\n\n**Include**:\n- Maintenance window schedule and policy\n- Communication and notification plan\n- Change management process\n- Zero-downtime goals and approach\n- Emergency maintenance procedures\n\n**Best Practices**:\n- Minimize maintenance windows through automation\n- Test changes in staging first\n- Have rollback plan for every change\n- Communicate early and often\n- Track maintenance metrics and trends\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_maintenance_windows_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MaintenanceWindowsSection");
@@ -81830,6 +82439,7 @@ static void meta_build_master_data_domain_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -81968,6 +82578,7 @@ static void meta_build_master_data_management_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of master data management in the organization. Describe the MDM\nstrategy, master data domains, golden record sources, and synchronization\napproach.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_master_data_management_mdm_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "MasterDataManagement");
@@ -82079,6 +82690,7 @@ static void meta_build_message_format_standards_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -82260,6 +82872,7 @@ static void meta_build_message_key_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -82323,6 +82936,7 @@ static void meta_build_message_key_registry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- `domainEnum` value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_message_key_registry_message_keys(SomMetaNode *n) {
   meta_set(&n->class_name, "MessageKeyRegistry");
@@ -82355,6 +82969,7 @@ static void meta_build_message_locale_variant_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -82382,6 +82997,7 @@ static void meta_build_metrics_and_observability_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the observability approach before the application, infrastructure, business and tracing subsections below. Cover which questions the telemetry has to answer, and the retention and cost trade-off behind it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_metrics_and_observability_metrics_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MetricsAndObservability");
@@ -82543,6 +83159,7 @@ static void meta_build_metrics_baseline_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -82594,6 +83211,7 @@ static void meta_build_metrics_baseline_table_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Baseline tracking approach and comparison periods.");
   meta_set(&n->content_help, "Document how baseline metrics will be used to measure improvement. Include comparison periods and target improvement percentages.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_metrics_baseline_table_entries(SomMetaNode *n) {
   meta_set(&n->class_name, "MetricsBaselineTable");
@@ -82626,6 +83244,7 @@ static void meta_build_metrics_collection_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -82807,6 +83426,7 @@ static void meta_build_metrics_dashboard_summary_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -82878,6 +83498,7 @@ static void meta_build_mfa_category_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -83022,6 +83643,7 @@ static void meta_build_mfa_configuration_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe which users and operations require MFA, which factors are offered, and the AAL targeted. Record the fallback path when a factor is unavailable and why it is safe.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_mfa_configuration_mfa_details(SomMetaNode *n) {
   meta_set(&n->class_name, "MfaConfiguration");
@@ -83050,6 +83672,7 @@ static void meta_build_migration_considerations_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the portfolio-wide migration approach before the resource, risk and coordination subsections below. Cover the sequencing principle that applies across systems.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_migration_considerations_strategy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationConsiderations");
@@ -83253,6 +83876,7 @@ static void meta_build_migration_environments_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -83292,6 +83916,7 @@ static void meta_build_migration_interactions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Transitional interactions that exist only during the migration window:\ndual-write bridges, reconciliation feeds, freeze/replay mechanisms.\n\n**What to capture:**\n- Bridge / shim catalog (purpose, lifetime, owner)\n- Dual-run reconciliation endpoints and rules\n- Data-replay mechanisms (forward, reverse, selective)\n- Freeze windows and cutover ordering\n- Decommission criteria for each transitional interaction\n- Observability hooks specific to migration\n- Risk and rollback plan per transitional interaction\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_migration_mapping_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationMappingEntry");
@@ -83300,6 +83925,7 @@ static void meta_build_migration_mapping_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -83371,6 +83997,7 @@ static void meta_build_migration_milestone_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -83412,6 +84039,7 @@ static void meta_build_migration_phase_dry_runs_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -83465,6 +84093,7 @@ static void meta_build_migration_phase_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -84001,6 +84630,7 @@ static void meta_build_migration_phase_resources_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -84024,6 +84654,7 @@ static void meta_build_migration_phases_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -84126,6 +84757,7 @@ static void meta_build_migration_plan_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "System migration plan distinct from the per-data-entity migration\nmapping. Focuses on the execution plan.\n\n**What to capture:**\n- Migration scope (systems, data domains, users, integrations)\n- Migration approach (big-bang / trickle / parallel run)\n- Data extract / transform / load windows\n- Validation rules and reconciliation approach\n- Dress-rehearsal schedule and acceptance criteria\n- Fallback / rollback procedure and triggers\n- Roles and responsibilities during migration\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_migration_resources_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationResources");
@@ -84134,6 +84766,7 @@ static void meta_build_migration_resources_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -84217,6 +84850,7 @@ static void meta_build_migration_risk_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -84818,6 +85452,7 @@ static void meta_build_migration_risk_indicators_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -84863,6 +85498,7 @@ static void meta_build_migration_risks_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the program-level migration risk framework before the governance, category and response subsections below. Cover the risk appetite the program works to.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_migration_risks_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationRisks");
@@ -85213,6 +85849,7 @@ static void meta_build_migration_stakeholders_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -85248,6 +85885,7 @@ static void meta_build_migration_systems_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -85283,6 +85921,7 @@ static void meta_build_migration_target_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -85318,6 +85957,7 @@ static void meta_build_mobile_compatibility_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -85493,6 +86133,7 @@ static void meta_build_mobile_device_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -85596,6 +86237,7 @@ static void meta_build_mobile_device_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -85777,6 +86419,7 @@ static void meta_build_module_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -85987,6 +86630,7 @@ static void meta_build_module_versioning_strategy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -86166,6 +86810,7 @@ static void meta_build_monitoring_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the monitoring approach before the health-check, alerting, metrics, dashboard and SLA subsections below. Cover what is monitored, who watches it, and how a finding reaches an operator.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_monitoring_monitoring_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "Monitoring");
@@ -86319,6 +86964,7 @@ static void meta_build_monitoring_and_alerting_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of monitoring and observability strategy.\n\n**Include**:\n- Monitoring architecture and tools\n- Key SLIs and SLOs\n- Alerting philosophy and coverage\n- On-call structure and escalation\n- Dashboard and visualization approach\n\n**Best Practices**:\n- Monitor user-facing metrics (SLIs)\n- Set meaningful alert thresholds\n- Implement structured logging\n- Create actionable runbooks for alerts\n- Regular monitoring coverage reviews\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_monitoring_and_alerting_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MonitoringAndAlertingSection");
@@ -86466,6 +87112,7 @@ static void meta_build_monitoring_dashboards_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the dashboard landscape before the individual dashboards and templates below. Cover who each dashboard is for and what decision it supports.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_monitoring_dashboards_dashboard_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MonitoringDashboards");
@@ -86607,6 +87254,7 @@ static void meta_build_monitoring_infrastructure_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -86759,6 +87407,7 @@ static void meta_build_moscow_analysis_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -86861,6 +87510,7 @@ static void meta_build_moscow_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -87037,6 +87687,7 @@ static void meta_build_multi_channel_experience_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of how a consistent experience is maintained across channels and during channel switching.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_multi_channel_experience_multi_channel_configuration(SomMetaNode *n) {
   meta_set(&n->class_name, "MultiChannelExperience");
@@ -87116,6 +87767,7 @@ static void meta_build_multi_language_support_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce multi-language support before the selection and supported-locale subsections below. Cover which languages ship first and what drives adding another.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_multi_language_support_multi_language_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MultiLanguageSupport");
@@ -87215,6 +87867,7 @@ static void meta_build_must_pass_criteria_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the must-pass criteria before the individual items below. Cover what makes a criterion must-pass rather than merely desirable.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_must_pass_criteria_must_pass_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MustPassCriteria");
@@ -87303,6 +87956,7 @@ static void meta_build_must_pass_criterion_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -87507,6 +88161,7 @@ static void meta_build_mutual_tls_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe where mTLS applies, how client certificates are issued and revoked, and what happens when validation fails. State whether any fallback exists.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_mutual_tls_policy_mutual_tls_policy_details(SomMetaNode *n) {
   meta_set(&n->class_name, "MutualTlsPolicy");
@@ -87527,6 +88182,7 @@ static void meta_build_native_app_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -87702,6 +88358,7 @@ static void meta_build_navigation_group_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -87869,6 +88526,7 @@ static void meta_build_navigation_guard_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -87994,6 +88652,7 @@ static void meta_build_navigation_guards_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Navigation Guards (10.3.1.8)\n\nRoute protection for unsaved changes, auth, permissions.\n\n### Guard Types\n- **Unsaved-Changes** — Confirm discard\n- **Authentication** — Redirect to login\n- **Permission** — Block/redirect unauthorized\n- **Feature-Flag** — Hide unreleased features\n- **Onboarding** — Require initial setup\n- **Maintenance** — Show maintenance page\n\n### Guard Properties\n- Trigger condition (e.g., form.isDirty)\n- Routes/screens covered\n- Dialog resources (title, message, buttons)\n- Redirect target\n- Priority for multi-guard ordering\n\n### Tom UI Mapping\nGuards integrate with `TomRouter` middleware.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_navigation_guards_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "NavigationGuards");
@@ -88042,6 +88701,7 @@ static void meta_build_navigation_hierarchy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Navigation Hierarchy (10.3.1.2)\n\nFull navigation tree: groups and items.\n\n### Structure\n- **Groups** — Logical groupings (Sales, Admin, Reports)\n- **Items** — Individual destinations within groups\n\n### Group Properties\n- Label, icon, description resources\n- Display order and collapsibility\n- Authorization (roles, permissions)\n- Badge aggregation from children\n\n### Item Properties\n- Target screen and route\n- Icons (normal and active variants)\n- Authorization and visibility conditions\n- Badges (count, dot, text)\n- Keyboard shortcuts\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_navigation_hierarchy_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "NavigationHierarchy");
@@ -88086,6 +88746,7 @@ static void meta_build_navigation_item_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -88323,6 +88984,7 @@ static void meta_build_navigation_model_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Navigation Model (10.3.1)\n\nComprehensive navigation structure definition.\n\n### Subsections\n- **10.3.1.1 Overview** — Strategy and landing screens\n- **10.3.1.2 Hierarchy** — Full navigation tree\n- **10.3.1.3 Primary** — Drawer/sidebar/bottom nav\n- **10.3.1.4 Secondary** — Tab bars, segmented controls\n- **10.3.1.5 Utility** — User menu, notifications, help\n- **10.3.1.6 Contextual** — Breadcrumbs, back, related links\n- **10.3.1.7 Deep Linking** — External URL entry points\n- **10.3.1.8 Guards** — Route protection (auth, unsaved)\n\n### Tom UI Mapping\nNavigation model generates:\n- `TomNavigator` configuration\n- `TomShell` scaffold setup\n- Route guards and redirects\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_navigation_model_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "NavigationOverview");
@@ -88419,6 +89081,7 @@ static void meta_build_navigation_overview_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -88490,6 +89153,7 @@ static void meta_build_network_availability_requirements_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -88665,6 +89329,7 @@ static void meta_build_network_latency_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -88840,6 +89505,7 @@ static void meta_build_network_load_balancing_requirements_content(SomMetaNode *
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -89025,6 +89691,7 @@ static void meta_build_network_requirements_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of network strategy and architecture.\n\n**Include**:\n- Network architecture overview\n- Key performance and availability requirements\n- Security perimeter design\n- Geographic distribution strategy\n- Cost and capacity considerations\n\n**Best Practices**:\n- Design for zero-trust networking\n- Implement defense in depth\n- Use Infrastructure as Code for network config\n- Monitor network performance continuously\n- Plan for network capacity growth\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_network_requirements_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "NetworkRequirementsSection");
@@ -89179,6 +89846,7 @@ static void meta_build_network_security_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -89389,6 +90057,7 @@ static void meta_build_network_security_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -89574,6 +90243,7 @@ static void meta_build_new_organization_structure_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the target organization structure before the change and transition-timeline subsections below. Cover the design principle behind the new shape.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_new_organization_structure_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "NewOrganizationStructure");
@@ -89621,6 +90291,7 @@ static void meta_build_new_role_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this new role — why it is needed and how it fits the organization, beyond the responsibility, qualification and access facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_new_role_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "NewRoleEntry");
@@ -89994,6 +90665,7 @@ static void meta_build_new_role_qualifications_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -90133,6 +90805,7 @@ static void meta_build_new_role_responsibilities_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce what this role is accountable for before the primary, secondary and decision-authority subsections below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_new_role_responsibilities_primary_responsibilities(SomMetaNode *n) {
   meta_set(&n->class_name, "NewRoleResponsibilities");
@@ -90248,6 +90921,7 @@ static void meta_build_notification_channel_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -90304,6 +90978,7 @@ static void meta_build_notification_model_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of notification strategy.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_notification_model_channels(SomMetaNode *n) {
   meta_set(&n->class_name, "NotificationModel");
@@ -90386,6 +91061,7 @@ static void meta_build_notification_type_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -90457,6 +91133,7 @@ static void meta_build_object_invariant_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -90504,6 +91181,7 @@ static void meta_build_object_operation_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -90638,6 +91316,7 @@ static void meta_build_object_state_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -90709,6 +91388,7 @@ static void meta_build_on_call_procedures_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -90890,6 +91570,7 @@ static void meta_build_on_call_schedule_config_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -91011,6 +91692,7 @@ static void meta_build_onboarding_help_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the onboarding experience before the tour, sample-data and checklist subsections below. Cover what a first-time user must reach before onboarding counts as done.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_onboarding_help_onboarding_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OnboardingHelp");
@@ -91267,6 +91949,7 @@ static void meta_build_ongoing_training_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -91405,6 +92088,7 @@ static void meta_build_operating_environment_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the environment the system will run in before the organizational, functional and technical subsections below. Cover the environmental factors that most constrain the design.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_operating_environment_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "OperatingEnvironment");
@@ -91479,6 +92163,7 @@ static void meta_build_operational_monitoring_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -91688,6 +92373,7 @@ static void meta_build_operational_pain_points_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of operational pain points affecting day-to-day activities.\nInclude patterns of recurring issues, seasonal variations, and dependencies\non specific systems or personnel.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_operational_pain_points_category_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "OperationalPainPoints");
@@ -91772,6 +92458,7 @@ static void meta_build_operations_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of operational philosophy and key requirements.\n\n**Include**:\n- Operations team structure and responsibilities\n- Key operational metrics and targets\n- Automation maturity and goals\n- On-call and incident management approach\n- Runbook and documentation strategy\n\n**Best Practices**:\n- Implement SLOs and error budgets\n- Automate toil reduction\n- Practice chaos engineering\n- Regular disaster recovery testing\n- Continuous operational improvement\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_operations_requirements_backup_and_recovery(SomMetaNode *n) {
   meta_set(&n->class_name, "BackupAndRecoverySection");
@@ -91828,6 +92515,7 @@ static void meta_build_opportunity_statement_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what becomes possible that is not possible today — new capabilities, new markets, better economics. Keep it distinct from the problem statement: this is upside, not pain.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_opportunity_statement_opportunity_details(SomMetaNode *n) {
   meta_set(&n->class_name, "OpportunityStatement");
@@ -91902,6 +92590,7 @@ static void meta_build_org_change_risks_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -91931,6 +92620,7 @@ static void meta_build_org_implementation_activity_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -91982,6 +92672,7 @@ static void meta_build_org_requirement_implementation_plan_content(SomMetaNode *
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Set out how this organizational change is actually made: sequence, owner, timing, and what has to be true before it can start.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_org_requirement_implementation_plan_plan_form(SomMetaNode *n) {
   meta_set(&n->class_name, "OrgRequirementImplementationPlan");
@@ -92091,6 +92782,7 @@ static void meta_build_organization_and_process_concept_content(SomMetaNode *n) 
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_organization_and_process_concept_organizational_framework(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalFramework");
@@ -92127,6 +92819,7 @@ static void meta_build_organization_structure_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Project organization chart with reporting lines, governance model, and escalation paths.");
   meta_set(&n->content_help, "Insert project organization chart showing reporting lines. Describe the governance model: who decides what, escalation paths, meeting cadence.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_organization_structure_governance_model(SomMetaNode *n) {
   meta_set(&n->class_name, "GovernanceModel");
@@ -92158,6 +92851,7 @@ static void meta_build_organizational_change_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -92485,6 +93179,7 @@ static void meta_build_organizational_context_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide a narrative overview of the organizational context before the structured organizational-unit entries below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_organizational_context_organizational_units(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalContext");
@@ -92534,6 +93229,7 @@ static void meta_build_organizational_environment_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the organizational context before the structure, department and decision-making subsections below. Cover the reporting reality the project has to work within.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_organizational_environment_organization_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalEnvironment");
@@ -92818,6 +93514,7 @@ static void meta_build_organizational_framework_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the organizational changes the system requires before the structure, role and workplace subsections below. Cover the scale of the change and the organization's appetite for it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_organizational_framework_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalFramework");
@@ -92883,6 +93580,7 @@ static void meta_build_organizational_requirement_entry_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -93090,6 +93788,7 @@ static void meta_build_organizational_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the changes the organization itself must make for the system to succeed — process, roles, training, support. These fail projects more often than technical requirements do.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_organizational_requirements_summary_form(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalRequirements");
@@ -93181,6 +93880,7 @@ static void meta_build_organizational_transition_timeline_content(SomMetaNode *n
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the organizational transition before the phase, readiness, communication and support subsections below. Cover the pace of change and what sets it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_organizational_transition_timeline_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "TransitionOverview");
@@ -93316,6 +94016,7 @@ static void meta_build_organizational_unit_context_entry_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -93369,6 +94070,7 @@ static void meta_build_os_compatibility_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -93544,6 +94246,7 @@ static void meta_build_other_agreement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -93601,6 +94304,7 @@ static void meta_build_out_of_scope_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the exclusions before the individual out-of-scope items below. Cover the principle by which something was excluded and where it might be picked up later.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_out_of_scope_scope_philosophy(SomMetaNode *n) {
   meta_set(&n->class_name, "OutOfScope");
@@ -93646,6 +94350,7 @@ static void meta_build_out_of_scope_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -93757,6 +94462,7 @@ static void meta_build_package_organization_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -93938,6 +94644,7 @@ static void meta_build_pain_point_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -94271,6 +94978,7 @@ static void meta_build_pain_point_gap_correlation_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Analysis of relationships between documented pain points and capability gaps.\nShows which gaps cause which pain points, and which pain points indicate\nunderlying gaps that may not be explicitly documented.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_pain_point_gap_correlation_correlation_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "PainPointGapCorrelation");
@@ -94318,6 +95026,7 @@ static void meta_build_pain_point_gap_correlation_entry_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -94365,6 +95074,7 @@ static void meta_build_pain_point_relationships_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -94401,6 +95111,7 @@ static void meta_build_pain_points_and_gaps_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive overview of pain points and gaps in the current state.\nSummarize the most critical issues affecting operations, business outcomes,\nand technical capabilities. Highlight interdependencies between pain points.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_pain_points_and_gaps_pain_points_overview_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "PainPointsAndGaps");
@@ -94581,6 +95292,7 @@ static void meta_build_participant_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -94620,6 +95332,7 @@ static void meta_build_password_and_credential_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define the complete password and credential policy. NIST SP 800-63B (2024\nrevision) emphasizes length over complexity and discourages forced rotation.\n\n**Password requirements (NIST-aligned):**\n- Minimum length: 8 characters (15+ recommended for privileged accounts)\n- Maximum length: at least 64 characters\n- No composition rules (uppercase, digits, symbols not required)\n- Block common passwords (breach databases, dictionary words)\n- Allow all Unicode characters and spaces\n\n**Password storage:**\n- Use modern password hashing: Argon2id, bcrypt, or scrypt\n- Never store plaintext or reversibly encrypted passwords\n- Implement secure comparison to prevent timing attacks\n\n**Credential lifecycle:**\n- No periodic expiration unless compromise is suspected\n- Force reset on breach detection or password in known-compromised list\n- Secure credential recovery (not security questions)\n\n**Account lockout:**\n- Throttle repeated failures (exponential backoff or CAPTCHA)\n- Avoid hard lockouts that enable denial-of-service\n- Log and alert on brute-force patterns\n\n**MFA per user category:**\n- Define which user categories require MFA\n- Specify acceptable second factors per AAL level\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_password_and_credential_policy_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "PasswordAndCredentialPolicy");
@@ -94745,6 +95458,7 @@ static void meta_build_password_lifecycle_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe when a password change is required and when it is not. NIST SP 800-63B advises against periodic expiry — if the project forces it anyway, record the reason here.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_password_lifecycle_policy_password_lifecycle_details(SomMetaNode *n) {
   meta_set(&n->class_name, "PasswordLifecyclePolicy");
@@ -94769,6 +95483,7 @@ static void meta_build_password_requirements_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "State the password rules and the guidance shown while a user chooses one. NIST SP 800-63B favours length and breach screening over composition rules — record any deviation and why.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_password_requirements_policy_password_requirements_details(SomMetaNode *n) {
   meta_set(&n->class_name, "PasswordRequirementsPolicy");
@@ -94793,6 +95508,7 @@ static void meta_build_password_storage_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the hashing scheme, its parameters, and how they will be re-tuned over time. Say how existing hashes are upgraded when the parameters change.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_password_storage_policy_password_storage_details(SomMetaNode *n) {
   meta_set(&n->class_name, "PasswordStoragePolicy");
@@ -94813,6 +95529,7 @@ static void meta_build_peak_load_patterns_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -94965,6 +95682,7 @@ static void meta_build_penetration_testing_requirements_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -95127,6 +95845,7 @@ static void meta_build_performance_efficiency_characteristic_content(SomMetaNode
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce performance efficiency for this system before the efficiency subsection below. Cover the load profile the targets are stated against.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_performance_efficiency_characteristic_performance_efficiency_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PerformanceEfficiencyCharacteristic");
@@ -95202,6 +95921,7 @@ static void meta_build_periodic_review_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -95261,6 +95981,7 @@ static void meta_build_peripheral_equipment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -95330,6 +96051,7 @@ static void meta_build_permission_composition_strategy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how permissions from roles, groups and attributes combine, and the rule when they conflict. State whether deny overrides allow and give a worked example.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_permission_composition_strategy_permission_composition_details(SomMetaNode *n) {
   meta_set(&n->class_name, "PermissionCompositionStrategy");
@@ -95354,6 +96076,7 @@ static void meta_build_permission_evaluation_behavior_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe when and where a permission check runs, what is cached and for how long, and what happens when the decision point is unreachable. Fail-closed or fail-open is the decision to record.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_permission_evaluation_behavior_permission_evaluation_details(SomMetaNode *n) {
   meta_set(&n->class_name, "PermissionEvaluationBehavior");
@@ -95378,6 +96101,7 @@ static void meta_build_permission_granularity_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "State how fine permissions go and where the project deliberately stops. Over-fine granularity is unmanageable, so name the practical unit of permission here.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_permission_granularity_policy_permission_granularity_details(SomMetaNode *n) {
   meta_set(&n->class_name, "PermissionGranularityPolicy");
@@ -95398,6 +96122,7 @@ static void meta_build_permission_matrix_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -95439,6 +96164,7 @@ static void meta_build_persona_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -95612,6 +96338,7 @@ static void meta_build_persona_goal_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -95657,6 +96384,7 @@ static void meta_build_persona_goals_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Persona Goals (10.1.3.n.1)\n\nSpecific goals for this persona that drive feature requirements.\n\n### Form Fields Guide\n**goal**: Clear action (\"Quickly approve pending invoices\")\n**priority**: Critical/High/Medium/Low\n**frequency**: Daily/Weekly/Monthly/Occasional\n**desiredOutcome**: Success state description\n\n### Mapping to Screens\nGoals link to screens via requiredScreens in PersonaScenarios.\nHigh-priority goals drive primary screen actions and dashboard widgets.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_persona_goals_items(SomMetaNode *n) {
   meta_set(&n->class_name, "PersonaGoals");
@@ -95689,6 +96417,7 @@ static void meta_build_persona_pain_point_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -95740,6 +96469,7 @@ static void meta_build_persona_pain_points_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Persona Pain Points (10.1.3.n.2)\n\nFrustrations and obstacles this persona faces.\n\n### Form Fields Guide\n**painPoint**: Specific frustration (\"Manual data re-entry across systems\")\n**severity**: Critical/High/Medium/Low\n**impact**: Effect on productivity/satisfaction\n**workaround**: Current coping strategy\n**desiredSolution**: What would help\n\n### Design Implications\nHigh-severity pain points become design priorities:\n- Automation opportunities\n- Error prevention patterns\n- Streamlined workflows\n- Contextual help placement\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_persona_pain_points_items(SomMetaNode *n) {
   meta_set(&n->class_name, "PersonaPainPoints");
@@ -95772,6 +96502,7 @@ static void meta_build_persona_scenario_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -95823,6 +96554,7 @@ static void meta_build_persona_scenarios_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Persona Scenarios (10.1.3.n.3)\n\nKey usage scenarios for this persona — maps personas to screens/flows.\n\n### Form Fields Guide\n**scenarioName**: Action-oriented (\"Approve Pending Orders\")\n**frequency**: Daily/Weekly/Monthly/Occasional\n**urgency**: Time-sensitive nature\n**context**: Where/when this occurs\n**requiredScreens**: SCR-INV references needed\n**successMetric**: Measurable outcome\n\n### Traceability\nScenarios link to:\n- Screen Inventory (SCR-INV) via requiredScreens\n- Screen Flow (SCF) via navigation paths\n- Use Cases (ISC-xxx) via related requirements\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_persona_scenarios_items(SomMetaNode *n) {
   meta_set(&n->class_name, "PersonaScenarios");
@@ -95855,6 +96587,7 @@ static void meta_build_phase_gate_review_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -96140,6 +96873,7 @@ static void meta_build_phase_gate_reviews_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -96294,6 +97028,7 @@ static void meta_build_physical_workplace_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -96407,6 +97142,7 @@ static void meta_build_pilot_plan_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Pilot definition: who participates, what is in/out of pilot scope, how\nsuccess is measured, and the decision gate that authorizes rollout.\n\n**What to capture:**\n- Pilot cohort (sites, users, transaction volume)\n- Pilot scope (functional / technical / geographic subset)\n- Pilot duration and schedule\n- Success criteria (quantitative + qualitative)\n- Feedback collection mechanism\n- Exit decision rules (proceed / extend / abort)\n- Risk and rollback plan\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_pipeline_job_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PipelineJobEntry");
@@ -96415,6 +97151,7 @@ static void meta_build_pipeline_job_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -96584,6 +97321,7 @@ static void meta_build_pipeline_stage_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -96745,6 +97483,7 @@ static void meta_build_platform_and_language_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide a strategic overview of platform and technology selections.\n\n**Include**:\n- Executive summary of technology stack\n- Primary vs. secondary platform priorities\n- Polyglot strategy rationale (if using multiple languages)\n- Platform-specific considerations and trade-offs\n- Technology adoption timeline and migration paths\n\n**Best Practices**:\n- Document minimum viable versions with EOL dates\n- Specify LTS (Long-Term Support) requirements\n- Plan for breaking changes in major version upgrades\n- Consider developer experience and productivity\n- Evaluate total cost of ownership (licensing, training, tooling)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_platform_and_language_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "PlatformAndLanguage");
@@ -96907,6 +97646,7 @@ static void meta_build_portability_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -96990,6 +97730,7 @@ static void meta_build_post_maintenance_validation_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -97107,6 +97848,7 @@ static void meta_build_postconditions_and_guarantees_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -97160,6 +97902,7 @@ static void meta_build_preconditions_and_triggers_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -97213,6 +97956,7 @@ static void meta_build_primary_navigation_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -97371,6 +98115,7 @@ static void meta_build_print_and_export_layout_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -97683,6 +98428,7 @@ static void meta_build_privacy_impact_assessment_process_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -97847,6 +98593,7 @@ static void meta_build_privacy_regulation_compliance_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -98028,6 +98775,7 @@ static void meta_build_privilege_usage_reporting_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -98091,6 +98839,7 @@ static void meta_build_problem_statement_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the problem concretely: who suffers it, how often, and what it costs today. Quantify the impact where you can, and say how urgent a fix is.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_problem_statement_problem_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ProblemStatement");
@@ -98187,6 +98936,7 @@ static void meta_build_process_adjustment_details_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -98228,6 +98978,7 @@ static void meta_build_process_adjustment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -98490,6 +99241,7 @@ static void meta_build_process_adjustments_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of process adjustments for this project. Explain why standard\nprocess steps are modified, what project constraints drove the changes,\nand how process integrity is maintained despite deviations.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_adjustments_adjustment_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessAdjustments");
@@ -98616,6 +99368,7 @@ static void meta_build_process_catalog_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the process catalog before the classification scheme and the process entries below. Cover the scope of the catalog and what is deliberately outside it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_catalog_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessCatalog");
@@ -98780,6 +99533,7 @@ static void meta_build_process_characteristics_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -98897,6 +99651,7 @@ static void meta_build_process_control_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -99006,6 +99761,7 @@ static void meta_build_process_controls_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the control framework for this process before the individual controls below. Cover which risks the controls address and who tests them.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_controls_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessControls");
@@ -99103,6 +99859,7 @@ static void meta_build_process_dependency_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -99162,6 +99919,7 @@ static void meta_build_process_design_principle_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -99225,6 +99983,7 @@ static void meta_build_process_design_principles_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the design principles before the individual principles below. Cover where they came from and how a conflict between two of them is resolved.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_design_principles_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessDesignPrinciples");
@@ -99298,6 +100057,7 @@ static void meta_build_process_end_event_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -99345,6 +100105,7 @@ static void meta_build_process_exception_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -99454,6 +100215,7 @@ static void meta_build_process_exception_handling_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Handling of exceptions that interrupt a normal process flow. Distinct\nfrom UI-level error handling — this is about business\nprocess recovery.\n\n**What to capture:**\n- Exception catalog (what can go wrong at which step)\n- Escalation matrix (who is notified, who decides)\n- Compensation / rollback activities\n- Retry strategies and timeouts\n- Manual-intervention procedures\n- Audit requirements for handled exceptions\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_exceptions_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessExceptions");
@@ -99466,6 +100228,7 @@ static void meta_build_process_exceptions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the exception-handling philosophy for this process before the individual exception scenarios below. Cover what is handled in-process and what is escalated out of it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_exceptions_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessExceptions");
@@ -99557,6 +100320,7 @@ static void meta_build_process_identification_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -99691,6 +100455,7 @@ static void meta_build_process_improvement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -99800,6 +100565,7 @@ static void meta_build_process_improvement_summary_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the improvements expected over the current processes before the itemized improvements and the business case below. Cover the baseline they are measured against.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_improvement_summary_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessImprovementSummary");
@@ -99938,6 +100704,7 @@ static void meta_build_process_input_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -100001,6 +100768,7 @@ static void meta_build_process_inputs_outputs_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the data this process consumes and produces before the input and output lists below. Cover where the inputs originate and who consumes the outputs.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_inputs_outputs_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessInputsOutputs");
@@ -100096,6 +100864,7 @@ static void meta_build_process_interdependency_matrix_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Show which processes trigger, feed or block each other; a table or matrix reads better than prose here. Call out the couplings that constrain migration sequencing.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_interdependency_matrix_dependency_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessInterdependencyMatrix");
@@ -100142,6 +100911,7 @@ static void meta_build_process_kpi_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -100251,6 +101021,7 @@ static void meta_build_process_metric_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "How each business process is measured for success once in production.\n\n**What to capture:**\n- KPI catalog per process (name, formula, target, tolerance)\n- Leading vs lagging indicators\n- Measurement frequency and data source\n- Dashboard / report ownership\n- Thresholds for corrective action\n- Baseline values for comparison\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_metric_category_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessMetricCategory");
@@ -100262,6 +101033,7 @@ static void meta_build_process_metric_category_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Category-level summary of metrics.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_metric_category_metrics(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessMetricCategory");
@@ -100294,6 +101066,7 @@ static void meta_build_process_metric_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -100415,6 +101188,7 @@ static void meta_build_process_metrics_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of process metrics and measurement approach.");
   meta_set(&n->content_help, "Describe the overall approach to measuring process performance. Include data collection methods, measurement periods, and data quality notes.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_metrics_dashboard_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "MetricsDashboardSummary");
@@ -100596,6 +101370,7 @@ static void meta_build_process_output_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -100659,6 +101434,7 @@ static void meta_build_process_overview_diagram_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the process landscape before the landscape, hierarchy and value-chain diagrams below. Cover the reading order and the level of detail each diagram shows.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_overview_diagram_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessOverviewDiagram");
@@ -100753,6 +101529,7 @@ static void meta_build_process_pain_points_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Known issues, inefficiencies, and improvement opportunities specific to this process.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_pain_points_improvements(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessPainPoints");
@@ -100789,6 +101566,7 @@ static void meta_build_process_performance_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how this process is measured before the KPI and SLA lists below. Cover the measurement period and the data source behind the numbers.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_performance_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessPerformance");
@@ -100910,6 +101688,7 @@ static void meta_build_process_performance_summary_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -100993,6 +101772,7 @@ static void meta_build_process_relationship_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -101050,6 +101830,7 @@ static void meta_build_process_relationships_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Process relationships map dependencies, data flows, and sequencing between\nprocesses. Understanding these relationships is critical for integration\ndesign and identifying optimization opportunities.\n\n**Relationship Types:**\n- Triggers — one process starts another\n- Feeds — output of one becomes input to another\n- Depends on — must complete before another starts\n- Parallel with — can run concurrently with another\n\n**Best Practices:**\n- Map all inter-process data exchanges\n- Identify timing dependencies and constraints\n- Document API/integration points between processes\n- Highlight bottleneck relationships for optimization\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_relationships_relationships(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessRelationships");
@@ -101082,6 +101863,7 @@ static void meta_build_process_role_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -101191,6 +101973,7 @@ static void meta_build_process_roles_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the participants in this process before the per-role entries below. Cover how responsibility is split and where the hand-offs occur.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_roles_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessRoles");
@@ -101270,6 +102053,7 @@ static void meta_build_process_scope_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -101299,6 +102083,7 @@ static void meta_build_process_scope_summary_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -101388,6 +102173,7 @@ static void meta_build_process_sla_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -101451,6 +102237,7 @@ static void meta_build_process_steps_and_actor_interactions_content(SomMetaNode 
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Key process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC (Interaction Scenarios) document.\n\n**Subsections:**\n- Actor Overview — comprehensive actor definitions with goals and permissions\n- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)\n- Key Scenarios — end-to-end user journey descriptions (1+ required)\n\n**Best Practices:**\n- Follow Cockburn goal levels: +summary, !user, -subfunction\n- Use active verb phrases for interaction names (\"Submit Registration\")\n- Include MoSCoW prioritization (must/should/could/won't)\n- Map interactions to processes (TOM-xxx) and requirements (REQ-xxx)\n\n**Seeds:** ISC (Interaction Scenarios) document\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_steps_and_actor_interactions_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessStepsOverview");
@@ -101556,6 +102343,7 @@ static void meta_build_process_steps_overview_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -101615,6 +102403,7 @@ static void meta_build_process_technology_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -101726,6 +102515,7 @@ static void meta_build_process_trigger_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -101783,6 +102573,7 @@ static void meta_build_process_triggers_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how this process starts and ends before the trigger and end-event lists below. Cover whether it is event-, schedule- or request-driven.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_triggers_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessTriggers");
@@ -101890,6 +102681,7 @@ static void meta_build_process_vision_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the target-state process vision before the narrative, improvement and success-criteria subsections below. Cover what changes about how the work is done, and for whom.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_process_vision_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessVision");
@@ -102064,6 +102856,7 @@ static void meta_build_programming_language_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -102284,6 +103077,7 @@ static void meta_build_project_organization_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of project organization structure including reporting lines,\nsteering committee composition, and governance arrangements.\nDescribe the organizational model and key decision-making paths.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_project_organization_organization_structure(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationStructure");
@@ -102318,6 +103112,7 @@ static void meta_build_project_organization_and_process_content(SomMetaNode *n) 
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive summary of project-specific methodology deviations.\nExplain why this project requires deviations from standard TomSpecs practices,\nthe overall impact on governance, and how deviations are tracked and approved.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_project_organization_and_process_methodology_deviation_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "ProjectOrganizationAndProcess");
@@ -102463,6 +103258,7 @@ static void meta_build_project_team_staffing_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of team structure, staffing approach, and resource planning considerations.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_project_team_staffing_team_structure(SomMetaNode *n) {
   meta_set(&n->class_name, "TeamStructureOverview");
@@ -102532,6 +103328,7 @@ static void meta_build_protocol_compliance_requirements_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -102672,6 +103469,7 @@ static void meta_build_protocol_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -102717,6 +103515,7 @@ static void meta_build_protocols_and_standards_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of protocol and standards approach.\n\n**Include**:\n- Primary protocols and selection rationale\n- TLS/security configuration\n- Certificate management strategy\n- API versioning approach\n- Data format standards\n\n**Best Practices**:\n- Use TLS 1.3 where supported\n- Automate certificate renewal\n- Implement proper API versioning from start\n- Document protocol requirements clearly\n- Monitor protocol compliance\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_protocols_and_standards_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProtocolsAndStandardsSection");
@@ -102831,6 +103630,7 @@ static void meta_build_prototype_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the prototype effort before the goal, feature-subset and type subsections below. Cover why a prototype is needed and which decision it is meant to inform.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_prototype_prototype_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "Prototype");
@@ -103034,6 +103834,7 @@ static void meta_build_prototype_feature_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -103094,6 +103895,7 @@ static void meta_build_prototype_feature_subset_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the feature selection before the individual features below. Cover the criterion that put a feature in or left it out.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_prototype_feature_subset_feature_subset_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeFeatureSubset");
@@ -103251,6 +104053,7 @@ static void meta_build_prototype_goal_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -103308,6 +104111,7 @@ static void meta_build_prototype_goals_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce what the prototype must validate before the individual goals below. Cover the risk that makes the validation worth the effort.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_prototype_goals_goals_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeGoals");
@@ -103469,6 +104273,7 @@ static void meta_build_prototype_type_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the prototype classification before the reusable, training and throwaway subsections below. Cover which type applies and what follows from that choice.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_prototype_type_prototype_type_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeType");
@@ -103559,6 +104364,7 @@ static void meta_build_pwa_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -103744,6 +104550,7 @@ static void meta_build_quality_and_acceptance_model_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_quality_and_acceptance_model_system_quality_goals(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemQualityGoals");
@@ -103786,6 +104593,7 @@ static void meta_build_quality_category_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -103972,6 +104780,7 @@ static void meta_build_quality_framework_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the quality framework before the objective, category and verification subsections below. Cover how quality work is organized and governed.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_quality_framework_framework_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityFramework");
@@ -104194,6 +105003,7 @@ static void meta_build_quality_gate_adjustment_details_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -104235,6 +105045,7 @@ static void meta_build_quality_gate_adjustment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -104427,6 +105238,7 @@ static void meta_build_quality_gate_adjustments_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of quality gate adjustments for this project. Explain why standard\ngates are modified, what project characteristics drove the changes, and\nhow quality assurance is maintained despite deviations.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_quality_gate_adjustments_adjustment_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityGateAdjustments");
@@ -104537,6 +105349,7 @@ static void meta_build_quality_gate_check_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -104751,6 +105564,7 @@ static void meta_build_quality_gate_checklist_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the quality gates before the individual checklist items below. Cover when each gate is run and who may waive one.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_quality_gate_checklist_checklist_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityGateChecklist");
@@ -104843,6 +105657,7 @@ static void meta_build_quality_prioritization_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how quality attributes are ranked before the weighted-matrix and trade-off subsections below. Cover who decides the ranking and how a dispute is settled.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_quality_prioritization_prioritization_framework_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityPrioritization");
@@ -104935,6 +105750,7 @@ static void meta_build_quality_scenario_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -104997,6 +105813,7 @@ static void meta_build_quality_scenarios_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of quality scenarios and how they verify achievement of the parent technical goal.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_quality_scenarios_items(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityScenarios");
@@ -105029,6 +105846,7 @@ static void meta_build_quality_standard_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -105204,6 +106022,7 @@ static void meta_build_quality_weight_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -105257,6 +106076,7 @@ static void meta_build_rate_limiting_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -105397,6 +106217,7 @@ static void meta_build_readability_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -105578,6 +106399,7 @@ static void meta_build_readiness_criteria_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -105649,6 +106471,7 @@ static void meta_build_recovery_procedures_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -105830,6 +106653,7 @@ static void meta_build_recovery_scenario_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -105900,6 +106724,7 @@ static void meta_build_redirect_handling_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how return URLs and callbacks are validated. Open redirects are the risk to write about here: state the allow-list rule and the behaviour on a rejected target.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_redirect_handling_policy_redirect_details(SomMetaNode *n) {
   meta_set(&n->class_name, "RedirectHandlingPolicy");
@@ -105920,6 +106745,7 @@ static void meta_build_reference_document_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -106115,6 +106941,7 @@ static void meta_build_reference_documents_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of reference document categories and their relevance to the project.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_reference_documents_documents(SomMetaNode *n) {
   meta_set(&n->class_name, "ReferenceDocuments");
@@ -106147,6 +106974,7 @@ static void meta_build_regulatory_audit_support_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -106206,6 +107034,7 @@ static void meta_build_regulatory_compliance_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -106390,6 +107219,7 @@ static void meta_build_regulatory_compliance_requirements_content(SomMetaNode *n
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of regulatory landscape and compliance approach.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_regulatory_compliance_requirements_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "RegulatoryComplianceRequirements");
@@ -106449,6 +107279,7 @@ static void meta_build_regulatory_context_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of the regulatory environment and compliance requirements affecting this system.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_regulatory_context_regulations(SomMetaNode *n) {
   meta_set(&n->class_name, "RegulatoryContext");
@@ -106481,6 +107312,7 @@ static void meta_build_regulatory_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -106540,6 +107372,7 @@ static void meta_build_related_document_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -106572,6 +107405,7 @@ static void meta_build_relationship_attribute_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -106601,6 +107435,7 @@ static void meta_build_release_strategy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -106808,6 +107643,7 @@ static void meta_build_relevant_section_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -106843,6 +107679,7 @@ static void meta_build_reliability_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -107034,6 +107871,7 @@ static void meta_build_reliability_characteristic_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce reliability for this system before the availability, service-level and monitoring subsections below. Cover the cost of downtime that justifies the targets.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_reliability_characteristic_reliability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ReliabilityCharacteristic");
@@ -107152,6 +107990,7 @@ static void meta_build_remember_me_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what persistent login grants and what it does not: which operations still re-prompt, how the device is trusted, and how the user revokes it from elsewhere.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_remember_me_policy_remember_me_details(SomMetaNode *n) {
   meta_set(&n->class_name, "RememberMePolicy");
@@ -107172,6 +108011,7 @@ static void meta_build_removed_role_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -107310,6 +108150,7 @@ static void meta_build_replacement_inventory_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the replacement inventory before the individual systems below. Cover the portfolio-level metrics and the sequencing logic.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_replacement_inventory_portfolio_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "ReplacementInventory");
@@ -107368,6 +108209,7 @@ static void meta_build_replacement_phase_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -107409,6 +108251,7 @@ static void meta_build_replacement_system_dependency_entry_content(SomMetaNode *
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 14;
   n->form->fields = (SomFormFieldMeta *)calloc(14, sizeof(SomFormFieldMeta));
@@ -107504,6 +108347,7 @@ static void meta_build_report_chart_axes_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 11;
   n->form->fields = (SomFormFieldMeta *)calloc(11, sizeof(SomFormFieldMeta));
@@ -107581,6 +108425,7 @@ static void meta_build_report_chart_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -107786,6 +108631,7 @@ static void meta_build_report_column_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -108176,6 +109022,7 @@ static void meta_build_report_definitions_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the report definitions: which reports exist, what each projects over the domain model, and how they are delivered.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_report_definitions_reports(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportDefinitions");
@@ -108208,6 +109055,7 @@ static void meta_build_report_distribution_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -108390,6 +109238,7 @@ static void meta_build_report_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -108986,6 +109835,7 @@ static void meta_build_report_filter_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -109386,6 +110236,7 @@ static void meta_build_report_recipient_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -109532,6 +110383,7 @@ static void meta_build_report_schedule_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -109737,6 +110589,7 @@ static void meta_build_report_section_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -110005,6 +110858,7 @@ static void meta_build_requirement_acceptance_criteria_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of acceptance approach and test coverage expectations.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirement_acceptance_criteria_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementAcceptanceCriteria");
@@ -110037,6 +110891,7 @@ static void meta_build_requirement_business_rule_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -110099,6 +110954,7 @@ static void meta_build_requirement_business_rules_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of business rules associated with this requirement.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirement_business_rules_rules(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementBusinessRules");
@@ -110135,6 +110991,7 @@ static void meta_build_requirement_coverage_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Reports coverage of requirements from multiple angles to ensure nothing\nfalls through.\n\n**What to capture:**\n- Goal coverage (every goal has ≥1 requirement supporting it)\n- Use case coverage (every use case references its requirements)\n- Test coverage (every requirement has ≥1 test scenario)\n- Gap analysis (requirements without owners / tests / acceptance criteria)\n- Coverage trend snapshot over the project timeline\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirement_data_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementDataRequirements");
@@ -110146,6 +111003,7 @@ static void meta_build_requirement_data_requirements_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of data requirements and CRUD (Create, Read, Update, Delete) operations.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirement_data_requirements_entities(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementDataRequirements");
@@ -110181,6 +111039,7 @@ static void meta_build_requirement_dependencies_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of requirement dependencies and implementation order.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirement_dependencies_items(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementDependencies");
@@ -110213,6 +111072,7 @@ static void meta_build_requirement_dependency_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -110263,6 +111123,7 @@ static void meta_build_requirement_relationships_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Explicit relationships between requirements: dependencies, conflicts,\nrefinements, and derivations. Ties individual requirement entries from\nFUN/TEC/SEC/ORG into a network.\n\n**What to capture:**\n- Relationship catalog (depends-on, conflicts-with, refines, derived-from)\n- Per-requirement neighborhood (incoming / outgoing edges)\n- Conflict resolution outcomes and decisions\n- Derivation chains from goals to requirements\n- Visualizations (matrix, graph, layered view)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirement_screen_action_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementScreenActionEntry");
@@ -110271,6 +111132,7 @@ static void meta_build_requirement_screen_action_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 19;
   n->form->fields = (SomFormFieldMeta *)calloc(19, sizeof(SomFormFieldMeta));
@@ -110420,6 +111282,7 @@ static void meta_build_requirement_test_case_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -110539,6 +111402,7 @@ static void meta_build_requirement_test_cases_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of test coverage for this requirement.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirement_test_cases_test_cases(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementTestCases");
@@ -110575,6 +111439,7 @@ static void meta_build_requirement_traceability_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Link this requirement upward to goals and business drivers and downward to use cases, processes and tests. A requirement that traces to nothing is a requirement nobody asked for.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirement_traceability_traceability_form(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementTraceability");
@@ -110713,6 +111578,7 @@ static void meta_build_requirement_ui_specification_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the screens, forms and interactions this requirement needs, in Tom UI terms: what the user sees, what they can do, and what feedback the system gives.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirement_ui_specification_ui_form(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementUiSpecification");
@@ -110866,6 +111732,7 @@ static void meta_build_requirements_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the functional and non-functional requirement landscape; seeds the Requirements Specification (RSP).");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirements_requirements_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementsFollowUp");
@@ -110888,6 +111755,7 @@ static void meta_build_requirements_follow_up_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the follow-up (non-generated) NFR sub-areas: localization, information-for-use, and training.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirements_follow_up_localization_translation(SomMetaNode *n) {
   meta_set(&n->class_name, "LocalizationTranslationRequirements");
@@ -110933,6 +111801,7 @@ static void meta_build_requirements_overview_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the requirements set: how requirements were gathered, how they are identified, and how they will be carried into the RSP. Note the standard followed — IEEE 830, ISO 29148, Volere.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_requirements_overview_requirements_form(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementsOverview");
@@ -111101,6 +111970,7 @@ static void meta_build_resource_allocation_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -111154,6 +112024,7 @@ static void meta_build_resource_capacity_baselines_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -111317,6 +112188,7 @@ static void meta_build_resource_key_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -111352,6 +112224,7 @@ static void meta_build_resource_key_reference_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -111376,6 +112249,7 @@ static void meta_build_resource_protection_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of resource protection strategies covering data, APIs, and file\nstorage. Resource protection ensures that authenticated and authorized users\ncan only access the specific resources they are entitled to.\n\n**Resource categories:**\n- **Data**: Database records, tenant data, PII, business-critical information\n- **APIs**: REST/GraphQL endpoints, internal services, webhooks\n- **Files**: User uploads, documents, media, configuration files\n\n**Protection layers:**\n1. Network layer: firewalls, WAF, DDoS protection\n2. Transport layer: TLS encryption, certificate validation\n3. Application layer: authentication, authorization, input validation\n4. Data layer: encryption at rest, row/column-level security, masking\n\n**Defense in depth:**\n- Multiple overlapping controls at each layer\n- Fail-secure defaults (deny access on error)\n- Principle of least privilege for all access\n- Continuous monitoring and anomaly detection\n\n**Compliance alignment:**\n- OWASP Top 10 and API Security Top 10\n- PCI DSS requirements for cardholder data\n- GDPR requirements for personal data protection\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_resource_protection_data_level_security(SomMetaNode *n) {
   meta_set(&n->class_name, "DataLevelSecurity");
@@ -111417,6 +112291,7 @@ static void meta_build_resource_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -111470,6 +112345,7 @@ static void meta_build_responsibility_change_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -111529,6 +112405,7 @@ static void meta_build_responsibility_contacts_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -111570,6 +112447,7 @@ static void meta_build_responsibility_detail_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -111629,6 +112507,7 @@ static void meta_build_responsibility_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -111836,6 +112715,7 @@ static void meta_build_responsibility_function_details_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -111865,6 +112745,7 @@ static void meta_build_responsibility_reference_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -111900,6 +112781,7 @@ static void meta_build_responsibility_systems_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -111933,6 +112815,7 @@ static void meta_build_responsive_behavior_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how the interface adapts across breakpoints before the layout, navigation and visibility subsections below. Cover what is hidden rather than reflowed, and why.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_responsive_behavior_layout_adaptation(SomMetaNode *n) {
   meta_set(&n->class_name, "ResponsiveBehavior");
@@ -112159,6 +113042,7 @@ static void meta_build_responsive_design_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the responsive strategy before the breakpoint and behaviour subsections below. Cover the device classes supported and which of them is designed for first.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_responsive_design_responsive_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ResponsiveDesign");
@@ -112263,6 +113147,7 @@ static void meta_build_responsive_screen_rule_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -112307,6 +113192,7 @@ static void meta_build_result_envelope_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -112372,6 +113258,7 @@ static void meta_build_result_field_detail_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -112404,6 +113291,7 @@ static void meta_build_retention_policy_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -112532,6 +113420,7 @@ static void meta_build_reusability_principles_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -112705,6 +113594,7 @@ static void meta_build_reusable_components_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of the reusability strategy and component library.\n\n**Include**:\n- Reuse-first culture and policies\n- Component library organization\n- Contribution and adoption process\n- Success metrics (reuse rate, contribution rate)\n- Key shared components and their purposes\n\n**Best Practices**:\n- Start with \"extract when needed\" not \"build speculatively\"\n- Establish inner-source practices for contributions\n- Create component design guidelines\n- Track component usage and dependencies\n- Plan for breaking change management\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_reusable_components_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ReusableComponentsSection");
@@ -112882,6 +113772,7 @@ static void meta_build_reusable_prototype_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the reusable prototype before the architecture, integration and transition subsections below. Cover the quality bar it must meet to survive into the product.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_reusable_prototype_reusable_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ReusablePrototype");
@@ -113038,6 +113929,7 @@ static void meta_build_reusable_ui_component_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -113260,6 +114152,7 @@ static void meta_build_reuse_goal_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -113406,6 +114299,7 @@ static void meta_build_review_criterion_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -113517,6 +114411,7 @@ static void meta_build_revision_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -113552,6 +114447,7 @@ static void meta_build_risk_business_impact_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -113673,6 +114569,7 @@ static void meta_build_risk_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this risk — how it would actually play out, beyond the analysis, response and monitoring facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_risk_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "RiskIdentification");
@@ -113891,6 +114788,7 @@ static void meta_build_risk_identification_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -113990,6 +114888,7 @@ static void meta_build_risk_monitoring_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -114101,6 +115000,7 @@ static void meta_build_risk_relationships_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -114160,6 +115060,7 @@ static void meta_build_risk_response_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -114275,6 +115176,7 @@ static void meta_build_risks_and_assumptions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the risk register before the individual risks below. Cover how risks are identified, how often the register is reviewed, and who owns it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_risks_and_assumptions_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "RisksAndAssumptions");
@@ -114378,6 +115280,7 @@ static void meta_build_role_adjustment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -114604,6 +115507,7 @@ static void meta_build_role_adjustments_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of role adjustments for this project. Explain why standard role\ndefinitions don't fit, what stakeholder or organizational factors drove\nthe changes, and how role clarity is maintained despite deviations.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_role_adjustments_adjustment_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "RoleAdjustments");
@@ -114718,6 +115622,7 @@ static void meta_build_role_certification_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the review cycle: who certifies which assignments, how often, and what happens to an assignment nobody re-certifies. Privilege creep is what this section prevents.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_role_certification_policy_role_certification_details(SomMetaNode *n) {
   meta_set(&n->class_name, "RoleCertificationPolicy");
@@ -114738,6 +115643,7 @@ static void meta_build_role_combination_constraint_entry_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -114791,6 +115697,7 @@ static void meta_build_role_competency_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -114832,6 +115739,7 @@ static void meta_build_role_data_scope_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -114867,6 +115775,7 @@ static void meta_build_role_exclusion_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -114906,6 +115815,7 @@ static void meta_build_role_hierarchy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define role inheritance and combination rules. A well-designed role hierarchy\nsimplifies administration and ensures consistent access control.\n\n**Inheritance rules:**\n- Senior roles inherit all permissions of junior roles\n- Example: Manager inherits Employee permissions\n- Maximum hierarchy depth (typically 3–5 levels)\n- Circular inheritance detection and prevention\n\n**Mutual exclusions (Separation of Duties):**\n- Roles that cannot be held simultaneously\n- Example: Payment Approver and Payment Initiator\n- Enforce at assignment time and during role evaluation\n\n**Role combination constraints:**\n- Required role combinations (must have both A and B)\n- Forbidden combinations (cannot have both X and Y)\n- Cardinality limits (max N users per role)\n\n**Role certification:**\n- Periodic review of role assignments\n- Manager/owner approval for sensitive roles\n- Automatic revocation of uncertified access\n\n**Implementation:**\n- Pre-compute effective permissions at assignment time (fast evaluation)\n- Or evaluate hierarchy at runtime (flexible but slower)\n- Cache invalidation on role/hierarchy changes\n\n**Reference:**\n- NIST RBAC Model — Hierarchical RBAC (RBAC₂)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_role_hierarchy_hierarchy_policy(SomMetaNode *n) {
   meta_set(&n->class_name, "RoleHierarchyPolicy");
@@ -115024,6 +115934,7 @@ static void meta_build_role_hierarchy_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the shape of the role hierarchy and what inheritance means in it. State the depth limit and why — deep hierarchies make effective permissions unpredictable.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_role_hierarchy_policy_role_hierarchy_policy_details(SomMetaNode *n) {
   meta_set(&n->class_name, "RoleHierarchyPolicy");
@@ -115044,6 +115955,7 @@ static void meta_build_role_holder_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -115085,6 +115997,7 @@ static void meta_build_role_inheritance_rule_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -115136,6 +116049,7 @@ static void meta_build_role_matrix_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Authoritative mapping of system roles to the permissions they hold.\nComplements the User Authorization section which describes the\nauthorization model; this section captures the concrete assignment.\n\n**What to capture:**\n- Role catalog (role name, description, owner)\n- Permission catalog (object, action, scope)\n- Role × permission matrix cells (granted / denied / conditional)\n- Inheritance / composition relationships between roles\n- Segregation-of-duties constraints (roles that must not co-assign)\n- Review and re-certification cadence\n- Exceptions register for elevated / time-limited access\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_role_permission_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RolePermissionEntry");
@@ -115144,6 +116058,7 @@ static void meta_build_role_permission_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -115179,6 +116094,7 @@ static void meta_build_role_reference_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -115199,6 +116115,7 @@ static void meta_build_rollback_strategy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -115407,6 +116324,7 @@ static void meta_build_rollout_plan_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Rollout plan: sequencing, waves, and criteria for moving each cohort from\npre-go-live to production.\n\n**What to capture:**\n- Rollout strategy (big-bang / phased / pilot-first / hybrid)\n- Wave definitions (who goes when, success criteria to advance a wave)\n- Entry and exit criteria per wave\n- Rollback decision authority and triggers\n- Communication plan per wave\n- Dependencies between waves (data migration, integration readiness)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_rollout_training_material_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RolloutTrainingMaterial");
@@ -115419,6 +116337,7 @@ static void meta_build_rollout_training_material_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Training plan and materials: courses, content packages, trainers, and\ndelivery mechanism. Complements the training-module catalogue which\ncaptures the catalog of training modules.\n\n**What to capture:**\n- Training catalog per user category (course names, duration, format)\n- Delivery mechanism (instructor-led, e-learning, blended)\n- Train-the-trainer approach\n- Hands-on environment requirements\n- Certification / proficiency-check criteria\n- Post-go-live refresher / onboarding approach\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_row_level_security_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RowLevelSecurityPolicy");
@@ -115431,6 +116350,7 @@ static void meta_build_row_level_security_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the predicate that decides row visibility and where it is enforced — database, ORM or application. Say what happens if the enforcing layer is bypassed.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_row_level_security_policy_row_level_security_details(SomMetaNode *n) {
   meta_set(&n->class_name, "RowLevelSecurityPolicy");
@@ -115451,6 +116371,7 @@ static void meta_build_rpo_rto_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -115615,6 +116536,7 @@ static void meta_build_rule_example_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -115654,6 +116576,7 @@ static void meta_build_runtime_dependencies_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Runtime Dependencies (12.4)\n\nRuntime dependencies between components.\n\n### Dependency Properties\n- **Startup order** — Boot sequence priority\n- **Health checks** — Verification method and interval\n- **Failover behavior** — Graceful degradation, circuit breaker\n- **Version constraints** — Required versions or ranges\n- **Criticality** — Impact if unavailable\n\n### Dependency Types\n- **Critical** — System cannot function without\n- **Optional** — Enhances functionality but not required\n- **Conditional** — Required only in specific configurations\n\n### Documentation\nFor each dependency, document latency tolerance, caching\nstrategy, and fallback alternatives.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_runtime_dependencies_items(SomMetaNode *n) {
   meta_set(&n->class_name, "RuntimeDependencies");
@@ -115686,6 +116609,7 @@ static void meta_build_runtime_dependency_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -115884,6 +116808,7 @@ static void meta_build_runtime_environment_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -116151,6 +117076,7 @@ static void meta_build_scalability_architecture_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -116361,6 +117287,7 @@ static void meta_build_scaling_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -116542,6 +117469,7 @@ static void meta_build_scaling_triggers_and_thresholds_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -116721,6 +117649,7 @@ static void meta_build_scenario_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this scenario — the end-to-end story it tells, beyond the steps, data and timing recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_scenario_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "ScenarioEntry");
@@ -117056,6 +117985,7 @@ static void meta_build_scenario_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -117191,6 +118121,7 @@ static void meta_build_scheduled_job_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -117442,6 +118373,7 @@ static void meta_build_scheduled_job_step_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "Say what the job does at this point in the sequence, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -117465,6 +118397,7 @@ static void meta_build_scheduled_maintenance_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -117647,6 +118580,7 @@ static void meta_build_schema_migration_step_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "One artifact in the migration set.\n\n**Ordering.** Artifacts are applied in ascending version order across the whole\nset for a target, so the version is what places this artifact in the sequence.\n\n**Environments.** Leave *Environments* empty to apply the artifact everywhere.\nNaming one or more deployment environments restricts it to those — the way to\nseed development or test data that must never reach production. Use the\nenvironment names exactly as they are configured; they are matched verbatim.\n\n**Immutability.** Once this artifact has been applied anywhere, do not edit it.\nAuthor the further change as a new entry with the next version.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -117823,6 +118757,7 @@ static void meta_build_schema_versioning_and_migration_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "Describe how the database schema is versioned and how schema changes are\nauthored, ordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback steps are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n- The data sources and schemas the artifacts target (7.4.1)\n- The ordered artifact set itself (7.4.2)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Reference data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Schema change** — the append-only evolution steps applied per release\n\n**The migration engine is fixed, so there is no tooling decision to record\nhere.** Artifacts are applied by the framework's own migration engine; this\nsection says *what* to apply and *where*, never *with what*.\n\n**Applied artifacts are immutable.** The engine records each applied artifact\nand, on re-encountering it, verifies rather than re-applies it. An artifact\nthat has been applied anywhere is never edited — a further schema change is\nalways a *new* artifact with the next version. Author revisions of an already\nreleased artifact as an additional entry, not as a change to the existing one.\n\n**The artifact chain must converge on the data model.** The cumulative effect\nof a schema's artifacts must produce exactly the shape the entities and\nattributes of the Data Model (7.1) declare. That convergence is a mechanical\ncheck, so a divergence is a defect in one of the two — not a matter of\nauthoring judgement.\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: reference data is\nthe new system's own initial data, while old→new data mapping and cutover from\nlegacy systems stay in the migration-mapping sections (MIGME).\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -117910,6 +118845,7 @@ static void meta_build_scope_boundaries_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "State explicitly what is in scope and — more importantly — what is out. Out-of-scope items are the ones that prevent scope creep, so name them even when they seem obvious.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_scope_boundaries_in_scope_items(SomMetaNode *n) {
   meta_set(&n->class_name, "ScopeBoundaries");
@@ -118008,6 +118944,7 @@ static void meta_build_scope_item_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -118049,6 +118986,7 @@ static void meta_build_screen_action_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -118229,6 +119167,7 @@ static void meta_build_screen_actions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Screen Actions (10.2.1.n.2)\n\nTop-level actions available on the screen.\n\n### Action Placements\n- **App-Bar** — Always visible, max 2-3 icons\n- **Toolbar** — Below app bar, primary operations\n- **FAB** — Prominent single primary action\n- **Context-Menu** — Right-click/long-press\n- **Overflow-Menu** — Secondary actions in ... menu\n\n### Tom UI Mapping\nActions integrate with `TomAction` system:\n- Authorization checks via permission field\n- Confirmation dialogs via confirmationRequired\n- Keyboard shortcuts via keyboardShortcut\n- Success/error feedback via message resources\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_screen_actions_items(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenActions");
@@ -118261,6 +119200,7 @@ static void meta_build_screen_behavior_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -118333,6 +119273,7 @@ static void meta_build_screen_descriptions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Screen Descriptions (10.2)\n\nComprehensive screen specifications for the application.\n\n### Subsections\n- **10.2.1 Screen Inventory** — Individual screen definitions\n- **10.2.2 Information Architecture** — Content organization and hierarchy\n\n### Tom UI Framework Integration\nScreens map to Flutter route definitions and scaffold configurations.\nEach screen specifies:\n- Layout structure (zones, sections)\n- UI elements (fields, buttons, displays)\n- Actions and their authorization\n- State management requirements\n\n### Specification Depth\nEach screen should have enough detail to generate:\n- Route registration\n- Scaffold layout code\n- State holder classes\n- Authorization checks\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_screen_descriptions_screen_inventory(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenInventory");
@@ -118363,6 +119304,7 @@ static void meta_build_screen_element_action_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -118508,6 +119450,7 @@ static void meta_build_screen_element_data_display_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -118625,6 +119568,7 @@ static void meta_build_screen_element_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -118951,6 +119895,7 @@ static void meta_build_screen_element_field_spec_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -119298,6 +120243,7 @@ static void meta_build_screen_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -119581,6 +120527,7 @@ static void meta_build_screen_field_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -119992,6 +120939,7 @@ static void meta_build_screen_flow_structure_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Screen Flow Structure (10.3)\n\nNavigation model and screen flow diagrams.\n\n### Subsections\n- **10.3.1 Navigation Model** — Comprehensive navigation structure\n- **10.3.2 Screen Flow Diagram** — Mermaid flowchart\n- **10.3.3 Screen Route Map** — Routes, form placement, and transitions\n\n### Tom UI Integration\nScreen flow drives:\n- Router configuration (go_router)\n- Transition animations\n- Navigation stack management\n- Deep link handling\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_screen_flow_structure_navigation_model(SomMetaNode *n) {
   meta_set(&n->class_name, "NavigationModel");
@@ -120038,6 +120986,7 @@ static void meta_build_screen_inventory_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Screen Inventory (10.2.1)\n\nComplete catalog of application screens.\n\n### Screen Categories\n- **List** — Data tables with filtering/sorting\n- **Detail** — Single record view\n- **Form** — Data entry/editing\n- **Dashboard** — Aggregated metrics and widgets\n- **Settings** — Configuration screens\n- **Wizard** — Multi-step guided flows\n- **Dialog** — Modal interactions\n- **Report** — Formatted output views\n- **Landing** — Entry points and navigation hubs\n\n### Screen Entry Structure\nEach ScreenEntry includes:\n- Identity (ID, name, route pattern)\n- Authorization (roles, permissions, effect)\n- Sections (layout zones)\n- Elements (fields, displays, actions)\n- States (loading, empty, error, success)\n\n### Tom UI Mapping\nScreens generate TomScaffold configurations with:\n- AppBar setup\n- Drawer/navigation\n- Body layout\n- FAB/action buttons\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_screen_inventory_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenInventory");
@@ -120084,6 +121033,7 @@ static void meta_build_screen_responsive_rule_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -120125,6 +121075,7 @@ static void meta_build_screen_route_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -120167,6 +121118,7 @@ static void meta_build_screen_route_map_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Screen Route Map (10.3.3)\n\nThe addressable screens of the application and the movement between them.\n\n### Subsections\n- **Routes** — One entry per addressable screen, each with a stable route ID\n- **Form Placement** — Which form is shown on which route, and how\n- **Transitions** — Which screen an action leads to, per outcome\n\n### Why route IDs\nRoutes are referenced by ID, not by path. A path is presentation (and changes);\nthe ID is the stable handle that form placement, transitions, navigation\ntargets, and deep links all point at. Every navigation target elsewhere in the\nspecification must name a route ID declared here.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_screen_route_map_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenRouteMap");
@@ -120259,6 +121211,7 @@ static void meta_build_screen_section_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -120395,6 +121348,7 @@ static void meta_build_screen_sections_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Screen Sections (10.2.1.n.1)\n\nLogical zones within a screen that group related elements.\n\n### Section Types\n- **Header** — Title bar and global actions\n- **Toolbar** — Primary action buttons\n- **Filter-Bar** — Search and filter controls\n- **Content-Primary** — Main content area\n- **Content-Secondary** — Supporting content\n- **Sidebar** — Navigation or context panels\n- **Footer** — Status and secondary actions\n- **Tab-Panel** — Tabbed content containers\n- **Accordion-Panel** — Collapsible sections\n- **Drawer** — Slide-out panels\n- **Action-Bar** — Contextual action buttons\n- **Form-Group** — Logical field groupings\n\n### Tom UI Mapping\nSections map to Flutter layout widgets:\n- Row/Column for directional layout\n- Wrap for responsive content\n- GridView for structured grids\n- Visibility for collapsible sections\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_screen_sections_items(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenSections");
@@ -120427,6 +121381,7 @@ static void meta_build_screen_state_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -120499,6 +121454,7 @@ static void meta_build_screen_states_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Screen States (10.2.1.n.3)\n\nVisual/behavioral states the screen can be in.\n\n### Common Screen States\n- **Loading** — Data fetching in progress\n- **Empty** — No data to display\n- **Error** — Load/save failure\n- **Permission-Denied** — Unauthorized access\n- **First-Use** — Onboarding prompts\n- **Offline** — No connectivity\n- **Success** — Transient confirmation\n\n### State Display\nEach state specifies:\n- Message and icon resources\n- Illustration (empty state graphic)\n- Primary/secondary actions\n- Auto-retry behavior\n\n### Tom UI Mapping\nStates map to `TomStateWidget` with standardized skeletons,\nempty states, and error displays.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_screen_states_items(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenStates");
@@ -120531,6 +121487,7 @@ static void meta_build_screen_transition_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -120600,6 +121557,7 @@ static void meta_build_screen_user_category_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -120627,6 +121585,7 @@ static void meta_build_secondary_navigation_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Secondary Navigation (10.3.1.4)\n\nIn-page navigation: tab bars and segmented controls.\n\n### Tab Bar Properties\n- Host screen ID\n- Style (Material/Segmented/Pill/Scrollable)\n- Position (Top/Bottom/Left)\n- Default tab and persistence\n- Swipe and lazy loading behavior\n\n### Tab Item Properties\n- Label, icon, and content screen\n- Authorization and visibility\n- Badges for attention\n\n### Tom UI Mapping\nTab bars map to `TomTabBar` with:\n- Swipe navigation on mobile\n- Lazy content loading\n- Permission-aware tab visibility\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_secondary_navigation_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SecondaryNavigation");
@@ -120671,6 +121630,7 @@ static void meta_build_security_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -120868,6 +121828,7 @@ static void meta_build_security_and_access_model_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide a high-level overview of the application's security architecture for\nprotecting data and functions. This section serves as the entry point for all\naccess and authorization concerns.\n\n**Key topics to address:**\n- Overall security philosophy (zero trust, defense in depth, least privilege)\n- Applicable security frameworks (NIST, ISO 27001, SOC 2, OWASP)\n- Regulatory requirements affecting access control (GDPR, HIPAA, PCI DSS)\n- Integration points with enterprise identity and access management (IAM)\n- Risk-based approach to authorization decisions\n\n**Cross-references:**\n- User Management → defines who accesses the system\n- Authentication → proves user identity\n- Authorization → controls what authenticated users can do\n- Resource Protection → secures data and APIs\n- Encryption → protects sensitive data\n- Audit → logs security events for compliance\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_security_and_access_model_access_control(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessControlModel");
@@ -120921,6 +121882,7 @@ static void meta_build_security_audit_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -121065,6 +122027,7 @@ static void meta_build_security_audit_requirements_section_content(SomMetaNode *
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of security audit strategy.\n\n**Include**:\n- Penetration testing program\n- Security code review process\n- Dependency scanning approach\n- Certification roadmap\n- Audit schedule and responsibilities\n\n**Best Practices**:\n- Integrate security testing in CI/CD\n- Act on audit findings promptly\n- Maintain audit evidence repository\n- Regular security review meetings\n- Continuous improvement from findings\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_security_audit_requirements_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityAuditRequirementsSection");
@@ -121175,6 +122138,7 @@ static void meta_build_security_certification_requirements_content(SomMetaNode *
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -121354,6 +122318,7 @@ static void meta_build_security_characteristic_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the security quality expectations before the security and IT-security-operations subsections below. Cover the threat model the expectations answer to.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_security_characteristic_security_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityCharacteristic");
@@ -121422,6 +122387,7 @@ static void meta_build_security_code_review_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -121565,6 +122531,7 @@ static void meta_build_security_compliance_follow_up_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the compliance follow-up: the regulatory and audit compliance framework.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_security_compliance_follow_up_compliance_framework(SomMetaNode *n) {
   meta_set(&n->class_name, "ComplianceFramework");
@@ -121585,6 +122552,7 @@ static void meta_build_security_control_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -121687,6 +122655,7 @@ static void meta_build_security_controls_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of security controls for this requirement.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_security_controls_controls(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityControls");
@@ -121719,6 +122688,7 @@ static void meta_build_security_development_lifecycle_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -121877,6 +122847,7 @@ static void meta_build_security_event_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -121924,6 +122895,7 @@ static void meta_build_security_event_logging_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -121987,6 +122959,7 @@ static void meta_build_security_events_definition_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define which security-relevant events must be captured in audit logs.\nBalance comprehensive coverage with log volume management.\n\n**Authentication events (OWASP ASVS V7.1):**\n- Login success and failure (with reason for failure)\n- Logout (user-initiated and timeout)\n- Password changes and resets\n- MFA enrollment, verification success/failure\n- Session creation, renewal, termination\n- Account lockout and unlock\n\n**Authorization events (OWASP ASVS V7.2):**\n- Access denied events (who tried to access what)\n- Privilege escalation (role changes, permission grants)\n- Sensitive data access (who accessed what PII/PHI)\n- Administrative actions (user creation, config changes)\n\n**Data events:**\n- CRUD operations on sensitive data\n- Bulk data exports or downloads\n- Data deletion (especially irreversible)\n- Schema changes\n\n**Security events:**\n- Input validation failures (potential attack indicators)\n- CSRF/XSS attempt detection\n- Rate limit breaches\n- Suspicious patterns (brute force, credential stuffing)\n\n**Implementation tips:**\n- Log at appropriate level (don't log sensitive data values)\n- Include enough context for investigation\n- Consider log sampling for high-volume, low-risk events\n- Alert on high-severity events in real-time\n\n**Reference:**\n- OWASP ASVS V7: Error Handling and Logging\n- OWASP Logging Cheat Sheet\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_security_events_definition_logging_policy(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityEventLoggingPolicy");
@@ -122077,6 +123050,7 @@ static void meta_build_security_operations_follow_up_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the operational security follow-up: encryption / key management and audit review / reporting routines.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_security_operations_follow_up_encryption(SomMetaNode *n) {
   meta_set(&n->class_name, "SensitiveDataEncryption");
@@ -122108,6 +123082,7 @@ static void meta_build_security_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -122349,6 +123324,7 @@ static void meta_build_security_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the security requirement set and the frameworks it follows, such as OWASP and ISO 27001. Record the threat model or risk assessment the requirements were derived from.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_security_requirements_summary_form(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityRequirements");
@@ -122436,6 +123412,7 @@ static void meta_build_security_standard_compliance_entry_content(SomMetaNode *n
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -122611,6 +123588,7 @@ static void meta_build_security_standard_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -122763,6 +123741,7 @@ static void meta_build_security_testing_automation_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -122961,6 +123940,7 @@ static void meta_build_self_registration_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -123199,6 +124179,7 @@ static void meta_build_self_service_account_management_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Say what users may do to their own accounts unaided and where the line to administrator involvement is drawn. Explain the reasoning — that line is a risk decision.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_self_service_account_management_self_service_description(SomMetaNode *n) {
   meta_set(&n->class_name, "SelfServiceAccountManagement");
@@ -123223,6 +124204,7 @@ static void meta_build_sensitive_data_encryption_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define encryption requirements for sensitive data both at rest and in transit.\nEncryption is a critical defense-in-depth layer that protects data even when\nother controls fail.\n\n**Data classification:**\n- Identify sensitive data categories (PII, PHI, financial, credentials)\n- Map each category to encryption requirements\n- Document regulatory drivers (GDPR, HIPAA, PCI DSS)\n\n**Encryption scope:**\n- **At Rest**: Stored data in databases, filesystems, backups\n- **In Transit**: Data moving over networks (internal and external)\n- **In Use**: Data in memory (future consideration for confidential computing)\n\n**Key management:**\n- Cryptographic key lifecycle (generation, storage, rotation, destruction)\n- Key hierarchy (master keys, data encryption keys)\n- Separation of duties (key custodians vs. data operators)\n\n**Algorithm selection:**\n- Use approved algorithms (AES-256-GCM, ChaCha20-Poly1305)\n- Avoid deprecated algorithms (DES, 3DES, RC4, MD5, SHA-1)\n- Plan for post-quantum cryptography migration\n\n**Compliance alignment:**\n- PCI DSS: encrypt cardholder data at rest and in transit\n- HIPAA: protect PHI with appropriate safeguards\n- GDPR: implement appropriate technical measures\n\n**Reference:**\n- OWASP Cryptographic Storage Cheat Sheet\n- NIST SP 800-175B: Cryptographic Standards and Guidelines\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_sensitive_data_encryption_encryption_at_rest(SomMetaNode *n) {
   meta_set(&n->class_name, "EncryptionAtRest");
@@ -123265,6 +124247,7 @@ static void meta_build_server_call_step_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   meta_set(&n->content_help, "Say which of the three handling roles this step belongs to, then what happens in it, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -123299,6 +124282,7 @@ static void meta_build_server_configuration_setting_entry_content(SomMetaNode *n
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -123352,6 +124336,7 @@ static void meta_build_server_environment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -123527,6 +124512,7 @@ static void meta_build_server_operation_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -123636,6 +124622,7 @@ static void meta_build_server_operation_member_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -123693,6 +124680,7 @@ static void meta_build_server_operation_registry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_server_operation_registry_operations(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerOperationRegistry");
@@ -123725,6 +124713,7 @@ static void meta_build_server_os_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -123910,6 +124899,7 @@ static void meta_build_server_requirements_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of server infrastructure strategy.\n\n**Include**:\n- Server tier definitions and sizing\n- Scaling strategy and limits\n- High availability approach\n- Cloud provider selection rationale\n- Cost estimates and optimization plan\n\n**Best Practices**:\n- Right-size instances based on actual usage\n- Use reserved instances for stable workloads\n- Implement cost allocation tagging\n- Plan for zone and region redundancy\n- Document capacity planning assumptions\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_server_requirements_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerRequirementsSection");
@@ -124066,6 +125056,7 @@ static void meta_build_server_role_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -124229,6 +125220,7 @@ static void meta_build_server_storage_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -124408,6 +125400,7 @@ static void meta_build_service_account_credential_policy_content(SomMetaNode *n)
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how machine credentials are issued, stored and rotated without human intervention, and where the root of trust sits. Name the owner for each credential class.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_service_account_credential_policy_service_account_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ServiceAccountCredentialPolicy");
@@ -124432,6 +125425,7 @@ static void meta_build_service_account_lifecycle_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how non-human accounts differ from human ones here: ownership, review, rotation and decommissioning. An unowned service account is the usual failure.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_service_account_lifecycle_service_account_description(SomMetaNode *n) {
   meta_set(&n->class_name, "ServiceAccountLifecycle");
@@ -124452,6 +125446,7 @@ static void meta_build_service_level_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -124686,6 +125681,7 @@ static void meta_build_service_level_agreement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -124751,6 +125747,7 @@ static void meta_build_service_level_indicators_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -124885,6 +125882,7 @@ static void meta_build_service_mesh_and_gateway_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -125012,6 +126010,7 @@ static void meta_build_session_creation_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what a session is bound to — device, address, client — and what properties it carries from the moment of creation. Say what happens when a binding no longer matches.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_session_creation_policy_session_creation_details(SomMetaNode *n) {
   meta_set(&n->class_name, "SessionCreationPolicy");
@@ -125036,6 +126035,7 @@ static void meta_build_session_lifecycle_monitoring_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe which session events are logged, what each record contains, and who reviews them. Say how long session logs are kept and how the personal data in them is handled.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_session_lifecycle_monitoring_session_lifecycle_details(SomMetaNode *n) {
   meta_set(&n->class_name, "SessionLifecycleMonitoring");
@@ -125060,6 +126060,7 @@ static void meta_build_session_management_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define session management policies that balance security with user experience.\n\n**Session timeouts:**\n- Idle timeout: 15–30 min for standard apps, 2–5 min for high-value operations\n- Absolute timeout: 4–24 hours maximum session lifetime\n- Re-authentication for sensitive actions (step-up authentication)\n\n**Concurrent session control:**\n- Maximum simultaneous sessions per user\n- Behavior on new login: terminate oldest, deny new, or allow all\n- Device binding and trusted device management\n\n**Session revocation:**\n- Immediate revocation on logout, password change, or admin action\n- Token blacklisting or short-lived tokens with refresh rotation\n- Propagation delay for distributed systems\n\n**Remember-me / persistent sessions:**\n- Extended validity with reduced privileges\n- Device fingerprinting and anomaly detection\n- Explicit user opt-in with clear security implications\n\n**Session security hardening:**\n- Secure cookie attributes: HttpOnly, Secure, SameSite=Lax/Strict\n- Session ID rotation after authentication\n- Protection against session fixation and hijacking\n\n**Reference:**\n- OWASP Session Management Cheat Sheet\n- NIST SP 800-63B Section 7: Session Management\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_session_management_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SessionManagement");
@@ -125150,6 +126151,7 @@ static void meta_build_session_model_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of the session management approach for the system.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_session_model_session_configuration(SomMetaNode *n) {
   meta_set(&n->class_name, "SessionModel");
@@ -125281,6 +126283,7 @@ static void meta_build_session_revocation_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe every way a session ends other than timing out — logout, administrative termination, privilege change, credential change — and how fast each takes effect.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_session_revocation_policy_session_revocation_details(SomMetaNode *n) {
   meta_set(&n->class_name, "SessionRevocationPolicy");
@@ -125305,6 +126308,7 @@ static void meta_build_session_security_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the hardening measures — fixation defence, binding, anomaly detection, cache control — and what each protects against. State the response when an anomaly fires.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_session_security_policy_session_security_details(SomMetaNode *n) {
   meta_set(&n->class_name, "SessionSecurityPolicy");
@@ -125329,6 +126333,7 @@ static void meta_build_session_timeout_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Justify the idle and absolute timeouts against the data a session can reach, and describe the warning and renewal experience. Note where per-AAL differentiation applies.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_session_timeout_policy_session_timeout_details(SomMetaNode *n) {
   meta_set(&n->class_name, "SessionTimeoutPolicy");
@@ -125353,6 +126358,7 @@ static void meta_build_shared_infrastructure_dependencies_content(SomMetaNode *n
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of shared infrastructure and cross-cutting dependencies.");
   meta_set(&n->content_help, "Describe shared infrastructure components (networks, databases, messaging systems, identity providers) that multiple systems depend on. Identify single points of failure.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_shared_infrastructure_dependencies_items(SomMetaNode *n) {
   meta_set(&n->class_name, "SharedInfrastructureDependencies");
@@ -125385,6 +126391,7 @@ static void meta_build_shared_infrastructure_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -125531,6 +126538,7 @@ static void meta_build_shared_library_component_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -125730,6 +126738,7 @@ static void meta_build_shared_library_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -125876,6 +126885,7 @@ static void meta_build_sign_off_process_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -126099,6 +127109,7 @@ static void meta_build_single_sign_on_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -126302,6 +127313,7 @@ static void meta_build_sla_and_slo_monitoring_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the service-level regime before the SLI, SLO and error-budget subsections below. Cover which agreements are contractual and which are internal objectives.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_sla_and_slo_monitoring_sla_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SlaAndSloMonitoring");
@@ -126435,6 +127447,7 @@ static void meta_build_sla_monitoring_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -126610,6 +127623,7 @@ static void meta_build_slo_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -126719,6 +127733,7 @@ static void meta_build_software_deliverables_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Software deliverables: application components, libraries, tools, scripts,\nconfiguration files, deployment artifacts. Define for each:\n- Delivery format (container images, packages, installers, source code)\n- Delivery mechanism (registry, artifact repository, file transfer)\n- Version requirements and compatibility constraints\n- Licensing terms applicable to the deliverable\n- Environment-specific variants (production, staging, development)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_software_deliverables_items(SomMetaNode *n) {
   meta_set(&n->class_name, "SoftwareDeliverables");
@@ -126755,6 +127770,7 @@ static void meta_build_software_design_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of software design approach and key decisions.\n\n**Include**:\n- Software layering strategy summary\n- Development environment philosophy\n- Component reuse strategy and governance\n- Key design principles adopted\n- Developer experience priorities\n\n**Best Practices**:\n- Document dependency direction rules\n- Define clear module boundaries and contracts\n- Establish internal open-source practices for shared code\n- Plan for refactoring and architecture evolution\n- Create architecture fitness functions\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_software_design_requirements_layering_and_module_structure(SomMetaNode *n) {
   meta_set(&n->class_name, "LayeringAndModuleStructure");
@@ -126796,6 +127812,7 @@ static void meta_build_software_layer_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -126969,6 +127986,7 @@ static void meta_build_solution_architecture_and_technology_content(SomMetaNode 
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_solution_architecture_and_technology_technical_framework(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalFrameworkConcept");
@@ -127003,6 +128021,7 @@ static void meta_build_solution_architecture_follow_up_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize the descriptive-architecture follow-up: the component-reuse rationale and dependency strategy.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_solution_architecture_follow_up_components_to_use(SomMetaNode *n) {
   meta_set(&n->class_name, "ComponentsAndDependencies");
@@ -127024,6 +128043,7 @@ static void meta_build_specialized_equipment_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -127125,6 +128145,7 @@ static void meta_build_sso_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the federation topology: which identity providers, which protocol, and what happens to users outside SSO. State how attributes and group memberships map into this system.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_sso_policy_sso_details(SomMetaNode *n) {
   meta_set(&n->class_name, "SsoPolicy");
@@ -127145,6 +128166,7 @@ static void meta_build_staffing_budget_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -127256,6 +128278,7 @@ static void meta_build_staffing_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -127453,6 +128476,7 @@ static void meta_build_staffing_plan_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the staffing approach before the budget, position and timeline subsections below. Cover build-versus-buy and the constraints on hiring.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_staffing_plan_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "StaffingPlan");
@@ -127632,6 +128656,7 @@ static void meta_build_stage_dependencies_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -127667,6 +128692,7 @@ static void meta_build_stage_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -128173,6 +129199,7 @@ static void meta_build_stage_governance_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -128508,6 +129535,7 @@ static void meta_build_stage_migration_resources_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -128537,6 +129565,7 @@ static void meta_build_stage_migration_risk_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -128840,6 +129869,7 @@ static void meta_build_stage_migration_risks_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -128944,6 +129974,7 @@ static void meta_build_stage_overview_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -129683,6 +130714,7 @@ static void meta_build_stage_resources_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -129724,6 +130756,7 @@ static void meta_build_stage_stakeholders_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -129783,6 +130816,7 @@ static void meta_build_stage_success_criterion_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -129917,6 +130951,7 @@ static void meta_build_stage_summary_dependencies_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -129958,6 +130993,7 @@ static void meta_build_stage_summary_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -130198,6 +131234,7 @@ static void meta_build_stage_summary_resources_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -130239,6 +131276,7 @@ static void meta_build_staging_dependencies_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -130274,6 +131312,7 @@ static void meta_build_staging_drivers_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -130321,6 +131360,7 @@ static void meta_build_staging_strategy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -130938,6 +131978,7 @@ static void meta_build_stakeholder_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -130961,6 +132002,7 @@ static void meta_build_stakeholder_register_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -131005,6 +132047,7 @@ static void meta_build_stakeholders_and_beneficiaries_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of the stakeholder landscape framed by benefit; reference the canonical SBP.4 StakeholderRegister for the full role/interest/influence/engagement attributes.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_stakeholders_and_beneficiaries_primary_stakeholders(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholdersAndBeneficiaries");
@@ -131067,6 +132110,7 @@ static void meta_build_stakeholders_and_governance_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive summary of the project's stakeholder and governance arrangements.\nDescribe the overall governance model, communication approach, and key\nadministrative agreements that govern this project. Highlight any deviations\nfrom standard organizational project governance procedures.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_stakeholders_and_governance_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholdersAndGovernance");
@@ -131242,6 +132286,7 @@ static void meta_build_stakeholders_and_interests_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -131293,6 +132338,7 @@ static void meta_build_standard_software_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of standard software requirements approach.\n\n**Include**:\n- Build vs. buy decision criteria\n- Preferred vendor and technology partners\n- Compatibility priority matrix\n- Standards compliance roadmap\n- Migration plans for legacy systems\n\n**Best Practices**:\n- Create technology evaluation scorecards\n- Document vendor relationship management\n- Plan for software sunset and replacement\n- Maintain compatibility testing matrix\n- Establish proof-of-concept requirements\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_standard_software_requirements_compatibility_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityRequirementsSection");
@@ -131327,6 +132373,7 @@ static void meta_build_standards_compliance_section_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of standards compliance strategy and roadmap.\n\n**Include**:\n- Applicable standards and regulations\n- Current compliance status\n- Gap analysis and remediation plan\n- Certification timeline and budget\n- Ongoing compliance maintenance\n\n**Best Practices**:\n- Map standards to specific controls\n- Automate compliance evidence collection\n- Schedule regular compliance reviews\n- Train team on compliance requirements\n- Engage compliance consultants for audits\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_standards_compliance_section_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "StandardsComplianceSection");
@@ -131562,6 +132609,7 @@ static void meta_build_steering_committee_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of steering committee composition and responsibilities.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_steering_committee_charter(SomMetaNode *n) {
   meta_set(&n->class_name, "CommitteeCharter");
@@ -131611,6 +132659,7 @@ static void meta_build_step_up_authentication_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe which operations demand a higher assurance level and what signals trigger an adaptive challenge. Say how long an elevated level lasts.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_step_up_authentication_policy_step_up_details(SomMetaNode *n) {
   meta_set(&n->class_name, "StepUpAuthenticationPolicy");
@@ -131639,6 +132688,7 @@ static void meta_build_storage_encryption_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what is encrypted where, and who holds the keys for each storage tier. Say whether the storage provider can read the data and whether that is acceptable.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_storage_encryption_policy_storage_encryption_details(SomMetaNode *n) {
   meta_set(&n->class_name, "StorageEncryptionPolicy");
@@ -131663,6 +132713,7 @@ static void meta_build_storage_lifecycle_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how long files live, when they move to cheaper tiers, and how they are destroyed. Say what secure deletion means here and how it is verified.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_storage_lifecycle_policy_storage_lifecycle_details(SomMetaNode *n) {
   meta_set(&n->class_name, "StorageLifecyclePolicy");
@@ -131687,6 +132738,7 @@ static void meta_build_strategic_alignment_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Name the organizational strategies, goals or initiatives this system serves and show the link to each. If it also competes with an initiative for the same resources, say so.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_strategic_alignment_alignment_details(SomMetaNode *n) {
   meta_set(&n->class_name, "StrategicAlignment");
@@ -131761,6 +132813,7 @@ static void meta_build_sub_function_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -131790,6 +132843,7 @@ static void meta_build_sub_stage_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -131984,6 +133038,7 @@ static void meta_build_success_criteria_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of how project success is determined and which dimensions the criteria collectively cover.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_success_criteria_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "SuccessCriteria");
@@ -132266,6 +133321,7 @@ static void meta_build_success_criteria_by_category_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the success criteria before the per-category buckets below. Cover who judges success and at what point the judgement is made.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_success_criteria_by_category_business_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "SuccessCriteriaByCategory");
@@ -132344,6 +133400,7 @@ static void meta_build_success_criterion_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -132602,6 +133659,7 @@ static void meta_build_success_criterion_relationships_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -132647,6 +133705,7 @@ static void meta_build_support_access_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how users reach support before the help-centre, live-support and ticket subsections below. Cover which channels exist and when each is available.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_support_access_support_access_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SupportAccess");
@@ -132907,6 +133966,7 @@ static void meta_build_support_deliverables_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Support deliverables: transition support during go-live, warranty support\npost-acceptance, knowledge transfer sessions, escalation contacts,\nSLA definitions, support tooling and access. Define support hours,\nresponse times, coverage period, and handover criteria.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_support_deliverables_items(SomMetaNode *n) {
   meta_set(&n->class_name, "SupportDeliverables");
@@ -132939,6 +133999,7 @@ static void meta_build_supported_locale_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -133054,6 +134115,7 @@ static void meta_build_system_architecture_spec_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "System-level architecture description: layering, package structure,\nsignificant design patterns, boundary definitions, and architectural\ndrivers / trade-offs.\n\n**What to capture:**\n- Layering strategy (presentation / application / domain / infrastructure)\n- Package / module structure and dependency direction rules\n- Design patterns adopted (CQRS, event sourcing, hexagonal, etc.)\n- Architectural drivers (performance, security, maintainability)\n- Trade-offs explicitly accepted\n- Reference architecture diagrams (high-level + key views)\n- Technology-radar alignment (Adopt / Trial / Assess / Hold)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_boundaries_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemBoundaries");
@@ -133066,6 +134128,7 @@ static void meta_build_system_boundaries_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the system boundary before the interface, out-of-scope and assumption subsections below. Cover what sits inside the boundary and what the system merely talks to.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_boundaries_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemBoundaries");
@@ -133246,6 +134309,7 @@ static void meta_build_system_business_criticality_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -133405,6 +134469,7 @@ static void meta_build_system_business_process_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -133440,6 +134505,7 @@ static void meta_build_system_business_unit_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -133475,6 +134541,7 @@ static void meta_build_system_configuration_management_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -133648,6 +134715,7 @@ static void meta_build_system_context_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("High-level overview of the system context and its position in the overall enterprise architecture.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_context_context_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "ContextDiagram");
@@ -133744,6 +134812,7 @@ static void meta_build_system_cost_analysis_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -133919,6 +134988,7 @@ static void meta_build_system_data_scope_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -134076,6 +135146,7 @@ static void meta_build_system_dependency_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -134311,6 +135382,7 @@ static void meta_build_system_description_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Concise description of the system to be created.\nDescribe the primary purpose of the system and the business domain it\naddresses. Focus on WHAT the system does, not HOW it does it.\nThis section should establish a shared vocabulary and mental model\nthat all stakeholders can refer to.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_description_description_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemDescription");
@@ -134490,6 +135562,7 @@ static void meta_build_system_diagnostic_tools_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -134630,6 +135703,7 @@ static void meta_build_system_error_code_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -134745,6 +135819,7 @@ static void meta_build_system_error_display_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how system-side failures are presented before the error-type, display and fallback subsections below. Cover what the user is told and what is deliberately withheld.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_error_display_system_error_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemErrorDisplay");
@@ -135019,6 +136094,7 @@ static void meta_build_system_integration_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -135317,6 +136393,7 @@ static void meta_build_system_inventory_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Introduction to the system inventory. Describe the criteria for including systems and the overall landscape.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_inventory_systems(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemInventory");
@@ -135351,6 +136428,7 @@ static void meta_build_system_knowledge_transfer_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -135455,6 +136533,7 @@ static void meta_build_system_landscape_inventory_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Enumerates every external system the target system interacts with, with\nenough metadata to support dependency and impact analysis across the\norganization's landscape.\n\n**What to capture:**\n- System name, owner, criticality tier\n- Deployment footprint (cloud / on-prem / SaaS / vendor)\n- Lifecycle status (active / planned retirement / replacement)\n- Relationship class (upstream source, downstream consumer, peer)\n- Technology and protocol fingerprint\n- Data-sensitivity classification of the exchange\n- Governance contacts and escalation routing\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_migration_plan_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemMigrationPlan");
@@ -135463,6 +136542,7 @@ static void meta_build_system_migration_plan_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -135624,6 +136704,7 @@ static void meta_build_system_migration_risk_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -135681,6 +136762,7 @@ static void meta_build_system_operation_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of system operation approach.\n\n**Include**:\n- Key administrative functions\n- Maintenance procedures summary\n- Automation coverage and goals\n- Documentation standards\n- Operational team interfaces\n\n**Best Practices**:\n- Automate everything possible\n- Create self-service capabilities\n- Document procedures in runbooks\n- Review and update procedures regularly\n- Track operational metrics\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_operation_administration_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "AdministrationRequirementsSection");
@@ -135720,6 +136802,7 @@ static void meta_build_system_operation_and_monitoring_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of operational approach and responsibilities.\n\n**Include**:\n- Operational model (dedicated ops, DevOps, SRE)\n- Key operational metrics and targets\n- Automation and tooling strategy\n- Team structure and responsibilities\n- Continuous improvement process\n\n**Best Practices**:\n- Document everything in runbooks\n- Automate repetitive tasks\n- Implement comprehensive monitoring\n- Practice incident response\n- Regular operational reviews\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_operation_and_monitoring_system_operation(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemOperation");
@@ -135765,6 +136848,7 @@ static void meta_build_system_purpose_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "State in a few sentences why the system exists and who benefits. Keep it readable by someone outside the project — the problem, opportunity and value subsections below carry the detail.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_purpose_vision_statement(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemPurpose");
@@ -135857,6 +136941,7 @@ static void meta_build_system_quality_goals_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the quality goals before the governance, per-characteristic and acceptance subsections below. Cover which quality attributes matter most for this system, and why.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_quality_goals_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemQualityGoals");
@@ -136284,6 +137369,7 @@ static void meta_build_system_replacement_strategy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -136452,6 +137538,7 @@ static void meta_build_system_rollout_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Executive summary of the rollout approach: from pilot through phased\nrollout, migration, user enablement, cutover, knowledge transfer, and\npost-go-live support. Seeds the TRP document (Phase 3) together with the\nlocalization, translation, and documentation subtrees.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_rollout_rollout_plan(SomMetaNode *n) {
   meta_set(&n->class_name, "RolloutPlan");
@@ -136556,6 +137643,7 @@ static void meta_build_system_stage_plan_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -136795,6 +137883,7 @@ static void meta_build_system_summary_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -136972,6 +138061,7 @@ static void meta_build_system_task_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -137149,6 +138239,7 @@ static void meta_build_system_technical_assessment_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -137349,6 +138440,7 @@ static void meta_build_system_to_replace_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this legacy system — its history and the reason it is being replaced, beyond the technical, business and migration facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_system_to_replace_entry_identification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemToReplaceEntry");
@@ -137576,6 +138668,7 @@ static void meta_build_system_training_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -137704,6 +138797,7 @@ static void meta_build_system_user_impact_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -137872,6 +138966,7 @@ static void meta_build_systems_to_replace_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the replacement portfolio before the inventory and migration-considerations subsections below. Cover the rationalization strategy behind the selection.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_systems_to_replace_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemsToReplace");
@@ -137917,6 +139012,7 @@ static void meta_build_tab_bar_definition_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -138051,6 +139147,7 @@ static void meta_build_tab_item_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -138131,6 +139228,7 @@ static void meta_build_target_operating_model_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_target_operating_model_organization_and_process(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationAndProcessConcept");
@@ -138163,6 +139261,7 @@ static void meta_build_target_platform_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -138332,6 +139431,7 @@ static void meta_build_team_member_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -138554,6 +139654,7 @@ static void meta_build_team_member_responsibility_entry_content(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -138589,6 +139690,7 @@ static void meta_build_team_member_skill_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -138618,6 +139720,7 @@ static void meta_build_team_member_skills_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -138683,6 +139786,7 @@ static void meta_build_team_structure_overview_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -138742,6 +139846,7 @@ static void meta_build_technical_characteristic_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -138789,6 +139894,7 @@ static void meta_build_technical_constraint_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -138836,6 +139942,7 @@ static void meta_build_technical_dependency_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -138887,6 +139994,7 @@ static void meta_build_technical_environment_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the pre-existing technical landscape before the governance, standards and infrastructure subsections below. Cover what is mandated and what is merely current practice.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_technical_environment_technical_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalEnvironment");
@@ -139176,6 +140284,7 @@ static void meta_build_technical_environment_network_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -139266,6 +140375,7 @@ static void meta_build_technical_framework_concept_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an executive summary of the technical framework approach.\n\n**Include**:\n- Key architectural decisions and rationale\n- Critical technology choices and constraints\n- Major technical risks and mitigation strategies\n- Technology evaluation criteria used\n- Timeline for technical decisions and reviews\n\n**Best Practices**:\n- Reference industry standards (ISO 42010, TOGAF, IEEE 1471)\n- Document trade-offs explicitly (e.g., time-to-market vs. scalability)\n- Include technology radar assessment (Adopt, Trial, Assess, Hold)\n- Cross-reference with business drivers from project overview\n- Plan for technology obsolescence and migration paths\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_technical_framework_concept_basic_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "BasicTechnicalRequirements");
@@ -139385,6 +140495,7 @@ static void meta_build_technical_goal_constraints_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of constraints affecting this technical goal.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_technical_goal_constraints_items(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalGoalConstraints");
@@ -139420,6 +140531,7 @@ static void meta_build_technical_goal_dependencies_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of technical dependencies and their impact on achieving this goal.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_technical_goal_dependencies_items(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalGoalDependencies");
@@ -139452,6 +140564,7 @@ static void meta_build_technical_goal_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -139625,6 +140738,7 @@ static void meta_build_technical_goal_test_case_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -139670,6 +140784,7 @@ static void meta_build_technical_goal_test_criteria_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Summarize the overall testing approach for verifying this technical goal.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_technical_goal_test_criteria_test_criteria_form(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalGoalTestCriteria");
@@ -139766,6 +140881,7 @@ static void meta_build_technical_goals_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of technical goals and their relationship to business requirements. Explain the technical vision and quality attribute priorities.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_technical_goals_goals(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalGoals");
@@ -139804,6 +140920,7 @@ static void meta_build_technical_infrastructure_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the technical infrastructure this workplace depends on before the connectivity, software and remote-access subsections below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_technical_infrastructure_network_connectivity(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalInfrastructure");
@@ -139992,6 +141109,7 @@ static void meta_build_technical_pain_points_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Overview of technical pain points affecting system development, maintenance,\nand evolution. Include technology obsolescence risks, security posture,\nintegration complexity, and team capability constraints.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_technical_pain_points_category_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalPainPoints");
@@ -140084,6 +141202,7 @@ static void meta_build_technical_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -140343,6 +141462,7 @@ static void meta_build_technical_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the technical requirement set — the constraints on how the system is built. Say which are externally imposed and which are choices, since only the choices are negotiable.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_technical_requirements_summary_form(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalRequirements");
@@ -140428,6 +141548,7 @@ static void meta_build_technical_security_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Provide an overview of security approach and governance.\n\n**Include**:\n- Security principles and philosophy\n- Key security domains and controls\n- Compliance and certification requirements\n- Security team and responsibilities\n- Security metrics and reporting\n\n**Best Practices**:\n- Shift security left (earlier in SDLC)\n- Automate security testing\n- Regular security training\n- Threat modeling for new features\n- Continuous security improvement\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_technical_security_requirements_it_security_standards(SomMetaNode *n) {
   meta_set(&n->class_name, "ItSecurityStandardsSection");
@@ -140469,6 +141590,7 @@ static void meta_build_technology_data_variations_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -140516,6 +141638,7 @@ static void meta_build_technology_standard_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -140695,6 +141818,7 @@ static void meta_build_tenant_boundary_enforcement_policy_content(SomMetaNode *n
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe where the tenant boundary is enforced and how a request that crosses it is stopped. Cover shared services and users who legitimately belong to several tenants.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_tenant_boundary_enforcement_policy_boundary_enforcement_details(SomMetaNode *n) {
   meta_set(&n->class_name, "TenantBoundaryEnforcementPolicy");
@@ -140719,6 +141843,7 @@ static void meta_build_tenant_context_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how tenant context is determined on each request and how it travels between services. State the behaviour when context is absent or ambiguous — it must not default.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_tenant_context_policy_tenant_context_policy_details(SomMetaNode *n) {
   meta_set(&n->class_name, "TenantContextPolicy");
@@ -140739,6 +141864,7 @@ static void meta_build_tenant_customization_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -140808,6 +141934,7 @@ static void meta_build_tenant_data_isolation_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the isolation model and the single mechanism that guarantees it. Say how the guarantee is tested; an untested isolation claim is the classic multi-tenant failure.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_tenant_data_isolation_policy_tenant_data_isolation_details(SomMetaNode *n) {
   meta_set(&n->class_name, "TenantDataIsolationPolicy");
@@ -140832,6 +141959,7 @@ static void meta_build_tenant_isolation_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define how multi-tenant authorization is structured at the application layer.\nComplements data-level tenant isolation.\n\n**Tenant context establishment:**\n- How tenant is identified (subdomain, header, token claim, path)\n- Validation of tenant context (user belongs to claimed tenant)\n- Propagation through request lifecycle (thread-local, context object)\n\n**Cross-tenant access prevention:**\n- Default: all access is tenant-scoped\n- Authorization checks include tenant predicate\n- API responses filtered to current tenant only\n\n**Controlled cross-tenant access:**\n- Super-admin/platform-admin access across tenants\n- Partner/reseller access to managed tenants\n- Explicit grants with audit logging\n\n**Per-tenant customization:**\n- Custom roles and entitlements within tenant\n- Tenant-specific password policies\n- Tenant branding and configuration\n\n**Tenant lifecycle:**\n- Onboarding: default roles, admin user, initial configuration\n- Offboarding: data deletion, user deactivation, audit retention\n\n**Boundary enforcement:**\n- Mandatory tenant context on all protected endpoints\n- Fail-closed if tenant context is missing or invalid\n- Logging of tenant context for all operations\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_tenant_isolation_tenant_context_policy(SomMetaNode *n) {
   meta_set(&n->class_name, "TenantContextPolicy");
@@ -140924,6 +142052,7 @@ static void meta_build_tenant_onboarding_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe what authorization state a new tenant starts with and who its first administrator is. Cover offboarding with equal care: what is deleted, what is retained, and for how long.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_tenant_onboarding_policy_tenant_onboarding_policy_details(SomMetaNode *n) {
   meta_set(&n->class_name, "TenantOnboardingPolicy");
@@ -140944,6 +142073,7 @@ static void meta_build_test_scenario_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -141261,6 +142391,7 @@ static void meta_build_test_scenario_notes_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -141294,6 +142425,7 @@ static void meta_build_test_strategy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "High-level strategy for verifying quality across the system. Distinct\nfrom the acceptance plan and from the per-quality-attribute\ncriteria in the usability, technical, operational, and documentation\nquality-goal sections; this section integrates them.\n\n**What to capture:**\n- Test levels (unit, integration, system, acceptance, regression)\n- Test approach per level (TDD, BDD, model-based, exploratory)\n- Automation strategy and coverage targets\n- Test environment topology and data strategy\n- Entry / exit criteria per level\n- Defect management lifecycle\n- Traceability from requirements to tests\n- Risk-based test prioritization\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_testing_standards_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TestingStandards");
@@ -141302,6 +142434,7 @@ static void meta_build_testing_standards_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -141507,6 +142640,7 @@ static void meta_build_third_party_api_integrations_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -141728,6 +142862,7 @@ static void meta_build_third_party_compatibility_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -141903,6 +143038,7 @@ static void meta_build_third_party_library_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -142117,6 +143253,7 @@ static void meta_build_throwaway_prototype_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the throwaway prototype before the findings, disposition and value subsections below. Cover how the findings are captured before the artifact is discarded.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_throwaway_prototype_throwaway_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ThrowawayPrototype");
@@ -142277,6 +143414,7 @@ static void meta_build_tls_protocol_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "State the minimum protocol version and cipher suites, and when the policy is next reviewed. Record any legacy client that forces an exception and the date it is retired.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_tls_protocol_policy_tls_protocol_policy_details(SomMetaNode *n) {
   meta_set(&n->class_name, "TlsProtocolPolicy");
@@ -142297,6 +143435,7 @@ static void meta_build_tls_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -142476,6 +143615,7 @@ static void meta_build_token_management_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the token types in use, what each carries, where it is stored and how it is revoked. Justify the lifetimes — they are the main security-versus-usability trade-off here.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_token_management_policy_token_management_details(SomMetaNode *n) {
   meta_set(&n->class_name, "TokenManagementPolicy");
@@ -142496,6 +143636,7 @@ static void meta_build_tool_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -143519,6 +144660,7 @@ static void meta_build_tooling_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -143711,6 +144853,7 @@ static void meta_build_tooling_and_environments_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_tooling_and_environments_tooling(SomMetaNode *n) {
   meta_set(&n->class_name, "Tooling");
@@ -143741,6 +144884,7 @@ static void meta_build_tour_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -143788,6 +144932,7 @@ static void meta_build_trade_off_decision_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -144021,6 +145166,7 @@ static void meta_build_trade_off_decisions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the trade-off decisions before the individual items below. Cover how a trade-off is raised, decided and revisited.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_trade_off_decisions_trade_off_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TradeOffDecisions");
@@ -144103,6 +145249,7 @@ static void meta_build_training_assessment_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -144247,6 +145394,7 @@ static void meta_build_training_deliverable_requirements_content(SomMetaNode *n)
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the end-user training deliverables before the module catalogue below. Cover the audiences, the delivery mode, and when training happens relative to rollout.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_training_deliverable_requirements_training_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TrainingDeliverableRequirements");
@@ -144362,6 +145510,7 @@ static void meta_build_training_deliverables_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Training deliverables: instructor-led sessions, e-learning modules,\ntrain-the-trainer programs, quick reference cards, video tutorials,\nsandbox environments. Define target audience, duration, prerequisites,\nassessment criteria, and ongoing refresh schedule.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_training_deliverables_items(SomMetaNode *n) {
   meta_set(&n->class_name, "TrainingDeliverables");
@@ -144443,6 +145592,7 @@ static void meta_build_training_materials_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -144583,6 +145733,7 @@ static void meta_build_training_module_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -144634,6 +145785,7 @@ static void meta_build_training_prototype_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the training prototype before the disposition and output subsections below. Cover which concepts are meant to carry forward once the code does not.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_training_prototype_training_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TrainingPrototype");
@@ -144771,6 +145923,7 @@ static void meta_build_training_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the training program for this workplace before the initial, ongoing, certification and assessment subsections below. Cover the learning objectives it is built around.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_training_requirements_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "TrainingRequirements");
@@ -144950,6 +146103,7 @@ static void meta_build_training_topic_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -144991,6 +146145,7 @@ static void meta_build_transition_communication_channels_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -145042,6 +146197,7 @@ static void meta_build_transition_communication_plan_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the communication approach before the event and channel lists below. Cover the key messages and who delivers them.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_transition_communication_plan_strategy(SomMetaNode *n) {
   meta_set(&n->class_name, "TransitionCommunicationPlan");
@@ -145163,6 +146319,7 @@ static void meta_build_transition_escalation_paths_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -145216,6 +146373,7 @@ static void meta_build_transition_metric_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -145333,6 +146491,7 @@ static void meta_build_transition_milestone_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -145467,6 +146626,7 @@ static void meta_build_transition_overview_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -145578,6 +146738,7 @@ static void meta_build_transition_phase_activities_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -145641,6 +146802,7 @@ static void meta_build_transition_phase_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this transition phase — what it looks like on the ground, beyond the activity, stakeholder and exit-criteria facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_transition_phase_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "TransitionPhaseIdentification");
@@ -145755,6 +146917,7 @@ static void meta_build_transition_phase_identification_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -145866,6 +147029,7 @@ static void meta_build_transition_phase_stakeholders_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -145907,6 +147071,7 @@ static void meta_build_transition_risk_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -146016,6 +147181,7 @@ static void meta_build_transition_success_metrics_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how transition success is judged before the individual metrics below. Cover the baseline and the point at which the measurement is taken.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_transition_success_metrics_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "TransitionSuccessMetrics");
@@ -146107,6 +147273,7 @@ static void meta_build_transition_support_resource_entry_content(SomMetaNode *n)
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -146170,6 +147337,7 @@ static void meta_build_transition_support_structure_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the transition support model before the resource and escalation lists below. Cover how long enhanced support lasts.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_transition_support_structure_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "TransitionSupportStructure");
@@ -146295,6 +147463,7 @@ static void meta_build_translation_process_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the translation workflow before the tooling, quality, terminology and vendor subsections below. Cover who translates and how translation quality is judged.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_translation_process_translation_process_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TranslationProcess");
@@ -146520,6 +147689,7 @@ static void meta_build_translation_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the internationalization framework before the RTL, formatting and technical subsections below. Cover the string-externalization format and the locale-resolution rule.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_translation_requirements_translation_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TranslationRequirements");
@@ -146729,6 +147899,7 @@ static void meta_build_translation_vendor_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -146780,6 +147951,7 @@ static void meta_build_transport_security_policy_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe HSTS settings, HTTP-to-HTTPS behaviour, cookie flags and cache rules for sensitive responses. Note that HSTS preloading is hard to reverse.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_transport_security_policy_transport_security_policy_details(SomMetaNode *n) {
   meta_set(&n->class_name, "TransportSecurityPolicy");
@@ -146800,6 +147972,7 @@ static void meta_build_troubleshooting_capabilities_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -146943,6 +148116,7 @@ static void meta_build_trust_boundaries_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of trust boundaries and security zones relevant to this system.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_trust_boundaries_boundaries(SomMetaNode *n) {
   meta_set(&n->class_name, "TrustBoundaries");
@@ -146975,6 +148149,7 @@ static void meta_build_trust_boundary_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -147022,6 +148197,7 @@ static void meta_build_typography_style_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -147075,6 +148251,7 @@ static void meta_build_uirequirements_preview_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -147146,6 +148323,7 @@ static void meta_build_uat_test_cycle_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -147251,6 +148429,7 @@ static void meta_build_uat_test_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -147308,6 +148487,7 @@ static void meta_build_ui_component_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this component — what it is for and when to reach for it, beyond the visual, behaviour and data-binding facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_ui_component_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
@@ -148186,6 +149366,7 @@ static void meta_build_ui_components_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the component library before the design system, per-component specifications and family lists below. Cover what is reused, what is built, and the rule for adding a new component.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_ui_components_component_library_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponents");
@@ -148399,6 +149580,7 @@ static void meta_build_upgrade_cycle_framework_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Framework that governs the upgrade cycle once initial development\nfinishes. Provides the project-specific bridge to the static\n`tom_specs_project_flow.md` §PF-UPG process (UC-1 … UC-7).\n\n**What to capture:**\n- Transition trigger from initial build to upgrade cycles\n- Cadence / scheduling of upgrade cycles\n- Change-classification policy (minor / major / emergency / hotfix)\n- Gate integration with `tom_quality_gates.md`\n- Regression-testing expectations per upgrade type\n- Rollout strategy differences for upgrades vs. initial launch\n- Version and numbering scheme\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_usability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "Usability");
@@ -148407,6 +149589,7 @@ static void meta_build_usability_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -148623,6 +149806,7 @@ static void meta_build_use_case_extensions_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -148674,6 +149858,7 @@ static void meta_build_use_case_traceability_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Traceability matrix linking use cases to requirements, processes, and\ntests. Ensures every use case is justified and covered.\n\n**What to capture:**\n- UC × RC matrix (which requirements each use case realizes)\n- UC × BP matrix (which processes each use case participates in)\n- UC × test matrix (which tests cover each use case)\n- Orphan detection (UCs without requirements or tests)\n- Change-impact helper (navigate from a changed UC to affected artifacts)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_acceptance_testing_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAcceptanceTesting");
@@ -148682,6 +149867,7 @@ static void meta_build_user_acceptance_testing_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -149239,6 +150425,7 @@ static void meta_build_user_access_permissions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "State what this user category may see and do, and what it must never be able to do. Record the reasoning — the access model later has to justify each grant.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_access_permissions_permissions_form(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAccessPermissions");
@@ -149388,6 +150575,7 @@ static void meta_build_user_accessibility_needs_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Record the accessibility requirements this category actually has — vision, motor, cognitive, situational — and the accommodations that follow. Name the WCAG level committed to.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_accessibility_needs_accessibility_form(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAccessibilityNeeds");
@@ -149461,6 +150649,7 @@ static void meta_build_user_account_states_definition_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe each account state in words and what a user in it can and cannot do. The form captures the state names; the content is where the semantics live, including any project-specific states.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_account_states_definition_state_transition_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAccountStatesDefinition");
@@ -149485,6 +150674,7 @@ static void meta_build_user_assistance_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the in-app help system before the contextual-help, onboarding and support-access subsections below. Cover when help is offered unprompted and when it has to be sought.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_assistance_help_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAssistance");
@@ -149665,6 +150855,7 @@ static void meta_build_user_attribute_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -149714,6 +150905,7 @@ static void meta_build_user_attributes_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define the user profile attributes captured and managed by the system. These\nattributes support authentication, authorization, personalization, and\ncompliance requirements.\n\n**Core identity attributes:**\n- Unique identifier (UUID, employee ID, email)\n- Display name, legal name, preferred name\n- Email addresses (primary, secondary)\n- Phone numbers (mobile for MFA, business)\n- Account status and creation timestamps\n\n**Organizational attributes:**\n- Department, division, cost center\n- Job title, role, reporting hierarchy\n- Office location, timezone, locale preferences\n\n**Access control attributes:**\n- User category/type (customer, employee, partner)\n- Security clearance level\n- Group memberships and role assignments\n- Tenant/organization affiliation\n\n**Compliance considerations:**\n- PII classification per attribute (GDPR, CCPA)\n- Data minimization — collect only what is necessary\n- Attribute source (self-declared, HR system, IdP assertion)\n- Retention and deletion policies per attribute type\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_attributes_items(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAttributes");
@@ -149750,6 +150942,7 @@ static void meta_build_user_authorization_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Define the complete authorization structure that controls what users can do.\nAligned with Tom Core authorization model.\n\n**Authorization hierarchy:**\n1. **Groups**: Organizational containers for users (departments, teams, projects)\n2. **Roles**: Named collections of entitlements assigned to users or groups\n3. **Entitlements**: Atomic permissions representing specific actions\n4. **Resource Keys**: Fine-grained identifiers for protected resources\n\n**Key components:**\n- Authorization model (RBAC, ABAC, ReBAC, or hybrid)\n- Role definitions with assigned entitlements\n- Role hierarchy and inheritance rules\n- Tenant isolation for multi-tenant deployments\n\n**Design principles:**\n- Least privilege: users get minimum permissions needed\n- Separation of duties: critical operations require multiple approvals\n- Default deny: no access unless explicitly granted\n- Clear ownership: every role/entitlement has an owner\n\n**Compliance considerations:**\n- SOX: segregation of duties, access recertification\n- GDPR: data access controls, right to be forgotten\n- PCI DSS: need-to-know for cardholder data\n- SOC 2: logical access controls (CC6.1-CC6.3)\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_authorization_authorization_model(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthorizationModel");
@@ -149891,6 +151084,7 @@ static void meta_build_user_category_definition_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -149920,6 +151114,7 @@ static void meta_build_user_category_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -150181,6 +151376,7 @@ static void meta_build_user_documentation_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the end-user documentation deliverables before the format and localization subsections below. Cover the audiences served and the channel each deliverable reaches them through.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_documentation_requirements_documentation_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserDocumentationRequirements");
@@ -150320,6 +151516,7 @@ static void meta_build_user_group_impact_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -150355,6 +151552,7 @@ static void meta_build_user_growth_projections_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -150504,6 +151702,7 @@ static void meta_build_user_interaction_model_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("High-level overview of user interaction model explaining how users access and interact with the system across different channels and contexts.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_interaction_model_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "UserInteractionModelSummary");
@@ -150605,6 +151804,7 @@ static void meta_build_user_journey_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Map this category's touchpoints end to end, including what happens before and after they use the system. Mark the moments where the experience currently breaks.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_journey_journey_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "UserJourney");
@@ -150700,6 +151900,7 @@ static void meta_build_user_lifecycle_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Document the complete lifecycle of user accounts from creation to permanent\ndeletion. A well-defined lifecycle ensures proper access control, auditability,\nand compliance with data retention requirements.\n\n**Lifecycle phases:**\n1. **Registration** — how users request or receive accounts\n2. **Activation** — approval workflows and initial credential issuance\n3. **Active Usage** — ongoing access and periodic re-verification\n4. **Modification** — attribute updates, role changes, transfers\n5. **Suspension** — temporary disablement (leave, investigation)\n6. **Deactivation** — permanent disablement (termination, contract end)\n7. **Deletion** — data removal per retention policies\n\n**Key considerations:**\n- Joiner-mover-leaver (JML) process integration with HR systems\n- Self-service vs. admin-driven operations\n- Approval workflows and segregation of duties\n- Grace periods and notification requirements\n- Compliance with GDPR right to erasure and data retention laws\n- Audit trail requirements for lifecycle events\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_lifecycle_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "UserLifecycle");
@@ -150832,6 +152033,7 @@ static void meta_build_user_lifecycle_transition_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -150976,6 +152178,7 @@ static void meta_build_user_lifecycle_transitions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the permitted state transitions as a flow, naming who can trigger each and what approval it needs. The transitions you deliberately forbid are worth stating too.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_lifecycle_transitions_transition_rules_description(SomMetaNode *n) {
   meta_set(&n->class_name, "UserLifecycleTransitions");
@@ -151036,6 +152239,7 @@ static void meta_build_user_management_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe how users are organized, categorized, and managed throughout their\nrelationship with the system. This section establishes the foundation for\nauthentication and authorization by defining who the users are.\n\n**Key topics to address:**\n- User taxonomy (employees, customers, partners, service accounts)\n- User provisioning sources (self-registration, admin-created, SCIM, HR sync)\n- User directory integration (LDAP, Active Directory, cloud identity providers)\n- Account lifecycle governance and oversight responsibilities\n- User metadata and attribute management strategy\n\n**Industry context:**\n- NIST SP 800-63A covers identity proofing requirements\n- SCIM 2.0 (RFC 7643/7644) for cross-domain user management\n- SOC 2 CC6.1-CC6.3 for logical and physical access controls\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_management_user_categories(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessUserCategories");
@@ -151081,6 +152285,7 @@ static void meta_build_user_manual_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "User manual deliverables: what documents are produced, for which user\ncategories, in which languages, on what delivery channel (in-app help,\nPDF, wiki, print). Not the in-app contextual help itself (that lives in\nthe help-concept section).\n\n**What to capture:**\n- Document catalog (title, audience, scope, format)\n- Production workflow and ownership\n- Localization / translation path\n- Review and approval process\n- Distribution channels\n- Versioning and maintenance approach post-go-live\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_notification_preferences_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserNotificationPreferences");
@@ -151105,6 +152310,7 @@ static void meta_build_user_persona_details_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Sketch the person, not the role: working context, technical confidence, goals and frustrations. A persona is only useful if a designer can picture them.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_persona_details_persona_form(SomMetaNode *n) {
   meta_set(&n->class_name, "UserPersonaDetails");
@@ -151300,6 +152506,7 @@ static void meta_build_user_personas_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## User Personas (10.1.3)\n\nUser archetype definitions driving UI personalization.\n\n### Persona Structure\nEach persona includes:\n- Demographics and role context\n- Technical proficiency and device preferences\n- Goals, pain points, and key scenarios\n- Accessibility needs\n\n### Form Fields Guide\n**personaName**: Name + role (\"Marco, Finance Manager\")\n**technicalProficiency**: Beginner/Intermediate/Advanced with context\n**accessibilityNeeds**: Visual/Motor/Cognitive/None\n**quote**: Representative voice capturing their perspective\n\n### Tom UI Mapping\nPersonas inform:\n- Default settings per user category\n- Feature visibility/hiding\n- Onboarding flows\n- Help topic prioritization\n- Responsive breakpoint priorities\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_personas_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "UserPersonas");
@@ -151346,6 +152553,7 @@ static void meta_build_user_provisioning_tools_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -151508,6 +152716,7 @@ static void meta_build_user_registration_process_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Walk through registration from the user's first action to a usable account, per registration method. Record why the chosen identity-proofing level is sufficient for this system's risk.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_registration_process_registration_flow_description(SomMetaNode *n) {
   meta_set(&n->class_name, "UserRegistrationProcess");
@@ -151540,6 +152749,7 @@ static void meta_build_user_setting_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -151579,6 +152789,7 @@ static void meta_build_user_settings_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Summarise which settings follow the user rather than the device — the choices\na user expects to find already applied the first time they sign in on a new\nmachine.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy, and to how the settings are re-materialised at sign-in.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_settings_settings(SomMetaNode *n) {
   meta_set(&n->class_name, "UserSettings");
@@ -151615,6 +152826,7 @@ static void meta_build_user_training_requirements_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Say what this category must learn before it can work with the system, how the training is delivered, and how much of it is ongoing rather than one-off.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_user_training_requirements_training_form(SomMetaNode *n) {
   meta_set(&n->class_name, "UserTrainingRequirements");
@@ -151714,6 +152926,7 @@ static void meta_build_utility_menu_item_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -151831,6 +153044,7 @@ static void meta_build_utility_navigation_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "## Utility Navigation (10.3.1.5)\n\nAlways-visible utility items in app bar.\n\n### Common Utilities\n- **User Menu** — Avatar with profile/settings/logout\n- **Notifications** — Bell with unread count\n- **Help** — Documentation access\n- **Settings** — Quick preferences\n\n### Item Properties\n- Position (AppBar-Leading/Trailing, Drawer-Footer)\n- Widget type (Icon-Button/Avatar/Dropdown/Popup)\n- Badge display (count, dot)\n- Interaction (Navigate/Popup/Drawer/Sheet/Dialog)\n\n### Menu Items\nDropdown/popup menus have nested items with:\n- Label, icon, display order\n- Action type (Navigate/Action/External)\n- Danger styling and confirmation\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_utility_navigation_items(SomMetaNode *n) {
   meta_set(&n->class_name, "UtilityNavigation");
@@ -151863,6 +153077,7 @@ static void meta_build_utility_navigation_item_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -152010,6 +153225,7 @@ static void meta_build_validation_constraints_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Business-level validation rules enforced on data. Distinct from schema\nconstraints (which are database-level) and from per-field form hints\n(which are UI-level).\n\n**What to capture:**\n- Rule catalog (name, scope, severity)\n- Cross-field rules (field A must match format of field B)\n- Cross-entity rules (order total must match line-item sum)\n- Conditional rules (required only when X, forbidden when Y)\n- Validation trigger points (on entry, on save, on batch, on publish)\n- Error-message catalog for each rule\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_validation_feedback_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ValidationFeedback");
@@ -152022,6 +153238,7 @@ static void meta_build_validation_feedback_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce how input errors are surfaced before the placement, message and rule subsections below. Cover when validation runs — on change, on blur, or on submit.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_validation_feedback_validation_display_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ValidationFeedback");
@@ -152278,6 +153495,7 @@ static void meta_build_validation_message_template_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -152350,6 +153568,7 @@ static void meta_build_value_proposition_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Articulate the value in the terms the funding decision uses: quantified benefits, cost avoided, and the return-on-investment argument. State the assumptions the numbers rest on.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_value_proposition_value_details(SomMetaNode *n) {
   meta_set(&n->class_name, "ValueProposition");
@@ -152486,6 +153705,7 @@ static void meta_build_version_control_configuration_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -152679,6 +153899,7 @@ static void meta_build_virtualization_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -152860,6 +154081,7 @@ static void meta_build_volume_metric_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -152907,6 +154129,7 @@ static void meta_build_vpn_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -153076,6 +154299,7 @@ static void meta_build_vulnerability_management_policy_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -153232,6 +154456,7 @@ static void meta_build_warranty_and_support_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Terms governing the warranty window that follows acceptance. Distinct\nfrom the long-term operations SLA (the acceptance-plan warranty section\ncovers acceptance-time warranty; this entry captures the execution plan).\n\n**What to capture:**\n- Warranty period length and scope (functional / non-functional / data)\n- Defect classification and response-time expectations\n- Support channels and escalation path during warranty\n- Change-request handling during warranty\n- Transition from warranty to BAU support\n- Exit criteria for warranty closure\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_warranty_service_levels_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WarrantyServiceLevels");
@@ -153240,6 +154465,7 @@ static void meta_build_warranty_service_levels_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -153287,6 +154513,7 @@ static void meta_build_warranty_terms_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -153532,6 +154759,7 @@ static void meta_build_wcag_compliance_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the WCAG conformance target before the per-principle subsections and the success-criteria list below. Cover the level claimed and any documented exception to it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_wcag_compliance_wcag_compliance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WcagCompliance");
@@ -153718,6 +154946,7 @@ static void meta_build_wcag_success_criterion_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -153775,6 +155004,7 @@ static void meta_build_weighted_quality_matrix_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the weighting scheme before the individual weights below. Cover the scale used and how stakeholder input was gathered.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_weighted_quality_matrix_matrix_config_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WeightedQualityMatrix");
@@ -153880,6 +155110,7 @@ static void meta_build_wireframes_and_mockups_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Catalog of wireframes and mockups across the UI. Complements the\nper-screen content in the screen-design section with cross-cutting,\ncomparison, and narrative-flow views.\n\n**What to capture:**\n- Wireframe catalog (name, fidelity level, screen coverage)\n- Mockup catalog (static / interactive / click-through)\n- Fidelity progression (sketch → wireframe → mockup → prototype)\n- Tooling conventions (Figma / Sketch / etc., file naming)\n- Storyboard / user-journey visuals\n- Review and sign-off status per artifact\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_workflow_actor_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowActorEntry");
@@ -153888,6 +155119,7 @@ static void meta_build_workflow_actor_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -153963,6 +155195,7 @@ static void meta_build_workflow_business_rule_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -153998,6 +155231,7 @@ static void meta_build_workflow_decision_point_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -154043,6 +155277,7 @@ static void meta_build_workflow_descriptions_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Introduce the workflows of this business process and add one subsection per workflow relevant to the project. Say which workflows are in scope for change and which are recorded only as context.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_workflow_descriptions_workflow_overview_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowDescriptions");
@@ -154103,6 +155338,7 @@ static void meta_build_workflow_exception_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -154147,6 +155383,7 @@ static void meta_build_workflow_exceptions_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("How exceptions are handled in this workflow.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_workflow_exceptions_exceptions(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowExceptions");
@@ -154179,6 +155416,7 @@ static void meta_build_workflow_input_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -154220,6 +155458,7 @@ static void meta_build_workflow_output_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -154255,6 +155494,7 @@ static void meta_build_workflow_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -154434,6 +155674,7 @@ static void meta_build_workflow_step_issue_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -154473,6 +155714,7 @@ static void meta_build_workflow_step_system_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Notes on how this workflow step uses the named system — the function it performs there, and any limitation of the system that shapes the step.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_workflow_step_system_name(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowStepSystem");
@@ -154495,6 +155737,7 @@ static void meta_build_workflow_summary_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -154554,6 +155797,7 @@ static void meta_build_workflow_summary_table_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -154619,6 +155863,7 @@ static void meta_build_workflow_trigger_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -154657,6 +155902,7 @@ static void meta_build_workflow_triggers_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Conditions that initiate this workflow.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_workflow_triggers_triggers(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowTriggers");
@@ -154693,6 +155939,7 @@ static void meta_build_workplace_description_entry_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Narrative for this workplace category — how these users actually work, beyond the physical, equipment, infrastructure and training facets recorded below.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_workplace_description_entry_user_category(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkplaceDescriptionEntry");
@@ -154829,6 +156076,7 @@ static void meta_build_workplace_software_requirements_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -154938,6 +156186,7 @@ static void meta_build_workplace_support_resources_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
