@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 21 files
-// Generated: 2026-09-06T23:31:54.472871
+// Generated: 2026-09-07T11:40:50.036445
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1403,6 +1403,7 @@ BridgedClass _createDocSpecsSchemaBridge() {
     constructors: {
     },
     getters: {
+      'schemaId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').schemaId,
       'titleFormat': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').titleFormat,
       'sectionTypes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').sectionTypes,
       'sectionTypesByName': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').sectionTypesByName,
@@ -1412,6 +1413,8 @@ BridgedClass _createDocSpecsSchemaBridge() {
       'rootSectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').rootSectionId,
     },
     setters: {
+      'schemaId': (visitor, target, value) => 
+        D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').schemaId = D4.extractBridgedArgOrNull<String>(value, 'schemaId'),
       'titleFormat': (visitor, target, value) => 
         D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').titleFormat = D4.extractBridgedArgOrNull<String>(value, 'titleFormat'),
     },
@@ -1434,6 +1437,7 @@ BridgedClass _createDocSpecsSchemaBridge() {
       'resolveSectionType': 'DocSpecsSectionType? resolveSectionType(String id)',
     },
     getterSignatures: {
+      'schemaId': 'String? get schemaId',
       'titleFormat': 'String? get titleFormat',
       'sectionTypes': 'List<DocSpecsSectionType> get sectionTypes',
       'sectionTypesByName': 'Map<String, DocSpecsSectionType> get sectionTypesByName',
@@ -1443,6 +1447,7 @@ BridgedClass _createDocSpecsSchemaBridge() {
       'rootSectionId': 'String? get rootSectionId',
     },
     setterSignatures: {
+      'schemaId': 'set schemaId(dynamic value)',
       'titleFormat': 'set titleFormat(dynamic value)',
     },
     staticMethodSignatures: {
@@ -1471,6 +1476,12 @@ BridgedClass _createDocSpecsValidatorBridge() {
       'schema': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(target, 'DocSpecsValidator').schema,
     },
     methods: {
+      'schemaMismatch': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(target, 'DocSpecsValidator');
+        D4.requireMinArgs(positional, 1, 'schemaMismatch');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_1.DocSpecsDocument>(positional, 0, 'doc', 'schemaMismatch');
+        return t.schemaMismatch(doc);
+      },
       'validateMarkdown': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(target, 'DocSpecsValidator');
         D4.requireMinArgs(positional, 1, 'validateMarkdown');
@@ -1488,6 +1499,7 @@ BridgedClass _createDocSpecsValidatorBridge() {
       '': 'DocSpecsValidator(DocSpecsSchema schema)',
     },
     methodSignatures: {
+      'schemaMismatch': 'String? schemaMismatch(DocSpecsDocument doc)',
       'validateMarkdown': 'List<DocSpecsViolation> validateMarkdown(String markdown)',
       'validate': 'List<DocSpecsViolation> validate(DocSpecsDocument doc)',
     },
@@ -2119,7 +2131,7 @@ BridgedClass _createSomNodeBridge() {
     },
     setters: {
       '\$sectionId': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$sectionId = D4.extractBridgedArgOrNull<String>(value, '\$sectionId'),
+        D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$sectionId = D4.extractBridgedArg<String>(value, '\$sectionId'),
       '\$headline': (visitor, target, value) => 
         D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$headline = D4.extractBridgedArgOrNull<String>(value, '\$headline'),
       '\$codeSpec': (visitor, target, value) => 
@@ -2135,7 +2147,7 @@ BridgedClass _createSomNodeBridge() {
       '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
-      '\$sectionId': 'set \$sectionId(String? value)',
+      '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
     },
@@ -2172,7 +2184,7 @@ BridgedClass _createSomScalarBridge() {
     },
     setters: {
       '\$sectionId': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$sectionId = D4.extractBridgedArgOrNull<String>(value, '\$sectionId'),
+        D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$sectionId = D4.extractBridgedArg<String>(value, '\$sectionId'),
       '\$headline': (visitor, target, value) => 
         D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$headline = D4.extractBridgedArgOrNull<String>(value, '\$headline'),
       '\$codeSpec': (visitor, target, value) => 
@@ -2194,7 +2206,7 @@ BridgedClass _createSomScalarBridge() {
       'value': 'String get value',
     },
     setterSignatures: {
-      '\$sectionId': 'set \$sectionId(String? value)',
+      '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
       'value': 'set value(String value)',
@@ -4018,6 +4030,7 @@ BridgedClass _createOneOfGroupBridge() {
       'discriminatorValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').discriminatorValues,
       'coveredValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').coveredValues,
       'uncoveredValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').uncoveredValues,
+      'hasDiscriminatorValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').hasDiscriminatorValues,
       'isComplete': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').isComplete,
     },
     constructorSignatures: {
@@ -4031,6 +4044,7 @@ BridgedClass _createOneOfGroupBridge() {
       'discriminatorValues': 'List<String> get discriminatorValues',
       'coveredValues': 'List<String> get coveredValues',
       'uncoveredValues': 'List<String> get uncoveredValues',
+      'hasDiscriminatorValues': 'bool get hasDiscriminatorValues',
       'isComplete': 'bool get isComplete',
     },
   );
