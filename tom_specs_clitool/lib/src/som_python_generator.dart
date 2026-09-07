@@ -421,4 +421,34 @@ def spec_model_meta_path():
 def schemas_root():
     """Root folder of the shipped DocSpecs schemas (one subfolder per root)."""
     return _resolve("schemas", "${packageName}_schemas", "__init__.py")
+
+
+def spec_model():
+    """The whole object model this package was generated from (SOM §10.3).
+
+    ``to_markdown`` and ``validate_document`` both take a whole ``SpecModel``,
+    so this is the one call that makes them usable from an installed
+    distribution::
+
+        from ${packageName}_data import spec_model
+
+        md = to_markdown(doc, spec_model())
+
+    Read from the shipped ``spec_model.meta.json`` rather than embedded,
+    because a Python distribution can genuinely carry and locate its own data
+    files — ``spec_model_meta_path`` above resolves the wheel and the checkout
+    alike and raises when neither carries it. (The Dart plane embeds the same
+    payload instead: an AOT binary cannot resolve its package directory, so a
+    file read there returns nothing without saying so.)
+
+    Parsed on each call. The parse is a few hundred milliseconds; holding a
+    module-level cache would make the model a process-lifetime singleton that a
+    caller cannot refresh, and callers that want one can bind the result.
+    """
+    import json
+
+    from tom_som_runtime import SpecModel
+
+    with open(spec_model_meta_path(), encoding="utf-8") as fh:
+        return SpecModel.from_json(json.load(fh))
 ''';

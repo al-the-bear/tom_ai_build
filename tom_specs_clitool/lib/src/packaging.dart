@@ -1144,7 +1144,7 @@ void main() {
     PackagingExample(
       file: 'c_reflection_metadata.dart',
       demonstrates:
-          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+          'The value-free reflection surface — take the whole model in one expression (`SOM §10.3`), enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
     PackagingExample(
       file: 'd_sample_typed_access.dart',
@@ -1188,17 +1188,15 @@ print(SpecDocumentYaml.encode(
     PackagingUsage(
       heading: 'Metadata and reflection',
       intro:
-          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
+          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`). The whole model is one expression — `somSpecModel` (`SOM §10.3`); it is also what `toMarkdown` and `validateDocument` take.',
       snippet: '''
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 
-final model = SpecModel.fromJson(
-    jsonDecode(File('meta/spec_model.meta.json').readAsStringSync())
-        as Map<String, dynamic>);
-final reflection = SpecReflection(model);
+// The whole model, in one expression (`SOM §10.3`). A separate import from
+// the facade: the payload is embedded, so only consumers that ask for the
+// model compile it.
+final reflection = SpecReflection(somSpecModel);
 
 for (final root in reflection.roots) {
   print('\${reflection.rootSegment(root)}  \${root.title}');
@@ -1339,7 +1337,7 @@ print(blueprint.content)''',
     PackagingExample(
       file: 'c_reflection_metadata.py',
       demonstrates:
-          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+          'The value-free reflection surface — take the whole model in one expression (`SOM §10.3`), enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
   ],
   usageSections: [
@@ -1369,14 +1367,13 @@ print(yaml_encode(doc, d00SolutionBlueprintMetaTree, model_version="1.0"))
       intro:
           'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
       snippet: '''
-import json
+from tom_som_runtime import SpecReflection
+from tom_som_python_v0_data import spec_model
 
-from tom_som_runtime import SpecModel, SpecReflection
-from tom_som_python_v0_data import spec_model_meta_path
-
-with open(spec_model_meta_path(), encoding="utf-8") as fh:
-    model = SpecModel.from_json(json.load(fh))
-reflection = SpecReflection(model)
+# The whole model, in one call (`SOM §10.3`). It reads the shipped
+# meta-data through the resolution module, so it works from a checkout
+# and from an installed wheel alike.
+reflection = SpecReflection(spec_model())
 
 for root in reflection.roots:
     print(reflection.root_segment(root), root.title)

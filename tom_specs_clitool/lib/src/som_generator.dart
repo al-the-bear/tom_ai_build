@@ -23,6 +23,7 @@ import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
 import 'som_dart_emitter.dart';
 import 'som_dart_meta_emitter.dart';
+import 'som_dart_model_emitter.dart';
 import 'som_emitted_surface.dart';
 import 'spec_model_meta_validator.dart';
 
@@ -38,6 +39,7 @@ class SomGenerationResult {
     required this.pubspecPath,
     required this.libPath,
     required this.metaModulePath,
+    required this.modelModulePath,
     required this.metaJsonPath,
     required this.schemaPaths,
     required this.emittedClassCount,
@@ -67,6 +69,16 @@ class SomGenerationResult {
   /// because a caller verifying the committed tree from this result alone
   /// otherwise cannot check that the file it depends on exists.
   final String metaModulePath;
+
+  /// The generated whole-model accessor library, `lib/<package>_model.dart`
+  /// (SOM §10.3) — `somSpecModel` plus the embedded `somSpecModelJson`.
+  ///
+  /// Unlike [metaModulePath] the facade does **not** export this one: the
+  /// payload is 6.4 MB, so a consumer opts in with a second import and everyone
+  /// else pays nothing for a model they never read. Reported for the same
+  /// reason as the metadata library — a caller checking the committed tree from
+  /// this result alone would otherwise have no name for the file.
+  final String modelModulePath;
 
   /// The lossless object-model graph, `meta/spec_model.meta.json` (SOM §5.3).
   /// It is validated by `validateSpecModelMeta` *before* it is written, so a
@@ -227,6 +239,26 @@ SomGenerationResult writeSomDartProject({
   final metaModulePath = p.join(outputRoot, 'lib', '${packageName}_meta.dart');
   File(metaModulePath).writeAsStringSync(metaSource);
 
+  // ── whole-model accessor (SOM §10.3) ──────────────────────────────────────
+  // Deliberately NOT exported from the facade: the payload is 6.4 MB, so a
+  // consumer opts in with a second import and everyone else pays nothing. It
+  // embeds `meta` — the same map just written to spec_model.meta.json — rather
+  // than reading that file back, because `Isolate.resolvePackageUri` returns
+  // null in an AOT binary and a file-reading accessor would silently read
+  // nothing there.
+  final modelModulePath = p.join(
+    outputRoot,
+    'lib',
+    '${packageName}_model.dart',
+  );
+  File(modelModulePath).writeAsStringSync(
+    SomDartModelEmitter(
+      meta,
+      packageName: packageName,
+      versionLabel: versionLabel,
+    ).generateLibrary(),
+  );
+
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   final schemas = DocSpecsSchemaGenerator(
     classes,
@@ -262,6 +294,7 @@ SomGenerationResult writeSomDartProject({
     pubspecPath: pubspecPath,
     libPath: libPath,
     metaModulePath: metaModulePath,
+    modelModulePath: modelModulePath,
     metaJsonPath: metaJsonPath,
     schemaPaths: schemaPaths,
     emittedClassCount: emitted.classCount,

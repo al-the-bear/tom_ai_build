@@ -94,7 +94,7 @@ Prints `A platform that unifies our fragmented order systems.` — the value jus
 | ------ | ------------ |
 | [`a_typed_access.py`](examples/a_typed_access.py) | The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection. |
 | [`b_generic_document.py`](examples/b_generic_document.py) | The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization. |
-| [`c_reflection_metadata.py`](examples/c_reflection_metadata.py) | The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on. |
+| [`c_reflection_metadata.py`](examples/c_reflection_metadata.py) | The value-free reflection surface — take the whole model in one expression (`SOM §10.3`), enumerate roots and fields, resolve a path to the model node it lands on. |
 
 [`examples/README.md`](examples/README.md) gives the run command for each.
 
@@ -128,14 +128,13 @@ print(yaml_encode(doc, d00SolutionBlueprintMetaTree, model_version="1.0"))
 The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).
 
 ```python
-import json
+from tom_som_runtime import SpecReflection
+from tom_som_python_v0_data import spec_model
 
-from tom_som_runtime import SpecModel, SpecReflection
-from tom_som_python_v0_data import spec_model_meta_path
-
-with open(spec_model_meta_path(), encoding="utf-8") as fh:
-    model = SpecModel.from_json(json.load(fh))
-reflection = SpecReflection(model)
+# The whole model, in one call (`SOM §10.3`). It reads the shipped
+# meta-data through the resolution module, so it works from a checkout
+# and from an installed wheel alike.
+reflection = SpecReflection(spec_model())
 
 for root in reflection.roots:
     print(reflection.root_segment(root), root.title)

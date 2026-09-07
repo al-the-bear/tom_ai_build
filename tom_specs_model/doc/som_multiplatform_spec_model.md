@@ -919,6 +919,62 @@ unambiguous inside a model doc comment resolves to nothing once emitted, so the
 model's text has to name its document. That is a constraint on model authoring,
 not on the emitter.
 
+### 10.3 The whole-model accessor
+
+`toMarkdown` and `validateDocument` both take a whole `SpecModel`, so a facade
+that exposes none leaves its two most-wanted entry points unreachable from an
+installed distribution. Every plane ships the model as the data file
+`meta/spec_model.meta.json` (§5.3); this section is the **API** beside that
+file. The file is unchanged and remains the interchange artifact.
+
+**The accessor is uniform; its mechanism is not, and that is deliberate.** What
+every plane owes a consumer is *one expression that yields the model*. How the
+payload gets there is decided per language by what that language's packaging can
+actually do:
+
+| Plane | Accessor | Mechanism | Why |
+|---|---|---|---|
+| Dart | `somSpecModel` in `lib/<package>_model.dart` | **embedded** minified JSON, parsed on first use | a Dart distribution cannot locate its own data files after AOT — see below |
+| Python | `spec_model()` in `<package>_data.py` | **reads the shipped file** via the §17.3 resolution helpers | a wheel genuinely carries and locates data files, and the resolver already handles wheel *and* checkout |
+
+**Why Dart embeds.** Measured, not assumed. A file-reading accessor must locate
+its own package, and `Isolate.resolvePackageUri` **returns `null` once no
+`.dart_tool/package_config.json` is reachable** — the normal state of a shipped
+AOT binary. The failure is silent: nothing is read and the caller sees an absent
+model rather than an error. Verified both ways against the same probe — the
+package-URI read returns `null` where the embedded accessor returns the model.
+Flutter is the same conclusion from the other side: package files are not
+readable without being declared as assets, which is why the two Flutter apps in
+this workspace each bundle their own copy of the model.
+
+The cost was measured before choosing:
+
+| Form | Size |
+|---|---|
+| `meta/spec_model.meta.json`, pretty-printed as shipped | 10.41 MB |
+| the same JSON minified — what Dart embeds | 6.42 MB |
+
+**Dart's accessor is its own library and is *not* exported from the facade.**
+The facade re-exports the metadata library, so anything added there is compiled
+by every consumer; a second import keeps the payload opt-in. Measured on an
+AOT-compiled consumer: **17.9 MB importing the model, 8.4 MB without it** — a
+consumer that never reads the model pays nothing, and the payload is tree-shaken
+out entirely. The accessor is a lazily-parsed getter for the same reason:
+importing the library must not cost a 6 MB parse until the model is read.
+
+**Python does not embed, and should not.** Its §17.3 resolution module already
+resolves the installed wheel and the source checkout alike and *raises* when
+neither carries the file — there is no silent-read failure mode to design
+around. `spec_model()` sits beside `spec_model_meta_path()` and adds only the
+parse. It deliberately does not cache: a module-level cache would make the model
+a process-lifetime singleton no caller could refresh, and a caller who wants one
+can bind the result.
+
+**The seven remaining planes have no accessor yet.** Java, JavaScript,
+TypeScript, Go, Rust, C and C++ each ship the same data file with no API over
+it. Each needs the same question asked of *its* packaging — whether the runtime
+can locate its own shipped data — rather than Dart's answer applied by default.
+
 ## 11. The `*.md` format — strict DocSpecs, full fidelity
 
 The generated/authored markdown **is a genuine DocSpecs document**, readable

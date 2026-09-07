@@ -15,7 +15,6 @@ Run from this package:  python3 examples/c_reflection_metadata.py
 
 from __future__ import annotations
 
-import json
 import os
 import re
 import sys
@@ -37,17 +36,16 @@ def _add_runtime_path() -> None:
 _add_runtime_path()
 sys.path.insert(0, _PROJECT)
 
-from tom_som_runtime import SpecModel, SpecReflection  # noqa: E402
-from tom_som_python_v0_data import spec_model_meta_path  # noqa: E402
+from tom_som_runtime import SpecReflection  # noqa: E402
+from tom_som_python_v0_data import spec_model  # noqa: E402
 
 
 def main() -> int:
-    # The meta-data shipped with this distribution, resolved through the
-    # generated resolution module — works from this checkout AND from an
-    # installed wheel (where meta/ lives in the mapped data package).
-    meta_path = spec_model_meta_path()
-    with open(meta_path, encoding="utf-8") as fh:
-        model = SpecModel.from_json(json.load(fh))
+    # The whole model, in one call (SOM §10.3). It reads the meta-data shipped
+    # with this distribution through the generated resolution module, so it
+    # works from this checkout AND from an installed wheel (where meta/ lives
+    # in the mapped data package).
+    model = spec_model()
     reflection = SpecReflection(model)
 
     print(

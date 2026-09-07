@@ -165,6 +165,7 @@ export 'src/som_emitted_surface.dart'
         somReachableClasses;
 export 'src/som_dart_emitter.dart' show SomDartEmitter;
 export 'src/som_dart_meta_emitter.dart' show SomDartMetaEmitter;
+export 'src/som_dart_model_emitter.dart' show SomDartModelEmitter;
 export 'src/som_python_emitter.dart' show SomPythonEmitter;
 export 'src/som_python_meta_emitter.dart' show SomPythonMetaEmitter;
 export 'src/som_java_emitter.dart' show SomJavaEmitter;

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 21 files
-// Generated: 2026-09-07T14:00:37.516899
+// Generated: 2026-09-07T15:31:22.470505
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -722,6 +722,21 @@ class SomRuntimeBridge {
         final group = D4.getRequiredArg<$tom_som_dart_runtime_12.OneOfGroup>(positional, 0, 'group', 'oneOfChips');
         return $tom_som_dart_runtime_3.oneOfChips(group);
       },
+      'isHandoffAway': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'isHandoffAway');
+        final cls = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecClass>(positional, 0, 'cls', 'isHandoffAway');
+        final rootType = D4.getRequiredArg<String>(positional, 1, 'rootType', 'isHandoffAway');
+        final cutAtDetails = D4.getRequiredNamedArg<bool>(named, 'cutAtDetails', 'isHandoffAway');
+        final cutAtMaps = D4.getRequiredNamedArg<bool>(named, 'cutAtMaps', 'isHandoffAway');
+        return $tom_som_dart_runtime_3.isHandoffAway(cls, rootType, cutAtDetails: cutAtDetails, cutAtMaps: cutAtMaps);
+      },
+      'pathToType': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 3, 'pathToType');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'pathToType');
+        final rootType = D4.getRequiredArg<String>(positional, 1, 'rootType', 'pathToType');
+        final targetType = D4.getRequiredArg<String>(positional, 2, 'targetType', 'pathToType');
+        return $tom_som_dart_runtime_3.pathToType(model, rootType, targetType);
+      },
       'somEditabilityFor': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'somEditabilityFor');
         final generated = D4.getRequiredArg<String>(positional, 0, 'generated', 'somEditabilityFor');
@@ -894,6 +909,8 @@ class SomRuntimeBridge {
       'caseChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'fieldChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'oneOfChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'isHandoffAway': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'pathToType': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'somEditabilityFor': 'package:tom_som_dart_runtime/src/som_facade.dart',
       'checkSomModelVersion': 'package:tom_som_dart_runtime/src/som_facade.dart',
       'buildSomMetaTree': 'package:tom_som_dart_runtime/src/spec_meta_bridge.dart',
@@ -936,6 +953,8 @@ class SomRuntimeBridge {
       'caseChips': 'List<SpecChip> caseChips(SpecField field)',
       'fieldChips': 'List<SpecChip> fieldChips(SpecField field)',
       'oneOfChips': 'List<SpecChip> oneOfChips(OneOfGroup group)',
+      'isHandoffAway': 'bool isHandoffAway(SpecClass cls, String rootType, {required bool cutAtDetails, required bool cutAtMaps})',
+      'pathToType': 'Set<String> pathToType(SpecModel model, String rootType, String targetType)',
       'somEditabilityFor': 'SomEditability somEditabilityFor(String generated, String? documentVersion)',
       'checkSomModelVersion': 'void checkSomModelVersion(String generated, String? documentVersion)',
       'buildSomMetaTree': 'SomMetaTree buildSomMetaTree(SpecModel model, {String? rootType})',

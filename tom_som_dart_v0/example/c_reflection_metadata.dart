@@ -2,28 +2,30 @@
 //
 // HAND-AUTHORED — preserved across `generate_som` runs.
 //
-// Demonstrates the value-free "reflection" surface: load the exported
-// meta-data (`meta/spec_model.meta.json`, the lossless class graph) into a
-// `SpecModel` and query its shape with `SpecReflection` — enumerate roots and
-// fields, and resolve a concrete document *path* to the model node it lands on.
-// No document values are involved; this answers "what CAN the model hold?",
-// not "what does a given document hold?".
+// Demonstrates the value-free "reflection" surface: take the model this
+// package was generated from and query its shape with `SpecReflection` —
+// enumerate roots and fields, and resolve a concrete document *path* to the
+// model node it lands on. No document values are involved; this answers
+// "what CAN the model hold?", not "what does a given document hold?".
 //
 // Run from this package:  dart run example/c_reflection_metadata.dart
 library;
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 
 void main() {
-  // Locate the meta-data shipped in this package, relative to this script, so
-  // the sample runs from any working directory.
-  final metaFile = File.fromUri(
-      Platform.script.resolve('../meta/spec_model.meta.json'));
-  final model = SpecModel.fromJson(
-      jsonDecode(metaFile.readAsStringSync()) as Map<String, dynamic>);
+  // The whole model, in one expression (SOM §10.3). This import is separate
+  // from the main facade because the payload is 6.4 MB — a consumer that never
+  // reads the model never compiles it.
+  //
+  // Earlier revisions of this sample read `meta/spec_model.meta.json` through
+  // `Platform.script.resolve('../meta/…')`. That works only *inside* this
+  // package, which is the trap: copied into a consuming project — exactly what
+  // an example invites — it resolves against the consumer's own script and
+  // silently reads nothing. `somSpecModel` has no such footgun and, unlike a
+  // package-relative read, survives `dart compile exe`.
+  final model = somSpecModel;
   final reflection = SpecReflection(model);
 
   print('Model version: ${model.modelVersion} '

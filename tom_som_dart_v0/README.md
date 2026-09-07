@@ -95,7 +95,7 @@ Prints `A platform that unifies our fragmented order systems.` — the value jus
 | ------ | ------------ |
 | [`a_typed_access.dart`](example/a_typed_access.dart) | The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection. |
 | [`b_generic_document.dart`](example/b_generic_document.dart) | The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization. |
-| [`c_reflection_metadata.dart`](example/c_reflection_metadata.dart) | The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on. |
+| [`c_reflection_metadata.dart`](example/c_reflection_metadata.dart) | The value-free reflection surface — take the whole model in one expression (`SOM §10.3`), enumerate roots and fields, resolve a path to the model node it lands on. |
 | [`d_sample_typed_access.dart`](example/d_sample_typed_access.dart) | The shared cross-language sample document read through typed getters. |
 | [`e_sample_generic_access.dart`](example/e_sample_generic_access.dart) | The same sample read through raw string paths — identical output to (d). |
 | [`f_sample_hybrid_access.dart`](example/f_sample_hybrid_access.dart) | Typed and generic access mixed over a single document. |
@@ -131,18 +131,16 @@ print(SpecDocumentYaml.encode(
 
 ### Metadata and reflection
 
-The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).
+The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`). The whole model is one expression — `somSpecModel` (`SOM §10.3`); it is also what `toMarkdown` and `validateDocument` take.
 
 ```dart
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 
-final model = SpecModel.fromJson(
-    jsonDecode(File('meta/spec_model.meta.json').readAsStringSync())
-        as Map<String, dynamic>);
-final reflection = SpecReflection(model);
+// The whole model, in one expression (`SOM §10.3`). A separate import from
+// the facade: the payload is embedded, so only consumers that ask for the
+// model compile it.
+final reflection = SpecReflection(somSpecModel);
 
 for (final root in reflection.roots) {
   print('${reflection.rootSegment(root)}  ${root.title}');
