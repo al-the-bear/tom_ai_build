@@ -15,6 +15,7 @@ import 'dart:io';
 
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
+import 'bridge_verification.dart';
 import 'som_surface.dart';
 
 Future<void> main() async {
@@ -25,6 +26,9 @@ Future<void> main() async {
   print('Config: $configPath');
   print('');
 
+  // Captured before generation so `bridgeRegenerationFailure` can tell a file
+  // this run wrote from one left over from the last.
+  final startedAt = DateTime.now();
   final stopwatch = Stopwatch()..start();
 
   final result = await generateBridges(
@@ -49,12 +53,27 @@ Future<void> main() async {
     }
   }
   print('Time: ${stopwatch.elapsed}');
-  print('Success: ${result.isSuccess}');
 
-  if (!result.isSuccess) {
+  // `result.isSuccess` alone is not enough — see `bridge_verification.dart`.
+  // A run that resolves cleanly, emits nothing and reports no error would
+  // otherwise print `Success: true` and go on to stamp bridges that were
+  // never regenerated.
+  final failure = bridgeRegenerationFailure(
+    totalClasses: result.totalClasses,
+    outputFiles: result.outputFiles,
+    errors: result.errors,
+    startedAt: startedAt,
+  );
+  if (failure != null) {
+    print('Success: false');
+    print('');
+    print('BRIDGE REGENERATION FAILED — $failure');
+    print('');
+    print('No stamp was written, so the freshness gate still holds.');
     exitCode = 1;
     return;
   }
+  print('Success: true');
 
   // Record the SOM surface these bridges were generated from. This is what
   // makes the staleness guard possible at all: `som_bridge_freshness_test.dart`

@@ -114,6 +114,71 @@ bridges that were never produced — it also rewrites
 the stamp together with the bridges**; it is what the freshness check compares
 against, and a regen committed without it leaves the check failing.
 
+## How a failed regeneration is caught
+
+"Success" is not `result.isSuccess`. That getter is `errors.isEmpty`, and the
+generator has a path that resolves cleanly, emits nothing, reports no error and
+still names its output file — measured against the real generator with a barrel
+that parses but exports nothing bridgeable:
+
+```
+totalClasses=0  outputFiles=2  errors=0  isSuccess=true
+probe_bridges.b.dart exists=false
+```
+
+On that path the tool would print `Success: true` and stamp, which is the one
+outcome the stamp exists to prevent: it would certify a bridge set that was
+never regenerated, and the freshness check — the gate one step downstream —
+would then pass over stale bridges. So
+[`tool/bridge_verification.dart`](../tool/bridge_verification.dart) decides
+instead, and the tool refuses to stamp when it says no:
+
+| Refused when | Because |
+|--------------|---------|
+| the generator reported errors | the obvious case, and reported first so a reader sees the cause rather than a symptom of it |
+| no output files were named | nothing was written |
+| **0 classes were generated** | the silent no-op above — the sources resolved but nothing bridgeable was found |
+| a named output file is absent or empty | the generator named it and did not write it |
+| **a named output file predates the run** | the check that actually closes the hole |
+
+The last one is the load-bearing one. Existence is not enough: in a real
+checkout the previous run's bridges are already on disk, so a generation that
+quietly does nothing leaves files that exist, are non-empty, and are wrong. Only
+"this run wrote them" separates the two. It is sound because the generator's
+write is unconditional — it never skips a file whose content is unchanged — so a
+legitimate idempotent regeneration still advances every mtime.
+
+The tolerance is **two seconds, not one**: modification times are truncated to
+whole seconds (measured: a file written at `12:01:19.786` reads back as
+`12:01:19.000`), so a file written a millisecond after the run began can read as
+up to 999 ms before it. A one-second tolerance is consumed entirely by that, and
+whether a sound run passes then depends on the sub-second part of the start
+instant — which is how it presented, as a flaky test.
+
+[`test/bridge_verification_test.dart`](../test/bridge_verification_test.dart)
+holds every one of those cases plus the happy path, in the default suite.
+
+### If the run fails with an undefined name in `tom_d4rt_generator`
+
+A generation can fail like this, with the error pointing at a *dependency's*
+source rather than at anything you changed:
+
+```
+../../d4rt/tom_d4rt_generator/lib/src/build_config_loader.dart:29:50:
+  Error: Undefined name 'TomBuildConfig'.
+```
+
+This is **not** an API break in `tom_build_base` — the symbols are there in the
+cache. It is local pub-cache/resolution damage, seen repeatedly on mbp. The
+remedy is `dart pub get` in `tom_spec_engine`, after which the rerun succeeds.
+Worth recognising in seconds rather than investigating: it reads exactly like a
+real upstream break and has cost a detour into version archaeology before.
+
+Note also that a compile failure of the *script itself* exits **254**, not 0 —
+if you ever see such errors followed by a zero exit code, check how the command
+was run: a pipeline like `dart run … | tail` reports `tail`'s status, not
+Dart's.
+
 The equivalent CLI form (from the generator package) is:
 
 ```bash
