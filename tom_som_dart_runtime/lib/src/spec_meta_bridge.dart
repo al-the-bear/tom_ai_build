@@ -81,7 +81,10 @@ List<String> _basedOn(SpecClass? cls) {
 }
 
 List<SomMetaNode> _childNodes(
-    SpecModel model, SpecClass cls, Set<String> stack) {
+  SpecModel model,
+  SpecClass cls,
+  Set<String> stack,
+) {
   final indexed = cls.fields.asMap().entries.toList()
     ..sort((a, b) {
       const fallback = 1 << 30;
@@ -89,13 +92,15 @@ List<SomMetaNode> _childNodes(
       final ob = b.value.serializationOrder ?? fallback;
       return oa != ob ? oa.compareTo(ob) : a.key.compareTo(b.key);
     });
-  return [
-    for (final e in indexed) _fieldNode(model, cls, e.value, stack),
-  ];
+  return [for (final e in indexed) _fieldNode(model, cls, e.value, stack)];
 }
 
 SomMetaNode _fieldNode(
-    SpecModel model, SpecClass owner, SpecField field, Set<String> stack) {
+  SpecModel model,
+  SpecClass owner,
+  SpecField field,
+  Set<String> stack,
+) {
   final kind = _kindOf(field.kind);
   SpecClass? target;
   var recursive = false;
@@ -169,19 +174,21 @@ SomMetaNode _fieldNode(
     docComment: field.doc ?? target?.doc,
     classDocComment: target?.doc,
     form: field.kind == SpecFieldKind.form
-        ? SomFormMeta(fields: [
-            for (var i = 0; i < field.formFields.length; i++)
-              SomFormFieldMeta(
-                name: field.formFields[i].name,
-                typeName: field.formFields[i].type,
-                description: field.formFields[i].label,
-                required: field.formFields[i].required,
-                hint: field.formFields[i].hint,
-                order: i,
-                enumValues: field.formFields[i].enumValues,
-                refersTo: field.formFields[i].refersTo,
-              ),
-          ])
+        ? SomFormMeta(
+            fields: [
+              for (var i = 0; i < field.formFields.length; i++)
+                SomFormFieldMeta(
+                  name: field.formFields[i].name,
+                  typeName: field.formFields[i].type,
+                  description: field.formFields[i].label,
+                  required: field.formFields[i].required,
+                  hint: field.formFields[i].hint,
+                  order: i,
+                  enumValues: field.formFields[i].enumValues,
+                  refersTo: field.formFields[i].refersTo,
+                ),
+            ],
+          )
         : null,
     mapsTo: target?.mapsTo,
     detailedIn: target?.detailedIn,
@@ -212,7 +219,7 @@ SomMetaKind _kindOf(SpecFieldKind kind) {
 }
 
 List<SomMetaExtra> _extras(List<SpecAnnotation> annotations) => [
-      for (final a in annotations)
-        if (!_slottedAnnotations.contains(a.name))
-          SomMetaExtra(annotation: a.name, args: a.arguments),
-    ];
+  for (final a in annotations)
+    if (!_slottedAnnotations.contains(a.name))
+      SomMetaExtra(annotation: a.name, args: a.arguments),
+];

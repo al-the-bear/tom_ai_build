@@ -12,17 +12,16 @@ SpecField _field(
   int? serializationOrder,
   StandardReferences? standardReferences,
   List<FormFieldSpec> formFields = const [],
-}) =>
-    SpecField(
-      name: name,
-      kind: SpecFieldKind.section,
-      headline: headline,
-      sectionIdPattern: sectionIdPattern,
-      serializationOrder: serializationOrder,
-      annotations: annotations,
-      standardReferences: standardReferences,
-      formFields: formFields,
-    );
+}) => SpecField(
+  name: name,
+  kind: SpecFieldKind.section,
+  headline: headline,
+  sectionIdPattern: sectionIdPattern,
+  serializationOrder: serializationOrder,
+  annotations: annotations,
+  standardReferences: standardReferences,
+  formFields: formFields,
+);
 
 void main() {
   group('codeSpecKindChips', () {
@@ -44,7 +43,8 @@ void main() {
     test('AD3: every kind of a list-valued link gets its own chip, carrying '
         'the note [2026-07-28] (OK)', () {
       final chips = codeSpecKindChips(
-          const KindLink(kinds: ['form', 'validation'], note: 'why'));
+        const KindLink(kinds: ['form', 'validation'], note: 'why'),
+      );
       expect(chips.map((c) => c.label), ['cs:form', 'cs:validation']);
       expect(chips.every((c) => c.role == SpecChipRole.codeSpecMapped), isTrue);
       expect(chips.first.tooltip, 'why');
@@ -54,9 +54,12 @@ void main() {
         '[2026-07-28] (OK)', () {
       expect(codeSpecKindChips(null, suppressUnmapped: true), isEmpty);
       expect(
-          codeSpecKindChips(const KindLink(kinds: ['form']),
-              suppressUnmapped: true),
-          hasLength(1));
+        codeSpecKindChips(
+          const KindLink(kinds: ['form']),
+          suppressUnmapped: true,
+        ),
+        hasLength(1),
+      );
     });
   });
 
@@ -98,7 +101,8 @@ void main() {
     test('AD26: the annotation note wins over the default explanation '
         '[2026-08-16] (OK)', () {
       final chips = noArtifactChips(
-          const NoArtifactLink(reason: 'container', note: 'children route'));
+        const NoArtifactLink(reason: 'container', note: 'children route'),
+      );
       expect(chips.single.tooltip, 'children route');
     });
   });
@@ -108,50 +112,74 @@ void main() {
         '[2026-07-28] (OK)', () {
       final chips = kindChips(null, const KindLink(kinds: ['doc']), null);
       expect(chips.map((c) => c.label), ['fu:doc']);
-      expect(chips.any((c) => c.role == SpecChipRole.codeSpecUnmapped), isFalse);
+      expect(
+        chips.any((c) => c.role == SpecChipRole.codeSpecUnmapped),
+        isFalse,
+      );
     });
 
     test('AD9: follow-up chips precede CodeSpecs chips [2026-07-28] (OK)', () {
       final chips = kindChips(
-          const KindLink(kinds: ['form']), const KindLink(kinds: ['doc']), null);
+        const KindLink(kinds: ['form']),
+        const KindLink(kinds: ['doc']),
+        null,
+      );
       expect(chips.map((c) => c.label), ['fu:doc', 'cs:form']);
     });
 
-    test('AD10: an untagged node keeps its open question [2026-07-28] (OK)',
-        () {
-      expect(kindChips(null, null, null).single.role,
-          SpecChipRole.codeSpecUnmapped);
-    });
+    test(
+      'AD10: an untagged node keeps its open question [2026-07-28] (OK)',
+      () {
+        expect(
+          kindChips(null, null, null).single.role,
+          SpecChipRole.codeSpecUnmapped,
+        );
+      },
+    );
 
     test('AD27: a @NoArtifact node is never also marked unmapped — the third '
         'verdict is a decision, not a gap [2026-08-16] (OK)', () {
-      final chips =
-          kindChips(null, null, const NoArtifactLink(reason: 'container'));
+      final chips = kindChips(
+        null,
+        null,
+        const NoArtifactLink(reason: 'container'),
+      );
       expect(chips.map((c) => c.label), ['na:container']);
-      expect(chips.any((c) => c.role == SpecChipRole.codeSpecUnmapped), isFalse);
+      expect(
+        chips.any((c) => c.role == SpecChipRole.codeSpecUnmapped),
+        isFalse,
+      );
     });
   });
 
   group('fieldChips', () {
     test('AD11: @Case is repeatable and yields one chip per value '
         '[2026-07-28] (OK)', () {
-      final f = _field('alt', annotations: [
-        _ann('Case', {'value': 'FieldKind.text'}),
-        _ann('Case', {'value': 'FieldKind.number'}),
-      ]);
+      final f = _field(
+        'alt',
+        annotations: [
+          _ann('Case', {'value': 'FieldKind.text'}),
+          _ann('Case', {'value': 'FieldKind.number'}),
+        ],
+      );
       expect(caseChips(f).map((c) => c.label), ['case:text', 'case:number']);
     });
 
-    test('AD12: case chips precede the destination chips [2026-07-28] (OK)',
-        () {
-      final f = _field('alt', annotations: [
-        _ann('Case', {'value': 'text'}),
-        _ann('CodeSpecKind', {
-          'kinds': ['CodeSpecPart.form']
-        }),
-      ]);
-      expect(fieldChips(f).map((c) => c.label), ['case:text', 'cs:form']);
-    });
+    test(
+      'AD12: case chips precede the destination chips [2026-07-28] (OK)',
+      () {
+        final f = _field(
+          'alt',
+          annotations: [
+            _ann('Case', {'value': 'text'}),
+            _ann('CodeSpecKind', {
+              'kinds': ['CodeSpecPart.form'],
+            }),
+          ],
+        );
+        expect(fieldChips(f).map((c) => c.label), ['case:text', 'cs:form']);
+      },
+    );
   });
 
   group('oneOfChips', () {
@@ -159,23 +187,26 @@ void main() {
       List<String> enumValues = const ['text', 'number', 'date'],
       List<String> cased = const ['text'],
       bool resolveDiscriminator = true,
-    }) =>
-        OneOfGroup(
-          discriminator: 'kind',
-          discriminatorField: resolveDiscriminator
-              ? FormFieldSpec(
-                  name: 'kind',
-                  label: 'Kind',
-                  type: 'enum',
-                  enumValues: enumValues)
-              : null,
-          caseFields: [
-            for (final v in cased)
-              _field(v, annotations: [
-                _ann('Case', {'value': v})
-              ]),
-          ],
-        );
+    }) => OneOfGroup(
+      discriminator: 'kind',
+      discriminatorField: resolveDiscriminator
+          ? FormFieldSpec(
+              name: 'kind',
+              label: 'Kind',
+              type: 'enum',
+              enumValues: enumValues,
+            )
+          : null,
+      caseFields: [
+        for (final v in cased)
+          _field(
+            v,
+            annotations: [
+              _ann('Case', {'value': v}),
+            ],
+          ),
+      ],
+    );
 
     test('AD13: an incomplete choice reports coverage and names the gap '
         '[2026-07-28] (OK)', () {
@@ -203,14 +234,20 @@ void main() {
     test('AD16: on a merged row the field annotation wins over the class '
         '[2026-07-28] (OK)', () {
       final extras = SpecRowExtras.of(
-        field: _field('f',
-            headline: 'field headline',
-            annotations: [
-              _ann('Comment', {'text': 'field note'})
-            ]),
-        cls: SpecClass(name: 'C', headline: 'class headline', annotations: [
-          _ann('Comment', {'text': 'class note'})
-        ]),
+        field: _field(
+          'f',
+          headline: 'field headline',
+          annotations: [
+            _ann('Comment', {'text': 'field note'}),
+          ],
+        ),
+        cls: SpecClass(
+          name: 'C',
+          headline: 'class headline',
+          annotations: [
+            _ann('Comment', {'text': 'class note'}),
+          ],
+        ),
       );
       expect(extras.headline, 'field headline');
       expect(extras.comment, 'field note');
@@ -227,39 +264,55 @@ void main() {
 
     test('AD18: @Unused on either side marks the row [2026-07-28] (OK)', () {
       expect(
-          SpecRowExtras.of(cls: SpecClass(name: 'C', annotations: [_ann('Unused')]))
-              .unused,
-          isTrue);
+        SpecRowExtras.of(
+          cls: SpecClass(name: 'C', annotations: [_ann('Unused')]),
+        ).unused,
+        isTrue,
+      );
       expect(
-          SpecRowExtras.of(field: _field('f', annotations: [_ann('Unused')]))
-              .unused,
-          isTrue);
+        SpecRowExtras.of(
+          field: _field('f', annotations: [_ann('Unused')]),
+        ).unused,
+        isTrue,
+      );
     });
 
     test('AD19: the section-id pattern is read independently of the section '
         'id [2026-07-28] (OK)', () {
       final extras = SpecRowExtras.of(
-          field: _field('items', sectionIdPattern: 'RQ-{n}'));
+        field: _field('items', sectionIdPattern: 'RQ-{n}'),
+      );
       expect(extras.sectionIdPattern, 'RQ-{n}');
     });
 
-    test('AD20: hasReferences covers both provenance kinds [2026-07-28] (OK)',
-        () {
-      expect(SpecRowExtras.none.hasReferences, isFalse);
-      expect(
+    test(
+      'AD20: hasReferences covers both provenance kinds [2026-07-28] (OK)',
+      () {
+        expect(SpecRowExtras.none.hasReferences, isFalse);
+        expect(
           SpecRowExtras.of(
-                  field: _field('f', annotations: [
-            _ann('Reference', {'description': 'see RSP'})
-          ])).hasReferences,
-          isTrue);
-      expect(
+            field: _field(
+              'f',
+              annotations: [
+                _ann('Reference', {'description': 'see RSP'}),
+              ],
+            ),
+          ).hasReferences,
+          isTrue,
+        );
+        expect(
           SpecRowExtras.of(
-                  field: _field('f',
-                      standardReferences:
-                          const StandardReferences(standards: ['ISO 1'])))
-              .hasReferences,
-          isTrue);
-    });
+            field: _field(
+              'f',
+              standardReferences: const StandardReferences(
+                standards: ['ISO 1'],
+              ),
+            ),
+          ).hasReferences,
+          isTrue,
+        );
+      },
+    );
 
     test('AD21: a synthetic row carries no extras [2026-07-28] (OK)', () {
       expect(SpecRowExtras.none.unused, isFalse);

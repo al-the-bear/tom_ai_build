@@ -234,8 +234,9 @@ class DocSpecsDocument {
   /// heading without a `<!--[SECTION-ID]-->` comment.
   final List<DocSpecsViolation> violations = [];
 
-  static final RegExp _docspecHeader =
-      RegExp(r'^<!--\s*docspec:\s*(\S+)\s*-->\s*$');
+  static final RegExp _docspecHeader = RegExp(
+    r'^<!--\s*docspec:\s*(\S+)\s*-->\s*$',
+  );
 
   /// Parses [text] into the generic section tree. Any markdown is accepted;
   /// structural problems surface as [violations], never as exceptions.
@@ -271,12 +272,15 @@ class DocSpecsDocument {
             line: lineNo,
           );
           if (c == null) {
-            doc.violations.add(DocSpecsViolation(
-              rule: DocSpecsViolationRule.malformedHeading,
-              line: lineNo,
-              message: 'heading "$rest" carries no <!--[SECTION-ID]--> '
-                  'headline comment',
-            ));
+            doc.violations.add(
+              DocSpecsViolation(
+                rule: DocSpecsViolationRule.malformedHeading,
+                line: lineNo,
+                message:
+                    'heading "$rest" carries no <!--[SECTION-ID]--> '
+                    'headline comment',
+              ),
+            );
           }
           while (stack.isNotEmpty && stack.last.level >= level) {
             stack.removeLast();
@@ -559,6 +563,7 @@ class DocSpecsSchema {
   /// Section types in file order; resolution takes the **first** type whose
   /// [DocSpecsSectionType.prefix] is a prefix of the transformed id.
   final List<DocSpecsSectionType> sectionTypes = [];
+
   /// The same types indexed by [DocSpecsSectionType.name], for the by-name
   /// lookups `subsection-types:` and `document: sections:` need.
   ///
@@ -637,8 +642,9 @@ class DocSpecsSchema {
     if (node is Map) {
       return DocSpecsPatternCheck(
         pattern: '${node['pattern']}',
-        errorMessage:
-            node['error-message'] == null ? null : '${node['error-message']}',
+        errorMessage: node['error-message'] == null
+            ? null
+            : '${node['error-message']}',
       );
     }
     return DocSpecsPatternCheck(pattern: '$node');
@@ -666,7 +672,8 @@ class DocSpecsSchema {
       for (final key in st.keys) {
         if (!_sectionTypeKeys.contains('$key')) {
           schema.warnings.add(
-              'unsupported key "$key" on section-type "$name" ignored');
+            'unsupported key "$key" on section-type "$name" ignored',
+          );
         }
       }
       final type = DocSpecsSectionType(
@@ -676,10 +683,12 @@ class DocSpecsSchema {
         subsectionTypes: subs,
         format: st['format'] == null ? null : '${st['format']}',
         textRequired: st['text-required'] == true,
-        minTextLength:
-            st['min-text-length'] is int ? st['min-text-length'] as int : null,
-        maxTextLength:
-            st['max-text-length'] is int ? st['max-text-length'] as int : null,
+        minTextLength: st['min-text-length'] is int
+            ? st['min-text-length'] as int
+            : null,
+        maxTextLength: st['max-text-length'] is int
+            ? st['max-text-length'] as int
+            : null,
         description: st['description'] == null ? null : '${st['description']}',
         validationPrompt: st['validation-prompt'] == null
             ? null
@@ -698,8 +707,9 @@ class DocSpecsSchema {
       if (ft is! Map) continue;
       for (final key in ft.keys) {
         if ('$key' != 'fields') {
-          schema.warnings
-              .add('unsupported key "$key" on form-type "$name" ignored');
+          schema.warnings.add(
+            'unsupported key "$key" on form-type "$name" ignored',
+          );
         }
       }
       final fields = <DocSpecsFormField>[];
@@ -707,13 +717,16 @@ class DocSpecsSchema {
       if (fieldsNode is List) {
         for (final f in fieldsNode) {
           if (f is! Map) continue;
-          fields.add(DocSpecsFormField(
-            name: '${f['fieldname']}',
-            required: f['required'] == true,
-            description:
-                f['description'] == null ? null : '${f['description']}',
-            patternCheck: _patternCheck(f['pattern-check']),
-          ));
+          fields.add(
+            DocSpecsFormField(
+              name: '${f['fieldname']}',
+              required: f['required'] == true,
+              description: f['description'] == null
+                  ? null
+                  : '${f['description']}',
+              patternCheck: _patternCheck(f['pattern-check']),
+            ),
+          );
         }
       }
       schema.formTypes[name] = DocSpecsFormType(name: name, fields: fields);
@@ -730,8 +743,9 @@ class DocSpecsSchema {
         for (final s in sections.entries) {
           final v = s.value;
           schema.documentSections['${s.key}'] = DocSpecsDocumentSection(
-            sectionType:
-                v is Map ? '${v['section-type'] ?? s.key}' : '${s.key}',
+            sectionType: v is Map
+                ? '${v['section-type'] ?? s.key}'
+                : '${s.key}',
             optional: v is Map && v['optional'] == true,
           );
         }
@@ -799,31 +813,38 @@ class DocSpecsValidator {
   List<DocSpecsViolation> validate(DocSpecsDocument doc) {
     final v = <DocSpecsViolation>[...doc.violations];
     if (doc.sections.isEmpty) {
-      v.add(DocSpecsViolation(
-        rule: DocSpecsViolationRule.formatMismatch,
-        line: 1,
-        message: 'document has no root heading',
-      ));
+      v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.formatMismatch,
+          line: 1,
+          message: 'document has no root heading',
+        ),
+      );
       return v;
     }
     final rootId = schema.rootSectionId;
     final root = doc.sections.first;
     if (rootId != null && root.id != rootId) {
-      v.add(DocSpecsViolation(
-        rule: DocSpecsViolationRule.formatMismatch,
-        sectionId: root.id,
-        line: root.line,
-        message: 'root heading id "${root.id}" does not match the schema '
-            'title-format id "$rootId"',
-      ));
+      v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.formatMismatch,
+          sectionId: root.id,
+          line: root.line,
+          message:
+              'root heading id "${root.id}" does not match the schema '
+              'title-format id "$rootId"',
+        ),
+      );
     }
     for (final extra in doc.sections.skip(1)) {
-      v.add(DocSpecsViolation(
-        rule: DocSpecsViolationRule.unknownSection,
-        sectionId: extra.id,
-        line: extra.line,
-        message: 'unexpected additional top-level section',
-      ));
+      v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.unknownSection,
+          sectionId: extra.id,
+          line: extra.line,
+          message: 'unexpected additional top-level section',
+        ),
+      );
     }
     _validateDocumentSections(root, v);
     return v;
@@ -832,20 +853,26 @@ class DocSpecsValidator {
   /// Root children must occupy `document: sections:` slots; required slots
   /// must be present.
   void _validateDocumentSections(
-      DocSpecsSection root, List<DocSpecsViolation> v) {
+    DocSpecsSection root,
+    List<DocSpecsViolation> v,
+  ) {
     final counts = <String, int>{};
     for (final child in root.children) {
       final type = _resolveChild(child, v);
       if (type == null) continue;
-      if (!schema.documentSections.values
-          .any((s) => s.sectionType == type.name)) {
-        v.add(DocSpecsViolation(
-          rule: DocSpecsViolationRule.unknownSection,
-          sectionId: child.id,
-          line: child.line,
-          message: 'section-type "${type.name}" is not a top-level document '
-              'section',
-        ));
+      if (!schema.documentSections.values.any(
+        (s) => s.sectionType == type.name,
+      )) {
+        v.add(
+          DocSpecsViolation(
+            rule: DocSpecsViolationRule.unknownSection,
+            sectionId: child.id,
+            line: child.line,
+            message:
+                'section-type "${type.name}" is not a top-level document '
+                'section',
+          ),
+        );
         continue;
       }
       counts[type.name] = (counts[type.name] ?? 0) + 1;
@@ -853,45 +880,58 @@ class DocSpecsValidator {
     }
     for (final slot in schema.documentSections.entries) {
       if (!slot.value.optional && (counts[slot.value.sectionType] ?? 0) == 0) {
-        v.add(DocSpecsViolation(
-          rule: DocSpecsViolationRule.missingRequiredSection,
-          sectionId: slot.key,
-          line: root.line,
-          message: 'required document section "${slot.key}" '
-              '(type "${slot.value.sectionType}") is missing',
-        ));
+        v.add(
+          DocSpecsViolation(
+            rule: DocSpecsViolationRule.missingRequiredSection,
+            sectionId: slot.key,
+            line: root.line,
+            message:
+                'required document section "${slot.key}" '
+                '(type "${slot.value.sectionType}") is missing',
+          ),
+        );
       }
     }
   }
 
   DocSpecsSectionType? _resolveChild(
-      DocSpecsSection child, List<DocSpecsViolation> v) {
+    DocSpecsSection child,
+    List<DocSpecsViolation> v,
+  ) {
     final id = child.id;
     if (id == null) return null; // already reported as malformedHeading.
     final type = schema.resolveSectionType(id);
     if (type == null) {
-      v.add(DocSpecsViolation(
-        rule: DocSpecsViolationRule.unknownSection,
-        sectionId: id,
-        line: child.line,
-        message: 'section id "$id" resolves to no section-type of the schema',
-      ));
+      v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.unknownSection,
+          sectionId: id,
+          line: child.line,
+          message: 'section id "$id" resolves to no section-type of the schema',
+        ),
+      );
     }
     return type;
   }
 
-  void _validateSection(DocSpecsSection section, DocSpecsSectionType type,
-      List<DocSpecsViolation> v) {
+  void _validateSection(
+    DocSpecsSection section,
+    DocSpecsSectionType type,
+    List<DocSpecsViolation> v,
+  ) {
     final id = section.id!;
     final pc = type.patternCheckId;
     if (pc != null && !pc.matches(id)) {
-      v.add(DocSpecsViolation(
-        rule: DocSpecsViolationRule.idPatternMismatch,
-        sectionId: id,
-        line: section.line,
-        message: pc.errorMessage ??
-            'section id "$id" does not match pattern "${pc.pattern}"',
-      ));
+      v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.idPatternMismatch,
+          sectionId: id,
+          line: section.line,
+          message:
+              pc.errorMessage ??
+              'section id "$id" does not match pattern "${pc.pattern}"',
+        ),
+      );
     }
 
     _validateText(section, type, v);
@@ -903,13 +943,16 @@ class DocSpecsValidator {
       final childType = _resolveChild(child, v);
       if (childType == null) continue;
       if (!type.subsectionTypes.containsKey(childType.name)) {
-        v.add(DocSpecsViolation(
-          rule: DocSpecsViolationRule.unknownSection,
-          sectionId: child.id,
-          line: child.line,
-          message: 'section-type "${childType.name}" is not an allowed '
-              'subsection of "${type.name}"',
-        ));
+        v.add(
+          DocSpecsViolation(
+            rule: DocSpecsViolationRule.unknownSection,
+            sectionId: child.id,
+            line: child.line,
+            message:
+                'section-type "${childType.name}" is not an allowed '
+                'subsection of "${type.name}"',
+          ),
+        );
         continue;
       }
       counts[childType.name] = (counts[childType.name] ?? 0) + 1;
@@ -918,49 +961,60 @@ class DocSpecsValidator {
     for (final sub in type.subsectionTypes.entries) {
       final count = counts[sub.key] ?? 0;
       if (count < sub.value.minCount) {
-        v.add(count == 0
-            ? DocSpecsViolation(
-                rule: DocSpecsViolationRule.missingRequiredSection,
-                sectionId: id,
-                line: section.line,
-                message: 'required subsection "${sub.key}" of "${type.name}" '
-                    'is missing',
-              )
-            : DocSpecsViolation(
-                rule: DocSpecsViolationRule.tooFewItems,
-                sectionId: id,
-                line: section.line,
-                message: 'subsection "${sub.key}" occurs $count time(s), '
-                    'minimum is ${sub.value.minCount}',
-              ));
+        v.add(
+          count == 0
+              ? DocSpecsViolation(
+                  rule: DocSpecsViolationRule.missingRequiredSection,
+                  sectionId: id,
+                  line: section.line,
+                  message:
+                      'required subsection "${sub.key}" of "${type.name}" '
+                      'is missing',
+                )
+              : DocSpecsViolation(
+                  rule: DocSpecsViolationRule.tooFewItems,
+                  sectionId: id,
+                  line: section.line,
+                  message:
+                      'subsection "${sub.key}" occurs $count time(s), '
+                      'minimum is ${sub.value.minCount}',
+                ),
+        );
       }
       final max = sub.value.maxCount;
       if (max != null && count > max) {
-        v.add(DocSpecsViolation(
-          rule: DocSpecsViolationRule.tooManyItems,
-          sectionId: id,
-          line: section.line,
-          message:
-              'subsection "${sub.key}" occurs $count time(s), maximum is $max',
-        ));
+        v.add(
+          DocSpecsViolation(
+            rule: DocSpecsViolationRule.tooManyItems,
+            sectionId: id,
+            line: section.line,
+            message:
+                'subsection "${sub.key}" occurs $count time(s), maximum is $max',
+          ),
+        );
       }
     }
   }
 
-  void _validateText(DocSpecsSection section, DocSpecsSectionType type,
-      List<DocSpecsViolation> v) {
+  void _validateText(
+    DocSpecsSection section,
+    DocSpecsSectionType type,
+    List<DocSpecsViolation> v,
+  ) {
     // Form-formatted sections carry field lines, not free text.
     if (type.format != null && schema.formTypes.containsKey(type.format)) {
       return;
     }
     final text = section.text;
     if (type.textRequired && text.isEmpty) {
-      v.add(DocSpecsViolation(
-        rule: DocSpecsViolationRule.textRequired,
-        sectionId: section.id,
-        line: section.line,
-        message: 'section requires body text but has none',
-      ));
+      v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.textRequired,
+          sectionId: section.id,
+          line: section.line,
+          message: 'section requires body text but has none',
+        ),
+      );
       return;
     }
     if (text.isEmpty) return;
@@ -968,18 +1022,24 @@ class DocSpecsValidator {
     final max = type.maxTextLength;
     if ((min != null && text.length < min) ||
         (max != null && text.length > max)) {
-      v.add(DocSpecsViolation(
-        rule: DocSpecsViolationRule.textLengthOut,
-        sectionId: section.id,
-        line: section.line,
-        message: 'body text length ${text.length} is outside '
-            '[${min ?? 0}, ${max ?? '∞'}]',
-      ));
+      v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.textLengthOut,
+          sectionId: section.id,
+          line: section.line,
+          message:
+              'body text length ${text.length} is outside '
+              '[${min ?? 0}, ${max ?? '∞'}]',
+        ),
+      );
     }
   }
 
-  void _validateFormat(DocSpecsSection section, DocSpecsSectionType type,
-      List<DocSpecsViolation> v) {
+  void _validateFormat(
+    DocSpecsSection section,
+    DocSpecsSectionType type,
+    List<DocSpecsViolation> v,
+  ) {
     final format = type.format;
     if (format == null) return;
     final form = schema.formTypes[format];
@@ -995,13 +1055,16 @@ class DocSpecsValidator {
       if (fence.inFence) sawFence = true;
     }
     if (!sawFence) {
-      v.add(DocSpecsViolation(
-        rule: DocSpecsViolationRule.formatMismatch,
-        sectionId: section.id,
-        line: section.line,
-        message: 'section format "$format" demands a fenced code block, '
-            'but the body contains none',
-      ));
+      v.add(
+        DocSpecsViolation(
+          rule: DocSpecsViolationRule.formatMismatch,
+          sectionId: section.id,
+          line: section.line,
+          message:
+              'section format "$format" demands a fenced code block, '
+              'but the body contains none',
+        ),
+      );
     }
   }
 
@@ -1011,8 +1074,11 @@ class DocSpecsValidator {
   /// (`FieldName: value`, case-insensitive labels, continuation lines) and
   /// checks required fields + field pattern-checks. Text before the first
   /// recognised label is tolerated here (the binding parse reports it).
-  void _validateForm(DocSpecsSection section, DocSpecsFormType form,
-      List<DocSpecsViolation> v) {
+  void _validateForm(
+    DocSpecsSection section,
+    DocSpecsFormType form,
+    List<DocSpecsViolation> v,
+  ) {
     final byLower = {for (final f in form.fields) f.name.toLowerCase(): f};
     final values = <String, String>{};
     final fieldLines = <String, int>{};
@@ -1050,25 +1116,31 @@ class DocSpecsValidator {
     for (final field in form.fields) {
       final value = values[field.name];
       if (field.required && (value == null || value.isEmpty)) {
-        v.add(DocSpecsViolation(
-          rule: DocSpecsViolationRule.missingRequiredField,
-          sectionId: section.id,
-          line: section.line,
-          message: 'required form field "${field.name}" of "${form.name}" '
-              'is missing',
-        ));
+        v.add(
+          DocSpecsViolation(
+            rule: DocSpecsViolationRule.missingRequiredField,
+            sectionId: section.id,
+            line: section.line,
+            message:
+                'required form field "${field.name}" of "${form.name}" '
+                'is missing',
+          ),
+        );
         continue;
       }
       final pc = field.patternCheck;
       if (value != null && pc != null && !pc.matches(value)) {
-        v.add(DocSpecsViolation(
-          rule: DocSpecsViolationRule.fieldPatternMismatch,
-          sectionId: section.id,
-          line: fieldLines[field.name] ?? section.line,
-          message: pc.errorMessage ??
-              'form field "${field.name}" does not match pattern '
-                  '"${pc.pattern}"',
-        ));
+        v.add(
+          DocSpecsViolation(
+            rule: DocSpecsViolationRule.fieldPatternMismatch,
+            sectionId: section.id,
+            line: fieldLines[field.name] ?? section.line,
+            message:
+                pc.errorMessage ??
+                'form field "${field.name}" does not match pattern '
+                    '"${pc.pattern}"',
+          ),
+        );
       }
     }
   }
@@ -1082,5 +1154,7 @@ class DocSpecsValidator {
 /// staging values against [document]'s path grammar — the SOM §11.7 entry point,
 /// delegated to [SpecDocumentMarkdown.parse].
 SpecMarkdownResult bindDocSpecsMarkdown(
-        SpecModel model, SpecDocument document, String text) =>
-    SpecDocumentMarkdown(model, document).parse(text);
+  SpecModel model,
+  SpecDocument document,
+  String text,
+) => SpecDocumentMarkdown(model, document).parse(text);

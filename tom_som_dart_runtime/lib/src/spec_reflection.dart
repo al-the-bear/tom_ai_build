@@ -232,7 +232,8 @@ class SpecReflection {
                     path: path,
                     kind: SpecNodeKind.list,
                     root: root,
-                    field: field)
+                    field: field,
+                  )
                 : null; // a list path needs a `-<seq>` item suffix to go deeper
           case SpecFieldKind.form:
           case SpecFieldKind.content:
@@ -243,7 +244,8 @@ class SpecReflection {
                     path: path,
                     kind: _leafKind(field.kind),
                     root: root,
-                    field: field)
+                    field: field,
+                  )
                 : null; // a leaf cannot have further segments
         }
       }

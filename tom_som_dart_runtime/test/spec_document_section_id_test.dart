@@ -6,13 +6,15 @@ const _pattern = 'DACEN-ITEM-xxx';
 
 void main() {
   group('SpecDocument section ids (AA1 criterion 1 read/write)', () {
-    test('addListItem stores an explicit section id, itemSectionId reads it',
-        () {
-      final doc = SpecDocument();
-      final p = doc.addListItem(_list, sectionId: 'DACEN-ITEM-AB1');
-      expect(doc.itemSectionId(p), 'DACEN-ITEM-AB1');
-      expect(doc.listItemSectionIds(_list), ['DACEN-ITEM-AB1']);
-    });
+    test(
+      'addListItem stores an explicit section id, itemSectionId reads it',
+      () {
+        final doc = SpecDocument();
+        final p = doc.addListItem(_list, sectionId: 'DACEN-ITEM-AB1');
+        expect(doc.itemSectionId(p), 'DACEN-ITEM-AB1');
+        expect(doc.listItemSectionIds(_list), ['DACEN-ITEM-AB1']);
+      },
+    );
 
     test('addListItem without a section id leaves it null', () {
       final doc = SpecDocument();
@@ -70,7 +72,10 @@ void main() {
 
     String addGenerated(SpecDocument doc) {
       final id = generateListItemSectionId(
-          _pattern, date, doc.listItemSectionIds(_list));
+        _pattern,
+        date,
+        doc.listItemSectionIds(_list),
+      );
       return doc.addListItem(_list, sectionId: id);
     }
 
@@ -79,13 +84,19 @@ void main() {
       final p1 = addGenerated(doc); // AB1
       final p2 = addGenerated(doc); // AB2
       final p3 = addGenerated(doc); // AB3
-      expect([doc.itemSectionId(p1), doc.itemSectionId(p2), //
-        doc.itemSectionId(p3)], //
-          ['DACEN-ITEM-AB1', 'DACEN-ITEM-AB2', 'DACEN-ITEM-AB3']);
+      expect(
+        [
+          doc.itemSectionId(p1), doc.itemSectionId(p2), //
+          doc.itemSectionId(p3),
+        ], //
+        ['DACEN-ITEM-AB1', 'DACEN-ITEM-AB2', 'DACEN-ITEM-AB3'],
+      );
 
       doc.removeListItem(p2); // delete the middle
-      expect(doc.listItemSectionIds(_list),
-          ['DACEN-ITEM-AB1', 'DACEN-ITEM-AB3']); // AB2 gap, no renumber
+      expect(doc.listItemSectionIds(_list), [
+        'DACEN-ITEM-AB1',
+        'DACEN-ITEM-AB3',
+      ]); // AB2 gap, no renumber
 
       final p4 = addGenerated(doc); // next uses max+1 = AB4, not AB2
       expect(doc.itemSectionId(p4), 'DACEN-ITEM-AB4');
@@ -112,8 +123,10 @@ void main() {
 
       final restored = SpecDocument()..loadJson(doc.toJson());
       expect(restored.itemSectionId(p), 'DACEN-ITEM-AB1');
-      expect(restored.listItemSectionIds(_list),
-          ['DACEN-ITEM-AB1', 'DACEN-ITEM-AB2']);
+      expect(restored.listItemSectionIds(_list), [
+        'DACEN-ITEM-AB1',
+        'DACEN-ITEM-AB2',
+      ]);
     });
 
     test('captureState/restoreState round-trips section ids', () {

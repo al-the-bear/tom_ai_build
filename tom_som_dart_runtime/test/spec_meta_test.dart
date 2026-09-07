@@ -60,21 +60,21 @@ SomMetaTree buildFixtureTree() {
   );
 
   SomMetaNode risk(String member) => SomMetaNode(
+    className: 'Risk',
+    memberName: member,
+    sectionId: 'RISK',
+    kind: SomMetaKind.complex,
+    typeName: 'Risk',
+    classDocComment: 'A programme risk.',
+    children: [
+      SomMetaNode(
         className: 'Risk',
-        memberName: member,
-        sectionId: 'RISK',
-        kind: SomMetaKind.complex,
-        typeName: 'Risk',
-        classDocComment: 'A programme risk.',
-        children: [
-          SomMetaNode(
-            className: 'Risk',
-            memberName: 'probability',
-            kind: SomMetaKind.enumValue,
-            typeName: 'Probability',
-          ),
-        ],
-      );
+        memberName: 'probability',
+        kind: SomMetaKind.enumValue,
+        typeName: 'Probability',
+      ),
+    ],
+  );
 
   final root = SomMetaNode(
     className: 'D99DemoDocument',
@@ -108,7 +108,9 @@ SomMetaTree buildFixtureTree() {
             min: 1,
             serializationOrder: 1,
             contentType: const SomContentTypeMeta(
-                type: 'diagram', description: 'A mermaid context diagram.'),
+              type: 'diagram',
+              description: 'A mermaid context diagram.',
+            ),
             docComment: 'What the system covers.',
           ),
           SomMetaNode(
@@ -143,18 +145,20 @@ SomMetaTree buildFixtureTree() {
         kind: SomMetaKind.form,
         typeName: 'DocumentControl',
         serializationOrder: 2,
-        form: const SomFormMeta(fields: [
-          SomFormFieldMeta(
-            name: 'version',
-            typeName: 'String',
-            description: 'Version',
-            required: true,
-            hint: 'e.g. 1.0',
-            order: 1,
-          ),
-          SomFormFieldMeta(name: 'approvedBy', typeName: 'String', order: 2),
-          SomFormFieldMeta(name: 'reviewCount', typeName: 'int', order: 3),
-        ]),
+        form: const SomFormMeta(
+          fields: [
+            SomFormFieldMeta(
+              name: 'version',
+              typeName: 'String',
+              description: 'Version',
+              required: true,
+              hint: 'e.g. 1.0',
+              order: 1,
+            ),
+            SomFormFieldMeta(name: 'approvedBy', typeName: 'String', order: 2),
+            SomFormFieldMeta(name: 'reviewCount', typeName: 'int', order: 3),
+          ],
+        ),
       ),
       risk('primaryRisk'),
       risk('fallbackRisk'),
@@ -219,19 +223,19 @@ void main() {
       final insc = tree.root.childByMember('introductionAndScope')!;
       expect(insc.path, 'DEMO/INSC');
       expect(insc.childByMember('summary')!.path, 'DEMO/INSC/summary');
-      final entries =
-          insc.childByMember('goals')!.childByMember('entries')!;
+      final entries = insc.childByMember('goals')!.childByMember('entries')!;
       expect(entries.path, 'DEMO/INSC/GOAL/GOAL-ITEM-LST');
     });
 
     test('parent links are wired for children and element subtrees', () {
       final insc = tree.root.childByMember('introductionAndScope')!;
-      final entries =
-          insc.childByMember('goals')!.childByMember('entries')!;
+      final entries = insc.childByMember('goals')!.childByMember('entries')!;
       expect(entries.parent!.segment, 'GOAL');
       expect(entries.elementNode!.parent, same(entries));
-      expect(entries.elementNode!.children.first.parent,
-          same(entries.elementNode));
+      expect(
+        entries.elementNode!.children.first.parent,
+        same(entries.elementNode),
+      );
     });
 
     test('element subtree nodes carry no static path', () {
@@ -242,22 +246,24 @@ void main() {
       expect(element.childByMember('subTasks')!.path, isNull);
     });
 
-    test('allNodes covers children and element subtrees in document order',
-        () {
+    test('allNodes covers children and element subtrees in document order', () {
       final names = tree.allNodes.map((n) => n.debugName).toList();
       expect(names.first, 'D99DemoDocument');
       expect(names, contains('GoalEntry'));
       expect(names, contains('TaskEntry.note'));
       expect(names, contains('Risk.fallbackRisk'));
       // The element subtree follows its list node.
-      expect(names.indexOf('GoalEntry'),
-          greaterThan(names.indexOf('Goals.entries')));
+      expect(
+        names.indexOf('GoalEntry'),
+        greaterThan(names.indexOf('Goals.entries')),
+      );
     });
 
     test('a root without @Document metadata is rejected', () {
       expect(
-        () => SomMetaTree(SomMetaNode(
-            className: 'X', kind: SomMetaKind.section, typeName: 'X')),
+        () => SomMetaTree(
+          SomMetaNode(className: 'X', kind: SomMetaKind.section, typeName: 'X'),
+        ),
         throwsArgumentError,
       );
     });
@@ -268,7 +274,10 @@ void main() {
 
     test('an unattached node refuses path/parent access', () {
       final loose = SomMetaNode(
-          className: 'X', kind: SomMetaKind.scalar, typeName: 'int');
+        className: 'X',
+        kind: SomMetaKind.scalar,
+        typeName: 'int',
+      );
       expect(() => loose.path, throwsStateError);
       expect(() => loose.parent, throwsStateError);
     });
@@ -295,8 +304,11 @@ void main() {
 
     test('form node exposes fields with description/required/hint/order', () {
       final form = tree.byId('DOCO')!.form!;
-      expect(form.fields.map((f) => f.name),
-          ['version', 'approvedBy', 'reviewCount']);
+      expect(form.fields.map((f) => f.name), [
+        'version',
+        'approvedBy',
+        'reviewCount',
+      ]);
       final version = form.fieldNamed('version')!;
       expect(version.required, isTrue);
       expect(version.hint, 'e.g. 1.0');
@@ -323,11 +335,13 @@ void main() {
       expect(related.children, isEmpty);
     });
 
-    test('class doc comment is carried where it differs from the member one',
-        () {
-      final risk = tree.byId('RISK')!;
-      expect(risk.classDocComment, 'A programme risk.');
-    });
+    test(
+      'class doc comment is carried where it differs from the member one',
+      () {
+        final risk = tree.byId('RISK')!;
+        expect(risk.classDocComment, 'A programme risk.');
+      },
+    );
   });
 
   group('byId lookup', () {
@@ -338,12 +352,13 @@ void main() {
 
     test('a shared class at two positions: first wins, allById has both', () {
       expect(tree.byId('RISK')!.memberName, 'primaryRisk');
-      expect(tree.allById('RISK').map((n) => n.memberName),
-          ['primaryRisk', 'fallbackRisk']);
+      expect(tree.allById('RISK').map((n) => n.memberName), [
+        'primaryRisk',
+        'fallbackRisk',
+      ]);
     });
 
-    test('a resolved @SectionIdPattern id resolves to the element subtree',
-        () {
+    test('a resolved @SectionIdPattern id resolves to the element subtree', () {
       final element = tree.byId('GOAL-ITEM-3')!;
       expect(element.className, 'GoalEntry');
       expect(element, same(tree.byId('GOAL-ITEM-LST')!.elementNode));
@@ -368,8 +383,10 @@ void main() {
     });
 
     test('a list container resolves only as the final segment', () {
-      expect(tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST')!.kind,
-          SomMetaKind.list);
+      expect(
+        tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST')!.kind,
+        SomMetaKind.list,
+      );
       expect(tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST/text'), isNull);
     });
 
@@ -381,8 +398,9 @@ void main() {
     });
 
     test('nested lists inside an element subtree resolve dynamically', () {
-      final task =
-          tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST-1/subTasks-3/note')!;
+      final task = tree.byPath(
+        'DEMO/INSC/GOAL/GOAL-ITEM-LST-1/subTasks-3/note',
+      )!;
       expect(task.className, 'TaskEntry');
       expect(task.kind, SomMetaKind.content);
     });
@@ -414,10 +432,14 @@ void main() {
 
     test('byId and byPath agree on the node they address (SOM §8)', () {
       expect(tree.byId('INSC'), same(tree.byPath('DEMO/INSC')));
-      expect(tree.byId('GOAL-ITEM-LST'),
-          same(tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST')));
-      expect(tree.byId('GOAL-ITEM-1'),
-          same(tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST-1')));
+      expect(
+        tree.byId('GOAL-ITEM-LST'),
+        same(tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST')),
+      );
+      expect(
+        tree.byId('GOAL-ITEM-1'),
+        same(tree.byPath('DEMO/INSC/GOAL/GOAL-ITEM-LST-1')),
+      );
     });
   });
 
@@ -430,8 +452,10 @@ void main() {
 
     test('rejects non-list nodes and lists inside element subtrees', () {
       expect(() => tree.byId('INSC')!.itemPath(1), throwsStateError);
-      final nested =
-          tree.byId('GOAL-ITEM-LST')!.elementNode!.childByMember('subTasks')!;
+      final nested = tree
+          .byId('GOAL-ITEM-LST')!
+          .elementNode!
+          .childByMember('subTasks')!;
       expect(() => nested.itemPath(1), throwsStateError);
     });
   });

@@ -25,20 +25,25 @@ void main() {
     return names;
   }
 
-  test('DF1: the fixture carries every annotation the display layer renders',
-      () {
-    expect(
-      kRenderedAnnotations.difference(annotationNames()),
-      isEmpty,
-      reason: 'an annotation absent from the fixture cannot fail either app’s '
-          'rendering test — add it to kAnnotationShowcaseJson',
-    );
-  });
+  test(
+    'DF1: the fixture carries every annotation the display layer renders',
+    () {
+      expect(
+        kRenderedAnnotations.difference(annotationNames()),
+        isEmpty,
+        reason:
+            'an annotation absent from the fixture cannot fail either app’s '
+            'rendering test — add it to kAnnotationShowcaseJson',
+      );
+    },
+  );
 
-  test('DF2: the fixture invents no annotation the display layer cannot show',
-      () {
-    expect(annotationNames().difference(kRenderedAnnotations), isEmpty);
-  });
+  test(
+    'DF2: the fixture invents no annotation the display layer cannot show',
+    () {
+      expect(annotationNames().difference(kRenderedAnnotations), isEmpty);
+    },
+  );
 
   test('DF3: the fixture spreads the three @CodeSpecKind states', () {
     final labels = expectedShowcaseChipLabels(model);
@@ -79,8 +84,10 @@ void main() {
     expect(extras.serializationOrder, kShowcaseSerializationOrder);
 
     final items = doc.fields.firstWhere((f) => f.name == 'items');
-    expect(SpecRowExtras.of(field: items).sectionIdPattern,
-        kShowcaseSectionIdPattern);
+    expect(
+      SpecRowExtras.of(field: items).sectionIdPattern,
+      kShowcaseSectionIdPattern,
+    );
 
     final provenance = doc.fields.firstWhere((f) => f.name == 'provenance');
     final refs = SpecRowExtras.of(field: provenance);

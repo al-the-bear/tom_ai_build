@@ -76,7 +76,8 @@ class SpecCreationError implements Exception {
   });
 
   @override
-  String toString() => 'SpecCreationError(${code.name}) '
+  String toString() =>
+      'SpecCreationError(${code.name}) '
       'under "$parentPath" → "$childSegment": $message';
 }
 
@@ -108,17 +109,23 @@ SpecCreationError? checkAddNode(
   //    own named children.
   final parent = refl.resolve(parentPath);
   if (parent == null || parent.targetClass == null) {
-    final what = parent == null ? 'does not resolve' : 'is a ${parent.kind.name}';
-    return err(SpecCreationCode.notAContainer,
-        'parent path $what and cannot own child nodes');
+    final what = parent == null
+        ? 'does not resolve'
+        : 'is a ${parent.kind.name}';
+    return err(
+      SpecCreationCode.notAContainer,
+      'parent path $what and cannot own child nodes',
+    );
   }
   final parentClass = parent.targetClass!;
 
   // 2. The child segment must name a declared field of the parent's class.
   final field = _fieldForSegment(parentClass, childSegment);
   if (field == null) {
-    return err(SpecCreationCode.unknownChild,
-        '"$childSegment" is not a child of ${parentClass.name}');
+    return err(
+      SpecCreationCode.unknownChild,
+      '"$childSegment" is not a child of ${parentClass.name}',
+    );
   }
 
   final childPath = specPathJoin(parentPath, childSegment);
@@ -132,12 +139,16 @@ SpecCreationError? checkAddNode(
     if (itemId != null && pattern != null) {
       final prefix = sectionIdPatternPrefix(pattern);
       if (!itemId.startsWith(prefix)) {
-        return err(SpecCreationCode.patternMismatch,
-            'item id "$itemId" does not keep the pattern prefix "$prefix"');
+        return err(
+          SpecCreationCode.patternMismatch,
+          'item id "$itemId" does not keep the pattern prefix "$prefix"',
+        );
       }
       if (document.listItemSectionIds(childPath).contains(itemId)) {
-        return err(SpecCreationCode.duplicateSectionId,
-            'item id "$itemId" is already used in list "$childPath"');
+        return err(
+          SpecCreationCode.duplicateSectionId,
+          'item id "$itemId" is already used in list "$childPath"',
+        );
       }
     }
     return null;
@@ -147,8 +158,10 @@ SpecCreationError? checkAddNode(
   //    scalar): cardinality is exactly one, so reject if a value already
   //    exists at or beneath the child path.
   if (document.hasValuesUnder(childPath)) {
-    return err(SpecCreationCode.cardinalityExceeded,
-        'a ${field.kind.name} child already exists at "$childPath"');
+    return err(
+      SpecCreationCode.cardinalityExceeded,
+      'a ${field.kind.name} child already exists at "$childPath"',
+    );
   }
   return null;
 }
@@ -162,6 +175,7 @@ class SpecNodeCreator {
   /// list field's `@SectionIdPattern` is. Held on the creator rather than
   /// passed per call because every add re-resolves the parent path through it.
   final SpecModel model;
+
   /// The document [add] mutates, and the one the cardinality rule reads: a
   /// single-valued child is refused when a value already exists at or beneath
   /// the child path. A live reference, not a snapshot, so two creators over
@@ -187,21 +201,36 @@ class SpecNodeCreator {
   ///
   /// Throws [SpecCreationError] — leaving the document untouched — when the add
   /// violates a structural rule (see [SpecCreationCode]).
-  String add(String parentPath, String childSegment,
-      {String? itemId, DateTime? date}) {
-    final error = checkAddNode(model, document, parentPath, childSegment,
-        itemId: itemId);
+  String add(
+    String parentPath,
+    String childSegment, {
+    String? itemId,
+    DateTime? date,
+  }) {
+    final error = checkAddNode(
+      model,
+      document,
+      parentPath,
+      childSegment,
+      itemId: itemId,
+    );
     if (error != null) throw error;
 
     final childPath = specPathJoin(parentPath, childSegment);
     final field = _fieldForSegment(
-        SpecReflection(model).resolve(parentPath)!.targetClass!, childSegment)!;
+      SpecReflection(model).resolve(parentPath)!.targetClass!,
+      childSegment,
+    )!;
     if (field.kind == SpecFieldKind.list) {
       final pattern = field.sectionIdPattern;
       if (pattern == null) return document.addListItem(childPath);
-      final id = itemId ??
-          generateListItemSectionId(pattern, date ?? DateTime.now(),
-              document.listItemSectionIds(childPath));
+      final id =
+          itemId ??
+          generateListItemSectionId(
+            pattern,
+            date ?? DateTime.now(),
+            document.listItemSectionIds(childPath),
+          );
       return document.addListItem(childPath, sectionId: id);
     }
     return childPath;

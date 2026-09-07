@@ -178,12 +178,16 @@ class SpecDocument {
     ];
     if (populated.length == 1) return populated.single;
     if (populated.isEmpty) {
-      throw StateError('document has no populated root to export; '
-          'pass rootType to choose one');
+      throw StateError(
+        'document has no populated root to export; '
+        'pass rootType to choose one',
+      );
     }
-    throw StateError('document has ${populated.length} populated roots '
-        '(${populated.map((r) => r.type).join(', ')}); '
-        'pass rootType to choose one');
+    throw StateError(
+      'document has ${populated.length} populated roots '
+      '(${populated.map((r) => r.type).join(', ')}); '
+      'pass rootType to choose one',
+    );
   }
 
   /// The content string at [path], or `null` if unset.
@@ -306,8 +310,7 @@ class SpecDocument {
     final key = _key(itemPath);
     final owningList = _owningListOf(key);
     if (owningList == null) {
-      throw ArgumentError.value(
-          itemPath, 'itemPath', 'not a live list item');
+      throw ArgumentError.value(itemPath, 'itemPath', 'not a live list item');
     }
     if (_itemSectionId[key] == id) return;
     _assertSectionIdFree(owningList, id, key);
@@ -318,9 +321,9 @@ class SpecDocument {
   /// order (items without an id are skipped). Feeds both id generation
   /// (`existingIds`) and uniqueness checks.
   List<String> listItemSectionIds(String listPath) => [
-        for (final itemPath in _listItems[_key(listPath)] ?? const [])
-          if (_itemSectionId[itemPath] != null) _itemSectionId[itemPath]!,
-      ];
+    for (final itemPath in _listItems[_key(listPath)] ?? const [])
+      if (_itemSectionId[itemPath] != null) _itemSectionId[itemPath]!,
+  ];
 
   /// The internal `_listItems` entry that owns [itemPath], or `null`.
   String? _owningListOf(String itemPath) {
@@ -333,7 +336,10 @@ class SpecDocument {
   /// Throws [SpecSectionIdCollision] if [id] is already used by an item of
   /// [listPath] other than [exceptItemPath].
   void _assertSectionIdFree(
-      String listPath, String id, String? exceptItemPath) {
+    String listPath,
+    String id,
+    String? exceptItemPath,
+  ) {
     for (final itemPath in _listItems[listPath] ?? const []) {
       if (itemPath == exceptItemPath) continue;
       if (_itemSectionId[itemPath] == id) {
@@ -477,13 +483,9 @@ class SpecDocument {
             },
         },
       if (_headline.isNotEmpty)
-        'headlines': {
-          for (final k in sorted(_headline.keys)) k: _headline[k],
-        },
+        'headlines': {for (final k in sorted(_headline.keys)) k: _headline[k]},
       if (_codeSpec.isNotEmpty)
-        'codeSpecs': {
-          for (final k in sorted(_codeSpec.keys)) k: _codeSpec[k],
-        },
+        'codeSpecs': {for (final k in sorted(_codeSpec.keys)) k: _codeSpec[k]},
     };
   }
 
@@ -536,7 +538,9 @@ class SpecDocument {
           final seq = spec['seq'];
           _listSeq['$k'] = seq is int
               ? seq
-              : (seq is String ? int.tryParse(seq) ?? list.length : list.length);
+              : (seq is String
+                    ? int.tryParse(seq) ?? list.length
+                    : list.length);
           final ids = spec['ids'];
           if (ids is Map) {
             ids.forEach((itemPath, id) {
@@ -568,14 +572,14 @@ class SpecDocument {
   /// Every map is copied so the returned state is independent of subsequent
   /// edits — restoring it returns the document to exactly this picture.
   SpecDocumentState captureState() => SpecDocumentState._(
-        content: Map.of(_content),
-        form: {for (final e in _form.entries) e.key: Map.of(e.value)},
-        listItems: {for (final e in _listItems.entries) e.key: List.of(e.value)},
-        listSeq: Map.of(_listSeq),
-        itemSectionId: Map.of(_itemSectionId),
-        headline: Map.of(_headline),
-        codeSpec: Map.of(_codeSpec),
-      );
+    content: Map.of(_content),
+    form: {for (final e in _form.entries) e.key: Map.of(e.value)},
+    listItems: {for (final e in _listItems.entries) e.key: List.of(e.value)},
+    listSeq: Map.of(_listSeq),
+    itemSectionId: Map.of(_itemSectionId),
+    headline: Map.of(_headline),
+    codeSpec: Map.of(_codeSpec),
+  );
 
   /// Replaces the document's contents with a previously [captureState]d
   /// snapshot (tom_specs_editor_specification.md §10). The restore is absolute:
@@ -590,8 +594,9 @@ class SpecDocument {
       ..addAll({for (final e in state._form.entries) e.key: Map.of(e.value)});
     _listItems
       ..clear()
-      ..addAll(
-          {for (final e in state._listItems.entries) e.key: List.of(e.value)});
+      ..addAll({
+        for (final e in state._listItems.entries) e.key: List.of(e.value),
+      });
     _listSeq
       ..clear()
       ..addAll(state._listSeq);
@@ -630,13 +635,13 @@ class SpecDocumentState {
     required Map<String, String> itemSectionId,
     required Map<String, String> headline,
     required Map<String, String> codeSpec,
-  })  : _content = content,
-        _form = form,
-        _listItems = listItems,
-        _listSeq = listSeq,
-        _itemSectionId = itemSectionId,
-        _headline = headline,
-        _codeSpec = codeSpec;
+  }) : _content = content,
+       _form = form,
+       _listItems = listItems,
+       _listSeq = listSeq,
+       _itemSectionId = itemSectionId,
+       _headline = headline,
+       _codeSpec = codeSpec;
 
   /// The content value at [path] as of this snapshot (the review's base pane).
   String? contentAt(String path) => _content[path];

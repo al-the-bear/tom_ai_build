@@ -23,7 +23,8 @@ void main() {
   // The corpus lives next to this package so every language port reads the
   // identical fixtures. `Directory.current` is the package root under `test`.
   final corpusDir = Directory(
-      '${Directory.current.path}/../tom_som_conformance/corpus');
+    '${Directory.current.path}/../tom_som_conformance/corpus',
+  );
   final update = Platform.environment['UPDATE_CORPUS'] == '1';
 
   const stamp = '1.0';
@@ -33,9 +34,15 @@ void main() {
   final doc = _buildDocument();
   final state = doc.toJson();
 
-  final yamlGolden =
-      SpecDocumentYaml.encode(document: doc, tree: tree, modelVersion: stamp);
-  final mdGolden = SpecDocumentMarkdown(model, doc).exportRoot(model.roots.first);
+  final yamlGolden = SpecDocumentYaml.encode(
+    document: doc,
+    tree: tree,
+    modelVersion: stamp,
+  );
+  final mdGolden = SpecDocumentMarkdown(
+    model,
+    doc,
+  ).exportRoot(model.roots.first);
 
   final reflectionCases = _reflectionCases(model);
   final validationCases = _validationCases(model);
@@ -70,39 +77,44 @@ void main() {
     write('operations_cases.json', '${enc.convert(operationsCases)}\n');
     write('editor_cases.json', '${enc.convert(editorCases)}\n');
     write('section_id_cases.json', '${enc.convert(sectionIdCases)}\n');
-    write('serialization_order_cases.json',
-        '${enc.convert(serializationOrderCase)}\n');
+    write(
+      'serialization_order_cases.json',
+      '${enc.convert(serializationOrderCase)}\n',
+    );
     write('stamp_cases.json', '${enc.convert(stampCases)}\n');
     write('editability_cases.json', '${enc.convert(editabilityCases)}\n');
-    write('markdown_import_cases.json',
-        '${enc.convert(markdownImportCases)}\n');
+    write(
+      'markdown_import_cases.json',
+      '${enc.convert(markdownImportCases)}\n',
+    );
     write('docspecs_schema.yaml', _docSpecsSchemaYaml);
     write('docspecs_cases.json', '${enc.convert(docSpecsCases)}\n');
     write('pattern_cases.json', '${enc.convert(patternCases)}\n');
     write('query_cases.json', '${enc.convert(queryCases)}\n');
     write('projection_cases.json', '${enc.convert(projectionCases)}\n');
-    write('codespecs_extract_cases.json',
-        '${enc.convert(codeSpecsExtractCases)}\n');
+    write(
+      'codespecs_extract_cases.json',
+      '${enc.convert(codeSpecsExtractCases)}\n',
+    );
     write('cursor_cases.json', '${enc.convert(cursorScript)}\n');
     write('node_creation_cases.json', '${enc.convert(nodeCreationCases)}\n');
-    write('node_creation_script.json',
-        '${enc.convert(nodeCreationScript)}\n');
+    write('node_creation_script.json', '${enc.convert(nodeCreationScript)}\n');
   });
 
   String read(String name) =>
       File('${corpusDir.path}/$name').readAsStringSync();
 
   test('model.meta.json round-trips through SpecModel unchanged', () {
-    final onDisk =
-        jsonDecode(read('model.meta.json')) as Map<String, dynamic>;
+    final onDisk = jsonDecode(read('model.meta.json')) as Map<String, dynamic>;
     final reloaded = SpecModel.fromJson(onDisk);
     expect(reloaded.roots.map((r) => r.type), model.roots.map((r) => r.type));
     expect(reloaded.classes.keys.toSet(), model.classes.keys.toSet());
   });
 
   test('model.meta.json carries the generation stamp the exporter writes', () {
-    final reloaded =
-        SpecModel.fromJson(jsonDecode(read('model.meta.json')) as Map<String, dynamic>);
+    final reloaded = SpecModel.fromJson(
+      jsonDecode(read('model.meta.json')) as Map<String, dynamic>,
+    );
     expect(reloaded.generatedAt, DateTime.utc(2026, 7, 20, 8));
     expect(reloaded.metaSchemaVersion, 1);
     // The counts are the payload's real sizes — that is what makes them a
@@ -130,11 +142,12 @@ void main() {
     for (final raw in table['cases'] as List<dynamic>) {
       final c = raw as Map<String, dynamic>;
       test(c['name'] as String, () {
-        final loaded =
-            SpecModel.fromJson(c['model'] as Map<String, dynamic>);
+        final loaded = SpecModel.fromJson(c['model'] as Map<String, dynamic>);
         final want = c['expect'] as Map<String, dynamic>;
-        expect(loaded.generatedAt?.millisecondsSinceEpoch,
-            _secondsToMillis(want['generatedAtEpochSeconds'] as int?));
+        expect(
+          loaded.generatedAt?.millisecondsSinceEpoch,
+          _secondsToMillis(want['generatedAtEpochSeconds'] as int?),
+        );
         expect(loaded.metaSchemaVersion, want['metaSchemaVersion']);
         expect(loaded.classCount, want['classCount']);
         expect(loaded.rootCount, want['rootCount']);
@@ -145,8 +158,9 @@ void main() {
         final wantCheck = c['check'] as Map<String, dynamic>;
         final got = loaded.checkStamp(
           now: DateTime.fromMillisecondsSinceEpoch(
-              (wantCheck['nowEpochSeconds'] as int) * 1000,
-              isUtc: true),
+            (wantCheck['nowEpochSeconds'] as int) * 1000,
+            isUtc: true,
+          ),
           maxAge: Duration(days: wantCheck['maxAgeDays'] as int),
         );
         expect(got.age?.inSeconds, wantCheck['ageSeconds']);
@@ -172,20 +186,30 @@ void main() {
         final generated = c['generated'] as String;
         final documentVersion = c['documentVersion'] as String?;
 
-        expect(somEditabilityFor(generated, documentVersion).name,
-            c['editability']);
+        expect(
+          somEditabilityFor(generated, documentVersion).name,
+          c['editability'],
+        );
 
         // The classifier and the check are one rule seen twice: `rejects` is
         // just "the classification is not editable", so asserting both here is
         // what makes a port that classifies right and throws wrong fail.
         if (c['rejects'] as bool) {
           expect(
-              () => checkSomModelVersion(generated, documentVersion),
-              throwsA(isA<SomVersionException>()
-                  .having((e) => e.message, 'message', c['message'])));
+            () => checkSomModelVersion(generated, documentVersion),
+            throwsA(
+              isA<SomVersionException>().having(
+                (e) => e.message,
+                'message',
+                c['message'],
+              ),
+            ),
+          );
         } else {
-          expect(() => checkSomModelVersion(generated, documentVersion),
-              returnsNormally);
+          expect(
+            () => checkSomModelVersion(generated, documentVersion),
+            returnsNormally,
+          );
           expect(c['message'], isNull);
         }
       });
@@ -207,8 +231,10 @@ void main() {
         // Parsing is document-independent (headline staging compares against
         // the *schema* default, never against the target document), so a fresh
         // document keeps every case reproducible in isolation.
-        final parsed =
-            SpecDocumentMarkdown(model, SpecDocument()).parse(c['markdown'] as String);
+        final parsed = SpecDocumentMarkdown(
+          model,
+          SpecDocument(),
+        ).parse(c['markdown'] as String);
 
         final got = [
           for (final r in parsed.rejections)
@@ -217,10 +243,13 @@ void main() {
               'reason': r.reason.name,
               'anchor': r.anchor,
               'message': r.message,
-            }
+            },
         ];
-        expect(got, c['rejections'],
-            reason: 'rejection report must match §11.7 exactly, in order');
+        expect(
+          got,
+          c['rejections'],
+          reason: 'rejection report must match §11.7 exactly, in order',
+        );
 
         final landed = SpecDocument()
           ..loadJson({
@@ -229,8 +258,11 @@ void main() {
             'lists': parsed.lists,
             'headlines': parsed.headlines,
           });
-        expect(landed.toJson(), c['document'],
-            reason: 'the blocks that were not rejected must still land');
+        expect(
+          landed.toJson(),
+          c['document'],
+          reason: 'the blocks that were not rejected must still land',
+        );
       });
     }
   });
@@ -245,8 +277,9 @@ void main() {
 
   test('YAML encode is byte-stable against the committed golden', () {
     expect(
-        SpecDocumentYaml.encode(document: doc, tree: tree, modelVersion: stamp),
-        read('expected.docspecs.yaml'));
+      SpecDocumentYaml.encode(document: doc, tree: tree, modelVersion: stamp),
+      read('expected.docspecs.yaml'),
+    );
   });
 
   test('YAML decode→memory→encode is byte-stable and preserves the stamp', () {
@@ -254,21 +287,26 @@ void main() {
     final decoded = SpecDocumentYaml.decode(golden, tree);
     expect(decoded.modelVersion, stamp);
     expect(
-        SpecDocumentYaml.encode(
-            document: decoded.document, tree: tree, modelVersion: stamp),
-        golden);
+      SpecDocumentYaml.encode(
+        document: decoded.document,
+        tree: tree,
+        modelVersion: stamp,
+      ),
+      golden,
+    );
   });
 
   test('Markdown export is byte-stable against the committed golden', () {
-    expect(SpecDocumentMarkdown(model, doc).exportRoot(model.roots.first),
-        read('expected.md'));
+    expect(
+      SpecDocumentMarkdown(model, doc).exportRoot(model.roots.first),
+      read('expected.md'),
+    );
   });
 
   test('Markdown parse→memory→export is clean and byte-stable', () {
     final golden = read('expected.md');
     final parsed = SpecDocumentMarkdown(model, doc).parse(golden);
-    expect(parsed.rejections, isEmpty,
-        reason: parsed.rejections.join('\n'));
+    expect(parsed.rejections, isEmpty, reason: parsed.rejections.join('\n'));
     final reDoc = SpecDocument()
       ..loadJson({
         'content': parsed.content,
@@ -276,8 +314,10 @@ void main() {
         'lists': parsed.lists,
         'headlines': parsed.headlines,
       });
-    expect(SpecDocumentMarkdown(model, reDoc).exportRoot(model.roots.first),
-        golden);
+    expect(
+      SpecDocumentMarkdown(model, reDoc).exportRoot(model.roots.first),
+      golden,
+    );
   });
 
   // `som_multiplatform_spec_model.md` §11: the Markdown route must land a
@@ -299,8 +339,11 @@ void main() {
         'lists': parsed.lists,
         'headlines': parsed.headlines,
       });
-    expect(landed.toJson(), canonical,
-        reason: 'Markdown→memory must equal the canonical state.json memory');
+    expect(
+      landed.toJson(),
+      canonical,
+      reason: 'Markdown→memory must equal the canonical state.json memory',
+    );
   });
 
   // SOM §11.2 list-container contract (DRA1/DRA2): every list heads its own
@@ -313,15 +356,16 @@ void main() {
     final md = read('expected.md');
     final lines = md.split('\n');
 
-    int levelAt(int idx) => RegExp(r'^(#+)\s')
-        .firstMatch(lines[idx])!
-        .group(1)!
-        .length;
+    int levelAt(int idx) =>
+        RegExp(r'^(#+)\s').firstMatch(lines[idx])!.group(1)!.length;
 
     int headingIndexOf(String id) {
       final idx = lines.indexWhere((l) => l.contains('<!--[$id]-->'));
-      expect(idx, greaterThanOrEqualTo(0),
-          reason: 'heading <!--[$id]--> is present in the golden');
+      expect(
+        idx,
+        greaterThanOrEqualTo(0),
+        reason: 'heading <!--[$id]--> is present in the golden',
+      );
       return idx;
     }
 
@@ -334,34 +378,52 @@ void main() {
       var j = ci + 1;
       while (j < lines.length &&
           !SpecDocumentMarkdown.headingLine.hasMatch(lines[j])) {
-        expect(lines[j].trim(), isEmpty,
-            reason: 'container <!--[$containerId]--> must carry no body of its '
-                'own (offending line ${j + 1}: "${lines[j]}")');
+        expect(
+          lines[j].trim(),
+          isEmpty,
+          reason:
+              'container <!--[$containerId]--> must carry no body of its '
+              'own (offending line ${j + 1}: "${lines[j]}")',
+        );
         j++;
       }
-      expect(j, lessThan(lines.length),
-          reason: 'container <!--[$containerId]--> has at least one item');
-      expect(levelAt(j), containerLevel + 1,
-          reason: 'the first item heads one level below its container');
+      expect(
+        j,
+        lessThan(lines.length),
+        reason: 'container <!--[$containerId]--> has at least one item',
+      );
+      expect(
+        levelAt(j),
+        containerLevel + 1,
+        reason: 'the first item heads one level below its container',
+      );
       for (final itemId in itemIds) {
-        expect(levelAt(headingIndexOf(itemId)), containerLevel + 1,
-            reason: 'item <!--[$itemId]--> heads one level below its container');
+        expect(
+          levelAt(headingIndexOf(itemId)),
+          containerLevel + 1,
+          reason: 'item <!--[$itemId]--> heads one level below its container',
+        );
       }
     }
 
-    test('a `*-LST` list heads under its @SectionId, empty-bodied, items deeper',
-        () {
-      // Item 1 carries the stored id `REF-SPEC` (YRD3); item 2 is anonymous.
-      expectContainer('REF-LST', ['REF-SPEC', 'REF-2']);
-      // Card 1 carries the stored id `CARD-ALPHA` (YRD3); card 2 falls back to
-      // the pattern (`CARD-2`).
-      expectContainer('CARD-LST', ['CARD-ALPHA', 'CARD-2']);
-    });
+    test(
+      'a `*-LST` list heads under its @SectionId, empty-bodied, items deeper',
+      () {
+        // Item 1 carries the stored id `REF-SPEC` (YRD3); item 2 is anonymous.
+        expectContainer('REF-LST', ['REF-SPEC', 'REF-2']);
+        // Card 1 carries the stored id `CARD-ALPHA` (YRD3); card 2 falls back to
+        // the pattern (`CARD-2`).
+        expectContainer('CARD-LST', ['CARD-ALPHA', 'CARD-2']);
+      },
+    );
 
-    test('id-less lists head under the member-name container, empty-bodied', () {
-      expectContainer('items', ['items-1', 'items-2']);
-      expectContainer('tags', ['tags-1', 'tags-2', 'tags-3', 'tags-4']);
-    });
+    test(
+      'id-less lists head under the member-name container, empty-bodied',
+      () {
+        expectContainer('items', ['items-1', 'items-2']);
+        expectContainer('tags', ['tags-1', 'tags-2', 'tags-3', 'tags-4']);
+      },
+    );
 
     test('md round-trips through the container (item values + empty body)', () {
       final parsed = SpecDocumentMarkdown(model, doc).parse(md);
@@ -373,16 +435,27 @@ void main() {
           'lists': parsed.lists,
           'headlines': parsed.headlines,
         });
-      expect(reDoc.listItems('DEMO/REF-LST'),
-          ['DEMO/REF-LST-1', 'DEMO/REF-LST-2']);
-      expect(reDoc.itemSectionId('DEMO/REF-LST-1'), 'REF-SPEC',
-          reason: 'a stored item id round-trips through md (YRD3)');
-      expect(reDoc.headline('DEMO/REF-LST-1'), 'Reference to the Spec',
-          reason: 'a stored item headline round-trips through md (YRD3)');
+      expect(reDoc.listItems('DEMO/REF-LST'), [
+        'DEMO/REF-LST-1',
+        'DEMO/REF-LST-2',
+      ]);
+      expect(
+        reDoc.itemSectionId('DEMO/REF-LST-1'),
+        'REF-SPEC',
+        reason: 'a stored item id round-trips through md (YRD3)',
+      );
+      expect(
+        reDoc.headline('DEMO/REF-LST-1'),
+        'Reference to the Spec',
+        reason: 'a stored item headline round-trips through md (YRD3)',
+      );
       expect(reDoc.content('DEMO/REF-LST-1'), 'spec §1.2');
       expect(reDoc.content('DEMO/REF-LST-2'), 'ADR7');
-      expect(reDoc.content('DEMO/REF-LST'), isNull,
-          reason: 'the container carries no body content of its own');
+      expect(
+        reDoc.content('DEMO/REF-LST'),
+        isNull,
+        reason: 'the container carries no body content of its own',
+      );
     });
   });
 
@@ -395,8 +468,11 @@ void main() {
       if (res == null) continue;
       expect(res.kind.name, c['kind'], reason: 'kind ${c['path']}');
       expect(res.field?.name, c['field'], reason: 'field ${c['path']}');
-      expect(res.targetClass?.name, c['targetClass'],
-          reason: 'class ${c['path']}');
+      expect(
+        res.targetClass?.name,
+        c['targetClass'],
+        reason: 'class ${c['path']}',
+      );
       expect(res.isValueLeaf, c['isValueLeaf'], reason: 'leaf ${c['path']}');
     }
   });
@@ -405,9 +481,10 @@ void main() {
     final cases = jsonDecode(read('validation_cases.json')) as List;
     for (final c in cases.cast<Map<String, dynamic>>()) {
       final d = SpecDocument()..loadJson(c['state'] as Map);
-      final errs = validateDocument(model, d)
-          .map((e) => {'path': e.path, 'code': e.code.name})
-          .toList();
+      final errs = validateDocument(
+        model,
+        d,
+      ).map((e) => {'path': e.path, 'code': e.code.name}).toList();
       expect(errs, c['errors'], reason: 'validation ${c['name']}');
     }
   });
@@ -430,15 +507,22 @@ void main() {
           expect(d.content(s['path'] as String), s['expect']);
         case 'setFormField':
           d.setFormField(
-              s['path'] as String, s['field'] as String, s['value'] as String);
+            s['path'] as String,
+            s['field'] as String,
+            s['value'] as String,
+          );
         case 'formField':
-          expect(d.formField(s['path'] as String, s['field'] as String),
-              s['expect']);
+          expect(
+            d.formField(s['path'] as String, s['field'] as String),
+            s['expect'],
+          );
         case 'addListItem':
           expect(d.addListItem(s['listPath'] as String), s['expect']);
         case 'listItems':
-          expect(d.listItems(s['listPath'] as String),
-              (s['expect'] as List).cast<String>());
+          expect(
+            d.listItems(s['listPath'] as String),
+            (s['expect'] as List).cast<String>(),
+          );
         case 'listItemCount':
           expect(d.listItemCount(s['listPath'] as String), s['expect']);
         case 'hasValuesUnder':
@@ -469,85 +553,135 @@ void main() {
         case 'setValue':
           ed.setValue(s['path'] as String, s['value']);
         case 'value':
-          expect(ed.value(s['path'] as String), s['expect'],
-              reason: 'value ${s['path']}');
+          expect(
+            ed.value(s['path'] as String),
+            s['expect'],
+            reason: 'value ${s['path']}',
+          );
         case 'valueThrows':
-          expect(() => ed.value(s['path'] as String), throwsArgumentError,
-              reason: 'valueThrows ${s['path']}');
+          expect(
+            () => ed.value(s['path'] as String),
+            throwsArgumentError,
+            reason: 'valueThrows ${s['path']}',
+          );
         case 'setValueThrows':
-          expect(() => ed.setValue(s['path'] as String, s['value']),
-              throwsArgumentError,
-              reason: 'setValueThrows ${s['path']}');
+          expect(
+            () => ed.setValue(s['path'] as String, s['value']),
+            throwsArgumentError,
+            reason: 'setValueThrows ${s['path']}',
+          );
         case 'setContent': // raw store write (bypasses the typed boundary)
           d.setContent(s['path'] as String, s['value'] as String);
         case 'rawContent':
-          expect(d.content(s['path'] as String), s['expect'],
-              reason: 'rawContent ${s['path']}');
+          expect(
+            d.content(s['path'] as String),
+            s['expect'],
+            reason: 'rawContent ${s['path']}',
+          );
         case 'setFormValue':
-          ed.setFormValue(s['path'] as String, s['field'] as String, s['value']);
+          ed.setFormValue(
+            s['path'] as String,
+            s['field'] as String,
+            s['value'],
+          );
         case 'formValue':
-          expect(ed.formValue(s['path'] as String, s['field'] as String),
-              s['expect'],
-              reason: 'formValue ${s['path']}#${s['field']}');
+          expect(
+            ed.formValue(s['path'] as String, s['field'] as String),
+            s['expect'],
+            reason: 'formValue ${s['path']}#${s['field']}',
+          );
         case 'formValueThrows':
           expect(
-              () => ed.formValue(s['path'] as String, s['field'] as String),
-              throwsArgumentError,
-              reason: 'formValueThrows ${s['path']}#${s['field']}');
+            () => ed.formValue(s['path'] as String, s['field'] as String),
+            throwsArgumentError,
+            reason: 'formValueThrows ${s['path']}#${s['field']}',
+          );
         case 'setFormValueThrows':
           expect(
-              () => ed.setFormValue(
-                  s['path'] as String, s['field'] as String, s['value']),
-              throwsArgumentError,
-              reason: 'setFormValueThrows ${s['path']}#${s['field']}');
+            () => ed.setFormValue(
+              s['path'] as String,
+              s['field'] as String,
+              s['value'],
+            ),
+            throwsArgumentError,
+            reason: 'setFormValueThrows ${s['path']}#${s['field']}',
+          );
         case 'rawFormField':
-          expect(d.formField(s['path'] as String, s['field'] as String),
-              s['expect'],
-              reason: 'rawFormField ${s['path']}#${s['field']}');
+          expect(
+            d.formField(s['path'] as String, s['field'] as String),
+            s['expect'],
+            reason: 'rawFormField ${s['path']}#${s['field']}',
+          );
         case 'formFieldNames':
           expect(
-              ed.formFields(s['path'] as String).map((f) => f.name).toList(),
-              s['expect'],
-              reason: 'formFieldNames ${s['path']}');
+            ed.formFields(s['path'] as String).map((f) => f.name).toList(),
+            s['expect'],
+            reason: 'formFieldNames ${s['path']}',
+          );
         case 'formFieldNamesThrows':
-          expect(() => ed.formFields(s['path'] as String), throwsArgumentError,
-              reason: 'formFieldNamesThrows ${s['path']}');
+          expect(
+            () => ed.formFields(s['path'] as String),
+            throwsArgumentError,
+            reason: 'formFieldNamesThrows ${s['path']}',
+          );
         case 'setHeadline':
           ed.setHeadline(s['path'] as String, s['value'] as String?);
         case 'headline':
-          expect(ed.headline(s['path'] as String), s['expect'],
-              reason: 'headline ${s['path']}');
+          expect(
+            ed.headline(s['path'] as String),
+            s['expect'],
+            reason: 'headline ${s['path']}',
+          );
         case 'headlineThrows':
-          expect(() => ed.headline(s['path'] as String), throwsArgumentError,
-              reason: 'headlineThrows ${s['path']}');
+          expect(
+            () => ed.headline(s['path'] as String),
+            throwsArgumentError,
+            reason: 'headlineThrows ${s['path']}',
+          );
         case 'itemSectionId':
-          expect(d.itemSectionId(s['itemPath'] as String), s['expect'],
-              reason: 'itemSectionId ${s['itemPath']}');
+          expect(
+            d.itemSectionId(s['itemPath'] as String),
+            s['expect'],
+            reason: 'itemSectionId ${s['itemPath']}',
+          );
         case 'addListItem':
           final now = DateTime(2026, s['month'] as int, s['day'] as int);
           final p = ed.addListItem(s['listPath'] as String, now: now);
           expect(p, s['expectPath'], reason: 'addListItem ${s['listPath']}');
           if (s.containsKey('expectId')) {
-            expect(d.itemSectionId(p), s['expectId'],
-                reason: 'addListItem generated id ${s['listPath']}');
+            expect(
+              d.itemSectionId(p),
+              s['expectId'],
+              reason: 'addListItem generated id ${s['listPath']}',
+            );
           }
         case 'addListItemThrows':
           final now = DateTime(2026, s['month'] as int, s['day'] as int);
-          expect(() => ed.addListItem(s['listPath'] as String, now: now),
-              throwsArgumentError,
-              reason: 'addListItemThrows ${s['listPath']}');
+          expect(
+            () => ed.addListItem(s['listPath'] as String, now: now),
+            throwsArgumentError,
+            reason: 'addListItemThrows ${s['listPath']}',
+          );
         case 'removeListItem':
-          expect(ed.removeListItem(s['itemPath'] as String), s['expect'],
-              reason: 'removeListItem ${s['itemPath']}');
+          expect(
+            ed.removeListItem(s['itemPath'] as String),
+            s['expect'],
+            reason: 'removeListItem ${s['itemPath']}',
+          );
         case 'clearSection':
           ed.clearSection(s['path'] as String);
         case 'clearSectionThrows':
-          expect(() => ed.clearSection(s['path'] as String),
-              throwsArgumentError,
-              reason: 'clearSectionThrows ${s['path']}');
+          expect(
+            () => ed.clearSection(s['path'] as String),
+            throwsArgumentError,
+            reason: 'clearSectionThrows ${s['path']}',
+          );
         case 'hasValuesUnder':
-          expect(d.hasValuesUnder(s['prefix'] as String), s['expect'],
-              reason: 'hasValuesUnder ${s['prefix']}');
+          expect(
+            d.hasValuesUnder(s['prefix'] as String),
+            s['expect'],
+            reason: 'hasValuesUnder ${s['prefix']}',
+          );
         default:
           fail('unknown editor op ${s['op']}');
       }
@@ -565,17 +699,22 @@ void main() {
     // Criterion 4: the two-letter day code.
     for (final c in (cases['twoLetterDate'] as List).cast<Map>()) {
       final date = DateTime(2026, c['month'] as int, c['day'] as int);
-      expect(encodeTwoLetterDate(date), c['expect'],
-          reason: 'twoLetterDate ${c['month']}/${c['day']}');
+      expect(
+        encodeTwoLetterDate(date),
+        c['expect'],
+        reason: 'twoLetterDate ${c['month']}/${c['day']}',
+      );
     }
 
     // Criteria 3 & 6: generated id = prefix + day + (max-for-day + 1).
     for (final c in (cases['generate'] as List).cast<Map>()) {
       final date = DateTime(2026, c['month'] as int, c['day'] as int);
       final existing = (c['existing'] as List).cast<String>();
-      expect(generateListItemSectionId(c['pattern'] as String, date, existing),
-          c['expect'],
-          reason: 'generate ${c['pattern']} over $existing');
+      expect(
+        generateListItemSectionId(c['pattern'] as String, date, existing),
+        c['expect'],
+        reason: 'generate ${c['pattern']} over $existing',
+      );
     }
 
     // Criteria 5 & 6 at the document level: override keeps ids unique, deleting
@@ -586,27 +725,37 @@ void main() {
       switch (s['op']) {
         case 'addGen':
           final date = DateTime(2026, s['month'] as int, s['day'] as int);
-          final id = generateListItemSectionId(s['pattern'] as String, date,
-              d.listItemSectionIds(s['listPath'] as String));
+          final id = generateListItemSectionId(
+            s['pattern'] as String,
+            date,
+            d.listItemSectionIds(s['listPath'] as String),
+          );
           expect(id, s['expectId'], reason: 'addGen id');
-          final path =
-              d.addListItem(s['listPath'] as String, sectionId: id);
+          final path = d.addListItem(s['listPath'] as String, sectionId: id);
           expect(path, s['expectPath'], reason: 'addGen path');
         case 'sectionIds':
-          expect(d.listItemSectionIds(s['listPath'] as String),
-              (s['expect'] as List).cast<String>());
+          expect(
+            d.listItemSectionIds(s['listPath'] as String),
+            (s['expect'] as List).cast<String>(),
+          );
         case 'removeListItem':
           expect(d.removeListItem(s['itemPath'] as String), s['expect']);
         case 'override':
           d.setItemSectionId(s['itemPath'] as String, s['id'] as String);
         case 'overrideThrows':
           expect(
-              () => d.setItemSectionId(s['itemPath'] as String, s['id'] as String),
-              throwsA(isA<SpecSectionIdCollision>()));
+            () =>
+                d.setItemSectionId(s['itemPath'] as String, s['id'] as String),
+            throwsA(isA<SpecSectionIdCollision>()),
+          );
         case 'addExplicitThrows':
           expect(
-              () => d.addListItem(s['listPath'] as String, sectionId: s['id'] as String),
-              throwsA(isA<SpecSectionIdCollision>()));
+            () => d.addListItem(
+              s['listPath'] as String,
+              sectionId: s['id'] as String,
+            ),
+            throwsA(isA<SpecSectionIdCollision>()),
+          );
         default:
           fail('unknown section-id op ${s['op']}');
       }
@@ -615,22 +764,28 @@ void main() {
 
   // AA1 criterion 7: members serialize in @SerializationOrder, not alphabetical.
   test('serialization-order case matches the committed expectations', () {
-    final c = jsonDecode(read('serialization_order_cases.json'))
-        as Map<String, dynamic>;
+    final c =
+        jsonDecode(read('serialization_order_cases.json'))
+            as Map<String, dynamic>;
     final orderModel = SpecModel.fromJson(c['model'] as Map<String, dynamic>);
     final order = SpecSerializationOrder(orderModel);
-    expect(order.orderPaths((c['contentPaths'] as List).cast<String>()),
-        (c['expectedOrder'] as List).cast<String>());
     expect(
-        order.orderFormFields(
-            c['formPath'] as String, (c['formFields'] as List).cast<String>()),
-        (c['expectedFormOrder'] as List).cast<String>());
+      order.orderPaths((c['contentPaths'] as List).cast<String>()),
+      (c['expectedOrder'] as List).cast<String>(),
+    );
+    expect(
+      order.orderFormFields(
+        c['formPath'] as String,
+        (c['formFields'] as List).cast<String>(),
+      ),
+      (c['expectedFormOrder'] as List).cast<String>(),
+    );
   });
 
   group('docspecs_cases.json (the SOM §14 DocSpecs tier)', () {
-    DocSpecsValidator committedValidator() =>
-        DocSpecsValidator(DocSpecsSchema.fromYamlText(
-            read('docspecs_schema.yaml')));
+    DocSpecsValidator committedValidator() => DocSpecsValidator(
+      DocSpecsSchema.fromYamlText(read('docspecs_schema.yaml')),
+    );
 
     List<Map<String, dynamic>> committedCases() =>
         (jsonDecode(read('docspecs_cases.json')) as List)
@@ -641,14 +796,15 @@ void main() {
       // cases depend on, the case expectations below would pass vacuously. So
       // pin the load itself — root id, warning-freedom, and the four features
       // the cases exercise beyond the plain section tree.
-      final schema =
-          DocSpecsSchema.fromYamlText(read('docspecs_schema.yaml'));
+      final schema = DocSpecsSchema.fromYamlText(read('docspecs_schema.yaml'));
       expect(schema.warnings, isEmpty);
       expect(schema.rootSectionId, 'D00');
       expect(schema.sectionTypesByName['gsum']!.maxTextLength, 20);
       expect(schema.sectionTypesByName['d00-ovr']!.textRequired, isTrue);
-      expect(schema.sectionTypesByName['steps']!.subsectionTypes['step']!
-          .minCount, 2);
+      expect(
+        schema.sectionTypesByName['steps']!.subsectionTypes['step']!.minCount,
+        2,
+      );
       expect(schema.formTypes['header-form']!.fields.first.required, isTrue);
     });
 
@@ -657,11 +813,13 @@ void main() {
       for (final c in committedCases()) {
         final got = validator
             .validateMarkdown(c['markdown'] as String)
-            .map((v) => {
-                  'rule': v.rule.name,
-                  'sectionId': v.sectionId,
-                  'line': v.line,
-                })
+            .map(
+              (v) => {
+                'rule': v.rule.name,
+                'sectionId': v.sectionId,
+                'line': v.line,
+              },
+            )
             .toList();
         expect(got, c['violations'], reason: 'docspecs ${c['name']}');
       }
@@ -688,9 +846,11 @@ void main() {
         final regex = c['regex'] as bool;
         final ci = c['caseInsensitive'] as bool? ?? false;
         if (c['error'] == true) {
-          expect(() => SomTextPattern.compile(source),
-              throwsA(isA<SomPatternError>()),
-              reason: 'pattern "$source" must be rejected');
+          expect(
+            () => SomTextPattern.compile(source),
+            throwsA(isA<SomPatternError>()),
+            reason: 'pattern "$source" must be rejected',
+          );
           continue;
         }
         final p = regex
@@ -699,8 +859,11 @@ void main() {
         final got = [
           for (final s in p.allMatches(c['text'] as String)) [s.start, s.end],
         ];
-        expect(got, c['spans'],
-            reason: 'pattern "$source" over "${c['text']}"');
+        expect(
+          got,
+          c['spans'],
+          reason: 'pattern "$source" over "${c['text']}"',
+        );
       }
     });
 
@@ -720,8 +883,9 @@ void main() {
       final cases = (jsonDecode(read('query_cases.json')) as List)
           .cast<Map<String, dynamic>>();
       for (final c in cases) {
-        final cursor = engine.query(_queryFromJson(
-            (c['query'] as Map).cast<String, dynamic>()));
+        final cursor = engine.query(
+          _queryFromJson((c['query'] as Map).cast<String, dynamic>()),
+        );
         final got = [
           for (final m in cursor.toList())
             {
@@ -747,10 +911,14 @@ void main() {
       final cases = (jsonDecode(read('query_cases.json')) as List)
           .cast<Map<String, dynamic>>();
       for (final c in cases) {
-        final cursor = engine.query(_queryFromJson(
-            (c['query'] as Map).cast<String, dynamic>()));
-        expect(cursor.count, (c['matches'] as List).length,
-            reason: 'count for ${c['name']}');
+        final cursor = engine.query(
+          _queryFromJson((c['query'] as Map).cast<String, dynamic>()),
+        );
+        expect(
+          cursor.count,
+          (c['matches'] as List).length,
+          reason: 'count for ${c['name']}',
+        );
       }
     });
   });
@@ -789,7 +957,8 @@ void main() {
       model: model,
       document: doc,
       catalog: CodeSpecsAreaCatalog.fromJson(
-          (table['catalog'] as Map).cast<String, dynamic>()),
+        (table['catalog'] as Map).cast<String, dynamic>(),
+      ),
     );
 
     test('the routing verdicts reproduce the committed diagnostic', () {
@@ -853,11 +1022,16 @@ void main() {
           ...(section as Map).values.cast<String>(),
       };
       expect(stored, isNotEmpty);
-      for (final x in (table['extracts'] as List).cast<Map<String, dynamic>>()) {
+      for (final x
+          in (table['extracts'] as List).cast<Map<String, dynamic>>()) {
         for (final e in (x['entries'] as List).cast<Map<String, dynamic>>()) {
-          expect(stored, contains(e['value']),
-              reason: '${x['area']} ${e['path']} was not copied from the '
-                  'document');
+          expect(
+            stored,
+            contains(e['value']),
+            reason:
+                '${x['area']} ${e['path']} was not copied from the '
+                'document',
+          );
         }
       }
     });
@@ -866,7 +1040,8 @@ void main() {
       // `Control` is populated, and populated distinctively, so its absence
       // cannot be an accident of an empty section.
       final emitted = <String>[
-        for (final x in (table['extracts'] as List).cast<Map<String, dynamic>>())
+        for (final x
+            in (table['extracts'] as List).cast<Map<String, dynamic>>())
           for (final e in (x['entries'] as List).cast<Map<String, dynamic>>())
             e['value'] as String,
       ];
@@ -876,11 +1051,13 @@ void main() {
       expect(emitted, isNot(contains('alice')));
     });
 
-    for (final raw in (table['errorCases'] as List).cast<Map<String, dynamic>>()) {
+    for (final raw
+        in (table['errorCases'] as List).cast<Map<String, dynamic>>()) {
       final c = raw;
       test(c['name'] as String, () {
-        final errModel =
-            SpecModel.fromJson((c['model'] as Map).cast<String, dynamic>());
+        final errModel = SpecModel.fromJson(
+          (c['model'] as Map).cast<String, dynamic>(),
+        );
         // The error case carries its own model and state rather than mutating
         // the shared fixture: `model.meta.json` is a VALID model by
         // construction (§10.2 `ROUTE-TOTAL` holds over it), and a port in a
@@ -893,16 +1070,22 @@ void main() {
           model: errModel,
           document: errDoc,
           catalog: CodeSpecsAreaCatalog.fromJson(
-              (table['catalog'] as Map).cast<String, dynamic>()),
+            (table['catalog'] as Map).cast<String, dynamic>(),
+          ),
         );
         final want = (c['expect'] as Map).cast<String, dynamic>();
         expect(
           () => errExtractor.extractAll(),
-          throwsA(isA<CodeSpecsExtractError>()
-              .having((e) => e.path, 'path', want['path'])
-              .having((e) => e.className, 'className', want['className'])
-              .having((e) => e.message, 'message',
-                  contains(want['messageContains']))),
+          throwsA(
+            isA<CodeSpecsExtractError>()
+                .having((e) => e.path, 'path', want['path'])
+                .having((e) => e.className, 'className', want['className'])
+                .having(
+                  (e) => e.message,
+                  'message',
+                  contains(want['messageContains']),
+                ),
+          ),
         );
         expect(
           errExtractor
@@ -917,41 +1100,46 @@ void main() {
     for (final c in (table['rootCases'] as List).cast<Map<String, dynamic>>()) {
       test('root scoping: ${c['name']}', () {
         final catalog = CodeSpecsAreaCatalog.fromJson(
-            (table['catalog'] as Map).cast<String, dynamic>());
-        final rootModel =
-            SpecModel.fromJson((c['model'] as Map).cast<String, dynamic>());
+          (table['catalog'] as Map).cast<String, dynamic>(),
+        );
+        final rootModel = SpecModel.fromJson(
+          (c['model'] as Map).cast<String, dynamic>(),
+        );
         final rootDoc = SpecDocument()
           ..loadJson((c['state'] as Map).cast<String, dynamic>());
         final want = (c['expect'] as Map).cast<String, dynamic>();
         CodeSpecsExtractor build() => CodeSpecsExtractor(
-              model: rootModel,
-              document: rootDoc,
-              catalog: catalog,
-              rootType: c['rootType'] as String?,
-            );
+          model: rootModel,
+          document: rootDoc,
+          catalog: catalog,
+          rootType: c['rootType'] as String?,
+        );
         if (want['fails'] == true) {
           expect(
             build,
-            throwsA(isA<CodeSpecsExtractError>()
-                .having((e) => e.path, 'path', want['path'])
-                .having((e) => e.className, 'className', want['className'])
-                .having((e) => e.message, 'message',
-                    contains(want['messageContains']))),
+            throwsA(
+              isA<CodeSpecsExtractError>()
+                  .having((e) => e.path, 'path', want['path'])
+                  .having((e) => e.className, 'className', want['className'])
+                  .having(
+                    (e) => e.message,
+                    'message',
+                    contains(want['messageContains']),
+                  ),
+            ),
           );
           return;
         }
         final x = build();
         expect(x.root.type, want['root']);
-        expect(
-          [for (final r in x.routings()) r.verdict.name],
-          want['routingVerdicts'],
-        );
+        expect([
+          for (final r in x.routings()) r.verdict.name,
+        ], want['routingVerdicts']);
         final extracts = x.extractAll();
         expect(extracts.first.documentRoot, want['documentRoot']);
-        expect(
-          [for (final e in extracts) ...e.entries.map((n) => n.path)],
-          want['paths'],
-        );
+        expect([
+          for (final e in extracts) ...e.entries.map((n) => n.path),
+        ], want['paths']);
       });
     }
   });
@@ -966,18 +1154,24 @@ void main() {
       switch (s['op']) {
         case 'open':
           cursor = engine.query(
-              _queryFromJson((s['query'] as Map).cast<String, dynamic>()));
+            _queryFromJson((s['query'] as Map).cast<String, dynamic>()),
+          );
         case 'count':
           expect(cursor!.count, s['expect'], reason: 'cursor count');
         case 'take':
-          expect(cursor!.take(s['n'] as int).map((m) => m.path).toList(),
-              s['expect'],
-              reason: 'cursor take ${s['n']}');
+          expect(
+            cursor!.take(s['n'] as int).map((m) => m.path).toList(),
+            s['expect'],
+            reason: 'cursor take ${s['n']}',
+          );
         case 'next':
           expect(cursor!.next()?.path, s['expect'], reason: 'cursor next');
         case 'toList':
-          expect(cursor!.toList().map((m) => m.path).toList(), s['expect'],
-              reason: 'cursor toList');
+          expect(
+            cursor!.toList().map((m) => m.path).toList(),
+            s['expect'],
+            reason: 'cursor toList',
+          );
         case 'removeListItem':
           d.removeListItem(s['itemPath'] as String);
         default:
@@ -991,9 +1185,13 @@ void main() {
         .cast<Map<String, dynamic>>();
     for (final c in cases) {
       final d = _buildDocument();
-      final err = checkAddNode(model, d, c['parentPath'] as String,
-          c['childSegment'] as String,
-          itemId: c['itemId'] as String?);
+      final err = checkAddNode(
+        model,
+        d,
+        c['parentPath'] as String,
+        c['childSegment'] as String,
+        itemId: c['itemId'] as String?,
+      );
       expect(err == null, c['accepted'], reason: 'accepted ${c['name']}');
       if (err != null) {
         expect(err.code.name, c['code'], reason: 'code ${c['name']}');
@@ -1012,21 +1210,38 @@ void main() {
       switch (s['op']) {
         case 'add':
           final path = creator.add(
-              s['parentPath'] as String, s['childSegment'] as String,
-              itemId: s['itemId'] as String?,
-              date: DateTime(2026, s['month'] as int, s['day'] as int));
-          expect(path, s['expectPath'],
-              reason: 'add ${s['parentPath']}/${s['childSegment']}');
-          expect(d.itemSectionId(path), s['expectId'],
-              reason: 'add id ${s['parentPath']}/${s['childSegment']}');
+            s['parentPath'] as String,
+            s['childSegment'] as String,
+            itemId: s['itemId'] as String?,
+            date: DateTime(2026, s['month'] as int, s['day'] as int),
+          );
+          expect(
+            path,
+            s['expectPath'],
+            reason: 'add ${s['parentPath']}/${s['childSegment']}',
+          );
+          expect(
+            d.itemSectionId(path),
+            s['expectId'],
+            reason: 'add id ${s['parentPath']}/${s['childSegment']}',
+          );
         case 'addThrows':
           expect(
-              () => creator.add(
-                  s['parentPath'] as String, s['childSegment'] as String,
-                  itemId: s['itemId'] as String?, date: DateTime(2026, 3, 4)),
-              throwsA(isA<SpecCreationError>()
-                  .having((e) => e.code.name, 'code', s['expectCode'])),
-              reason: 'addThrows ${s['parentPath']}/${s['childSegment']}');
+            () => creator.add(
+              s['parentPath'] as String,
+              s['childSegment'] as String,
+              itemId: s['itemId'] as String?,
+              date: DateTime(2026, 3, 4),
+            ),
+            throwsA(
+              isA<SpecCreationError>().having(
+                (e) => e.code.name,
+                'code',
+                s['expectCode'],
+              ),
+            ),
+            reason: 'addThrows ${s['parentPath']}/${s['childSegment']}',
+          );
         case 'finalState':
           expect(d.toJson(), s['expect'], reason: 'final document state');
         default:
@@ -1043,25 +1258,25 @@ void main() {
 /// match. Kept beside the replay tests rather than in `lib/` because it belongs
 /// to the corpus format, not to the runtime API.
 SpecQuery _queryFromJson(Map<String, dynamic> j) => SpecQuery(
-      text: j['text'] as String?,
-      regex: j['regex'] as bool? ?? false,
-      caseInsensitive: j['caseInsensitive'] as bool? ?? false,
-      kinds: j['kinds'] == null
-          ? null
-          : {
-              for (final k in (j['kinds'] as List).cast<String>())
-                SpecNodeKind.values.firstWhere((v) => v.name == k),
-            },
-      className: j['className'] as String?,
-      sectionIdExact: j['sectionIdExact'] as String?,
-      sectionIdPrefix: j['sectionIdPrefix'] as String?,
-      pathGlob: j['pathGlob'] as String?,
-      mapsTo: j['mapsTo'] as String?,
-      detailedIn: j['detailedIn'] as String?,
-      state: j['state'] == null
-          ? null
-          : SpecStateFilter.values.firstWhere((v) => v.name == j['state']),
-    );
+  text: j['text'] as String?,
+  regex: j['regex'] as bool? ?? false,
+  caseInsensitive: j['caseInsensitive'] as bool? ?? false,
+  kinds: j['kinds'] == null
+      ? null
+      : {
+          for (final k in (j['kinds'] as List).cast<String>())
+            SpecNodeKind.values.firstWhere((v) => v.name == k),
+        },
+  className: j['className'] as String?,
+  sectionIdExact: j['sectionIdExact'] as String?,
+  sectionIdPrefix: j['sectionIdPrefix'] as String?,
+  pathGlob: j['pathGlob'] as String?,
+  mapsTo: j['mapsTo'] as String?,
+  detailedIn: j['detailedIn'] as String?,
+  state: j['state'] == null
+      ? null
+      : SpecStateFilter.values.firstWhere((v) => v.name == j['state']),
+);
 
 // --- Fixture construction (the reference data the corpus is generated from) --
 
@@ -1107,654 +1322,656 @@ SpecQuery _queryFromJson(Map<String, dynamic> j) => SpecQuery(
 /// is the item heading's body region, bound at `<item>/label` without a
 /// heading of its own.
 Map<String, dynamic> _buildMeta() => {
-      'metaSchemaVersion': 1,
-      'modelVersion': 1,
-      'modelVersionLabel': 'demo-1.0',
-      // The generation stamp the exporter writes alongside the payload. Fixed
-      // rather than `DateTime.now()` so the corpus is byte-stable; the counts
-      // are the fixture's real sizes, which is what makes them a self-check.
-      // `containerRoot` is deliberately absent: the fixture has no container
-      // class, so declaring one would be a lie. The present-`containerRoot`
-      // path is covered by `stamp_cases.json` instead.
-      'generatedAt': '2026-07-20T08:00:00.000000Z',
-      'classCount': 12,
-      'rootCount': 2,
-      'roots': [
+  'metaSchemaVersion': 1,
+  'modelVersion': 1,
+  'modelVersionLabel': 'demo-1.0',
+  // The generation stamp the exporter writes alongside the payload. Fixed
+  // rather than `DateTime.now()` so the corpus is byte-stable; the counts
+  // are the fixture's real sizes, which is what makes them a self-check.
+  // `containerRoot` is deliberately absent: the fixture has no container
+  // class, so declaring one would be a lie. The present-`containerRoot`
+  // path is covered by `stamp_cases.json` instead.
+  'generatedAt': '2026-07-20T08:00:00.000000Z',
+  'classCount': 12,
+  'rootCount': 2,
+  'roots': [
+    {
+      'type': 'Demo',
+      'title': 'Demo Document',
+      'sectionId': 'DEMO',
+      'description':
+          'A compact conformance fixture. SYNTHETIC codec-'
+          'exerciser covering the full field-kind matrix (incl. an int '
+          'scalar, id-less content leaves, and a dual-content class) — NOT '
+          'a tom_specs_model convention reference.',
+    },
+    {
+      // csrf3: a SECOND root exists so the fixture has two disjoint
+      // reference scopes. The instance-tier reference check skips a
+      // reference whose target registry the document's own root cannot
+      // reach, and with a single root every registry is always reachable —
+      // the skip would be unreachable code in all nine ports. This root
+      // reaches no registry of its own, so a document rooted only here
+      // must stay silent while the same reference fires from `Demo`.
+      // It is deliberately never populated by `_buildDocument`, so the
+      // md/yaml goldens are untouched by its existence.
+      'type': 'Sidecar',
+      'title': 'Sidecar Document',
+      'sectionId': 'SIDE',
+      'description':
+          'A second root reaching no registry — the fixture\'s '
+          'cross-document reference scope (csrf3).',
+    },
+  ],
+  'classes': {
+    'Demo': {
+      'name': 'Demo',
+      'sectionId': 'DEMO',
+      'annotations': [
         {
-          'type': 'Demo',
-          'title': 'Demo Document',
-          'sectionId': 'DEMO',
-          'description': 'A compact conformance fixture. SYNTHETIC codec-'
-              'exerciser covering the full field-kind matrix (incl. an int '
-              'scalar, id-less content leaves, and a dual-content class) — NOT '
-              'a tom_specs_model convention reference.',
+          'name': 'Document',
+          'arguments': {'title': 'Demo Document'},
         },
         {
-          // csrf3: a SECOND root exists so the fixture has two disjoint
-          // reference scopes. The instance-tier reference check skips a
-          // reference whose target registry the document's own root cannot
-          // reach, and with a single root every registry is always reachable —
-          // the skip would be unreachable code in all nine ports. This root
-          // reaches no registry of its own, so a document rooted only here
-          // must stay silent while the same reference fires from `Demo`.
-          // It is deliberately never populated by `_buildDocument`, so the
-          // md/yaml goldens are untouched by its existence.
-          'type': 'Sidecar',
-          'title': 'Sidecar Document',
-          'sectionId': 'SIDE',
-          'description': 'A second root reaching no registry — the fixture\'s '
-              'cross-document reference scope (csrf3).',
+          'name': 'SectionId',
+          'arguments': {'id': 'DEMO'},
+        },
+        // The §8.3 routing verdict. Every class in this fixture carries
+        // exactly one of the three (`@CodeSpecKind` / `@FollowUpKind` /
+        // `@NoArtifact`) except `Sidecar`, which is a bare `@Document` root
+        // and structurally exempt — that is what makes the fixture a VALID
+        // model under `tom_specs_model_rules.md` §10.2 `ROUTE-TOTAL`, and
+        // what lets `codespecs_extract_cases.json` run against the shared
+        // model rather than carrying an inline one.
+        //
+        // `Demo` is deliberately MULTI-VALUED: the same leaf must appear,
+        // whole and undeduplicated, in both areas' extracts.
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.form', 'CodeSpecPart.viewState'],
+            'note': 'the demo capture screen and its view state',
+          },
         },
       ],
-      'classes': {
-        'Demo': {
-          'name': 'Demo',
-          'sectionId': 'DEMO',
+      'fields': [
+        {
+          'name': 'title',
+          'kind': 'content',
+          'sectionId': 'TTL',
+          'contentType': 'text',
+          // YRD4: field-level @Headline default — rendered because TTL
+          // has no stored headline.
+          'headline': 'Document Title',
+        },
+        {
+          'name': 'summary',
+          'kind': 'content',
+          'sectionId': 'SUM',
+          'contentType': 'markdown',
+          // YRD4: default is shadowed by the stored 'Executive Summary'
+          // headline — stored always wins.
+          'headline': 'Summary',
+        },
+        {
+          'name': 'priority',
+          'kind': 'enum',
+          'sectionId': 'PRI',
+          'enumType': 'Priority',
+          'enumValues': ['low', 'high'],
+          // A FIELD-LEVEL `@CodeSpecKind`, overriding `Demo`'s class-level
+          // one for this member alone: PRI reaches `navigation` and neither
+          // of the class's two areas. Without a case, a port that only ever
+          // reads the class annotation passes.
           'annotations': [
-            {
-              'name': 'Document',
-              'arguments': {'title': 'Demo Document'}
-            },
-            {
-              'name': 'SectionId',
-              'arguments': {'id': 'DEMO'}
-            },
-            // The §8.3 routing verdict. Every class in this fixture carries
-            // exactly one of the three (`@CodeSpecKind` / `@FollowUpKind` /
-            // `@NoArtifact`) except `Sidecar`, which is a bare `@Document` root
-            // and structurally exempt — that is what makes the fixture a VALID
-            // model under `tom_specs_model_rules.md` §10.2 `ROUTE-TOTAL`, and
-            // what lets `codespecs_extract_cases.json` run against the shared
-            // model rather than carrying an inline one.
-            //
-            // `Demo` is deliberately MULTI-VALUED: the same leaf must appear,
-            // whole and undeduplicated, in both areas' extracts.
             {
               'name': 'CodeSpecKind',
               'arguments': {
-                'kinds': ['CodeSpecPart.form', 'CodeSpecPart.viewState'],
-                'note': 'the demo capture screen and its view state',
-              }
+                'kinds': ['CodeSpecPart.navigation'],
+              },
             },
           ],
-          'fields': [
+        },
+        {
+          'name': 'count',
+          'kind': 'scalar',
+          'sectionId': 'CNT',
+          'type': 'int',
+          // The fixture's one *field* doc comment. Headline resolution
+          // falls back stored -> field doc -> class doc -> root
+          // description, and with no field carrying a doc the second step
+          // was unreachable. CNT has no stored headline, so this is what
+          // its headline resolves to.
+          'doc': 'How many items are tracked.',
+        },
+        {
+          // The `double` half of the numeric matrix as a CONTENT LEAF, not
+          // just a form field. `Details.weight` already exercises the
+          // double conversion through the form store, but the leaf path
+          // runs a different dispatch (`value`/`setValue` on a scalar
+          // node), and the rule that discriminates a single-numeric-type
+          // port — an integral double formats as `2.0`, never `2` — has to
+          // hold on both.
+          'name': 'ratio',
+          'kind': 'scalar',
+          'sectionId': 'RTO',
+          'type': 'double',
+        },
+        {
+          // `num` — the one conversion family in `spec_typed_values` that
+          // no member of this fixture used to declare, so `somParseNum` /
+          // `somFormatNum` were implemented nine times and asked nothing.
+          // It is the family most likely to diverge, because it is the one
+          // whose formatting depends on the *runtime value*: an integral
+          // num writes `7`, a fractional one `7.5`, from the same field.
+          'name': 'score',
+          'kind': 'scalar',
+          'sectionId': 'SCR',
+          'type': 'num',
+        },
+        {
+          'name': 'details',
+          'kind': 'form',
+          'sectionId': 'DET',
+          'formFields': [
             {
-              'name': 'title',
-              'kind': 'content',
-              'sectionId': 'TTL',
-              'contentType': 'text',
-              // YRD4: field-level @Headline default — rendered because TTL
-              // has no stored headline.
-              'headline': 'Document Title',
+              'name': 'owner',
+              'label': 'Owner',
+              'type': 'String',
+              'required': true,
             },
-            {
-              'name': 'summary',
-              'kind': 'content',
-              'sectionId': 'SUM',
-              'contentType': 'markdown',
-              // YRD4: default is shadowed by the stored 'Executive Summary'
-              // headline — stored always wins.
-              'headline': 'Summary',
-            },
+            {'name': 'contact', 'label': 'Contact', 'type': 'String'},
+            // YRD7: typed form fields — stored as plain text
+            // (`FieldName: value`), converted at the type boundary by the
+            // shared somParse*/somFormat* helpers, natively typed in the
+            // generic editor and the generated facades.
+            {'name': 'estimate', 'label': 'Estimate', 'type': 'int'},
+            {'name': 'weight', 'label': 'Weight', 'type': 'double'},
+            // The form half of the `num` family. The leaf half is
+            // `Demo.score`; both exist because the editor dispatches on
+            // type in two independent places (`value`/`formValue`), so a
+            // port that wires `num` into one and forgets the other passes
+            // a single-sided corpus.
+            {'name': 'tally', 'label': 'Tally', 'type': 'num'},
+            {'name': 'active', 'label': 'Active', 'type': 'bool'},
             {
               'name': 'priority',
-              'kind': 'enum',
-              'sectionId': 'PRI',
-              'enumType': 'Priority',
+              'label': 'Priority',
+              'type': 'Priority',
               'enumValues': ['low', 'high'],
-              // A FIELD-LEVEL `@CodeSpecKind`, overriding `Demo`'s class-level
-              // one for this member alone: PRI reaches `navigation` and neither
-              // of the class's two areas. Without a case, a port that only ever
-              // reads the class annotation passes.
-              'annotations': [
-                {
-                  'name': 'CodeSpecKind',
-                  'arguments': {
-                    'kinds': ['CodeSpecPart.navigation'],
-                  }
-                }
-              ],
-            },
-            {
-              'name': 'count',
-              'kind': 'scalar',
-              'sectionId': 'CNT',
-              'type': 'int',
-              // The fixture's one *field* doc comment. Headline resolution
-              // falls back stored -> field doc -> class doc -> root
-              // description, and with no field carrying a doc the second step
-              // was unreachable. CNT has no stored headline, so this is what
-              // its headline resolves to.
-              'doc': 'How many items are tracked.',
-            },
-            {
-              // The `double` half of the numeric matrix as a CONTENT LEAF, not
-              // just a form field. `Details.weight` already exercises the
-              // double conversion through the form store, but the leaf path
-              // runs a different dispatch (`value`/`setValue` on a scalar
-              // node), and the rule that discriminates a single-numeric-type
-              // port — an integral double formats as `2.0`, never `2` — has to
-              // hold on both.
-              'name': 'ratio',
-              'kind': 'scalar',
-              'sectionId': 'RTO',
-              'type': 'double',
-            },
-            {
-              // `num` — the one conversion family in `spec_typed_values` that
-              // no member of this fixture used to declare, so `somParseNum` /
-              // `somFormatNum` were implemented nine times and asked nothing.
-              // It is the family most likely to diverge, because it is the one
-              // whose formatting depends on the *runtime value*: an integral
-              // num writes `7`, a fractional one `7.5`, from the same field.
-              'name': 'score',
-              'kind': 'scalar',
-              'sectionId': 'SCR',
-              'type': 'num',
-            },
-            {
-              'name': 'details',
-              'kind': 'form',
-              'sectionId': 'DET',
-              'formFields': [
-                {
-                  'name': 'owner',
-                  'label': 'Owner',
-                  'type': 'String',
-                  'required': true
-                },
-                {'name': 'contact', 'label': 'Contact', 'type': 'String'},
-                // YRD7: typed form fields — stored as plain text
-                // (`FieldName: value`), converted at the type boundary by the
-                // shared somParse*/somFormat* helpers, natively typed in the
-                // generic editor and the generated facades.
-                {'name': 'estimate', 'label': 'Estimate', 'type': 'int'},
-                {'name': 'weight', 'label': 'Weight', 'type': 'double'},
-                // The form half of the `num` family. The leaf half is
-                // `Demo.score`; both exist because the editor dispatches on
-                // type in two independent places (`value`/`formValue`), so a
-                // port that wires `num` into one and forgets the other passes
-                // a single-sided corpus.
-                {'name': 'tally', 'label': 'Tally', 'type': 'num'},
-                {'name': 'active', 'label': 'Active', 'type': 'bool'},
-                {
-                  'name': 'priority',
-                  'label': 'Priority',
-                  'type': 'Priority',
-                  'enumValues': ['low', 'high'],
-                },
-              ],
-            },
-            {
-              'name': 'items',
-              'kind': 'list',
-              'elementType': 'Item',
-              'elementIsComplex': true,
-              'min': 2,
-              'annotations': [
-                {
-                  'name': 'Min',
-                  'arguments': {'value': 2}
-                }
-              ],
-            },
-            {
-              // A genuine `*-LST` list: the container heads under its own
-              // `@SectionId` (`REF-LST`, a real `*-LST` id) and the items
-              // resolve against the `@SectionIdPattern` (`REF-xxx` → `REF-1`,
-              // `REF-2`). Kept scalar so it pins the container contract without a
-              // new element class; contrasts with the id-less `Meta.tags` list.
-              'name': 'refs',
-              'kind': 'list',
-              'sectionId': 'REF-LST',
-              'sectionIdPattern': 'REF-xxx',
-              'elementType': 'String',
-              'elementIsComplex': false,
-            },
-            {
-              // A `*-LST` list of complex items whose own transparent
-              // `content` form carries an ordinary `note` field. Item ids and
-              // headlines are stored directly in the YRD3 stores (card 1 sets
-              // `CARD-ALPHA` + a headline; card 2 falls back to defaults).
-              'name': 'cards',
-              'kind': 'list',
-              'sectionId': 'CARD-LST',
-              'sectionIdPattern': 'CARD-xxx',
-              'elementType': 'Card',
-              'elementIsComplex': true,
-            },
-            {
-              'name': 'meta',
-              'kind': 'complex',
-              'sectionId': 'META',
-              'type': 'Meta'
-            },
-            {
-              // A class-level-only `@SectionId`: the `control` field itself has
-              // NO id, so its key resolves to the TARGET CLASS's id — the SOM
-              // SOM §12.2 field-id-else-class-id fallback (YR01). Pins that a
-              // section/complex node heads under `CTRL control:` (yaml) /
-              // `<!--[CTRL]-->` (markdown) even without a field id, while its
-              // leaves keep field-level (or bare) content keys.
-              'name': 'control',
-              'kind': 'complex',
-              'type': 'Control'
-            },
-            {
-              // The §7.1 `section` kind — the seventh structural kind, and the
-              // one nothing else in the fixture declares. It matters more than
-              // its rarity suggests: `section` COLLAPSES into its target class
-              // exactly as `complex` does, so a port that classifies it as a
-              // leaf misresolves every path beneath it, and a port that omits
-              // it from the `sectionId ?? classSectionId` key rule (SOM §12.2)
-              // mis-keys the whole subtree.
-              //
-              // Deliberately id-less with a class-level `@SectionId` (`NOTE`),
-              // mirroring `control` above: that pins the class-id fallback for
-              // the *section* half of the section/complex rule, which `control`
-              // pins only for the complex half. Both halves now have a case, so
-              // a codec written for `complex` alone fails here rather than
-              // shipping.
-              'name': 'notes',
-              'kind': 'section',
-              'type': 'Notes'
-            },
-            {
-              // csrf3: the two instance-tier checks — cross-registry
-              // references and `@OneOf`/`@Case` selection — need model
-              // constructs nothing else in this fixture uses. They live under
-              // one member so the rest of the matrix above reads unchanged,
-              // and `_buildDocument` never populates it, so the md/yaml
-              // goldens are unaffected; the validation cases build their own
-              // states.
-              'name': 'registry',
-              'kind': 'complex',
-              'sectionId': 'REG',
-              'type': 'Registry'
             },
           ],
         },
-        // csrf3: the reference/one-of fixture. `RegistryEntry` is the
-        // registry — it declares ids in a form field (`RGE.code`) AND through
-        // its own list-item section ids (the reserved `RGE.@sectionId` slot) —
-        // and `RegistryLink` is the referrer, with one field per target shape:
-        // a plain form-field target, the reserved slot, and a two-registry
-        // disjunction that also carries a comma-separated multi-value.
-        'Registry': {
-          'name': 'Registry',
+        {
+          'name': 'items',
+          'kind': 'list',
+          'elementType': 'Item',
+          'elementIsComplex': true,
+          'min': 2,
+          'annotations': [
+            {
+              'name': 'Min',
+              'arguments': {'value': 2},
+            },
+          ],
+        },
+        {
+          // A genuine `*-LST` list: the container heads under its own
+          // `@SectionId` (`REF-LST`, a real `*-LST` id) and the items
+          // resolve against the `@SectionIdPattern` (`REF-xxx` → `REF-1`,
+          // `REF-2`). Kept scalar so it pins the container contract without a
+          // new element class; contrasts with the id-less `Meta.tags` list.
+          'name': 'refs',
+          'kind': 'list',
+          'sectionId': 'REF-LST',
+          'sectionIdPattern': 'REF-xxx',
+          'elementType': 'String',
+          'elementIsComplex': false,
+        },
+        {
+          // A `*-LST` list of complex items whose own transparent
+          // `content` form carries an ordinary `note` field. Item ids and
+          // headlines are stored directly in the YRD3 stores (card 1 sets
+          // `CARD-ALPHA` + a headline; card 2 falls back to defaults).
+          'name': 'cards',
+          'kind': 'list',
+          'sectionId': 'CARD-LST',
+          'sectionIdPattern': 'CARD-xxx',
+          'elementType': 'Card',
+          'elementIsComplex': true,
+        },
+        {
+          'name': 'meta',
+          'kind': 'complex',
+          'sectionId': 'META',
+          'type': 'Meta',
+        },
+        {
+          // A class-level-only `@SectionId`: the `control` field itself has
+          // NO id, so its key resolves to the TARGET CLASS's id — the SOM
+          // SOM §12.2 field-id-else-class-id fallback (YR01). Pins that a
+          // section/complex node heads under `CTRL control:` (yaml) /
+          // `<!--[CTRL]-->` (markdown) even without a field id, while its
+          // leaves keep field-level (or bare) content keys.
+          'name': 'control',
+          'kind': 'complex',
+          'type': 'Control',
+        },
+        {
+          // The §7.1 `section` kind — the seventh structural kind, and the
+          // one nothing else in the fixture declares. It matters more than
+          // its rarity suggests: `section` COLLAPSES into its target class
+          // exactly as `complex` does, so a port that classifies it as a
+          // leaf misresolves every path beneath it, and a port that omits
+          // it from the `sectionId ?? classSectionId` key rule (SOM §12.2)
+          // mis-keys the whole subtree.
+          //
+          // Deliberately id-less with a class-level `@SectionId` (`NOTE`),
+          // mirroring `control` above: that pins the class-id fallback for
+          // the *section* half of the section/complex rule, which `control`
+          // pins only for the complex half. Both halves now have a case, so
+          // a codec written for `complex` alone fails here rather than
+          // shipping.
+          'name': 'notes',
+          'kind': 'section',
+          'type': 'Notes',
+        },
+        {
+          // csrf3: the two instance-tier checks — cross-registry
+          // references and `@OneOf`/`@Case` selection — need model
+          // constructs nothing else in this fixture uses. They live under
+          // one member so the rest of the matrix above reads unchanged,
+          // and `_buildDocument` never populates it, so the md/yaml
+          // goldens are unaffected; the validation cases build their own
+          // states.
+          'name': 'registry',
+          'kind': 'complex',
           'sectionId': 'REG',
-          'annotations': [
-            {
-              'name': 'SectionId',
-              'arguments': {'id': 'REG'}
-            },
-            // `container` — the walk must DESCEND into it (its children carry
-            // their own verdicts) while contributing nothing of its own.
-            {
-              'name': 'NoArtifact',
-              'arguments': {'reason': 'NoArtifactReason.container'}
-            },
-          ],
-          'fields': [
-            {
-              'name': 'entries',
-              'kind': 'list',
-              'sectionId': 'RGE-LST',
-              'sectionIdPattern': 'RGE-xxx',
-              'elementType': 'RegistryEntry',
-              'elementIsComplex': true,
-            },
-            {
-              'name': 'links',
-              'kind': 'list',
-              'sectionId': 'RGL-LST',
-              'sectionIdPattern': 'RGL-xxx',
-              'elementType': 'RegistryLink',
-              'elementIsComplex': true,
-            },
-            {
-              'name': 'choice',
-              'kind': 'complex',
-              'sectionId': 'CHO',
-              'type': 'Choice'
-            },
-          ],
+          'type': 'Registry',
         },
-        'RegistryEntry': {
-          'name': 'RegistryEntry',
-          'sectionId': 'RGE',
-          'annotations': [
-            {
-              'name': 'SectionId',
-              'arguments': {'id': 'RGE'}
-            },
-            {
-              'name': 'CodeSpecKind',
-              'arguments': {
-                'kinds': ['CodeSpecPart.dataAccess'],
-              }
-            },
-          ],
-          'fields': [
-            {
-              'name': 'details',
-              'kind': 'form',
-              'sectionId': 'RGE-DET',
-              'formFields': [
-                {'name': 'code', 'label': 'Code', 'type': 'String'},
-                {'name': 'label', 'label': 'Label', 'type': 'String'},
-              ],
-            },
-          ],
+      ],
+    },
+    // csrf3: the reference/one-of fixture. `RegistryEntry` is the
+    // registry — it declares ids in a form field (`RGE.code`) AND through
+    // its own list-item section ids (the reserved `RGE.@sectionId` slot) —
+    // and `RegistryLink` is the referrer, with one field per target shape:
+    // a plain form-field target, the reserved slot, and a two-registry
+    // disjunction that also carries a comma-separated multi-value.
+    'Registry': {
+      'name': 'Registry',
+      'sectionId': 'REG',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'REG'},
         },
-        'RegistryLink': {
-          'name': 'RegistryLink',
-          'sectionId': 'RGL',
-          'annotations': [
-            {
-              'name': 'SectionId',
-              'arguments': {'id': 'RGL'}
-            },
-            {
-              'name': 'CodeSpecKind',
-              'arguments': {
-                'kinds': ['CodeSpecPart.dataAccess'],
-              }
-            },
-          ],
-          'fields': [
-            {
-              'name': 'details',
-              'kind': 'form',
-              'sectionId': 'RGL-DET',
-              'formFields': [
-                {
-                  'name': 'entryCode',
-                  'label': 'Entry Code',
-                  'type': 'String',
-                  'refersTo': ['RGE.code'],
-                },
-                {
-                  'name': 'entryId',
-                  'label': 'Entry Id',
-                  'type': 'String',
-                  'refersTo': ['RGE.@sectionId'],
-                },
-                {
-                  // A disjunction: the value may name a `code` OR an item
-                  // section id, and a comma-separated value resolves segment
-                  // by segment.
-                  'name': 'anyRefs',
-                  'label': 'Any Refs',
-                  'type': 'String',
-                  'refersTo': ['RGE.code', 'RGE.@sectionId'],
-                },
-              ],
-            },
-          ],
+        // `container` — the walk must DESCEND into it (its children carry
+        // their own verdicts) while contributing nothing of its own.
+        {
+          'name': 'NoArtifact',
+          'arguments': {'reason': 'NoArtifactReason.container'},
         },
-        'Choice': {
-          'name': 'Choice',
+      ],
+      'fields': [
+        {
+          'name': 'entries',
+          'kind': 'list',
+          'sectionId': 'RGE-LST',
+          'sectionIdPattern': 'RGE-xxx',
+          'elementType': 'RegistryEntry',
+          'elementIsComplex': true,
+        },
+        {
+          'name': 'links',
+          'kind': 'list',
+          'sectionId': 'RGL-LST',
+          'sectionIdPattern': 'RGL-xxx',
+          'elementType': 'RegistryLink',
+          'elementIsComplex': true,
+        },
+        {
+          'name': 'choice',
+          'kind': 'complex',
           'sectionId': 'CHO',
-          'annotations': [
-            {
-              'name': 'SectionId',
-              'arguments': {'id': 'CHO'}
-            },
-            {
-              'name': 'OneOf',
-              'arguments': {'discriminator': 'kind'}
-            },
-            {
-              'name': 'NoArtifact',
-              'arguments': {'reason': 'NoArtifactReason.container'}
-            },
+          'type': 'Choice',
+        },
+      ],
+    },
+    'RegistryEntry': {
+      'name': 'RegistryEntry',
+      'sectionId': 'RGE',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'RGE'},
+        },
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.dataAccess'],
+          },
+        },
+      ],
+      'fields': [
+        {
+          'name': 'details',
+          'kind': 'form',
+          'sectionId': 'RGE-DET',
+          'formFields': [
+            {'name': 'code', 'label': 'Code', 'type': 'String'},
+            {'name': 'label', 'label': 'Label', 'type': 'String'},
           ],
-          'fields': [
+        },
+      ],
+    },
+    'RegistryLink': {
+      'name': 'RegistryLink',
+      'sectionId': 'RGL',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'RGL'},
+        },
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.dataAccess'],
+          },
+        },
+      ],
+      'fields': [
+        {
+          'name': 'details',
+          'kind': 'form',
+          'sectionId': 'RGL-DET',
+          'formFields': [
             {
-              'name': 'selector',
-              'kind': 'form',
-              'sectionId': 'CHO-SEL',
-              'formFields': [
-                {
-                  'name': 'kind',
-                  'label': 'Kind',
-                  'type': 'ChoiceKind',
-                  'enumValues': ['alpha', 'beta'],
-                },
-              ],
-            },
-            // Two subsections for `alpha` — so the "more than one populated
-            // subsection for the chosen case" branch is reachable — one for
-            // `beta`, and one common subsection carrying no `@Case` at all,
-            // which is legal under every choice.
-            {
-              'name': 'alphaPart',
-              'kind': 'complex',
-              'sectionId': 'CHO-ALP',
-              'type': 'ChoicePart',
-              'annotations': [
-                {
-                  'name': 'Case',
-                  'arguments': {'value': 'ChoiceKind.alpha'}
-                }
-              ],
-            },
-            {
-              'name': 'alphaExtra',
-              'kind': 'complex',
-              'sectionId': 'CHO-AL2',
-              'type': 'ChoicePart',
-              'annotations': [
-                {
-                  'name': 'Case',
-                  'arguments': {'value': 'ChoiceKind.alpha'}
-                }
-              ],
+              'name': 'entryCode',
+              'label': 'Entry Code',
+              'type': 'String',
+              'refersTo': ['RGE.code'],
             },
             {
-              'name': 'betaPart',
-              'kind': 'complex',
-              'sectionId': 'CHO-BET',
-              'type': 'ChoicePart',
-              'annotations': [
-                {
-                  'name': 'Case',
-                  'arguments': {'value': 'ChoiceKind.beta'}
-                }
-              ],
+              'name': 'entryId',
+              'label': 'Entry Id',
+              'type': 'String',
+              'refersTo': ['RGE.@sectionId'],
             },
             {
-              'name': 'commonPart',
-              'kind': 'complex',
-              'sectionId': 'CHO-COM',
-              'type': 'ChoicePart'
+              // A disjunction: the value may name a `code` OR an item
+              // section id, and a comma-separated value resolves segment
+              // by segment.
+              'name': 'anyRefs',
+              'label': 'Any Refs',
+              'type': 'String',
+              'refersTo': ['RGE.code', 'RGE.@sectionId'],
             },
           ],
         },
-        'ChoicePart': {
-          'name': 'ChoicePart',
-          'annotations': [
-            {
-              'name': 'CodeSpecKind',
-              'arguments': {
-                'kinds': ['CodeSpecPart.text'],
-              }
-            },
-          ],
-          'fields': [
-            {'name': 'note', 'kind': 'content'},
-          ],
+      ],
+    },
+    'Choice': {
+      'name': 'Choice',
+      'sectionId': 'CHO',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'CHO'},
         },
-        'Sidecar': {
-          'name': 'Sidecar',
-          'sectionId': 'SIDE',
-          // Deliberately carries NO routing verdict: a bare `@Document` root is
-          // structurally exempt from `ROUTE-TOTAL` (a root is the document, not
-          // a section of it). It is the fixture's only unannotated class, so a
-          // port that treats "no verdict" as an unconditional hard error fails
-          // here rather than only on a real specification.
-          'annotations': [
+        {
+          'name': 'OneOf',
+          'arguments': {'discriminator': 'kind'},
+        },
+        {
+          'name': 'NoArtifact',
+          'arguments': {'reason': 'NoArtifactReason.container'},
+        },
+      ],
+      'fields': [
+        {
+          'name': 'selector',
+          'kind': 'form',
+          'sectionId': 'CHO-SEL',
+          'formFields': [
             {
-              'name': 'Document',
-              'arguments': {'title': 'Sidecar Document'}
-            },
-            {
-              'name': 'SectionId',
-              'arguments': {'id': 'SIDE'}
-            },
-          ],
-          'fields': [
-            {
-              // Refers into `Demo`'s registry, which this root does NOT reach —
-              // the cross-document case the instance tier must pass over.
-              'name': 'details',
-              'kind': 'form',
-              'sectionId': 'SIDE-DET',
-              'formFields': [
-                {
-                  'name': 'entryCode',
-                  'label': 'Entry Code',
-                  'type': 'String',
-                  'refersTo': ['RGE.code'],
-                },
-              ],
+              'name': 'kind',
+              'label': 'Kind',
+              'type': 'ChoiceKind',
+              'enumValues': ['alpha', 'beta'],
             },
           ],
         },
-        'Control': {
-          'name': 'Control',
-          'sectionId': 'CTRL',
+        // Two subsections for `alpha` — so the "more than one populated
+        // subsection for the chosen case" branch is reachable — one for
+        // `beta`, and one common subsection carrying no `@Case` at all,
+        // which is legal under every choice.
+        {
+          'name': 'alphaPart',
+          'kind': 'complex',
+          'sectionId': 'CHO-ALP',
+          'type': 'ChoicePart',
           'annotations': [
             {
-              'name': 'SectionId',
-              'arguments': {'id': 'CTRL'}
-            },
-            // The fixture's `@FollowUpKind` subtree. `Control` is POPULATED by
-            // `_buildDocument` ('Controlled summary' / 'ctrl-owner'), so its
-            // absence from every extract is an assertion rather than an
-            // accident of an empty section.
-            {
-              'name': 'FollowUpKind',
-              'arguments': {
-                'processes': ['FollowUpProcess.doc'],
-                'note': 'delivered as operator documentation, not as code',
-              }
-            },
-          ],
-          'fields': [
-            // `summary` keeps a field-level content key (`CTRL-SUM summary:`);
-            // `owner` is id-less and keeps a bare content key (`owner:`).
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'CTRL-SUM'},
-            {'name': 'owner', 'kind': 'content'},
-          ],
-        },
-        // The target of `Demo.notes`, the fixture's one `section`-kind member.
-        // Kept to a single content leaf on purpose: what the case has to pin is
-        // the KIND — that a section collapses and keys on its class id — not a
-        // new leaf shape. Its own id (`NOTE`) is what the id-less `notes` member
-        // falls back to.
-        'Notes': {
-          'name': 'Notes',
-          'sectionId': 'NOTE',
-          'annotations': [
-            {
-              'name': 'SectionId',
-              'arguments': {'id': 'NOTE'}
-            },
-            {
-              'name': 'CodeSpecKind',
-              'arguments': {
-                'kinds': ['CodeSpecPart.text'],
-              }
-            },
-          ],
-          'fields': [
-            {'name': 'body', 'kind': 'content', 'sectionId': 'NOTE-BDY'},
-          ],
-        },
-        'Item': {
-          'name': 'Item',
-          // YRD4: class-level @Headline default — drives the item title stem
-          // ('Task 1', 'Task 2') instead of itemTitleStem('Item').
-          'headline': 'Task',
-          'annotations': [
-            {
-              'name': 'CodeSpecKind',
-              'arguments': {
-                'kinds': ['CodeSpecPart.form'],
-              }
-            },
-          ],
-          'fields': [
-            // Deliberately id-less: the transparent body-region member.
-            {'name': 'label', 'kind': 'content'},
-            {
-              'name': 'status',
-              'kind': 'enum',
-              'sectionId': 'STS',
-              'enumType': 'Status',
-              'enumValues': ['open', 'done'],
+              'name': 'Case',
+              'arguments': {'value': 'ChoiceKind.alpha'},
             },
           ],
         },
-        'Card': {
-          'name': 'Card',
-          // The fixture's one carrier of the traceability annotations and of a
-          // class doc comment. Without them the `mapsTo`/`detailedIn` query
-          // filters could only ever be pinned as "matches nothing", which a
-          // runtime that never implemented them satisfies just as well as one
-          // that did, and the doc-comment branch of headline resolution would
-          // never be reached. Card is the right carrier: nothing else reads
-          // these three (no md, docspecs or reflection golden mentions them),
-          // so they discriminate the query surface without moving anything
-          // else.
-          'mapsTo': 'CS00-CARD',
-          'detailedIn': 'BP00-CARDS',
-          'doc': 'A card entry.',
+        {
+          'name': 'alphaExtra',
+          'kind': 'complex',
+          'sectionId': 'CHO-AL2',
+          'type': 'ChoicePart',
           'annotations': [
             {
-              'name': 'CodeSpecKind',
-              'arguments': {
-                'kinds': ['CodeSpecPart.viewState'],
-              }
-            },
-          ],
-          'fields': [
-            {
-              // The section's OWN form (transparent, id-less `content` member).
-              'name': 'content',
-              'kind': 'form',
-              'formFields': [
-                {'name': 'note', 'label': 'Note', 'type': 'String'},
-              ],
+              'name': 'Case',
+              'arguments': {'value': 'ChoiceKind.alpha'},
             },
           ],
         },
-        'Meta': {
-          'name': 'Meta',
-          // The second `@NoArtifact` reason, and the one whose suppression is
-          // OBSERVABLE: unlike `Registry`/`Choice`, `Meta` is populated
-          // ('alice', the four tags), so a port that emits an unrouted class's
-          // own leaves fails here.
+        {
+          'name': 'betaPart',
+          'kind': 'complex',
+          'sectionId': 'CHO-BET',
+          'type': 'ChoicePart',
           'annotations': [
             {
-              'name': 'NoArtifact',
-              'arguments': {'reason': 'NoArtifactReason.overview'}
-            },
-          ],
-          'fields': [
-            {'name': 'owner', 'kind': 'content', 'sectionId': 'OWNR'},
-            {
-              'name': 'tags',
-              'kind': 'list',
-              'elementType': 'String',
-              'elementIsComplex': false,
+              'name': 'Case',
+              'arguments': {'value': 'ChoiceKind.beta'},
             },
           ],
         },
-      },
-    };
+        {
+          'name': 'commonPart',
+          'kind': 'complex',
+          'sectionId': 'CHO-COM',
+          'type': 'ChoicePart',
+        },
+      ],
+    },
+    'ChoicePart': {
+      'name': 'ChoicePart',
+      'annotations': [
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.text'],
+          },
+        },
+      ],
+      'fields': [
+        {'name': 'note', 'kind': 'content'},
+      ],
+    },
+    'Sidecar': {
+      'name': 'Sidecar',
+      'sectionId': 'SIDE',
+      // Deliberately carries NO routing verdict: a bare `@Document` root is
+      // structurally exempt from `ROUTE-TOTAL` (a root is the document, not
+      // a section of it). It is the fixture's only unannotated class, so a
+      // port that treats "no verdict" as an unconditional hard error fails
+      // here rather than only on a real specification.
+      'annotations': [
+        {
+          'name': 'Document',
+          'arguments': {'title': 'Sidecar Document'},
+        },
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'SIDE'},
+        },
+      ],
+      'fields': [
+        {
+          // Refers into `Demo`'s registry, which this root does NOT reach —
+          // the cross-document case the instance tier must pass over.
+          'name': 'details',
+          'kind': 'form',
+          'sectionId': 'SIDE-DET',
+          'formFields': [
+            {
+              'name': 'entryCode',
+              'label': 'Entry Code',
+              'type': 'String',
+              'refersTo': ['RGE.code'],
+            },
+          ],
+        },
+      ],
+    },
+    'Control': {
+      'name': 'Control',
+      'sectionId': 'CTRL',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'CTRL'},
+        },
+        // The fixture's `@FollowUpKind` subtree. `Control` is POPULATED by
+        // `_buildDocument` ('Controlled summary' / 'ctrl-owner'), so its
+        // absence from every extract is an assertion rather than an
+        // accident of an empty section.
+        {
+          'name': 'FollowUpKind',
+          'arguments': {
+            'processes': ['FollowUpProcess.doc'],
+            'note': 'delivered as operator documentation, not as code',
+          },
+        },
+      ],
+      'fields': [
+        // `summary` keeps a field-level content key (`CTRL-SUM summary:`);
+        // `owner` is id-less and keeps a bare content key (`owner:`).
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'CTRL-SUM'},
+        {'name': 'owner', 'kind': 'content'},
+      ],
+    },
+    // The target of `Demo.notes`, the fixture's one `section`-kind member.
+    // Kept to a single content leaf on purpose: what the case has to pin is
+    // the KIND — that a section collapses and keys on its class id — not a
+    // new leaf shape. Its own id (`NOTE`) is what the id-less `notes` member
+    // falls back to.
+    'Notes': {
+      'name': 'Notes',
+      'sectionId': 'NOTE',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'NOTE'},
+        },
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.text'],
+          },
+        },
+      ],
+      'fields': [
+        {'name': 'body', 'kind': 'content', 'sectionId': 'NOTE-BDY'},
+      ],
+    },
+    'Item': {
+      'name': 'Item',
+      // YRD4: class-level @Headline default — drives the item title stem
+      // ('Task 1', 'Task 2') instead of itemTitleStem('Item').
+      'headline': 'Task',
+      'annotations': [
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.form'],
+          },
+        },
+      ],
+      'fields': [
+        // Deliberately id-less: the transparent body-region member.
+        {'name': 'label', 'kind': 'content'},
+        {
+          'name': 'status',
+          'kind': 'enum',
+          'sectionId': 'STS',
+          'enumType': 'Status',
+          'enumValues': ['open', 'done'],
+        },
+      ],
+    },
+    'Card': {
+      'name': 'Card',
+      // The fixture's one carrier of the traceability annotations and of a
+      // class doc comment. Without them the `mapsTo`/`detailedIn` query
+      // filters could only ever be pinned as "matches nothing", which a
+      // runtime that never implemented them satisfies just as well as one
+      // that did, and the doc-comment branch of headline resolution would
+      // never be reached. Card is the right carrier: nothing else reads
+      // these three (no md, docspecs or reflection golden mentions them),
+      // so they discriminate the query surface without moving anything
+      // else.
+      'mapsTo': 'CS00-CARD',
+      'detailedIn': 'BP00-CARDS',
+      'doc': 'A card entry.',
+      'annotations': [
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.viewState'],
+          },
+        },
+      ],
+      'fields': [
+        {
+          // The section's OWN form (transparent, id-less `content` member).
+          'name': 'content',
+          'kind': 'form',
+          'formFields': [
+            {'name': 'note', 'label': 'Note', 'type': 'String'},
+          ],
+        },
+      ],
+    },
+    'Meta': {
+      'name': 'Meta',
+      // The second `@NoArtifact` reason, and the one whose suppression is
+      // OBSERVABLE: unlike `Registry`/`Choice`, `Meta` is populated
+      // ('alice', the four tags), so a port that emits an unrouted class's
+      // own leaves fails here.
+      'annotations': [
+        {
+          'name': 'NoArtifact',
+          'arguments': {'reason': 'NoArtifactReason.overview'},
+        },
+      ],
+      'fields': [
+        {'name': 'owner', 'kind': 'content', 'sectionId': 'OWNR'},
+        {
+          'name': 'tags',
+          'kind': 'list',
+          'elementType': 'String',
+          'elementIsComplex': false,
+        },
+      ],
+    },
+  },
+};
 
 /// The populated document the YAML/Markdown goldens are rendered from. Built
 /// through the public mutation API so the stored sequence numbers are real.
@@ -1794,9 +2011,11 @@ SpecDocument _buildDocument() {
   // ports: a runtime that emits the preamble unescaped writes a line the
   // parser will read back as `owner: this line is prose, not the field.`,
   // silently overwriting `Bob` — a byte-stable export that loses a value.
-  d.setContent('DEMO/DET',
-      'Captured during the November review.\n'
-      'Owner: this line is prose, not the field.');
+  d.setContent(
+    'DEMO/DET',
+    'Captured during the November review.\n'
+        'Owner: this line is prose, not the field.',
+  );
   final i1 = d.addListItem('DEMO/items');
   d.setContent('$i1/label', 'First');
   d.setContent('$i1/STS', 'open');
@@ -1911,19 +2130,20 @@ List<Map<String, dynamic>> _reflectionCases(SpecModel model) {
 List<Map<String, dynamic>> _validationCases(SpecModel model) {
   Map<String, dynamic> caseFor(String name, Map<String, Object?> state) {
     final d = SpecDocument()..loadJson(state);
-    final errs = validateDocument(model, d)
-        .map((e) => {'path': e.path, 'code': e.code.name})
-        .toList();
+    final errs = validateDocument(
+      model,
+      d,
+    ).map((e) => {'path': e.path, 'code': e.code.name}).toList();
     return {'name': name, 'state': state, 'errors': errs};
   }
 
   return [
     caseFor('valid', _buildDocument().toJson()),
     caseFor('dangling', {
-      'content': {'DEMO/ghost': 'x'}
+      'content': {'DEMO/ghost': 'x'},
     }),
     caseFor('kindMismatch', {
-      'content': {'DEMO/items': 'x'}
+      'content': {'DEMO/items': 'x'},
     }),
     // The one non-leaf that may carry content: a form node, whose content is
     // the preamble (SOM §11.4 rule 7). Pinned as its own case rather than left
@@ -1931,45 +2151,51 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
     // still pass if the exemption were widened to every non-leaf, and this case
     // sits directly beside the `kindMismatch` one that proves it was not.
     caseFor('formPreamble', {
-      'content': {'DEMO/DET': 'free text above the fields'}
+      'content': {'DEMO/DET': 'free text above the fields'},
     }),
     caseFor('unknownFormField', {
       'forms': {
-        'DEMO/DET': {'bogus': 'v'}
-      }
+        'DEMO/DET': {'bogus': 'v'},
+      },
     }),
     caseFor('minItems', {
       'lists': {
         'DEMO/items': {
           'seq': 1,
-          'items': ['DEMO/items-1']
-        }
-      }
+          'items': ['DEMO/items-1'],
+        },
+      },
     }),
     // --- csrf3: the two instance-tier checks ------------------------------
     //
     // Every case below is rooted in `DEMO` unless it says otherwise, so the
     // registry `RGE` is in scope and the reference check actually decides.
-    caseFor('referencesResolve', _registryState(
-      entryCode: 'ALPHA',
-      entryId: 'RGE-ALPHA',
-      anyRefs: 'BETA, RGE-2',
-    )),
-    caseFor('danglingReference', _registryState(
-      // One miss per target shape: an unknown `code`, an unknown item section
-      // id, and a two-segment disjunction whose second segment resolves in
-      // neither registry (the first still does, so exactly one error).
-      entryCode: 'GAMMA',
-      entryId: 'RGE-9',
-      anyRefs: 'ALPHA, NOPE',
-    )),
+    caseFor(
+      'referencesResolve',
+      _registryState(
+        entryCode: 'ALPHA',
+        entryId: 'RGE-ALPHA',
+        anyRefs: 'BETA, RGE-2',
+      ),
+    ),
+    caseFor(
+      'danglingReference',
+      _registryState(
+        // One miss per target shape: an unknown `code`, an unknown item section
+        // id, and a two-segment disjunction whose second segment resolves in
+        // neither registry (the first still does, so exactly one error).
+        entryCode: 'GAMMA',
+        entryId: 'RGE-9',
+        anyRefs: 'ALPHA, NOPE',
+      ),
+    ),
     // A reference is skipped, not reported, when the document's own root
     // cannot reach the target registry: `Sidecar` reaches no registry, so its
     // unresolvable reference is a cross-document one and stays silent.
     caseFor('crossDocumentReferenceSkipped', {
       'forms': {
-        'SIDE/SIDE-DET': {'entryCode': 'NOT-A-CODE'}
-      }
+        'SIDE/SIDE-DET': {'entryCode': 'NOT-A-CODE'},
+      },
     }),
     // …but the skip is about *scope*, not about the field: the same document
     // that also populates `Demo` brings `RGE` into scope, and then it fires.
@@ -1980,18 +2206,19 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
         anyRefs: 'ALPHA',
       );
       (state['forms'] as Map<String, Object?>)['SIDE/SIDE-DET'] = {
-        'entryCode': 'NOT-A-CODE'
+        'entryCode': 'NOT-A-CODE',
       };
       return state;
     }()),
     caseFor('oneOfCaseSelected', _choiceState('alpha', ['CHO-ALP', 'CHO-COM'])),
     // `beta` is populated while `alpha` is chosen — the common subsection is
     // always allowed and must not be reported alongside it.
-    caseFor('oneOfCaseMismatch',
-        _choiceState('alpha', ['CHO-BET', 'CHO-COM'])),
+    caseFor('oneOfCaseMismatch', _choiceState('alpha', ['CHO-BET', 'CHO-COM'])),
     // Two subsections bound to the *chosen* case: at most one may be present.
-    caseFor('oneOfCaseAmbiguous',
-        _choiceState('alpha', ['CHO-ALP', 'CHO-AL2'])),
+    caseFor(
+      'oneOfCaseAmbiguous',
+      _choiceState('alpha', ['CHO-ALP', 'CHO-AL2']),
+    ),
   ];
 }
 
@@ -2002,90 +2229,92 @@ Map<String, Object?> _registryState({
   required String entryCode,
   required String entryId,
   required String anyRefs,
-}) =>
-    {
-      'forms': {
-        'DEMO/REG/RGE-LST-1/RGE-DET': {'code': 'ALPHA', 'label': 'Alpha'},
-        'DEMO/REG/RGE-LST-2/RGE-DET': {'code': 'BETA', 'label': 'Beta'},
-        'DEMO/REG/RGL-LST-1/RGL-DET': {
-          'entryCode': entryCode,
-          'entryId': entryId,
-          'anyRefs': anyRefs,
-        },
-      },
-      'lists': {
-        'DEMO/REG/RGE-LST': {
-          'seq': 2,
-          'items': ['DEMO/REG/RGE-LST-1', 'DEMO/REG/RGE-LST-2'],
-          // Item 1 declares `RGE-ALPHA`; item 2 has no stored id, so its
-          // effective id is the pattern with the position (`RGE-2`). Both
-          // halves of the reserved `@sectionId` slot are therefore live.
-          'ids': {'DEMO/REG/RGE-LST-1': 'RGE-ALPHA'},
-        },
-        'DEMO/REG/RGL-LST': {
-          'seq': 1,
-          'items': ['DEMO/REG/RGL-LST-1'],
-        },
-      },
-    };
+}) => {
+  'forms': {
+    'DEMO/REG/RGE-LST-1/RGE-DET': {'code': 'ALPHA', 'label': 'Alpha'},
+    'DEMO/REG/RGE-LST-2/RGE-DET': {'code': 'BETA', 'label': 'Beta'},
+    'DEMO/REG/RGL-LST-1/RGL-DET': {
+      'entryCode': entryCode,
+      'entryId': entryId,
+      'anyRefs': anyRefs,
+    },
+  },
+  'lists': {
+    'DEMO/REG/RGE-LST': {
+      'seq': 2,
+      'items': ['DEMO/REG/RGE-LST-1', 'DEMO/REG/RGE-LST-2'],
+      // Item 1 declares `RGE-ALPHA`; item 2 has no stored id, so its
+      // effective id is the pattern with the position (`RGE-2`). Both
+      // halves of the reserved `@sectionId` slot are therefore live.
+      'ids': {'DEMO/REG/RGE-LST-1': 'RGE-ALPHA'},
+    },
+    'DEMO/REG/RGL-LST': {
+      'seq': 1,
+      'items': ['DEMO/REG/RGL-LST-1'],
+    },
+  },
+};
 
 /// A document state choosing [kind] on the `@OneOf` container and populating
 /// the subsections named by [populatedSectionIds].
-Map<String, Object?> _choiceState(String kind, List<String> populatedSectionIds) => {
-      'content': {
-        for (final id in populatedSectionIds)
-          'DEMO/REG/CHO/$id/note': 'body of $id',
-      },
-      'forms': {
-        'DEMO/REG/CHO/CHO-SEL': {'kind': kind}
-      },
-    };
+Map<String, Object?> _choiceState(
+  String kind,
+  List<String> populatedSectionIds,
+) => {
+  'content': {
+    for (final id in populatedSectionIds)
+      'DEMO/REG/CHO/$id/note': 'body of $id',
+  },
+  'forms': {
+    'DEMO/REG/CHO/CHO-SEL': {'kind': kind},
+  },
+};
 
 /// A model-free sequence of document mutations with their expected results —
 /// proves empty-clears, monotonic (never-reused) list sequence numbers, purge
 /// on removal, and form/list bookkeeping.
 List<Map<String, dynamic>> _operationsScript() => [
-      {'op': 'isEmpty', 'expect': true},
-      {'op': 'setContent', 'path': 'A/x', 'value': 'hi'},
-      {'op': 'content', 'path': 'A/x', 'expect': 'hi'},
-      {'op': 'isEmpty', 'expect': false},
-      {'op': 'setContent', 'path': 'A/x', 'value': ''},
-      {'op': 'content', 'path': 'A/x', 'expect': null},
-      {'op': 'isEmpty', 'expect': true},
-      {'op': 'setFormField', 'path': 'A/f', 'field': 'k', 'value': 'v'},
-      {'op': 'formField', 'path': 'A/f', 'field': 'k', 'expect': 'v'},
-      {'op': 'setFormField', 'path': 'A/f', 'field': 'k', 'value': ''},
-      {'op': 'formField', 'path': 'A/f', 'field': 'k', 'expect': null},
-      {'op': 'addListItem', 'listPath': 'A/l', 'expect': 'A/l-1'},
-      {'op': 'addListItem', 'listPath': 'A/l', 'expect': 'A/l-2'},
-      {'op': 'setContent', 'path': 'A/l-1/c', 'value': 'one'},
-      {
-        'op': 'listItems',
-        'listPath': 'A/l',
-        'expect': ['A/l-1', 'A/l-2']
-      },
-      {'op': 'listItemCount', 'listPath': 'A/l', 'expect': 2},
-      {'op': 'hasValuesUnder', 'prefix': 'A/l-1', 'expect': true},
-      {'op': 'removeListItem', 'itemPath': 'A/l-1', 'expect': true},
-      {'op': 'hasValuesUnder', 'prefix': 'A/l-1', 'expect': false},
-      {
-        'op': 'listItems',
-        'listPath': 'A/l',
-        'expect': ['A/l-2']
-      },
-      {'op': 'addListItem', 'listPath': 'A/l', 'expect': 'A/l-3'},
-      {'op': 'removeListItem', 'itemPath': 'A/l-9', 'expect': false},
-      // YRD3: stored headlines — set/read, empty-clears, purge on item removal.
-      {'op': 'setHeadline', 'path': 'A/h', 'value': 'Custom Heading'},
-      {'op': 'headline', 'path': 'A/h', 'expect': 'Custom Heading'},
-      {'op': 'isEmpty', 'expect': false},
-      {'op': 'setHeadline', 'path': 'A/h', 'value': ''},
-      {'op': 'headline', 'path': 'A/h', 'expect': null},
-      {'op': 'setHeadline', 'path': 'A/l-3/t', 'value': 'Item Heading'},
-      {'op': 'headline', 'path': 'A/l-3/t', 'expect': 'Item Heading'},
-      {'op': 'removeListItem', 'itemPath': 'A/l-3', 'expect': true},
-      {'op': 'headline', 'path': 'A/l-3/t', 'expect': null},
-    ];
+  {'op': 'isEmpty', 'expect': true},
+  {'op': 'setContent', 'path': 'A/x', 'value': 'hi'},
+  {'op': 'content', 'path': 'A/x', 'expect': 'hi'},
+  {'op': 'isEmpty', 'expect': false},
+  {'op': 'setContent', 'path': 'A/x', 'value': ''},
+  {'op': 'content', 'path': 'A/x', 'expect': null},
+  {'op': 'isEmpty', 'expect': true},
+  {'op': 'setFormField', 'path': 'A/f', 'field': 'k', 'value': 'v'},
+  {'op': 'formField', 'path': 'A/f', 'field': 'k', 'expect': 'v'},
+  {'op': 'setFormField', 'path': 'A/f', 'field': 'k', 'value': ''},
+  {'op': 'formField', 'path': 'A/f', 'field': 'k', 'expect': null},
+  {'op': 'addListItem', 'listPath': 'A/l', 'expect': 'A/l-1'},
+  {'op': 'addListItem', 'listPath': 'A/l', 'expect': 'A/l-2'},
+  {'op': 'setContent', 'path': 'A/l-1/c', 'value': 'one'},
+  {
+    'op': 'listItems',
+    'listPath': 'A/l',
+    'expect': ['A/l-1', 'A/l-2'],
+  },
+  {'op': 'listItemCount', 'listPath': 'A/l', 'expect': 2},
+  {'op': 'hasValuesUnder', 'prefix': 'A/l-1', 'expect': true},
+  {'op': 'removeListItem', 'itemPath': 'A/l-1', 'expect': true},
+  {'op': 'hasValuesUnder', 'prefix': 'A/l-1', 'expect': false},
+  {
+    'op': 'listItems',
+    'listPath': 'A/l',
+    'expect': ['A/l-2'],
+  },
+  {'op': 'addListItem', 'listPath': 'A/l', 'expect': 'A/l-3'},
+  {'op': 'removeListItem', 'itemPath': 'A/l-9', 'expect': false},
+  // YRD3: stored headlines — set/read, empty-clears, purge on item removal.
+  {'op': 'setHeadline', 'path': 'A/h', 'value': 'Custom Heading'},
+  {'op': 'headline', 'path': 'A/h', 'expect': 'Custom Heading'},
+  {'op': 'isEmpty', 'expect': false},
+  {'op': 'setHeadline', 'path': 'A/h', 'value': ''},
+  {'op': 'headline', 'path': 'A/h', 'expect': null},
+  {'op': 'setHeadline', 'path': 'A/l-3/t', 'value': 'Item Heading'},
+  {'op': 'headline', 'path': 'A/l-3/t', 'expect': 'Item Heading'},
+  {'op': 'removeListItem', 'itemPath': 'A/l-3', 'expect': true},
+  {'op': 'headline', 'path': 'A/l-3/t', 'expect': null},
+];
 
 /// The generic-editor corpus (YRD7): a scripted sequence of typed, meta-
 /// validated modifications executed against the corpus model by every
@@ -2107,229 +2336,318 @@ List<Map<String, dynamic>> _operationsScript() => [
 /// through BOTH dispatches, the value leaf and the form field, since a port
 /// wires those separately.
 List<Map<String, dynamic>> _editorScript() => [
-      // --- typed value leaves ------------------------------------------------
-      {'op': 'setValue', 'path': 'DEMO/CNT', 'value': 3},
-      {'op': 'value', 'path': 'DEMO/CNT', 'expect': 3},
-      {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': '3'},
-      {'op': 'setValue', 'path': 'DEMO/CNT', 'value': null},
-      {'op': 'value', 'path': 'DEMO/CNT', 'expect': null},
-      {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': null},
-      {'op': 'setValue', 'path': 'DEMO/CNT', 'value': '12'},
-      {'op': 'value', 'path': 'DEMO/CNT', 'expect': 12},
-      {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': '12'},
-      {'op': 'setValueThrows', 'path': 'DEMO/CNT', 'value': true},
-      {'op': 'value', 'path': 'DEMO/CNT', 'expect': 12},
-      // Forgiving read: raw garbage in the store reads as null, not an error.
-      {'op': 'setContent', 'path': 'DEMO/CNT', 'value': 'abc'},
-      {'op': 'value', 'path': 'DEMO/CNT', 'expect': null},
-      {'op': 'setContent', 'path': 'DEMO/CNT', 'value': ''},
-      // `double` LEAF (DEMO/RTO). `Details.weight` already covers the double
-      // conversion through the form store; this covers the other dispatch, and
-      // pins the rule that separates a faithful port from one that leans on its
-      // own number-to-string: an integral double writes `4.0`, never `4`.
-      {'op': 'setValue', 'path': 'DEMO/RTO', 'value': 2.5},
-      {'op': 'value', 'path': 'DEMO/RTO', 'expect': 2.5},
-      {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': '2.5'},
-      {'op': 'setValue', 'path': 'DEMO/RTO', 'value': 4},
-      {'op': 'value', 'path': 'DEMO/RTO', 'expect': 4.0},
-      {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': '4.0'},
-      // A String passes through VERBATIM even into a typed leaf, so the store
-      // keeps `6` — the formatter never runs. Reading it back still parses as a
-      // double, so `value` and `rawContent` legitimately disagree here.
-      {'op': 'setValue', 'path': 'DEMO/RTO', 'value': '6'},
-      {'op': 'value', 'path': 'DEMO/RTO', 'expect': 6.0},
-      {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': '6'},
-      {'op': 'setValueThrows', 'path': 'DEMO/RTO', 'value': true},
-      {'op': 'setContent', 'path': 'DEMO/RTO', 'value': 'abc'},
-      {'op': 'value', 'path': 'DEMO/RTO', 'expect': null},
-      {'op': 'setValue', 'path': 'DEMO/RTO', 'value': null},
-      {'op': 'value', 'path': 'DEMO/RTO', 'expect': null},
-      {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': null},
-      // `num` LEAF (DEMO/SCR) — the family whose rendering depends on the
-      // *value*, not the declared type: the same field writes `7` for an
-      // integral value and `7.5` for a fractional one. That is the opposite of
-      // the `double` rule directly above, which is why both have to be here:
-      // a port that implements one formatter for "any number" fails exactly
-      // one of these two blocks whichever way it chose.
-      {'op': 'setValue', 'path': 'DEMO/SCR', 'value': 7},
-      {'op': 'value', 'path': 'DEMO/SCR', 'expect': 7},
-      {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': '7'},
-      {'op': 'setValue', 'path': 'DEMO/SCR', 'value': 7.5},
-      {'op': 'value', 'path': 'DEMO/SCR', 'expect': 7.5},
-      {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': '7.5'},
-      {'op': 'setValue', 'path': 'DEMO/SCR', 'value': '9'},
-      {'op': 'value', 'path': 'DEMO/SCR', 'expect': 9},
-      {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': '9'},
-      {'op': 'setValueThrows', 'path': 'DEMO/SCR', 'value': true},
-      {'op': 'setContent', 'path': 'DEMO/SCR', 'value': 'abc'},
-      {'op': 'value', 'path': 'DEMO/SCR', 'expect': null},
-      {'op': 'setValue', 'path': 'DEMO/SCR', 'value': null},
-      {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': null},
-      // Enum leaf: validated constant-name strings.
-      {'op': 'setValue', 'path': 'DEMO/PRI', 'value': 'high'},
-      {'op': 'value', 'path': 'DEMO/PRI', 'expect': 'high'},
-      {'op': 'rawContent', 'path': 'DEMO/PRI', 'expect': 'high'},
-      {'op': 'setValueThrows', 'path': 'DEMO/PRI', 'value': 'urgent'},
-      {'op': 'setValueThrows', 'path': 'DEMO/PRI', 'value': 5},
-      {'op': 'value', 'path': 'DEMO/PRI', 'expect': 'high'},
-      {'op': 'setValue', 'path': 'DEMO/PRI', 'value': null},
-      {'op': 'value', 'path': 'DEMO/PRI', 'expect': null},
-      {'op': 'setContent', 'path': 'DEMO/PRI', 'value': 'urgent'},
-      {'op': 'value', 'path': 'DEMO/PRI', 'expect': null},
-      {'op': 'setContent', 'path': 'DEMO/PRI', 'value': ''},
-      // Plain content leaf.
-      {'op': 'setValue', 'path': 'DEMO/TTL', 'value': 'Hello'},
-      {'op': 'value', 'path': 'DEMO/TTL', 'expect': 'Hello'},
-      {'op': 'setValue', 'path': 'DEMO/TTL', 'value': ''},
-      {'op': 'value', 'path': 'DEMO/TTL', 'expect': null},
-      {'op': 'rawContent', 'path': 'DEMO/TTL', 'expect': null},
-      // Strict resolution: dangling and non-leaf paths are rejected.
-      {'op': 'setValueThrows', 'path': 'DEMO/ghost', 'value': 'x'},
-      {'op': 'setValueThrows', 'path': 'DEMO/items', 'value': 'x'},
-      {'op': 'setValueThrows', 'path': 'DEMO/META', 'value': 'x'},
-      {'op': 'setValueThrows', 'path': 'DEMO/DET', 'value': 'x'},
-      // The READ side of the same strictness. `value`/`formValue` resolve the
-      // path exactly as their write siblings do, and a port that made reads
-      // "forgiving" all the way down — returning null for a path that does not
-      // exist — would pass every other case in this file, because a null read
-      // is indistinguishable from an unset leaf. Only asking for the error
-      // separates "no value here" from "no such place".
-      {'op': 'valueThrows', 'path': 'DEMO/ghost'},
-      {'op': 'valueThrows', 'path': 'DEMO/items'},
-      {'op': 'valueThrows', 'path': 'DEMO/DET'},
-      {'op': 'formFieldNames', 'path': 'DEMO/DET',
-        'expect': ['owner', 'contact', 'estimate', 'weight', 'tally', 'active',
-          'priority']},
-      {'op': 'formFieldNamesThrows', 'path': 'DEMO/CNT'},
-      {'op': 'formValueThrows', 'path': 'DEMO/ghost', 'field': 'owner'},
-      {'op': 'formValueThrows', 'path': 'DEMO/CNT', 'field': 'owner'},
-      {'op': 'formValueThrows', 'path': 'DEMO/DET', 'field': 'bogus'},
-      // --- typed form fields (int / double / num / bool / enum) --------------
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'owner',
-        'value': 'Bob'},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'owner',
-        'expect': 'Bob'},
-      {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'owner',
-        'value': 5},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'owner',
-        'expect': 'Bob'},
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'estimate',
-        'value': 8},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'estimate',
-        'expect': 8},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'estimate',
-        'expect': '8'},
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'estimate',
-        'value': '12'},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'estimate',
-        'expect': 12},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'estimate',
-        'expect': '12'},
-      {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'estimate',
-        'value': true},
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'weight',
-        'value': 2.5},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'weight',
-        'expect': 2.5},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'weight',
-        'expect': '2.5'},
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'weight', 'value': 2},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'weight', 'expect': 2.0},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'weight',
-        'expect': '2.0'},
-      // The `num` form field. Same family as `DEMO/SCR` above, different
-      // dispatch: `formValue`/`setFormValue` pick the converter from the FORM
-      // FIELD's declared type, not from a resolved model node, so the two are
-      // separate code paths in every port.
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'tally', 'value': 3},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'tally', 'expect': 3},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'tally',
-        'expect': '3'},
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'tally',
-        'value': 3.25},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'tally',
-        'expect': 3.25},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'tally',
-        'expect': '3.25'},
-      {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'tally',
-        'value': true},
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'tally',
-        'value': null},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'tally',
-        'expect': null},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'tally',
-        'expect': null},
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'active',
-        'value': true},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active',
-        'expect': true},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'active',
-        'expect': 'true'},
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'active',
-        'value': false},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active',
-        'expect': false},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'active',
-        'expect': 'false'},
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'priority',
-        'value': 'high'},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'priority',
-        'expect': 'high'},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'priority',
-        'expect': 'high'},
-      // Out-of-domain enum name and unknown field are rejected; null clears.
-      {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'priority',
-        'value': 'urgent'},
-      {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'bogus',
-        'value': 'x'},
-      {'op': 'setFormValueThrows', 'path': 'DEMO/ghost', 'field': 'owner',
-        'value': 'x'},
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'estimate',
-        'value': null},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'estimate',
-        'expect': null},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'estimate',
-        'expect': null},
-      // Forgiving typed read of raw garbage in the form store.
-      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'active',
-        'value': 'not-a-bool'},
-      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active',
-        'expect': null},
-      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'active',
-        'expect': 'not-a-bool'},
-      // --- structural ops: pattern id generation, clear ---------------------
-      {'op': 'addListItem', 'listPath': 'DEMO/REF-LST', 'month': 3, 'day': 4,
-        'expectPath': 'DEMO/REF-LST-1', 'expectId': 'REF-CD1'},
-      {'op': 'itemSectionId', 'itemPath': 'DEMO/REF-LST-1',
-        'expect': 'REF-CD1'},
-      {'op': 'setValue', 'path': 'DEMO/REF-LST-1', 'value': 'spec §1.2'},
-      {'op': 'value', 'path': 'DEMO/REF-LST-1', 'expect': 'spec §1.2'},
-      {'op': 'addListItemThrows', 'listPath': 'DEMO/CNT', 'month': 3, 'day': 4},
-      {'op': 'addListItem', 'listPath': 'DEMO/CARD-LST', 'month': 3, 'day': 4,
-        'expectPath': 'DEMO/CARD-LST-1', 'expectId': 'CARD-CD1'},
-      {'op': 'setFormValue', 'path': 'DEMO/CARD-LST-1/content',
-        'field': 'note', 'value': 'first card'},
-      // clearSection drops every value under a subtree; removeListItem drops
-      // one item.
-      {'op': 'setValue', 'path': 'DEMO/META/OWNR', 'value': 'alice'},
-      {'op': 'setHeadline', 'path': 'DEMO/META', 'value': 'Metadata'},
-      {'op': 'hasValuesUnder', 'prefix': 'DEMO/META', 'expect': true},
-      {'op': 'clearSection', 'path': 'DEMO/META'},
-      {'op': 'hasValuesUnder', 'prefix': 'DEMO/META', 'expect': false},
-      {'op': 'rawContent', 'path': 'DEMO/META/OWNR', 'expect': null},
-      {'op': 'headline', 'path': 'DEMO/META', 'expect': null},
-      {'op': 'clearSectionThrows', 'path': 'DEMO/ghost'},
-      {'op': 'hasValuesUnder', 'prefix': 'DEMO/CARD-LST-1', 'expect': true},
-      {'op': 'removeListItem', 'itemPath': 'DEMO/CARD-LST-1', 'expect': true},
-      {'op': 'hasValuesUnder', 'prefix': 'DEMO/CARD-LST-1', 'expect': false},
-      {'op': 'removeListItem', 'itemPath': 'DEMO/CARD-LST-9', 'expect': false},
-      // Headlines through the editor (resolution-checked).
-      {'op': 'setHeadline', 'path': 'DEMO/SUM', 'value': 'Exec Summary'},
-      {'op': 'headline', 'path': 'DEMO/SUM', 'expect': 'Exec Summary'},
-      {'op': 'setHeadline', 'path': 'DEMO/SUM', 'value': ''},
-      {'op': 'headline', 'path': 'DEMO/SUM', 'expect': null},
-      {'op': 'headlineThrows', 'path': 'DEMO/ghost'},
-    ];
+  // --- typed value leaves ------------------------------------------------
+  {'op': 'setValue', 'path': 'DEMO/CNT', 'value': 3},
+  {'op': 'value', 'path': 'DEMO/CNT', 'expect': 3},
+  {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': '3'},
+  {'op': 'setValue', 'path': 'DEMO/CNT', 'value': null},
+  {'op': 'value', 'path': 'DEMO/CNT', 'expect': null},
+  {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': null},
+  {'op': 'setValue', 'path': 'DEMO/CNT', 'value': '12'},
+  {'op': 'value', 'path': 'DEMO/CNT', 'expect': 12},
+  {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': '12'},
+  {'op': 'setValueThrows', 'path': 'DEMO/CNT', 'value': true},
+  {'op': 'value', 'path': 'DEMO/CNT', 'expect': 12},
+  // Forgiving read: raw garbage in the store reads as null, not an error.
+  {'op': 'setContent', 'path': 'DEMO/CNT', 'value': 'abc'},
+  {'op': 'value', 'path': 'DEMO/CNT', 'expect': null},
+  {'op': 'setContent', 'path': 'DEMO/CNT', 'value': ''},
+  // `double` LEAF (DEMO/RTO). `Details.weight` already covers the double
+  // conversion through the form store; this covers the other dispatch, and
+  // pins the rule that separates a faithful port from one that leans on its
+  // own number-to-string: an integral double writes `4.0`, never `4`.
+  {'op': 'setValue', 'path': 'DEMO/RTO', 'value': 2.5},
+  {'op': 'value', 'path': 'DEMO/RTO', 'expect': 2.5},
+  {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': '2.5'},
+  {'op': 'setValue', 'path': 'DEMO/RTO', 'value': 4},
+  {'op': 'value', 'path': 'DEMO/RTO', 'expect': 4.0},
+  {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': '4.0'},
+  // A String passes through VERBATIM even into a typed leaf, so the store
+  // keeps `6` — the formatter never runs. Reading it back still parses as a
+  // double, so `value` and `rawContent` legitimately disagree here.
+  {'op': 'setValue', 'path': 'DEMO/RTO', 'value': '6'},
+  {'op': 'value', 'path': 'DEMO/RTO', 'expect': 6.0},
+  {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': '6'},
+  {'op': 'setValueThrows', 'path': 'DEMO/RTO', 'value': true},
+  {'op': 'setContent', 'path': 'DEMO/RTO', 'value': 'abc'},
+  {'op': 'value', 'path': 'DEMO/RTO', 'expect': null},
+  {'op': 'setValue', 'path': 'DEMO/RTO', 'value': null},
+  {'op': 'value', 'path': 'DEMO/RTO', 'expect': null},
+  {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': null},
+  // `num` LEAF (DEMO/SCR) — the family whose rendering depends on the
+  // *value*, not the declared type: the same field writes `7` for an
+  // integral value and `7.5` for a fractional one. That is the opposite of
+  // the `double` rule directly above, which is why both have to be here:
+  // a port that implements one formatter for "any number" fails exactly
+  // one of these two blocks whichever way it chose.
+  {'op': 'setValue', 'path': 'DEMO/SCR', 'value': 7},
+  {'op': 'value', 'path': 'DEMO/SCR', 'expect': 7},
+  {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': '7'},
+  {'op': 'setValue', 'path': 'DEMO/SCR', 'value': 7.5},
+  {'op': 'value', 'path': 'DEMO/SCR', 'expect': 7.5},
+  {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': '7.5'},
+  {'op': 'setValue', 'path': 'DEMO/SCR', 'value': '9'},
+  {'op': 'value', 'path': 'DEMO/SCR', 'expect': 9},
+  {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': '9'},
+  {'op': 'setValueThrows', 'path': 'DEMO/SCR', 'value': true},
+  {'op': 'setContent', 'path': 'DEMO/SCR', 'value': 'abc'},
+  {'op': 'value', 'path': 'DEMO/SCR', 'expect': null},
+  {'op': 'setValue', 'path': 'DEMO/SCR', 'value': null},
+  {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': null},
+  // Enum leaf: validated constant-name strings.
+  {'op': 'setValue', 'path': 'DEMO/PRI', 'value': 'high'},
+  {'op': 'value', 'path': 'DEMO/PRI', 'expect': 'high'},
+  {'op': 'rawContent', 'path': 'DEMO/PRI', 'expect': 'high'},
+  {'op': 'setValueThrows', 'path': 'DEMO/PRI', 'value': 'urgent'},
+  {'op': 'setValueThrows', 'path': 'DEMO/PRI', 'value': 5},
+  {'op': 'value', 'path': 'DEMO/PRI', 'expect': 'high'},
+  {'op': 'setValue', 'path': 'DEMO/PRI', 'value': null},
+  {'op': 'value', 'path': 'DEMO/PRI', 'expect': null},
+  {'op': 'setContent', 'path': 'DEMO/PRI', 'value': 'urgent'},
+  {'op': 'value', 'path': 'DEMO/PRI', 'expect': null},
+  {'op': 'setContent', 'path': 'DEMO/PRI', 'value': ''},
+  // Plain content leaf.
+  {'op': 'setValue', 'path': 'DEMO/TTL', 'value': 'Hello'},
+  {'op': 'value', 'path': 'DEMO/TTL', 'expect': 'Hello'},
+  {'op': 'setValue', 'path': 'DEMO/TTL', 'value': ''},
+  {'op': 'value', 'path': 'DEMO/TTL', 'expect': null},
+  {'op': 'rawContent', 'path': 'DEMO/TTL', 'expect': null},
+  // Strict resolution: dangling and non-leaf paths are rejected.
+  {'op': 'setValueThrows', 'path': 'DEMO/ghost', 'value': 'x'},
+  {'op': 'setValueThrows', 'path': 'DEMO/items', 'value': 'x'},
+  {'op': 'setValueThrows', 'path': 'DEMO/META', 'value': 'x'},
+  {'op': 'setValueThrows', 'path': 'DEMO/DET', 'value': 'x'},
+  // The READ side of the same strictness. `value`/`formValue` resolve the
+  // path exactly as their write siblings do, and a port that made reads
+  // "forgiving" all the way down — returning null for a path that does not
+  // exist — would pass every other case in this file, because a null read
+  // is indistinguishable from an unset leaf. Only asking for the error
+  // separates "no value here" from "no such place".
+  {'op': 'valueThrows', 'path': 'DEMO/ghost'},
+  {'op': 'valueThrows', 'path': 'DEMO/items'},
+  {'op': 'valueThrows', 'path': 'DEMO/DET'},
+  {
+    'op': 'formFieldNames',
+    'path': 'DEMO/DET',
+    'expect': [
+      'owner',
+      'contact',
+      'estimate',
+      'weight',
+      'tally',
+      'active',
+      'priority',
+    ],
+  },
+  {'op': 'formFieldNamesThrows', 'path': 'DEMO/CNT'},
+  {'op': 'formValueThrows', 'path': 'DEMO/ghost', 'field': 'owner'},
+  {'op': 'formValueThrows', 'path': 'DEMO/CNT', 'field': 'owner'},
+  {'op': 'formValueThrows', 'path': 'DEMO/DET', 'field': 'bogus'},
+  // --- typed form fields (int / double / num / bool / enum) --------------
+  {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'owner', 'value': 'Bob'},
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'owner', 'expect': 'Bob'},
+  {
+    'op': 'setFormValueThrows',
+    'path': 'DEMO/DET',
+    'field': 'owner',
+    'value': 5,
+  },
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'owner', 'expect': 'Bob'},
+  {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'estimate', 'value': 8},
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'estimate', 'expect': 8},
+  {
+    'op': 'rawFormField',
+    'path': 'DEMO/DET',
+    'field': 'estimate',
+    'expect': '8',
+  },
+  {
+    'op': 'setFormValue',
+    'path': 'DEMO/DET',
+    'field': 'estimate',
+    'value': '12',
+  },
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'estimate', 'expect': 12},
+  {
+    'op': 'rawFormField',
+    'path': 'DEMO/DET',
+    'field': 'estimate',
+    'expect': '12',
+  },
+  {
+    'op': 'setFormValueThrows',
+    'path': 'DEMO/DET',
+    'field': 'estimate',
+    'value': true,
+  },
+  {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'weight', 'value': 2.5},
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'weight', 'expect': 2.5},
+  {
+    'op': 'rawFormField',
+    'path': 'DEMO/DET',
+    'field': 'weight',
+    'expect': '2.5',
+  },
+  {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'weight', 'value': 2},
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'weight', 'expect': 2.0},
+  {
+    'op': 'rawFormField',
+    'path': 'DEMO/DET',
+    'field': 'weight',
+    'expect': '2.0',
+  },
+  // The `num` form field. Same family as `DEMO/SCR` above, different
+  // dispatch: `formValue`/`setFormValue` pick the converter from the FORM
+  // FIELD's declared type, not from a resolved model node, so the two are
+  // separate code paths in every port.
+  {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'tally', 'value': 3},
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'tally', 'expect': 3},
+  {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'tally', 'expect': '3'},
+  {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'tally', 'value': 3.25},
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'tally', 'expect': 3.25},
+  {
+    'op': 'rawFormField',
+    'path': 'DEMO/DET',
+    'field': 'tally',
+    'expect': '3.25',
+  },
+  {
+    'op': 'setFormValueThrows',
+    'path': 'DEMO/DET',
+    'field': 'tally',
+    'value': true,
+  },
+  {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'tally', 'value': null},
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'tally', 'expect': null},
+  {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'tally', 'expect': null},
+  {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'active', 'value': true},
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active', 'expect': true},
+  {
+    'op': 'rawFormField',
+    'path': 'DEMO/DET',
+    'field': 'active',
+    'expect': 'true',
+  },
+  {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'active', 'value': false},
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active', 'expect': false},
+  {
+    'op': 'rawFormField',
+    'path': 'DEMO/DET',
+    'field': 'active',
+    'expect': 'false',
+  },
+  {
+    'op': 'setFormValue',
+    'path': 'DEMO/DET',
+    'field': 'priority',
+    'value': 'high',
+  },
+  {
+    'op': 'formValue',
+    'path': 'DEMO/DET',
+    'field': 'priority',
+    'expect': 'high',
+  },
+  {
+    'op': 'rawFormField',
+    'path': 'DEMO/DET',
+    'field': 'priority',
+    'expect': 'high',
+  },
+  // Out-of-domain enum name and unknown field are rejected; null clears.
+  {
+    'op': 'setFormValueThrows',
+    'path': 'DEMO/DET',
+    'field': 'priority',
+    'value': 'urgent',
+  },
+  {
+    'op': 'setFormValueThrows',
+    'path': 'DEMO/DET',
+    'field': 'bogus',
+    'value': 'x',
+  },
+  {
+    'op': 'setFormValueThrows',
+    'path': 'DEMO/ghost',
+    'field': 'owner',
+    'value': 'x',
+  },
+  {
+    'op': 'setFormValue',
+    'path': 'DEMO/DET',
+    'field': 'estimate',
+    'value': null,
+  },
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'estimate', 'expect': null},
+  {
+    'op': 'rawFormField',
+    'path': 'DEMO/DET',
+    'field': 'estimate',
+    'expect': null,
+  },
+  // Forgiving typed read of raw garbage in the form store.
+  {
+    'op': 'setFormValue',
+    'path': 'DEMO/DET',
+    'field': 'active',
+    'value': 'not-a-bool',
+  },
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active', 'expect': null},
+  {
+    'op': 'rawFormField',
+    'path': 'DEMO/DET',
+    'field': 'active',
+    'expect': 'not-a-bool',
+  },
+  // --- structural ops: pattern id generation, clear ---------------------
+  {
+    'op': 'addListItem',
+    'listPath': 'DEMO/REF-LST',
+    'month': 3,
+    'day': 4,
+    'expectPath': 'DEMO/REF-LST-1',
+    'expectId': 'REF-CD1',
+  },
+  {'op': 'itemSectionId', 'itemPath': 'DEMO/REF-LST-1', 'expect': 'REF-CD1'},
+  {'op': 'setValue', 'path': 'DEMO/REF-LST-1', 'value': 'spec §1.2'},
+  {'op': 'value', 'path': 'DEMO/REF-LST-1', 'expect': 'spec §1.2'},
+  {'op': 'addListItemThrows', 'listPath': 'DEMO/CNT', 'month': 3, 'day': 4},
+  {
+    'op': 'addListItem',
+    'listPath': 'DEMO/CARD-LST',
+    'month': 3,
+    'day': 4,
+    'expectPath': 'DEMO/CARD-LST-1',
+    'expectId': 'CARD-CD1',
+  },
+  {
+    'op': 'setFormValue',
+    'path': 'DEMO/CARD-LST-1/content',
+    'field': 'note',
+    'value': 'first card',
+  },
+  // clearSection drops every value under a subtree; removeListItem drops
+  // one item.
+  {'op': 'setValue', 'path': 'DEMO/META/OWNR', 'value': 'alice'},
+  {'op': 'setHeadline', 'path': 'DEMO/META', 'value': 'Metadata'},
+  {'op': 'hasValuesUnder', 'prefix': 'DEMO/META', 'expect': true},
+  {'op': 'clearSection', 'path': 'DEMO/META'},
+  {'op': 'hasValuesUnder', 'prefix': 'DEMO/META', 'expect': false},
+  {'op': 'rawContent', 'path': 'DEMO/META/OWNR', 'expect': null},
+  {'op': 'headline', 'path': 'DEMO/META', 'expect': null},
+  {'op': 'clearSectionThrows', 'path': 'DEMO/ghost'},
+  {'op': 'hasValuesUnder', 'prefix': 'DEMO/CARD-LST-1', 'expect': true},
+  {'op': 'removeListItem', 'itemPath': 'DEMO/CARD-LST-1', 'expect': true},
+  {'op': 'hasValuesUnder', 'prefix': 'DEMO/CARD-LST-1', 'expect': false},
+  {'op': 'removeListItem', 'itemPath': 'DEMO/CARD-LST-9', 'expect': false},
+  // Headlines through the editor (resolution-checked).
+  {'op': 'setHeadline', 'path': 'DEMO/SUM', 'value': 'Exec Summary'},
+  {'op': 'headline', 'path': 'DEMO/SUM', 'expect': 'Exec Summary'},
+  {'op': 'setHeadline', 'path': 'DEMO/SUM', 'value': ''},
+  {'op': 'headline', 'path': 'DEMO/SUM', 'expect': null},
+  {'op': 'headlineThrows', 'path': 'DEMO/ghost'},
+];
 
 int? _secondsToMillis(int? seconds) => seconds == null ? null : seconds * 1000;
 
@@ -2362,12 +2680,11 @@ Map<String, dynamic> _stampCase({
     'model': {
       ...stamp,
       'roots': [
-        for (var i = 0; i < roots; i++)
-          {'type': 'R$i', 'title': 'Root $i'}
+        for (var i = 0; i < roots; i++) {'type': 'R$i', 'title': 'Root $i'},
       ],
       'classes': {
         for (var i = 0; i < classes; i++)
-          'C$i': {'name': 'C$i', 'fields': <dynamic>[]}
+          'C$i': {'name': 'C$i', 'fields': <dynamic>[]},
       },
     },
     'expect': {
@@ -2528,7 +2845,7 @@ Map<String, dynamic> _stampCases() {
         isAged: true,
         warnings: const [
           'Snapshot is 1 days old (threshold 0 days) — the model may have '
-              'moved on since it was exported.'
+              'moved on since it was exported.',
         ],
       ),
       _stampCase(
@@ -2622,15 +2939,14 @@ Map<String, dynamic> _editabilityCases() {
     required String? documentVersion,
     required String editability,
     String? message,
-  }) =>
-      {
-        'name': name,
-        'generated': generated,
-        'documentVersion': documentVersion,
-        'editability': editability,
-        'rejects': message != null,
-        'message': message,
-      };
+  }) => {
+    'name': name,
+    'generated': generated,
+    'documentVersion': documentVersion,
+    'editability': editability,
+    'rejects': message != null,
+    'message': message,
+  };
   String badStamp(String v) =>
       'document model version "$v" is not a valid major.minor';
   String crossMajor(int docMajor, int genMajor) =>
@@ -2647,7 +2963,8 @@ Map<String, dynamic> _editabilityCases() {
         editability: 'editable',
       ),
       c(
-        name: 'an older minor of the same major is editable, and upgraded on '
+        name:
+            'an older minor of the same major is editable, and upgraded on '
             'edit',
         documentVersion: '2.1',
         editability: 'editable',
@@ -2668,7 +2985,8 @@ Map<String, dynamic> _editabilityCases() {
       // in every component, so an implementation that treats major as an
       // ordering rather than an identity calls this editable.
       c(
-        name: 'a lower major is read-only too — cross-major is an identity, '
+        name:
+            'a lower major is read-only too — cross-major is an identity, '
             'not an ordering',
         documentVersion: '1.9',
         editability: 'readOnlyCrossMajor',
@@ -2786,8 +3104,11 @@ Map<String, dynamic> _markdownImportCases() {
       '(under "$parent")';
 
   Map<String, dynamic> rej(
-          int line, String reason, String? anchor, String message) =>
-      {'line': line, 'reason': reason, 'anchor': anchor, 'message': message};
+    int line,
+    String reason,
+    String? anchor,
+    String message,
+  ) => {'line': line, 'reason': reason, 'anchor': anchor, 'message': message};
 
   // The source is written as a line list so a case's expected line numbers can
   // be read off its own literal — the whole table is about line numbers, and a
@@ -2797,18 +3118,18 @@ Map<String, dynamic> _markdownImportCases() {
     required List<String> markdown,
     required List<Map<String, dynamic>> rejections,
     required Map<String, dynamic> document,
-  }) =>
-      {
-        'name': name,
-        'markdown': '${markdown.join('\n')}\n',
-        'rejections': rejections,
-        'document': document,
-      };
+  }) => {
+    'name': name,
+    'markdown': '${markdown.join('\n')}\n',
+    'rejections': rejections,
+    'document': document,
+  };
 
   return {
     'cases': [
       c(
-        name: 'text before the document root is reported, and the rest of the '
+        name:
+            'text before the document root is reported, and the rest of the '
             'document still imports',
         markdown: [
           'Stray preamble.', //                                        1
@@ -2821,14 +3142,15 @@ Map<String, dynamic> _markdownImportCases() {
         ],
         rejections: [rej(1, 'orphanContent', null, beforeRoot)],
         document: {
-          'content': {'DEMO/TTL': 'Hello'}
+          'content': {'DEMO/TTL': 'Hello'},
         },
       ),
       // A block is reported *once*, at its heading — not once per body line.
       // The body lines are the tempting second report, and a port that emits
       // one per line passes a rejections-are-non-empty check but fails here.
       c(
-        name: 'a heading with no headline comment is reported once, at the '
+        name:
+            'a heading with no headline comment is reported once, at the '
             'heading, not once per swallowed body line',
         markdown: [
           '# <!--[DEMO]--> Demo Document', //                          1
@@ -2850,11 +3172,12 @@ Map<String, dynamic> _markdownImportCases() {
           rej(7, 'malformedHeading', 'A Heading With No Comment', noComment),
         ],
         document: {
-          'content': {'DEMO/PRI': 'high', 'DEMO/TTL': 'Hello'}
+          'content': {'DEMO/PRI': 'high', 'DEMO/TTL': 'Hello'},
         },
       ),
       c(
-        name: 'an id that does not resolve at its position is reported against '
+        name:
+            'an id that does not resolve at its position is reported against '
             'the parent path, and its siblings still import',
         markdown: [
           '# <!--[DEMO]--> Demo Document', //                          1
@@ -2871,18 +3194,17 @@ Map<String, dynamic> _markdownImportCases() {
           '', //                                                      12
           'high', //                                                  13
         ],
-        rejections: [
-          rej(7, 'unknownSection', 'NOSUCH', noResolve('DEMO')),
-        ],
+        rejections: [rej(7, 'unknownSection', 'NOSUCH', noResolve('DEMO'))],
         document: {
-          'content': {'DEMO/PRI': 'high', 'DEMO/TTL': 'Hello'}
+          'content': {'DEMO/PRI': 'high', 'DEMO/TTL': 'Hello'},
         },
       ),
       // The nesting case: an unresolvable parent must not swallow its children
       // silently. Both the parent and the child are reported, with different
       // messages — the child's names *why* it could not be placed.
       c(
-        name: 'a section under an unresolvable parent is reported too, not '
+        name:
+            'a section under an unresolvable parent is reported too, not '
             'swallowed with it',
         markdown: [
           '# <!--[DEMO]--> Demo Document', //                          1
@@ -2902,13 +3224,14 @@ Map<String, dynamic> _markdownImportCases() {
           rej(5, 'unknownSection', 'TTL', orphanParent),
         ],
         document: {
-          'content': {'DEMO/PRI': 'high'}
+          'content': {'DEMO/PRI': 'high'},
         },
       ),
       // A wrong *root* is the one unknownSection that cannot name a parent
       // path, so it names the roots that do exist instead. Nothing lands.
       c(
-        name: 'a root id that is not a document root names the roots that are, '
+        name:
+            'a root id that is not a document root names the roots that are, '
             'and nothing lands',
         markdown: [
           '<!-- docspec: demo-document/1.0 -->', //                     1
@@ -2925,7 +3248,8 @@ Map<String, dynamic> _markdownImportCases() {
         document: const <String, dynamic>{},
       ),
       c(
-        name: 'a child heading under a value leaf is a kind mismatch, and the '
+        name:
+            'a child heading under a value leaf is a kind mismatch, and the '
             'leaf keeps its own value',
         markdown: [
           '# <!--[DEMO]--> Demo Document', //                          1
@@ -2944,7 +3268,7 @@ Map<String, dynamic> _markdownImportCases() {
         ],
         rejections: [rej(7, 'kindMismatch', 'STS', childUnderLeaf)],
         document: {
-          'content': {'DEMO/PRI': 'high', 'DEMO/TTL': 'Hello'}
+          'content': {'DEMO/PRI': 'high', 'DEMO/TTL': 'Hello'},
         },
       ),
       // `missingValue` is the one reason raised when a frame *closes*, not when
@@ -2952,7 +3276,8 @@ Map<String, dynamic> _markdownImportCases() {
       // the parser only knows at the next heading. Its anchor is the resolved
       // path, not the raw id: the section did resolve, it just carried nothing.
       c(
-        name: 'a value-leaf heading with no body is a missing value, anchored '
+        name:
+            'a value-leaf heading with no body is a missing value, anchored '
             'on the resolved path and reported at its own heading line',
         markdown: [
           '# <!--[DEMO]--> Demo Document', //                          1
@@ -2969,7 +3294,7 @@ Map<String, dynamic> _markdownImportCases() {
         ],
         rejections: [rej(7, 'missingValue', 'DEMO/PRI', noValue)],
         document: {
-          'content': {'DEMO/CNT': '3', 'DEMO/TTL': 'Hello'}
+          'content': {'DEMO/CNT': '3', 'DEMO/TTL': 'Hello'},
         },
       ),
       // The `orphanContent` case that is *not* one. `DET` is a `@Form`, and
@@ -2978,7 +3303,8 @@ Map<String, dynamic> _markdownImportCases() {
       // nothing is rejected. Kept as a case precisely because it used to be a
       // rejection: a port that still reports here has not read rule 7.
       c(
-        name: 'text in a form section before the first field label is the '
+        name:
+            'text in a form section before the first field label is the '
             "form's preamble, and lands beside the fields",
         markdown: [
           '# <!--[DEMO]--> Demo Document', //                          1
@@ -2993,7 +3319,7 @@ Map<String, dynamic> _markdownImportCases() {
         document: {
           'content': {'DEMO/DET': 'loose prose with no field label'},
           'forms': {
-            'DEMO/DET': {'contact': 'bob@example.com', 'owner': 'Bob'}
+            'DEMO/DET': {'contact': 'bob@example.com', 'owner': 'Bob'},
           },
           'headlines': {'DEMO/DET': 'Details & Contacts'},
         },
@@ -3003,7 +3329,8 @@ Map<String, dynamic> _markdownImportCases() {
       // under an *item* — to reach the resolver at all. The list membership
       // still lands, and the sibling after the rejected block still resolves.
       c(
-        name: 'an id that does not resolve under a list item is reported '
+        name:
+            'an id that does not resolve under a list item is reported '
             'against the item path, and the list still imports',
         markdown: [
           '# <!--[DEMO]--> Demo Document', //                          1
@@ -3039,7 +3366,7 @@ Map<String, dynamic> _markdownImportCases() {
             'DEMO/items': {
               'seq': 1,
               'items': ['DEMO/items-1'],
-            }
+            },
           },
         },
       ),
@@ -3049,7 +3376,8 @@ Map<String, dynamic> _markdownImportCases() {
       // `missingValue` for `PRI` (line 17) is raised when `PRI`'s frame closes,
       // i.e. while the parser is already looking at line 19.
       c(
-        name: 'all five reasons in one document: every rejected block is '
+        name:
+            'all five reasons in one document: every rejected block is '
             'reported and everything else still lands',
         markdown: [
           'Stray preamble before the root.', //                        1
@@ -3097,7 +3425,7 @@ Map<String, dynamic> _markdownImportCases() {
             'DEMO/TTL': 'Hello',
           },
           'forms': {
-            'DEMO/DET': {'owner': 'Bob'}
+            'DEMO/DET': {'owner': 'Bob'},
           },
           'headlines': {'DEMO/DET': 'Details & Contacts'},
         },
@@ -3113,145 +3441,141 @@ Map<String, dynamic> _markdownImportCases() {
 /// two-letter code). Generated ids use the pattern `DEMO-ITEM-xxx` on 4 March
 /// (`C` = month 3, `D` = day 4 → day code `CD`).
 Map<String, dynamic> _sectionIdCases() => {
-      'twoLetterDate': [
-        {'month': 1, 'day': 1, 'expect': 'AA'},
-        {'month': 1, 'day': 26, 'expect': 'AZ'},
-        {'month': 1, 'day': 27, 'expect': 'A0'},
-        {'month': 1, 'day': 31, 'expect': 'A4'},
-        {'month': 2, 'day': 1, 'expect': 'BA'},
-        {'month': 6, 'day': 15, 'expect': 'FO'},
-        {'month': 10, 'day': 10, 'expect': 'JJ'},
-        {'month': 12, 'day': 26, 'expect': 'LZ'},
-        {'month': 12, 'day': 27, 'expect': 'L0'},
-        {'month': 12, 'day': 31, 'expect': 'L4'},
-      ],
-      'generate': [
-        {
-          'pattern': 'DEMO-ITEM-xxx',
-          'month': 3,
-          'day': 4,
-          'existing': <String>[],
-          'expect': 'DEMO-ITEM-CD1'
-        },
-        {
-          'pattern': 'DEMO-ITEM-xxx',
-          'month': 3,
-          'day': 4,
-          'existing': <String>['DEMO-ITEM-CD1'],
-          'expect': 'DEMO-ITEM-CD2'
-        },
-        // Middle deleted (CD2 gone): max is still 3, so the next id is CD4 —
-        // numbering stays non-consecutive, nothing is renumbered.
-        {
-          'pattern': 'DEMO-ITEM-xxx',
-          'month': 3,
-          'day': 4,
-          'existing': <String>['DEMO-ITEM-CD1', 'DEMO-ITEM-CD3'],
-          'expect': 'DEMO-ITEM-CD4'
-        },
-        // A different day starts its own numbering, ignoring other days' ids.
-        {
-          'pattern': 'DEMO-ITEM-xxx',
-          'month': 3,
-          'day': 5,
-          'existing': <String>['DEMO-ITEM-CD1', 'DEMO-ITEM-CD2'],
-          'expect': 'DEMO-ITEM-CE1'
-        },
-        {
-          'pattern': 'CUOPME-OPER-xxx',
-          'month': 12,
-          'day': 31,
-          'existing': <String>[],
-          'expect': 'CUOPME-OPER-L41'
-        },
-      ],
-      'documentOps': <Map<String, dynamic>>[
-        {
-          'op': 'addGen',
-          'listPath': 'DEMO/items',
-          'pattern': 'DEMO-ITEM-xxx',
-          'month': 3,
-          'day': 4,
-          'expectId': 'DEMO-ITEM-CD1',
-          'expectPath': 'DEMO/items-1'
-        },
-        {
-          'op': 'addGen',
-          'listPath': 'DEMO/items',
-          'pattern': 'DEMO-ITEM-xxx',
-          'month': 3,
-          'day': 4,
-          'expectId': 'DEMO-ITEM-CD2',
-          'expectPath': 'DEMO/items-2'
-        },
-        {
-          'op': 'addGen',
-          'listPath': 'DEMO/items',
-          'pattern': 'DEMO-ITEM-xxx',
-          'month': 3,
-          'day': 4,
-          'expectId': 'DEMO-ITEM-CD3',
-          'expectPath': 'DEMO/items-3'
-        },
-        {
-          'op': 'sectionIds',
-          'listPath': 'DEMO/items',
-          'expect': ['DEMO-ITEM-CD1', 'DEMO-ITEM-CD2', 'DEMO-ITEM-CD3']
-        },
-        // Delete the MIDDLE item (CD2): the others keep their ids …
-        {'op': 'removeListItem', 'itemPath': 'DEMO/items-2', 'expect': true},
-        {
-          'op': 'sectionIds',
-          'listPath': 'DEMO/items',
-          'expect': ['DEMO-ITEM-CD1', 'DEMO-ITEM-CD3']
-        },
-        // … and a new same-day item takes CD4 (not the freed CD2): no renumber.
-        {
-          'op': 'addGen',
-          'listPath': 'DEMO/items',
-          'pattern': 'DEMO-ITEM-xxx',
-          'month': 3,
-          'day': 4,
-          'expectId': 'DEMO-ITEM-CD4',
-          'expectPath': 'DEMO/items-4'
-        },
-        // Delete the LAST item (CD4) …
-        {'op': 'removeListItem', 'itemPath': 'DEMO/items-4', 'expect': true},
-        // … a new same-day item REUSES CD4 (criterion 6, same-day reuse).
-        {
-          'op': 'addGen',
-          'listPath': 'DEMO/items',
-          'pattern': 'DEMO-ITEM-xxx',
-          'month': 3,
-          'day': 4,
-          'expectId': 'DEMO-ITEM-CD4',
-          'expectPath': 'DEMO/items-5'
-        },
-        // Criterion 5: an arbitrary override is accepted …
-        {
-          'op': 'override',
-          'itemPath': 'DEMO/items-5',
-          'id': 'DEMO-ITEM-CUSTOM'
-        },
-        {
-          'op': 'sectionIds',
-          'listPath': 'DEMO/items',
-          'expect': ['DEMO-ITEM-CD1', 'DEMO-ITEM-CD3', 'DEMO-ITEM-CUSTOM']
-        },
-        // … but a colliding override is rejected …
-        {
-          'op': 'overrideThrows',
-          'itemPath': 'DEMO/items-1',
-          'id': 'DEMO-ITEM-CUSTOM'
-        },
-        // … as is adding an explicit id that already exists in the list.
-        {
-          'op': 'addExplicitThrows',
-          'listPath': 'DEMO/items',
-          'id': 'DEMO-ITEM-CD1'
-        },
-      ],
-    };
+  'twoLetterDate': [
+    {'month': 1, 'day': 1, 'expect': 'AA'},
+    {'month': 1, 'day': 26, 'expect': 'AZ'},
+    {'month': 1, 'day': 27, 'expect': 'A0'},
+    {'month': 1, 'day': 31, 'expect': 'A4'},
+    {'month': 2, 'day': 1, 'expect': 'BA'},
+    {'month': 6, 'day': 15, 'expect': 'FO'},
+    {'month': 10, 'day': 10, 'expect': 'JJ'},
+    {'month': 12, 'day': 26, 'expect': 'LZ'},
+    {'month': 12, 'day': 27, 'expect': 'L0'},
+    {'month': 12, 'day': 31, 'expect': 'L4'},
+  ],
+  'generate': [
+    {
+      'pattern': 'DEMO-ITEM-xxx',
+      'month': 3,
+      'day': 4,
+      'existing': <String>[],
+      'expect': 'DEMO-ITEM-CD1',
+    },
+    {
+      'pattern': 'DEMO-ITEM-xxx',
+      'month': 3,
+      'day': 4,
+      'existing': <String>['DEMO-ITEM-CD1'],
+      'expect': 'DEMO-ITEM-CD2',
+    },
+    // Middle deleted (CD2 gone): max is still 3, so the next id is CD4 —
+    // numbering stays non-consecutive, nothing is renumbered.
+    {
+      'pattern': 'DEMO-ITEM-xxx',
+      'month': 3,
+      'day': 4,
+      'existing': <String>['DEMO-ITEM-CD1', 'DEMO-ITEM-CD3'],
+      'expect': 'DEMO-ITEM-CD4',
+    },
+    // A different day starts its own numbering, ignoring other days' ids.
+    {
+      'pattern': 'DEMO-ITEM-xxx',
+      'month': 3,
+      'day': 5,
+      'existing': <String>['DEMO-ITEM-CD1', 'DEMO-ITEM-CD2'],
+      'expect': 'DEMO-ITEM-CE1',
+    },
+    {
+      'pattern': 'CUOPME-OPER-xxx',
+      'month': 12,
+      'day': 31,
+      'existing': <String>[],
+      'expect': 'CUOPME-OPER-L41',
+    },
+  ],
+  'documentOps': <Map<String, dynamic>>[
+    {
+      'op': 'addGen',
+      'listPath': 'DEMO/items',
+      'pattern': 'DEMO-ITEM-xxx',
+      'month': 3,
+      'day': 4,
+      'expectId': 'DEMO-ITEM-CD1',
+      'expectPath': 'DEMO/items-1',
+    },
+    {
+      'op': 'addGen',
+      'listPath': 'DEMO/items',
+      'pattern': 'DEMO-ITEM-xxx',
+      'month': 3,
+      'day': 4,
+      'expectId': 'DEMO-ITEM-CD2',
+      'expectPath': 'DEMO/items-2',
+    },
+    {
+      'op': 'addGen',
+      'listPath': 'DEMO/items',
+      'pattern': 'DEMO-ITEM-xxx',
+      'month': 3,
+      'day': 4,
+      'expectId': 'DEMO-ITEM-CD3',
+      'expectPath': 'DEMO/items-3',
+    },
+    {
+      'op': 'sectionIds',
+      'listPath': 'DEMO/items',
+      'expect': ['DEMO-ITEM-CD1', 'DEMO-ITEM-CD2', 'DEMO-ITEM-CD3'],
+    },
+    // Delete the MIDDLE item (CD2): the others keep their ids …
+    {'op': 'removeListItem', 'itemPath': 'DEMO/items-2', 'expect': true},
+    {
+      'op': 'sectionIds',
+      'listPath': 'DEMO/items',
+      'expect': ['DEMO-ITEM-CD1', 'DEMO-ITEM-CD3'],
+    },
+    // … and a new same-day item takes CD4 (not the freed CD2): no renumber.
+    {
+      'op': 'addGen',
+      'listPath': 'DEMO/items',
+      'pattern': 'DEMO-ITEM-xxx',
+      'month': 3,
+      'day': 4,
+      'expectId': 'DEMO-ITEM-CD4',
+      'expectPath': 'DEMO/items-4',
+    },
+    // Delete the LAST item (CD4) …
+    {'op': 'removeListItem', 'itemPath': 'DEMO/items-4', 'expect': true},
+    // … a new same-day item REUSES CD4 (criterion 6, same-day reuse).
+    {
+      'op': 'addGen',
+      'listPath': 'DEMO/items',
+      'pattern': 'DEMO-ITEM-xxx',
+      'month': 3,
+      'day': 4,
+      'expectId': 'DEMO-ITEM-CD4',
+      'expectPath': 'DEMO/items-5',
+    },
+    // Criterion 5: an arbitrary override is accepted …
+    {'op': 'override', 'itemPath': 'DEMO/items-5', 'id': 'DEMO-ITEM-CUSTOM'},
+    {
+      'op': 'sectionIds',
+      'listPath': 'DEMO/items',
+      'expect': ['DEMO-ITEM-CD1', 'DEMO-ITEM-CD3', 'DEMO-ITEM-CUSTOM'],
+    },
+    // … but a colliding override is rejected …
+    {
+      'op': 'overrideThrows',
+      'itemPath': 'DEMO/items-1',
+      'id': 'DEMO-ITEM-CUSTOM',
+    },
+    // … as is adding an explicit id that already exists in the list.
+    {
+      'op': 'addExplicitThrows',
+      'listPath': 'DEMO/items',
+      'id': 'DEMO-ITEM-CD1',
+    },
+  ],
+};
 
 /// The serialization-order corpus (AA1 criterion 7). A small model whose fields
 /// declare `@SerializationOrder` in reverse-alphabetical order, so a correct
@@ -3263,7 +3587,7 @@ Map<String, dynamic> _serializationOrderCase() {
     'metaSchemaVersion': 1,
     'modelVersion': 1,
     'roots': [
-      {'type': 'Root', 'title': 'Demo', 'sectionId': 'DEMO'}
+      {'type': 'Root', 'title': 'Demo', 'sectionId': 'DEMO'},
     ],
     'classes': {
       'Root': {
@@ -3284,19 +3608,19 @@ Map<String, dynamic> _serializationOrderCase() {
             'name': 'zeta',
             'kind': 'content',
             'sectionId': 'ZETA',
-            'serializationOrder': 1
+            'serializationOrder': 1,
           },
           {
             'name': 'mid',
             'kind': 'content',
             'sectionId': 'MID',
-            'serializationOrder': 2
+            'serializationOrder': 2,
           },
           {
             'name': 'alpha',
             'kind': 'content',
             'sectionId': 'ALPHA',
-            'serializationOrder': 3
+            'serializationOrder': 3,
           },
         ],
       },
@@ -3437,59 +3761,91 @@ Second goal.
 /// provokes three at once, pinning the "never fail-fast" contract as a
 /// cross-language obligation rather than a Dart-only unit test.
 List<Map<String, String>> _docSpecsMarkdownCases() {
-  Map<String, String> c(String name, String markdown) =>
-      {'name': name, 'markdown': markdown};
+  Map<String, String> c(String name, String markdown) => {
+    'name': name,
+    'markdown': markdown,
+  };
   return [
     c('valid', _docSpecsValidDoc),
     c(
-        'unknownSection-unresolvableId',
-        _docSpecsValidDoc.replaceFirst(
-            '### <!--[GOAL-ITEM-2]--> Goal 2', '### <!--[XYZ-2]--> Goal 2')),
+      'unknownSection-unresolvableId',
+      _docSpecsValidDoc.replaceFirst(
+        '### <!--[GOAL-ITEM-2]--> Goal 2',
+        '### <!--[XYZ-2]--> Goal 2',
+      ),
+    ),
     c(
-        'unknownSection-disallowedPosition',
-        _docSpecsValidDoc.replaceFirst(
-            '### <!--[GOAL-ITEM-2]--> Goal 2', '### <!--[DIAG]--> Diagram')),
+      'unknownSection-disallowedPosition',
+      _docSpecsValidDoc.replaceFirst(
+        '### <!--[GOAL-ITEM-2]--> Goal 2',
+        '### <!--[DIAG]--> Diagram',
+      ),
+    ),
     c(
-        'missingRequiredSection-documentSlot',
-        _docSpecsValidDoc.replaceFirst(
-            '## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n', '')),
+      'missingRequiredSection-documentSlot',
+      _docSpecsValidDoc.replaceFirst(
+        '## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n',
+        '',
+      ),
+    ),
     c(
-        'missingRequiredSection-subsection',
-        _docSpecsValidDoc.replaceFirst(
-            '\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n'
+      'missingRequiredSection-subsection',
+      _docSpecsValidDoc.replaceFirst(
+        '\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n'
             '\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n',
-            '\nGoals prose but no goal items.\n')),
-    c('idPatternMismatch',
-        _docSpecsValidDoc.replaceFirst('GOAL-ITEM-2', 'GOAL-ITEM-B')),
-    c('tooFewItems',
-        '$_docSpecsValidDoc\n## <!--[STEPS]--> Steps\n\n'
-            '### <!--[STEP-1]--> Step one\n\nOnly one step.\n'),
+        '\nGoals prose but no goal items.\n',
+      ),
+    ),
     c(
-        'tooManyItems',
-        '$_docSpecsValidDoc\n### <!--[GSUM]--> Summary\n\nOne.\n'
-            '\n### <!--[GSUM]--> Summary\n\nTwo.\n'),
-    c('missingRequiredField',
-        _docSpecsValidDoc.replaceFirst('Author: Alice\n', '')),
-    c('fieldPatternMismatch',
-        _docSpecsValidDoc.replaceFirst('Reviewer: Bob', 'Reviewer: bob')),
-    c('textRequired',
-        _docSpecsValidDoc.replaceFirst('Some overview text.\n\n', '')),
+      'idPatternMismatch',
+      _docSpecsValidDoc.replaceFirst('GOAL-ITEM-2', 'GOAL-ITEM-B'),
+    ),
     c(
-        'textLengthOut',
-        '$_docSpecsValidDoc\n### <!--[GSUM]--> Summary\n\n'
-            'A goals summary far longer than the twenty characters allowed.\n'),
-    c('formatMismatch-rootId',
-        _docSpecsValidDoc.replaceFirst('# <!--[D00]-->', '# <!--[D99]-->')),
-    c('formatMismatch-missingFence',
-        '$_docSpecsValidDoc\n## <!--[DIAG]--> Diagram\n\nno fence here\n'),
-    c('malformedHeading',
-        '$_docSpecsValidDoc\n## Plain Heading With No Comment\n\nBody.\n'),
+      'tooFewItems',
+      '$_docSpecsValidDoc\n## <!--[STEPS]--> Steps\n\n'
+          '### <!--[STEP-1]--> Step one\n\nOnly one step.\n',
+    ),
     c(
-        'multipleViolations-neverFailFast',
-        _docSpecsValidDoc
-            .replaceFirst('Author: Alice\n', '')
-            .replaceFirst('Reviewer: Bob', 'Reviewer: bob')
-            .replaceFirst('GOAL-ITEM-2', 'GOAL-ITEM-B')),
+      'tooManyItems',
+      '$_docSpecsValidDoc\n### <!--[GSUM]--> Summary\n\nOne.\n'
+          '\n### <!--[GSUM]--> Summary\n\nTwo.\n',
+    ),
+    c(
+      'missingRequiredField',
+      _docSpecsValidDoc.replaceFirst('Author: Alice\n', ''),
+    ),
+    c(
+      'fieldPatternMismatch',
+      _docSpecsValidDoc.replaceFirst('Reviewer: Bob', 'Reviewer: bob'),
+    ),
+    c(
+      'textRequired',
+      _docSpecsValidDoc.replaceFirst('Some overview text.\n\n', ''),
+    ),
+    c(
+      'textLengthOut',
+      '$_docSpecsValidDoc\n### <!--[GSUM]--> Summary\n\n'
+          'A goals summary far longer than the twenty characters allowed.\n',
+    ),
+    c(
+      'formatMismatch-rootId',
+      _docSpecsValidDoc.replaceFirst('# <!--[D00]-->', '# <!--[D99]-->'),
+    ),
+    c(
+      'formatMismatch-missingFence',
+      '$_docSpecsValidDoc\n## <!--[DIAG]--> Diagram\n\nno fence here\n',
+    ),
+    c(
+      'malformedHeading',
+      '$_docSpecsValidDoc\n## Plain Heading With No Comment\n\nBody.\n',
+    ),
+    c(
+      'multipleViolations-neverFailFast',
+      _docSpecsValidDoc
+          .replaceFirst('Author: Alice\n', '')
+          .replaceFirst('Reviewer: Bob', 'Reviewer: bob')
+          .replaceFirst('GOAL-ITEM-2', 'GOAL-ITEM-B'),
+    ),
   ];
 }
 
@@ -3501,8 +3857,9 @@ List<Map<String, String>> _docSpecsMarkdownCases() {
 /// carried: it is prose, and pinning it across nine languages would make
 /// rewording a nine-package change for no contractual gain.
 List<Map<String, Object?>> _docSpecsCases() {
-  final validator =
-      DocSpecsValidator(DocSpecsSchema.fromYamlText(_docSpecsSchemaYaml));
+  final validator = DocSpecsValidator(
+    DocSpecsSchema.fromYamlText(_docSpecsSchemaYaml),
+  );
   return [
     for (final c in _docSpecsMarkdownCases())
       {
@@ -3534,8 +3891,12 @@ List<Map<String, Object?>> _docSpecsCases() {
 List<Map<String, dynamic>> _patternCases() {
   final cases = <Map<String, dynamic>>[];
 
-  void match(String pattern, String text,
-      {bool regex = true, bool caseInsensitive = false}) {
+  void match(
+    String pattern,
+    String text, {
+    bool regex = true,
+    bool caseInsensitive = false,
+  }) {
     final p = regex
         ? SomTextPattern.compile(pattern, caseInsensitive: caseInsensitive)
         : SomTextPattern.literal(pattern, caseInsensitive: caseInsensitive);
@@ -3595,7 +3956,11 @@ List<Map<String, dynamic>> _patternCases() {
   match('ABC', 'abc', caseInsensitive: true);
   match('[a-z]+', 'ABC', caseInsensitive: true);
   match('[A-Z]+', 'abc', caseInsensitive: true);
-  match('ä', 'Ä', caseInsensitive: true); // non-ASCII is deliberately not folded
+  match(
+    'ä',
+    'Ä',
+    caseInsensitive: true,
+  ); // non-ASCII is deliberately not folded
   match('Hello', 'hello', regex: false, caseInsensitive: true);
 
   // -- offsets are UTF-16 code units, not bytes and not code points --
@@ -3673,84 +4038,138 @@ List<Map<String, dynamic>> _queryCases(SpecModel model, SpecDocument doc) {
   }
 
   // -- text dimension --
-  run('text substring in a content leaf', const SpecQuery(text: 'Hello'),
-      {'text': 'Hello'});
-  run('text substring spanning several nodes', const SpecQuery(text: 'Line'),
-      {'text': 'Line'});
-  run('text substring in a form field', const SpecQuery(text: 'bob@'),
-      {'text': 'bob@'});
-  run('text substring in a stored headline',
-      const SpecQuery(text: 'Executive'), {'text': 'Executive'});
-  run('text matching nothing', const SpecQuery(text: 'no-such-text'),
-      {'text': 'no-such-text'});
-  run('text is case-sensitive by default', const SpecQuery(text: 'HELLO'),
-      {'text': 'HELLO'});
-  run('text case-insensitive',
-      const SpecQuery(text: 'HELLO', caseInsensitive: true),
-      {'text': 'HELLO', 'caseInsensitive': true});
-  run('text with several spans in one value', const SpecQuery(text: 'card'),
-      {'text': 'card'});
-  run('regex over content', const SpecQuery(text: 'Line [a-z]+', regex: true),
-      {'text': 'Line [a-z]+', 'regex': true});
-  run('regex anchored to the whole value',
-      const SpecQuery(text: r'^Hello$', regex: true),
-      {'text': r'^Hello$', 'regex': true});
-  run('regex case-insensitive',
-      const SpecQuery(text: '[A-Z]lice', regex: true, caseInsensitive: true),
-      {'text': '[A-Z]lice', 'regex': true, 'caseInsensitive': true});
+  run('text substring in a content leaf', const SpecQuery(text: 'Hello'), {
+    'text': 'Hello',
+  });
+  run('text substring spanning several nodes', const SpecQuery(text: 'Line'), {
+    'text': 'Line',
+  });
+  run('text substring in a form field', const SpecQuery(text: 'bob@'), {
+    'text': 'bob@',
+  });
+  run(
+    'text substring in a stored headline',
+    const SpecQuery(text: 'Executive'),
+    {'text': 'Executive'},
+  );
+  run('text matching nothing', const SpecQuery(text: 'no-such-text'), {
+    'text': 'no-such-text',
+  });
+  run('text is case-sensitive by default', const SpecQuery(text: 'HELLO'), {
+    'text': 'HELLO',
+  });
+  run(
+    'text case-insensitive',
+    const SpecQuery(text: 'HELLO', caseInsensitive: true),
+    {'text': 'HELLO', 'caseInsensitive': true},
+  );
+  run('text with several spans in one value', const SpecQuery(text: 'card'), {
+    'text': 'card',
+  });
+  run('regex over content', const SpecQuery(text: 'Line [a-z]+', regex: true), {
+    'text': 'Line [a-z]+',
+    'regex': true,
+  });
+  run(
+    'regex anchored to the whole value',
+    const SpecQuery(text: r'^Hello$', regex: true),
+    {'text': r'^Hello$', 'regex': true},
+  );
+  run(
+    'regex case-insensitive',
+    const SpecQuery(text: '[A-Z]lice', regex: true, caseInsensitive: true),
+    {'text': '[A-Z]lice', 'regex': true, 'caseInsensitive': true},
+  );
 
   // -- structural dimensions --
-  run('kinds filter', const SpecQuery(kinds: {SpecNodeKind.form}),
-      {'kinds': ['form']});
-  run('kinds filter admitting several kinds',
-      const SpecQuery(kinds: {SpecNodeKind.list, SpecNodeKind.root}),
-      {'kinds': ['list', 'root']});
-  run('className filter', const SpecQuery(className: 'Item'),
-      {'className': 'Item'});
-  run('sectionIdExact filter', const SpecQuery(sectionIdExact: 'TTL'),
-      {'sectionIdExact': 'TTL'});
-  run('sectionIdPrefix filter', const SpecQuery(sectionIdPrefix: 'CARD'),
-      {'sectionIdPrefix': 'CARD'});
-  run('pathGlob within one segment', const SpecQuery(pathGlob: 'DEMO/*'),
-      {'pathGlob': 'DEMO/*'});
-  run('pathGlob crossing segments', const SpecQuery(pathGlob: 'DEMO/**'),
-      {'pathGlob': 'DEMO/**'});
-  run('pathGlob with a literal tail', const SpecQuery(pathGlob: '**/label'),
-      {'pathGlob': '**/label'});
-  run('pathGlob matching nothing', const SpecQuery(pathGlob: 'NOPE/*'),
-      {'pathGlob': 'NOPE/*'});
+  run('kinds filter', const SpecQuery(kinds: {SpecNodeKind.form}), {
+    'kinds': ['form'],
+  });
+  run(
+    'kinds filter admitting several kinds',
+    const SpecQuery(kinds: {SpecNodeKind.list, SpecNodeKind.root}),
+    {
+      'kinds': ['list', 'root'],
+    },
+  );
+  run('className filter', const SpecQuery(className: 'Item'), {
+    'className': 'Item',
+  });
+  run('sectionIdExact filter', const SpecQuery(sectionIdExact: 'TTL'), {
+    'sectionIdExact': 'TTL',
+  });
+  run('sectionIdPrefix filter', const SpecQuery(sectionIdPrefix: 'CARD'), {
+    'sectionIdPrefix': 'CARD',
+  });
+  run('pathGlob within one segment', const SpecQuery(pathGlob: 'DEMO/*'), {
+    'pathGlob': 'DEMO/*',
+  });
+  run('pathGlob crossing segments', const SpecQuery(pathGlob: 'DEMO/**'), {
+    'pathGlob': 'DEMO/**',
+  });
+  run('pathGlob with a literal tail', const SpecQuery(pathGlob: '**/label'), {
+    'pathGlob': '**/label',
+  });
+  run('pathGlob matching nothing', const SpecQuery(pathGlob: 'NOPE/*'), {
+    'pathGlob': 'NOPE/*',
+  });
 
   // -- state dimension (SpecStateFilter — both constants) --
-  run('state nonEmpty', const SpecQuery(state: SpecStateFilter.nonEmpty),
-      {'state': 'nonEmpty'});
-  run('state empty', const SpecQuery(state: SpecStateFilter.empty),
-      {'state': 'empty'});
-  run('state empty within one subtree',
-      const SpecQuery(state: SpecStateFilter.empty, pathGlob: 'DEMO/REG/**'),
-      {'state': 'empty', 'pathGlob': 'DEMO/REG/**'});
+  run('state nonEmpty', const SpecQuery(state: SpecStateFilter.nonEmpty), {
+    'state': 'nonEmpty',
+  });
+  run('state empty', const SpecQuery(state: SpecStateFilter.empty), {
+    'state': 'empty',
+  });
+  run(
+    'state empty within one subtree',
+    const SpecQuery(state: SpecStateFilter.empty, pathGlob: 'DEMO/REG/**'),
+    {'state': 'empty', 'pathGlob': 'DEMO/REG/**'},
+  );
 
   // -- annotation dimensions (Card carries both; see its meta entry) --
   // Positive first: a negative case alone is satisfied just as well by a
   // runtime that never implemented the filter, so it pins nothing on its own.
-  run('mapsTo filter selects the annotated class\'s nodes',
-      const SpecQuery(mapsTo: 'CS00-CARD'), {'mapsTo': 'CS00-CARD'});
-  run('detailedIn filter selects the annotated class\'s nodes',
-      const SpecQuery(detailedIn: 'BP00-CARDS'), {'detailedIn': 'BP00-CARDS'});
-  run('mapsTo filter matches nothing when the target is unknown',
-      const SpecQuery(mapsTo: 'SomeTarget'), {'mapsTo': 'SomeTarget'});
-  run('detailedIn filter matches nothing when the target is unknown',
-      const SpecQuery(detailedIn: 'SomeDoc'), {'detailedIn': 'SomeDoc'});
+  run(
+    'mapsTo filter selects the annotated class\'s nodes',
+    const SpecQuery(mapsTo: 'CS00-CARD'),
+    {'mapsTo': 'CS00-CARD'},
+  );
+  run(
+    'detailedIn filter selects the annotated class\'s nodes',
+    const SpecQuery(detailedIn: 'BP00-CARDS'),
+    {'detailedIn': 'BP00-CARDS'},
+  );
+  run(
+    'mapsTo filter matches nothing when the target is unknown',
+    const SpecQuery(mapsTo: 'SomeTarget'),
+    {'mapsTo': 'SomeTarget'},
+  );
+  run(
+    'detailedIn filter matches nothing when the target is unknown',
+    const SpecQuery(detailedIn: 'SomeDoc'),
+    {'detailedIn': 'SomeDoc'},
+  );
 
   // -- combinations: the filters are conjunctive --
-  run('text and kind together',
-      const SpecQuery(text: 'card', kinds: {SpecNodeKind.form}),
-      {'text': 'card', 'kinds': ['form']});
-  run('prefix and state together',
-      const SpecQuery(
-          sectionIdPrefix: 'CARD', state: SpecStateFilter.nonEmpty),
-      {'sectionIdPrefix': 'CARD', 'state': 'nonEmpty'});
-  run('every dimension unset returns the whole document in order',
-      const SpecQuery(), const <String, dynamic>{});
+  run(
+    'text and kind together',
+    const SpecQuery(text: 'card', kinds: {SpecNodeKind.form}),
+    {
+      'text': 'card',
+      'kinds': ['form'],
+    },
+  );
+  run(
+    'prefix and state together',
+    const SpecQuery(sectionIdPrefix: 'CARD', state: SpecStateFilter.nonEmpty),
+    {'sectionIdPrefix': 'CARD', 'state': 'nonEmpty'},
+  );
+  run(
+    'every dimension unset returns the whole document in order',
+    const SpecQuery(),
+    const <String, dynamic>{},
+  );
 
   return cases;
 }
@@ -3789,126 +4208,129 @@ List<Map<String, dynamic>> _projectionCases(SpecModel model, SpecDocument doc) {
 /// vocabulary — the half a port can get wrong in nine identical ways — unpinned.
 /// What is cut down is only *how many* rows, never what a row says.
 Map<String, dynamic> _codeSpecsCatalogJson() => {
-      'source': 'codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6',
-      'slices': [
-        {
-          'number': 1,
-          'title': 'Shared const catalogues',
-          'project': '<app>_codespec_shared',
-          'cites': <int>[],
-        },
-        {
-          'number': 2,
-          'title': 'Shared contract',
-          'project': '<app>_codespec_shared',
-          'cites': [1],
-        },
-        {
-          'number': 3,
-          'title': 'Server persistence & configuration',
-          'project': '<app>_codespec_server',
-          'cites': [1, 2],
-        },
-        {
-          'number': 4,
-          'title': 'Server behaviour',
-          'project': '<app>_codespec_server',
-          'cites': [1, 2, 3],
-        },
-        {
-          'number': 5,
-          'title': 'Client interaction core',
-          'project': '<app>_codespec_client',
-          'cites': [1, 2],
-        },
-        {
-          'number': 6,
-          'title': 'Client presentation & shell',
-          'project': '<app>_codespec_client',
-          'cites': [1, 5],
-        },
-        {
-          'number': 7,
-          'title': 'Server operational',
-          'project': '<app>_codespec_server',
-          'cites': [3, 4],
-        },
-      ],
-      // In §4.1 catalogue order, which §4.4.6 rule 2 uses as its tie-break and
-      // which the extractor emits its extracts in.
-      'areas': [
-        {
-          'code': 'CE-FM',
-          'canonicalId': 'Form',
-          'part': 'form',
-          'annotations': ['@CsForm'],
-          'builtOn': '`TomForm`, `TomFormChildContainer` (`tom_flutter_ui`)',
-          'attributeSurface': 'codespecs_mapping.md §5.7.2',
-          'slices': [5],
-          'authoringSteps': [23],
-        },
-        {
-          'code': 'CE-TX',
-          'canonicalId': 'Text',
-          'part': 'text',
-          'annotations': ['@CsText'],
-          'builtOn': '`TomText` (`tom_flutter_ui`) + `TomTextResourceProvider` '
-              '(`tom_core_kernel`); message/i18n-key model `TomMessageKey` / '
-              '`TomMessageKeyRegistry` (`tom_core_codespecs`)',
-          'attributeSurface': 'codespecs_mapping.md §5.8, §5.21',
-          // The fixture's one LOCUS-SPLIT area: SCC-A keys in slice 1, the copy
-          // in slice 5. It is what makes `projects` a list rather than a field.
-          'slices': [1, 5],
-          'authoringSteps': [2, 24],
-        },
-        {
-          'code': 'CE-DB',
-          'canonicalId': 'DataAccess',
-          'part': 'dataAccess',
-          'annotations': ['@CsTable', '@CsColumn', '@CsRepository'],
-          'builtOn': 'Tom persistence model + repository (`tom_core_server`)',
-          'attributeSurface': 'codespecs_mapping.md §5.13',
-          'slices': [3],
-          'authoringSteps': [10],
-        },
-        {
-          'code': 'CE-ST',
-          'canonicalId': 'ViewState',
-          'part': 'viewState',
-          'annotations': ['@CsViewModel'],
-          'builtOn': '`TomObservable` / `TomObject` (`tom_core_kernel`)',
-          'attributeSurface': 'codespecs_mapping.md §5.4',
-          'slices': [5],
-          'authoringSteps': [23],
-        },
-        {
-          'code': 'CE-NV',
-          'canonicalId': 'Navigation',
-          'part': 'navigation',
-          'annotations': ['@CsRoute', '@CsScreenFlow'],
-          'builtOn': '`TomPageRoute` (`tom_flutter_ui`); route-id + screen-flow '
-              'model (`tom_core_codespecs`)',
-          'attributeSurface': 'codespecs_mapping.md §5.11',
-          'slices': [5],
-          'authoringSteps': [23],
-        },
-        {
-          // Deliberately entry-free: nothing in the fixture routes to it. An
-          // area with no content still gets an extract, because "the
-          // specification says nothing about this" is a finding the authoring
-          // agent must be shown rather than a file that fails to appear.
-          'code': 'CE-ER',
-          'canonicalId': 'ErrorResult',
-          'part': 'errorResult',
-          'annotations': ['@CsError'],
-          'builtOn': '**gap** — plain annotated result/error classes in '
-              '`<app>_codespec_shared`; no framework counterpart',
-          'attributeSurface': 'codespecs_mapping.md §7',
-          'slices': [1],
-          'authoringSteps': [2],
-        },
-      ],
-    };
+  'source': 'codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6',
+  'slices': [
+    {
+      'number': 1,
+      'title': 'Shared const catalogues',
+      'project': '<app>_codespec_shared',
+      'cites': <int>[],
+    },
+    {
+      'number': 2,
+      'title': 'Shared contract',
+      'project': '<app>_codespec_shared',
+      'cites': [1],
+    },
+    {
+      'number': 3,
+      'title': 'Server persistence & configuration',
+      'project': '<app>_codespec_server',
+      'cites': [1, 2],
+    },
+    {
+      'number': 4,
+      'title': 'Server behaviour',
+      'project': '<app>_codespec_server',
+      'cites': [1, 2, 3],
+    },
+    {
+      'number': 5,
+      'title': 'Client interaction core',
+      'project': '<app>_codespec_client',
+      'cites': [1, 2],
+    },
+    {
+      'number': 6,
+      'title': 'Client presentation & shell',
+      'project': '<app>_codespec_client',
+      'cites': [1, 5],
+    },
+    {
+      'number': 7,
+      'title': 'Server operational',
+      'project': '<app>_codespec_server',
+      'cites': [3, 4],
+    },
+  ],
+  // In §4.1 catalogue order, which §4.4.6 rule 2 uses as its tie-break and
+  // which the extractor emits its extracts in.
+  'areas': [
+    {
+      'code': 'CE-FM',
+      'canonicalId': 'Form',
+      'part': 'form',
+      'annotations': ['@CsForm'],
+      'builtOn': '`TomForm`, `TomFormChildContainer` (`tom_flutter_ui`)',
+      'attributeSurface': 'codespecs_mapping.md §5.7.2',
+      'slices': [5],
+      'authoringSteps': [23],
+    },
+    {
+      'code': 'CE-TX',
+      'canonicalId': 'Text',
+      'part': 'text',
+      'annotations': ['@CsText'],
+      'builtOn':
+          '`TomText` (`tom_flutter_ui`) + `TomTextResourceProvider` '
+          '(`tom_core_kernel`); message/i18n-key model `TomMessageKey` / '
+          '`TomMessageKeyRegistry` (`tom_core_codespecs`)',
+      'attributeSurface': 'codespecs_mapping.md §5.8, §5.21',
+      // The fixture's one LOCUS-SPLIT area: SCC-A keys in slice 1, the copy
+      // in slice 5. It is what makes `projects` a list rather than a field.
+      'slices': [1, 5],
+      'authoringSteps': [2, 24],
+    },
+    {
+      'code': 'CE-DB',
+      'canonicalId': 'DataAccess',
+      'part': 'dataAccess',
+      'annotations': ['@CsTable', '@CsColumn', '@CsRepository'],
+      'builtOn': 'Tom persistence model + repository (`tom_core_server`)',
+      'attributeSurface': 'codespecs_mapping.md §5.13',
+      'slices': [3],
+      'authoringSteps': [10],
+    },
+    {
+      'code': 'CE-ST',
+      'canonicalId': 'ViewState',
+      'part': 'viewState',
+      'annotations': ['@CsViewModel'],
+      'builtOn': '`TomObservable` / `TomObject` (`tom_core_kernel`)',
+      'attributeSurface': 'codespecs_mapping.md §5.4',
+      'slices': [5],
+      'authoringSteps': [23],
+    },
+    {
+      'code': 'CE-NV',
+      'canonicalId': 'Navigation',
+      'part': 'navigation',
+      'annotations': ['@CsRoute', '@CsScreenFlow'],
+      'builtOn':
+          '`TomPageRoute` (`tom_flutter_ui`); route-id + screen-flow '
+          'model (`tom_core_codespecs`)',
+      'attributeSurface': 'codespecs_mapping.md §5.11',
+      'slices': [5],
+      'authoringSteps': [23],
+    },
+    {
+      // Deliberately entry-free: nothing in the fixture routes to it. An
+      // area with no content still gets an extract, because "the
+      // specification says nothing about this" is a finding the authoring
+      // agent must be shown rather than a file that fails to appear.
+      'code': 'CE-ER',
+      'canonicalId': 'ErrorResult',
+      'part': 'errorResult',
+      'annotations': ['@CsError'],
+      'builtOn':
+          '**gap** — plain annotated result/error classes in '
+          '`<app>_codespec_shared`; no framework counterpart',
+      'attributeSurface': 'codespecs_mapping.md §7',
+      'slices': [1],
+      'authoringSteps': [2],
+    },
+  ],
+};
 
 /// The Phase-4 extract generator (`codespecs_mapping.md` §1.1.1) — the machine
 /// half that turns a filled document into one bounded, cited extract per
@@ -3921,26 +4343,28 @@ Map<String, dynamic> _codeSpecsCatalogJson() => {
 /// occurs character-for-character in its source. The last is the one that keeps
 /// the generator on its side of the `codespecs_derivation_contract.md` §2.8
 /// **C1** line, so it is carried as its own table rather than left to a reader.
-Map<String, dynamic> _codeSpecsExtractCases(
-    SpecModel model, SpecDocument doc) {
+Map<String, dynamic> _codeSpecsExtractCases(SpecModel model, SpecDocument doc) {
   final catalogJson = _codeSpecsCatalogJson();
   final catalog = CodeSpecsAreaCatalog.fromJson(catalogJson);
-  final extractor =
-      CodeSpecsExtractor(model: model, document: doc, catalog: catalog);
+  final extractor = CodeSpecsExtractor(
+    model: model,
+    document: doc,
+    catalog: catalog,
+  );
 
   Map<String, dynamic> entryJson(CodeSpecsExtractEntry e) => {
-        'sectionId': e.sectionId,
-        'headline': e.headline,
-        'instanceId': e.instanceId,
-        'path': e.path,
-        'className': e.className,
-        'fieldName': e.fieldName,
-        'formField': e.formField,
-        'routedBy': e.routedBy,
-        'routedAt': e.routedAt,
-        'routingNote': e.routingNote,
-        'value': e.value,
-      };
+    'sectionId': e.sectionId,
+    'headline': e.headline,
+    'instanceId': e.instanceId,
+    'path': e.path,
+    'className': e.className,
+    'fieldName': e.fieldName,
+    'formField': e.formField,
+    'routedBy': e.routedBy,
+    'routedAt': e.routedAt,
+    'routingNote': e.routingNote,
+    'value': e.value,
+  };
 
   return {
     'catalog': catalogJson,
@@ -3994,7 +4418,7 @@ Map<String, dynamic> _codeSpecsExtractCases(
           'metaSchemaVersion': 1,
           'modelVersion': 1,
           'roots': [
-            {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'}
+            {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
           ],
           'classes': {
             'Root': {
@@ -4003,7 +4427,7 @@ Map<String, dynamic> _codeSpecsExtractCases(
               'annotations': [
                 {
                   'name': 'Document',
-                  'arguments': {'title': 'Root'}
+                  'arguments': {'title': 'Root'},
                 },
               ],
               'fields': [
@@ -4011,7 +4435,7 @@ Map<String, dynamic> _codeSpecsExtractCases(
                   'name': 'orphan',
                   'kind': 'complex',
                   'sectionId': 'ORP',
-                  'type': 'Orphan'
+                  'type': 'Orphan',
                 },
               ],
             },
@@ -4161,71 +4585,71 @@ Map<String, dynamic> _codeSpecsExtractCases(
 /// only place the corpus produces the `documentRoot` verdict now that the walk
 /// enters exactly one root (`codespecs_prompt.md` §5).
 Map<String, dynamic> _codeSpecsTwoRootModelJson() => {
-      'metaSchemaVersion': 1,
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'Alpha', 'title': 'Alpha', 'sectionId': 'ALP'},
-        {'type': 'Beta', 'title': 'Beta', 'sectionId': 'BET'},
+  'metaSchemaVersion': 1,
+  'modelVersion': 1,
+  'roots': [
+    {'type': 'Alpha', 'title': 'Alpha', 'sectionId': 'ALP'},
+    {'type': 'Beta', 'title': 'Beta', 'sectionId': 'BET'},
+  ],
+  'classes': {
+    'Alpha': {
+      'name': 'Alpha',
+      'sectionId': 'ALP',
+      'annotations': [
+        {
+          'name': 'Document',
+          'arguments': {'title': 'Alpha'},
+        },
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.form'],
+          },
+        },
       ],
-      'classes': {
-        'Alpha': {
-          'name': 'Alpha',
-          'sectionId': 'ALP',
-          'annotations': [
-            {
-              'name': 'Document',
-              'arguments': {'title': 'Alpha'}
-            },
-            {
-              'name': 'CodeSpecKind',
-              'arguments': {
-                'kinds': ['CodeSpecPart.form']
-              }
-            },
-          ],
-          'fields': [
-            {'name': 'title', 'kind': 'content', 'sectionId': 'TTL'},
-          ],
+      'fields': [
+        {'name': 'title', 'kind': 'content', 'sectionId': 'TTL'},
+      ],
+    },
+    'Beta': {
+      'name': 'Beta',
+      'sectionId': 'BET',
+      // No routing verdict: a bare `@Document` root is structurally exempt
+      // from `ROUTE-TOTAL` (a root is the document, not a section of it),
+      // so walking it yields `documentRoot` and its child carries the
+      // routing.
+      'annotations': [
+        {
+          'name': 'Document',
+          'arguments': {'title': 'Beta'},
         },
-        'Beta': {
-          'name': 'Beta',
-          'sectionId': 'BET',
-          // No routing verdict: a bare `@Document` root is structurally exempt
-          // from `ROUTE-TOTAL` (a root is the document, not a section of it),
-          // so walking it yields `documentRoot` and its child carries the
-          // routing.
-          'annotations': [
-            {
-              'name': 'Document',
-              'arguments': {'title': 'Beta'}
-            },
-          ],
-          'fields': [
-            {
-              'name': 'notes',
-              'kind': 'section',
-              'type': 'BetaNotes',
-              'sectionId': 'NTS'
-            },
-          ],
-        },
-        'BetaNotes': {
-          'name': 'BetaNotes',
+      ],
+      'fields': [
+        {
+          'name': 'notes',
+          'kind': 'section',
+          'type': 'BetaNotes',
           'sectionId': 'NTS',
-          'annotations': [
-            {
-              'name': 'CodeSpecKind',
-              'arguments': {
-                'kinds': ['CodeSpecPart.text']
-              }
-            },
-          ],
-          'fields': [
-            {'name': 'note', 'kind': 'content', 'sectionId': 'NTE'},
-          ],
         },
-      },
-    };
+      ],
+    },
+    'BetaNotes': {
+      'name': 'BetaNotes',
+      'sectionId': 'NTS',
+      'annotations': [
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.text'],
+          },
+        },
+      ],
+      'fields': [
+        {'name': 'note', 'kind': 'content', 'sectionId': 'NTE'},
+      ],
+    },
+  },
+};
 
 /// Cursor semantics that a result *table* cannot express: partial consumption
 /// via `take`, `count` reporting only what remains, and the edit-stability rule
@@ -4243,10 +4667,7 @@ List<Map<String, dynamic>> _cursorScript(SpecModel model) {
   const q = {'sectionIdPrefix': 'REF'};
   final cursor = engine.query(const SpecQuery(sectionIdPrefix: 'REF'));
   steps.add({'op': 'open', 'query': q});
-  steps.add({
-    'op': 'count',
-    'expect': cursor.count,
-  });
+  steps.add({'op': 'count', 'expect': cursor.count});
   steps.add({
     'op': 'take',
     'n': 1,
@@ -4256,17 +4677,20 @@ List<Map<String, dynamic>> _cursorScript(SpecModel model) {
     'op': 'count',
     'expect': cursor.count, // one fewer: count is "remaining", not "total"
   });
-  steps.add({
-    'op': 'next',
-    'expect': cursor.next()?.path,
-  });
   steps.add({'op': 'next', 'expect': cursor.next()?.path});
-  steps.add({'op': 'toList', 'expect': cursor.toList().map((m) => m.path).toList()});
+  steps.add({'op': 'next', 'expect': cursor.next()?.path});
+  steps.add({
+    'op': 'toList',
+    'expect': cursor.toList().map((m) => m.path).toList(),
+  });
 
   // Edit stability: build a cursor over the item list, then delete an item
   // before draining it. The stale candidate must be skipped silently.
   final live = engine.query(const SpecQuery(pathGlob: 'DEMO/items-*'));
-  steps.add({'op': 'open', 'query': {'pathGlob': 'DEMO/items-*'}});
+  steps.add({
+    'op': 'open',
+    'query': {'pathGlob': 'DEMO/items-*'},
+  });
   steps.add({'op': 'removeListItem', 'itemPath': 'DEMO/items-1'});
   doc.removeListItem('DEMO/items-1');
   steps.add({
@@ -4287,11 +4711,21 @@ List<Map<String, dynamic>> _nodeCreationCases(SpecModel model) {
 
   /// A `checkAddNode` probe against a freshly built document, so cases are
   /// order-independent and can be replayed in any sequence.
-  void check(String name, String parentPath, String childSegment,
-      {String? itemId, SpecDocument? against}) {
+  void check(
+    String name,
+    String parentPath,
+    String childSegment, {
+    String? itemId,
+    SpecDocument? against,
+  }) {
     final doc = against ?? _buildDocument();
-    final err = checkAddNode(model, doc, parentPath, childSegment,
-        itemId: itemId);
+    final err = checkAddNode(
+      model,
+      doc,
+      parentPath,
+      childSegment,
+      itemId: itemId,
+    );
     cases.add({
       'name': name,
       'parentPath': parentPath,
@@ -4307,10 +4741,13 @@ List<Map<String, dynamic>> _nodeCreationCases(SpecModel model) {
 
   // -- accepted --
   check('add an item to an unpatterned list', 'DEMO', 'items');
-  check('add an item to a patterned list with an explicit id', 'DEMO',
-      'REF-LST', itemId: 'REF-9');
-  check('add a card to the card list', 'DEMO', 'CARD-LST',
-      itemId: 'CARD-NEW');
+  check(
+    'add an item to a patterned list with an explicit id',
+    'DEMO',
+    'REF-LST',
+    itemId: 'REF-9',
+  );
+  check('add a card to the card list', 'DEMO', 'CARD-LST', itemId: 'CARD-NEW');
   check('add a nested list item', 'DEMO/META', 'tags');
 
   // -- notAContainer --
@@ -4319,20 +4756,39 @@ List<Map<String, dynamic>> _nodeCreationCases(SpecModel model) {
 
   // -- unknownChild --
   check('a segment naming no field of the parent class', 'DEMO', 'nope');
-  check('a field of a different class is still unknown here', 'DEMO/META',
-      'items');
+  check(
+    'a field of a different class is still unknown here',
+    'DEMO/META',
+    'items',
+  );
 
   // -- patternMismatch --
-  check('an id not matching the list pattern', 'DEMO', 'REF-LST',
-      itemId: 'XXX-1');
-  check('an id matching a different list pattern', 'DEMO', 'CARD-LST',
-      itemId: 'REF-1');
+  check(
+    'an id not matching the list pattern',
+    'DEMO',
+    'REF-LST',
+    itemId: 'XXX-1',
+  );
+  check(
+    'an id matching a different list pattern',
+    'DEMO',
+    'CARD-LST',
+    itemId: 'REF-1',
+  );
 
   // -- duplicateSectionId --
-  check('an id already taken by a sibling item', 'DEMO', 'REF-LST',
-      itemId: 'REF-SPEC');
-  check('an id already taken in the card list', 'DEMO', 'CARD-LST',
-      itemId: 'CARD-ALPHA');
+  check(
+    'an id already taken by a sibling item',
+    'DEMO',
+    'REF-LST',
+    itemId: 'REF-SPEC',
+  );
+  check(
+    'an id already taken in the card list',
+    'DEMO',
+    'CARD-LST',
+    itemId: 'CARD-ALPHA',
+  );
 
   // -- cardinalityExceeded --
   check('a second instance of a single-valued complex field', 'DEMO', 'META');
@@ -4349,10 +4805,19 @@ List<Map<String, dynamic>> _nodeCreationScript(SpecModel model) {
   final creator = SpecNodeCreator(model, doc);
   final steps = <Map<String, dynamic>>[];
 
-  void add(String parentPath, String childSegment,
-      {String? itemId, int month = 3, int day = 4}) {
-    final path = creator.add(parentPath, childSegment,
-        itemId: itemId, date: DateTime(2026, month, day));
+  void add(
+    String parentPath,
+    String childSegment, {
+    String? itemId,
+    int month = 3,
+    int day = 4,
+  }) {
+    final path = creator.add(
+      parentPath,
+      childSegment,
+      itemId: itemId,
+      date: DateTime(2026, month, day),
+    );
     steps.add({
       'op': 'add',
       'parentPath': parentPath,
@@ -4369,8 +4834,12 @@ List<Map<String, dynamic>> _nodeCreationScript(SpecModel model) {
     // Computed, not asserted: if `add` stops throwing, the generator fails
     // under UPDATE_CORPUS rather than writing a vacuous case.
     try {
-      creator.add(parentPath, childSegment,
-          itemId: itemId, date: DateTime(2026, 3, 4));
+      creator.add(
+        parentPath,
+        childSegment,
+        itemId: itemId,
+        date: DateTime(2026, 3, 4),
+      );
       throw StateError('add($parentPath, $childSegment) should have thrown');
     } on SpecCreationError catch (e) {
       steps.add({

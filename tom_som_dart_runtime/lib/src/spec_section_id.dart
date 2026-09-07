@@ -110,7 +110,8 @@ String generateListItemSectionId(
   DateTime date,
   Iterable<String> existingIds,
 ) {
-  final dayPrefix = '${sectionIdPatternPrefix(pattern)}${encodeTwoLetterDate(date)}';
+  final dayPrefix =
+      '${sectionIdPatternPrefix(pattern)}${encodeTwoLetterDate(date)}';
   var maxForDay = 0;
   for (final id in existingIds) {
     if (!id.startsWith(dayPrefix)) continue;

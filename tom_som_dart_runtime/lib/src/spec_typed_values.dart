@@ -75,7 +75,10 @@ String somFormatEnumName(String? name, List<String> values) {
   if (name == null || name.isEmpty) return '';
   if (!values.contains(name)) {
     throw ArgumentError.value(
-        name, 'name', 'not one of the enum values ${values.join(', ')}');
+      name,
+      'name',
+      'not one of the enum values ${values.join(', ')}',
+    );
   }
   return name;
 }

@@ -83,11 +83,14 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
     // the form's preamble, the free text before the first field line (SOM §11.4
     // rule 7), stored in the same `content` slot a plain section's body uses.
     if (!res.isValueLeaf && res.kind != SpecNodeKind.form) {
-      errors.add(SpecValidationError(
-        path: path,
-        code: SpecValidationCode.kindMismatch,
-        message: 'expected a value leaf but path resolves to ${res.kind.name}',
-      ));
+      errors.add(
+        SpecValidationError(
+          path: path,
+          code: SpecValidationCode.kindMismatch,
+          message:
+              'expected a value leaf but path resolves to ${res.kind.name}',
+        ),
+      );
     }
   }
 
@@ -99,21 +102,26 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
       continue;
     }
     if (res.kind != SpecNodeKind.form || res.field == null) {
-      errors.add(SpecValidationError(
-        path: path,
-        code: SpecValidationCode.kindMismatch,
-        message: 'expected a form section but path resolves to ${res.kind.name}',
-      ));
+      errors.add(
+        SpecValidationError(
+          path: path,
+          code: SpecValidationCode.kindMismatch,
+          message:
+              'expected a form section but path resolves to ${res.kind.name}',
+        ),
+      );
       continue;
     }
     final declared = {for (final ff in res.field!.formFields) ff.name};
     for (final name in sorted(doc.formFieldNames(path))) {
       if (!declared.contains(name)) {
-        errors.add(SpecValidationError(
-          path: path,
-          code: SpecValidationCode.unknownFormField,
-          message: 'form field "$name" is not declared on ${res.field!.name}',
-        ));
+        errors.add(
+          SpecValidationError(
+            path: path,
+            code: SpecValidationCode.unknownFormField,
+            message: 'form field "$name" is not declared on ${res.field!.name}',
+          ),
+        );
       }
     }
   }
@@ -126,21 +134,25 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
       continue;
     }
     if (res.kind != SpecNodeKind.list || res.field == null) {
-      errors.add(SpecValidationError(
-        path: path,
-        code: SpecValidationCode.kindMismatch,
-        message: 'expected a list but path resolves to ${res.kind.name}',
-      ));
+      errors.add(
+        SpecValidationError(
+          path: path,
+          code: SpecValidationCode.kindMismatch,
+          message: 'expected a list but path resolves to ${res.kind.name}',
+        ),
+      );
       continue;
     }
     final min = res.field!.min;
     final count = doc.listItemCount(path);
     if (min != null && count < min) {
-      errors.add(SpecValidationError(
-        path: path,
-        code: SpecValidationCode.minItems,
-        message: 'list holds $count item(s) but requires at least $min',
-      ));
+      errors.add(
+        SpecValidationError(
+          path: path,
+          code: SpecValidationCode.minItems,
+          message: 'list holds $count item(s) but requires at least $min',
+        ),
+      );
     }
   }
 
@@ -228,8 +240,10 @@ List<SpecValidationError> _validateOneOfInstances(
       }
     }
     if (formHolder == null) continue; // static tier flagged the mismatch
-    final chosen =
-        doc.formField('$path/${refl.fieldSegment(formHolder)}', discriminator);
+    final chosen = doc.formField(
+      '$path/${refl.fieldSegment(formHolder)}',
+      discriminator,
+    );
     if (chosen == null || chosen.isEmpty) continue; // no case chosen yet
 
     // Inspect each case-bound subsection: present + not-selected → mismatch.
@@ -246,24 +260,30 @@ List<SpecValidationError> _validateOneOfInstances(
       if (caseConstants.contains(chosen)) {
         presentForChosen.add(f.name);
       } else {
-        errors.add(SpecValidationError(
-          path: childPath,
-          code: SpecValidationCode.oneOfCaseMismatch,
-          message: 'subsection "${f.name}" is present but the chosen '
-              '$discriminator="$chosen" does not select it '
-              '(cases: ${(caseConstants.toList()..sort()).join(', ')})',
-        ));
+        errors.add(
+          SpecValidationError(
+            path: childPath,
+            code: SpecValidationCode.oneOfCaseMismatch,
+            message:
+                'subsection "${f.name}" is present but the chosen '
+                '$discriminator="$chosen" does not select it '
+                '(cases: ${(caseConstants.toList()..sort()).join(', ')})',
+          ),
+        );
       }
     }
     if (presentForChosen.length > 1) {
       presentForChosen.sort();
-      errors.add(SpecValidationError(
-        path: path,
-        code: SpecValidationCode.oneOfCaseMismatch,
-        message: 'chosen $discriminator="$chosen" selects more than one '
-            'populated subsection (${presentForChosen.join(', ')}) — at most '
-            'one case subsection may be present',
-      ));
+      errors.add(
+        SpecValidationError(
+          path: path,
+          code: SpecValidationCode.oneOfCaseMismatch,
+          message:
+              'chosen $discriminator="$chosen" selects more than one '
+              'populated subsection (${presentForChosen.join(', ')}) — at most '
+              'one case subsection may be present',
+        ),
+      );
     }
   }
 
@@ -363,7 +383,9 @@ List<SpecValidationError> _validateReferenceInstances(
       final elementClass = refl.resolve(items[i])?.targetClass;
       final sectionId = elementClass?.sectionId;
       if (sectionId == null || sectionId.isEmpty) continue;
-      declared.putIfAbsent('$sectionId.$kSectionIdSlot', () => <String>{}).add(
+      declared
+          .putIfAbsent('$sectionId.$kSectionIdSlot', () => <String>{})
+          .add(
             effectiveListItemSectionId(
               storedId: doc.itemSectionId(items[i]),
               pattern: pattern,
@@ -392,16 +414,20 @@ List<SpecValidationError> _validateReferenceInstances(
       for (final segment in value.split(',')) {
         final id = segment.trim();
         if (id.isEmpty) continue;
-        final resolves =
-            ff.refersTo.any((target) => declared[target]?.contains(id) ?? false);
+        final resolves = ff.refersTo.any(
+          (target) => declared[target]?.contains(id) ?? false,
+        );
         if (resolves) continue;
-        errors.add(SpecValidationError(
-          path: form.path,
-          code: SpecValidationCode.danglingReference,
-          message: 'form field "${ff.name}" references "$id", which no entry of '
-              '${ff.refersTo.length == 1 ? 'registry' : 'registries'} '
-              '${ff.refersTo.join(', ')} declares',
-        ));
+        errors.add(
+          SpecValidationError(
+            path: form.path,
+            code: SpecValidationCode.danglingReference,
+            message:
+                'form field "${ff.name}" references "$id", which no entry of '
+                '${ff.refersTo.length == 1 ? 'registry' : 'registries'} '
+                '${ff.refersTo.join(', ')} declares',
+          ),
+        );
       }
     }
   }
@@ -464,7 +490,7 @@ Set<String> _registryScope(SpecReflection refl, SpecDocument doc) {
 }
 
 SpecValidationError _dangling(String path) => SpecValidationError(
-      path: path,
-      code: SpecValidationCode.danglingPath,
-      message: 'path does not resolve to any model node',
-    );
+  path: path,
+  code: SpecValidationCode.danglingPath,
+  message: 'path does not resolve to any model node',
+);

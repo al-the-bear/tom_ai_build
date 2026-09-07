@@ -19,81 +19,82 @@ import 'package:test/test.dart';
 /// A class graph covering content, enum, `@Form`, a complex sub-section and a
 /// list of complex items, so the round-trip exercises every store.
 Map<String, dynamic> _sampleJson() => {
-      'roots': [
+  'roots': [
+    {
+      'type': 'DemoDoc',
+      'title': 'Demo Document',
+      'sectionId': 'D00',
+      'description': 'A demo document.',
+    },
+  ],
+  'classes': {
+    'DemoDoc': {
+      'name': 'DemoDoc',
+      'sectionId': 'D00',
+      'fields': [
+        {'name': 'overview', 'kind': 'content', 'sectionId': 'D00-OVR'},
         {
-          'type': 'DemoDoc',
-          'title': 'Demo Document',
-          'sectionId': 'D00',
-          'description': 'A demo document.',
+          'name': 'status',
+          'kind': 'enum',
+          'sectionId': 'D00-ST',
+          'enumValues': ['draft', 'final'],
+        },
+        {
+          'name': 'header',
+          'kind': 'form',
+          'sectionId': 'D00-HDR',
+          'formFields': [
+            {'name': 'author', 'label': 'Author', 'type': 'String'},
+            {'name': 'reviewer', 'label': 'Reviewer', 'type': 'String'},
+          ],
+        },
+        {
+          'name': 'meta',
+          'kind': 'complex',
+          'type': 'DemoMeta',
+          'sectionId': 'D00-MET',
+        },
+        {
+          'name': 'items',
+          'kind': 'list',
+          'elementType': 'DemoItem',
+          'elementIsComplex': true,
+          'sectionId': 'D00-ITM',
+        },
+        // A scalar sub-section list (`List<String>`, model shape 6): no
+        // element class, so its item heading stem must be derived from the
+        // field (member name) rather than the `String` element type (YRC5).
+        {
+          'name': 'tags',
+          'kind': 'list',
+          'elementType': 'String',
+          'elementIsComplex': false,
+          'sectionId': 'D00-TAG-LST',
+          'sectionIdPattern': 'D00-TAG-xxx',
         },
       ],
-      'classes': {
-        'DemoDoc': {
-          'name': 'DemoDoc',
-          'sectionId': 'D00',
-          'fields': [
-            {'name': 'overview', 'kind': 'content', 'sectionId': 'D00-OVR'},
-            {
-              'name': 'status',
-              'kind': 'enum',
-              'sectionId': 'D00-ST',
-              'enumValues': ['draft', 'final'],
-            },
-            {
-              'name': 'header',
-              'kind': 'form',
-              'sectionId': 'D00-HDR',
-              'formFields': [
-                {'name': 'author', 'label': 'Author', 'type': 'String'},
-                {'name': 'reviewer', 'label': 'Reviewer', 'type': 'String'},
-              ],
-            },
-            {
-              'name': 'meta',
-              'kind': 'complex',
-              'type': 'DemoMeta',
-              'sectionId': 'D00-MET',
-            },
-            {
-              'name': 'items',
-              'kind': 'list',
-              'elementType': 'DemoItem',
-              'elementIsComplex': true,
-              'sectionId': 'D00-ITM',
-            },
-            // A scalar sub-section list (`List<String>`, model shape 6): no
-            // element class, so its item heading stem must be derived from the
-            // field (member name) rather than the `String` element type (YRC5).
-            {
-              'name': 'tags',
-              'kind': 'list',
-              'elementType': 'String',
-              'elementIsComplex': false,
-              'sectionId': 'D00-TAG-LST',
-              'sectionIdPattern': 'D00-TAG-xxx',
-            },
-          ],
-        },
-        'DemoMeta': {
-          'name': 'DemoMeta',
-          'sectionId': 'D00-MET',
-          'fields': [
-            {'name': 'note', 'kind': 'content', 'sectionId': 'D00-MET-NOTE'},
-          ],
-        },
-        'DemoItem': {
-          'name': 'DemoItem',
-          'fields': [
-            {'name': 'label', 'kind': 'content', 'sectionId': 'D01-LBL'},
-            {'name': 'body', 'kind': 'content', 'sectionId': 'D01-BODY'},
-          ],
-        },
-      },
-    };
+    },
+    'DemoMeta': {
+      'name': 'DemoMeta',
+      'sectionId': 'D00-MET',
+      'fields': [
+        {'name': 'note', 'kind': 'content', 'sectionId': 'D00-MET-NOTE'},
+      ],
+    },
+    'DemoItem': {
+      'name': 'DemoItem',
+      'fields': [
+        {'name': 'label', 'kind': 'content', 'sectionId': 'D01-LBL'},
+        {'name': 'body', 'kind': 'content', 'sectionId': 'D01-BODY'},
+      ],
+    },
+  },
+};
 
 /// A d4rt-flutter body that is multi-line and embeds a run of three backticks
 /// mid-line — must pass through the plain-text body verbatim.
-const _d4rtBody = 'Column(\n'
+const _d4rtBody =
+    'Column(\n'
     '  children: [\n'
     '    Text("hi"),\n'
     '  ],\n'
@@ -102,7 +103,8 @@ const _d4rtBody = 'Column(\n'
 /// Content that exercises embedded markdown formatting: emphasis, a bullet
 /// list, a fenced code block containing heading-like lines, and a leading `#`
 /// line at column 0 (which the emitter escapes as `\#`).
-const _richMarkdown = 'Intro with **bold** and *italic*.\n'
+const _richMarkdown =
+    'Intro with **bold** and *italic*.\n'
     '\n'
     '- first bullet\n'
     '- second bullet\n'
@@ -163,28 +165,32 @@ void main() {
       expect(md.split('\n').first, endsWith('-->'));
     });
 
-    test('headings carry the id as a headline comment plus a readable title',
-        () {
-      final md = _export(_populated());
-      expect(md, contains('# <!--[D00]--> Demo Document'));
-      expect(md, contains('## <!--[D00-OVR]--> Overview'));
-      expect(md, contains('## <!--[D00-ST]--> Status'));
-      expect(md, contains('## <!--[D00-HDR]--> Header'));
-      expect(md, contains('## <!--[D00-MET]--> Meta'));
-      expect(md, contains('### <!--[D00-MET-NOTE]--> Note'));
-    });
+    test(
+      'headings carry the id as a headline comment plus a readable title',
+      () {
+        final md = _export(_populated());
+        expect(md, contains('# <!--[D00]--> Demo Document'));
+        expect(md, contains('## <!--[D00-OVR]--> Overview'));
+        expect(md, contains('## <!--[D00-ST]--> Status'));
+        expect(md, contains('## <!--[D00-HDR]--> Header'));
+        expect(md, contains('## <!--[D00-MET]--> Meta'));
+        expect(md, contains('### <!--[D00-MET-NOTE]--> Note'));
+      },
+    );
 
-    test('content sections are plain markdown text — no fences, no anchors',
-        () {
-      final md = _export(_populated());
-      expect(md, contains('An overview paragraph.\nWith two lines.'));
-      // No fenced leaf encoding: no line *starts* a fence (the d4rt body's
-      // mid-line backtick run is plain text, not a fence).
-      expect(md.split('\n').any((l) => l.startsWith('```')), isFalse);
-      expect(md, isNot(contains('<!-- field:')));
-      // No path-style headings either.
-      expect(md, isNot(contains('D00/D00-OVR')));
-    });
+    test(
+      'content sections are plain markdown text — no fences, no anchors',
+      () {
+        final md = _export(_populated());
+        expect(md, contains('An overview paragraph.\nWith two lines.'));
+        // No fenced leaf encoding: no line *starts* a fence (the d4rt body's
+        // mid-line backtick run is plain text, not a fence).
+        expect(md.split('\n').any((l) => l.startsWith('```')), isFalse);
+        expect(md, isNot(contains('<!-- field:')));
+        // No path-style headings either.
+        expect(md, isNot(contains('D00/D00-OVR')));
+      },
+    );
 
     test('form sections use FieldName: value plain-text lines, sparse', () {
       final md = _export(_populated());
@@ -193,16 +199,18 @@ void main() {
       expect(md, isNot(contains('Reviewer')));
     });
 
-    test('a list emits its -LST container heading with items one level deeper',
-        () {
-      final md = _export(_populated());
-      // The list container heads (SOM §11.2): `D00-ITM` at the owner's child
-      // level, its numbered items one level below it, item fields one deeper.
-      expect(md, contains('## <!--[D00-ITM]--> Items'));
-      expect(md, contains('### <!--[items-1]--> Demo Item 1'));
-      expect(md, contains('### <!--[items-2]--> Demo Item 2'));
-      expect(md, contains('#### <!--[D01-LBL]--> Label'));
-    });
+    test(
+      'a list emits its -LST container heading with items one level deeper',
+      () {
+        final md = _export(_populated());
+        // The list container heads (SOM §11.2): `D00-ITM` at the owner's child
+        // level, its numbered items one level below it, item fields one deeper.
+        expect(md, contains('## <!--[D00-ITM]--> Items'));
+        expect(md, contains('### <!--[items-1]--> Demo Item 1'));
+        expect(md, contains('### <!--[items-2]--> Demo Item 2'));
+        expect(md, contains('#### <!--[D01-LBL]--> Label'));
+      },
+    );
 
     test('a populated scalar list derives item headings from the field, not '
         'the String element type (YRC5)', () {
@@ -220,11 +228,13 @@ void main() {
       expect(md, contains('second tag'));
     });
 
-    test('the root schema description is not emitted (only stored content)',
-        () {
-      final md = _export(_populated());
-      expect(md, isNot(contains('A demo document.')));
-    });
+    test(
+      'the root schema description is not emitted (only stored content)',
+      () {
+        final md = _export(_populated());
+        expect(md, isNot(contains('A demo document.')));
+      },
+    );
 
     test('a stored item section id IS surfaced in the item heading '
         '(YRD3 — som_multiplatform_spec_model.md §11.5)', () {
@@ -240,14 +250,18 @@ void main() {
       expect(md, isNot(contains('items-1')));
     });
 
-    test('a content value with an unterminated fence throws ArgumentError',
-        () {
+    test('a content value with an unterminated fence throws ArgumentError', () {
       final doc = SpecDocument()
         ..setContent('D00/D00-OVR', 'before\n```dart\nnever closed');
       expect(
         () => _export(doc),
-        throwsA(isA<ArgumentError>().having(
-            (e) => '${e.message}', 'message', contains('unterminated'))),
+        throwsA(
+          isA<ArgumentError>().having(
+            (e) => '${e.message}',
+            'message',
+            contains('unterminated'),
+          ),
+        ),
       );
     });
 
@@ -258,8 +272,13 @@ void main() {
       final doc = _populated()..setFormField('D00/D00-HDR', 'stale', 'x');
       expect(
         () => _export(doc),
-        throwsA(isA<ArgumentError>().having((e) => '${e.message}', 'message',
-            allOf(contains('D00/D00-HDR'), contains('stale')))),
+        throwsA(
+          isA<ArgumentError>().having(
+            (e) => '${e.message}',
+            'message',
+            allOf(contains('D00/D00-HDR'), contains('stale')),
+          ),
+        ),
       );
     });
 
@@ -273,8 +292,13 @@ void main() {
         ..setFormField('D00/D00-HDR', 'stale', 'x');
       expect(
         () => _export(doc),
-        throwsA(isA<ArgumentError>()
-            .having((e) => '${e.message}', 'message', contains('stale'))),
+        throwsA(
+          isA<ArgumentError>().having(
+            (e) => '${e.message}',
+            'message',
+            contains('stale'),
+          ),
+        ),
       );
     });
 
@@ -285,8 +309,13 @@ void main() {
         ..setFormField('D00/D00-HDR', 'alpha', 'a');
       expect(
         () => _export(doc),
-        throwsA(isA<ArgumentError>().having((e) => '${e.message}', 'message',
-            allOf(contains('alpha'), isNot(contains('zulu'))))),
+        throwsA(
+          isA<ArgumentError>().having(
+            (e) => '${e.message}',
+            'message',
+            allOf(contains('alpha'), isNot(contains('zulu'))),
+          ),
+        ),
       );
     });
   });
@@ -296,8 +325,10 @@ void main() {
       final model = _model();
       final doc = _populated();
       final oneLiner = doc.toMarkdown(model, rootType: 'DemoDoc');
-      final explicit = SpecDocumentMarkdown(model, doc)
-          .exportRoot(model.rootByType('DemoDoc'));
+      final explicit = SpecDocumentMarkdown(
+        model,
+        doc,
+      ).exportRoot(model.rootByType('DemoDoc'));
       expect(oneLiner, explicit);
     });
 
@@ -311,45 +342,54 @@ void main() {
       final model = _model();
       expect(
         () => SpecDocument().toMarkdown(model),
-        throwsA(isA<StateError>()
-            .having((e) => e.message, 'message', contains('no populated root'))),
+        throwsA(
+          isA<StateError>().having(
+            (e) => e.message,
+            'message',
+            contains('no populated root'),
+          ),
+        ),
       );
     });
 
-    test('throws naming the candidates when more than one root is populated',
-        () {
-      final model = SpecModel.fromJson(<String, dynamic>{
-        'roots': <dynamic>[
-          {'type': 'Alpha', 'title': 'Alpha Doc', 'sectionId': 'A00'},
-          {'type': 'Beta', 'title': 'Beta Doc', 'sectionId': 'B00'},
-        ],
-        'classes': <String, dynamic>{
-          'Alpha': {
-            'name': 'Alpha',
-            'sectionId': 'A00',
-            'fields': [
-              {'name': 'overview', 'kind': 'content', 'sectionId': 'A00-OVR'},
-            ],
+    test(
+      'throws naming the candidates when more than one root is populated',
+      () {
+        final model = SpecModel.fromJson(<String, dynamic>{
+          'roots': <dynamic>[
+            {'type': 'Alpha', 'title': 'Alpha Doc', 'sectionId': 'A00'},
+            {'type': 'Beta', 'title': 'Beta Doc', 'sectionId': 'B00'},
+          ],
+          'classes': <String, dynamic>{
+            'Alpha': {
+              'name': 'Alpha',
+              'sectionId': 'A00',
+              'fields': [
+                {'name': 'overview', 'kind': 'content', 'sectionId': 'A00-OVR'},
+              ],
+            },
+            'Beta': {
+              'name': 'Beta',
+              'sectionId': 'B00',
+              'fields': [
+                {'name': 'overview', 'kind': 'content', 'sectionId': 'B00-OVR'},
+              ],
+            },
           },
-          'Beta': {
-            'name': 'Beta',
-            'sectionId': 'B00',
-            'fields': [
-              {'name': 'overview', 'kind': 'content', 'sectionId': 'B00-OVR'},
-            ],
-          },
-        },
-      });
-      final doc = SpecDocument()
-        ..setContent('A00/A00-OVR', 'a')
-        ..setContent('B00/B00-OVR', 'b');
-      expect(
-        () => doc.toMarkdown(model),
-        throwsA(isA<StateError>()
-            .having((e) => e.message, 'm', contains('Alpha'))
-            .having((e) => e.message, 'm', contains('Beta'))),
-      );
-    });
+        });
+        final doc = SpecDocument()
+          ..setContent('A00/A00-OVR', 'a')
+          ..setContent('B00/B00-OVR', 'b');
+        expect(
+          () => doc.toMarkdown(model),
+          throwsA(
+            isA<StateError>()
+                .having((e) => e.message, 'm', contains('Alpha'))
+                .having((e) => e.message, 'm', contains('Beta')),
+          ),
+        );
+      },
+    );
   });
 
   group('round-trip', () {
@@ -358,8 +398,10 @@ void main() {
       final (target, report) = _reload(md);
       expect(report.isClean, isTrue, reason: report.rejections.toString());
 
-      expect(target.content('D00/D00-OVR'),
-          'An overview paragraph.\nWith two lines.');
+      expect(
+        target.content('D00/D00-OVR'),
+        'An overview paragraph.\nWith two lines.',
+      );
       expect(target.content('D00/D00-ST'), 'final');
       expect(target.formField('D00/D00-HDR', 'author'), 'Ada Lovelace');
       expect(target.content('D00/D00-MET/D00-MET-NOTE'), 'A note.');
@@ -378,21 +420,23 @@ void main() {
       expect(md2, md1);
     });
 
-    test('content with embedded markdown formatting survives the round-trip',
-        () {
-      final doc = SpecDocument()..setContent('D00/D00-OVR', _richMarkdown);
-      final md1 = _export(doc);
-      // Fence-shielded heading-like lines are NOT escaped; the column-0 `#`
-      // line outside the fence IS.
-      expect(md1, contains('\n# not a heading — shielded by the fence\n'));
-      expect(md1, contains('\n\\# looks like a heading at column 0\n'));
+    test(
+      'content with embedded markdown formatting survives the round-trip',
+      () {
+        final doc = SpecDocument()..setContent('D00/D00-OVR', _richMarkdown);
+        final md1 = _export(doc);
+        // Fence-shielded heading-like lines are NOT escaped; the column-0 `#`
+        // line outside the fence IS.
+        expect(md1, contains('\n# not a heading — shielded by the fence\n'));
+        expect(md1, contains('\n\\# looks like a heading at column 0\n'));
 
-      final (reloaded, report) = _reload(md1);
-      expect(report.isClean, isTrue, reason: report.rejections.toString());
-      expect(reloaded.content('D00/D00-OVR'), _richMarkdown);
-      // And the second pass is byte-stable.
-      expect(_export(reloaded), md1);
-    });
+        final (reloaded, report) = _reload(md1);
+        expect(report.isClean, isTrue, reason: report.rejections.toString());
+        expect(reloaded.content('D00/D00-OVR'), _richMarkdown);
+        // And the second pass is byte-stable.
+        expect(_export(reloaded), md1);
+      },
+    );
 
     test('a stored item section id round-trips through md '
         '(YRD3 — SOM §11.6)', () {
@@ -411,46 +455,58 @@ void main() {
       expect(_export(reloaded), md1);
     });
 
-    test('a multi-line form value with a label-shaped continuation round-trips',
-        () {
-      final doc = SpecDocument()
-        ..setFormField('D00/D00-HDR', 'author',
-            'Ada Lovelace\nNote: also a mathematician\nplain line');
-      final md1 = _export(doc);
-      // The label-shaped continuation is space-escaped on emit.
-      expect(md1, contains('\n Note: also a mathematician\n'));
+    test(
+      'a multi-line form value with a label-shaped continuation round-trips',
+      () {
+        final doc = SpecDocument()
+          ..setFormField(
+            'D00/D00-HDR',
+            'author',
+            'Ada Lovelace\nNote: also a mathematician\nplain line',
+          );
+        final md1 = _export(doc);
+        // The label-shaped continuation is space-escaped on emit.
+        expect(md1, contains('\n Note: also a mathematician\n'));
 
-      final (reloaded, report) = _reload(md1);
-      expect(report.isClean, isTrue, reason: report.rejections.toString());
-      expect(reloaded.formField('D00/D00-HDR', 'author'),
-          'Ada Lovelace\nNote: also a mathematician\nplain line');
-      expect(_export(reloaded), md1);
-    });
+        final (reloaded, report) = _reload(md1);
+        expect(report.isClean, isTrue, reason: report.rejections.toString());
+        expect(
+          reloaded.formField('D00/D00-HDR', 'author'),
+          'Ada Lovelace\nNote: also a mathematician\nplain line',
+        );
+        expect(_export(reloaded), md1);
+      },
+    );
   });
 
   group('a form section\'s preamble (SOM §11.4 rule 7)', () {
-    test('prose before the first field label parses as the form\'s content',
-        () {
-      const md = '# <!--[D00]--> Demo Document\n\n'
-          '## <!--[D00-HDR]--> Header\n\n'
-          'prose before any field label\n'
-          'Author: Ada Lovelace\n';
-      final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
-      expect(report.isClean, isTrue, reason: report.rejections.toString());
-      expect(report.content['D00/D00-HDR'], 'prose before any field label');
-      expect(report.forms['D00/D00-HDR'], {'author': 'Ada Lovelace'});
-    });
+    test(
+      'prose before the first field label parses as the form\'s content',
+      () {
+        const md =
+            '# <!--[D00]--> Demo Document\n\n'
+            '## <!--[D00-HDR]--> Header\n\n'
+            'prose before any field label\n'
+            'Author: Ada Lovelace\n';
+        final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
+        expect(report.isClean, isTrue, reason: report.rejections.toString());
+        expect(report.content['D00/D00-HDR'], 'prose before any field label');
+        expect(report.forms['D00/D00-HDR'], {'author': 'Ada Lovelace'});
+      },
+    );
 
-    test('the preamble is emitted above the field lines, blank-line separated',
-        () {
-      final doc = SpecDocument()
-        ..setContent('D00/D00-HDR', 'why this header exists')
-        ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
-      expect(
-        _export(doc),
-        contains('why this header exists\n\nAuthor: Ada Lovelace\n'),
-      );
-    });
+    test(
+      'the preamble is emitted above the field lines, blank-line separated',
+      () {
+        final doc = SpecDocument()
+          ..setContent('D00/D00-HDR', 'why this header exists')
+          ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+        expect(
+          _export(doc),
+          contains('why this header exists\n\nAuthor: Ada Lovelace\n'),
+        );
+      },
+    );
 
     test('a preamble-only form section still emits (no field values)', () {
       final doc = SpecDocument()
@@ -472,8 +528,10 @@ void main() {
       final md1 = _export(doc);
       final (reloaded, report) = _reload(md1);
       expect(report.isClean, isTrue, reason: report.rejections.toString());
-      expect(reloaded.content('D00/D00-HDR'),
-          'first paragraph\n\nsecond paragraph');
+      expect(
+        reloaded.content('D00/D00-HDR'),
+        'first paragraph\n\nsecond paragraph',
+      );
       expect(reloaded.formField('D00/D00-HDR', 'author'), 'Ada Lovelace');
       expect(_export(reloaded), md1);
     });
@@ -489,7 +547,10 @@ void main() {
 
       final (reloaded, report) = _reload(md1);
       expect(report.isClean, isTrue, reason: report.rejections.toString());
-      expect(reloaded.content('D00/D00-HDR'), 'Author: is a field of this form');
+      expect(
+        reloaded.content('D00/D00-HDR'),
+        'Author: is a field of this form',
+      );
       expect(reloaded.formField('D00/D00-HDR', 'author'), 'Ada Lovelace');
       expect(_export(reloaded), md1);
     });
@@ -500,19 +561,27 @@ void main() {
       // a field or prose is the leading space — not where the line sits, and
       // not whether this emitter wrote it. So a human writes exactly what the
       // emitter writes, and there is no "promote prose into fields" pass.
-      const asField = '# <!--[D00]--> Demo Document\n\n'
+      const asField =
+          '# <!--[D00]--> Demo Document\n\n'
           '## <!--[D00-HDR]--> Header\n\n'
           'Author: Ada Lovelace\n';
-      const asProse = '# <!--[D00]--> Demo Document\n\n'
+      const asProse =
+          '# <!--[D00]--> Demo Document\n\n'
           '## <!--[D00-HDR]--> Header\n\n'
           ' Author: Ada Lovelace\n';
 
-      final field = SpecDocumentMarkdown(_model(), SpecDocument()).parse(asField);
+      final field = SpecDocumentMarkdown(
+        _model(),
+        SpecDocument(),
+      ).parse(asField);
       expect(field.isClean, isTrue, reason: field.rejections.toString());
       expect(field.forms['D00/D00-HDR'], {'author': 'Ada Lovelace'});
       expect(field.content['D00/D00-HDR'], isNull);
 
-      final prose = SpecDocumentMarkdown(_model(), SpecDocument()).parse(asProse);
+      final prose = SpecDocumentMarkdown(
+        _model(),
+        SpecDocument(),
+      ).parse(asProse);
       expect(prose.isClean, isTrue, reason: prose.rejections.toString());
       expect(prose.content['D00/D00-HDR'], 'Author: Ada Lovelace');
       expect(prose.forms['D00/D00-HDR'], isNull);
@@ -524,7 +593,8 @@ void main() {
       // The bogus heading is nested under `meta` (which has no list children);
       // directly under the root any unresolved id would be absorbed by the
       // single-list-child fallback as a stored-id item.
-      const md = '<!-- docspec: demo-document/1.0 -->\n'
+      const md =
+          '<!-- docspec: demo-document/1.0 -->\n'
           '# <!--[D00]--> Demo Document\n\n'
           '## <!--[D00-OVR]--> Overview\n\n'
           'kept\n\n'
@@ -534,74 +604,86 @@ void main() {
       final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
       expect(report.isClean, isFalse);
       expect(
-        report.rejections.any((r) =>
-            r.anchor == 'D00-NOPE' &&
-            r.reason == SpecMarkdownRejectReason.unknownSection),
+        report.rejections.any(
+          (r) =>
+              r.anchor == 'D00-NOPE' &&
+              r.reason == SpecMarkdownRejectReason.unknownSection,
+        ),
         isTrue,
       );
       expect(report.content['D00/D00-OVR'], 'kept');
     });
 
     test('a heading without a headline comment is malformed', () {
-      const md = '<!-- docspec: demo-document/1.0 -->\n'
+      const md =
+          '<!-- docspec: demo-document/1.0 -->\n'
           '# <!--[D00]--> Demo Document\n\n'
           '## Overview without an id comment\n\n'
           'lost\n';
       final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
       expect(
-        report.rejections
-            .any((r) => r.reason == SpecMarkdownRejectReason.malformedHeading),
+        report.rejections.any(
+          (r) => r.reason == SpecMarkdownRejectReason.malformedHeading,
+        ),
         isTrue,
       );
       expect(report.content, isEmpty);
     });
 
     test('text before the root heading is orphaned content', () {
-      const md = 'stray preamble text\n'
+      const md =
+          'stray preamble text\n'
           '# <!--[D00]--> Demo Document\n\n'
           '## <!--[D00-OVR]--> Overview\n\n'
           'kept\n';
       final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
       expect(
-        report.rejections
-            .any((r) => r.reason == SpecMarkdownRejectReason.orphanContent),
+        report.rejections.any(
+          (r) => r.reason == SpecMarkdownRejectReason.orphanContent,
+        ),
         isTrue,
       );
       expect(report.content['D00/D00-OVR'], 'kept');
     });
 
     test('a child heading under a content section is a kind mismatch', () {
-      const md = '# <!--[D00]--> Demo Document\n\n'
+      const md =
+          '# <!--[D00]--> Demo Document\n\n'
           '## <!--[D00-OVR]--> Overview\n\n'
           'kept\n\n'
           '### <!--[D00-MET-NOTE]--> Note\n\n'
           'misplaced\n';
       final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
       expect(
-        report.rejections
-            .any((r) => r.reason == SpecMarkdownRejectReason.kindMismatch),
+        report.rejections.any(
+          (r) => r.reason == SpecMarkdownRejectReason.kindMismatch,
+        ),
         isTrue,
       );
       expect(report.content['D00/D00-OVR'], 'kept');
     });
 
     test('a value-leaf heading with an empty body is a missing value', () {
-      const md = '# <!--[D00]--> Demo Document\n\n'
+      const md =
+          '# <!--[D00]--> Demo Document\n\n'
           '## <!--[D00-OVR]--> Overview\n\n'
           '## <!--[D00-ST]--> Status\n\n'
           'final\n';
       final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
       expect(
-        report.rejections.any((r) =>
-            r.reason == SpecMarkdownRejectReason.missingValue &&
-            r.anchor == 'D00/D00-OVR'),
+        report.rejections.any(
+          (r) =>
+              r.reason == SpecMarkdownRejectReason.missingValue &&
+              r.anchor == 'D00/D00-OVR',
+        ),
         isTrue,
       );
       expect(report.content['D00/D00-ST'], 'final');
     });
 
     test('form field labels parse case-insensitively', () {
-      const md = '# <!--[D00]--> Demo Document\n\n'
+      const md =
+          '# <!--[D00]--> Demo Document\n\n'
           '## <!--[D00-HDR]--> Header\n\n'
           'author: lower-case label\n';
       final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
@@ -610,15 +692,18 @@ void main() {
     });
 
     test('heading-like lines inside a fenced block stay body text', () {
-      const md = '# <!--[D00]--> Demo Document\n\n'
+      const md =
+          '# <!--[D00]--> Demo Document\n\n'
           '## <!--[D00-OVR]--> Overview\n\n'
           '```\n'
           '## <!--[D00-ST]--> not a real heading\n'
           '```\n';
       final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
       expect(report.isClean, isTrue, reason: report.rejections.toString());
-      expect(report.content['D00/D00-OVR'],
-          '```\n## <!--[D00-ST]--> not a real heading\n```');
+      expect(
+        report.content['D00/D00-OVR'],
+        '```\n## <!--[D00-ST]--> not a real heading\n```',
+      );
       expect(report.content.containsKey('D00/D00-ST'), isFalse);
     });
   });
@@ -633,38 +718,38 @@ void main() {
     // A minimal document root whose only content is a patterned list, mirroring
     // the generated `goals` → `goal-item` structure the validator fixtures use.
     Map<String, dynamic> goalsJson() => {
-          'roots': [
-            {'type': 'GoalDoc', 'title': 'Goal Document', 'sectionId': 'D00'},
-          ],
-          'classes': {
-            'GoalDoc': {
-              'name': 'GoalDoc',
-              'sectionId': 'D00',
-              'fields': [
-                {
-                  'name': 'goals',
-                  'kind': 'complex',
-                  'type': 'Goals',
-                  'sectionId': 'GOALS',
-                },
-              ],
-            },
-            'Goals': {
-              'name': 'Goals',
+      'roots': [
+        {'type': 'GoalDoc', 'title': 'Goal Document', 'sectionId': 'D00'},
+      ],
+      'classes': {
+        'GoalDoc': {
+          'name': 'GoalDoc',
+          'sectionId': 'D00',
+          'fields': [
+            {
+              'name': 'goals',
+              'kind': 'complex',
+              'type': 'Goals',
               'sectionId': 'GOALS',
-              'fields': [
-                {
-                  'name': 'goalItems',
-                  'kind': 'list',
-                  'sectionId': 'GOAL-ITEM-LST',
-                  'sectionIdPattern': 'GOAL-ITEM-xxx',
-                  'elementType': 'String',
-                  'elementIsComplex': false,
-                },
-              ],
             },
-          },
-        };
+          ],
+        },
+        'Goals': {
+          'name': 'Goals',
+          'sectionId': 'GOALS',
+          'fields': [
+            {
+              'name': 'goalItems',
+              'kind': 'list',
+              'sectionId': 'GOAL-ITEM-LST',
+              'sectionIdPattern': 'GOAL-ITEM-xxx',
+              'elementType': 'String',
+              'elementIsComplex': false,
+            },
+          ],
+        },
+      },
+    };
 
     // The generated schema shape: `pattern-check-id` compiles `xxx` to
     // `.+` — a stem check (YRD3); numbering/uniqueness is runtime-owned. The
@@ -721,12 +806,12 @@ document:
       return doc;
     }
 
-    test('the emitter surfaces stored AA1 ids in the item headings (YRD3)',
-        () {
+    test('the emitter surfaces stored AA1 ids in the item headings (YRD3)', () {
       final m = model();
-      final md = SpecDocumentMarkdown(m, authorWithAa1Ids()).exportRoot(
-        m.roots.single,
-      );
+      final md = SpecDocumentMarkdown(
+        m,
+        authorWithAa1Ids(),
+      ).exportRoot(m.roots.single);
       // The `-LST` container heads; items sit one level below it, each with
       // its stored id — the positional id is only the no-stored-id fallback.
       expect(md, contains('### <!--[GOAL-ITEM-LST]-->'));
@@ -736,89 +821,95 @@ document:
       expect(md, isNot(contains('GOAL-ITEM-2]')));
     });
 
-    test('the exported md validates cleanly against the .+ stem-check generated '
-        'schema (YRD3 done-condition)', () {
-      final m = model();
-      final md = SpecDocumentMarkdown(m, authorWithAa1Ids()).exportRoot(
-        m.roots.single,
-      );
-      final schema = DocSpecsSchema.fromYamlText(goalsSchemaYaml);
-      expect(schema.warnings, isEmpty);
-      final violations = DocSpecsValidator(schema).validateMarkdown(md);
-      expect(violations, isEmpty, reason: violations.toString());
-    });
+    test(
+      'the exported md validates cleanly against the .+ stem-check generated '
+      'schema (YRD3 done-condition)',
+      () {
+        final m = model();
+        final md = SpecDocumentMarkdown(
+          m,
+          authorWithAa1Ids(),
+        ).exportRoot(m.roots.single);
+        final schema = DocSpecsSchema.fromYamlText(goalsSchemaYaml);
+        expect(schema.warnings, isEmpty);
+        final violations = DocSpecsValidator(schema).validateMarkdown(md);
+        expect(violations, isEmpty, reason: violations.toString());
+      },
+    );
 
-    test('a stem-mismatched id is still rejected — the stem check has teeth',
-        () {
-      // Same document shape but one item id that does NOT carry the
-      // `GOAL-ITEM-` stem; the `.+` stem check must flag it.
-      const mdWithBogusId = '<!-- docspec: goal-document/1.0 -->\n'
-          '# <!--[D00]--> Goal Document\n\n'
-          '## <!--[GOALS]--> Goals\n\n'
-          '### <!--[GOAL-ITEM-LST]--> Goal Items\n\n'
-          '#### <!--[GOAL-ITEM-GN1]--> Goal Item 1\n\n'
-          'First goal.\n\n'
-          '#### <!--[GOAL-ITEM_BOGUS]--> Goal Item 2\n\n'
-          'Second goal.\n';
-      final schema = DocSpecsSchema.fromYamlText(goalsSchemaYaml);
-      final violations =
-          DocSpecsValidator(schema).validateMarkdown(mdWithBogusId);
-      expect(violations, isNotEmpty);
-      expect(
-        violations.any((v) => v.rule == DocSpecsViolationRule.idPatternMismatch),
-        isTrue,
-        reason: violations.toString(),
-      );
-    });
+    test(
+      'a stem-mismatched id is still rejected — the stem check has teeth',
+      () {
+        // Same document shape but one item id that does NOT carry the
+        // `GOAL-ITEM-` stem; the `.+` stem check must flag it.
+        const mdWithBogusId =
+            '<!-- docspec: goal-document/1.0 -->\n'
+            '# <!--[D00]--> Goal Document\n\n'
+            '## <!--[GOALS]--> Goals\n\n'
+            '### <!--[GOAL-ITEM-LST]--> Goal Items\n\n'
+            '#### <!--[GOAL-ITEM-GN1]--> Goal Item 1\n\n'
+            'First goal.\n\n'
+            '#### <!--[GOAL-ITEM_BOGUS]--> Goal Item 2\n\n'
+            'Second goal.\n';
+        final schema = DocSpecsSchema.fromYamlText(goalsSchemaYaml);
+        final violations = DocSpecsValidator(
+          schema,
+        ).validateMarkdown(mdWithBogusId);
+        expect(violations, isNotEmpty);
+        expect(
+          violations.any(
+            (v) => v.rule == DocSpecsViolationRule.idPatternMismatch,
+          ),
+          isTrue,
+          reason: violations.toString(),
+        );
+      },
+    );
   });
   group('YRD4 — @Headline default headlines', () {
     // A model with @Headline defaults on a field, an element class and a
     // list container; the precedence is stored headline > @Headline default >
     // name derivation, symmetric between export and import staging.
     Map<String, dynamic> headlineJson() => {
-          'roots': [
+      'roots': [
+        {
+          'type': 'HDoc',
+          'title': 'H Document',
+          'sectionId': 'H00',
+          'description': 'Headline demo.',
+        },
+      ],
+      'classes': {
+        'HDoc': {
+          'name': 'HDoc',
+          'sectionId': 'H00',
+          'fields': [
             {
-              'type': 'HDoc',
-              'title': 'H Document',
-              'sectionId': 'H00',
-              'description': 'Headline demo.',
+              'name': 'overview',
+              'kind': 'content',
+              'sectionId': 'H00-OVR',
+              'headline': 'Executive Overview',
+            },
+            {'name': 'plain', 'kind': 'content', 'sectionId': 'H00-PLN'},
+            {
+              'name': 'items',
+              'kind': 'list',
+              'elementType': 'HItem',
+              'elementIsComplex': true,
+              'sectionId': 'H00-ITM',
+              'headline': 'Tracked Items',
             },
           ],
-          'classes': {
-            'HDoc': {
-              'name': 'HDoc',
-              'sectionId': 'H00',
-              'fields': [
-                {
-                  'name': 'overview',
-                  'kind': 'content',
-                  'sectionId': 'H00-OVR',
-                  'headline': 'Executive Overview',
-                },
-                {
-                  'name': 'plain',
-                  'kind': 'content',
-                  'sectionId': 'H00-PLN',
-                },
-                {
-                  'name': 'items',
-                  'kind': 'list',
-                  'elementType': 'HItem',
-                  'elementIsComplex': true,
-                  'sectionId': 'H00-ITM',
-                  'headline': 'Tracked Items',
-                },
-              ],
-            },
-            'HItem': {
-              'name': 'HItem',
-              'headline': 'Work Item',
-              'fields': [
-                {'name': 'label', 'kind': 'content', 'sectionId': 'H01-LBL'},
-              ],
-            },
-          },
-        };
+        },
+        'HItem': {
+          'name': 'HItem',
+          'headline': 'Work Item',
+          'fields': [
+            {'name': 'label', 'kind': 'content', 'sectionId': 'H01-LBL'},
+          ],
+        },
+      },
+    };
 
     SpecModel model() => SpecModel.fromJson(headlineJson());
 
@@ -845,31 +936,32 @@ document:
     });
 
     test('a stored headline wins over the @Headline default', () {
-      final doc = populated()
-        ..setHeadline('H00/H00-OVR', 'Custom Overview');
+      final doc = populated()..setHeadline('H00/H00-OVR', 'Custom Overview');
       final md = export(doc);
       expect(md, contains('## <!--[H00-OVR]--> Custom Overview'));
       expect(md, isNot(contains('Executive Overview')));
     });
 
-    test('import stages a headline only when it differs from the default',
-        () {
+    test('import stages a headline only when it differs from the default', () {
       final md = export(populated());
       final report = SpecDocumentMarkdown(model(), SpecDocument()).parse(md);
       // Rendering the defaults must not stage stored headlines (byte
       // stability, SOM §11.7): the parsed titles equal the effective defaults.
       expect(report.headlines, isEmpty, reason: report.headlines.toString());
       // A custom title in the md IS staged as a stored headline.
-      final custom = md.replaceFirst('## <!--[H00-OVR]--> Executive Overview',
-          '## <!--[H00-OVR]--> Renamed Overview');
-      final report2 =
-          SpecDocumentMarkdown(model(), SpecDocument()).parse(custom);
+      final custom = md.replaceFirst(
+        '## <!--[H00-OVR]--> Executive Overview',
+        '## <!--[H00-OVR]--> Renamed Overview',
+      );
+      final report2 = SpecDocumentMarkdown(
+        model(),
+        SpecDocument(),
+      ).parse(custom);
       expect(report2.headlines['H00/H00-OVR'], 'Renamed Overview');
     });
 
     test('stored → export → import round-trip is byte-stable', () {
-      final doc = populated()
-        ..setHeadline('H00/H00-OVR', 'Custom Overview');
+      final doc = populated()..setHeadline('H00/H00-OVR', 'Custom Overview');
       final md = export(doc);
       final report = SpecDocumentMarkdown(model(), SpecDocument()).parse(md);
       final target = SpecDocument()
@@ -888,8 +980,10 @@ document:
       final md = export(doc);
       expect(
         md,
-        contains('## <!--[H00-OVR] codeSpec="CsOrder,CsOrder.total,'
-            'CsOrderRepository"--> Executive Overview'),
+        contains(
+          '## <!--[H00-OVR] codeSpec="CsOrder,CsOrder.total,'
+          'CsOrderRepository"--> Executive Overview',
+        ),
       );
       // Untouched sections stay byte-stable (no empty codeSpec attribute).
       expect(md, contains('## <!--[H00-PLN]--> Plain'));
@@ -918,8 +1012,10 @@ document:
           'codeSpecs': report.codeSpecs,
         });
       expect(export(target), md);
-      expect(target.codeSpec('H00/H00-OVR'),
-          'CsOrder,CsOrder.total,CsOrderRepository');
+      expect(
+        target.codeSpec('H00/H00-OVR'),
+        'CsOrder,CsOrder.total,CsOrderRepository',
+      );
     });
   });
 }

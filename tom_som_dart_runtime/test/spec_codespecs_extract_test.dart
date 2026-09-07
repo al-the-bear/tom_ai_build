@@ -27,10 +27,12 @@ void main() {
 
     test('emits one extract per active area, empty ones included', () {
       final extracts = _extractor().extractAll();
-      expect(
-        extracts.map((e) => e.area.code),
-        ['CE-FM', 'CE-ST', 'CE-TX', 'CE-ER'],
-      );
+      expect(extracts.map((e) => e.area.code), [
+        'CE-FM',
+        'CE-ST',
+        'CE-TX',
+        'CE-ER',
+      ]);
       // CE-ER is in the catalogue but nothing in this document routes to it.
       // An area with no content still gets an extract: "no requirement stated"
       // is a finding the authoring agent must see, not a missing file.
@@ -40,16 +42,17 @@ void main() {
     test('excludes the whole subtree under a @FollowUpKind root', () {
       final extractor = _extractor();
       final everyValue = [
-        for (final x in extractor.extractAll()) ...x.entries.map((e) => e.value),
+        for (final x in extractor.extractAll())
+          ...x.entries.map((e) => e.value),
       ];
       // `Handover` is populated, and populated with text distinctive enough
       // that its absence cannot be an accident of an empty section.
       expect(everyValue, isNot(contains('Train the counter staff')));
       expect(everyValue, isNot(contains('operations')));
 
-      final handover = extractor
-          .routings()
-          .firstWhere((r) => r.className == 'Handover');
+      final handover = extractor.routings().firstWhere(
+        (r) => r.className == 'Handover',
+      );
       expect(handover.verdict, CodeSpecsRoutingVerdict.feedsProcess);
       expect(handover.values, ['trn']);
     });
@@ -68,22 +71,23 @@ void main() {
       );
     });
 
-    test('descends through a @NoArtifact container but emits none of its own',
-        () {
-      final byCode = {
-        for (final e in _extractor().extractAll()) e.area.code: e,
-      };
-      // `Registry` is @NoArtifact(container): its own summary is not emitted…
-      expect(
-        [for (final x in byCode.values) ...x.entries.map((e) => e.path)],
-        isNot(contains('ORD/REG/SUM')),
-      );
-      // …but the routed `Entry` below it is.
-      expect(
-        byCode['CE-FM']!.entries.map((e) => e.path),
-        contains(startsWith('ORD/REG/ENT-')),
-      );
-    });
+    test(
+      'descends through a @NoArtifact container but emits none of its own',
+      () {
+        final byCode = {
+          for (final e in _extractor().extractAll()) e.area.code: e,
+        };
+        // `Registry` is @NoArtifact(container): its own summary is not emitted…
+        expect([
+          for (final x in byCode.values) ...x.entries.map((e) => e.path),
+        ], isNot(contains('ORD/REG/SUM')));
+        // …but the routed `Entry` below it is.
+        expect(
+          byCode['CE-FM']!.entries.map((e) => e.path),
+          contains(startsWith('ORD/REG/ENT-')),
+        );
+      },
+    );
 
     test('throws on a section carrying none of the three verdicts', () {
       final extractor = CodeSpecsExtractor(
@@ -93,9 +97,11 @@ void main() {
       );
       expect(
         () => extractor.extractAll(),
-        throwsA(isA<CodeSpecsExtractError>()
-            .having((e) => e.className, 'className', 'Registry')
-            .having((e) => e.message, 'message', contains('ROUTE-TOTAL'))),
+        throwsA(
+          isA<CodeSpecsExtractError>()
+              .having((e) => e.className, 'className', 'Registry')
+              .having((e) => e.message, 'message', contains('ROUTE-TOTAL')),
+        ),
       );
       // The non-throwing diagnostic reports the same node instead.
       expect(
@@ -111,10 +117,16 @@ void main() {
         for (final entry in extract.entries) {
           final cls = model.classNamed(entry.className);
           expect(cls, isNotNull, reason: '${entry.path}: unknown class');
-          expect(cls!.fieldNamed(entry.fieldName), isNotNull,
-              reason: '${entry.path}: unknown field ${entry.fieldName}');
-          expect(reflection.resolve(entry.path), isNotNull,
-              reason: '${entry.path}: unresolvable path');
+          expect(
+            cls!.fieldNamed(entry.fieldName),
+            isNotNull,
+            reason: '${entry.path}: unknown field ${entry.fieldName}',
+          );
+          expect(
+            reflection.resolve(entry.path),
+            isNotNull,
+            reason: '${entry.path}: unresolvable path',
+          );
           expect(entry.routedAt, isNotEmpty);
           expect(entry.routedBy, startsWith('CodeSpecPart.'));
         }
@@ -136,8 +148,11 @@ void main() {
       expect(stored, isNotEmpty);
       for (final extract in _extractor().extractAll()) {
         for (final entry in extract.entries) {
-          expect(stored, contains(entry.value),
-              reason: '${entry.path} was not copied from the document');
+          expect(
+            stored,
+            contains(entry.value),
+            reason: '${entry.path} was not copied from the document',
+          );
         }
       }
     });
@@ -175,11 +190,8 @@ void main() {
         document: _document(),
         catalog: _catalog(),
       );
-      final entries = [
-        for (final x in extractor.extractAll()) ...x.entries,
-      ];
-      final itemEntry =
-          entries.firstWhere((e) => e.path.endsWith('/LBL'));
+      final entries = [for (final x in extractor.extractAll()) ...x.entries];
+      final itemEntry = entries.firstWhere((e) => e.path.endsWith('/LBL'));
       expect(itemEntry.headline, 'Register entry');
       // No stored headline and no @Headline on Order: null, not a derivation.
       final rootEntry = entries.firstWhere((e) => e.path == 'ORD/TTL');
@@ -264,15 +276,16 @@ void main() {
       // CE-FM sits in slice 2, which cites slice 1 — so it reaches both areas
       // that live there, and the result is in catalogue order rather than
       // discovery order.
-      expect(
-        catalog.citableAreaCodes(catalog.byCode('CE-FM')!),
-        ['CE-TX', 'CE-ER'],
-      );
+      expect(catalog.citableAreaCodes(catalog.byCode('CE-FM')!), [
+        'CE-TX',
+        'CE-ER',
+      ]);
       // CE-ST is slice 5, which cites 2 and so reaches 1 transitively.
-      expect(
-        catalog.citableAreaCodes(catalog.byCode('CE-ST')!),
-        ['CE-FM', 'CE-TX', 'CE-ER'],
-      );
+      expect(catalog.citableAreaCodes(catalog.byCode('CE-ST')!), [
+        'CE-FM',
+        'CE-TX',
+        'CE-ER',
+      ]);
       // Slice 1 cites no other slice, so CE-TX reaches only its own slice —
       // within-slice citation is legal, hence its slice-mate but nothing above.
       expect(catalog.citableAreaCodes(catalog.byCode('CE-TX')!), ['CE-ER']);
@@ -301,8 +314,10 @@ void main() {
       ];
       expect(paths, isNot(contains('LDG/NTE')));
       expect(paths, contains('ORD/TTL'));
-      expect(extractor.routings().map((r) => r.className),
-          isNot(contains('Ledger')));
+      expect(
+        extractor.routings().map((r) => r.className),
+        isNot(contains('Ledger')),
+      );
     });
 
     test('reports the resolved root as the extract document root', () {
@@ -350,11 +365,13 @@ void main() {
           catalog: _catalog(),
           rootType: 'Ledger',
         ),
-        throwsA(isA<CodeSpecsExtractError>()
-            .having((e) => e.className, 'className', 'Ledger')
-            .having((e) => e.path, 'path', 'LDG')
-            .having((e) => e.message, 'message', contains('holds no value'))
-            .having((e) => e.message, 'message', contains('Order'))),
+        throwsA(
+          isA<CodeSpecsExtractError>()
+              .having((e) => e.className, 'className', 'Ledger')
+              .having((e) => e.path, 'path', 'LDG')
+              .having((e) => e.message, 'message', contains('holds no value'))
+              .having((e) => e.message, 'message', contains('Order')),
+        ),
       );
     });
 
@@ -366,9 +383,11 @@ void main() {
           document: document,
           catalog: _catalog(),
         ),
-        throwsA(isA<CodeSpecsExtractError>()
-            .having((e) => e.message, 'message', contains('Order, Ledger'))
-            .having((e) => e.message, 'message', contains('rootType'))),
+        throwsA(
+          isA<CodeSpecsExtractError>()
+              .having((e) => e.message, 'message', contains('Order, Ledger'))
+              .having((e) => e.message, 'message', contains('rootType')),
+        ),
       );
     });
 
@@ -380,9 +399,11 @@ void main() {
           catalog: _catalog(),
           rootType: 'Nope',
         ),
-        throwsA(isA<CodeSpecsExtractError>()
-            .having((e) => e.message, 'message', contains('no document root'))
-            .having((e) => e.message, 'message', contains('Order, Ledger'))),
+        throwsA(
+          isA<CodeSpecsExtractError>()
+              .having((e) => e.message, 'message', contains('no document root'))
+              .having((e) => e.message, 'message', contains('Order, Ledger')),
+        ),
       );
     });
 
@@ -398,8 +419,13 @@ void main() {
       expect(extractor.root.type, 'Order');
       expect(
         () => extractor.extractAll(),
-        throwsA(isA<CodeSpecsExtractError>()
-            .having((e) => e.message, 'message', contains('ROUTE-TOTAL'))),
+        throwsA(
+          isA<CodeSpecsExtractError>().having(
+            (e) => e.message,
+            'message',
+            contains('ROUTE-TOTAL'),
+          ),
+        ),
       );
     });
 
@@ -410,8 +436,13 @@ void main() {
           document: SpecDocument(),
           catalog: _catalog(),
         ),
-        throwsA(isA<CodeSpecsExtractError>().having(
-            (e) => e.message, 'message', contains('no populated root'))),
+        throwsA(
+          isA<CodeSpecsExtractError>().having(
+            (e) => e.message,
+            'message',
+            contains('no populated root'),
+          ),
+        ),
       );
     });
   });
@@ -432,8 +463,7 @@ void main() {
       expect(yaml, contains('instanceId: null'));
     });
 
-    test('YAML and Markdown carry an instanceId when the instance has one',
-        () {
+    test('YAML and Markdown carry an instanceId when the instance has one', () {
       final document = _document();
       final entryPath = document.listItems('ORD/REG/ENT').single;
       document.setItemSectionId(entryPath, 'ENT-SPEC');
@@ -472,10 +502,7 @@ void main() {
         document: document,
         catalog: _catalog(),
       ).extractFor('CE-FM')!;
-      expect(
-        extract.toYaml(),
-        contains(r'value: "a \"quoted\"\nline\\end"'),
-      );
+      expect(extract.toYaml(), contains(r'value: "a \"quoted\"\nline\\end"'));
     });
 
     test('Markdown fences a value containing its own fence', () {
@@ -506,147 +533,152 @@ void main() {
 // --- fixture ----------------------------------------------------------------
 
 CodeSpecsExtractor _extractor() => CodeSpecsExtractor(
-      model: _model(),
-      document: _document(),
-      catalog: _catalog(),
-    );
+  model: _model(),
+  document: _document(),
+  catalog: _catalog(),
+);
 
 SpecAnnotation _kind(List<String> kinds, {String? note}) => SpecAnnotation(
-      name: 'CodeSpecKind',
-      arguments: {
-        'kinds': [for (final k in kinds) 'CodeSpecPart.$k'],
-        if (note != null) 'note': note,
-      },
-    );
+  name: 'CodeSpecKind',
+  arguments: {
+    'kinds': [for (final k in kinds) 'CodeSpecPart.$k'],
+    if (note != null) 'note': note,
+  },
+);
 
 /// A four-class model: a routed root, a follow-up subtree, a container and a
 /// routed list element.
-SpecModel _model({bool unroutedRegistry = false, String? entryHeadline}) =>
-    SpecModel(
-      roots: [SpecRoot(type: 'Order', title: 'Order', sectionId: 'ORD')],
-      classes: {
-        'Order': SpecClass(
-          name: 'Order',
-          sectionId: 'ORD',
+SpecModel _model({
+  bool unroutedRegistry = false,
+  String? entryHeadline,
+}) => SpecModel(
+  roots: [SpecRoot(type: 'Order', title: 'Order', sectionId: 'ORD')],
+  classes: {
+    'Order': SpecClass(
+      name: 'Order',
+      sectionId: 'ORD',
+      annotations: [
+        const SpecAnnotation(name: 'Document', arguments: {'title': 'Order'}),
+        _kind(['form', 'viewState'], note: 'the order capture screen'),
+      ],
+      fields: [
+        SpecField(name: 'title', kind: SpecFieldKind.content, sectionId: 'TTL'),
+        SpecField(
+          name: 'helpText',
+          kind: SpecFieldKind.content,
+          sectionId: 'HLP',
           annotations: [
-            const SpecAnnotation(name: 'Document', arguments: {'title': 'Order'}),
-            _kind(['form', 'viewState'], note: 'the order capture screen'),
-          ],
-          fields: [
-            SpecField(
-                name: 'title', kind: SpecFieldKind.content, sectionId: 'TTL'),
-            SpecField(
-              name: 'helpText',
-              kind: SpecFieldKind.content,
-              sectionId: 'HLP',
-              annotations: [_kind(['text'])],
-            ),
-            SpecField(
-              name: 'shape',
-              kind: SpecFieldKind.form,
-              sectionId: 'SHP',
-              formFields: [
-                FormFieldSpec(name: 'width', label: 'Width', type: 'String'),
-                FormFieldSpec(name: 'height', label: 'Height', type: 'String'),
-              ],
-            ),
-            SpecField(
-              name: 'tags',
-              kind: SpecFieldKind.list,
-              sectionId: 'TAG',
-              elementType: 'String',
-            ),
-            SpecField(
-                name: 'registry',
-                kind: SpecFieldKind.complex,
-                sectionId: 'REG',
-                type: 'Registry'),
-            SpecField(
-                name: 'handover',
-                kind: SpecFieldKind.complex,
-                sectionId: 'HND',
-                type: 'Handover'),
+            _kind(['text']),
           ],
         ),
-        'Registry': SpecClass(
-          name: 'Registry',
+        SpecField(
+          name: 'shape',
+          kind: SpecFieldKind.form,
+          sectionId: 'SHP',
+          formFields: [
+            FormFieldSpec(name: 'width', label: 'Width', type: 'String'),
+            FormFieldSpec(name: 'height', label: 'Height', type: 'String'),
+          ],
+        ),
+        SpecField(
+          name: 'tags',
+          kind: SpecFieldKind.list,
+          sectionId: 'TAG',
+          elementType: 'String',
+        ),
+        SpecField(
+          name: 'registry',
+          kind: SpecFieldKind.complex,
           sectionId: 'REG',
-          annotations: unroutedRegistry
-              ? const []
-              : [
-                  const SpecAnnotation(
-                    name: 'NoArtifact',
-                    arguments: {'reason': 'NoArtifactReason.container'},
-                  ),
-                ],
-          fields: [
-            SpecField(
-                name: 'summary', kind: SpecFieldKind.content, sectionId: 'SUM'),
-            SpecField(
-              name: 'entries',
-              kind: SpecFieldKind.list,
-              sectionId: 'ENT',
-              elementType: 'Entry',
-              elementIsComplex: true,
-            ),
-          ],
+          type: 'Registry',
         ),
-        'Entry': SpecClass(
-          name: 'Entry',
-          sectionId: 'ENT',
-          headline: entryHeadline,
-          annotations: [_kind(['form'])],
-          fields: [
-            SpecField(
-                name: 'label', kind: SpecFieldKind.content, sectionId: 'LBL'),
-          ],
-        ),
-        'Handover': SpecClass(
-          name: 'Handover',
+        SpecField(
+          name: 'handover',
+          kind: SpecFieldKind.complex,
           sectionId: 'HND',
-          annotations: [
-            const SpecAnnotation(
-              name: 'FollowUpKind',
-              arguments: {
-                'processes': ['FollowUpProcess.trn'],
-                'note': 'delivered as counter training, not as code',
-              },
-            ),
-          ],
-          fields: [
-            SpecField(
-                name: 'plan', kind: SpecFieldKind.content, sectionId: 'PLN'),
-            SpecField(
-                name: 'owner', kind: SpecFieldKind.content, sectionId: 'OWN'),
-          ],
+          type: 'Handover',
         ),
-      },
-    );
+      ],
+    ),
+    'Registry': SpecClass(
+      name: 'Registry',
+      sectionId: 'REG',
+      annotations: unroutedRegistry
+          ? const []
+          : [
+              const SpecAnnotation(
+                name: 'NoArtifact',
+                arguments: {'reason': 'NoArtifactReason.container'},
+              ),
+            ],
+      fields: [
+        SpecField(
+          name: 'summary',
+          kind: SpecFieldKind.content,
+          sectionId: 'SUM',
+        ),
+        SpecField(
+          name: 'entries',
+          kind: SpecFieldKind.list,
+          sectionId: 'ENT',
+          elementType: 'Entry',
+          elementIsComplex: true,
+        ),
+      ],
+    ),
+    'Entry': SpecClass(
+      name: 'Entry',
+      sectionId: 'ENT',
+      headline: entryHeadline,
+      annotations: [
+        _kind(['form']),
+      ],
+      fields: [
+        SpecField(name: 'label', kind: SpecFieldKind.content, sectionId: 'LBL'),
+      ],
+    ),
+    'Handover': SpecClass(
+      name: 'Handover',
+      sectionId: 'HND',
+      annotations: [
+        const SpecAnnotation(
+          name: 'FollowUpKind',
+          arguments: {
+            'processes': ['FollowUpProcess.trn'],
+            'note': 'delivered as counter training, not as code',
+          },
+        ),
+      ],
+      fields: [
+        SpecField(name: 'plan', kind: SpecFieldKind.content, sectionId: 'PLN'),
+        SpecField(name: 'owner', kind: SpecFieldKind.content, sectionId: 'OWN'),
+      ],
+    ),
+  },
+);
 
 /// [_model] plus a second `@Document` root, so "which root does the walk
 /// start from" has an answer that can be wrong.
 SpecModel _twoRootModel() => SpecModel(
-      roots: [
-        SpecRoot(type: 'Order', title: 'Order', sectionId: 'ORD'),
-        SpecRoot(type: 'Ledger', title: 'Ledger', sectionId: 'LDG'),
+  roots: [
+    SpecRoot(type: 'Order', title: 'Order', sectionId: 'ORD'),
+    SpecRoot(type: 'Ledger', title: 'Ledger', sectionId: 'LDG'),
+  ],
+  classes: {
+    ..._model().classes,
+    'Ledger': SpecClass(
+      name: 'Ledger',
+      sectionId: 'LDG',
+      annotations: [
+        const SpecAnnotation(name: 'Document', arguments: {'title': 'Ledger'}),
+        _kind(['text']),
       ],
-      classes: {
-        ..._model().classes,
-        'Ledger': SpecClass(
-          name: 'Ledger',
-          sectionId: 'LDG',
-          annotations: [
-            const SpecAnnotation(
-                name: 'Document', arguments: {'title': 'Ledger'}),
-            _kind(['text']),
-          ],
-          fields: [
-            SpecField(
-                name: 'note', kind: SpecFieldKind.content, sectionId: 'NTE'),
-          ],
-        ),
-      },
-    );
+      fields: [
+        SpecField(name: 'note', kind: SpecFieldKind.content, sectionId: 'NTE'),
+      ],
+    ),
+  },
+);
 
 SpecDocument _document() {
   final d = SpecDocument();
@@ -670,58 +702,66 @@ SpecDocument _document() {
 /// that means nothing); the slice numbers and authoring steps are a cut-down
 /// synthetic graph, not `codespecs_mapping.md` §4.4.3's.
 CodeSpecsAreaCatalog _catalog() => const CodeSpecsAreaCatalog(
-      source: 'codespecs_mapping.md §4.1 (test fixture)',
-      slices: [
-        CodeSpecsSlice(
-            number: 1, title: 'Shared const catalogues', project: 'shared'),
-        CodeSpecsSlice(
-            number: 2, title: 'Shared contract', project: 'shared', cites: [1]),
-        CodeSpecsSlice(
-            number: 5,
-            title: 'Client interaction core',
-            project: 'client',
-            cites: [2]),
-      ],
-      areas: [
-        CodeSpecsArea(
-          code: 'CE-FM',
-          canonicalId: 'Form',
-          part: 'form',
-          annotations: ['@CsForm'],
-          builtOn: 'TomForm',
-          attributeSurface: 'codespecs_mapping.md §5.7.2',
-          slices: [2],
-          authoringSteps: [4],
-        ),
-        CodeSpecsArea(
-          code: 'CE-ST',
-          canonicalId: 'ViewState',
-          part: 'viewState',
-          annotations: ['@CsViewModel'],
-          builtOn: 'TomObservable',
-          attributeSurface: 'codespecs_mapping.md §5.4',
-          slices: [5],
-          authoringSteps: [21],
-        ),
-        CodeSpecsArea(
-          code: 'CE-TX',
-          canonicalId: 'Text',
-          part: 'text',
-          annotations: ['@CsText'],
-          builtOn: 'TomText',
-          attributeSurface: 'codespecs_mapping.md §5.21',
-          slices: [1],
-          authoringSteps: [1],
-        ),
-        CodeSpecsArea(
-          code: 'CE-ER',
-          canonicalId: 'ErrorResult',
-          part: 'errorResult',
-          annotations: ['@CsError'],
-          builtOn: '<app>_codespec_shared Result',
-          attributeSurface: 'codespecs_mapping.md §7',
-          slices: [1],
-          authoringSteps: [2],
-        ),
-      ],
-    );
+  source: 'codespecs_mapping.md §4.1 (test fixture)',
+  slices: [
+    CodeSpecsSlice(
+      number: 1,
+      title: 'Shared const catalogues',
+      project: 'shared',
+    ),
+    CodeSpecsSlice(
+      number: 2,
+      title: 'Shared contract',
+      project: 'shared',
+      cites: [1],
+    ),
+    CodeSpecsSlice(
+      number: 5,
+      title: 'Client interaction core',
+      project: 'client',
+      cites: [2],
+    ),
+  ],
+  areas: [
+    CodeSpecsArea(
+      code: 'CE-FM',
+      canonicalId: 'Form',
+      part: 'form',
+      annotations: ['@CsForm'],
+      builtOn: 'TomForm',
+      attributeSurface: 'codespecs_mapping.md §5.7.2',
+      slices: [2],
+      authoringSteps: [4],
+    ),
+    CodeSpecsArea(
+      code: 'CE-ST',
+      canonicalId: 'ViewState',
+      part: 'viewState',
+      annotations: ['@CsViewModel'],
+      builtOn: 'TomObservable',
+      attributeSurface: 'codespecs_mapping.md §5.4',
+      slices: [5],
+      authoringSteps: [21],
+    ),
+    CodeSpecsArea(
+      code: 'CE-TX',
+      canonicalId: 'Text',
+      part: 'text',
+      annotations: ['@CsText'],
+      builtOn: 'TomText',
+      attributeSurface: 'codespecs_mapping.md §5.21',
+      slices: [1],
+      authoringSteps: [1],
+    ),
+    CodeSpecsArea(
+      code: 'CE-ER',
+      canonicalId: 'ErrorResult',
+      part: 'errorResult',
+      annotations: ['@CsError'],
+      builtOn: '<app>_codespec_shared Result',
+      attributeSurface: 'codespecs_mapping.md §7',
+      slices: [1],
+      authoringSteps: [2],
+    ),
+  ],
+);

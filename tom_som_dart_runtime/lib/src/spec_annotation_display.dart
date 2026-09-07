@@ -207,15 +207,18 @@ class SpecChip {
 }
 
 /// The marker a `@CodeSpecsProjection` document root carries.
-const SpecChip projectionChip =
-    SpecChip(kProjectionLabel, SpecChipRole.projection,
-        tooltip: kProjectionExplanation);
+const SpecChip projectionChip = SpecChip(
+  kProjectionLabel,
+  SpecChipRole.projection,
+  tooltip: kProjectionExplanation,
+);
 
 /// The marker an `@Unused` node carries beside its struck-through label.
 const SpecChip unusedChip = SpecChip(
   kUnusedChipLabel,
   SpecChipRole.unused,
-  tooltip: 'No section text expected — this section is a structural '
+  tooltip:
+      'No section text expected — this section is a structural '
       'container only',
 );
 
@@ -245,13 +248,14 @@ List<SpecChip> kindChips(
   KindLink? codeSpec,
   KindLink? followUp,
   NoArtifactLink? noArtifact,
-) =>
-    [
-      ...followUpKindChips(followUp),
-      ...noArtifactChips(noArtifact),
-      ...codeSpecKindChips(codeSpec,
-          suppressUnmapped: followUp != null || noArtifact != null),
-    ];
+) => [
+  ...followUpKindChips(followUp),
+  ...noArtifactChips(noArtifact),
+  ...codeSpecKindChips(
+    codeSpec,
+    suppressUnmapped: followUp != null || noArtifact != null,
+  ),
+];
 
 /// The `@CodeSpecKind` chips for [link].
 ///
@@ -261,20 +265,29 @@ List<SpecChip> kindChips(
 /// [suppressUnmapped] when the node is already classified by another taxonomy,
 /// so the undeclared marker would be a false statement rather than an open
 /// question.
-List<SpecChip> codeSpecKindChips(KindLink? link,
-    {bool suppressUnmapped = false}) {
+List<SpecChip> codeSpecKindChips(
+  KindLink? link, {
+  bool suppressUnmapped = false,
+}) {
   if (link == null) {
     if (suppressUnmapped) return const [];
     return const [
-      SpecChip('cs?', SpecChipRole.codeSpecUnmapped,
-          tooltip: 'No @CodeSpecKind — not yet mapped to a CodeSpecs part'),
+      SpecChip(
+        'cs?',
+        SpecChipRole.codeSpecUnmapped,
+        tooltip: 'No @CodeSpecKind — not yet mapped to a CodeSpecs part',
+      ),
     ];
   }
   if (link.kinds.isEmpty) {
     return const [
-      SpecChip('cs:none', SpecChipRole.codeSpecNone,
-          tooltip: '@CodeSpecKind with no kinds — recorded as mapping to no '
-              'CodeSpecs part'),
+      SpecChip(
+        'cs:none',
+        SpecChipRole.codeSpecNone,
+        tooltip:
+            '@CodeSpecKind with no kinds — recorded as mapping to no '
+            'CodeSpecs part',
+      ),
     ];
   }
   return [
@@ -292,17 +305,25 @@ List<SpecChip> followUpKindChips(KindLink? link) {
   if (link == null) return const [];
   if (link.kinds.isEmpty) {
     return const [
-      SpecChip('fu:none', SpecChipRole.followUpNone,
-          tooltip: '@FollowUpKind with no processes — recorded as feeding no '
-              'follow-up process'),
+      SpecChip(
+        'fu:none',
+        SpecChipRole.followUpNone,
+        tooltip:
+            '@FollowUpKind with no processes — recorded as feeding no '
+            'follow-up process',
+      ),
     ];
   }
   return [
     for (final process in link.kinds)
-      SpecChip('fu:$process', SpecChipRole.followUpMapped,
-          tooltip: link.note ??
-              'Follow-up process — this subtree becomes $process work, '
-                  'not CodeSpecs code'),
+      SpecChip(
+        'fu:$process',
+        SpecChipRole.followUpMapped,
+        tooltip:
+            link.note ??
+            'Follow-up process — this subtree becomes $process work, '
+                'not CodeSpecs code',
+      ),
   ];
 }
 
@@ -318,10 +339,14 @@ List<SpecChip> followUpKindChips(KindLink? link) {
 List<SpecChip> noArtifactChips(NoArtifactLink? link) {
   if (link == null) return const [];
   return [
-    SpecChip('na:${link.reason}', SpecChipRole.noArtifact,
-        tooltip: link.note ??
-            'No downstream artifact — recorded as ${link.reason}, not left '
-                'unrouted'),
+    SpecChip(
+      'na:${link.reason}',
+      SpecChipRole.noArtifact,
+      tooltip:
+          link.note ??
+          'No downstream artifact — recorded as ${link.reason}, not left '
+              'unrouted',
+    ),
   ];
 }
 
@@ -331,10 +356,13 @@ List<SpecChip> noArtifactChips(NoArtifactLink? link) {
 /// `fu:` convention — and because `@Case` is repeatable, so a single chip would
 /// have to invent a joining syntax for something the model states as a list.
 List<SpecChip> caseChips(SpecField field) => [
-      for (final value in field.caseValues)
-        SpecChip('case:$value', SpecChipRole.caseValue,
-            tooltip: 'Applies when the discriminator is "$value"'),
-    ];
+  for (final value in field.caseValues)
+    SpecChip(
+      'case:$value',
+      SpecChipRole.caseValue,
+      tooltip: 'Applies when the discriminator is "$value"',
+    ),
+];
 
 /// The chips a field row carries: which alternative of a closed choice it is,
 /// then where its subtree is headed.
@@ -343,9 +371,9 @@ List<SpecChip> caseChips(SpecField field) => [
 /// a stronger statement about the row than its CodeSpecs/follow-up mapping, and
 /// the one a reviewer scanning a choice group is reading for.
 List<SpecChip> fieldChips(SpecField field) => [
-      ...caseChips(field),
-      ...kindChips(field.codeSpecKind, field.followUpKind, field.noArtifact),
-    ];
+  ...caseChips(field),
+  ...kindChips(field.codeSpecKind, field.followUpKind, field.noArtifact),
+];
 
 /// The chips a closed-choice group header carries: how much of the
 /// discriminator's value set the alternatives cover, which values they miss,
@@ -361,7 +389,8 @@ List<SpecChip> oneOfChips(OneOfGroup group) {
         group.isComplete
             ? SpecChipRole.choiceComplete
             : SpecChipRole.choiceIncomplete,
-        tooltip: '${group.discriminator} admits $total values; '
+        tooltip:
+            '${group.discriminator} admits $total values; '
             '$covered have a subsection of their own',
       ),
     if (uncovered.isNotEmpty)
@@ -370,13 +399,18 @@ List<SpecChip> oneOfChips(OneOfGroup group) {
         SpecChipRole.choiceUncovered,
         // codespecs_mapping.md §8.2 makes this a warning, not an error — the
         // reviewer judges whether the gap is deliberate.
-        tooltip: 'These discriminator values carry only the common sections. '
+        tooltip:
+            'These discriminator values carry only the common sections. '
             'Legal, but worth confirming it is intended.',
       ),
     if (group.discriminatorField == null)
-      SpecChip('discriminator not found', SpecChipRole.choiceBroken,
-          tooltip: 'No form field named "${group.discriminator}" on this '
-              'class — the choice cannot be checked for completeness'),
+      SpecChip(
+        'discriminator not found',
+        SpecChipRole.choiceBroken,
+        tooltip:
+            'No form field named "${group.discriminator}" on this '
+            'class — the choice cannot be checked for completeness',
+      ),
   ];
 }
 
@@ -442,14 +476,14 @@ class SpecRowExtras {
   /// On a merged row the field's statement wins: it annotates *this* use of the
   /// type, while the class's annotation describes every use of it.
   factory SpecRowExtras.of({SpecField? field, SpecClass? cls}) => SpecRowExtras(
-        unused: (field?.isUnused ?? false) || (cls?.isUnused ?? false),
-        comment: field?.comment ?? cls?.comment,
-        headline: field?.headline ?? cls?.headline,
-        sectionIdPattern: field?.sectionIdPattern,
-        reference: field?.reference ?? cls?.reference,
-        standardReferences: field?.standardReferences ?? cls?.standardReferences,
-        serializationOrder: field?.serializationOrder,
-      );
+    unused: (field?.isUnused ?? false) || (cls?.isUnused ?? false),
+    comment: field?.comment ?? cls?.comment,
+    headline: field?.headline ?? cls?.headline,
+    sectionIdPattern: field?.sectionIdPattern,
+    reference: field?.reference ?? cls?.reference,
+    standardReferences: field?.standardReferences ?? cls?.standardReferences,
+    serializationOrder: field?.serializationOrder,
+  );
 
   /// Whether the row has provenance to show behind the [referencesChip].
   bool get hasReferences => reference != null || standardReferences != null;

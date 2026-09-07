@@ -113,8 +113,7 @@ void main() {
       expect(root.title, 'Demo Document');
       expect(root.level, 1);
       expect(root.text, 'Intro text.');
-      expect(root.children.map((c) => c.id),
-          ['D00-OVR', 'D00-HDR', 'GOALS']);
+      expect(root.children.map((c) => c.id), ['D00-OVR', 'D00-HDR', 'GOALS']);
       final goals = root.children.last;
       expect(goals.children.map((c) => c.id), ['GOAL-ITEM-1', 'GOAL-ITEM-2']);
       expect(goals.children.first.text, 'First goal.');
@@ -205,8 +204,9 @@ document:
 
     test('missing required section → missingRequiredSection, precise', () {
       final md = _validDoc.replaceFirst(
-          RegExp(r'## <!--\[D00-OVR\]--> Overview\n\nSome overview text.\n\n'),
-          '');
+        RegExp(r'## <!--\[D00-OVR\]--> Overview\n\nSome overview text.\n\n'),
+        '',
+      );
       final v = _validate(md);
       expect(v, hasLength(1));
       expect(v.single.rule, DocSpecsViolationRule.missingRequiredSection);
@@ -226,7 +226,9 @@ document:
 
     test('an unresolvable id → unknownSection', () {
       final md = _validDoc.replaceFirst(
-          '### <!--[GOAL-ITEM-2]--> Goal 2', '### <!--[XYZ-2]--> Goal 2');
+        '### <!--[GOAL-ITEM-2]--> Goal 2',
+        '### <!--[XYZ-2]--> Goal 2',
+      );
       final v = _validate(md);
       expect(v, hasLength(1));
       expect(v.single.rule, DocSpecsViolationRule.unknownSection);
@@ -235,7 +237,9 @@ document:
 
     test('a resolvable id in a disallowed position → unknownSection', () {
       final md = _validDoc.replaceFirst(
-          '### <!--[GOAL-ITEM-2]--> Goal 2', '### <!--[DIAG]--> Diagram');
+        '### <!--[GOAL-ITEM-2]--> Goal 2',
+        '### <!--[DIAG]--> Diagram',
+      );
       final v = _validate(md);
       expect(v, hasLength(1));
       expect(v.single.rule, DocSpecsViolationRule.unknownSection);
@@ -251,14 +255,12 @@ document:
       expect(v.single.message, contains('author'));
     });
 
-    test('form field pattern violation → fieldPatternMismatch at its line',
-        () {
+    test('form field pattern violation → fieldPatternMismatch at its line', () {
       final md = _validDoc.replaceFirst('Reviewer: Bob', 'Reviewer: bob');
       final v = _validate(md);
       expect(v, hasLength(1));
       expect(v.single.rule, DocSpecsViolationRule.fieldPatternMismatch);
-      expect(
-          v.single.message, 'Reviewer must start with an uppercase letter');
+      expect(v.single.message, 'Reviewer must start with an uppercase letter');
       expect(v.single.line, 13);
     });
 
@@ -271,7 +273,8 @@ document:
     });
 
     test('too many singleton subsections → tooManyItems', () {
-      final md = '$_validDoc\n'
+      final md =
+          '$_validDoc\n'
           '### <!--[GSUM]--> Summary\n\nOne.\n\n'
           '### <!--[GSUM]--> Summary\n\nTwo.\n';
       final v = _validate(md);
@@ -285,7 +288,8 @@ document:
       final v = _validate(md);
       expect(v, hasLength(1));
       expect(v.single.rule, DocSpecsViolationRule.formatMismatch);
-      final ok = '$_validDoc\n## <!--[DIAG]--> Diagram\n\n'
+      final ok =
+          '$_validDoc\n## <!--[DIAG]--> Diagram\n\n'
           '```mermaid\ngraph TD;\n```\n';
       expect(_validate(ok), isEmpty);
     });
@@ -293,8 +297,10 @@ document:
     test('root id mismatch vs title-format → formatMismatch', () {
       final md = _validDoc.replaceFirst('# <!--[D00]-->', '# <!--[D99]-->');
       final v = _validate(md);
-      expect(v.map((x) => x.rule),
-          contains(DocSpecsViolationRule.formatMismatch));
+      expect(
+        v.map((x) => x.rule),
+        contains(DocSpecsViolationRule.formatMismatch),
+      );
     });
 
     test('all violations are collected — never fail-fast', () {
@@ -313,12 +319,17 @@ document:
 
   group('bindDocSpecsMarkdown', () {
     test('binds the markdown onto the SOM tree via the SOM §11.7 parse', () {
-      final model = SpecModel.fromJson(jsonDecode(
-              File('../tom_som_conformance/corpus/model.meta.json')
-                  .readAsStringSync())
-          as Map<String, dynamic>);
-      final md =
-          File('../tom_som_conformance/corpus/expected.md').readAsStringSync();
+      final model = SpecModel.fromJson(
+        jsonDecode(
+              File(
+                '../tom_som_conformance/corpus/model.meta.json',
+              ).readAsStringSync(),
+            )
+            as Map<String, dynamic>,
+      );
+      final md = File(
+        '../tom_som_conformance/corpus/expected.md',
+      ).readAsStringSync();
       final result = bindDocSpecsMarkdown(model, SpecDocument(), md);
       expect(result.isClean, isTrue);
       expect(result.appliedCount, greaterThan(0));
@@ -327,29 +338,41 @@ document:
 
   group('acceptance: emitted sample vs generated schema', () {
     test(
-        'the Solution Blueprint sample emitted by the markdown codec (SOM §11) validates '
-        'cleanly against the generated solution-blueprint schema', () {
-      final model = SpecModel.fromJson(jsonDecode(
-              File('../tom_som_dart_v0/meta/spec_model.meta.json')
-                  .readAsStringSync())
-          as Map<String, dynamic>);
-      // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12):
-      // decode it against the metadata tree bridged from the exported model.
-      final document = SpecDocument.fromFile(
+      'the Solution Blueprint sample emitted by the markdown codec (SOM §11) validates '
+      'cleanly against the generated solution-blueprint schema',
+      () {
+        final model = SpecModel.fromJson(
+          jsonDecode(
+                File(
+                  '../tom_som_dart_v0/meta/spec_model.meta.json',
+                ).readAsStringSync(),
+              )
+              as Map<String, dynamic>,
+        );
+        // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12):
+        // decode it against the metadata tree bridged from the exported model.
+        final document = SpecDocument.fromFile(
           '../tom_som_conformance/samples/meridian_order_management'
           '.docspecs.yaml',
-          buildSomMetaTree(model, rootType: 'D00SolutionBlueprint'));
-      final md = document.toMarkdown(model);
+          buildSomMetaTree(model, rootType: 'D00SolutionBlueprint'),
+        );
+        final md = document.toMarkdown(model);
 
-      final schema = DocSpecsSchema.fromYamlText(File(
-              '../tom_som_dart_v0/schemas/solution-blueprint/'
-              'solution-blueprint.1.0.docspecs-schema.yaml')
-          .readAsStringSync());
-      expect(schema.rootSectionId, 'SBP');
+        final schema = DocSpecsSchema.fromYamlText(
+          File(
+            '../tom_som_dart_v0/schemas/solution-blueprint/'
+            'solution-blueprint.1.0.docspecs-schema.yaml',
+          ).readAsStringSync(),
+        );
+        expect(schema.rootSectionId, 'SBP');
 
-      final violations = DocSpecsValidator(schema).validateMarkdown(md);
-      expect(violations, isEmpty,
-          reason: violations.take(20).map((v) => '\n$v').join());
-    });
+        final violations = DocSpecsValidator(schema).validateMarkdown(md);
+        expect(
+          violations,
+          isEmpty,
+          reason: violations.take(20).map((v) => '\n$v').join(),
+        );
+      },
+    );
   });
 }

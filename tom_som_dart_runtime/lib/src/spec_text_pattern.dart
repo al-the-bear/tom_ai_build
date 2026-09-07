@@ -192,12 +192,12 @@ class _Term {
   });
 
   _Term withRepeat(_Repeat r) => _Term(
-        kind: kind,
-        literal: literal,
-        ranges: ranges,
-        negated: negated,
-        repeat: r,
-      );
+    kind: kind,
+    literal: literal,
+    ranges: ranges,
+    negated: negated,
+    repeat: r,
+  );
 
   /// Whether an anchor can carry a quantifier — it cannot; `^*` is meaningless
   /// and is far more likely to be a typo than an intent.
@@ -217,21 +217,20 @@ class SomTextPattern {
   /// A pattern matching [text] as a plain, uninterpreted substring — every
   /// character is a literal, including `.` `*` `[` and the rest.
   factory SomTextPattern.literal(String text, {bool caseInsensitive = false}) =>
-      SomTextPattern._(
-        [
-          for (final unit in text.codeUnits)
-            _Term(kind: _AtomKind.literal, literal: unit),
-        ],
-        caseInsensitive,
-      );
+      SomTextPattern._([
+        for (final unit in text.codeUnits)
+          _Term(kind: _AtomKind.literal, literal: unit),
+      ], caseInsensitive);
 
   /// Compiles [source] against the subset grammar.
   ///
   /// Throws [SomPatternError] when [source] is not in the grammar: an
   /// unterminated or reversed character class, a trailing `\`, or a quantifier
   /// with nothing to quantify.
-  factory SomTextPattern.compile(String source,
-      {bool caseInsensitive = false}) {
+  factory SomTextPattern.compile(
+    String source, {
+    bool caseInsensitive = false,
+  }) {
     final units = source.codeUnits;
     final terms = <_Term>[];
 
@@ -265,8 +264,10 @@ class SomTextPattern {
         case _kStar:
         case _kPlus:
         case _kQuestion:
-          bad('quantifier "${String.fromCharCode(ch)}" at offset $i has '
-              'nothing to repeat');
+          bad(
+            'quantifier "${String.fromCharCode(ch)}" at offset $i has '
+            'nothing to repeat',
+          );
         default:
           term = _Term(kind: _AtomKind.literal, literal: ch);
           i++;
@@ -281,8 +282,10 @@ class SomTextPattern {
         };
         if (repeat != _Repeat.one) {
           if (term.isAnchor) {
-            bad('anchor "${String.fromCharCode(ch)}" at offset $i cannot '
-                'carry a quantifier');
+            bad(
+              'anchor "${String.fromCharCode(ch)}" at offset $i cannot '
+              'carry a quantifier',
+            );
           }
           term = term.withRepeat(repeat);
           i++;
@@ -439,13 +442,16 @@ int _swapCase(int unit) {
 /// *non*-alphanumerics stay legal, so `\.` `\[` `\(` still write those
 /// characters literally.
 void _rejectClassEscape(int escaped, Never Function(String) bad) {
-  final isAlpha = (escaped >= _kUpperA && escaped <= _kUpperZ) ||
+  final isAlpha =
+      (escaped >= _kUpperA && escaped <= _kUpperZ) ||
       (escaped >= _kLowerA && escaped <= _kLowerZ);
   final isDigit = escaped >= _kZero && escaped <= _kNine;
   if (!isAlpha && !isDigit) return;
-  bad('escape "\\${String.fromCharCode(escaped)}" is outside the portable '
-      'subset — it has no character-class shorthands, and reading it as a '
-      'literal "${String.fromCharCode(escaped)}" would not be what was meant');
+  bad(
+    'escape "\\${String.fromCharCode(escaped)}" is outside the portable '
+    'subset — it has no character-class shorthands, and reading it as a '
+    'literal "${String.fromCharCode(escaped)}" would not be what was meant',
+  );
 }
 
 /// Parses the character class starting at `units[open]` (which is `[`).
@@ -469,7 +475,8 @@ void _rejectClassEscape(int escaped, Never Function(String) bad) {
     first = false;
     var lo = units[i];
     if (lo == _kBackslash) {
-      if (i + 1 >= units.length) bad('dangling escape inside a character class');
+      if (i + 1 >= units.length)
+        bad('dangling escape inside a character class');
       _rejectClassEscape(units[i + 1], bad);
       lo = units[i + 1];
       i += 2;
@@ -491,8 +498,10 @@ void _rejectClassEscape(int escaped, Never Function(String) bad) {
         step = 3;
       }
       if (hi < lo) {
-        bad('character class range "${String.fromCharCode(lo)}-'
-            '${String.fromCharCode(hi)}" runs backwards');
+        bad(
+          'character class range "${String.fromCharCode(lo)}-'
+          '${String.fromCharCode(hi)}" runs backwards',
+        );
       }
       ranges.add(_Range(lo, hi));
       i += step;
@@ -502,11 +511,7 @@ void _rejectClassEscape(int escaped, Never Function(String) bad) {
   }
   if (i >= units.length) bad('character class opened at $open is never closed');
   return (
-    term: _Term(
-      kind: _AtomKind.charClass,
-      ranges: ranges,
-      negated: negated,
-    ),
+    term: _Term(kind: _AtomKind.charClass, ranges: ranges, negated: negated),
     next: i + 1,
   );
 }

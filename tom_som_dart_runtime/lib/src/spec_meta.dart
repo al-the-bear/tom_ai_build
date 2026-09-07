@@ -339,7 +339,8 @@ class SomMetaNode {
     final t = _tree;
     if (t == null) {
       throw StateError(
-          'SomMetaNode($debugName) is not attached to a SomMetaTree');
+        'SomMetaNode($debugName) is not attached to a SomMetaTree',
+      );
     }
     return t;
   }
@@ -369,13 +370,17 @@ class SomMetaNode {
   /// Throws [StateError] when the node is not a list or has no static path.
   String itemPath(int seq) {
     if (kind != SomMetaKind.list) {
-      throw StateError('itemPath() requires a list node, '
-          '$debugName is ${kind.name}');
+      throw StateError(
+        'itemPath() requires a list node, '
+        '$debugName is ${kind.name}',
+      );
     }
     final p = path;
     if (p == null) {
-      throw StateError('list $debugName sits inside a list element subtree '
-          'and has no static path');
+      throw StateError(
+        'list $debugName sits inside a list element subtree '
+        'and has no static path',
+      );
     }
     return listItemPath(p, seq);
   }
@@ -418,16 +423,21 @@ class SomMetaTree {
   /// belong to exactly one tree).
   SomMetaTree(this.root) {
     if (root.document == null) {
-      throw ArgumentError.value(root.debugName, 'root',
-          'the tree root must carry @Document metadata (SomMetaNode.document)');
+      throw ArgumentError.value(
+        root.debugName,
+        'root',
+        'the tree root must carry @Document metadata (SomMetaNode.document)',
+      );
     }
     _wire(root, parent: null, path: root.segment);
   }
 
   void _wire(SomMetaNode node, {SomMetaNode? parent, String? path}) {
     if (node._tree != null) {
-      throw StateError('SomMetaNode(${node.debugName}) is already attached '
-          'to a SomMetaTree; nodes belong to exactly one tree');
+      throw StateError(
+        'SomMetaNode(${node.debugName}) is already attached '
+        'to a SomMetaTree; nodes belong to exactly one tree',
+      );
     }
     node._tree = this;
     node._parent = parent;
@@ -458,8 +468,7 @@ class SomMetaTree {
   /// All nodes whose effective section id equals [sectionId], in document
   /// order. A shared class instantiated at several positions yields several
   /// nodes (ids resolve within their parent chain, SOM §11.2).
-  List<SomMetaNode> allById(String sectionId) =>
-      _byId[sectionId] ?? const [];
+  List<SomMetaNode> allById(String sectionId) => _byId[sectionId] ?? const [];
 
   /// The first node whose effective section id equals [sectionId].
   ///
@@ -480,7 +489,8 @@ class SomMetaTree {
 
   static bool _matchesPattern(String pattern, String id) {
     final regex = RegExp(
-        '^${pattern.split('xxx').map(RegExp.escape).join('[0-9]+')}\$');
+      '^${pattern.split('xxx').map(RegExp.escape).join('[0-9]+')}\$',
+    );
     return regex.hasMatch(id);
   }
 
@@ -562,8 +572,10 @@ class SomMetaRef {
   /// metadata tree carries no further nodes (SOM §8 cycle rule).
   SomMetaNode get meta =>
       tree.byPath(path) ??
-      (throw StateError('no metadata node at "$path" — the position lies '
-          'beyond a recursive re-entry; use the dynamic tree lookups instead'));
+      (throw StateError(
+        'no metadata node at "$path" — the position lies '
+        'beyond a recursive re-entry; use the dynamic tree lookups instead',
+      ));
 }
 
 /// The generated accessor for a **list** position (SOM §8): [path] is the

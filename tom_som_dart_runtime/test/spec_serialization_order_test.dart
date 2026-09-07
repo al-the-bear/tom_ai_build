@@ -16,15 +16,17 @@ SpecModel _model() {
     name: 'Item',
     fields: [
       SpecField(
-          name: 'second',
-          kind: SpecFieldKind.content,
-          sectionId: 'SECOND',
-          serializationOrder: 1),
+        name: 'second',
+        kind: SpecFieldKind.content,
+        sectionId: 'SECOND',
+        serializationOrder: 1,
+      ),
       SpecField(
-          name: 'first',
-          kind: SpecFieldKind.content,
-          sectionId: 'FIRST',
-          serializationOrder: 2),
+        name: 'first',
+        kind: SpecFieldKind.content,
+        sectionId: 'FIRST',
+        serializationOrder: 2,
+      ),
     ],
   );
   final root = SpecClass(
@@ -42,20 +44,23 @@ SpecModel _model() {
         ],
       ),
       SpecField(
-          name: 'zeta',
-          kind: SpecFieldKind.content,
-          sectionId: 'ZETA',
-          serializationOrder: 1),
+        name: 'zeta',
+        kind: SpecFieldKind.content,
+        sectionId: 'ZETA',
+        serializationOrder: 1,
+      ),
       SpecField(
-          name: 'mid',
-          kind: SpecFieldKind.content,
-          sectionId: 'MID',
-          serializationOrder: 2),
+        name: 'mid',
+        kind: SpecFieldKind.content,
+        sectionId: 'MID',
+        serializationOrder: 2,
+      ),
       SpecField(
-          name: 'alpha',
-          kind: SpecFieldKind.content,
-          sectionId: 'ALPHA',
-          serializationOrder: 3),
+        name: 'alpha',
+        kind: SpecFieldKind.content,
+        sectionId: 'ALPHA',
+        serializationOrder: 3,
+      ),
       SpecField(
         name: 'items',
         kind: SpecFieldKind.list,
@@ -141,11 +146,7 @@ void main() {
       doc.setContent('$i1/SECOND', 'i1-second');
       doc.setContent('$i2/SECOND', 'i2-second');
 
-      final keys = order.orderPaths([
-        '$i2/SECOND',
-        '$i1/FIRST',
-        '$i1/SECOND',
-      ]);
+      final keys = order.orderPaths(['$i2/SECOND', '$i1/FIRST', '$i1/SECOND']);
       expect(keys, ['$i1/SECOND', '$i1/FIRST', '$i2/SECOND']);
     });
 

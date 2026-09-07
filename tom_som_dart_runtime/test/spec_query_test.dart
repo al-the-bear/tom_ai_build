@@ -11,90 +11,94 @@ import 'package:test/test.dart';
 /// cursor laziness/stability — independent of the shared `fixture.dart` so the
 /// `@MapsTo`/`@DetailedIn`/glob cases can be controlled here.
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'doc': 'Root of a project definition document.',
+      'fields': [
+        {
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'PD00-VIS',
+          'contentType': 'text',
+          'doc': 'Why the system exists.',
+        },
+        {
+          'name': 'owner',
+          'kind': 'form',
+          'sectionId': 'PD00-OWN',
+          'formFields': [
+            {'name': 'name', 'label': 'Name', 'type': 'String'},
+            {'name': 'role', 'label': 'Role', 'type': 'String'},
+          ],
+        },
+        {
+          'name': 'risks',
+          'kind': 'list',
+          'sectionId': 'PD00-RSK',
+          'elementType': 'Risk',
+          'elementIsComplex': true,
+        },
+        {
+          'name': 'tags',
+          'kind': 'list',
+          'sectionId': 'PD00-TAG',
+          'elementType': 'String',
+          'elementIsComplex': false,
+        },
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'PD00-SIT',
+          'type': 'CurrentSituation',
+        },
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'doc': 'Root of a project definition document.',
-          'fields': [
-            {
-              'name': 'vision',
-              'kind': 'content',
-              'sectionId': 'PD00-VIS',
-              'contentType': 'text',
-              'doc': 'Why the system exists.',
-            },
-            {
-              'name': 'owner',
-              'kind': 'form',
-              'sectionId': 'PD00-OWN',
-              'formFields': [
-                {'name': 'name', 'label': 'Name', 'type': 'String'},
-                {'name': 'role', 'label': 'Role', 'type': 'String'},
-              ],
-            },
-            {
-              'name': 'risks',
-              'kind': 'list',
-              'sectionId': 'PD00-RSK',
-              'elementType': 'Risk',
-              'elementIsComplex': true,
-            },
-            {
-              'name': 'tags',
-              'kind': 'list',
-              'sectionId': 'PD00-TAG',
-              'elementType': 'String',
-              'elementIsComplex': false,
-            },
-            {
-              'name': 'situation',
-              'kind': 'complex',
-              'sectionId': 'PD00-SIT',
-              'type': 'CurrentSituation',
-            },
-          ],
+    },
+    'Risk': {
+      'name': 'Risk',
+      'sectionId': 'RISK',
+      // Risk details are mapped from a CS section and detailed in BP.
+      'mapsTo': 'CS00-RSK',
+      'detailedIn': 'BP00',
+      'fields': [
+        {
+          'name': 'title',
+          'kind': 'content',
+          'sectionId': 'title',
+          'contentType': 'text',
         },
-        'Risk': {
-          'name': 'Risk',
-          'sectionId': 'RISK',
-          // Risk details are mapped from a CS section and detailed in BP.
-          'mapsTo': 'CS00-RSK',
-          'detailedIn': 'BP00',
-          'fields': [
-            {
-              'name': 'title',
-              'kind': 'content',
-              'sectionId': 'title',
-              'contentType': 'text',
-            },
-            {
-              'name': 'probability',
-              'kind': 'enum',
-              'sectionId': 'prob',
-              'enumType': 'Probability',
-              'enumValues': ['low', 'medium', 'high'],
-            },
-          ],
+        {
+          'name': 'probability',
+          'kind': 'enum',
+          'sectionId': 'prob',
+          'enumType': 'Probability',
+          'enumValues': ['low', 'medium', 'high'],
         },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
-          'sectionId': 'CS00',
-          'fields': [
-            {
-              'name': 'summary',
-              'kind': 'content',
-              'sectionId': 'summary',
-              'contentType': 'text',
-            },
-          ],
+      ],
+    },
+    'CurrentSituation': {
+      'name': 'CurrentSituation',
+      'sectionId': 'CS00',
+      'fields': [
+        {
+          'name': 'summary',
+          'kind': 'content',
+          'sectionId': 'summary',
+          'contentType': 'text',
         },
-      },
-    });
+      ],
+    },
+  },
+});
 
 /// A document with two risks, a vision, a form, and tags populated.
 SpecDocument _document() {
@@ -128,7 +132,8 @@ void main() {
     engine = SpecQueryEngine(model: model, document: doc);
   });
 
-  List<String> paths(SpecQueryCursor c) => c.toList().map((m) => m.path).toList();
+  List<String> paths(SpecQueryCursor c) =>
+      c.toList().map((m) => m.path).toList();
 
   group('text dimension', () {
     test('substring over content matches the vision leaf', () {
@@ -139,7 +144,8 @@ void main() {
 
     test('regex over content', () {
       final hits = paths(
-          engine.query(const SpecQuery(text: 'slip[a-z]+', regex: true)));
+        engine.query(const SpecQuery(text: 'slip[a-z]+', regex: true)),
+      );
       expect(hits, contains('PD00/PD00-RSK-2/title'));
     });
 
@@ -147,16 +153,17 @@ void main() {
       // `regex: true` compiles with [SomTextPattern], which has no `\w`; the
       // caller hears about it instead of silently matching nothing.
       expect(
-          () => engine.query(const SpecQuery(text: r'slip\w+', regex: true)),
-          throwsA(isA<SomPatternError>()));
+        () => engine.query(const SpecQuery(text: r'slip\w+', regex: true)),
+        throwsA(isA<SomPatternError>()),
+      );
     });
 
     test('case-insensitive substring', () {
-      final sensitive =
-          paths(engine.query(const SpecQuery(text: 'ADA')));
+      final sensitive = paths(engine.query(const SpecQuery(text: 'ADA')));
       expect(sensitive, isEmpty);
       final insensitive = paths(
-          engine.query(const SpecQuery(text: 'ADA', caseInsensitive: true)));
+        engine.query(const SpecQuery(text: 'ADA', caseInsensitive: true)),
+      );
       expect(insensitive, contains('PD00/PD00-OWN'));
     });
 
@@ -166,8 +173,9 @@ void main() {
     });
 
     test('matches doc-comment headlines', () {
-      final hits =
-          paths(engine.query(const SpecQuery(text: 'Why the system exists')));
+      final hits = paths(
+        engine.query(const SpecQuery(text: 'Why the system exists')),
+      );
       expect(hits, contains('PD00/PD00-VIS'));
     });
 
@@ -176,8 +184,10 @@ void main() {
       expect(m.snippet, isNotNull);
       expect(m.matchSpans, isNotEmpty);
       final span = m.matchSpans.first;
-      expect(m.snippet!.substring(span.start, span.end).toLowerCase(),
-          'resilient');
+      expect(
+        m.snippet!.substring(span.start, span.end).toLowerCase(),
+        'resilient',
+      );
     });
   });
 
@@ -192,8 +202,7 @@ void main() {
     });
 
     test('class-name filter selects nodes that are Risk items', () {
-      final hits =
-          paths(engine.query(const SpecQuery(className: 'Risk')));
+      final hits = paths(engine.query(const SpecQuery(className: 'Risk')));
       expect(hits, containsAll(['PD00/PD00-RSK-1', 'PD00/PD00-RSK-2']));
       expect(hits, isNot(contains('PD00/PD00-VIS')));
     });
@@ -201,49 +210,62 @@ void main() {
 
   group('id / path dimension', () {
     test('exact section id', () {
-      final hits =
-          paths(engine.query(const SpecQuery(sectionIdExact: 'PD00-VIS')));
+      final hits = paths(
+        engine.query(const SpecQuery(sectionIdExact: 'PD00-VIS')),
+      );
       expect(hits, ['PD00/PD00-VIS']);
     });
 
     test('section-id prefix', () {
-      final hits =
-          paths(engine.query(const SpecQuery(sectionIdPrefix: 'PD00-')));
-      expect(hits, containsAll(['PD00/PD00-VIS', 'PD00/PD00-OWN', 'PD00/PD00-RSK', 'PD00/PD00-TAG']));
+      final hits = paths(
+        engine.query(const SpecQuery(sectionIdPrefix: 'PD00-')),
+      );
+      expect(
+        hits,
+        containsAll([
+          'PD00/PD00-VIS',
+          'PD00/PD00-OWN',
+          'PD00/PD00-RSK',
+          'PD00/PD00-TAG',
+        ]),
+      );
     });
 
     test('path glob', () {
       final hits = paths(
-          engine.query(const SpecQuery(pathGlob: 'PD00/PD00-RSK-*/title')));
-      expect(hits,
-          containsAll(['PD00/PD00-RSK-1/title', 'PD00/PD00-RSK-2/title']));
+        engine.query(const SpecQuery(pathGlob: 'PD00/PD00-RSK-*/title')),
+      );
+      expect(
+        hits,
+        containsAll(['PD00/PD00-RSK-1/title', 'PD00/PD00-RSK-2/title']),
+      );
       expect(hits, isNot(contains('PD00/PD00-RSK-1/prob')));
     });
 
     test('@MapsTo target', () {
-      final hits =
-          paths(engine.query(const SpecQuery(mapsTo: 'CS00-RSK')));
+      final hits = paths(engine.query(const SpecQuery(mapsTo: 'CS00-RSK')));
       expect(hits, containsAll(['PD00/PD00-RSK-1', 'PD00/PD00-RSK-2']));
     });
 
     test('@DetailedIn target', () {
-      final hits =
-          paths(engine.query(const SpecQuery(detailedIn: 'BP00')));
+      final hits = paths(engine.query(const SpecQuery(detailedIn: 'BP00')));
       expect(hits, containsAll(['PD00/PD00-RSK-1', 'PD00/PD00-RSK-2']));
     });
   });
 
   group('state dimension', () {
     test('empty selects the untouched situation section', () {
-      final hits =
-          paths(engine.query(const SpecQuery(state: SpecStateFilter.empty)));
+      final hits = paths(
+        engine.query(const SpecQuery(state: SpecStateFilter.empty)),
+      );
       expect(hits, contains('PD00/PD00-SIT'));
       expect(hits, isNot(contains('PD00/PD00-VIS')));
     });
 
     test('non-empty excludes the untouched situation section', () {
       final hits = paths(
-          engine.query(const SpecQuery(state: SpecStateFilter.nonEmpty)));
+        engine.query(const SpecQuery(state: SpecStateFilter.nonEmpty)),
+      );
       expect(hits, contains('PD00/PD00-VIS'));
       expect(hits, isNot(contains('PD00/PD00-SIT')));
     });
@@ -251,21 +273,26 @@ void main() {
 
   group('AND-composition', () {
     test('text AND kind narrows the result', () {
-      final hits = paths(engine.query(const SpecQuery(
-        text: 'risk',
-        caseInsensitive: true,
-        kinds: {SpecNodeKind.content},
-      )));
+      final hits = paths(
+        engine.query(
+          const SpecQuery(
+            text: 'risk',
+            caseInsensitive: true,
+            kinds: {SpecNodeKind.content},
+          ),
+        ),
+      );
       expect(hits, contains('PD00/PD00-RSK-1/title'));
       // The form owner also contains no 'risk'; the list container is not a content leaf.
       expect(hits, isNot(contains('PD00/PD00-OWN')));
     });
 
     test('class AND state', () {
-      final hits = paths(engine.query(const SpecQuery(
-        className: 'Risk',
-        state: SpecStateFilter.nonEmpty,
-      )));
+      final hits = paths(
+        engine.query(
+          const SpecQuery(className: 'Risk', state: SpecStateFilter.nonEmpty),
+        ),
+      );
       expect(hits, containsAll(['PD00/PD00-RSK-1', 'PD00/PD00-RSK-2']));
     });
   });
@@ -281,25 +308,37 @@ void main() {
       final reversed = SpecDocument();
       reversed.setFormField('PD00/PD00-OWN', 'role', 'Product Owner');
       reversed.setFormField('PD00/PD00-OWN', 'name', 'Ada Lovelace');
-      final projection = SpecQueryEngine(model: model, document: reversed)
-          .projectNode('PD00/PD00-OWN')!;
-      expect(projection.searchableStrings.take(2),
-          ['Ada Lovelace', 'Product Owner']);
+      final projection = SpecQueryEngine(
+        model: model,
+        document: reversed,
+      ).projectNode('PD00/PD00-OWN')!;
+      expect(projection.searchableStrings.take(2), [
+        'Ada Lovelace',
+        'Product Owner',
+      ]);
     });
 
-    test('a stored field the model does not declare is kept, last and sorted',
-        () {
-      doc.setFormField('PD00/PD00-OWN', 'zeta', 'Z value');
-      doc.setFormField('PD00/PD00-OWN', 'alpha', 'A value');
-      final projection = engine.projectNode('PD00/PD00-OWN')!;
-      expect(projection.searchableStrings.take(4),
-          ['Ada Lovelace', 'Product Owner', 'A value', 'Z value']);
-    });
+    test(
+      'a stored field the model does not declare is kept, last and sorted',
+      () {
+        doc.setFormField('PD00/PD00-OWN', 'zeta', 'Z value');
+        doc.setFormField('PD00/PD00-OWN', 'alpha', 'A value');
+        final projection = engine.projectNode('PD00/PD00-OWN')!;
+        expect(projection.searchableStrings.take(4), [
+          'Ada Lovelace',
+          'Product Owner',
+          'A value',
+          'Z value',
+        ]);
+      },
+    );
   });
 
   group('cursor laziness & iteration', () {
     test('count reports remaining matches and next/take advance it', () {
-      final cursor = engine.query(const SpecQuery(kinds: {SpecNodeKind.content}));
+      final cursor = engine.query(
+        const SpecQuery(kinds: {SpecNodeKind.content}),
+      );
       final total = cursor.count;
       expect(total, greaterThanOrEqualTo(4));
 
@@ -320,8 +359,9 @@ void main() {
     });
 
     test('cursor is stable against concurrent edits (path re-validation)', () {
-      final cursor =
-          engine.query(const SpecQuery(kinds: {SpecNodeKind.content}));
+      final cursor = engine.query(
+        const SpecQuery(kinds: {SpecNodeKind.content}),
+      );
       // Remove a value that an as-yet-unread candidate points at.
       doc.removeListItem('PD00/PD00-RSK-2');
       final remaining = cursor.toList().map((m) => m.path).toList();

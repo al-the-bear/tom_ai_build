@@ -238,8 +238,8 @@ class SpecQueryEngine {
   /// because each walks the whole model — so construct one engine per
   /// (model, document) pair and reuse it, instead of one per search.
   SpecQueryEngine({required this.model, required this.document})
-      : _reflection = SpecReflection(model),
-        _order = SpecSerializationOrder(model);
+    : _reflection = SpecReflection(model),
+      _order = SpecSerializationOrder(model);
 
   /// Builds a cursor over the nodes matching [query]. The structural candidate
   /// set is computed now (document order); value-dependent filters and path
@@ -333,11 +333,10 @@ class SpecQueryEngine {
             if (field.elementIsComplex &&
                 field.elementType != null &&
                 !ancestorTypes.contains(field.elementType)) {
-              yield* _walk(
-                itemPath,
-                model.classNamed(field.elementType),
-                {...ancestorTypes, field.elementType!},
-              );
+              yield* _walk(itemPath, model.classNamed(field.elementType), {
+                ...ancestorTypes,
+                field.elementType!,
+              });
             } else {
               yield itemPath; // scalar item, or a recursive/unknown element
             }
@@ -345,11 +344,10 @@ class SpecQueryEngine {
         case SpecFieldKind.complex:
         case SpecFieldKind.section:
           if (field.type != null && !ancestorTypes.contains(field.type)) {
-            yield* _walk(
-              fieldPath,
-              model.classNamed(field.type),
-              {...ancestorTypes, field.type!},
-            );
+            yield* _walk(fieldPath, model.classNamed(field.type), {
+              ...ancestorTypes,
+              field.type!,
+            });
           } else {
             yield fieldPath; // recursive/unknown target: a terminal node
           }
@@ -381,7 +379,8 @@ class SpecQueryEngine {
         !_globMatches(query.pathGlob!, resolution.path)) {
       return false;
     }
-    if (query.mapsTo != null && resolution.targetClass?.mapsTo != query.mapsTo) {
+    if (query.mapsTo != null &&
+        resolution.targetClass?.mapsTo != query.mapsTo) {
       return false;
     }
     if (query.detailedIn != null &&
@@ -395,7 +394,10 @@ class SpecQueryEngine {
   /// document. Returns the built match (with snippet/spans) or `null` when the
   /// node no longer satisfies the query. Assumes the path is structurally valid.
   SpecQueryMatch? _evaluateLive(
-      SpecQuery query, SomTextPattern? pattern, String path) {
+    SpecQuery query,
+    SomTextPattern? pattern,
+    String path,
+  ) {
     if (!_isLivePath(path)) return null;
     final resolution = _reflection.resolve(path);
     if (resolution == null) return null;
@@ -463,8 +465,10 @@ class SpecQueryEngine {
         final value = document.content(path);
         if (value != null) yield value;
       case SpecNodeKind.form:
-        for (final name
-            in _order.orderFormFields(path, document.formFieldNames(path))) {
+        for (final name in _order.orderFormFields(
+          path,
+          document.formFieldNames(path),
+        )) {
           final value = document.formField(path, name);
           if (value != null) yield value;
         }
@@ -480,10 +484,14 @@ class SpecQueryEngine {
   }
 
   SomTextPattern _patternFor(SpecQuery query) => query.regex
-      ? SomTextPattern.compile(query.text!,
-          caseInsensitive: query.caseInsensitive)
-      : SomTextPattern.literal(query.text!,
-          caseInsensitive: query.caseInsensitive);
+      ? SomTextPattern.compile(
+          query.text!,
+          caseInsensitive: query.caseInsensitive,
+        )
+      : SomTextPattern.literal(
+          query.text!,
+          caseInsensitive: query.caseInsensitive,
+        );
 
   List<SpecMatchSpan> _spansIn(SomTextPattern pattern, String text) =>
       pattern.allMatches(text);
@@ -531,7 +539,9 @@ class SpecQueryEngine {
       document.headline(resolution.path) ??
       resolution.field?.doc ??
       resolution.targetClass?.doc ??
-      (resolution.kind == SpecNodeKind.root ? resolution.root.description : null);
+      (resolution.kind == SpecNodeKind.root
+          ? resolution.root.description
+          : null);
 
   /// Glob match over a whole path: `**` spans `/`, a single `*` stays within
   /// one segment, every other character is literal.
@@ -600,10 +610,10 @@ class SpecQueryCursor {
     required SpecQuery query,
     required SomTextPattern? pattern,
     required List<String> candidatePaths,
-  })  : _engine = engine,
-        _query = query,
-        _pattern = pattern,
-        _candidatePaths = candidatePaths;
+  }) : _engine = engine,
+       _query = query,
+       _pattern = pattern,
+       _candidatePaths = candidatePaths;
 
   /// The next matching node, or `null` when the cursor is exhausted. Skips
   /// candidates whose path went stale or no longer satisfies the live filters.

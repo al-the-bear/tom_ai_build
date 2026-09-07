@@ -30,110 +30,110 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 /// branches. For a fixture that mirrors real-model conventions, see
 /// [_realisticModel] below.
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'Demo', 'title': 'Demo Document', 'sectionId': 'D00'},
+  'modelVersion': 1,
+  'roots': [
+    {'type': 'Demo', 'title': 'Demo Document', 'sectionId': 'D00'},
+  ],
+  'classes': {
+    'Demo': {
+      'name': 'Demo',
+      'sectionId': 'D00',
+      'fields': [
+        {
+          'name': 'overview',
+          'kind': 'content',
+          'sectionId': 'D00-OVR',
+          'serializationOrder': 0,
+        },
+        {
+          'name': 'scope',
+          'kind': 'complex',
+          'sectionId': 'D00-SCO',
+          'type': 'Scope',
+          'serializationOrder': 1,
+        },
+        {
+          'name': 'header',
+          'kind': 'form',
+          'sectionId': 'D00-HDR',
+          'serializationOrder': 2,
+          'formFields': [
+            {'name': 'author', 'label': 'Author', 'type': 'String'},
+            {'name': 'reviewer', 'label': 'Reviewer', 'type': 'String'},
+            {'name': 'revision', 'label': 'Revision', 'type': 'int'},
+          ],
+        },
+        {
+          'name': 'requirements',
+          'kind': 'list',
+          'sectionId': 'D00-REQ',
+          'sectionIdPattern': 'REQ-xxx',
+          'elementType': 'Requirement',
+          'elementIsComplex': true,
+          'serializationOrder': 3,
+        },
+        {
+          'name': 'tags',
+          'kind': 'list',
+          'sectionId': 'D00-TAG',
+          'elementType': 'String',
+          'elementIsComplex': false,
+          'serializationOrder': 4,
+        },
+        {
+          'name': 'priority',
+          'kind': 'enum',
+          'sectionId': 'D00-PRI',
+          'enumType': 'Priority',
+          'enumValues': ['low', 'high'],
+          'serializationOrder': 5,
+        },
+        {
+          'name': 'count',
+          'kind': 'scalar',
+          'type': 'int',
+          'serializationOrder': 6,
+        },
+        {
+          // A section whose @SectionId lives on the TARGET CLASS only
+          // (the SBP pattern): the field carries no id, so its key must
+          // fall back to Control's `CTRL` (SOM §12.2 field-id-else-class-id).
+          'name': 'control',
+          'kind': 'complex',
+          'type': 'Control',
+          'serializationOrder': 7,
+        },
       ],
-      'classes': {
-        'Demo': {
-          'name': 'Demo',
-          'sectionId': 'D00',
-          'fields': [
-            {
-              'name': 'overview',
-              'kind': 'content',
-              'sectionId': 'D00-OVR',
-              'serializationOrder': 0,
-            },
-            {
-              'name': 'scope',
-              'kind': 'complex',
-              'sectionId': 'D00-SCO',
-              'type': 'Scope',
-              'serializationOrder': 1,
-            },
-            {
-              'name': 'header',
-              'kind': 'form',
-              'sectionId': 'D00-HDR',
-              'serializationOrder': 2,
-              'formFields': [
-                {'name': 'author', 'label': 'Author', 'type': 'String'},
-                {'name': 'reviewer', 'label': 'Reviewer', 'type': 'String'},
-                {'name': 'revision', 'label': 'Revision', 'type': 'int'},
-              ],
-            },
-            {
-              'name': 'requirements',
-              'kind': 'list',
-              'sectionId': 'D00-REQ',
-              'sectionIdPattern': 'REQ-xxx',
-              'elementType': 'Requirement',
-              'elementIsComplex': true,
-              'serializationOrder': 3,
-            },
-            {
-              'name': 'tags',
-              'kind': 'list',
-              'sectionId': 'D00-TAG',
-              'elementType': 'String',
-              'elementIsComplex': false,
-              'serializationOrder': 4,
-            },
-            {
-              'name': 'priority',
-              'kind': 'enum',
-              'sectionId': 'D00-PRI',
-              'enumType': 'Priority',
-              'enumValues': ['low', 'high'],
-              'serializationOrder': 5,
-            },
-            {
-              'name': 'count',
-              'kind': 'scalar',
-              'type': 'int',
-              'serializationOrder': 6,
-            },
-            {
-              // A section whose @SectionId lives on the TARGET CLASS only
-              // (the SBP pattern): the field carries no id, so its key must
-              // fall back to Control's `CTRL` (SOM §12.2 field-id-else-class-id).
-              'name': 'control',
-              'kind': 'complex',
-              'type': 'Control',
-              'serializationOrder': 7,
-            },
-          ],
+    },
+    'Control': {
+      'name': 'Control',
+      'sectionId': 'CTRL',
+      'fields': [
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'CTRL-SUM'},
+        {'name': 'owner', 'kind': 'content'},
+      ],
+    },
+    'Scope': {
+      'name': 'Scope',
+      'fields': [
+        {'name': 'inScope', 'kind': 'content', 'sectionId': 'D00-INS'},
+        {'name': 'outOfScope', 'kind': 'content'},
+      ],
+    },
+    'Requirement': {
+      'name': 'Requirement',
+      'fields': [
+        {'name': 'text', 'kind': 'content'},
+        {
+          'name': 'notes',
+          'kind': 'list',
+          'elementType': 'String',
+          'elementIsComplex': false,
         },
-        'Control': {
-          'name': 'Control',
-          'sectionId': 'CTRL',
-          'fields': [
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'CTRL-SUM'},
-            {'name': 'owner', 'kind': 'content'},
-          ],
-        },
-        'Scope': {
-          'name': 'Scope',
-          'fields': [
-            {'name': 'inScope', 'kind': 'content', 'sectionId': 'D00-INS'},
-            {'name': 'outOfScope', 'kind': 'content'},
-          ],
-        },
-        'Requirement': {
-          'name': 'Requirement',
-          'fields': [
-            {'name': 'text', 'kind': 'content'},
-            {
-              'name': 'notes',
-              'kind': 'list',
-              'elementType': 'String',
-              'elementIsComplex': false,
-            },
-          ],
-        },
-      },
-    });
+      ],
+    },
+  },
+});
 
 /// A REALISTIC fixture mirroring the conventions of the real `tom_specs_model`.
 ///
@@ -148,88 +148,88 @@ SpecModel _model() => SpecModel.fromJson({
 ///     dedicated reference kind — a reference is a String leaf plus the marker);
 ///   * NO `int`/non-String scalar leaves.
 SpecModel _realisticModel() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'Plan', 'title': 'Plan Document', 'sectionId': 'P00'},
+  'modelVersion': 1,
+  'roots': [
+    {'type': 'Plan', 'title': 'Plan Document', 'sectionId': 'P00'},
+  ],
+  'classes': {
+    'Plan': {
+      'name': 'Plan',
+      'sectionId': 'P00',
+      'fields': [
+        {
+          'name': 'overview',
+          'kind': 'content',
+          'sectionId': 'P00-OVR',
+          'serializationOrder': 0,
+        },
+        {
+          'name': 'header',
+          'kind': 'form',
+          'sectionId': 'P00-HDR',
+          'serializationOrder': 1,
+          'formFields': [
+            {'name': 'author', 'label': 'Author', 'type': 'String'},
+            {'name': 'status', 'label': 'Status', 'type': 'String'},
+          ],
+        },
+        {
+          'name': 'owner',
+          'kind': 'content',
+          'sectionId': 'P00-OWN',
+          'serializationOrder': 2,
+          'annotations': [
+            {
+              'name': 'Reference',
+              'arguments': {'target': 'Party'},
+            },
+          ],
+        },
+        {
+          'name': 'requirements',
+          'kind': 'list',
+          'sectionId': 'P00-REQ',
+          'sectionIdPattern': 'REQ-xxx',
+          'elementType': 'Requirement',
+          'elementIsComplex': true,
+          'serializationOrder': 3,
+        },
       ],
-      'classes': {
-        'Plan': {
-          'name': 'Plan',
-          'sectionId': 'P00',
-          'fields': [
+    },
+    'Requirement': {
+      'name': 'Requirement',
+      'sectionId': 'REQ',
+      'fields': [
+        {
+          'name': 'description',
+          'kind': 'content',
+          'sectionId': 'REQ-DSC',
+          'serializationOrder': 0,
+        },
+        {
+          'name': 'priority',
+          'kind': 'enum',
+          'sectionId': 'REQ-PRI',
+          'enumType': 'Priority',
+          'enumValues': ['low', 'high'],
+          'serializationOrder': 1,
+        },
+        {
+          'name': 'relatedTo',
+          'kind': 'content',
+          'sectionId': 'REQ-REL',
+          'serializationOrder': 2,
+          'annotations': [
             {
-              'name': 'overview',
-              'kind': 'content',
-              'sectionId': 'P00-OVR',
-              'serializationOrder': 0,
-            },
-            {
-              'name': 'header',
-              'kind': 'form',
-              'sectionId': 'P00-HDR',
-              'serializationOrder': 1,
-              'formFields': [
-                {'name': 'author', 'label': 'Author', 'type': 'String'},
-                {'name': 'status', 'label': 'Status', 'type': 'String'},
-              ],
-            },
-            {
-              'name': 'owner',
-              'kind': 'content',
-              'sectionId': 'P00-OWN',
-              'serializationOrder': 2,
-              'annotations': [
-                {
-                  'name': 'Reference',
-                  'arguments': {'target': 'Party'},
-                },
-              ],
-            },
-            {
-              'name': 'requirements',
-              'kind': 'list',
-              'sectionId': 'P00-REQ',
-              'sectionIdPattern': 'REQ-xxx',
-              'elementType': 'Requirement',
-              'elementIsComplex': true,
-              'serializationOrder': 3,
+              'name': 'Reference',
+              'arguments': {'target': 'Requirement'},
             },
           ],
         },
-        'Requirement': {
-          'name': 'Requirement',
-          'sectionId': 'REQ',
-          'fields': [
-            {
-              'name': 'description',
-              'kind': 'content',
-              'sectionId': 'REQ-DSC',
-              'serializationOrder': 0,
-            },
-            {
-              'name': 'priority',
-              'kind': 'enum',
-              'sectionId': 'REQ-PRI',
-              'enumType': 'Priority',
-              'enumValues': ['low', 'high'],
-              'serializationOrder': 1,
-            },
-            {
-              'name': 'relatedTo',
-              'kind': 'content',
-              'sectionId': 'REQ-REL',
-              'serializationOrder': 2,
-              'annotations': [
-                {
-                  'name': 'Reference',
-                  'arguments': {'target': 'Requirement'},
-                },
-              ],
-            },
-          ],
-        },
-      },
-    });
+      ],
+    },
+  },
+});
 
 SomMetaTree _tree() => buildSomMetaTree(_model());
 
@@ -267,8 +267,13 @@ void main() {
   group('encode', () {
     test('writes the v2 header, version and hierarchical structure', () {
       final yaml = enc(_populated(), stamp: '1.0');
-      expect(yaml, startsWith('# TomSpecs document (*.docspecs.yaml). '
-          'Hierarchical format v2.\n'));
+      expect(
+        yaml,
+        startsWith(
+          '# TomSpecs document (*.docspecs.yaml). '
+          'Hierarchical format v2.\n',
+        ),
+      );
       expect(yaml, contains('version: 2\n'));
       expect(yaml, contains('modelVersion: "1.0"\n'));
       expect(yaml, contains('\ndocument:\n  D00 Demo:\n'));
@@ -288,8 +293,10 @@ void main() {
         ..setContent('D00/D00-PRI', 'low') // order 5
         ..setContent('D00/D00-OVR', 'first'); // order 0
       final yaml = enc(doc);
-      expect(yaml.indexOf('D00-OVR overview:'),
-          lessThan(yaml.indexOf('D00-PRI priority:')));
+      expect(
+        yaml.indexOf('D00-OVR overview:'),
+        lessThan(yaml.indexOf('D00-PRI priority:')),
+      );
       expect(yaml, isNot(contains('D00-SCO'))); // unpopulated → absent
     });
 
@@ -319,8 +326,12 @@ void main() {
       expect(yaml, contains('\n      tags-4: plain\n'));
       // And every value survives the round-trip verbatim.
       final out = roundTrip(doc);
-      expect(out.listItems('D00/D00-TAG').map(out.content),
-          ['on', 'no', '1:30', 'plain']);
+      expect(out.listItems('D00/D00-TAG').map(out.content), [
+        'on',
+        'no',
+        '1:30',
+        'plain',
+      ]);
     });
 
     test('a section whose id is class-level renders the class id as its key '
@@ -363,26 +374,38 @@ void main() {
   });
 
   group('a form section\'s preamble (SOM §11.4 rule 7 / §12.2)', () {
-    test('a form node carries its own body under the literal `content` key',
-        () {
-      final doc = SpecDocument()
-        ..setContent('D00/D00-HDR', 'why this header exists')
-        ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
-      final yaml = enc(doc);
-      // The reserved key sits above the fields, exactly as for a section.
-      expect(yaml, contains('\n    D00-HDR header:\n'
-          '      content: |2-\n'
-          '        why this header exists\n'
-          '      author: |2-\n'
-          '        Ada Lovelace\n'));
-    });
+    test(
+      'a form node carries its own body under the literal `content` key',
+      () {
+        final doc = SpecDocument()
+          ..setContent('D00/D00-HDR', 'why this header exists')
+          ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+        final yaml = enc(doc);
+        // The reserved key sits above the fields, exactly as for a section.
+        expect(
+          yaml,
+          contains(
+            '\n    D00-HDR header:\n'
+            '      content: |2-\n'
+            '        why this header exists\n'
+            '      author: |2-\n'
+            '        Ada Lovelace\n',
+          ),
+        );
+      },
+    );
 
     test('a preamble-only form node still emits its mapping', () {
       final doc = SpecDocument()
         ..setContent('D00/D00-HDR', 'nothing filled in yet');
-      expect(enc(doc), contains('\n    D00-HDR header:\n'
+      expect(
+        enc(doc),
+        contains(
+          '\n    D00-HDR header:\n'
           '      content: |2-\n'
-          '        nothing filled in yet\n'));
+          '        nothing filled in yet\n',
+        ),
+      );
     });
 
     test('preamble + fields round-trip verbatim and byte-stably', () {
@@ -428,24 +451,33 @@ void main() {
       // is unambiguous as long as the preamble is not also present.
       final fieldOnly = SpecDocument()
         ..setFormField('C00/C00-HDR', 'content', 'a field value');
-      final fieldYaml =
-          SpecDocumentYaml.encode(document: fieldOnly, tree: clashTree);
-      expect(fieldYaml,
-          contains('      content: |2-\n        a field value\n'));
+      final fieldYaml = SpecDocumentYaml.encode(
+        document: fieldOnly,
+        tree: clashTree,
+      );
       expect(
-        SpecDocumentYaml.decode(fieldYaml, clashTree)
-            .document
-            .formField('C00/C00-HDR', 'content'),
+        fieldYaml,
+        contains('      content: |2-\n        a field value\n'),
+      );
+      expect(
+        SpecDocumentYaml.decode(
+          fieldYaml,
+          clashTree,
+        ).document.formField('C00/C00-HDR', 'content'),
         'a field value',
       );
       final withPreamble = SpecDocument()
         ..setContent('C00/C00-HDR', 'the preamble')
         ..setFormField('C00/C00-HDR', 'content', 'a field value');
       expect(
-        () => SpecDocumentYaml.encode(
-            document: withPreamble, tree: clashTree),
-        throwsA(isA<SpecYamlFormatException>().having(
-            (e) => '$e', 'message', contains('literally named'))),
+        () => SpecDocumentYaml.encode(document: withPreamble, tree: clashTree),
+        throwsA(
+          isA<SpecYamlFormatException>().having(
+            (e) => '$e',
+            'message',
+            contains('literally named'),
+          ),
+        ),
       );
     });
   });
@@ -455,8 +487,10 @@ void main() {
       final out = roundTrip(_populated());
       expect(out.content('D00'), 'Preamble body text.');
       expect(out.content('D00/D00-OVR'), 'line one\nline two\nline three');
-      expect(out.content('D00/D00-SCO/D00-INS'),
-          '  indented first line\n    deeper');
+      expect(
+        out.content('D00/D00-SCO/D00-INS'),
+        '  indented first line\n    deeper',
+      );
       expect(out.content('D00/D00-SCO/outOfScope'), 'ends with newline\n');
       expect(out.content('D00/D00-PRI'), 'high');
       expect(out.content('D00/count'), '3');
@@ -479,7 +513,10 @@ void main() {
     test('encode is byte-stable across decode → re-encode', () {
       final yaml1 = enc(_populated(), stamp: '1.2');
       final yaml2 = SpecDocumentYaml.encode(
-          document: dec(yaml1).document, tree: tree, modelVersion: '1.2');
+        document: dec(yaml1).document,
+        tree: tree,
+        modelVersion: '1.2',
+      );
       expect(yaml2, yaml1);
     });
 
@@ -528,44 +565,66 @@ void main() {
       final yaml = enc(doc);
       expect(yaml, contains('codeSpec:'));
       final out = roundTrip(doc);
-      expect(out.codeSpec('D00/D00-OVR'),
-          'CsOrder,CsOrder.total,CsOrderRepository');
+      expect(
+        out.codeSpec('D00/D00-OVR'),
+        'CsOrder,CsOrder.total,CsOrderRepository',
+      );
       // Sibling without codeSpec keeps no codeSpec entry.
       expect(out.codeSpec('D00/D00-PRI'), isNull);
     });
 
-    test('csmb1: encode is byte-stable with codeSpec across decode → re-encode',
-        () {
-      final doc = _populated()
-        ..setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total');
-      final yaml1 = enc(doc, stamp: '1.2');
-      final yaml2 = SpecDocumentYaml.encode(
-          document: dec(yaml1).document, tree: tree, modelVersion: '1.2');
-      expect(yaml2, yaml1);
-    });
+    test(
+      'csmb1: encode is byte-stable with codeSpec across decode → re-encode',
+      () {
+        final doc = _populated()
+          ..setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total');
+        final yaml1 = enc(doc, stamp: '1.2');
+        final yaml2 = SpecDocumentYaml.encode(
+          document: dec(yaml1).document,
+          tree: tree,
+          modelVersion: '1.2',
+        );
+        expect(yaml2, yaml1);
+      },
+    );
   });
 
   group('strict decode', () {
     test('version 1 files are rejected with a clear error', () {
       expect(
-          () => dec('version: 1\ndocument: {}\n'),
-          throwsA(isA<SpecYamlFormatException>().having(
-              (e) => e.message, 'message', contains('version 1'))));
+        () => dec('version: 1\ndocument: {}\n'),
+        throwsA(
+          isA<SpecYamlFormatException>().having(
+            (e) => e.message,
+            'message',
+            contains('version 1'),
+          ),
+        ),
+      );
     });
 
     test('a missing version is rejected', () {
-      expect(() => dec('document: {}\n'),
-          throwsA(isA<SpecYamlFormatException>()));
+      expect(
+        () => dec('document: {}\n'),
+        throwsA(isA<SpecYamlFormatException>()),
+      );
       expect(() => dec(''), throwsA(isA<SpecYamlFormatException>()));
     });
 
     test('an unmatched key is a structured load error, not a silent skip', () {
-      const bad = 'version: 2\ndocument:\n  D00 Demo:\n    nonsense: |-\n'
+      const bad =
+          'version: 2\ndocument:\n  D00 Demo:\n    nonsense: |-\n'
           '      x\n';
       expect(
-          () => dec(bad),
-          throwsA(isA<SpecYamlFormatException>().having(
-              (e) => e.message, 'message', contains('nonsense'))));
+        () => dec(bad),
+        throwsA(
+          isA<SpecYamlFormatException>().having(
+            (e) => e.message,
+            'message',
+            contains('nonsense'),
+          ),
+        ),
+      );
     });
 
     test('a wrong root key is a structured load error', () {
@@ -574,7 +633,8 @@ void main() {
     });
 
     test('an unknown form field on read is a structured load error', () {
-      const bad = 'version: 2\ndocument:\n  D00 Demo:\n'
+      const bad =
+          'version: 2\ndocument:\n  D00 Demo:\n'
           '    D00-HDR header:\n      bogus: |-\n        v\n';
       expect(() => dec(bad), throwsA(isA<SpecYamlFormatException>()));
     });

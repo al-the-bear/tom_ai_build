@@ -40,15 +40,19 @@ void main() {
 
       final vision = byPath['PD00/vision']!;
       expect(vision.kind, SpecNodeKind.content);
-      expect(vision.searchableStrings, contains('Deliver a resilient rollout platform.'));
+      expect(
+        vision.searchableStrings,
+        contains('Deliver a resilient rollout platform.'),
+      );
       expect(vision.hasValue, isTrue);
 
       final owner = byPath['PD00/owner']!;
       expect(owner.kind, SpecNodeKind.form);
       expect(owner.searchableStrings, contains('Ada Lovelace'));
 
-      final riskItemPath = byPath.keys
-          .firstWhere((p) => RegExp(r'^PD00/risks-\d+$').hasMatch(p));
+      final riskItemPath = byPath.keys.firstWhere(
+        (p) => RegExp(r'^PD00/risks-\d+$').hasMatch(p),
+      );
       final riskItem = byPath[riskItemPath]!;
       expect(riskItem.kind, SpecNodeKind.listItemComplex);
       expect(riskItem.classId, 'Risk');
@@ -69,7 +73,10 @@ void main() {
       final vision = engine.projectNode('PD00/vision');
       expect(vision, isNotNull);
       expect(vision!.path, 'PD00/vision');
-      expect(vision.searchableStrings, contains('Deliver a resilient rollout platform.'));
+      expect(
+        vision.searchableStrings,
+        contains('Deliver a resilient rollout platform.'),
+      );
     });
 
     test('returns null for an unresolvable path', () {

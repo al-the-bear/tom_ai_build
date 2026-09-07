@@ -18,21 +18,21 @@ class _Root extends SomNode {
   /// A pattern-bearing list — mirrors what the emitter generates for a field
   /// carrying a `@SectionIdPattern`.
   SomList<_Item> get risks => SomList<_Item>(
-        doc,
-        '$path/RISK',
-        (d, p) => _Item(d, p),
-        pattern: 'RISK-ITEM-xxx',
-      );
+    doc,
+    '$path/RISK',
+    (d, p) => _Item(d, p),
+    pattern: 'RISK-ITEM-xxx',
+  );
 
   /// A content-only element list (the operational-metrics shape) whose element
   /// carries only the standard `content` leaf — exercises [SomList.addContent]
   /// and [SomList.contents] (SOM §21).
   SomList<_Metric> get metrics => SomList<_Metric>(
-        doc,
-        '$path/METR',
-        (d, p) => _Metric(d, p),
-        pattern: 'METR-ITEM-xxx',
-      );
+    doc,
+    '$path/METR',
+    (d, p) => _Metric(d, p),
+    pattern: 'METR-ITEM-xxx',
+  );
 }
 
 class _Item extends SomNode {
@@ -143,8 +143,10 @@ void main() {
       expect(root.items[0].label, 'first');
       // Visible through the generic document.
       expect(doc.listItemCount('PD00/items'), 1);
-      expect(doc.content('${doc.listItems('PD00/items').single}/label'),
-          'first');
+      expect(
+        doc.content('${doc.listItems('PD00/items').single}/label'),
+        'first',
+      );
     });
 
     test('removeAt drops the item and its nested values', () {
@@ -179,17 +181,19 @@ void main() {
       expect(doc.itemSectionId(item.path), 'RISK-ITEM-AB1');
     });
 
-    test('add accepts a section-id override, validated unique (criterion 5)',
-        () {
-      final doc = SpecDocument();
-      final root = _Root(doc, 'PD00');
-      root.risks.add(sectionId: 'RISK-ITEM-CUSTOM');
-      expect(root.risks.sectionIds, ['RISK-ITEM-CUSTOM']);
-      expect(
-        () => root.risks.add(sectionId: 'RISK-ITEM-CUSTOM'),
-        throwsA(isA<SpecSectionIdCollision>()),
-      );
-    });
+    test(
+      'add accepts a section-id override, validated unique (criterion 5)',
+      () {
+        final doc = SpecDocument();
+        final root = _Root(doc, 'PD00');
+        root.risks.add(sectionId: 'RISK-ITEM-CUSTOM');
+        expect(root.risks.sectionIds, ['RISK-ITEM-CUSTOM']);
+        expect(
+          () => root.risks.add(sectionId: 'RISK-ITEM-CUSTOM'),
+          throwsA(isA<SpecSectionIdCollision>()),
+        );
+      },
+    );
 
     test(r'overriding an item id via SomNode.$sectionId (criterion 5)', () {
       final doc = SpecDocument();
@@ -209,33 +213,38 @@ void main() {
       expect(reused.$sectionId, 'RISK-ITEM-AB2');
     });
 
-    test('delete-middle keeps ids, numbering non-consecutive (criterion 6)', () {
-      final doc = SpecDocument();
-      final root = _Root(doc, 'PD00');
-      root.risks.add(date: date); // AB1
-      root.risks.add(date: date); // AB2
-      root.risks.add(date: date); // AB3
-      root.risks.removeAt(1); // delete AB2
-      expect(root.risks.sectionIds, ['RISK-ITEM-AB1', 'RISK-ITEM-AB3']);
-      final next = root.risks.add(date: date);
-      expect(next.$sectionId, 'RISK-ITEM-AB4');
-    });
+    test(
+      'delete-middle keeps ids, numbering non-consecutive (criterion 6)',
+      () {
+        final doc = SpecDocument();
+        final root = _Root(doc, 'PD00');
+        root.risks.add(date: date); // AB1
+        root.risks.add(date: date); // AB2
+        root.risks.add(date: date); // AB3
+        root.risks.removeAt(1); // delete AB2
+        expect(root.risks.sectionIds, ['RISK-ITEM-AB1', 'RISK-ITEM-AB3']);
+        final next = root.risks.add(date: date);
+        expect(next.$sectionId, 'RISK-ITEM-AB4');
+      },
+    );
   });
 
   group('SomList content-only convenience (SOM §21)', () {
     final date = DateTime(2026, 1, 2); // AB
 
-    test('addContent appends the item and sets its content leaf in one call',
-        () {
-      final doc = SpecDocument();
-      final root = _Root(doc, 'PD00');
-      final metric = root.metrics.addContent('99.9% uptime', date: date);
-      // Returns the element facade, content readable both ways.
-      expect(metric.content, '99.9% uptime');
-      expect(root.metrics.length, 1);
-      expect(root.metrics[0].content, '99.9% uptime');
-      expect(doc.content('${metric.path}/content'), '99.9% uptime');
-    });
+    test(
+      'addContent appends the item and sets its content leaf in one call',
+      () {
+        final doc = SpecDocument();
+        final root = _Root(doc, 'PD00');
+        final metric = root.metrics.addContent('99.9% uptime', date: date);
+        // Returns the element facade, content readable both ways.
+        expect(metric.content, '99.9% uptime');
+        expect(root.metrics.length, 1);
+        expect(root.metrics[0].content, '99.9% uptime');
+        expect(doc.content('${metric.path}/content'), '99.9% uptime');
+      },
+    );
 
     test('addContent honours the section-id pattern like add', () {
       final doc = SpecDocument();
@@ -268,15 +277,19 @@ void main() {
       expect(root.metrics.contents.toList(), ['', 'has']);
     });
 
-    test('contents parity: contents == items mapped through the typed getter',
-        () {
-      final doc = SpecDocument();
-      final root = _Root(doc, 'PD00');
-      root.metrics.addContent('a', date: date);
-      root.metrics.addContent('b', date: date);
-      expect(root.metrics.contents.toList(),
-          root.metrics.items.map((m) => m.content).toList());
-    });
+    test(
+      'contents parity: contents == items mapped through the typed getter',
+      () {
+        final doc = SpecDocument();
+        final root = _Root(doc, 'PD00');
+        root.metrics.addContent('a', date: date);
+        root.metrics.addContent('b', date: date);
+        expect(
+          root.metrics.contents.toList(),
+          root.metrics.items.map((m) => m.content).toList(),
+        );
+      },
+    );
   });
 
   group('canHaveContent (structural content-slot predicate, SOM §21)', () {
@@ -320,20 +333,28 @@ void main() {
     });
 
     test('a newer same-major document is rejected', () {
-      expect(() => checkSomModelVersion('1.2', '1.5'),
-          throwsA(isA<SomVersionException>()));
+      expect(
+        () => checkSomModelVersion('1.2', '1.5'),
+        throwsA(isA<SomVersionException>()),
+      );
     });
 
     test('a different major version is rejected', () {
-      expect(() => checkSomModelVersion('1.0', '2.0'),
-          throwsA(isA<SomVersionException>()));
-      expect(() => checkSomModelVersion('1.0', '0.9'),
-          throwsA(isA<SomVersionException>()));
+      expect(
+        () => checkSomModelVersion('1.0', '2.0'),
+        throwsA(isA<SomVersionException>()),
+      );
+      expect(
+        () => checkSomModelVersion('1.0', '0.9'),
+        throwsA(isA<SomVersionException>()),
+      );
     });
 
     test('an unparseable document stamp is rejected', () {
-      expect(() => checkSomModelVersion('1.0', 'not-a-version'),
-          throwsA(isA<SomVersionException>()));
+      expect(
+        () => checkSomModelVersion('1.0', 'not-a-version'),
+        throwsA(isA<SomVersionException>()),
+      );
     });
   });
 
@@ -349,27 +370,37 @@ void main() {
     });
 
     test('a newer same-major document is rejectedNewerMinor', () {
-      expect(somEditabilityFor('1.2', '1.5'),
-          SomEditability.rejectedNewerMinor);
+      expect(
+        somEditabilityFor('1.2', '1.5'),
+        SomEditability.rejectedNewerMinor,
+      );
     });
 
     test('a different major version is readOnlyCrossMajor', () {
-      expect(somEditabilityFor('1.0', '2.0'),
-          SomEditability.readOnlyCrossMajor);
-      expect(somEditabilityFor('1.0', '0.9'),
-          SomEditability.readOnlyCrossMajor);
+      expect(
+        somEditabilityFor('1.0', '2.0'),
+        SomEditability.readOnlyCrossMajor,
+      );
+      expect(
+        somEditabilityFor('1.0', '0.9'),
+        SomEditability.readOnlyCrossMajor,
+      );
     });
 
     test('an unparseable document stamp is invalidVersion', () {
-      expect(somEditabilityFor('1.0', 'not-a-version'),
-          SomEditability.invalidVersion);
+      expect(
+        somEditabilityFor('1.0', 'not-a-version'),
+        SomEditability.invalidVersion,
+      );
     });
 
     test('never throws where checkSomModelVersion would throw', () {
       for (final stamp in ['1.5', '2.0', '0.9', 'not-a-version']) {
         expect(() => somEditabilityFor('1.0', stamp), returnsNormally);
-        expect(() => checkSomModelVersion('1.0', stamp),
-            throwsA(isA<SomVersionException>()));
+        expect(
+          () => checkSomModelVersion('1.0', stamp),
+          throwsA(isA<SomVersionException>()),
+        );
       }
     });
 
@@ -383,8 +414,11 @@ void main() {
         } on SomVersionException {
           threw = true;
         }
-        expect(editable, !threw,
-            reason: 'stamp "$stamp": editable=$editable threw=$threw');
+        expect(
+          editable,
+          !threw,
+          reason: 'stamp "$stamp": editable=$editable threw=$threw',
+        );
       }
     });
   });

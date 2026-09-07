@@ -9,17 +9,21 @@ void main() {
   group('enumeration', () {
     test('roots and classes', () {
       expect(refl.roots.map((r) => r.type), <String>['ProjectDefinition']);
-      expect(
-        refl.classes.map((c) => c.name).toSet(),
-        <String>{'ProjectDefinition', 'Risk', 'CurrentSituation'},
-      );
+      expect(refl.classes.map((c) => c.name).toSet(), <String>{
+        'ProjectDefinition',
+        'Risk',
+        'CurrentSituation',
+      });
     });
 
     test('fields and annotations of a class', () {
-      expect(
-        refl.fieldsOf('ProjectDefinition').map((f) => f.name),
-        <String>['vision', 'owner', 'risks', 'tags', 'situation'],
-      );
+      expect(refl.fieldsOf('ProjectDefinition').map((f) => f.name), <String>[
+        'vision',
+        'owner',
+        'risks',
+        'tags',
+        'situation',
+      ]);
       expect(
         refl.annotationsOf('ProjectDefinition').map((a) => a.name),
         containsAll(<String>['Document', 'SectionId']),
@@ -85,13 +89,15 @@ void main() {
       expect(res.field!.name, 'summary');
     });
 
-    test('unknown root, unknown field, and over-deep leaf are unresolvable',
-        () {
-      expect(refl.resolve('NOPE'), isNull);
-      expect(refl.resolve('PD00/missing'), isNull);
-      expect(refl.resolve('PD00/vision/extra'), isNull);
-      // A list path needs a `-<seq>` to descend.
-      expect(refl.resolve('PD00/risks/title'), isNull);
-    });
+    test(
+      'unknown root, unknown field, and over-deep leaf are unresolvable',
+      () {
+        expect(refl.resolve('NOPE'), isNull);
+        expect(refl.resolve('PD00/missing'), isNull);
+        expect(refl.resolve('PD00/vision/extra'), isNull);
+        // A list path needs a `-<seq>` to descend.
+        expect(refl.resolve('PD00/risks/title'), isNull);
+      },
+    );
   });
 }

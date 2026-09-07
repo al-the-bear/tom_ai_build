@@ -54,111 +54,133 @@ void main() {
     // subsections. `action2` also binds Case action to exercise the "more than
     // one populated case subsection" rule.
     SpecModel oneOfModel() => SpecModel.fromJson({
-          'modelVersion': 1,
-          'roots': [
-            {'type': 'Widget', 'title': 'Widget', 'sectionId': 'WD00'},
+      'modelVersion': 1,
+      'roots': [
+        {'type': 'Widget', 'title': 'Widget', 'sectionId': 'WD00'},
+      ],
+      'classes': {
+        'Widget': {
+          'name': 'Widget',
+          'sectionId': 'WD00',
+          'annotations': [
+            {
+              'name': 'Document',
+              'arguments': {'title': 'Widget'},
+            },
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'WD00'},
+            },
           ],
-          'classes': {
-            'Widget': {
-              'name': 'Widget',
-              'sectionId': 'WD00',
-              'annotations': [
-                {'name': 'Document', 'arguments': {'title': 'Widget'}},
-                {'name': 'SectionId', 'arguments': {'id': 'WD00'}},
-              ],
-              'fields': [
-                {
-                  'name': 'element',
-                  'kind': 'complex',
-                  'sectionId': 'ELM',
-                  'type': 'Element',
-                },
-              ],
-            },
-            'Element': {
-              'name': 'Element',
+          'fields': [
+            {
+              'name': 'element',
+              'kind': 'complex',
               'sectionId': 'ELM',
-              'annotations': [
-                {'name': 'SectionId', 'arguments': {'id': 'ELM'}},
-                {'name': 'OneOf', 'arguments': {'discriminator': 'kind'}},
-              ],
-              'fields': [
+              'type': 'Element',
+            },
+          ],
+        },
+        'Element': {
+          'name': 'Element',
+          'sectionId': 'ELM',
+          'annotations': [
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'ELM'},
+            },
+            {
+              'name': 'OneOf',
+              'arguments': {'discriminator': 'kind'},
+            },
+          ],
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'form',
+              'formFields': [
                 {
-                  'name': 'content',
-                  'kind': 'form',
-                  'formFields': [
-                    {
-                      'name': 'kind',
-                      'label': 'Kind',
-                      'type': 'ElementKind',
-                      'enumValues': ['action', 'input', 'display'],
-                    },
-                  ],
-                },
-                {
-                  'name': 'action',
-                  'kind': 'complex',
-                  'sectionId': 'ACT',
-                  'type': 'ActionSub',
-                  'annotations': [
-                    {'name': 'Case', 'arguments': {'value': 'ElementKind.action'}},
-                  ],
-                },
-                {
-                  'name': 'action2',
-                  'kind': 'complex',
-                  'sectionId': 'AC2',
-                  'type': 'ActionSub',
-                  'annotations': [
-                    {'name': 'Case', 'arguments': {'value': 'ElementKind.action'}},
-                  ],
-                },
-                {
-                  'name': 'input',
-                  'kind': 'complex',
-                  'sectionId': 'INP',
-                  'type': 'InputSub',
-                  'annotations': [
-                    {'name': 'Case', 'arguments': {'value': 'ElementKind.input'}},
-                  ],
-                },
-                {
-                  'name': 'common',
-                  'kind': 'complex',
-                  'sectionId': 'CMN',
-                  'type': 'CommonSub',
+                  'name': 'kind',
+                  'label': 'Kind',
+                  'type': 'ElementKind',
+                  'enumValues': ['action', 'input', 'display'],
                 },
               ],
             },
-            'ActionSub': {
-              'name': 'ActionSub',
+            {
+              'name': 'action',
+              'kind': 'complex',
               'sectionId': 'ACT',
-              'fields': [
-                {'name': 'detail', 'kind': 'content', 'sectionId': 'detail'},
+              'type': 'ActionSub',
+              'annotations': [
+                {
+                  'name': 'Case',
+                  'arguments': {'value': 'ElementKind.action'},
+                },
               ],
             },
-            'InputSub': {
-              'name': 'InputSub',
+            {
+              'name': 'action2',
+              'kind': 'complex',
+              'sectionId': 'AC2',
+              'type': 'ActionSub',
+              'annotations': [
+                {
+                  'name': 'Case',
+                  'arguments': {'value': 'ElementKind.action'},
+                },
+              ],
+            },
+            {
+              'name': 'input',
+              'kind': 'complex',
               'sectionId': 'INP',
-              'fields': [
-                {'name': 'detail', 'kind': 'content', 'sectionId': 'detail'},
+              'type': 'InputSub',
+              'annotations': [
+                {
+                  'name': 'Case',
+                  'arguments': {'value': 'ElementKind.input'},
+                },
               ],
             },
-            'CommonSub': {
-              'name': 'CommonSub',
+            {
+              'name': 'common',
+              'kind': 'complex',
               'sectionId': 'CMN',
-              'fields': [
-                {'name': 'detail', 'kind': 'content', 'sectionId': 'detail'},
-              ],
+              'type': 'CommonSub',
             },
-          },
-        });
+          ],
+        },
+        'ActionSub': {
+          'name': 'ActionSub',
+          'sectionId': 'ACT',
+          'fields': [
+            {'name': 'detail', 'kind': 'content', 'sectionId': 'detail'},
+          ],
+        },
+        'InputSub': {
+          'name': 'InputSub',
+          'sectionId': 'INP',
+          'fields': [
+            {'name': 'detail', 'kind': 'content', 'sectionId': 'detail'},
+          ],
+        },
+        'CommonSub': {
+          'name': 'CommonSub',
+          'sectionId': 'CMN',
+          'fields': [
+            {'name': 'detail', 'kind': 'content', 'sectionId': 'detail'},
+          ],
+        },
+      },
+    });
 
     final m = oneOfModel();
 
-    List<SpecValidationError> oneOf(SpecDocument doc) => validateDocument(m, doc)
-        .where((e) => e.code == SpecValidationCode.oneOfCaseMismatch)
-        .toList();
+    List<SpecValidationError> oneOf(SpecDocument doc) => validateDocument(
+      m,
+      doc,
+    ).where((e) => e.code == SpecValidationCode.oneOfCaseMismatch).toList();
 
     test('the subsection matching the chosen case validates clean', () {
       final doc = SpecDocument()
@@ -184,17 +206,19 @@ void main() {
       expect(oneOf(doc), isEmpty);
     });
 
-    test('more than one populated subsection for the chosen case is reported',
-        () {
-      final doc = SpecDocument()
-        ..setFormField('WD00/ELM/content', 'kind', 'action')
-        ..setContent('WD00/ELM/ACT/detail', 'a')
-        ..setContent('WD00/ELM/AC2/detail', 'b');
-      final errors = oneOf(doc);
-      expect(errors, hasLength(1));
-      expect(errors.single.path, 'WD00/ELM');
-      expect(errors.single.message, contains('more than one'));
-    });
+    test(
+      'more than one populated subsection for the chosen case is reported',
+      () {
+        final doc = SpecDocument()
+          ..setFormField('WD00/ELM/content', 'kind', 'action')
+          ..setContent('WD00/ELM/ACT/detail', 'a')
+          ..setContent('WD00/ELM/AC2/detail', 'b');
+        final errors = oneOf(doc);
+        expect(errors, hasLength(1));
+        expect(errors.single.path, 'WD00/ELM');
+        expect(errors.single.message, contains('more than one'));
+      },
+    );
 
     test('no discriminator chosen yet suppresses the case check', () {
       final doc = SpecDocument()..setContent('WD00/ELM/INP/detail', 'typed');
@@ -207,97 +231,103 @@ void main() {
     // and `screens` (SCEN entries declaring `screenId`), plus `links` whose form
     // holds one single-target and one two-target reference field.
     SpecModel refModel() => SpecModel.fromJson({
-          'modelVersion': 1,
-          'roots': [
-            {'type': 'Catalog', 'title': 'Catalog', 'sectionId': 'CT00'},
+      'modelVersion': 1,
+      'roots': [
+        {'type': 'Catalog', 'title': 'Catalog', 'sectionId': 'CT00'},
+      ],
+      'classes': {
+        'Catalog': {
+          'name': 'Catalog',
+          'sectionId': 'CT00',
+          'annotations': [
+            {
+              'name': 'Document',
+              'arguments': {'title': 'Catalog'},
+            },
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'CT00'},
+            },
           ],
-          'classes': {
-            'Catalog': {
-              'name': 'Catalog',
-              'sectionId': 'CT00',
-              'annotations': [
-                {'name': 'Document', 'arguments': {'title': 'Catalog'}},
-                {'name': 'SectionId', 'arguments': {'id': 'CT00'}},
+          'fields': [
+            {
+              'name': 'routes',
+              'kind': 'list',
+              'sectionId': 'RT-LST',
+              'elementType': 'RouteEntry',
+              'elementIsComplex': true,
+            },
+            {
+              'name': 'screens',
+              'kind': 'list',
+              'sectionId': 'SC-LST',
+              'elementType': 'ScreenEntry',
+              'elementIsComplex': true,
+            },
+            {
+              'name': 'links',
+              'kind': 'list',
+              'sectionId': 'LK-LST',
+              'elementType': 'LinkEntry',
+              'elementIsComplex': true,
+            },
+          ],
+        },
+        'RouteEntry': {
+          'name': 'RouteEntry',
+          'sectionId': 'RTEN',
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'form',
+              'sectionId': 'content',
+              'formFields': [
+                {'name': 'routeId', 'label': 'Route ID', 'type': 'String'},
               ],
-              'fields': [
+            },
+          ],
+        },
+        'ScreenEntry': {
+          'name': 'ScreenEntry',
+          'sectionId': 'SCEN',
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'form',
+              'sectionId': 'content',
+              'formFields': [
+                {'name': 'screenId', 'label': 'Screen ID', 'type': 'String'},
+              ],
+            },
+          ],
+        },
+        'LinkEntry': {
+          'name': 'LinkEntry',
+          'sectionId': 'LKEN',
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'form',
+              'sectionId': 'content',
+              'formFields': [
                 {
-                  'name': 'routes',
-                  'kind': 'list',
-                  'sectionId': 'RT-LST',
-                  'elementType': 'RouteEntry',
-                  'elementIsComplex': true,
+                  'name': 'targetRoute',
+                  'label': 'Target route',
+                  'type': 'String',
+                  'refersTo': ['RTEN.routeId'],
                 },
                 {
-                  'name': 'screens',
-                  'kind': 'list',
-                  'sectionId': 'SC-LST',
-                  'elementType': 'ScreenEntry',
-                  'elementIsComplex': true,
-                },
-                {
-                  'name': 'links',
-                  'kind': 'list',
-                  'sectionId': 'LK-LST',
-                  'elementType': 'LinkEntry',
-                  'elementIsComplex': true,
+                  'name': 'appliesTo',
+                  'label': 'Applies to',
+                  'type': 'String',
+                  'refersTo': ['RTEN.routeId', 'SCEN.screenId'],
                 },
               ],
             },
-            'RouteEntry': {
-              'name': 'RouteEntry',
-              'sectionId': 'RTEN',
-              'fields': [
-                {
-                  'name': 'content',
-                  'kind': 'form',
-                  'sectionId': 'content',
-                  'formFields': [
-                    {'name': 'routeId', 'label': 'Route ID', 'type': 'String'},
-                  ],
-                },
-              ],
-            },
-            'ScreenEntry': {
-              'name': 'ScreenEntry',
-              'sectionId': 'SCEN',
-              'fields': [
-                {
-                  'name': 'content',
-                  'kind': 'form',
-                  'sectionId': 'content',
-                  'formFields': [
-                    {'name': 'screenId', 'label': 'Screen ID', 'type': 'String'},
-                  ],
-                },
-              ],
-            },
-            'LinkEntry': {
-              'name': 'LinkEntry',
-              'sectionId': 'LKEN',
-              'fields': [
-                {
-                  'name': 'content',
-                  'kind': 'form',
-                  'sectionId': 'content',
-                  'formFields': [
-                    {
-                      'name': 'targetRoute',
-                      'label': 'Target route',
-                      'type': 'String',
-                      'refersTo': ['RTEN.routeId'],
-                    },
-                    {
-                      'name': 'appliesTo',
-                      'label': 'Applies to',
-                      'type': 'String',
-                      'refersTo': ['RTEN.routeId', 'SCEN.screenId'],
-                    },
-                  ],
-                },
-              ],
-            },
-          },
-        });
+          ],
+        },
+      },
+    });
 
     final m = refModel();
 
@@ -313,9 +343,10 @@ void main() {
       return (doc, '$link/content');
     }
 
-    List<SpecValidationError> refs(SpecDocument doc) => validateDocument(m, doc)
-        .where((e) => e.code == SpecValidationCode.danglingReference)
-        .toList();
+    List<SpecValidationError> refs(SpecDocument doc) => validateDocument(
+      m,
+      doc,
+    ).where((e) => e.code == SpecValidationCode.danglingReference).toList();
 
     test('a reference to a declared id validates clean', () {
       final (doc, link) = seeded();
@@ -361,12 +392,14 @@ void main() {
       expect(refs(doc), isEmpty);
     });
 
-    test('an id declared in the wrong registry does not satisfy the reference',
-        () {
-      final (doc, link) = seeded();
-      doc.setFormField(link, 'targetRoute', 's-home');
-      expect(refs(doc), hasLength(1));
-    });
+    test(
+      'an id declared in the wrong registry does not satisfy the reference',
+      () {
+        final (doc, link) = seeded();
+        doc.setFormField(link, 'targetRoute', 's-home');
+        expect(refs(doc), hasLength(1));
+      },
+    );
   });
 
   group('refersTo @sectionId slot (csrd1)', () {
@@ -374,77 +407,84 @@ void main() {
     // list of REQN entries that declare NO id form field at all — the id is the
     // item's section id. `links` references them as `REQN.@sectionId`.
     SpecModel slotModel() => SpecModel.fromJson({
-          'modelVersion': 1,
-          'roots': [
-            {'type': 'Catalog', 'title': 'Catalog', 'sectionId': 'CT00'},
+      'modelVersion': 1,
+      'roots': [
+        {'type': 'Catalog', 'title': 'Catalog', 'sectionId': 'CT00'},
+      ],
+      'classes': {
+        'Catalog': {
+          'name': 'Catalog',
+          'sectionId': 'CT00',
+          'annotations': [
+            {
+              'name': 'Document',
+              'arguments': {'title': 'Catalog'},
+            },
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'CT00'},
+            },
           ],
-          'classes': {
-            'Catalog': {
-              'name': 'Catalog',
-              'sectionId': 'CT00',
-              'annotations': [
-                {'name': 'Document', 'arguments': {'title': 'Catalog'}},
-                {'name': 'SectionId', 'arguments': {'id': 'CT00'}},
+          'fields': [
+            {
+              'name': 'requirements',
+              'kind': 'list',
+              'sectionId': 'RQ-LST',
+              'sectionIdPattern': 'RQ-REQU-xxx',
+              'elementType': 'RequirementEntry',
+              'elementIsComplex': true,
+            },
+            {
+              'name': 'links',
+              'kind': 'list',
+              'sectionId': 'LK-LST',
+              'elementType': 'LinkEntry',
+              'elementIsComplex': true,
+            },
+          ],
+        },
+        'RequirementEntry': {
+          'name': 'RequirementEntry',
+          'sectionId': 'REQN',
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'form',
+              'sectionId': 'content',
+              'formFields': [
+                {'name': 'title', 'label': 'Title', 'type': 'String'},
               ],
-              'fields': [
+            },
+          ],
+        },
+        'LinkEntry': {
+          'name': 'LinkEntry',
+          'sectionId': 'LKEN',
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'form',
+              'sectionId': 'content',
+              'formFields': [
                 {
-                  'name': 'requirements',
-                  'kind': 'list',
-                  'sectionId': 'RQ-LST',
-                  'sectionIdPattern': 'RQ-REQU-xxx',
-                  'elementType': 'RequirementEntry',
-                  'elementIsComplex': true,
-                },
-                {
-                  'name': 'links',
-                  'kind': 'list',
-                  'sectionId': 'LK-LST',
-                  'elementType': 'LinkEntry',
-                  'elementIsComplex': true,
+                  'name': 'relatedRequirements',
+                  'label': 'Related requirements',
+                  'type': 'String',
+                  'refersTo': ['REQN.@sectionId'],
                 },
               ],
             },
-            'RequirementEntry': {
-              'name': 'RequirementEntry',
-              'sectionId': 'REQN',
-              'fields': [
-                {
-                  'name': 'content',
-                  'kind': 'form',
-                  'sectionId': 'content',
-                  'formFields': [
-                    {'name': 'title', 'label': 'Title', 'type': 'String'},
-                  ],
-                },
-              ],
-            },
-            'LinkEntry': {
-              'name': 'LinkEntry',
-              'sectionId': 'LKEN',
-              'fields': [
-                {
-                  'name': 'content',
-                  'kind': 'form',
-                  'sectionId': 'content',
-                  'formFields': [
-                    {
-                      'name': 'relatedRequirements',
-                      'label': 'Related requirements',
-                      'type': 'String',
-                      'refersTo': ['REQN.@sectionId'],
-                    },
-                  ],
-                },
-              ],
-            },
-          },
-        });
+          ],
+        },
+      },
+    });
 
     final m = slotModel();
 
-    List<SpecValidationError> refs(SpecDocument doc) => validateDocument(m, doc)
-        .where((e) => e.code == SpecValidationCode.danglingReference)
-        .toList();
+    List<SpecValidationError> refs(SpecDocument doc) => validateDocument(
+      m,
+      doc,
+    ).where((e) => e.code == SpecValidationCode.danglingReference).toList();
 
     String addLink(SpecDocument doc) =>
         '${doc.addListItem('CT00/LK-LST')}/content';
@@ -497,7 +537,10 @@ void main() {
       doc.addListItem('CT00/RQ-LST', sectionId: 'RQ-REQU-HA2');
       final link = addLink(doc);
       doc.setFormField(
-          link, 'relatedRequirements', 'RQ-REQU-HA1, RQ-REQU-HA2, RQ-REQU-HA3');
+        link,
+        'relatedRequirements',
+        'RQ-REQU-HA1, RQ-REQU-HA2, RQ-REQU-HA3',
+      );
       final errors = refs(doc);
       expect(errors, hasLength(1));
       expect(errors.single.message, contains('RQ-REQU-HA3'));
@@ -519,100 +562,107 @@ void main() {
     // resolvable in the project document and *out of scope* in the standalone
     // one — the case the instance tier must not call an error.
     SpecModel twoRootModel() => SpecModel.fromJson({
-          'modelVersion': 1,
-          'roots': [
-            {'type': 'Project', 'title': 'Project', 'sectionId': 'PR00'},
-            {'type': 'Plan', 'title': 'Plan', 'sectionId': 'PL00'},
+      'modelVersion': 1,
+      'roots': [
+        {'type': 'Project', 'title': 'Project', 'sectionId': 'PR00'},
+        {'type': 'Plan', 'title': 'Plan', 'sectionId': 'PL00'},
+      ],
+      'classes': {
+        'Project': {
+          'name': 'Project',
+          'sectionId': 'PR00',
+          'annotations': [
+            {
+              'name': 'Document',
+              'arguments': {'title': 'Project'},
+            },
           ],
-          'classes': {
-            'Project': {
-              'name': 'Project',
-              'sectionId': 'PR00',
-              'annotations': [
-                {'name': 'Document', 'arguments': {'title': 'Project'}},
+          'fields': [
+            {
+              'name': 'requirements',
+              'kind': 'list',
+              'sectionId': 'RQ-LST',
+              'sectionIdPattern': 'RQ-REQU-xxx',
+              'elementType': 'RequirementEntry',
+              'elementIsComplex': true,
+            },
+            {
+              'name': 'plans',
+              'kind': 'list',
+              'sectionId': 'PL-LST',
+              'elementType': 'PlanEntry',
+              'elementIsComplex': true,
+            },
+          ],
+        },
+        'Plan': {
+          'name': 'Plan',
+          'sectionId': 'PL00',
+          'annotations': [
+            {
+              'name': 'Document',
+              'arguments': {'title': 'Plan'},
+            },
+          ],
+          'fields': [
+            {
+              'name': 'plans',
+              'kind': 'list',
+              'sectionId': 'PL-LST',
+              'elementType': 'PlanEntry',
+              'elementIsComplex': true,
+            },
+          ],
+        },
+        'RequirementEntry': {
+          'name': 'RequirementEntry',
+          'sectionId': 'REQN',
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'form',
+              'sectionId': 'content',
+              'formFields': [
+                {'name': 'title', 'label': 'Title', 'type': 'String'},
               ],
-              'fields': [
+            },
+          ],
+        },
+        'PlanEntry': {
+          'name': 'PlanEntry',
+          'sectionId': 'PLEN',
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'form',
+              'sectionId': 'content',
+              'formFields': [
+                {'name': 'planId', 'label': 'Plan ID', 'type': 'String'},
                 {
-                  'name': 'requirements',
-                  'kind': 'list',
-                  'sectionId': 'RQ-LST',
-                  'sectionIdPattern': 'RQ-REQU-xxx',
-                  'elementType': 'RequirementEntry',
-                  'elementIsComplex': true,
+                  'name': 'requirementRef',
+                  'label': 'Requirement',
+                  'type': 'String',
+                  'refersTo': ['REQN.@sectionId'],
                 },
                 {
-                  'name': 'plans',
-                  'kind': 'list',
-                  'sectionId': 'PL-LST',
-                  'elementType': 'PlanEntry',
-                  'elementIsComplex': true,
+                  'name': 'dependsOn',
+                  'label': 'Depends on',
+                  'type': 'String',
+                  'refersTo': ['REQN.@sectionId', 'PLEN.planId'],
                 },
               ],
             },
-            'Plan': {
-              'name': 'Plan',
-              'sectionId': 'PL00',
-              'annotations': [
-                {'name': 'Document', 'arguments': {'title': 'Plan'}},
-              ],
-              'fields': [
-                {
-                  'name': 'plans',
-                  'kind': 'list',
-                  'sectionId': 'PL-LST',
-                  'elementType': 'PlanEntry',
-                  'elementIsComplex': true,
-                },
-              ],
-            },
-            'RequirementEntry': {
-              'name': 'RequirementEntry',
-              'sectionId': 'REQN',
-              'fields': [
-                {
-                  'name': 'content',
-                  'kind': 'form',
-                  'sectionId': 'content',
-                  'formFields': [
-                    {'name': 'title', 'label': 'Title', 'type': 'String'},
-                  ],
-                },
-              ],
-            },
-            'PlanEntry': {
-              'name': 'PlanEntry',
-              'sectionId': 'PLEN',
-              'fields': [
-                {
-                  'name': 'content',
-                  'kind': 'form',
-                  'sectionId': 'content',
-                  'formFields': [
-                    {'name': 'planId', 'label': 'Plan ID', 'type': 'String'},
-                    {
-                      'name': 'requirementRef',
-                      'label': 'Requirement',
-                      'type': 'String',
-                      'refersTo': ['REQN.@sectionId'],
-                    },
-                    {
-                      'name': 'dependsOn',
-                      'label': 'Depends on',
-                      'type': 'String',
-                      'refersTo': ['REQN.@sectionId', 'PLEN.planId'],
-                    },
-                  ],
-                },
-              ],
-            },
-          },
-        });
+          ],
+        },
+      },
+    });
 
     final m = twoRootModel();
 
-    List<SpecValidationError> refs(SpecDocument doc) => validateDocument(m, doc)
-        .where((e) => e.code == SpecValidationCode.danglingReference)
-        .toList();
+    List<SpecValidationError> refs(SpecDocument doc) => validateDocument(
+      m,
+      doc,
+    ).where((e) => e.code == SpecValidationCode.danglingReference).toList();
 
     /// A plan entry under [root]'s plan list, returning its form path.
     String addPlan(SpecDocument doc, String root) =>
@@ -719,8 +769,12 @@ void main() {
     });
 
     test('follows complex, section and complex-list edges transitively', () {
-      expect(SpecReflection(m).reachableClassNames('Root'),
-          {'Root', 'Detail', 'Nested', 'Item'});
+      expect(SpecReflection(m).reachableClassNames('Root'), {
+        'Root',
+        'Detail',
+        'Nested',
+        'Item',
+      });
     });
 
     test('excludes unreached classes and unresolvable type names', () {

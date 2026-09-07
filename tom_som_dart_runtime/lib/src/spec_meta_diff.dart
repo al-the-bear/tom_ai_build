@@ -28,13 +28,16 @@ String? somMetaNodeDiff(SomMetaNode a, SomMetaNode b, {String at = '<root>'}) {
     () => diff('sectionIdPattern', a.sectionIdPattern, b.sectionIdPattern),
     () => diff('kind', a.kind, b.kind),
     () => diff('typeName', a.typeName, b.typeName),
-    () => diff('serializationOrder', a.serializationOrder,
-        b.serializationOrder),
+    () =>
+        diff('serializationOrder', a.serializationOrder, b.serializationOrder),
     () => diff('min', a.min, b.min),
     () => diff('unused', a.unused, b.unused),
     () => diff('contentType.type', a.contentType?.type, b.contentType?.type),
-    () => diff('contentType.description', a.contentType?.description,
-        b.contentType?.description),
+    () => diff(
+      'contentType.description',
+      a.contentType?.description,
+      b.contentType?.description,
+    ),
     () => diff('contentHelp', a.contentHelp, b.contentHelp),
     () => diff('headline', a.headline, b.headline),
     () => diff('comment', a.comment, b.comment),
@@ -60,8 +63,11 @@ String? somMetaNodeDiff(SomMetaNode a, SomMetaNode b, {String at = '<root>'}) {
   }
   for (var i = 0; i < a.children.length; i++) {
     final ca = a.children[i];
-    final d = somMetaNodeDiff(ca, b.children[i],
-        at: '$at/${ca.memberName ?? ca.className}');
+    final d = somMetaNodeDiff(
+      ca,
+      b.children[i],
+      at: '$at/${ca.memberName ?? ca.className}',
+    );
     if (d != null) return d;
   }
 
@@ -70,8 +76,7 @@ String? somMetaNodeDiff(SomMetaNode a, SomMetaNode b, {String at = '<root>'}) {
         '${a.elementNode != null} != ${b.elementNode != null}';
   }
   if (a.elementNode != null) {
-    return somMetaNodeDiff(a.elementNode!, b.elementNode!,
-        at: '$at/§element');
+    return somMetaNodeDiff(a.elementNode!, b.elementNode!, at: '$at/§element');
   }
   return null;
 }
@@ -110,7 +115,8 @@ String? _documentDiff(String at, SomDocMeta? a, SomDocMeta? b) {
   if (a.name != b.name) {
     return '$at: document.name differs — ${a.name} != ${b.name}';
   }
-  if (a.description != b.description) return '$at: document.description differs';
+  if (a.description != b.description)
+    return '$at: document.description differs';
   if (!_listEq(a.basedOn, b.basedOn)) {
     return '$at: document.basedOn differs — ${a.basedOn} != ${b.basedOn}';
   }
@@ -124,8 +130,7 @@ String? _extraDiff(String at, List<SomMetaExtra> a, List<SomMetaExtra> b) {
         '${b.map((e) => e.annotation).toList()})';
   }
   for (var i = 0; i < a.length; i++) {
-    if (a[i].annotation != b[i].annotation ||
-        !_mapEq(a[i].args, b[i].args)) {
+    if (a[i].annotation != b[i].annotation || !_mapEq(a[i].args, b[i].args)) {
       return '$at: extra annotation ${a[i].annotation} differs — '
           '${a[i].args} != ${b[i].args}';
     }

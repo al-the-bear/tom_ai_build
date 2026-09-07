@@ -88,15 +88,18 @@ class SpecMarkdownRejection {
   /// editor jumps to, so it is the heading's own line even when the fault is
   /// only detected when the section closes (a value leaf with no body).
   final int line;
+
   /// The rejection class, for callers that group, count or filter the report
   /// rather than printing it; the human sentence is [message]. Switch on this,
   /// never on the message text.
   final SpecMarkdownRejectReason reason;
+
   /// One display-ready sentence naming what was wrong, sometimes carrying
   /// context the reason cannot (the list of known root ids, the parent path a
   /// section failed to resolve under). Not a stable identifier — the wording
   /// is free to change.
   final String message;
+
   /// What the rejection points at: the section id for an unresolvable or
   /// kind-mismatched heading, the resolved document path for a value section
   /// left empty, the raw heading text when no `<!--[ID]-->` comment could be
@@ -182,6 +185,7 @@ class SpecDocumentMarkdown {
   /// this model is rejected (SOM §11.7), never guessed at, so importing a
   /// document written against a newer model reports rather than silently drops.
   final SpecModel model;
+
   /// The instance side: the source of values on emit. Parse never writes to
   /// it — the staged [SpecMarkdownResult] is handed back for the caller to
   /// apply — so a failed import cannot leave the document half-updated.
@@ -192,7 +196,9 @@ class SpecDocumentMarkdown {
   final Map<String, SomMetaTree> _trees = {};
 
   SomMetaTree _treeFor(String rootType) => _trees.putIfAbsent(
-      rootType, () => buildSomMetaTree(model, rootType: rootType));
+    rootType,
+    () => buildSomMetaTree(model, rootType: rootType),
+  );
 
   // --- Naming helpers (SOM §11.2 / §11.5) ----------------------------------
 
@@ -350,12 +356,18 @@ class SpecDocumentMarkdown {
     final tree = _treeFor(root.type);
     final node = tree.root;
     final b = StringBuffer();
-    b.writeln('<!-- docspec: ${kebabCase(root.title)}/'
-        '${model.modelVersionString} -->');
+    b.writeln(
+      '<!-- docspec: ${kebabCase(root.title)}/'
+      '${model.modelVersionString} -->',
+    );
     final rootSeg = node.segment;
-    _writeHeading(b, 1, rootSeg,
-        document.headline(rootSeg) ?? node.headline ?? root.title,
-        codeSpec: document.codeSpec(rootSeg));
+    _writeHeading(
+      b,
+      1,
+      rootSeg,
+      document.headline(rootSeg) ?? node.headline ?? root.title,
+      codeSpec: document.codeSpec(rootSeg),
+    );
     _writeSectionBody(b, node, rootSeg);
     _writeChildren(b, node, rootSeg, 2);
     return b.toString();
@@ -377,7 +389,11 @@ class SpecDocumentMarkdown {
   }
 
   void _writeChildren(
-      StringBuffer b, SomMetaNode node, String basePath, int depth) {
+    StringBuffer b,
+    SomMetaNode node,
+    String basePath,
+    int depth,
+  ) {
     for (final (child, rel) in _effectiveChildren(node)) {
       final path = '$basePath/$rel';
       if (!document.hasValuesUnder(path)) continue;
@@ -387,21 +403,33 @@ class SpecDocumentMarkdown {
         case SomMetaKind.enumValue:
           final value = document.content(path);
           if (value == null) break;
-          _writeHeading(b, depth, _headingIdOf(child),
-              document.headline(path) ?? _titleOf(child),
-              codeSpec: document.codeSpec(path));
+          _writeHeading(
+            b,
+            depth,
+            _headingIdOf(child),
+            document.headline(path) ?? _titleOf(child),
+            codeSpec: document.codeSpec(path),
+          );
           _writeBody(b, value, path);
         case SomMetaKind.form:
           if (!_formHasValues(child, path)) break;
-          _writeHeading(b, depth, _headingIdOf(child),
-              document.headline(path) ?? _titleOf(child),
-              codeSpec: document.codeSpec(path));
+          _writeHeading(
+            b,
+            depth,
+            _headingIdOf(child),
+            document.headline(path) ?? _titleOf(child),
+            codeSpec: document.codeSpec(path),
+          );
           _writeForm(b, child, path);
         case SomMetaKind.section:
         case SomMetaKind.complex:
-          _writeHeading(b, depth, _headingIdOf(child),
-              document.headline(path) ?? _titleOf(child),
-              codeSpec: document.codeSpec(path));
+          _writeHeading(
+            b,
+            depth,
+            _headingIdOf(child),
+            document.headline(path) ?? _titleOf(child),
+            codeSpec: document.codeSpec(path),
+          );
           _writeSectionBody(b, child, path);
           _writeChildren(b, child, path, depth + 1);
         case SomMetaKind.list:
@@ -417,15 +445,23 @@ class SpecDocumentMarkdown {
   /// min/max-text-length 0). Item identity is the stored id when one exists,
   /// else positional (YRD3).
   void _writeList(
-      StringBuffer b, SomMetaNode node, String listPath, int depth) {
+    StringBuffer b,
+    SomMetaNode node,
+    String listPath,
+    int depth,
+  ) {
     final items = document.listItems(listPath);
     if (items.isEmpty) return;
     // The container heading: its id is the list's `-LST` `@SectionId` (else the
     // member segment for a pattern-less list); its title is the stored
     // headline, else the member name.
-    _writeHeading(b, depth, _headingIdOf(node),
-        document.headline(listPath) ?? _titleOf(node),
-        codeSpec: document.codeSpec(listPath));
+    _writeHeading(
+      b,
+      depth,
+      _headingIdOf(node),
+      document.headline(listPath) ?? _titleOf(node),
+      codeSpec: document.codeSpec(listPath),
+    );
     // Item heading stem. Complex lists derive it from the element class name
     // (SOM §11.5, `Entry` dropped). A scalar list (`List<String>`, shape 6) has
     // no element class — its element `typeName` is literally `String`, which
@@ -451,9 +487,13 @@ class SpecDocumentMarkdown {
         position: pos,
         fallbackStem: node.memberName ?? node.segment,
       );
-      _writeHeading(b, depth + 1, id,
-          document.headline(itemPath) ?? '$stem $pos',
-          codeSpec: document.codeSpec(itemPath));
+      _writeHeading(
+        b,
+        depth + 1,
+        id,
+        document.headline(itemPath) ?? '$stem $pos',
+        codeSpec: document.codeSpec(itemPath),
+      );
       final element = node.elementNode;
       if (element == null) {
         // Scalar list: the item's value is its body.
@@ -479,7 +519,10 @@ class SpecDocumentMarkdown {
     final declared = {
       for (final f in node.form?.fields ?? const <SomFormFieldMeta>[]) f.name,
     };
-    return document.formFieldNames(path).where((n) => !declared.contains(n)).toList()
+    return document
+        .formFieldNames(path)
+        .where((n) => !declared.contains(n))
+        .toList()
       ..sort();
   }
 
@@ -494,9 +537,11 @@ class SpecDocumentMarkdown {
   void _checkFormDeclared(SomMetaNode node, String path) {
     final undeclared = _undeclaredFormFields(node, path);
     if (undeclared.isEmpty) return;
-    throw ArgumentError('form at "$path" holds a field "${undeclared.first}" '
-        'unknown to the model; it cannot be represented in the DocSpecs '
-        'markdown format');
+    throw ArgumentError(
+      'form at "$path" holds a field "${undeclared.first}" '
+      'unknown to the model; it cannot be represented in the DocSpecs '
+      'markdown format',
+    );
   }
 
   /// Whether the `@Form` node at [path] has anything to emit: its preamble
@@ -559,10 +604,16 @@ class SpecDocumentMarkdown {
   /// When [codeSpec] is non-empty it is emitted as a `codeSpec="…"` key inside
   /// the same headline comment (codespecs_mapping.md §9.2): `## <!--[ID]
   /// codeSpec="A,B"--> Title`.
-  static void _writeHeading(StringBuffer b, int depth, String id, String title,
-      {String? codeSpec}) {
-    final code =
-        (codeSpec != null && codeSpec.isNotEmpty) ? ' codeSpec="$codeSpec"' : '';
+  static void _writeHeading(
+    StringBuffer b,
+    int depth,
+    String id,
+    String title, {
+    String? codeSpec,
+  }) {
+    final code = (codeSpec != null && codeSpec.isNotEmpty)
+        ? ' codeSpec="$codeSpec"'
+        : '';
     b.writeln('${'#' * depth} <!--[$id]$code--> $title');
     b.writeln();
   }
@@ -598,9 +649,11 @@ class SpecDocumentMarkdown {
       fence.feed(line);
     }
     if (fence.inFence) {
-      throw ArgumentError('content at "$path" contains an unterminated '
-          'fenced code block; it cannot be represented in the DocSpecs '
-          'markdown format');
+      throw ArgumentError(
+        'content at "$path" contains an unterminated '
+        'fenced code block; it cannot be represented in the DocSpecs '
+        'markdown format',
+      );
     }
     return out.join('\n');
   }
@@ -662,8 +715,9 @@ class SpecDocumentMarkdown {
   /// region (possibly empty), group 3 = the heading title. The middle group is
   /// `[^>]*` — safe because the region's only values are quoted code locations
   /// / identifiers, never a raw `>`.
-  static final RegExp headlineComment =
-      RegExp(r'^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$');
+  static final RegExp headlineComment = RegExp(
+    r'^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$',
+  );
 
   /// Extracts the `codeSpec="…"` value from a heading-comment key=value region
   /// (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
@@ -675,16 +729,16 @@ class SpecDocumentMarkdown {
     return (m.group(1) ?? m.group(2) ?? m.group(3) ?? '').trim();
   }
 
-  static final RegExp _codeSpecPattern =
-      RegExp(r'''codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))''');
+  static final RegExp _codeSpecPattern = RegExp(
+    r'''codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))''',
+  );
 
   /// Matches the SOM §11.1 declaration line `<!-- docspec: <id>/<version> -->`.
   /// The parser skips it while no root heading is open, so to this codec it is
   /// informational only: the declared schema id and version are not checked
   /// here (the DocSpecs validator owns that), and a document without the line
   /// still parses.
-  static final RegExp docspecComment =
-      RegExp(r'^<!--\s*docspec:.*-->\s*$');
+  static final RegExp docspecComment = RegExp(r'^<!--\s*docspec:.*-->\s*$');
 }
 
 /// Fence state machine (CommonMark-ish): a line whose first non-space run (up
@@ -793,11 +847,13 @@ class _Parser {
       if (_stack.isNotEmpty) {
         _stack.last.body.add(raw);
       } else if (trimmed.isNotEmpty) {
-        rejections.add(SpecMarkdownRejection(
-          line: lineNo,
-          reason: SpecMarkdownRejectReason.orphanContent,
-          message: 'text before the document root heading',
-        ));
+        rejections.add(
+          SpecMarkdownRejection(
+            line: lineNo,
+            reason: SpecMarkdownRejectReason.orphanContent,
+            message: 'text before the document root heading',
+          ),
+        );
       }
       _fence.feed(raw);
     }
@@ -815,14 +871,17 @@ class _Parser {
   void _openHeading(int level, String rest, int lineNo) {
     final m = SpecDocumentMarkdown.headlineComment.firstMatch(rest.trim());
     if (m == null) {
-      rejections.add(SpecMarkdownRejection(
-        line: lineNo,
-        reason: SpecMarkdownRejectReason.malformedHeading,
-        anchor: rest.trim(),
-        message: 'heading carries no <!--[SECTION-ID]--> headline comment',
-      ));
-      _stack.add(_Frame(
-          level: level, node: null, path: '', line: lineNo, ignored: true));
+      rejections.add(
+        SpecMarkdownRejection(
+          line: lineNo,
+          reason: SpecMarkdownRejectReason.malformedHeading,
+          anchor: rest.trim(),
+          message: 'heading carries no <!--[SECTION-ID]--> headline comment',
+        ),
+      );
+      _stack.add(
+        _Frame(level: level, node: null, path: '', line: lineNo, ignored: true),
+      );
       return;
     }
     final id = m.group(1)!;
@@ -836,26 +895,32 @@ class _Parser {
 
     final parent = _stack.last;
     if (parent.ignored) {
-      rejections.add(SpecMarkdownRejection(
-        line: lineNo,
-        reason: SpecMarkdownRejectReason.unknownSection,
-        anchor: id,
-        message: 'section nested under an unresolvable parent',
-      ));
-      _stack.add(_Frame(
-          level: level, node: null, path: '', line: lineNo, ignored: true));
+      rejections.add(
+        SpecMarkdownRejection(
+          line: lineNo,
+          reason: SpecMarkdownRejectReason.unknownSection,
+          anchor: id,
+          message: 'section nested under an unresolvable parent',
+        ),
+      );
+      _stack.add(
+        _Frame(level: level, node: null, path: '', line: lineNo, ignored: true),
+      );
       return;
     }
     final pNode = parent.node;
     if (pNode == null || _isValueLeaf(pNode.kind)) {
-      rejections.add(SpecMarkdownRejection(
-        line: lineNo,
-        reason: SpecMarkdownRejectReason.kindMismatch,
-        anchor: id,
-        message: 'child heading under a value-leaf or form section',
-      ));
-      _stack.add(_Frame(
-          level: level, node: null, path: '', line: lineNo, ignored: true));
+      rejections.add(
+        SpecMarkdownRejection(
+          line: lineNo,
+          reason: SpecMarkdownRejectReason.kindMismatch,
+          anchor: id,
+          message: 'child heading under a value-leaf or form section',
+        ),
+      );
+      _stack.add(
+        _Frame(level: level, node: null, path: '', line: lineNo, ignored: true),
+      );
       return;
     }
 
@@ -889,15 +954,19 @@ class _Parser {
       }
     }
 
-    rejections.add(SpecMarkdownRejection(
-      line: lineNo,
-      reason: SpecMarkdownRejectReason.unknownSection,
-      anchor: id,
-      message: 'section id does not resolve against the schema tree at this '
-          'position (under "${parent.path}")',
-    ));
-    _stack.add(_Frame(
-        level: level, node: null, path: '', line: lineNo, ignored: true));
+    rejections.add(
+      SpecMarkdownRejection(
+        line: lineNo,
+        reason: SpecMarkdownRejectReason.unknownSection,
+        anchor: id,
+        message:
+            'section id does not resolve against the schema tree at this '
+            'position (under "${parent.path}")',
+      ),
+    );
+    _stack.add(
+      _Frame(level: level, node: null, path: '', line: lineNo, ignored: true),
+    );
   }
 
   /// Opens a list-item frame under a `-LST` container frame (SOM §11.2). The
@@ -905,16 +974,31 @@ class _Parser {
   /// the `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a
   /// number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored
   /// id, or — for any other id — an anonymous next item carrying the stored id.
-  void _openItemHeading(int level, _Frame container, SomMetaNode listNode,
-      String id, String title, String codeSpec, int lineNo) {
+  void _openItemHeading(
+    int level,
+    _Frame container,
+    SomMetaNode listNode,
+    String id,
+    String title,
+    String codeSpec,
+    int lineNo,
+  ) {
     final listPath = container.path;
-    final anon =
-        RegExp('^${RegExp.escape(listNode.memberName ?? listNode.segment)}'
-                '-([0-9]+)\$')
-            .firstMatch(id);
+    final anon = RegExp(
+      '^${RegExp.escape(listNode.memberName ?? listNode.segment)}'
+      '-([0-9]+)\$',
+    ).firstMatch(id);
     if (anon != null) {
-      _openItem(level, listPath, listNode, int.parse(anon.group(1)!), null,
-          title, codeSpec, lineNo);
+      _openItem(
+        level,
+        listPath,
+        listNode,
+        int.parse(anon.group(1)!),
+        null,
+        title,
+        codeSpec,
+        lineNo,
+      );
       return;
     }
     final pattern =
@@ -923,11 +1007,19 @@ class _Parser {
       // Canonical anonymous id: the pattern with `xxx` as a number — parses
       // back as item <n>, NOT as a stored id (YRD3 round-trip, SOM §11.5).
       final numbered = RegExp(
-              '^${pattern.split('xxx').map(RegExp.escape).join('([0-9]+)')}\$')
-          .firstMatch(id);
+        '^${pattern.split('xxx').map(RegExp.escape).join('([0-9]+)')}\$',
+      ).firstMatch(id);
       if (numbered != null && numbered.groupCount == 1) {
-        _openItem(level, listPath, listNode, int.parse(numbered.group(1)!),
-            null, title, codeSpec, lineNo);
+        _openItem(
+          level,
+          listPath,
+          listNode,
+          int.parse(numbered.group(1)!),
+          null,
+          title,
+          codeSpec,
+          lineNo,
+        );
         return;
       }
       if (_patternMatches(pattern, id)) {
@@ -940,8 +1032,13 @@ class _Parser {
     _openItem(level, listPath, listNode, null, id, title, codeSpec, lineNo);
   }
 
-  void _openRoot(int level, String id, String title, String codeSpec,
-      int lineNo) {
+  void _openRoot(
+    int level,
+    String id,
+    String title,
+    String codeSpec,
+    int lineNo,
+  ) {
     for (final root in codec.model.roots) {
       final seg = root.sectionId ?? root.type;
       if (seg == id) {
@@ -957,27 +1054,40 @@ class _Parser {
         // present.
         if (codeSpec.isNotEmpty) codeSpecs[seg] = codeSpec;
         _stack.add(
-            _Frame(level: level, node: tree.root, path: seg, line: lineNo));
+          _Frame(level: level, node: tree.root, path: seg, line: lineNo),
+        );
         return;
       }
     }
-    rejections.add(SpecMarkdownRejection(
-      line: lineNo,
-      reason: SpecMarkdownRejectReason.unknownSection,
-      anchor: id,
-      message: 'no document root with this section id '
-          '(known: ${codec.model.roots.map((r) => r.sectionId ?? r.type).join(', ')})',
-    ));
-    _stack.add(_Frame(
-        level: level, node: null, path: '', line: lineNo, ignored: true));
+    rejections.add(
+      SpecMarkdownRejection(
+        line: lineNo,
+        reason: SpecMarkdownRejectReason.unknownSection,
+        anchor: id,
+        message:
+            'no document root with this section id '
+            '(known: ${codec.model.roots.map((r) => r.sectionId ?? r.type).join(', ')})',
+      ),
+    );
+    _stack.add(
+      _Frame(level: level, node: null, path: '', line: lineNo, ignored: true),
+    );
   }
 
   /// Opens a list-item frame. [n] is the anonymous heading number (also the
   /// path number); a stored-id item gets the next free number instead. The
   /// heading [title] is staged as a stored headline when it differs from the
   /// default item title `<stem> <number>` (YRD3).
-  void _openItem(int level, String listPath, SomMetaNode listNode, int? n,
-      String? storedId, String title, String codeSpec, int lineNo) {
+  void _openItem(
+    int level,
+    String listPath,
+    SomMetaNode listNode,
+    int? n,
+    String? storedId,
+    String title,
+    String codeSpec,
+    int lineNo,
+  ) {
     final state = lists.putIfAbsent(listPath, _ListState.new);
     final number = n ?? state.maxN + 1;
     if (number > state.maxN) state.maxN = number;
@@ -993,13 +1103,13 @@ class _Parser {
     // present.
     if (codeSpec.isNotEmpty) codeSpecs[itemPath] = codeSpec;
     _stack.add(
-        _Frame(level: level, node: element, path: itemPath, line: lineNo));
+      _Frame(level: level, node: element, path: itemPath, line: lineNo),
+    );
   }
 
   /// `GOAL-ITEM-xxx` → `^GOAL-ITEM-.+$` — the `@SectionIdPattern` wildcard.
   static bool _patternMatches(String pattern, String id) {
-    final regex =
-        '^${pattern.split('xxx').map(RegExp.escape).join('.+')}\$';
+    final regex = '^${pattern.split('xxx').map(RegExp.escape).join('.+')}\$';
     return RegExp(regex).hasMatch(id);
   }
 
@@ -1017,19 +1127,22 @@ class _Parser {
       _finalizeForm(frame, node, frame.path);
       return;
     }
-    final slots =
-        node == null ? const <(SomMetaNode, String)>[] : codec._bodySlots(node);
+    final slots = node == null
+        ? const <(SomMetaNode, String)>[]
+        : codec._bodySlots(node);
     if (slots.isEmpty) {
       final value = _restoreValue(frame.body);
       if (value.isNotEmpty) {
         content[frame.path] = value;
       } else if (node != null && _isValueLeaf(node.kind)) {
-        rejections.add(SpecMarkdownRejection(
-          line: frame.line,
-          reason: SpecMarkdownRejectReason.missingValue,
-          anchor: frame.path,
-          message: 'no value text under this section heading',
-        ));
+        rejections.add(
+          SpecMarkdownRejection(
+            line: frame.line,
+            reason: SpecMarkdownRejectReason.missingValue,
+            anchor: frame.path,
+            message: 'no value text under this section heading',
+          ),
+        );
       }
       return;
     }
@@ -1110,11 +1223,13 @@ class _Parser {
       }
       final target = currentField == null ? contentLines : currentLines;
       // Continuation: strip the one escape space of a label-shaped line.
-      target.add(!fence.inFence &&
-              currentField != null &&
-              RegExp(r'^ +[A-Za-z][A-Za-z0-9_]*:').hasMatch(line)
-          ? line.substring(1)
-          : line);
+      target.add(
+        !fence.inFence &&
+                currentField != null &&
+                RegExp(r'^ +[A-Za-z][A-Za-z0-9_]*:').hasMatch(line)
+            ? line.substring(1)
+            : line,
+      );
       fence.feed(line);
     }
     flush();
@@ -1155,8 +1270,9 @@ class _Parser {
       final line = frame.body[i];
       if (!fence.inFence) {
         final m = RegExp(r'^([A-Za-z][A-Za-z0-9_]*): ?(.*)$').firstMatch(line);
-        final fieldName =
-            m != null ? fieldsByLower[m.group(1)!.toLowerCase()] : null;
+        final fieldName = m != null
+            ? fieldsByLower[m.group(1)!.toLowerCase()]
+            : null;
         if (fieldName != null) {
           flush(frame.line + i);
           currentField = fieldName;
@@ -1166,10 +1282,11 @@ class _Parser {
         }
       }
       // Continuation: strip the one escape space of a label-shaped line.
-      currentLines.add(!fence.inFence &&
-              RegExp(r'^ +[A-Za-z][A-Za-z0-9_]*:').hasMatch(line)
-          ? line.substring(1)
-          : line);
+      currentLines.add(
+        !fence.inFence && RegExp(r'^ +[A-Za-z][A-Za-z0-9_]*:').hasMatch(line)
+            ? line.substring(1)
+            : line,
+      );
       fence.feed(line);
     }
     flush(frame.line + frame.body.length);
@@ -1195,11 +1312,11 @@ class _Parser {
   }
 
   Map<String, Map<String, Object?>> listsJson() => {
-        for (final e in lists.entries)
-          e.key: {
-            'seq': e.value.maxN,
-            'items': List<String>.of(e.value.items),
-            if (e.value.ids.isNotEmpty) 'ids': Map.of(e.value.ids),
-          },
-      };
+    for (final e in lists.entries)
+      e.key: {
+        'seq': e.value.maxN,
+        'items': List<String>.of(e.value.items),
+        if (e.value.ids.isNotEmpty) 'ids': Map.of(e.value.ids),
+      },
+  };
 }

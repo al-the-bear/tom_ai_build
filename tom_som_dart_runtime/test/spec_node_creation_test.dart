@@ -61,7 +61,9 @@ SpecModel _model() {
     ],
   );
   return SpecModel(
-    roots: [SpecRoot(type: 'ProjectDefinition', title: 'PD', sectionId: 'PD00')],
+    roots: [
+      SpecRoot(type: 'ProjectDefinition', title: 'PD', sectionId: 'PD00'),
+    ],
     classes: {
       'ProjectDefinition': projectDefinition,
       'Risk': risk,
@@ -129,8 +131,13 @@ void main() {
     test('add throws and leaves the tree untouched', () {
       expect(
         () => creator.add('PD00', 'NOPE'),
-        throwsA(isA<SpecCreationError>()
-            .having((e) => e.code, 'code', SpecCreationCode.unknownChild)),
+        throwsA(
+          isA<SpecCreationError>().having(
+            (e) => e.code,
+            'code',
+            SpecCreationCode.unknownChild,
+          ),
+        ),
       );
       expect(doc.isEmpty, isTrue);
     });
@@ -155,15 +162,26 @@ void main() {
 
   group('rejection: pattern mismatch', () {
     test('rejects an explicit list-item id that drops the pattern prefix', () {
-      final err = checkAddNode(model, doc, 'PD00', 'PD00-RISK', itemId: 'WRONG');
+      final err = checkAddNode(
+        model,
+        doc,
+        'PD00',
+        'PD00-RISK',
+        itemId: 'WRONG',
+      );
       expect(err!.code, SpecCreationCode.patternMismatch);
     });
 
     test('add throws on a bad id and does not append', () {
       expect(
         () => creator.add('PD00', 'PD00-RISK', itemId: 'WRONG'),
-        throwsA(isA<SpecCreationError>()
-            .having((e) => e.code, 'code', SpecCreationCode.patternMismatch)),
+        throwsA(
+          isA<SpecCreationError>().having(
+            (e) => e.code,
+            'code',
+            SpecCreationCode.patternMismatch,
+          ),
+        ),
       );
       expect(doc.listItemCount('PD00/PD00-RISK'), 0);
     });
@@ -172,8 +190,13 @@ void main() {
   group('rejection: duplicate section id (AA1 criterion 5)', () {
     test('rejects an explicit id already used by another item', () {
       creator.add('PD00', 'PD00-RISK', itemId: 'PD00-RISK-7');
-      final err =
-          checkAddNode(model, doc, 'PD00', 'PD00-RISK', itemId: 'PD00-RISK-7');
+      final err = checkAddNode(
+        model,
+        doc,
+        'PD00',
+        'PD00-RISK',
+        itemId: 'PD00-RISK-7',
+      );
       expect(err!.code, SpecCreationCode.duplicateSectionId);
     });
 
@@ -181,8 +204,13 @@ void main() {
       creator.add('PD00', 'PD00-RISK', itemId: 'PD00-RISK-7');
       expect(
         () => creator.add('PD00', 'PD00-RISK', itemId: 'PD00-RISK-7'),
-        throwsA(isA<SpecCreationError>().having(
-            (e) => e.code, 'code', SpecCreationCode.duplicateSectionId)),
+        throwsA(
+          isA<SpecCreationError>().having(
+            (e) => e.code,
+            'code',
+            SpecCreationCode.duplicateSectionId,
+          ),
+        ),
       );
       expect(doc.listItemCount('PD00/PD00-RISK'), 1);
     });
@@ -196,16 +224,23 @@ void main() {
       expect(err!.code, SpecCreationCode.cardinalityExceeded);
     });
 
-    test('add throws over-cardinality without disturbing the existing value',
-        () {
-      doc.setContent('PD00/PD00-SIT/PD00-SIT-SUM', 'a summary');
-      expect(
-        () => creator.add('PD00', 'PD00-SIT'),
-        throwsA(isA<SpecCreationError>().having(
-            (e) => e.code, 'code', SpecCreationCode.cardinalityExceeded)),
-      );
-      expect(doc.content('PD00/PD00-SIT/PD00-SIT-SUM'), 'a summary');
-    });
+    test(
+      'add throws over-cardinality without disturbing the existing value',
+      () {
+        doc.setContent('PD00/PD00-SIT/PD00-SIT-SUM', 'a summary');
+        expect(
+          () => creator.add('PD00', 'PD00-SIT'),
+          throwsA(
+            isA<SpecCreationError>().having(
+              (e) => e.code,
+              'code',
+              SpecCreationCode.cardinalityExceeded,
+            ),
+          ),
+        );
+        expect(doc.content('PD00/PD00-SIT/PD00-SIT-SUM'), 'a summary');
+      },
+    );
 
     test('a populated list still accepts further items (no upper bound)', () {
       creator.add('PD00', 'PD00-RISK');

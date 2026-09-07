@@ -52,7 +52,7 @@ class SpecEditor {
 
   /// Convenience: builds the editor for [document] over [model].
   SpecEditor.forModel(this.document, SpecModel model)
-      : reflection = SpecReflection(model);
+    : reflection = SpecReflection(model);
 
   // --- resolution ----------------------------------------------------------
 
@@ -62,7 +62,10 @@ class SpecEditor {
     final r = reflection.resolve(path);
     if (r == null) {
       throw ArgumentError.value(
-          path, 'path', 'does not resolve against the model');
+        path,
+        'path',
+        'does not resolve against the model',
+      );
     }
     return r;
   }
@@ -111,7 +114,10 @@ class SpecEditor {
     final r = resolve(path);
     if (!r.isValueLeaf) {
       throw ArgumentError.value(
-          path, 'path', 'is a ${r.kind.name} node, not a value leaf');
+        path,
+        'path',
+        'is a ${r.kind.name} node, not a value leaf',
+      );
     }
     return r;
   }
@@ -170,8 +176,14 @@ class SpecEditor {
     if (ff.enumValues.isNotEmpty) {
       stored = somFormatEnumName(_stringOrNull(v, path, field), ff.enumValues);
     } else {
-      stored = _format(v, SpecNodeKind.scalar, null, path,
-          typeName: ff.type, where: field);
+      stored = _format(
+        v,
+        SpecNodeKind.scalar,
+        null,
+        path,
+        typeName: ff.type,
+        where: field,
+      );
     }
     document.setFormField(path, field, stored);
   }
@@ -182,7 +194,10 @@ class SpecEditor {
     final r = resolve(path);
     if (r.kind != SpecNodeKind.form) {
       throw ArgumentError.value(
-          path, 'path', 'is a ${r.kind.name} node, not a @Form section');
+        path,
+        'path',
+        'is a ${r.kind.name} node, not a @Form section',
+      );
     }
     return r.field?.formFields ?? const [];
   }
@@ -191,13 +206,15 @@ class SpecEditor {
     final r = resolve(path);
     if (r.kind != SpecNodeKind.form) {
       throw ArgumentError.value(
-          path, 'path', 'is a ${r.kind.name} node, not a @Form section');
+        path,
+        'path',
+        'is a ${r.kind.name} node, not a @Form section',
+      );
     }
     for (final ff in r.field?.formFields ?? const <FormFieldSpec>[]) {
       if (ff.name == field) return (r, ff);
     }
-    throw ArgumentError.value(
-        field, 'field', 'not a form field of $path');
+    throw ArgumentError.value(field, 'field', 'not a form field of $path');
   }
 
   // --- structural operations -----------------------------------------------
@@ -214,13 +231,19 @@ class SpecEditor {
     final r = resolve(listPath);
     if (r.kind != SpecNodeKind.list) {
       throw ArgumentError.value(
-          listPath, 'listPath', 'is a ${r.kind.name} node, not a list');
+        listPath,
+        'listPath',
+        'is a ${r.kind.name} node, not a list',
+      );
     }
     var id = sectionId;
     final pattern = r.field?.sectionIdPattern;
     if (id == null && pattern != null) {
-      id = generateListItemSectionId(pattern, now ?? DateTime.now(),
-          document.listItemSectionIds(listPath));
+      id = generateListItemSectionId(
+        pattern,
+        now ?? DateTime.now(),
+        document.listItemSectionIds(listPath),
+      );
     }
     return document.addListItem(listPath, sectionId: id);
   }
@@ -249,12 +272,20 @@ class SpecEditor {
 
   /// Formats [v] for the store per the leaf's declared type; strings pass
   /// through verbatim (the plain-text serialization is authoritative).
-  String _format(Object? v, SpecNodeKind kind, SpecField? field, String path,
-      {String? typeName, String? where}) {
+  String _format(
+    Object? v,
+    SpecNodeKind kind,
+    SpecField? field,
+    String path, {
+    String? typeName,
+    String? where,
+  }) {
     if (v == null) return '';
     if (kind == SpecNodeKind.enumValue) {
       return somFormatEnumName(
-          _stringOrNull(v, path, where ?? path), field?.enumValues ?? const []);
+        _stringOrNull(v, path, where ?? path),
+        field?.enumValues ?? const [],
+      );
     }
     final base = _scalarBase(typeName ?? field?.type);
     switch (base) {
@@ -280,13 +311,19 @@ class SpecEditor {
         break;
     }
     throw ArgumentError.value(
-        v, where ?? path, 'wrong value type for a ${base ?? 'String'} field');
+      v,
+      where ?? path,
+      'wrong value type for a ${base ?? 'String'} field',
+    );
   }
 
   String? _stringOrNull(Object? v, String path, String field) {
     if (v == null) return null;
     if (v is String) return v;
     throw ArgumentError.value(
-        v, field, 'expected a String for this field of $path');
+      v,
+      field,
+      'expected a String for this field of $path',
+    );
   }
 }

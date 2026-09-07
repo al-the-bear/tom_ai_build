@@ -50,7 +50,8 @@ const String kShowcaseStandard = 'ISO 42001 §6.1';
 /// The `@NoArtifact` note the fixture puts on its overview section — an
 /// `overview` verdict customarily names the routed section that states the
 /// material normatively.
-const String kShowcaseNoArtifactNote = 'Introduces the items below; every fact '
+const String kShowcaseNoArtifactNote =
+    'Introduces the items below; every fact '
     'is stated in SHW-ITM.N.';
 
 /// A class graph exercising every annotation the display layer renders.
@@ -62,285 +63,281 @@ const String kShowcaseNoArtifactNote = 'Introduces the items below; every fact '
 /// `@StandardReferences`, `@SectionIdPattern` and `@SerializationOrder` across
 /// separate rows so no row's rendering can mask another's.
 Map<String, dynamic> kAnnotationShowcaseJson() => {
-      'modelVersion': 1,
-      'roots': [
+  'modelVersion': 1,
+  'roots': [
+    {'type': 'ShowcaseDoc', 'title': 'Showcase Document', 'sectionId': 'SHW'},
+  ],
+  'classes': {
+    'ShowcaseDoc': {
+      'name': 'ShowcaseDoc',
+      'sectionId': 'SHW',
+      'annotations': [
+        {'name': 'Document'},
         {
-          'type': 'ShowcaseDoc',
-          'title': 'Showcase Document',
-          'sectionId': 'SHW',
+          'name': 'SectionId',
+          'arguments': {'id': 'SHW'},
         },
+        {'name': 'CodeSpecsProjection'},
       ],
-      'classes': {
-        'ShowcaseDoc': {
-          'name': 'ShowcaseDoc',
-          'sectionId': 'SHW',
+      'fields': [
+        {
+          'name': 'overview',
+          'kind': 'content',
+          'sectionId': 'SHW-OVR',
+          'contentType': 'markdown',
+          'help': 'Intro paragraph.',
+          'headline': kShowcaseHeadline,
+          'serializationOrder': kShowcaseSerializationOrder,
           'annotations': [
-            {'name': 'Document'},
             {
               'name': 'SectionId',
-              'arguments': {'id': 'SHW'},
+              'arguments': {'id': 'SHW-OVR'},
             },
-            {'name': 'CodeSpecsProjection'},
+            {
+              'name': 'Headline',
+              'arguments': {'text': kShowcaseHeadline},
+            },
+            {
+              'name': 'ContentType',
+              'arguments': {'type': 'markdown'},
+            },
+            {
+              'name': 'ContentHelp',
+              'arguments': {'text': 'Intro paragraph.'},
+            },
+            {
+              'name': 'Comment',
+              'arguments': {'text': kShowcaseComment},
+            },
+            {
+              'name': 'SerializationOrder',
+              'arguments': {'order': kShowcaseSerializationOrder},
+            },
           ],
-          'fields': [
+        },
+        {
+          // Unmapped: no `@CodeSpecKind` at all, so the row states `cs?`.
+          'name': 'unmapped',
+          'kind': 'scalar',
+          'type': 'String',
+          'sectionId': 'SHW-UNM',
+        },
+        {
+          // Explicitly mapped to no CodeSpecs part — a decision, not a gap.
+          'name': 'notCode',
+          'kind': 'scalar',
+          'type': 'String',
+          'sectionId': 'SHW-NOC',
+          'annotations': [
             {
-              'name': 'overview',
-              'kind': 'content',
-              'sectionId': 'SHW-OVR',
-              'contentType': 'markdown',
-              'help': 'Intro paragraph.',
-              'headline': kShowcaseHeadline,
-              'serializationOrder': kShowcaseSerializationOrder,
-              'annotations': [
-                {
-                  'name': 'SectionId',
-                  'arguments': {'id': 'SHW-OVR'},
-                },
-                {
-                  'name': 'Headline',
-                  'arguments': {'text': kShowcaseHeadline},
-                },
-                {
-                  'name': 'ContentType',
-                  'arguments': {'type': 'markdown'},
-                },
-                {
-                  'name': 'ContentHelp',
-                  'arguments': {'text': 'Intro paragraph.'},
-                },
-                {
-                  'name': 'Comment',
-                  'arguments': {'text': kShowcaseComment},
-                },
-                {
-                  'name': 'SerializationOrder',
-                  'arguments': {'order': kShowcaseSerializationOrder},
-                },
-              ],
+              'name': 'CodeSpecKind',
+              'arguments': {'kinds': <String>[]},
+            },
+          ],
+        },
+        {
+          'name': 'unusedContainer',
+          'kind': 'scalar',
+          'type': 'String',
+          'sectionId': 'SHW-UNU',
+          'annotations': [
+            {'name': 'Unused'},
+          ],
+        },
+        {
+          'name': 'provenance',
+          'kind': 'scalar',
+          'type': 'String',
+          'sectionId': 'SHW-PRV',
+          'standardReferences': {
+            'connotation': kShowcaseConnotation,
+            'standards': [kShowcaseStandard],
+          },
+          'annotations': [
+            {
+              'name': 'Reference',
+              'arguments': {'description': kShowcaseReference},
             },
             {
-              // Unmapped: no `@CodeSpecKind` at all, so the row states `cs?`.
-              'name': 'unmapped',
-              'kind': 'scalar',
-              'type': 'String',
-              'sectionId': 'SHW-UNM',
-            },
-            {
-              // Explicitly mapped to no CodeSpecs part — a decision, not a gap.
-              'name': 'notCode',
-              'kind': 'scalar',
-              'type': 'String',
-              'sectionId': 'SHW-NOC',
-              'annotations': [
-                {
-                  'name': 'CodeSpecKind',
-                  'arguments': {'kinds': <String>[]},
-                },
-              ],
-            },
-            {
-              'name': 'unusedContainer',
-              'kind': 'scalar',
-              'type': 'String',
-              'sectionId': 'SHW-UNU',
-              'annotations': [
-                {'name': 'Unused'},
-              ],
-            },
-            {
-              'name': 'provenance',
-              'kind': 'scalar',
-              'type': 'String',
-              'sectionId': 'SHW-PRV',
-              'standardReferences': {
+              'name': 'StandardReferences',
+              'arguments': {
                 'connotation': kShowcaseConnotation,
                 'standards': [kShowcaseStandard],
               },
-              'annotations': [
-                {
-                  'name': 'Reference',
-                  'arguments': {'description': kShowcaseReference},
-                },
-                {
-                  'name': 'StandardReferences',
-                  'arguments': {
-                    'connotation': kShowcaseConnotation,
-                    'standards': [kShowcaseStandard],
-                  },
-                },
-              ],
-            },
-            {
-              'name': 'trainingMaterial',
-              'kind': 'scalar',
-              'type': 'String',
-              'sectionId': 'SHW-TRN',
-              'annotations': [
-                {
-                  'name': 'FollowUpKind',
-                  'arguments': {
-                    'processes': ['FollowUpProcess.trn'],
-                  },
-                },
-              ],
-            },
-            {
-              'name': 'followUpUndecided',
-              'kind': 'scalar',
-              'type': 'String',
-              'sectionId': 'SHW-FUN',
-              'annotations': [
-                {
-                  'name': 'FollowUpKind',
-                  'arguments': {'processes': <String>[]},
-                },
-              ],
-            },
-            {
-              // The third routing verdict: decided to produce nothing, which
-              // is why the row must not also state `cs?`.
-              'name': 'chapterOverview',
-              'kind': 'scalar',
-              'type': 'String',
-              'sectionId': 'SHW-OVW',
-              'annotations': [
-                {
-                  'name': 'NoArtifact',
-                  'arguments': {
-                    'reason': 'NoArtifactReason.overview',
-                    'note': kShowcaseNoArtifactNote,
-                  },
-                },
-              ],
-            },
-            {
-              'name': 'items',
-              'kind': 'list',
-              'elementType': 'ShowcaseItem',
-              'elementIsComplex': true,
-              'sectionIdPattern': kShowcaseSectionIdPattern,
-              'min': 1,
-              'annotations': [
-                {
-                  'name': 'SectionIdPattern',
-                  'arguments': {'pattern': kShowcaseSectionIdPattern},
-                },
-                {
-                  'name': 'Min',
-                  'arguments': {'count': 1},
-                },
-              ],
-            },
-            {
-              'name': 'handoff',
-              'kind': 'complex',
-              'type': 'HandoffSection',
-              'sectionId': 'SHW-HND',
-            },
-            {
-              'name': 'choice',
-              'kind': 'complex',
-              'type': 'ChoiceSection',
-              'sectionId': 'SHW-CHO',
             },
           ],
         },
-        'ShowcaseItem': {
-          'name': 'ShowcaseItem',
-          'fields': [
-            {'name': 'label', 'kind': 'scalar', 'type': 'String'},
+        {
+          'name': 'trainingMaterial',
+          'kind': 'scalar',
+          'type': 'String',
+          'sectionId': 'SHW-TRN',
+          'annotations': [
+            {
+              'name': 'FollowUpKind',
+              'arguments': {
+                'processes': ['FollowUpProcess.trn'],
+              },
+            },
           ],
         },
-        // A section whose subject matter is detailed and mapped elsewhere, and
-        // which declares which CodeSpecs parts it becomes.
-        'HandoffSection': {
-          'name': 'HandoffSection',
+        {
+          'name': 'followUpUndecided',
+          'kind': 'scalar',
+          'type': 'String',
+          'sectionId': 'SHW-FUN',
+          'annotations': [
+            {
+              'name': 'FollowUpKind',
+              'arguments': {'processes': <String>[]},
+            },
+          ],
+        },
+        {
+          // The third routing verdict: decided to produce nothing, which
+          // is why the row must not also state `cs?`.
+          'name': 'chapterOverview',
+          'kind': 'scalar',
+          'type': 'String',
+          'sectionId': 'SHW-OVW',
+          'annotations': [
+            {
+              'name': 'NoArtifact',
+              'arguments': {
+                'reason': 'NoArtifactReason.overview',
+                'note': kShowcaseNoArtifactNote,
+              },
+            },
+          ],
+        },
+        {
+          'name': 'items',
+          'kind': 'list',
+          'elementType': 'ShowcaseItem',
+          'elementIsComplex': true,
+          'sectionIdPattern': kShowcaseSectionIdPattern,
+          'min': 1,
+          'annotations': [
+            {
+              'name': 'SectionIdPattern',
+              'arguments': {'pattern': kShowcaseSectionIdPattern},
+            },
+            {
+              'name': 'Min',
+              'arguments': {'count': 1},
+            },
+          ],
+        },
+        {
+          'name': 'handoff',
+          'kind': 'complex',
+          'type': 'HandoffSection',
           'sectionId': 'SHW-HND',
-          'mapsTo': 'OtherDoc',
-          'detailedIn': 'OtherDoc',
-          'annotations': [
-            {
-              'name': 'SectionId',
-              'arguments': {'id': 'SHW-HND'},
-            },
-            {
-              'name': 'MapsTo',
-              'arguments': {'target': 'OtherDoc'},
-            },
-            {
-              'name': 'DetailedIn',
-              'arguments': {'target': 'OtherDoc'},
-            },
-            {
-              'name': 'CodeSpecKind',
-              'arguments': {
-                'kinds': ['CodeSpecPart.form'],
-                'note': 'Becomes the entry form.',
-              },
-            },
-          ],
-          'fields': [
-            {'name': 'note', 'kind': 'scalar', 'type': 'String'},
-          ],
         },
-        // A closed choice: a `@Form` declaring the discriminator, then two of
-        // the three enum values cased — leaving one uncovered so the coverage
-        // arithmetic has something to report.
-        'ChoiceSection': {
-          'name': 'ChoiceSection',
+        {
+          'name': 'choice',
+          'kind': 'complex',
+          'type': 'ChoiceSection',
           'sectionId': 'SHW-CHO',
+        },
+      ],
+    },
+    'ShowcaseItem': {
+      'name': 'ShowcaseItem',
+      'fields': [
+        {'name': 'label', 'kind': 'scalar', 'type': 'String'},
+      ],
+    },
+    // A section whose subject matter is detailed and mapped elsewhere, and
+    // which declares which CodeSpecs parts it becomes.
+    'HandoffSection': {
+      'name': 'HandoffSection',
+      'sectionId': 'SHW-HND',
+      'mapsTo': 'OtherDoc',
+      'detailedIn': 'OtherDoc',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'SHW-HND'},
+        },
+        {
+          'name': 'MapsTo',
+          'arguments': {'target': 'OtherDoc'},
+        },
+        {
+          'name': 'DetailedIn',
+          'arguments': {'target': 'OtherDoc'},
+        },
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.form'],
+            'note': 'Becomes the entry form.',
+          },
+        },
+      ],
+      'fields': [
+        {'name': 'note', 'kind': 'scalar', 'type': 'String'},
+      ],
+    },
+    // A closed choice: a `@Form` declaring the discriminator, then two of
+    // the three enum values cased — leaving one uncovered so the coverage
+    // arithmetic has something to report.
+    'ChoiceSection': {
+      'name': 'ChoiceSection',
+      'sectionId': 'SHW-CHO',
+      'annotations': [
+        {
+          'name': 'OneOf',
+          'arguments': {
+            'discriminator': 'kind',
+            'note': 'Exactly one alternative applies.',
+          },
+        },
+      ],
+      'fields': [
+        {
+          'name': 'settings',
+          'kind': 'form',
+          'sectionId': 'SHW-CHO-SET',
           'annotations': [
-            {
-              'name': 'OneOf',
-              'arguments': {
-                'discriminator': 'kind',
-                'note': 'Exactly one alternative applies.',
-              },
-            },
+            {'name': 'Form'},
           ],
-          'fields': [
+          'formFields': [
             {
-              'name': 'settings',
-              'kind': 'form',
-              'sectionId': 'SHW-CHO-SET',
-              'annotations': [
-                {'name': 'Form'},
-              ],
-              'formFields': [
-                {
-                  'name': 'kind',
-                  'label': 'Kind',
-                  'type': 'enum',
-                  'enumValues': ['alpha', 'beta', 'gamma'],
-                },
-              ],
-            },
-            {
-              'name': 'alphaDetail',
-              'kind': 'scalar',
-              'type': 'String',
-              'annotations': [
-                {
-                  'name': 'Case',
-                  'arguments': {'value': 'ChoiceKind.alpha'},
-                },
-              ],
-            },
-            {
-              'name': 'betaDetail',
-              'kind': 'scalar',
-              'type': 'String',
-              'annotations': [
-                {
-                  'name': 'Case',
-                  'arguments': {'value': 'ChoiceKind.beta'},
-                },
-              ],
+              'name': 'kind',
+              'label': 'Kind',
+              'type': 'enum',
+              'enumValues': ['alpha', 'beta', 'gamma'],
             },
           ],
         },
-      },
-    };
+        {
+          'name': 'alphaDetail',
+          'kind': 'scalar',
+          'type': 'String',
+          'annotations': [
+            {
+              'name': 'Case',
+              'arguments': {'value': 'ChoiceKind.alpha'},
+            },
+          ],
+        },
+        {
+          'name': 'betaDetail',
+          'kind': 'scalar',
+          'type': 'String',
+          'annotations': [
+            {
+              'name': 'Case',
+              'arguments': {'value': 'ChoiceKind.beta'},
+            },
+          ],
+        },
+      ],
+    },
+  },
+};
 
 /// The fixture, parsed.
 SpecModel showcaseModel() => SpecModel.fromJson(kAnnotationShowcaseJson());

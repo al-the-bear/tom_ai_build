@@ -135,7 +135,8 @@ class SpecDocumentYaml {
   static void writeHeader(StringBuffer b, {String? modelVersion}) {
     b
       ..writeln(
-          '# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.')
+        '# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.',
+      )
       ..writeln('version: $formatVersion');
     if (modelVersion != null && modelVersion.isNotEmpty) {
       b.writeln('modelVersion: ${jsonEncode(modelVersion)}');
@@ -154,7 +155,8 @@ class SpecDocumentYaml {
   /// fallback), and the path [SomMetaNode.segment] is unaffected in every case.
   static String nodeKey(SomMetaNode node) {
     final name = node.memberName ?? node.className;
-    final id = node.sectionId ??
+    final id =
+        node.sectionId ??
         ((node.kind == SomMetaKind.section || node.kind == SomMetaKind.complex)
             ? node.classSectionId
             : null);
@@ -167,12 +169,20 @@ class SpecDocumentYaml {
   /// block scalar (or a JSON-quoted fallback). Block body lines, which the
   /// builder emits at a relative indent of 2, are re-indented past [keyIndent].
   static void writeScalar(
-      StringBuffer b, int keyIndent, String key, String value) {
+    StringBuffer b,
+    int keyIndent,
+    String key,
+    String value,
+  ) {
     _writeRendered(b, keyIndent, yamlKey(key), _scalar(value));
   }
 
   static void _writeRendered(
-      StringBuffer b, int keyIndent, String renderedKey, String repr) {
+    StringBuffer b,
+    int keyIndent,
+    String renderedKey,
+    String repr,
+  ) {
     final pad = ' ' * keyIndent;
     final lines = repr.split('\n');
     b.writeln('$pad$renderedKey: ${lines.first}');
@@ -194,8 +204,9 @@ class SpecDocumentYaml {
   static String plainKey(String key) =>
       _plainKeyPattern.hasMatch(key) ? key : yamlKey(key);
 
-  static final RegExp _plainKeyPattern =
-      RegExp(r'^[A-Za-z0-9_][A-Za-z0-9_. -]*[A-Za-z0-9_.\-]$|^[A-Za-z0-9_]$');
+  static final RegExp _plainKeyPattern = RegExp(
+    r'^[A-Za-z0-9_][A-Za-z0-9_. -]*[A-Za-z0-9_.\-]$|^[A-Za-z0-9_]$',
+  );
 
   /// Collapses runs of two or more consecutive empty lines to a single empty
   /// line (SOM §12.4 — the deliberate lossy normalization applied to every
@@ -251,16 +262,19 @@ class SpecDocumentYaml {
       _yaml11SexagesimalFloat.hasMatch(value);
 
   /// YAML 1.1 boolean words that YAML 1.2 treats as plain strings.
-  static final RegExp _yaml11Bool =
-      RegExp(r'^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$');
+  static final RegExp _yaml11Bool = RegExp(
+    r'^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$',
+  );
 
   /// YAML 1.1 sexagesimal integer (e.g. `1:30`, `-12:00:00`).
-  static final RegExp _yaml11SexagesimalInt =
-      RegExp(r'^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$');
+  static final RegExp _yaml11SexagesimalInt = RegExp(
+    r'^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$',
+  );
 
   /// YAML 1.1 sexagesimal float (e.g. `1:30.5`).
-  static final RegExp _yaml11SexagesimalFloat =
-      RegExp(r'^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$');
+  static final RegExp _yaml11SexagesimalFloat = RegExp(
+    r'^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$',
+  );
 
   /// Builds a literal block scalar (`|2<chomp>`) with body at relative indent
   /// 2, or `null` when chomping can't reproduce the value's trailing newlines
@@ -321,22 +335,26 @@ class SpecDocumentYaml {
     final root = yaml.trim().isEmpty ? null : loadYaml(yaml);
     if (root is! Map) {
       throw SpecYamlFormatException(
-          'not a *.docspecs.yaml mapping (expected version/document keys)');
+        'not a *.docspecs.yaml mapping (expected version/document keys)',
+      );
     }
     final version = root['version'];
     if ('$version' != '$formatVersion') {
-      throw SpecYamlFormatException(version == null
-          ? 'missing `version:` (expected version: $formatVersion)'
-          : '$version' == '1'
-              ? 'format version 1 (flat path-map) is no longer supported; '
+      throw SpecYamlFormatException(
+        version == null
+            ? 'missing `version:` (expected version: $formatVersion)'
+            : '$version' == '1'
+            ? 'format version 1 (flat path-map) is no longer supported; '
                   're-save the document in the hierarchical v2 format'
-              : 'unsupported format version `$version` '
-                  '(expected $formatVersion)');
+            : 'unsupported format version `$version` '
+                  '(expected $formatVersion)',
+      );
     }
 
     final stampRaw = root['modelVersion'];
-    final stamp =
-        (stampRaw != null && '$stampRaw'.isNotEmpty) ? '$stampRaw' : null;
+    final stamp = (stampRaw != null && '$stampRaw'.isNotEmpty)
+        ? '$stampRaw'
+        : null;
     final rev = root['review'];
 
     final document = SpecDocument()..modelVersion = stamp;
@@ -348,17 +366,21 @@ class SpecDocumentYaml {
       final rootKey = nodeKey(tree.root);
       if (docPass.length != 1 || '${docPass.keys.first}' != rootKey) {
         throw SpecYamlFormatException(
-            'expected the single document root key `$rootKey`, '
-            'found: ${docPass.keys.map((k) => '`$k`').join(', ')}');
+          'expected the single document root key `$rootKey`, '
+          'found: ${docPass.keys.map((k) => '`$k`').join(', ')}',
+        );
       }
       final body = docPass.values.first;
       if (body != null) {
         if (body is! Map) {
           throw SpecYamlFormatException(
-              'root `$rootKey` must hold a mapping, not a scalar');
+            'root `$rootKey` must hold a mapping, not a scalar',
+          );
         }
-        _Decoder(document, tree)
-            .loadMapping(tree.root, tree.root.segment, body);
+        _Decoder(
+          document,
+          tree,
+        ).loadMapping(tree.root, tree.root.segment, body);
       }
     }
 
@@ -385,18 +407,14 @@ class _Encoder {
   final Map<String, String> _codeSpecs;
 
   _Encoder(this.doc, this.tree)
-      : _content = {for (final p in doc.contentPaths) p: doc.content(p)!},
-        _forms = {
-          for (final p in doc.formPaths)
-            p: {for (final f in doc.formFieldNames(p)) f: doc.formField(p, f)!},
-        },
-        _lists = doc.listPaths.toSet(),
-        _headlines = {
-          for (final p in doc.headlinePaths) p: doc.headline(p)!,
-        },
-        _codeSpecs = {
-          for (final p in doc.codeSpecPaths) p: doc.codeSpec(p)!,
-        };
+    : _content = {for (final p in doc.contentPaths) p: doc.content(p)!},
+      _forms = {
+        for (final p in doc.formPaths)
+          p: {for (final f in doc.formFieldNames(p)) f: doc.formField(p, f)!},
+      },
+      _lists = doc.listPaths.toSet(),
+      _headlines = {for (final p in doc.headlinePaths) p: doc.headline(p)!},
+      _codeSpecs = {for (final p in doc.codeSpecPaths) p: doc.codeSpec(p)!};
 
   void writeDocumentPass(StringBuffer b) {
     final root = tree.root;
@@ -408,7 +426,9 @@ class _Encoder {
     }
     b
       ..writeln('document:')
-      ..writeln('  ${SpecDocumentYaml.plainKey(SpecDocumentYaml.nodeKey(root))}:')
+      ..writeln(
+        '  ${SpecDocumentYaml.plainKey(SpecDocumentYaml.nodeKey(root))}:',
+      )
       ..write(body);
   }
 
@@ -423,8 +443,9 @@ class _Encoder {
     if (ownHeadline != null) {
       if (node.children.any((c) => SpecDocumentYaml.nodeKey(c) == 'headline')) {
         throw SpecYamlFormatException(
-            'cannot emit the stored headline at `$path`: a child of '
-            '${node.debugName} also serializes as key `headline`');
+          'cannot emit the stored headline at `$path`: a child of '
+          '${node.debugName} also serializes as key `headline`',
+        );
       }
       _writeText(b, indent, 'headline', ownHeadline);
     }
@@ -435,8 +456,9 @@ class _Encoder {
     if (ownCodeSpec != null) {
       if (node.children.any((c) => SpecDocumentYaml.nodeKey(c) == 'codeSpec')) {
         throw SpecYamlFormatException(
-            'cannot emit the stored codeSpec at `$path`: a child of '
-            '${node.debugName} also serializes as key `codeSpec`');
+          'cannot emit the stored codeSpec at `$path`: a child of '
+          '${node.debugName} also serializes as key `codeSpec`',
+        );
       }
       _writeText(b, indent, 'codeSpec', ownCodeSpec);
     }
@@ -446,8 +468,9 @@ class _Encoder {
     if (own != null) {
       if (node.children.any((c) => SpecDocumentYaml.nodeKey(c) == 'content')) {
         throw SpecYamlFormatException(
-            'cannot emit body text at `$path`: a child of '
-            '${node.debugName} also serializes as key `content`');
+          'cannot emit body text at `$path`: a child of '
+          '${node.debugName} also serializes as key `content`',
+        );
       }
       _writeText(b, indent, 'content', own);
     }
@@ -495,9 +518,15 @@ class _Encoder {
   /// stored headline and/or a codeSpec mapping as a `{headline?: …, codeSpec?:
   /// …, content?: …}` mapping (YRD3 + codespecs_mapping.md §9.2). At least one
   /// of [headline]/[codeSpec] is non-null at every call site.
-  void _writeScalarWithMeta(StringBuffer b, int indent, String key,
-      String? headline, String? codeSpec, String? value,
-      {required bool text}) {
+  void _writeScalarWithMeta(
+    StringBuffer b,
+    int indent,
+    String key,
+    String? headline,
+    String? codeSpec,
+    String? value, {
+    required bool text,
+  }) {
     b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
     if (headline != null) _writeText(b, indent + 2, 'headline', headline);
     if (codeSpec != null) _writeText(b, indent + 2, 'codeSpec', codeSpec);
@@ -510,8 +539,13 @@ class _Encoder {
     }
   }
 
-  void _writeForm(StringBuffer b, int indent, String key, SomMetaNode node,
-      String path) {
+  void _writeForm(
+    StringBuffer b,
+    int indent,
+    String key,
+    SomMetaNode node,
+    String path,
+  ) {
     final fields = _forms.remove(path) ?? const <String, String>{};
     final headline = _headlines.remove(path);
     final codeSpec = _codeSpecs.remove(path);
@@ -530,23 +564,27 @@ class _Encoder {
       final field = meta.fieldNamed(name);
       if (field == null) {
         throw SpecYamlFormatException(
-            'form `$path` holds a field `$name` unknown to the model');
+          'form `$path` holds a field `$name` unknown to the model',
+        );
       }
     }
     if (headline != null && meta.fieldNamed('headline') != null) {
       throw SpecYamlFormatException(
-          'cannot emit the stored headline at `$path`: the form declares a '
-          'field literally named `headline`');
+        'cannot emit the stored headline at `$path`: the form declares a '
+        'field literally named `headline`',
+      );
     }
     if (codeSpec != null && meta.fieldNamed('codeSpec') != null) {
       throw SpecYamlFormatException(
-          'cannot emit the stored codeSpec at `$path`: the form declares a '
-          'field literally named `codeSpec`');
+        'cannot emit the stored codeSpec at `$path`: the form declares a '
+        'field literally named `codeSpec`',
+      );
     }
     if (content != null && meta.fieldNamed('content') != null) {
       throw SpecYamlFormatException(
-          'cannot emit the preamble content at `$path`: the form declares a '
-          'field literally named `content`');
+        'cannot emit the preamble content at `$path`: the form declares a '
+        'field literally named `content`',
+      );
     }
     b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
     if (headline != null) _writeText(b, indent + 2, 'headline', headline);
@@ -563,8 +601,13 @@ class _Encoder {
     }
   }
 
-  void _writeList(StringBuffer b, int indent, String key, SomMetaNode node,
-      String path) {
+  void _writeList(
+    StringBuffer b,
+    int indent,
+    String key,
+    SomMetaNode node,
+    String path,
+  ) {
     _lists.remove(path);
     final headline = _headlines.remove(path);
     final codeSpec = _codeSpecs.remove(path);
@@ -582,7 +625,8 @@ class _Encoder {
       if (storedId != null) {
         if (!used.add(itemKey)) {
           throw SpecYamlFormatException(
-              'duplicate list item key `$itemKey` at `$path`');
+            'duplicate list item key `$itemKey` at `$path`',
+          );
         }
       } else {
         var bump = pos;
@@ -608,11 +652,14 @@ class _Encoder {
       } else {
         final sub = _mappingBody(element, itemPath, indent + 4);
         if (sub.isEmpty) {
-          b.writeln('${' ' * (indent + 2)}'
-              '${SpecDocumentYaml.plainKey(itemKey)}: {}');
+          b.writeln(
+            '${' ' * (indent + 2)}'
+            '${SpecDocumentYaml.plainKey(itemKey)}: {}',
+          );
         } else {
           b.writeln(
-              '${' ' * (indent + 2)}${SpecDocumentYaml.plainKey(itemKey)}:');
+            '${' ' * (indent + 2)}${SpecDocumentYaml.plainKey(itemKey)}:',
+          );
           b.write(sub);
         }
       }
@@ -623,10 +670,11 @@ class _Encoder {
   /// JSON-quoted fallback).
   void _writeText(StringBuffer b, int indent, String key, String value) {
     SpecDocumentYaml._writeRendered(
-        b,
-        indent,
-        SpecDocumentYaml.plainKey(key),
-        SpecDocumentYaml._scalar(SpecDocumentYaml.dedupEmptyLines(value)));
+      b,
+      indent,
+      SpecDocumentYaml.plainKey(key),
+      SpecDocumentYaml._scalar(SpecDocumentYaml.dedupEmptyLines(value)),
+    );
   }
 
   /// Non-text value (SOM §12.5): plain when it self-verifies, else the text path.
@@ -655,8 +703,9 @@ class _Encoder {
     ]..sort();
     if (leftovers.isNotEmpty) {
       throw SpecYamlFormatException(
-          'document holds values the metadata tree cannot place: '
-          '${leftovers.join('; ')}');
+        'document holds values the metadata tree cannot place: '
+        '${leftovers.join('; ')}',
+      );
     }
   }
 }
@@ -692,8 +741,9 @@ class _Decoder {
         return;
       }
       throw SpecYamlFormatException(
-          'key `$key` under `$path` matches no member of ${node.debugName} '
-          '(expected one of: ${_expectedKeys(node).join(', ')})');
+        'key `$key` under `$path` matches no member of ${node.debugName} '
+        '(expected one of: ${_expectedKeys(node).join(', ')})',
+      );
     });
   }
 
@@ -705,11 +755,11 @@ class _Decoder {
   }
 
   Iterable<String> _expectedKeys(SomMetaNode node) => [
-        for (final c in node.children) '`${SpecDocumentYaml.nodeKey(c)}`',
-        '`content`',
-        '`headline`',
-        '`codeSpec`',
-      ];
+    for (final c in node.children) '`${SpecDocumentYaml.nodeKey(c)}`',
+    '`content`',
+    '`headline`',
+    '`codeSpec`',
+  ];
 
   void _loadChild(SomMetaNode child, String path, String key, Object? value) {
     switch (child.kind) {
@@ -725,7 +775,8 @@ class _Decoder {
       case SomMetaKind.form:
         if (value is! Map) {
           throw SpecYamlFormatException(
-              'form `$key` at `$path` must hold a field mapping');
+            'form `$key` at `$path` must hold a field mapping',
+          );
         }
         final meta = child.form ?? const SomFormMeta(fields: []);
         value.forEach((f, v) {
@@ -746,7 +797,8 @@ class _Decoder {
               return;
             }
             throw SpecYamlFormatException(
-                'form `$path` has no field `$name` in the model');
+              'form `$path` has no field `$name` in the model',
+            );
           }
           doc.setFormField(path, name, _scalarOf(v, '$path.$name'));
         });
@@ -755,22 +807,25 @@ class _Decoder {
         if (value == null) return;
         if (value is! Map) {
           throw SpecYamlFormatException(
-              'section `$key` at `$path` must hold a mapping, not a scalar');
+            'section `$key` at `$path` must hold a mapping, not a scalar',
+          );
         }
         loadMapping(child, path, value);
       case SomMetaKind.list:
         if (value == null) return;
         if (value is! Map) {
           throw SpecYamlFormatException(
-              'list `$key` at `$path` must hold an item mapping');
+            'list `$key` at `$path` must hold an item mapping',
+          );
         }
         _loadList(child, path, value);
     }
   }
 
   void _loadList(SomMetaNode node, String path, Map items) {
-    final anonymous =
-        RegExp('^${RegExp.escape(node.memberName ?? '')}-[0-9]+\$');
+    final anonymous = RegExp(
+      '^${RegExp.escape(node.memberName ?? '')}-[0-9]+\$',
+    );
     items.forEach((rawKey, value) {
       final key = '$rawKey';
       if (key == 'headline') {
@@ -784,8 +839,10 @@ class _Decoder {
         doc.setCodeSpec(path, _scalarOf(value, '$path (codeSpec)'));
         return;
       }
-      final itemPath = doc.addListItem(path,
-          sectionId: anonymous.hasMatch(key) ? null : key);
+      final itemPath = doc.addListItem(
+        path,
+        sectionId: anonymous.hasMatch(key) ? null : key,
+      );
       final element = node.elementNode;
       if (element == null) {
         // Scalar list item: the value is the item itself — or a
@@ -797,7 +854,8 @@ class _Decoder {
         }
         if (value is List) {
           throw SpecYamlFormatException(
-              'scalar list item `$key` at `$path` must hold a scalar');
+            'scalar list item `$key` at `$path` must hold a scalar',
+          );
         }
         if (value != null) doc.setContent(itemPath, '$value');
         return;
@@ -805,8 +863,9 @@ class _Decoder {
       if (value == null) return;
       if (value is! Map) {
         throw SpecYamlFormatException(
-            'list item `$key` at `$path` must hold a mapping '
-            '(use `{}` for an empty item)');
+          'list item `$key` at `$path` must hold a mapping '
+          '(use `{}` for an empty item)',
+        );
       }
       loadMapping(element, itemPath, value);
     });
@@ -826,9 +885,10 @@ class _Decoder {
         doc.setContent(path, _scalarOf(v, '$path/content'));
       } else {
         throw SpecYamlFormatException(
-            'scalar node `$key` at `$path` may only hold '
-            '`headline`/`codeSpec`/`content` keys when written as a mapping, '
-            'found `$name`');
+          'scalar node `$key` at `$path` may only hold '
+          '`headline`/`codeSpec`/`content` keys when written as a mapping, '
+          'found `$name`',
+        );
       }
     });
   }

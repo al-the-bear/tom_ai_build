@@ -17,8 +17,10 @@ void main() {
     });
 
     test('an unstamped export reports modelVersion 0 and null label', () {
-      final model = SpecModel.fromJson(
-          <String, dynamic>{'roots': <dynamic>[], 'classes': <String, dynamic>{}});
+      final model = SpecModel.fromJson(<String, dynamic>{
+        'roots': <dynamic>[],
+        'classes': <String, dynamic>{},
+      });
       expect(model.modelVersion, 0);
       expect(model.modelVersionLabel, isNull);
     });
@@ -42,8 +44,9 @@ void main() {
     });
 
     test('an enum field carries its Dart enum type name and values', () {
-      final prob =
-          fixtureModel().classNamed('Risk')!.fieldNamed('probability')!;
+      final prob = fixtureModel()
+          .classNamed('Risk')!
+          .fieldNamed('probability')!;
       expect(prob.kind, SpecFieldKind.enumValue);
       expect(prob.enumType, 'Probability');
       expect(prob.enumValues, <String>['low', 'medium', 'high']);
@@ -72,8 +75,10 @@ void main() {
     });
 
     test('SpecModel.modelVersionString falls back for an unstamped model', () {
-      final model = SpecModel.fromJson(
-          <String, dynamic>{'roots': <dynamic>[], 'classes': <String, dynamic>{}});
+      final model = SpecModel.fromJson(<String, dynamic>{
+        'roots': <dynamic>[],
+        'classes': <String, dynamic>{},
+      });
       expect(model.modelVersionString, '0.0');
     });
   });
@@ -84,49 +89,56 @@ void main() {
       String? generatedAt = '2026-07-20T08:00:00.000000Z',
       int? classCount = 3,
       int? rootCount = 1,
-    }) =>
-        {
-          ...fixtureJson(),
-          if (generatedAt != null) 'generatedAt': generatedAt,
-          'metaSchemaVersion': 1,
-          if (classCount != null) 'classCount': classCount,
-          if (rootCount != null) 'rootCount': rootCount,
-          'containerRoot': 'DocSpecsProject',
-        };
+    }) => {
+      ...fixtureJson(),
+      if (generatedAt != null) 'generatedAt': generatedAt,
+      'metaSchemaVersion': 1,
+      if (classCount != null) 'classCount': classCount,
+      if (rootCount != null) 'rootCount': rootCount,
+      'containerRoot': 'DocSpecsProject',
+    };
 
-    test('decodes generatedAt, metaSchemaVersion, counts and containerRoot',
-        () {
-      final model = SpecModel.fromJson(stampedJson());
-      expect(model.generatedAt, DateTime.utc(2026, 7, 20, 8));
-      expect(model.generatedAt!.isUtc, isTrue);
-      expect(model.metaSchemaVersion, 1);
-      expect(model.classCount, 3);
-      expect(model.rootCount, 1);
-      expect(model.containerRoot, 'DocSpecsProject');
-    });
+    test(
+      'decodes generatedAt, metaSchemaVersion, counts and containerRoot',
+      () {
+        final model = SpecModel.fromJson(stampedJson());
+        expect(model.generatedAt, DateTime.utc(2026, 7, 20, 8));
+        expect(model.generatedAt!.isUtc, isTrue);
+        expect(model.metaSchemaVersion, 1);
+        expect(model.classCount, 3);
+        expect(model.rootCount, 1);
+        expect(model.containerRoot, 'DocSpecsProject');
+      },
+    );
 
-    test('an older snapshot without the stamp keys still parses, with nulls',
-        () {
-      // The shared fixture predates the stamp keys — exactly the compatibility
-      // case, so it doubles as the regression guard.
-      final model = fixtureModel();
-      expect(model.generatedAt, isNull);
-      expect(model.metaSchemaVersion, isNull);
-      expect(model.classCount, isNull);
-      expect(model.rootCount, isNull);
-      expect(model.containerRoot, isNull);
-      // Absent must not be read as zero — a declared 0 would look like a
-      // mismatch against the 3 classes the payload actually carries.
-      expect(model.checkStamp().countsDisagree, isFalse);
-    });
+    test(
+      'an older snapshot without the stamp keys still parses, with nulls',
+      () {
+        // The shared fixture predates the stamp keys — exactly the compatibility
+        // case, so it doubles as the regression guard.
+        final model = fixtureModel();
+        expect(model.generatedAt, isNull);
+        expect(model.metaSchemaVersion, isNull);
+        expect(model.classCount, isNull);
+        expect(model.rootCount, isNull);
+        expect(model.containerRoot, isNull);
+        // Absent must not be read as zero — a declared 0 would look like a
+        // mismatch against the 3 classes the payload actually carries.
+        expect(model.checkStamp().countsDisagree, isFalse);
+      },
+    );
 
-    test('an unparseable generatedAt degrades to null rather than throwing',
-        () {
-      final model = SpecModel.fromJson(stampedJson(generatedAt: 'not-a-date'));
-      expect(model.generatedAt, isNull);
-      // The rest of the stamp still decodes.
-      expect(model.classCount, 3);
-    });
+    test(
+      'an unparseable generatedAt degrades to null rather than throwing',
+      () {
+        final model = SpecModel.fromJson(
+          stampedJson(generatedAt: 'not-a-date'),
+        );
+        expect(model.generatedAt, isNull);
+        // The rest of the stamp still decodes.
+        expect(model.classCount, 3);
+      },
+    );
   });
 
   group('parseStampTimestamp', () {
@@ -143,15 +155,21 @@ void main() {
       // staleness verdict depend on where the reader sits. The other eight SOM
       // runtimes cannot mirror that (several carry no timezone database), so
       // the grammar fixes the fallback instead.
-      expect(parseStampTimestamp('2026-07-20T08:00:00'),
-          DateTime.utc(2026, 7, 20, 8));
-      expect(parseStampTimestamp('2026-07-20T08:00:00.123456')!.microsecond,
-          456);
+      expect(
+        parseStampTimestamp('2026-07-20T08:00:00'),
+        DateTime.utc(2026, 7, 20, 8),
+      );
+      expect(
+        parseStampTimestamp('2026-07-20T08:00:00.123456')!.microsecond,
+        456,
+      );
     });
 
     test('an offset written without a colon is accepted', () {
-      expect(parseStampTimestamp('2026-07-20T10:00:00+0200'),
-          DateTime.utc(2026, 7, 20, 8));
+      expect(
+        parseStampTimestamp('2026-07-20T10:00:00+0200'),
+        DateTime.utc(2026, 7, 20, 8),
+      );
     });
 
     test('unparseable, empty and absent input all degrade to null', () {
@@ -175,13 +193,12 @@ void main() {
       String? generatedAt = '2026-07-20T08:00:00.000000Z',
       int? classCount = 3,
       int? rootCount = 1,
-    }) =>
-        {
-          ...fixtureJson(),
-          if (generatedAt != null) 'generatedAt': generatedAt,
-          if (classCount != null) 'classCount': classCount,
-          if (rootCount != null) 'rootCount': rootCount,
-        };
+    }) => {
+      ...fixtureJson(),
+      if (generatedAt != null) 'generatedAt': generatedAt,
+      if (classCount != null) 'classCount': classCount,
+      if (rootCount != null) 'rootCount': rootCount,
+    };
 
     // One day after the fixture's generatedAt.
     final fresh = DateTime.utc(2026, 7, 21, 8);
@@ -207,41 +224,48 @@ void main() {
     test('the age threshold is caller-controlled', () {
       final model = SpecModel.fromJson(json());
       expect(
-          model
-              .checkStamp(now: longAfter, maxAge: const Duration(days: 90))
-              .isAged,
-          isFalse);
+        model
+            .checkStamp(now: longAfter, maxAge: const Duration(days: 90))
+            .isAged,
+        isFalse,
+      );
       expect(
-          model
-              .checkStamp(now: fresh, maxAge: const Duration(hours: 1))
-              .isAged,
-          isTrue);
+        model.checkStamp(now: fresh, maxAge: const Duration(hours: 1)).isAged,
+        isTrue,
+      );
     });
 
-    test('a declared class count that disagrees with the payload is flagged',
-        () {
-      // The exporter derives classCount from the payload, so a disagreement
-      // can only mean the file was edited after export.
-      final check =
-          SpecModel.fromJson(json(classCount: 99)).checkStamp(now: fresh);
-      expect(check.classCountDisagrees, isTrue);
-      expect(check.rootCountDisagrees, isFalse);
-      expect(check.isStale, isTrue);
-      expect(check.warnings.single, allOf(contains('99'), contains('3')));
-    });
+    test(
+      'a declared class count that disagrees with the payload is flagged',
+      () {
+        // The exporter derives classCount from the payload, so a disagreement
+        // can only mean the file was edited after export.
+        final check = SpecModel.fromJson(
+          json(classCount: 99),
+        ).checkStamp(now: fresh);
+        expect(check.classCountDisagrees, isTrue);
+        expect(check.rootCountDisagrees, isFalse);
+        expect(check.isStale, isTrue);
+        expect(check.warnings.single, allOf(contains('99'), contains('3')));
+      },
+    );
 
-    test('a declared root count that disagrees with the payload is flagged',
-        () {
-      final check =
-          SpecModel.fromJson(json(rootCount: 7)).checkStamp(now: fresh);
-      expect(check.rootCountDisagrees, isTrue);
-      expect(check.classCountDisagrees, isFalse);
-      expect(check.warnings.single, allOf(contains('7'), contains('1')));
-    });
+    test(
+      'a declared root count that disagrees with the payload is flagged',
+      () {
+        final check = SpecModel.fromJson(
+          json(rootCount: 7),
+        ).checkStamp(now: fresh);
+        expect(check.rootCountDisagrees, isTrue);
+        expect(check.classCountDisagrees, isFalse);
+        expect(check.warnings.single, allOf(contains('7'), contains('1')));
+      },
+    );
 
     test('age and count findings are independent and both reported', () {
-      final check = SpecModel.fromJson(json(classCount: 99, rootCount: 7))
-          .checkStamp(now: longAfter);
+      final check = SpecModel.fromJson(
+        json(classCount: 99, rootCount: 7),
+      ).checkStamp(now: longAfter);
       expect(check.isAged, isTrue);
       expect(check.classCountDisagrees, isTrue);
       expect(check.rootCountDisagrees, isTrue);
@@ -249,8 +273,9 @@ void main() {
     });
 
     test('a snapshot without generatedAt is never aged', () {
-      final check =
-          SpecModel.fromJson(json(generatedAt: null)).checkStamp(now: longAfter);
+      final check = SpecModel.fromJson(
+        json(generatedAt: null),
+      ).checkStamp(now: longAfter);
       expect(check.age, isNull);
       expect(check.isAged, isFalse);
       expect(check.isStale, isFalse);
@@ -268,8 +293,9 @@ void main() {
     });
 
     test('field-level annotations are captured', () {
-      final risks =
-          fixtureModel().classNamed('ProjectDefinition')!.fieldNamed('risks')!;
+      final risks = fixtureModel()
+          .classNamed('ProjectDefinition')!
+          .fieldNamed('risks')!;
       expect(risks.annotation('Min')!.argument('value'), 2);
     });
   });
@@ -280,96 +306,123 @@ void main() {
     SpecModel modelWith({
       Map<String, dynamic>? classArgs,
       Map<String, dynamic>? fieldArgs,
-    }) =>
-        SpecModel.fromJson(<String, dynamic>{
-          'roots': <dynamic>[],
-          'classes': <String, dynamic>{
-            'Section': {
-              'name': 'Section',
+    }) => SpecModel.fromJson(<String, dynamic>{
+      'roots': <dynamic>[],
+      'classes': <String, dynamic>{
+        'Section': {
+          'name': 'Section',
+          'annotations': [
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'SEC'},
+            },
+            if (classArgs != null)
+              {'name': 'CodeSpecKind', 'arguments': classArgs},
+          ],
+          'fields': [
+            {
+              'name': 'body',
+              'kind': 'content',
               'annotations': [
-                {'name': 'SectionId', 'arguments': {'id': 'SEC'}},
-                if (classArgs != null)
-                  {'name': 'CodeSpecKind', 'arguments': classArgs},
-              ],
-              'fields': [
-                {
-                  'name': 'body',
-                  'kind': 'content',
-                  'annotations': [
-                    if (fieldArgs != null)
-                      {'name': 'CodeSpecKind', 'arguments': fieldArgs},
-                  ],
-                },
+                if (fieldArgs != null)
+                  {'name': 'CodeSpecKind', 'arguments': fieldArgs},
               ],
             },
-          },
-        });
+          ],
+        },
+      },
+    });
 
     SpecClass classOf(SpecModel m) => m.classNamed('Section')!;
 
     test('reads the kinds with the CodeSpecPart prefix stripped', () {
-      final link = classOf(modelWith(classArgs: {
-        'kinds': ['CodeSpecPart.validation'],
-      })).codeSpecKind;
+      final link = classOf(
+        modelWith(
+          classArgs: {
+            'kinds': ['CodeSpecPart.validation'],
+          },
+        ),
+      ).codeSpecKind;
       expect(link, isNotNull);
       expect(link!.kinds, <String>['validation']);
       expect(link.note, isNull);
     });
 
     test('reads every kind, not just the first — the link is list-valued', () {
-      final link = classOf(modelWith(classArgs: {
-        'kinds': [
-          'CodeSpecPart.authorization',
-          'CodeSpecPart.authentication',
-          'CodeSpecPart.identity',
-        ],
-      })).codeSpecKind;
-      expect(
-          link!.kinds, <String>['authorization', 'authentication', 'identity']);
+      final link = classOf(
+        modelWith(
+          classArgs: {
+            'kinds': [
+              'CodeSpecPart.authorization',
+              'CodeSpecPart.authentication',
+              'CodeSpecPart.identity',
+            ],
+          },
+        ),
+      ).codeSpecKind;
+      expect(link!.kinds, <String>[
+        'authorization',
+        'authentication',
+        'identity',
+      ]);
     });
 
     test('carries the optional note verbatim', () {
-      final link = classOf(modelWith(classArgs: {
-        'kinds': ['CodeSpecPart.serverConfiguration'],
-        'note': 'CE-CF — feature flags are config toggles',
-      })).codeSpecKind;
+      final link = classOf(
+        modelWith(
+          classArgs: {
+            'kinds': ['CodeSpecPart.serverConfiguration'],
+            'note': 'CE-CF — feature flags are config toggles',
+          },
+        ),
+      ).codeSpecKind;
       expect(link!.note, 'CE-CF — feature flags are config toggles');
     });
 
-    test('an absent annotation and an empty kind list are different states',
-        () {
-      // Load-bearing for review: "not yet mapped" is an open question, while
-      // "mapped to nothing" is a decision someone already took.
-      expect(classOf(modelWith()).codeSpecKind, isNull);
+    test(
+      'an absent annotation and an empty kind list are different states',
+      () {
+        // Load-bearing for review: "not yet mapped" is an open question, while
+        // "mapped to nothing" is a decision someone already took.
+        expect(classOf(modelWith()).codeSpecKind, isNull);
 
-      final empty = classOf(modelWith(classArgs: {'kinds': <String>[]}));
-      expect(empty.codeSpecKind, isNotNull);
-      expect(empty.codeSpecKind!.kinds, isEmpty);
-    });
+        final empty = classOf(modelWith(classArgs: {'kinds': <String>[]}));
+        expect(empty.codeSpecKind, isNotNull);
+        expect(empty.codeSpecKind!.kinds, isEmpty);
+      },
+    );
 
     test('an annotation with no kinds argument reads as empty, not null', () {
       // Present-but-argumentless is still a present annotation.
-      final link =
-          classOf(modelWith(classArgs: <String, dynamic>{})).codeSpecKind;
+      final link = classOf(
+        modelWith(classArgs: <String, dynamic>{}),
+      ).codeSpecKind;
       expect(link, isNotNull);
       expect(link!.kinds, isEmpty);
     });
 
     test('a bare kind name without the prefix passes through unchanged', () {
-      final link = classOf(modelWith(classArgs: {
-        'kinds': ['validation'],
-      })).codeSpecKind;
+      final link = classOf(
+        modelWith(
+          classArgs: {
+            'kinds': ['validation'],
+          },
+        ),
+      ).codeSpecKind;
       expect(link!.kinds, <String>['validation']);
     });
 
     test('fields carry the link independently of their class', () {
-      final model = modelWith(fieldArgs: {
-        'kinds': ['CodeSpecPart.serverConfiguration'],
-      });
+      final model = modelWith(
+        fieldArgs: {
+          'kinds': ['CodeSpecPart.serverConfiguration'],
+        },
+      );
       final cls = classOf(model);
       expect(cls.codeSpecKind, isNull);
-      expect(cls.fieldNamed('body')!.codeSpecKind!.kinds,
-          <String>['serverConfiguration']);
+      expect(cls.fieldNamed('body')!.codeSpecKind!.kinds, <String>[
+        'serverConfiguration',
+      ]);
     });
 
     test('a field without the annotation reports null', () {
@@ -398,32 +451,46 @@ void main() {
     SpecClass classOf(SpecModel m) => m.classNamed('Section')!;
 
     test('reads the processes with the FollowUpProcess prefix stripped', () {
-      final link = classOf(modelWith(args: {
-        'processes': ['FollowUpProcess.doc'],
-      })).followUpKind;
+      final link = classOf(
+        modelWith(
+          args: {
+            'processes': ['FollowUpProcess.doc'],
+          },
+        ),
+      ).followUpKind;
       expect(link, isNotNull);
       expect(link!.kinds, <String>['doc']);
     });
 
-    test('reads every process, not just the first — the link is list-valued',
-        () {
-      // DataModelFollowUp in the real model carries four.
-      final link = classOf(modelWith(args: {
-        'processes': [
-          'FollowUpProcess.doc',
-          'FollowUpProcess.cap',
-          'FollowUpProcess.cmp',
-          'FollowUpProcess.mig',
-        ],
-      })).followUpKind;
-      expect(link!.kinds, <String>['doc', 'cap', 'cmp', 'mig']);
-    });
+    test(
+      'reads every process, not just the first — the link is list-valued',
+      () {
+        // DataModelFollowUp in the real model carries four.
+        final link = classOf(
+          modelWith(
+            args: {
+              'processes': [
+                'FollowUpProcess.doc',
+                'FollowUpProcess.cap',
+                'FollowUpProcess.cmp',
+                'FollowUpProcess.mig',
+              ],
+            },
+          ),
+        ).followUpKind;
+        expect(link!.kinds, <String>['doc', 'cap', 'cmp', 'mig']);
+      },
+    );
 
     test('carries the optional note verbatim', () {
-      final link = classOf(modelWith(args: {
-        'processes': ['FollowUpProcess.org'],
-        'note': 'Feeds the governance rollout',
-      })).followUpKind;
+      final link = classOf(
+        modelWith(
+          args: {
+            'processes': ['FollowUpProcess.org'],
+            'note': 'Feeds the governance rollout',
+          },
+        ),
+      ).followUpKind;
       expect(link!.note, 'Feeds the governance rollout');
     });
 
@@ -466,7 +533,10 @@ void main() {
               'annotations': [
                 {'name': 'Document', 'arguments': <String, dynamic>{}},
                 if (projection)
-                  {'name': 'CodeSpecsProjection', 'arguments': <String, dynamic>{}},
+                  {
+                    'name': 'CodeSpecsProjection',
+                    'arguments': <String, dynamic>{},
+                  },
               ],
               'fields': <dynamic>[],
             },
@@ -475,14 +545,16 @@ void main() {
 
     test('an annotated document reports itself as a projection', () {
       expect(
-          modelWith(projection: true).classNamed('Doc')!.isCodeSpecsProjection,
-          isTrue);
+        modelWith(projection: true).classNamed('Doc')!.isCodeSpecsProjection,
+        isTrue,
+      );
     });
 
     test('an ordinary authoring document does not', () {
       expect(
-          modelWith(projection: false).classNamed('Doc')!.isCodeSpecsProjection,
-          isFalse);
+        modelWith(projection: false).classNamed('Doc')!.isCodeSpecsProjection,
+        isFalse,
+      );
     });
 
     test('the marker is argumentless — presence alone carries the meaning', () {
@@ -512,47 +584,45 @@ void main() {
       List<String> discriminatorValues = const ['action', 'input', 'display'],
       Map<String, List<String>> cases = const {},
       bool withDiscriminatorFormField = true,
-    }) =>
-        SpecModel.fromJson(<String, dynamic>{
-          'roots': <dynamic>[],
-          'classes': <String, dynamic>{
-            'Element': {
-              'name': 'Element',
-              'annotations': [
-                if (oneOfArgs != null)
-                  {'name': 'OneOf', 'arguments': oneOfArgs},
-              ],
-              'fields': [
-                {
-                  'name': 'content',
-                  'kind': 'form',
-                  'formFields': [
-                    {'name': 'elementId', 'type': 'String'},
-                    if (withDiscriminatorFormField)
-                      {
-                        'name': 'elementType',
-                        'type': 'ElementKind',
-                        'enumValues': discriminatorValues,
-                      },
-                  ],
-                },
-                {'name': 'layout', 'kind': 'form'},
-                for (final entry in cases.entries)
+    }) => SpecModel.fromJson(<String, dynamic>{
+      'roots': <dynamic>[],
+      'classes': <String, dynamic>{
+        'Element': {
+          'name': 'Element',
+          'annotations': [
+            if (oneOfArgs != null) {'name': 'OneOf', 'arguments': oneOfArgs},
+          ],
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'form',
+              'formFields': [
+                {'name': 'elementId', 'type': 'String'},
+                if (withDiscriminatorFormField)
                   {
-                    'name': entry.key,
-                    'kind': 'complex',
-                    'annotations': [
-                      for (final v in entry.value)
-                        {
-                          'name': 'Case',
-                          'arguments': {'value': v},
-                        },
-                    ],
+                    'name': 'elementType',
+                    'type': 'ElementKind',
+                    'enumValues': discriminatorValues,
                   },
               ],
             },
-          },
-        });
+            {'name': 'layout', 'kind': 'form'},
+            for (final entry in cases.entries)
+              {
+                'name': entry.key,
+                'kind': 'complex',
+                'annotations': [
+                  for (final v in entry.value)
+                    {
+                      'name': 'Case',
+                      'arguments': {'value': v},
+                    },
+                ],
+              },
+          ],
+        },
+      },
+    });
 
     SpecClass classOf(SpecModel m) => m.classNamed('Element')!;
 
@@ -561,10 +631,14 @@ void main() {
     });
 
     test('reads the discriminator name and the optional note', () {
-      final group = classOf(modelWith(oneOfArgs: {
-        'discriminator': 'elementType',
-        'note': 'CE-EL closed choice',
-      })).oneOf;
+      final group = classOf(
+        modelWith(
+          oneOfArgs: {
+            'discriminator': 'elementType',
+            'note': 'CE-EL closed choice',
+          },
+        ),
+      ).oneOf;
       expect(group, isNotNull);
       expect(group!.discriminator, 'elementType');
       expect(group.note, 'CE-EL closed choice');
@@ -573,19 +647,21 @@ void main() {
     test('resolves the discriminator through the content form fields', () {
       // The discriminator is a `@Form` form-field, not a SpecField — reading it
       // off `fields` alone would never find it.
-      final group = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-      )).oneOf!;
+      final group = classOf(
+        modelWith(oneOfArgs: {'discriminator': 'elementType'}),
+      ).oneOf!;
       expect(group.discriminatorField, isNotNull);
       expect(group.discriminatorField!.type, 'ElementKind');
       expect(group.discriminatorValues, <String>['action', 'input', 'display']);
     });
 
     test('an unresolvable discriminator degrades rather than throwing', () {
-      final group = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-        withDiscriminatorFormField: false,
-      )).oneOf!;
+      final group = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementType'},
+          withDiscriminatorFormField: false,
+        ),
+      ).oneOf!;
       expect(group.discriminatorField, isNull);
       expect(group.discriminatorValues, isEmpty);
       expect(group.uncoveredValues, isEmpty);
@@ -594,113 +670,146 @@ void main() {
     test('collects every @Case on a field — the annotation is repeatable', () {
       // The real model has 30 `@Case` annotations spread over 7 fields; a
       // reader that returns only the first would misreport 6 of them.
-      final cls = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-        cases: {
-          'elementAction': ['ElementKind.action'],
-          'fieldSpec': ['ElementKind.input', 'ElementKind.display'],
-        },
-      ));
-      expect(cls.fieldNamed('fieldSpec')!.caseValues,
-          <String>['input', 'display']);
+      final cls = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementType'},
+          cases: {
+            'elementAction': ['ElementKind.action'],
+            'fieldSpec': ['ElementKind.input', 'ElementKind.display'],
+          },
+        ),
+      );
+      expect(cls.fieldNamed('fieldSpec')!.caseValues, <String>[
+        'input',
+        'display',
+      ]);
       expect(cls.fieldNamed('elementAction')!.caseValues, <String>['action']);
     });
 
     test('a field carrying no @Case is common to every case', () {
-      final cls = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-        cases: {'elementAction': ['ElementKind.action']},
-      ));
+      final cls = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementType'},
+          cases: {
+            'elementAction': ['ElementKind.action'],
+          },
+        ),
+      );
       expect(cls.fieldNamed('layout')!.caseValues, isEmpty);
       expect(cls.fieldNamed('layout')!.isCase, isFalse);
       expect(cls.fieldNamed('elementAction')!.isCase, isTrue);
     });
 
-    test('case fields are listed in declaration order, common ones excluded',
-        () {
-      final group = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-        cases: {
-          'elementAction': ['ElementKind.action'],
-          'fieldSpec': ['ElementKind.input'],
-        },
-      )).oneOf!;
-      expect(group.caseFields.map((f) => f.name),
-          <String>['elementAction', 'fieldSpec']);
-    });
+    test(
+      'case fields are listed in declaration order, common ones excluded',
+      () {
+        final group = classOf(
+          modelWith(
+            oneOfArgs: {'discriminator': 'elementType'},
+            cases: {
+              'elementAction': ['ElementKind.action'],
+              'fieldSpec': ['ElementKind.input'],
+            },
+          ),
+        ).oneOf!;
+        expect(group.caseFields.map((f) => f.name), <String>[
+          'elementAction',
+          'fieldSpec',
+        ]);
+      },
+    );
 
     test('covered and uncovered values partition the discriminator enum', () {
       // The review question codespecs_mapping.md §8.2 poses — "is this set
       // complete?" — is only answerable if the uncovered values are named.
-      final group = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-        cases: {
-          'elementAction': ['ElementKind.action'],
-          'fieldSpec': ['ElementKind.input'],
-        },
-      )).oneOf!;
+      final group = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementType'},
+          cases: {
+            'elementAction': ['ElementKind.action'],
+            'fieldSpec': ['ElementKind.input'],
+          },
+        ),
+      ).oneOf!;
       expect(group.coveredValues, <String>['action', 'input']);
       expect(group.uncoveredValues, <String>['display']);
       expect(group.isComplete, isFalse);
     });
 
     test('a fully covered group reports complete with no uncovered values', () {
-      final group = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-        cases: {
-          'a': ['ElementKind.action'],
-          'b': ['ElementKind.input', 'ElementKind.display'],
-        },
-      )).oneOf!;
+      final group = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementType'},
+          cases: {
+            'a': ['ElementKind.action'],
+            'b': ['ElementKind.input', 'ElementKind.display'],
+          },
+        ),
+      ).oneOf!;
       expect(group.uncoveredValues, isEmpty);
       expect(group.isComplete, isTrue);
     });
 
     test('covered values follow enum order, not case-field order', () {
       // So the coverage line reads against the enum a reviewer is checking.
-      final group = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-        cases: {
-          'a': ['ElementKind.display'],
-          'b': ['ElementKind.action'],
-        },
-      )).oneOf!;
+      final group = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementType'},
+          cases: {
+            'a': ['ElementKind.display'],
+            'b': ['ElementKind.action'],
+          },
+        ),
+      ).oneOf!;
       expect(group.coveredValues, <String>['action', 'display']);
     });
 
     test('a case value outside the enum contributes no coverage', () {
       // Not an error state the model exhibits, but defining coverage as
       // "enum values that are cased" keeps the count honest either way.
-      final group = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-        cases: {
-          'a': ['ElementKind.action', 'ElementKind.bogus'],
-        },
-      )).oneOf!;
+      final group = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementType'},
+          cases: {
+            'a': ['ElementKind.action', 'ElementKind.bogus'],
+          },
+        ),
+      ).oneOf!;
       expect(group.coveredValues, <String>['action']);
       expect(group.uncoveredValues, <String>['input', 'display']);
     });
 
     test('a bare case value without the enum prefix passes through', () {
-      final cls = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-        cases: {'a': ['action']},
-      ));
+      final cls = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementType'},
+          cases: {
+            'a': ['action'],
+          },
+        ),
+      );
       expect(cls.fieldNamed('a')!.caseValues, <String>['action']);
     });
 
-    test('annotationsNamed returns every occurrence, annotation only the first',
-        () {
-      final field = classOf(modelWith(
-        oneOfArgs: {'discriminator': 'elementType'},
-        cases: {
-          'a': ['ElementKind.action', 'ElementKind.input'],
-        },
-      )).fieldNamed('a')!;
-      expect(field.annotationsNamed('Case').length, 2);
-      expect(field.annotation('Case')!.argument('value'), 'ElementKind.action');
-      expect(field.annotationsNamed('Nope'), isEmpty);
-    });
+    test(
+      'annotationsNamed returns every occurrence, annotation only the first',
+      () {
+        final field = classOf(
+          modelWith(
+            oneOfArgs: {'discriminator': 'elementType'},
+            cases: {
+              'a': ['ElementKind.action', 'ElementKind.input'],
+            },
+          ),
+        ).fieldNamed('a')!;
+        expect(field.annotationsNamed('Case').length, 2);
+        expect(
+          field.annotation('Case')!.argument('value'),
+          'ElementKind.action',
+        );
+        expect(field.annotationsNamed('Nope'), isEmpty);
+      },
+    );
   });
 
   group('Marker, comment and reference annotations', () {
@@ -711,27 +820,26 @@ void main() {
       List<Map<String, dynamic>> fieldAnnotations = const [],
       Object? classStandardReferences,
       Object? fieldStandardReferences,
-    }) =>
-        SpecModel.fromJson(<String, dynamic>{
-          'roots': <dynamic>[],
-          'classes': <String, dynamic>{
-            'Section': {
-              'name': 'Section',
-              'annotations': classAnnotations,
-              if (classStandardReferences != null)
-                'standardReferences': classStandardReferences,
-              'fields': [
-                {
-                  'name': 'content',
-                  'kind': 'content',
-                  'annotations': fieldAnnotations,
-                  if (fieldStandardReferences != null)
-                    'standardReferences': fieldStandardReferences,
-                },
-              ],
+    }) => SpecModel.fromJson(<String, dynamic>{
+      'roots': <dynamic>[],
+      'classes': <String, dynamic>{
+        'Section': {
+          'name': 'Section',
+          'annotations': classAnnotations,
+          if (classStandardReferences != null)
+            'standardReferences': classStandardReferences,
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'content',
+              'annotations': fieldAnnotations,
+              if (fieldStandardReferences != null)
+                'standardReferences': fieldStandardReferences,
             },
-          },
-        });
+          ],
+        },
+      },
+    });
 
     SpecClass classOf(SpecModel m) => m.classNamed('Section')!;
     SpecField fieldOf(SpecModel m) => classOf(m).fieldNamed('content')!;
@@ -743,29 +851,41 @@ void main() {
 
     test('isUnused reads the argumentless @Unused marker', () {
       // Presence is the whole statement — the annotation carries no arguments.
-      final field = fieldOf(modelWith(fieldAnnotations: [
-        {'name': 'Unused'},
-      ]));
+      final field = fieldOf(
+        modelWith(
+          fieldAnnotations: [
+            {'name': 'Unused'},
+          ],
+        ),
+      );
       expect(field.isUnused, isTrue);
     });
 
     test('comment reads @Comment(text)', () {
-      final field = fieldOf(modelWith(fieldAnnotations: [
-        {
-          'name': 'Comment',
-          'arguments': {'text': 'locus: shared — CE-ER'},
-        },
-      ]));
+      final field = fieldOf(
+        modelWith(
+          fieldAnnotations: [
+            {
+              'name': 'Comment',
+              'arguments': {'text': 'locus: shared — CE-ER'},
+            },
+          ],
+        ),
+      );
       expect(field.comment, 'locus: shared — CE-ER');
     });
 
     test('comment is read on classes too', () {
-      final cls = classOf(modelWith(classAnnotations: [
-        {
-          'name': 'Comment',
-          'arguments': {'text': 'Seeds → QAP'},
-        },
-      ]));
+      final cls = classOf(
+        modelWith(
+          classAnnotations: [
+            {
+              'name': 'Comment',
+              'arguments': {'text': 'Seeds → QAP'},
+            },
+          ],
+        ),
+      );
       expect(cls.comment, 'Seeds → QAP');
     });
 
@@ -775,12 +895,16 @@ void main() {
     });
 
     test('reference reads @Reference(description)', () {
-      final field = fieldOf(modelWith(fieldAnnotations: [
-        {
-          'name': 'Reference',
-          'arguments': {'description': 'Related Data Model Entity'},
-        },
-      ]));
+      final field = fieldOf(
+        modelWith(
+          fieldAnnotations: [
+            {
+              'name': 'Reference',
+              'arguments': {'description': 'Related Data Model Entity'},
+            },
+          ],
+        ),
+      );
       expect(field.reference, 'Related Data Model Entity');
     });
 
@@ -789,24 +913,36 @@ void main() {
     });
 
     test('standardReferences reads standards and connotation on a class', () {
-      final cls = classOf(modelWith(classStandardReferences: {
-        'standards': ['ISO/IEC 25010:2023 §4.2', 'IEEE 829-2008'],
-        'connotation': 'What the section owns.',
-      }));
+      final cls = classOf(
+        modelWith(
+          classStandardReferences: {
+            'standards': ['ISO/IEC 25010:2023 §4.2', 'IEEE 829-2008'],
+            'connotation': 'What the section owns.',
+          },
+        ),
+      );
       expect(cls.standardReferences, isNotNull);
-      expect(cls.standardReferences!.standards,
-          ['ISO/IEC 25010:2023 §4.2', 'IEEE 829-2008']);
+      expect(cls.standardReferences!.standards, [
+        'ISO/IEC 25010:2023 §4.2',
+        'IEEE 829-2008',
+      ]);
       expect(cls.standardReferences!.connotation, 'What the section owns.');
     });
 
     test('standardReferences reads on a field', () {
-      final field = fieldOf(modelWith(fieldStandardReferences: {
-        'standards': ['ISO 21502:2020'],
-        'connotation': 'Lists the individual criteria.',
-      }));
+      final field = fieldOf(
+        modelWith(
+          fieldStandardReferences: {
+            'standards': ['ISO 21502:2020'],
+            'connotation': 'Lists the individual criteria.',
+          },
+        ),
+      );
       expect(field.standardReferences!.standards, ['ISO 21502:2020']);
-      expect(field.standardReferences!.connotation,
-          'Lists the individual criteria.');
+      expect(
+        field.standardReferences!.connotation,
+        'Lists the individual criteria.',
+      );
     });
 
     test('standardReferences is null when the key is absent', () {
@@ -818,9 +954,13 @@ void main() {
       // The exporter always writes both, but a hand-built or older model may
       // carry only the list; dropping the whole block over it would hide the
       // standards.
-      final cls = classOf(modelWith(classStandardReferences: {
-        'standards': ['ISO 21502:2020'],
-      }));
+      final cls = classOf(
+        modelWith(
+          classStandardReferences: {
+            'standards': ['ISO 21502:2020'],
+          },
+        ),
+      );
       expect(cls.standardReferences!.standards, ['ISO 21502:2020']);
       expect(cls.standardReferences!.connotation, isNull);
     });
@@ -828,19 +968,27 @@ void main() {
     test('hasReferences is true when either reference kind is present', () {
       expect(fieldOf(modelWith()).hasReferences, isFalse);
       expect(
-        fieldOf(modelWith(fieldAnnotations: [
-          {
-            'name': 'Reference',
-            'arguments': {'description': 'objectName'},
-          },
-        ])).hasReferences,
+        fieldOf(
+          modelWith(
+            fieldAnnotations: [
+              {
+                'name': 'Reference',
+                'arguments': {'description': 'objectName'},
+              },
+            ],
+          ),
+        ).hasReferences,
         isTrue,
       );
       expect(
-        fieldOf(modelWith(fieldStandardReferences: {
-          'standards': ['ISO 21502:2020'],
-          'connotation': 'x',
-        })).hasReferences,
+        fieldOf(
+          modelWith(
+            fieldStandardReferences: {
+              'standards': ['ISO 21502:2020'],
+              'connotation': 'x',
+            },
+          ),
+        ).hasReferences,
         isTrue,
       );
     });
@@ -848,12 +996,12 @@ void main() {
 
   group('SpecModel.rootByType (one-line export, SOM §21)', () {
     SpecModel twoRootModel() => SpecModel.fromJson(<String, dynamic>{
-          'roots': <dynamic>[
-            {'type': 'Alpha', 'title': 'Alpha Doc', 'sectionId': 'A00'},
-            {'type': 'Beta', 'title': 'Beta Doc', 'sectionId': 'B00'},
-          ],
-          'classes': <String, dynamic>{},
-        });
+      'roots': <dynamic>[
+        {'type': 'Alpha', 'title': 'Alpha Doc', 'sectionId': 'A00'},
+        {'type': 'Beta', 'title': 'Beta Doc', 'sectionId': 'B00'},
+      ],
+      'classes': <String, dynamic>{},
+    });
 
     test('returns the root whose type matches', () {
       final model = twoRootModel();
@@ -865,15 +1013,16 @@ void main() {
       final model = twoRootModel();
       expect(
         () => model.rootByType('Gamma'),
-        throwsA(isA<ArgumentError>()
-            .having((e) => e.message, 'message', contains('Alpha'))
-            .having((e) => e.message, 'message', contains('Beta'))),
+        throwsA(
+          isA<ArgumentError>()
+              .having((e) => e.message, 'message', contains('Alpha'))
+              .having((e) => e.message, 'message', contains('Beta')),
+        ),
       );
     });
   });
 
-  group('SpecModel.isGenerationInput (tom_specs_editor_specification.md §14)',
-      () {
+  group('SpecModel.isGenerationInput (tom_specs_editor_specification.md §14)', () {
     SpecModel modelWithRoots({required bool markProjection}) =>
         SpecModel.fromJson(<String, dynamic>{
           'roots': <dynamic>[

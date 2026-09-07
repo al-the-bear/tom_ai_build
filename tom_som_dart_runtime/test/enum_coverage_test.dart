@@ -134,12 +134,11 @@ enum ExemptionReason {
   /// a reason forces the question to be answered here, once, next to the
   /// reason's own description.
   bool get isTemporary => switch (this) {
-        ExemptionReason.noCorpusYet || ExemptionReason.dartOnly => true,
-        ExemptionReason.mirrors ||
-        ExemptionReason.presentation ||
-        ExemptionReason.internal =>
-          false,
-      };
+    ExemptionReason.noCorpusYet || ExemptionReason.dartOnly => true,
+    ExemptionReason.mirrors ||
+    ExemptionReason.presentation ||
+    ExemptionReason.internal => false,
+  };
 }
 
 /// One enum deliberately left out of [_guarded].
@@ -170,9 +169,10 @@ class ExemptEnum {
 
 /// Builds a `constant name → corpus token` map from an enum's values, applying
 /// [aliases] where the wire spelling differs from the Dart constant.
-Map<String, String> _wire(List<Enum> values,
-        [Map<Enum, String> aliases = const {}]) =>
-    {for (final v in values) v.name: aliases[v] ?? v.name};
+Map<String, String> _wire(
+  List<Enum> values, [
+  Map<Enum, String> aliases = const {},
+]) => {for (final v in values) v.name: aliases[v] ?? v.name};
 
 // ---------------------------------------------------------------------------
 // The registry
@@ -189,7 +189,8 @@ final List<CorpusGuardedEnum> _guarded = [
         for (final e in (k['errors'] as List).cast<Map<String, dynamic>>())
           e['code'] as String,
     },
-    why: 'an instance-tier check that eight runtimes need not implement, while '
+    why:
+        'an instance-tier check that eight runtimes need not implement, while '
         'the harness reports nine-way parity',
   ),
   CorpusGuardedEnum(
@@ -201,7 +202,8 @@ final List<CorpusGuardedEnum> _guarded = [
         for (final v in (k['violations'] as List).cast<Map<String, dynamic>>())
           v['rule'] as String,
     },
-    why: 'a §14 DocSpecs rule that eight runtimes need not implement — the '
+    why:
+        'a §14 DocSpecs rule that eight runtimes need not implement — the '
         'exact gap that let all eleven rules go unexercised until tscomp8',
   ),
   CorpusGuardedEnum(
@@ -211,11 +213,13 @@ final List<CorpusGuardedEnum> _guarded = [
     corpusFile: 'model.meta.json',
     exercised: (c) => {
       for (final cls in ((c as Map<String, dynamic>)['classes'] as Map).values)
-        for (final f in (((cls as Map)['fields'] as List?) ?? const [])
-            .cast<Map<String, dynamic>>())
+        for (final f
+            in (((cls as Map)['fields'] as List?) ?? const [])
+                .cast<Map<String, dynamic>>())
           if (f['kind'] != null) f['kind'] as String,
     },
-    why: 'a §7.1 field kind no port is ever asked to classify, so eight '
+    why:
+        'a §7.1 field kind no port is ever asked to classify, so eight '
         'decoders could disagree about it undetected',
   ),
   CorpusGuardedEnum(
@@ -229,7 +233,8 @@ final List<CorpusGuardedEnum> _guarded = [
         if ((k['query'] as Map)['state'] != null)
           (k['query'] as Map)['state'] as String,
     },
-    why: 'a value-presence filter eight query engines could implement '
+    why:
+        'a value-presence filter eight query engines could implement '
         'backwards — `empty` and `nonEmpty` are each other\'s negation, so a '
         'port that swaps them passes every query that omits the dimension',
   ),
@@ -241,7 +246,8 @@ final List<CorpusGuardedEnum> _guarded = [
       for (final k in (c as List).cast<Map<String, dynamic>>())
         if (k['code'] != null) k['code'] as String,
     },
-    why: 'a structural rule the creation gate must refuse on — an unexercised '
+    why:
+        'a structural rule the creation gate must refuse on — an unexercised '
         'code is a port that silently *accepts* the add, corrupting the '
         'document rather than merely reporting the wrong reason',
   ),
@@ -253,7 +259,8 @@ final List<CorpusGuardedEnum> _guarded = [
       for (final k in (c as List).cast<Map<String, dynamic>>())
         if (k['kind'] != null) k['kind'] as String,
     },
-    why: 'a resolution outcome no port is ever asked to produce, so eight path '
+    why:
+        'a resolution outcome no port is ever asked to produce, so eight path '
         'resolvers could disagree about it undetected',
   ),
   CorpusGuardedEnum(
@@ -261,11 +268,13 @@ final List<CorpusGuardedEnum> _guarded = [
     declared: _wire(SomEditability.values),
     corpusFile: 'editability_cases.json',
     exercised: (c) => {
-      for (final k in ((c as Map<String, dynamic>)['cases'] as List)
-          .cast<Map<String, dynamic>>())
+      for (final k
+          in ((c as Map<String, dynamic>)['cases'] as List)
+              .cast<Map<String, dynamic>>())
         k['editability'] as String,
     },
-    why: 'the §4.2/§21 verdict on whether a document may be edited at all — a '
+    why:
+        'the §4.2/§21 verdict on whether a document may be edited at all — a '
         'port that classifies `readOnlyCrossMajor` as `editable` corrupts a '
         'document it was supposed to refuse, and `somEditabilityFor` is the '
         'single definition the throwing check switches on, so a wrong '
@@ -276,12 +285,14 @@ final List<CorpusGuardedEnum> _guarded = [
     declared: _wire(SpecMarkdownRejectReason.values),
     corpusFile: 'markdown_import_cases.json',
     exercised: (c) => {
-      for (final k in ((c as Map<String, dynamic>)['cases'] as List)
-          .cast<Map<String, dynamic>>())
+      for (final k
+          in ((c as Map<String, dynamic>)['cases'] as List)
+              .cast<Map<String, dynamic>>())
         for (final r in (k['rejections'] as List).cast<Map<String, dynamic>>())
           r['reason'] as String,
     },
-    why: 'a §11.7 import rejection no port is ever asked to report — and the '
+    why:
+        'a §11.7 import rejection no port is ever asked to report — and the '
         'failure that hides behind an unexercised reason is the one the '
         'protocol exists to prevent: a port that *drops* the unplaceable block '
         'instead of reporting it looks identical to one that never met it',
@@ -297,8 +308,9 @@ final List<CorpusGuardedEnum> _guarded = [
     // `documentRoot` belongs to the walk *root*, so it is produced only where a
     // case walks a bare `@Document` root, which is `rootCases`.
     exercised: (c) => {
-      for (final r in ((c as Map<String, dynamic>)['routings'] as List)
-          .cast<Map<String, dynamic>>())
+      for (final r
+          in ((c as Map<String, dynamic>)['routings'] as List)
+              .cast<Map<String, dynamic>>())
         r['verdict'] as String,
       for (final e in (c['errorCases'] as List).cast<Map<String, dynamic>>())
         if ((e['expect'] as Map<String, dynamic>)['routingVerdict']
@@ -308,7 +320,8 @@ final List<CorpusGuardedEnum> _guarded = [
         ...?((r['expect'] as Map<String, dynamic>)['routingVerdicts'] as List?)
             ?.cast<String>(),
     },
-    why: 'the §8.3 routing verdict that decides whether a section reaches the '
+    why:
+        'the §8.3 routing verdict that decides whether a section reaches the '
         'Phase-4 extract at all — and the two failures it hides are opposite '
         'and both silent: a port that misreads `feedsProcess` as `feedsCode` '
         'puts follow-up prose in front of the authoring agent as if it were '
@@ -327,7 +340,8 @@ final List<ExemptEnum> _exempt = [
   ExemptEnum(
     enumName: '_AtomKind',
     reason: ExemptionReason.internal,
-    note: 'The portable pattern matcher\'s atom taxonomy (literal / any / '
+    note:
+        'The portable pattern matcher\'s atom taxonomy (literal / any / '
         'anchor / class), private to spec_text_pattern.dart. A pattern is '
         'compiled and matched entirely within the library; only the resulting '
         'spans leave it, and those are what query_cases.json pins across all '
@@ -337,7 +351,8 @@ final List<ExemptEnum> _exempt = [
   ExemptEnum(
     enumName: '_Repeat',
     reason: ExemptionReason.internal,
-    note: 'The same matcher\'s quantifier taxonomy, private for the same '
+    note:
+        'The same matcher\'s quantifier taxonomy, private for the same '
         'reason and pinned by the same spans in query_cases.json.',
   ),
   ExemptEnum(
@@ -345,7 +360,8 @@ final List<ExemptEnum> _exempt = [
     reason: ExemptionReason.mirrors,
     names: SomMetaKind.values.map((v) => v.name).toList(),
     mirrorNames: SpecFieldKind.values.map((v) => v.name).toList(),
-    note: 'The metadata tree\'s spelling of the same §7.1 kind vocabulary as '
+    note:
+        'The metadata tree\'s spelling of the same §7.1 kind vocabulary as '
         'SpecFieldKind, which is registered. The tree is built from the model '
         'rather than serialized, so there is no token in the corpus to diff '
         'against; ECG4 pins the two enums constant-for-constant instead, which '
@@ -354,7 +370,8 @@ final List<ExemptEnum> _exempt = [
   ExemptEnum(
     enumName: 'SpecChipRole',
     reason: ExemptionReason.presentation,
-    note: 'The display semantics the editor and the reviewer share so they '
+    note:
+        'The display semantics the editor and the reviewer share so they '
         'cannot disagree about what a marker means. It lives here to be '
         'inherited by two Flutter apps, not because it is part of the '
         'nine-language contract, and is already pinned against the shipped '
@@ -367,8 +384,9 @@ final List<ExemptEnum> _exempt = [
 // ---------------------------------------------------------------------------
 
 void main() {
-  final corpusDir =
-      Directory('${Directory.current.path}/../tom_som_conformance/corpus');
+  final corpusDir = Directory(
+    '${Directory.current.path}/../tom_som_conformance/corpus',
+  );
 
   dynamic corpus(String name) =>
       jsonDecode(File('${corpusDir.path}/$name').readAsStringSync());
@@ -380,18 +398,25 @@ void main() {
     // **adds** an enum, and a source parse sees the declaration whether or not
     // this test — or anything else — ever references it.
     final declared = <String, String>{};
-    for (final f in Directory('${Directory.current.path}/lib')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))) {
-      for (final m in RegExp(r'^enum\s+(\w+)\s*\{', multiLine: true)
-          .allMatches(f.readAsStringSync())) {
+    for (final f
+        in Directory('${Directory.current.path}/lib')
+            .listSync(recursive: true)
+            .whereType<File>()
+            .where((f) => f.path.endsWith('.dart'))) {
+      for (final m in RegExp(
+        r'^enum\s+(\w+)\s*\{',
+        multiLine: true,
+      ).allMatches(f.readAsStringSync())) {
         declared[m.group(1)!] = f.path.split('/lib/').last;
       }
     }
-    expect(declared, isNotEmpty,
-        reason: 'the source parse found no enums at all — it has stopped '
-            'matching the declarations it is supposed to police');
+    expect(
+      declared,
+      isNotEmpty,
+      reason:
+          'the source parse found no enums at all — it has stopped '
+          'matching the declarations it is supposed to police',
+    );
 
     final accounted = {
       ..._guarded.map((g) => g.enumName),
@@ -399,18 +424,26 @@ void main() {
     };
 
     final unaccounted = declared.keys.where((n) => !accounted.contains(n));
-    expect(unaccounted, isEmpty,
-        reason: 'these enums are declared in lib/ and neither guarded nor '
-            'exempt: ${unaccounted.map((n) => '$n (${declared[n]})').join(', ')}'
-            ' — a nine-language enumeration with no corpus table is invisible, '
-            'not merely untested, so say which it is: add a CorpusGuardedEnum '
-            'entry, or an ExemptEnum entry naming the reason and the todo');
+    expect(
+      unaccounted,
+      isEmpty,
+      reason:
+          'these enums are declared in lib/ and neither guarded nor '
+          'exempt: ${unaccounted.map((n) => '$n (${declared[n]})').join(', ')}'
+          ' — a nine-language enumeration with no corpus table is invisible, '
+          'not merely untested, so say which it is: add a CorpusGuardedEnum '
+          'entry, or an ExemptEnum entry naming the reason and the todo',
+    );
 
     final stale = accounted.where((n) => !declared.containsKey(n));
-    expect(stale, isEmpty,
-        reason: 'the table accounts for ${stale.join(', ')}, which lib/ no '
-            'longer declares — remove the entry rather than leaving a rule '
-            'about a vocabulary that is gone');
+    expect(
+      stale,
+      isEmpty,
+      reason:
+          'the table accounts for ${stale.join(', ')}, which lib/ no '
+          'longer declares — remove the entry rather than leaving a rule '
+          'about a vocabulary that is gone',
+    );
   });
 
   group('ECG2: every guarded constant has a corpus case [2026-08-09]', () {
@@ -422,10 +455,14 @@ void main() {
             .where((e) => !g.waived.containsKey(e.key))
             .map((e) => e.key)
             .toList();
-        expect(uncovered, isEmpty,
-            reason: '${g.corpusFile} exercises no case producing '
-                '${uncovered.join(', ')}. Add one — and implement it in all '
-                'nine runtimes — rather than shipping ${g.why}.');
+        expect(
+          uncovered,
+          isEmpty,
+          reason:
+              '${g.corpusFile} exercises no case producing '
+              '${uncovered.join(', ')}. Add one — and implement it in all '
+              'nine runtimes — rather than shipping ${g.why}.',
+        );
       });
     }
   });
@@ -439,36 +476,54 @@ void main() {
     for (final g in _guarded.where((g) => g.waived.isNotEmpty)) {
       test(g.enumName, () {
         final exercised = g.exercised(corpus(g.corpusFile));
-        final stale =
-            g.waived.keys.where((n) => exercised.contains(g.declared[n]));
-        expect(stale, isEmpty,
-            reason: '${g.enumName}.${stale.join(', ')} is waived but '
-                '${g.corpusFile} now exercises it — delete the waiver, and '
-                'close the todo it names');
+        final stale = g.waived.keys.where(
+          (n) => exercised.contains(g.declared[n]),
+        );
+        expect(
+          stale,
+          isEmpty,
+          reason:
+              '${g.enumName}.${stale.join(', ')} is waived but '
+              '${g.corpusFile} now exercises it — delete the waiver, and '
+              'close the todo it names',
+        );
 
         final unknown = g.waived.keys.where((n) => !g.declared.containsKey(n));
-        expect(unknown, isEmpty,
-            reason: '${g.enumName} waives ${unknown.join(', ')}, which is not '
-                'one of its constants — a waiver that names nothing silently '
-                'protects nothing');
+        expect(
+          unknown,
+          isEmpty,
+          reason:
+              '${g.enumName} waives ${unknown.join(', ')}, which is not '
+              'one of its constants — a waiver that names nothing silently '
+              'protects nothing',
+        );
       });
     }
   });
 
   test('ECG4: a mirrored enum matches its twin constant-for-constant '
       '[2026-08-09]', () {
-    final mirrors =
-        _exempt.where((e) => e.reason == ExemptionReason.mirrors).toList();
-    expect(mirrors, isNotEmpty,
-        reason: 'the mirrors reason is unused — drop it from ExemptionReason '
-            'rather than leaving an unexercised exemption kind available');
+    final mirrors = _exempt
+        .where((e) => e.reason == ExemptionReason.mirrors)
+        .toList();
+    expect(
+      mirrors,
+      isNotEmpty,
+      reason:
+          'the mirrors reason is unused — drop it from ExemptionReason '
+          'rather than leaving an unexercised exemption kind available',
+    );
     for (final e in mirrors) {
       expect(e.names, isNotNull, reason: '${e.enumName} declares no names');
-      expect(e.names, e.mirrorNames,
-          reason: '${e.enumName} claims to mirror a registered enum but their '
-              'constants differ — either restore the correspondence, or drop '
-              'the mirrors exemption and give ${e.enumName} a corpus table of '
-              'its own, because the twin\'s coverage no longer carries it');
+      expect(
+        e.names,
+        e.mirrorNames,
+        reason:
+            '${e.enumName} claims to mirror a registered enum but their '
+            'constants differ — either restore the correspondence, or drop '
+            'the mirrors exemption and give ${e.enumName} a corpus table of '
+            'its own, because the twin\'s coverage no longer carries it',
+      );
     }
   });
 
@@ -480,13 +535,18 @@ void main() {
         // constants, and ECG2 alone would report that as *missing coverage* —
         // pointing at the enum instead of at the extractor.
         final tokens = g.declared.values.toSet();
-        final unknown =
-            g.exercised(corpus(g.corpusFile)).where((t) => !tokens.contains(t));
-        expect(unknown, isEmpty,
-            reason: '${g.corpusFile} exercises ${unknown.join(', ')}, which '
-                '${g.enumName} does not declare — either the extractor is '
-                'reading the wrong key, or the corpus expects a constant the '
-                'reference runtime has dropped');
+        final unknown = g
+            .exercised(corpus(g.corpusFile))
+            .where((t) => !tokens.contains(t));
+        expect(
+          unknown,
+          isEmpty,
+          reason:
+              '${g.corpusFile} exercises ${unknown.join(', ')}, which '
+              '${g.enumName} does not declare — either the extractor is '
+              'reading the wrong key, or the corpus expects a constant the '
+              'reference runtime has dropped',
+        );
       });
     }
   });
@@ -497,9 +557,13 @@ void main() {
       if (!e.reason.isTemporary) continue;
       // Every temporary exemption is temporary *by reference*: it names the
       // todo that ends it, so the list cannot quietly become permanent.
-      expect(e.note, contains('tscomp'),
-          reason: '${e.enumName} is exempt as ${e.reason.name}, which is a '
-              'temporary state, but its note names no todo that ends it');
+      expect(
+        e.note,
+        contains('tscomp'),
+        reason:
+            '${e.enumName} is exempt as ${e.reason.name}, which is a '
+            'temporary state, but its note names no todo that ends it',
+      );
     }
   });
 }

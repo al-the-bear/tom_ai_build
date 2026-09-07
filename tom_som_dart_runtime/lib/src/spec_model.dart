@@ -109,9 +109,9 @@ class SpecAnnotation {
   /// Reads one `annotations[]` entry. A missing `arguments` key is read as
   /// empty rather than as an error — the exporter omits it for markers.
   factory SpecAnnotation.fromJson(Map<String, dynamic> j) => SpecAnnotation(
-        name: j['name'] as String,
-        arguments: (j['arguments'] as Map?)?.cast<String, Object?>() ?? const {},
-      );
+    name: j['name'] as String,
+    arguments: (j['arguments'] as Map?)?.cast<String, Object?>() ?? const {},
+  );
 
   /// The argument named [key], or `null` when absent.
   Object? argument(String key) => arguments[key];
@@ -197,18 +197,17 @@ class FormFieldSpec {
   /// `false`. `enumValues` / `refersTo` are stringified element-wise so a
   /// numerically-spelled entry still loads.
   factory FormFieldSpec.fromJson(Map<String, dynamic> j) => FormFieldSpec(
-        name: j['name'] as String,
-        label: j['label'] as String? ?? j['name'] as String,
-        hint: j['hint'] as String?,
-        type: j['type'] as String? ?? 'String',
-        required: j['required'] as bool? ?? false,
-        enumValues:
-            (j['enumValues'] as List?)?.map((e) => e.toString()).toList() ??
-                const [],
-        refersTo:
-            (j['refersTo'] as List?)?.map((e) => e.toString()).toList() ??
-                const [],
-      );
+    name: j['name'] as String,
+    label: j['label'] as String? ?? j['name'] as String,
+    hint: j['hint'] as String?,
+    type: j['type'] as String? ?? 'String',
+    required: j['required'] as bool? ?? false,
+    enumValues:
+        (j['enumValues'] as List?)?.map((e) => e.toString()).toList() ??
+        const [],
+    refersTo:
+        (j['refersTo'] as List?)?.map((e) => e.toString()).toList() ?? const [],
+  );
 }
 
 /// A list-valued taxonomy annotation: a set of enum codes plus an optional
@@ -264,7 +263,6 @@ class KindLink {
       note: annotation.argument('note') as String?,
     );
   }
-
 }
 
 /// The third routing verdict: `@NoArtifact(NoArtifactReason, {note})` — the
@@ -297,7 +295,8 @@ class NoArtifactLink {
   factory NoArtifactLink.fromAnnotation(SpecAnnotation annotation) =>
       NoArtifactLink(
         reason: _stripEnumPrefix(
-            annotation.argument('reason')?.toString() ?? 'container'),
+          annotation.argument('reason')?.toString() ?? 'container',
+        ),
         note: annotation.argument('note') as String?,
       );
 }
@@ -338,9 +337,8 @@ class StandardReferences {
   static StandardReferences? fromJson(Object? raw) {
     if (raw is! Map) return null;
     return StandardReferences(
-      standards: (raw['standards'] as List?)
-              ?.map((e) => e.toString())
-              .toList() ??
+      standards:
+          (raw['standards'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
       connotation: raw['connotation'] as String?,
     );
@@ -369,8 +367,10 @@ mixin AnnotatedSpecNode {
   /// Distinct from [annotation] because some annotations are *repeatable*:
   /// `@Case` is applied once per discriminator value, so a single field can
   /// carry several. Reading only the first would silently drop the rest.
-  List<SpecAnnotation> annotationsNamed(String name) =>
-      [for (final a in annotations) if (a.name == name) a];
+  List<SpecAnnotation> annotationsNamed(String name) => [
+    for (final a in annotations)
+      if (a.name == name) a,
+  ];
 
   /// Whether the annotation named [name] is present. For markers that carry no
   /// arguments, presence *is* the whole statement.
@@ -451,6 +451,7 @@ class SpecField with AnnotatedSpecNode {
   /// The `@Headline(text)` default headline (YRD4), or `null`. Render
   /// precedence: stored headline > this default > name derivation.
   final String? headline;
+
   /// The field-level `@SectionId`, or `null` when the member declares none.
   ///
   /// When present it both keys the markdown heading comment
@@ -523,6 +524,7 @@ class SpecField with AnnotatedSpecNode {
   /// The Dart enum type name backing an `enum` field (e.g. `Probability`), or
   /// `null` for non-enum fields. Mirrors the exporter's `enumType` key.
   final String? enumType;
+
   /// The enum's constant names in declaration order, empty for a non-enum
   /// field. Declaration order is load-bearing: [OneOfGroup] reports case
   /// coverage against this sequence so the result reads against the enum a
@@ -616,15 +618,15 @@ class SpecField with AnnotatedSpecNode {
       enumType: j['enumType'] as String?,
       enumValues:
           (j['enumValues'] as List?)?.map((e) => e.toString()).toList() ??
-              const [],
+          const [],
       type: j['type'] as String?,
-      formFields: (j['formFields'] as List?)
+      formFields:
+          (j['formFields'] as List?)
               ?.map((e) => FormFieldSpec.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       annotations: SpecAnnotation.listFromJson(j['annotations']),
-      standardReferences:
-          StandardReferences.fromJson(j['standardReferences']),
+      standardReferences: StandardReferences.fromJson(j['standardReferences']),
     );
   }
 
@@ -640,10 +642,10 @@ class SpecField with AnnotatedSpecNode {
   /// empty result means *common* — the subsection applies to every case — not
   /// "unassigned".
   List<String> get caseValues => [
-        for (final a in annotationsNamed('Case'))
-          if (a.argument('value') != null)
-            _stripEnumPrefix(a.argument('value').toString()),
-      ];
+    for (final a in annotationsNamed('Case'))
+      if (a.argument('value') != null)
+        _stripEnumPrefix(a.argument('value').toString()),
+  ];
 
   /// Whether this field is one alternative of a closed choice, as opposed to a
   /// section common to every case.
@@ -757,6 +759,7 @@ class SpecClass with AnnotatedSpecNode {
   /// The class-level `@Headline(text)` default headline (YRD4), or `null`.
   /// A field-level `@Headline` on the instantiating field wins over this.
   final String? headline;
+
   /// The `@MapsTo` traceability target — the name of the class this one is
   /// the counterpart of elsewhere in the model — or `null`.
   ///
@@ -815,20 +818,19 @@ class SpecClass with AnnotatedSpecNode {
   /// rather than empty means the snapshot was truncated, and loading it as a
   /// field-less class would present a mutilated document as a valid one.
   factory SpecClass.fromJson(Map<String, dynamic> j) => SpecClass(
-        name: j['name'] as String,
-        sectionId: j['sectionId'] as String?,
-        doc: j['doc'] as String?,
-        help: j['help'] as String?,
-        headline: j['headline'] as String?,
-        mapsTo: j['mapsTo'] as String?,
-        detailedIn: j['detailedIn'] as String?,
-        fields: (j['fields'] as List)
-            .map((e) => SpecField.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        annotations: SpecAnnotation.listFromJson(j['annotations']),
-        standardReferences:
-            StandardReferences.fromJson(j['standardReferences']),
-      );
+    name: j['name'] as String,
+    sectionId: j['sectionId'] as String?,
+    doc: j['doc'] as String?,
+    help: j['help'] as String?,
+    headline: j['headline'] as String?,
+    mapsTo: j['mapsTo'] as String?,
+    detailedIn: j['detailedIn'] as String?,
+    fields: (j['fields'] as List)
+        .map((e) => SpecField.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    annotations: SpecAnnotation.listFromJson(j['annotations']),
+    standardReferences: StandardReferences.fromJson(j['standardReferences']),
+  );
 
   /// The field named [name], or `null` when absent.
   SpecField? fieldNamed(String name) {
@@ -933,12 +935,12 @@ class SpecRoot {
   /// (`tom_specs_model_meta_schema.md`, "`roots[]` entry"). `type` and
   /// `title` throw when absent; the rest degrade to `null`.
   factory SpecRoot.fromJson(Map<String, dynamic> j) => SpecRoot(
-        type: j['type'] as String,
-        title: j['title'] as String,
-        sectionId: j['sectionId'] as String?,
-        description: j['description'] as String?,
-        doc: j['doc'] as String?,
-      );
+    type: j['type'] as String,
+    title: j['title'] as String,
+    sectionId: j['sectionId'] as String?,
+    description: j['description'] as String?,
+    doc: j['doc'] as String?,
+  );
 }
 
 /// Computes the `major.minor` model-version string from a [major] version
@@ -979,8 +981,10 @@ const Duration defaultMaxSnapshotAge = Duration(days: 14);
 /// own parser would make the accepted set differ by language — several of the
 /// nine have no date library at all — and a stamp that reads on one platform
 /// and not another is exactly the divergence the shared corpus exists to catch.
-final RegExp _stampPattern = RegExp(r'^(\d{4})-(\d{2})-(\d{2})[Tt ]'
-    r'(\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?(Z|z|[+-]\d{2}:?\d{2})?$');
+final RegExp _stampPattern = RegExp(
+  r'^(\d{4})-(\d{2})-(\d{2})[Tt ]'
+  r'(\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?(Z|z|[+-]\d{2}:?\d{2})?$',
+);
 
 /// The length of [month] in [year], Gregorian. Used to reject a day that does
 /// not exist rather than letting it roll into the next month: `DateTime.utc`
@@ -1021,14 +1025,23 @@ DateTime? parseStampTimestamp(String? raw) {
   if (hour > 23 || minute > 59 || second > 59) return null;
   // Right-pad the fraction to microseconds; a longer fraction is truncated.
   final frac = (m.group(7) ?? '').padRight(6, '0').substring(0, 6);
-  var value = DateTime.utc(year, month, day, hour, minute, second,
-      int.parse(frac.substring(0, 3)), int.parse(frac.substring(3)));
+  var value = DateTime.utc(
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    second,
+    int.parse(frac.substring(0, 3)),
+    int.parse(frac.substring(3)),
+  );
   final zone = m.group(8);
   if (zone != null && zone != 'Z' && zone != 'z') {
     final digits = zone.substring(1).replaceAll(':', '');
     final offset = Duration(
-        hours: int.parse(digits.substring(0, 2)),
-        minutes: int.parse(digits.substring(2)));
+      hours: int.parse(digits.substring(0, 2)),
+      minutes: int.parse(digits.substring(2)),
+    );
     value = zone[0] == '-' ? value.add(offset) : value.subtract(offset);
   }
   return value;
@@ -1107,16 +1120,16 @@ class SpecModelStampCheck {
 
   /// The findings as ready-to-display sentences, empty when there are none.
   List<String> get warnings => [
-        if (isAged)
-          'Snapshot is ${age!.inDays} days old (threshold ${maxAge.inDays} '
-              'days) — the model may have moved on since it was exported.',
-        if (classCountDisagrees)
-          'Stamp declares $declaredClassCount classes but the snapshot '
-              'carries $actualClassCount — it was edited after export.',
-        if (rootCountDisagrees)
-          'Stamp declares $declaredRootCount document roots but the snapshot '
-              'carries $actualRootCount — it was edited after export.',
-      ];
+    if (isAged)
+      'Snapshot is ${age!.inDays} days old (threshold ${maxAge.inDays} '
+          'days) — the model may have moved on since it was exported.',
+    if (classCountDisagrees)
+      'Stamp declares $declaredClassCount classes but the snapshot '
+          'carries $actualClassCount — it was edited after export.',
+    if (rootCountDisagrees)
+      'Stamp declares $declaredRootCount document roots but the snapshot '
+          'carries $actualRootCount — it was edited after export.',
+  ];
 }
 
 /// The complete exported model.
@@ -1255,10 +1268,11 @@ class SpecModel {
       if (r.type == type) return r;
     }
     throw ArgumentError.value(
-        type,
-        'type',
-        'no document root with this type (have: '
-            '${roots.map((r) => r.type).join(', ')})');
+      type,
+      'type',
+      'no document root with this type (have: '
+          '${roots.map((r) => r.type).join(', ')})',
+    );
   }
 
   /// The model version the generated object model reports (SOM §4.2), as a

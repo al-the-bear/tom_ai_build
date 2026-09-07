@@ -58,36 +58,34 @@ void main() {
 
     test('second item on same day -> +2', () {
       expect(
-        generateListItemSectionId(
-          'DACEN-ITEM-xxx',
-          date,
-          const ['DACEN-ITEM-AB1'],
-        ),
+        generateListItemSectionId('DACEN-ITEM-xxx', date, const [
+          'DACEN-ITEM-AB1',
+        ]),
         'DACEN-ITEM-AB2',
       );
     });
 
-    test('uses max-for-day + 1, ignoring gaps (criterion 6 non-consecutive)', () {
-      // AB2 deleted, AB1 and AB3 remain -> next is AB4, not AB2.
-      expect(
-        generateListItemSectionId(
-          'DACEN-ITEM-xxx',
-          date,
-          const ['DACEN-ITEM-AB1', 'DACEN-ITEM-AB3'],
-        ),
-        'DACEN-ITEM-AB4',
-      );
-    });
+    test(
+      'uses max-for-day + 1, ignoring gaps (criterion 6 non-consecutive)',
+      () {
+        // AB2 deleted, AB1 and AB3 remain -> next is AB4, not AB2.
+        expect(
+          generateListItemSectionId('DACEN-ITEM-xxx', date, const [
+            'DACEN-ITEM-AB1',
+            'DACEN-ITEM-AB3',
+          ]),
+          'DACEN-ITEM-AB4',
+        );
+      },
+    );
 
     test('same-day reuse after last deleted (criterion 6 reuse)', () {
       // AB1, AB2 existed; AB2 (the last) deleted -> only AB1 remains ->
       // next same-day add reuses AB2.
       expect(
-        generateListItemSectionId(
-          'DACEN-ITEM-xxx',
-          date,
-          const ['DACEN-ITEM-AB1'],
-        ),
+        generateListItemSectionId('DACEN-ITEM-xxx', date, const [
+          'DACEN-ITEM-AB1',
+        ]),
         'DACEN-ITEM-AB2',
       );
     });
@@ -95,11 +93,9 @@ void main() {
     test('ignores ids from other days', () {
       // A prior day's ids do not affect today's numbering.
       expect(
-        generateListItemSectionId(
-          'DACEN-ITEM-xxx',
-          date,
-          const ['DACEN-ITEM-AA5'],
-        ),
+        generateListItemSectionId('DACEN-ITEM-xxx', date, const [
+          'DACEN-ITEM-AA5',
+        ]),
         'DACEN-ITEM-AB1',
       );
     });
