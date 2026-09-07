@@ -23,7 +23,8 @@
 library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';
-import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart' show SpecNodeKind;
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show SpecNodeKind;
 
 import '../index/structural_lexical_index.dart'
     show IndexQuery, IndexStateFilter;
@@ -182,8 +183,9 @@ final class MemoryApi {
     int k = 10,
     Map<Object?, Object?>? options,
   }) async {
-    final result =
-        await recall.recall(specRecallQueryFromArgs(query, options, k: k));
+    final result = await recall.recall(
+      specRecallQueryFromArgs(query, options, k: k),
+    );
     return [for (final hit in result.hits) _hitMap(hit)];
   }
 
@@ -195,19 +197,20 @@ final class MemoryApi {
     int k = 10,
     Map<Object?, Object?>? options,
   }) async {
-    final result =
-        await recall.recall(specRecallQueryFromArgs(query, options, k: k));
+    final result = await recall.recall(
+      specRecallQueryFromArgs(query, options, k: k),
+    );
     return [for (final hit in result.hits) hit.path];
   }
 
   /// Renders one recall hit as a JSON-friendly map.
   static Map<String, Object?> _hitMap(SpecRecallHit hit) => <String, Object?>{
-        'path': hit.path,
-        'score': hit.score,
-        'modes': [for (final m in hit.modes) m.name],
-        'kind': hit.kind?.name,
-        'headline': hit.headline,
-      };
+    'path': hit.path,
+    'score': hit.score,
+    'modes': [for (final m in hit.modes) m.name],
+    'kind': hit.kind?.name,
+    'headline': hit.headline,
+  };
 }
 
 /// The [BridgedClass] that exposes [MemoryApi]'s read-only methods to a D4rt
@@ -220,21 +223,21 @@ final class MemoryApi {
 /// mutating method is exposed. Both accept an optional `options` map carrying
 /// the fuller [SpecRecallQuery] tuning surface.
 BridgedClass memoryApiBridgedClass() => BridgedClass(
-      nativeType: MemoryApi,
-      name: 'MemoryApi',
-      isAssignable: (v) => v is MemoryApi,
-      methods: {
-        'recall': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as MemoryApi).recallHits(
-              positionalArgs[0] as String,
-              k: (namedArgs['k'] as int?) ?? 10,
-              options: namedArgs['options'] as Map<Object?, Object?>?,
-            ),
-        'recallPaths': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as MemoryApi).recallPaths(
-              positionalArgs[0] as String,
-              k: (namedArgs['k'] as int?) ?? 10,
-              options: namedArgs['options'] as Map<Object?, Object?>?,
-            ),
-      },
-    );
+  nativeType: MemoryApi,
+  name: 'MemoryApi',
+  isAssignable: (v) => v is MemoryApi,
+  methods: {
+    'recall': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as MemoryApi).recallHits(
+          positionalArgs[0] as String,
+          k: (namedArgs['k'] as int?) ?? 10,
+          options: namedArgs['options'] as Map<Object?, Object?>?,
+        ),
+    'recallPaths': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as MemoryApi).recallPaths(
+          positionalArgs[0] as String,
+          k: (namedArgs['k'] as int?) ?? 10,
+          options: namedArgs['options'] as Map<Object?, Object?>?,
+        ),
+  },
+);

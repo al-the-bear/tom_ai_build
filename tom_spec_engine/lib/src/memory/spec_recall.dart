@@ -20,7 +20,8 @@
 /// exact and useful; it simply lacks semantic matches until tier 2 warms.
 library;
 
-import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart' show SpecNodeKind;
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show SpecNodeKind;
 
 import '../index/structural_lexical_index.dart';
 import 'spec_memory.dart' show SpecRagHit;
@@ -31,10 +32,8 @@ import 'spec_rag_graph.dart';
 /// The fused [SpecRecall] is decoupled from the store behind this signature:
 /// bind it to `SpecDocumentMemory.recallSections` for the real vector tier, or
 /// leave it `null` (the tier-2-cold case) to exercise tier-1-only degradation.
-typedef SpecVectorRecall = Future<List<SpecRagHit>> Function(
-  String query, {
-  int k,
-});
+typedef SpecVectorRecall =
+    Future<List<SpecRagHit>> Function(String query, {int k});
 
 /// Which retrieval mode surfaced a section in a fused recall.
 enum SpecRecallMode {
@@ -194,11 +193,11 @@ final class SpecRecallQuery {
   /// vector) full weight, the supporting modes (symbolic, GraphWalk) half.
   static const Map<SpecRecallMode, double> defaultWeights =
       <SpecRecallMode, double>{
-    SpecRecallMode.lexical: 1.0,
-    SpecRecallMode.vector: 1.0,
-    SpecRecallMode.symbolic: 0.5,
-    SpecRecallMode.graphWalk: 0.5,
-  };
+        SpecRecallMode.lexical: 1.0,
+        SpecRecallMode.vector: 1.0,
+        SpecRecallMode.symbolic: 0.5,
+        SpecRecallMode.graphWalk: 0.5,
+      };
 
   /// The fusion weight for [mode]: the per-query [weights] override if present,
   /// else [defaultWeights], else `1.0`.
@@ -247,8 +246,9 @@ final class SpecRecall {
     // Tier-1 lexical (BM25) — the query text AND-combined with the facets.
     final lexicalHits = index.search(_lexicalQuery(query));
     if (lexicalHits.isNotEmpty) {
-      ranked[SpecRecallMode.lexical] =
-          lexicalHits.map((h) => h.path).toList(growable: false);
+      ranked[SpecRecallMode.lexical] = lexicalHits
+          .map((h) => h.path)
+          .toList(growable: false);
     }
 
     // Tier-1 symbolic — facet-only, run only when the query carries facets, so
@@ -256,8 +256,9 @@ final class SpecRecall {
     if (_hasFacets(query.facets)) {
       final symbolicHits = index.search(_symbolicQuery(query));
       if (symbolicHits.isNotEmpty) {
-        ranked[SpecRecallMode.symbolic] =
-            symbolicHits.map((h) => h.path).toList(growable: false);
+        ranked[SpecRecallMode.symbolic] = symbolicHits
+            .map((h) => h.path)
+            .toList(growable: false);
       }
     }
 
@@ -268,8 +269,9 @@ final class SpecRecall {
       final vectorHits = await vector(query.text, k: query.perModeK);
       if (vectorHits.isNotEmpty) {
         tier2Warm = true;
-        ranked[SpecRecallMode.vector] =
-            vectorHits.map((h) => h.path).toList(growable: false);
+        ranked[SpecRecallMode.vector] = vectorHits
+            .map((h) => h.path)
+            .toList(growable: false);
       }
     }
 
@@ -299,15 +301,15 @@ final class SpecRecall {
 
   /// Rebuilds [base] with its facets preserved and a fresh [text].
   static IndexQuery _withText(IndexQuery base, String? text) => IndexQuery(
-        text: text,
-        kinds: base.kinds,
-        className: base.className,
-        sectionIdExact: base.sectionIdExact,
-        sectionIdPrefix: base.sectionIdPrefix,
-        mapsTo: base.mapsTo,
-        detailedIn: base.detailedIn,
-        state: base.state,
-      );
+    text: text,
+    kinds: base.kinds,
+    className: base.className,
+    sectionIdExact: base.sectionIdExact,
+    sectionIdPrefix: base.sectionIdPrefix,
+    mapsTo: base.mapsTo,
+    detailedIn: base.detailedIn,
+    state: base.state,
+  );
 
   static bool _hasFacets(IndexQuery q) =>
       q.kinds != null ||
@@ -347,9 +349,7 @@ final class SpecRecall {
       frontier = next;
     }
 
-    final reached = depthOf.entries
-        .where((e) => e.value > 0)
-        .toList()
+    final reached = depthOf.entries.where((e) => e.value > 0).toList()
       ..sort((a, b) {
         final byDepth = a.value.compareTo(b.value);
         return byDepth != 0 ? byDepth : a.key.compareTo(b.key);
@@ -378,13 +378,14 @@ final class SpecRecall {
       }
     });
 
-    final hits = [
-      for (final entry in scores.entries)
-        _hitFor(entry.key, entry.value, modesByPath[entry.key]!),
-    ]..sort((a, b) {
-        final byScore = b.score.compareTo(a.score);
-        return byScore != 0 ? byScore : a.path.compareTo(b.path);
-      });
+    final hits =
+        [
+          for (final entry in scores.entries)
+            _hitFor(entry.key, entry.value, modesByPath[entry.key]!),
+        ]..sort((a, b) {
+          final byScore = b.score.compareTo(a.score);
+          return byScore != 0 ? byScore : a.path.compareTo(b.path);
+        });
     return hits;
   }
 

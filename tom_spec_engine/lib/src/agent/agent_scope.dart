@@ -37,9 +37,14 @@ ScriptScope agentScope(AgentToolsApi tools, {String name = agentScopeName}) =>
       libraries: [
         BridgedLibrary(agentToolsApiLibraryName, (interpreter) {
           interpreter.registerBridgedClass(
-              agentToolsApiBridgedClass(), agentToolsApiLibrary);
+            agentToolsApiBridgedClass(),
+            agentToolsApiLibrary,
+          );
           interpreter.registerGlobalVariable(
-              agentToolsApiGlobalName, tools, agentToolsApiLibrary);
+            agentToolsApiGlobalName,
+            tools,
+            agentToolsApiLibrary,
+          );
         }),
       ],
     );

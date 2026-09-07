@@ -109,17 +109,16 @@ class SomSurface {
   });
 
   Map<String, Object?> toJson() => {
-        'fingerprint': fingerprint,
-        'perPackage': perPackage,
-        'declarationCounts': declarationCounts,
-      };
+    'fingerprint': fingerprint,
+    'perPackage': perPackage,
+    'declarationCounts': declarationCounts,
+  };
 
   static SomSurface fromJson(Map<String, Object?> json) => SomSurface(
-        fingerprint: json['fingerprint']! as String,
-        perPackage: (json['perPackage']! as Map).cast<String, String>(),
-        declarationCounts:
-            (json['declarationCounts']! as Map).cast<String, int>(),
-      );
+    fingerprint: json['fingerprint']! as String,
+    perPackage: (json['perPackage']! as Map).cast<String, String>(),
+    declarationCounts: (json['declarationCounts']! as Map).cast<String, int>(),
+  );
 }
 
 /// The surface of a single package's `lib/` tree.
@@ -137,12 +136,13 @@ class PackageSurface {
 /// the right reasons.
 PackageSurface fingerprintLibrary(Directory libDir) {
   // Sorted, so the rendering does not depend on filesystem order.
-  final files = libDir
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((f) => f.path.endsWith('.dart'))
-      .toList()
-    ..sort((a, b) => a.path.compareTo(b.path));
+  final files =
+      libDir
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.dart'))
+          .toList()
+        ..sort((a, b) => a.path.compareTo(b.path));
 
   final buffer = StringBuffer();
   var declarations = 0;
@@ -234,13 +234,16 @@ String? somSurfaceModuleMismatch({required String engineRoot}) {
   // `barrelImport:` lines. This keeps the guard free of a yaml dependency.
   final bridged = <String>{};
   for (final line in config.readAsLinesSync()) {
-    final match =
-        RegExp(r'barrelImport:\s*package:([a-z0-9_]+)/').firstMatch(line);
+    final match = RegExp(
+      r'barrelImport:\s*package:([a-z0-9_]+)/',
+    ).firstMatch(line);
     if (match != null) bridged.add(match.group(1)!);
   }
 
   final fingerprinted = somPackagePaths.keys.toSet();
-  if (bridged.isEmpty) return 'no `barrelImport:` entries found in buildkit.yaml';
+  if (bridged.isEmpty) {
+    return 'no `barrelImport:` entries found in buildkit.yaml';
+  }
   if (bridged.difference(fingerprinted).isNotEmpty) {
     return 'buildkit.yaml bridges ${bridged.difference(fingerprinted)} but '
         'somPackagePaths does not fingerprint it';
@@ -319,7 +322,8 @@ class _FunctionBodyCollector extends RecursiveAstVisitor<void> {
   }
 
   @override
-  void visitExpressionFunctionBody(ExpressionFunctionBody node) => _record(node);
+  void visitExpressionFunctionBody(ExpressionFunctionBody node) =>
+      _record(node);
 
   @override
   void visitEmptyFunctionBody(EmptyFunctionBody node) => _record(node);

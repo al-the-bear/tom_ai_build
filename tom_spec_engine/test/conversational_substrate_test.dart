@@ -29,14 +29,13 @@ void main() {
     int maxTurns = 8,
     bool stopOnError = true,
     AgentSubstrate? over,
-  }) =>
-      ConversationalAgentSubstrate(
-        base: over ?? base,
-        tools: fixture.tools,
-        driver: RecordingConversationalDriver(script),
-        maxTurns: maxTurns,
-        stopOnError: stopOnError,
-      );
+  }) => ConversationalAgentSubstrate(
+    base: over ?? base,
+    tools: fixture.tools,
+    driver: RecordingConversationalDriver(script),
+    maxTurns: maxTurns,
+    stopOnError: stopOnError,
+  );
 
   test('reports mode "conversational" over the base substrate mode', () {
     final substrate = substrateWith(const []);
@@ -47,8 +46,12 @@ void main() {
   test('drives the complex procedure across multiple turns; each edit lands in '
       'the one change log', () async {
     final substrate = substrateWith(const [
-      ConversationalDecision.run(inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'}),
-      ConversationalDecision.run(inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'}),
+      ConversationalDecision.run(
+        inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+      ),
+      ConversationalDecision.run(
+        inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+      ),
       ConversationalDecision.stop(reason: 'done'),
     ]);
 
@@ -62,8 +65,10 @@ void main() {
     // Two turns, two list items, two change-log entries — every turn's edit
     // landed on the one shared controller.
     expect(substrate.turns, hasLength(2));
-    expect(fixture.document.listItems('PD00/RSK'),
-        ['PD00/RSK-1', 'PD00/RSK-2']);
+    expect(fixture.document.listItems('PD00/RSK'), [
+      'PD00/RSK-1',
+      'PD00/RSK-2',
+    ]);
     expect(fixture.controller.log, const [
       Change('add', 'PD00/RSK-1'),
       Change('add', 'PD00/RSK-2'),
@@ -77,7 +82,9 @@ void main() {
   test('the per-turn RAG recall reaches the driver '
       '(the llm_and_d4rt_tools.md §10 mode-a augmentation)', () async {
     final driver = RecordingConversationalDriver(const [
-      ConversationalDecision.run(inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'}),
+      ConversationalDecision.run(
+        inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+      ),
       ConversationalDecision.stop(),
     ]);
     final substrate = ConversationalAgentSubstrate(
@@ -117,46 +124,53 @@ void main() {
     expect(fixture.controller.log, isEmpty);
   });
 
-  test('stopOnError ends the conversation after the first failed turn', () async {
-    // A base whose procedure throws — so the turn's run reports ok:false.
-    final broken = DirectAgentSubstrate(
-      tools: fixture.tools,
-      procedure: const AgentProcedure(
-        name: 'broken',
-        source: '''
+  test(
+    'stopOnError ends the conversation after the first failed turn',
+    () async {
+      // A base whose procedure throws — so the turn's run reports ok:false.
+      final broken = DirectAgentSubstrate(
+        tools: fixture.tools,
+        procedure: const AgentProcedure(
+          name: 'broken',
+          source: '''
 import 'package:tom_spec_engine/agent.dart';
 main(task) => undefinedSymbol();
 ''',
-      ),
-    );
-    final substrate = substrateWith(
-      const [
-        ConversationalDecision.run(inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'}),
-        ConversationalDecision.run(inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'}),
-      ],
-      over: broken,
-    );
+        ),
+      );
+      final substrate = substrateWith(const [
+        ConversationalDecision.run(
+          inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+        ),
+        ConversationalDecision.run(
+          inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+        ),
+      ], over: broken);
 
-    final result = await substrate.run(const AgentTask(goal: 'platform'));
+      final result = await substrate.run(const AgentTask(goal: 'platform'));
 
-    expect(result.ok, isFalse);
-    expect(result.error, 'one or more conversational turns failed');
-    // Only the first (failing) turn ran; the second never started.
-    expect(substrate.turns, hasLength(1));
-    final out = (result.output as Map).cast<String, Object?>();
-    expect(out['stopReason'], 'turn 0 failed');
-  });
+      expect(result.ok, isFalse);
+      expect(result.error, 'one or more conversational turns failed');
+      // Only the first (failing) turn ran; the second never started.
+      expect(substrate.turns, hasLength(1));
+      final out = (result.output as Map).cast<String, Object?>();
+      expect(out['stopReason'], 'turn 0 failed');
+    },
+  );
 
   test('maxTurns caps a non-stopping conversation', () async {
     // Three run-decisions, but maxTurns clamps the loop to two turns.
-    final substrate = substrateWith(
-      const [
-        ConversationalDecision.run(inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'}),
-        ConversationalDecision.run(inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'}),
-        ConversationalDecision.run(inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'}),
-      ],
-      maxTurns: 2,
-    );
+    final substrate = substrateWith(const [
+      ConversationalDecision.run(
+        inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+      ),
+      ConversationalDecision.run(
+        inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+      ),
+      ConversationalDecision.run(
+        inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+      ),
+    ], maxTurns: 2);
 
     final result = await substrate.run(const AgentTask(goal: 'platform'));
 
@@ -167,18 +181,22 @@ main(task) => undefinedSymbol();
     expect(fixture.controller.log, hasLength(2));
   });
 
-  test('buildConversationalSubstrate is a thin builder for the same substrate',
-      () async {
-    final substrate = buildConversationalSubstrate(
-      base: base,
-      tools: fixture.tools,
-      driver: RecordingConversationalDriver(const [
-        ConversationalDecision.run(inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'}),
-        ConversationalDecision.stop(),
-      ]),
-    );
-    final result = await substrate.run(const AgentTask(goal: 'platform'));
-    expect(result.ok, isTrue);
-    expect(substrate.turns, hasLength(1));
-  });
+  test(
+    'buildConversationalSubstrate is a thin builder for the same substrate',
+    () async {
+      final substrate = buildConversationalSubstrate(
+        base: base,
+        tools: fixture.tools,
+        driver: RecordingConversationalDriver(const [
+          ConversationalDecision.run(
+            inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+          ),
+          ConversationalDecision.stop(),
+        ]),
+      );
+      final result = await substrate.run(const AgentTask(goal: 'platform'));
+      expect(result.ok, isTrue);
+      expect(substrate.turns, hasLength(1));
+    },
+  );
 }

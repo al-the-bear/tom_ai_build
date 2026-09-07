@@ -66,12 +66,12 @@ final class ConversationalTurn {
 
   /// A compact JSON view for the trail / MCP surface.
   Map<String, Object?> toJson() => <String, Object?>{
-        'index': index,
-        'goal': task.goal,
-        if (task.inputs.isNotEmpty) 'inputs': task.inputs,
-        'result': result.toJson(),
-        if (recalledPaths.isNotEmpty) 'recalledPaths': recalledPaths,
-      };
+    'index': index,
+    'goal': task.goal,
+    if (task.inputs.isNotEmpty) 'inputs': task.inputs,
+    'result': result.toJson(),
+    if (recalledPaths.isNotEmpty) 'recalledPaths': recalledPaths,
+  };
 }
 
 /// The running context handed to a [ConversationalDriver] to decide the next
@@ -139,7 +139,7 @@ final class ConversationalDecision {
 
   /// Stop the conversation (no turn runs); [reason] explains why.
   const ConversationalDecision.stop({String? reason})
-      : this._(stop: true, reason: reason);
+    : this._(stop: true, reason: reason);
 }
 
 /// The **live conversational substrate** seam (`llm_and_d4rt_tools.md` §10 mode
@@ -165,7 +165,7 @@ abstract interface class ConversationalDriver {
 final class RecordingConversationalDriver implements ConversationalDriver {
   /// Creates the driver over a scripted [decisions] list (replayed in order).
   RecordingConversationalDriver(List<ConversationalDecision> decisions)
-      : _decisions = List.of(decisions);
+    : _decisions = List.of(decisions);
 
   final List<ConversationalDecision> _decisions;
 
@@ -213,12 +213,12 @@ final class ConversationalAgentSubstrate implements AgentSubstrate {
     int maxTurns = 8,
     bool stopOnError = true,
     int recallK = 10,
-  })  : _base = base,
-        _tools = tools,
-        _driver = driver,
-        _maxTurns = maxTurns,
-        _stopOnError = stopOnError,
-        _recallK = recallK;
+  }) : _base = base,
+       _tools = tools,
+       _driver = driver,
+       _maxTurns = maxTurns,
+       _stopOnError = stopOnError,
+       _recallK = recallK;
 
   final AgentSubstrate _base;
   final AgentToolsApi _tools;
@@ -253,13 +253,15 @@ final class ConversationalAgentSubstrate implements AgentSubstrate {
       final recalledPaths = _pathsOf(recall);
 
       // 2. The live conversational substrate decides the turn (or stops).
-      final decision = await _driver.nextTurn(ConversationContext(
-        goal: goal,
-        turnIndex: i,
-        priorTurns: List.unmodifiable(completed),
-        recall: recall,
-        recalledPaths: recalledPaths,
-      ));
+      final decision = await _driver.nextTurn(
+        ConversationContext(
+          goal: goal,
+          turnIndex: i,
+          priorTurns: List.unmodifiable(completed),
+          recall: recall,
+          recalledPaths: recalledPaths,
+        ),
+      );
       if (decision.stop) {
         stopReason = decision.reason ?? 'driver stopped';
         break;
@@ -272,12 +274,14 @@ final class ConversationalAgentSubstrate implements AgentSubstrate {
         inputs: decision.inputs,
       );
       final result = await _base.run(turnTask);
-      completed.add(ConversationalTurn(
-        index: i,
-        task: turnTask,
-        result: result,
-        recalledPaths: recalledPaths,
-      ));
+      completed.add(
+        ConversationalTurn(
+          index: i,
+          task: turnTask,
+          result: result,
+          recalledPaths: recalledPaths,
+        ),
+      );
       // Always mark the turn boundary so the aggregate transcript documents the
       // conversation structure, even for a silent turn.
       transcript.writeln('— turn $i —');
@@ -337,12 +341,11 @@ ConversationalAgentSubstrate buildConversationalSubstrate({
   int maxTurns = 8,
   bool stopOnError = true,
   int recallK = 10,
-}) =>
-    ConversationalAgentSubstrate(
-      base: base,
-      tools: tools,
-      driver: driver,
-      maxTurns: maxTurns,
-      stopOnError: stopOnError,
-      recallK: recallK,
-    );
+}) => ConversationalAgentSubstrate(
+  base: base,
+  tools: tools,
+  driver: driver,
+  maxTurns: maxTurns,
+  stopOnError: stopOnError,
+  recallK: recallK,
+);

@@ -12,30 +12,39 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// Contract (`llm_and_d4rt_tools.md` §4, §9): a script in the `memory` scope
 /// can recall and cannot mutate.
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'fields': [
+        {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'SIT',
+          'type': 'CurrentSituation',
+        },
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'fields': [
-            {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
-            {'name': 'situation', 'kind': 'complex', 'sectionId': 'SIT', 'type': 'CurrentSituation'},
-          ],
-        },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
-          'sectionId': 'CS00',
-          'mapsTo': 'PD00',
-          'fields': [
-            {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
-          ],
-        },
-      },
-    });
+    },
+    'CurrentSituation': {
+      'name': 'CurrentSituation',
+      'sectionId': 'CS00',
+      'mapsTo': 'PD00',
+      'fields': [
+        {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
+      ],
+    },
+  },
+});
 
 void main() {
   late SpecRecall recall;
@@ -229,8 +238,10 @@ main() async => await memory.recallPaths(
     });
 
     test('an unknown state throws ArgumentError', () {
-      expect(() => specRecallQueryFromArgs('x', {'state': 'nope'}),
-          throwsArgumentError);
+      expect(
+        () => specRecallQueryFromArgs('x', {'state': 'nope'}),
+        throwsArgumentError,
+      );
     });
   });
 
@@ -246,17 +257,19 @@ main() async => memory.setContent('PD00/VIS', 'hacked');
       );
     });
 
-    test('the spec editing API is not importable under the memory scope',
-        () async {
-      // The `spec` global / spec_api library is never registered, so a script
-      // reaching for it fails — the memory scope is read-only.
-      expect(
-        () => run(memoryScope(recall), '''
+    test(
+      'the spec editing API is not importable under the memory scope',
+      () async {
+        // The `spec` global / spec_api library is never registered, so a script
+        // reaching for it fails — the memory scope is read-only.
+        expect(
+          () => run(memoryScope(recall), '''
 import 'package:tom_spec_engine/spec_api.dart';
 main() => spec.setContent('PD00/VIS', 'hacked');
 '''),
-        throwsA(anything),
-      );
-    });
+          throwsA(anything),
+        );
+      },
+    );
   });
 }

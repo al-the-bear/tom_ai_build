@@ -31,10 +31,12 @@ void main() {
       ),
     );
 
-    final result = await substrate.run(const AgentTask(
-      goal: 'platform',
-      inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
-    ));
+    final result = await substrate.run(
+      const AgentTask(
+        goal: 'platform',
+        inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+      ),
+    );
 
     expect(result.ok, isTrue, reason: result.error);
     final out = (result.output as Map).cast<String, Object?>();
@@ -123,43 +125,53 @@ void main() {
     });
 
     test('opting into mode (a) needs no envelope', () {
-      final direct =
-          buildAgentSubstrate(mode: AgentSubstrateMode.direct, tools: fixture.tools);
+      final direct = buildAgentSubstrate(
+        mode: AgentSubstrateMode.direct,
+        tools: fixture.tools,
+      );
       expect(direct.mode, 'direct');
     });
   });
 
   group('the same loop test passes for both modes', () {
     test('mode (a) — direct', () => assertSameLoop(AgentSubstrateMode.direct));
-    test('mode (b) — tom_brain',
-        () => assertSameLoop(AgentSubstrateMode.tomBrain));
+    test(
+      'mode (b) — tom_brain',
+      () => assertSameLoop(AgentSubstrateMode.tomBrain),
+    );
   });
 
   group('the Tom Brain session envelope wraps the run', () {
-    test('opens a session for the scope and records the run into named memory',
-        () async {
-      final result = await substrate.run(const AgentTask(
-        goal: 'platform',
-        inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
-      ));
+    test(
+      'opens a session for the scope and records the run into named memory',
+      () async {
+        final result = await substrate.run(
+          const AgentTask(
+            goal: 'platform',
+            inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+          ),
+        );
 
-      expect(result.ok, isTrue, reason: result.error);
-      // Exactly one session opened, for the scope this substrate was built with.
-      expect(envelope.openedSessions, [scope]);
-      // The run was recorded into the named memory: one record, carrying the
-      // task goal and the run's own (successful) result.
-      expect(envelope.runs, hasLength(1));
-      final record = envelope.runs.single;
-      expect(record.scope, scope);
-      expect(record.task.goal, 'platform');
-      expect(record.result.ok, isTrue);
-    });
+        expect(result.ok, isTrue, reason: result.error);
+        // Exactly one session opened, for the scope this substrate was built with.
+        expect(envelope.openedSessions, [scope]);
+        // The run was recorded into the named memory: one record, carrying the
+        // task goal and the run's own (successful) result.
+        expect(envelope.runs, hasLength(1));
+        final record = envelope.runs.single;
+        expect(record.scope, scope);
+        expect(record.task.goal, 'platform');
+        expect(record.result.ok, isTrue);
+      },
+    );
 
     test('records the run even when the loop edit is rejected', () async {
-      final result = await substrate.run(const AgentTask(
-        goal: 'platform',
-        inputs: {'parentPath': 'PD00', 'childSegment': 'NOPE'},
-      ));
+      final result = await substrate.run(
+        const AgentTask(
+          goal: 'platform',
+          inputs: {'parentPath': 'PD00', 'childSegment': 'NOPE'},
+        ),
+      );
 
       // The run did not throw; the procedure reported the rejection.
       expect(result.ok, isTrue);

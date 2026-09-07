@@ -67,8 +67,11 @@ final class AuthoredScript {
   });
 
   /// A compact JSON view for the MCP tool result.
-  Map<String, Object?> toJson() =>
-      {'name': name, 'path': path, 'scopes': scopes};
+  Map<String, Object?> toJson() => {
+    'name': name,
+    'path': path,
+    'scopes': scopes,
+  };
 }
 
 /// A stored script as returned by `script_get` / `script_list`.
@@ -99,8 +102,12 @@ final class StoredScript {
   });
 
   /// A compact JSON view for the MCP tool result.
-  Map<String, Object?> toJson() =>
-      {'name': name, 'path': path, 'scopes': scopes, 'source': source};
+  Map<String, Object?> toJson() => {
+    'name': name,
+    'path': path,
+    'scopes': scopes,
+    'source': source,
+  };
 }
 
 /// The declared `main()` entrypoint contract a [ScriptValidation] surfaces.
@@ -148,22 +155,22 @@ final class ScriptEntrypoint {
 
   /// The entrypoint contract when no `main()` is declared.
   const ScriptEntrypoint.absent()
-      : exists = false,
-        isAsync = false,
-        requiredPositional = 0,
-        maxPositional = 0,
-        namedParameters = const [];
+    : exists = false,
+      isAsync = false,
+      requiredPositional = 0,
+      maxPositional = 0,
+      namedParameters = const [];
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'exists': exists,
-        if (exists) ...{
-          'isAsync': isAsync,
-          'requiredPositional': requiredPositional,
-          'maxPositional': maxPositional,
-          'namedParameters': namedParameters,
-        },
-      };
+    'exists': exists,
+    if (exists) ...{
+      'isAsync': isAsync,
+      'requiredPositional': requiredPositional,
+      'maxPositional': maxPositional,
+      'namedParameters': namedParameters,
+    },
+  };
 }
 
 /// The result of `script_validate`: whether the script is acceptable, the
@@ -198,10 +205,10 @@ final class ScriptValidation {
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'ok': ok,
-        'diagnostics': diagnostics,
-        if (entrypoint != null) 'entrypoint': entrypoint!.toJson(),
-      };
+    'ok': ok,
+    'diagnostics': diagnostics,
+    if (entrypoint != null) 'entrypoint': entrypoint!.toJson(),
+  };
 }
 
 /// The result of `script_run`: the three captured output channels.
@@ -240,12 +247,12 @@ final class ScriptRunResult {
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'ok': ok,
-        'stdout': stdout,
-        'result': result,
-        if (error != null) 'error': error,
-        if (stack != null) 'stack': stack,
-      };
+    'ok': ok,
+    'stdout': stdout,
+    'result': result,
+    if (error != null) 'error': error,
+    if (stack != null) 'stack': stack,
+  };
 }
 
 /// Authors, validates, runs, and enumerates D4rt scripts under named scopes
@@ -281,15 +288,18 @@ final class ScriptTools {
     List<String> scopes = const ['spec'],
   }) {
     _assertValidName(name);
-    final header = '$_nameHeader $name\n$_scopesHeader ${scopes.join(', ')}\n\n';
+    final header =
+        '$_nameHeader $name\n$_scopesHeader ${scopes.join(', ')}\n\n';
     final path = store.store(name, '$header$source');
     return AuthoredScript(
-        name: name, path: path, scopes: List.unmodifiable(scopes));
+      name: name,
+      path: path,
+      scopes: List.unmodifiable(scopes),
+    );
   }
 
   /// `script_list` — every stored script, with its recorded scopes.
-  List<StoredScript> list() =>
-      [for (final name in store.names()) get(name)];
+  List<StoredScript> list() => [for (final name in store.names()) get(name)];
 
   /// `script_get` — the stored script named [name]. Throws [ArgumentError] when
   /// no such script exists.
@@ -369,8 +379,11 @@ final class ScriptTools {
     // `validate` produces, instead of surfacing an opaque interpreter arity
     // error deep inside the run.
     if (args != null) {
-      final contract =
-          validate(source: resolved.source, scopes: scopeNames, args: args);
+      final contract = validate(
+        source: resolved.source,
+        scopes: scopeNames,
+        args: args,
+      );
       if (!contract.ok) {
         return ScriptRunResult(
           stdout: '',
@@ -391,8 +404,10 @@ final class ScriptTools {
         final interpreter = D4rt();
         env.applyTo(interpreter);
         try {
-          final returned =
-              interpreter.execute(source: resolved.source, positionalArgs: args);
+          final returned = interpreter.execute(
+            source: resolved.source,
+            positionalArgs: args,
+          );
           result = returned is Future ? await returned : returned;
         } catch (e, s) {
           error = e;

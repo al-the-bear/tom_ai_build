@@ -67,21 +67,21 @@ final class MemRecallHit {
   });
 
   factory MemRecallHit._from(SpecRecallHit h) => MemRecallHit(
-        path: h.path,
-        score: h.score,
-        modes: [for (final m in h.modes) m.name],
-        kind: h.kind?.name,
-        headline: h.headline,
-      );
+    path: h.path,
+    score: h.score,
+    modes: [for (final m in h.modes) m.name],
+    kind: h.kind?.name,
+    headline: h.headline,
+  );
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'path': path,
-        'score': score,
-        'modes': modes,
-        if (kind != null) 'kind': kind,
-        if (headline != null) 'headline': headline,
-      };
+    'path': path,
+    'score': score,
+    'modes': modes,
+    if (kind != null) 'kind': kind,
+    if (headline != null) 'headline': headline,
+  };
 }
 
 /// The `mem_recall` result: the ranked hits and whether the recall degraded to
@@ -104,9 +104,9 @@ final class MemRecallResult {
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'hits': [for (final h in hits) h.toJson()],
-        'degraded': degraded,
-      };
+    'hits': [for (final h in hits) h.toJson()],
+    'degraded': degraded,
+  };
 }
 
 /// The `mem_refresh` result: what the manual re-index did.
@@ -144,12 +144,12 @@ final class MemRefreshResult {
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'refreshed': refreshed,
-        'embedded': embedded,
-        'unchanged': unchanged,
-        'edges': edges,
-        'removed': removed,
-      };
+    'refreshed': refreshed,
+    'embedded': embedded,
+    'unchanged': unchanged,
+    'edges': edges,
+    'removed': removed,
+  };
 }
 
 /// Performs the `mem_refresh` re-index, returning what it did. The editor wires
@@ -181,12 +181,17 @@ final class MemoryTools {
     // When filtering by a single mode, recall a wider candidate set so the
     // post-filter top-[k] is not starved by the other modes' hits.
     final internalK = mode == MemRecallMode.fused ? k : (k < 50 ? 50 : k);
-    final result = await recall.recall(SpecRecallQuery(text: query, k: internalK));
+    final result = await recall.recall(
+      SpecRecallQuery(text: query, k: internalK),
+    );
 
     var hits = result.hits;
     if (mode != MemRecallMode.fused) {
       final want = _modeFor(mode);
-      hits = [for (final h in hits) if (h.modes.contains(want)) h];
+      hits = [
+        for (final h in hits)
+          if (h.modes.contains(want)) h,
+      ];
     }
     return MemRecallResult(
       hits: [for (final h in hits.take(k)) MemRecallHit._from(h)],
@@ -203,9 +208,9 @@ final class MemoryTools {
   }
 
   static SpecRecallMode _modeFor(MemRecallMode mode) => switch (mode) {
-        MemRecallMode.fused => SpecRecallMode.lexical, // unreachable
-        MemRecallMode.lexical => SpecRecallMode.lexical,
-        MemRecallMode.symbolic => SpecRecallMode.symbolic,
-        MemRecallMode.vector => SpecRecallMode.vector,
-      };
+    MemRecallMode.fused => SpecRecallMode.lexical, // unreachable
+    MemRecallMode.lexical => SpecRecallMode.lexical,
+    MemRecallMode.symbolic => SpecRecallMode.symbolic,
+    MemRecallMode.vector => SpecRecallMode.vector,
+  };
 }

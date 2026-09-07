@@ -69,27 +69,42 @@ ScriptScope specScope(
       BridgedLibrary(specApiLibraryName, (interpreter) {
         interpreter.registerBridgedClass(specApiBridgedClass(), specApiLibrary);
         interpreter.registerGlobalVariable(
-            specApiGlobalName, api, specApiLibrary);
+          specApiGlobalName,
+          api,
+          specApiLibrary,
+        );
       }),
       if (model != null)
         BridgedLibrary(specModelApiLibraryName, (interpreter) {
           final m = model();
           if (m == null) return;
           interpreter.registerBridgedClass(
-              specModelApiBridgedClass(), specModelApiLibrary);
+            specModelApiBridgedClass(),
+            specModelApiLibrary,
+          );
           interpreter.registerGlobalVariable(
-              specModelApiGlobalName, SpecModelApi(m), specModelApiLibrary);
+            specModelApiGlobalName,
+            SpecModelApi(m),
+            specModelApiLibrary,
+          );
         }),
       if (search != null)
         BridgedLibrary(specSearchApiLibraryName, (interpreter) {
           final engine = search();
           if (engine == null) return;
           interpreter.registerBridgedClass(
-              specSearchApiBridgedClass(), specSearchApiLibrary);
+            specSearchApiBridgedClass(),
+            specSearchApiLibrary,
+          );
           interpreter.registerBridgedClass(
-              specSearchCursorBridgedClass(), specSearchApiLibrary);
+            specSearchCursorBridgedClass(),
+            specSearchApiLibrary,
+          );
           interpreter.registerGlobalVariable(
-              specSearchApiGlobalName, SpecSearchApi(engine), specSearchApiLibrary);
+            specSearchApiGlobalName,
+            SpecSearchApi(engine),
+            specSearchApiLibrary,
+          );
         }),
     ],
   );

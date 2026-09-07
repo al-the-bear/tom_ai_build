@@ -58,12 +58,11 @@ final class _FakeEmbeddingService implements EmbeddingService {
   }) async {
     probeCalls++;
     lastProbePrevious = previousIdentity;
-    final probe =
-        EmbeddingResult(vec: _vecFor(probeText), modelIdentity: _identity);
-    return EmbeddingProbeResult(
-      currentIdentity: _identity,
-      probeResult: probe,
+    final probe = EmbeddingResult(
+      vec: _vecFor(probeText),
+      modelIdentity: _identity,
     );
+    return EmbeddingProbeResult(currentIdentity: _identity, probeResult: probe);
   }
 
   @override
@@ -91,40 +90,44 @@ void main() {
       expect(fake.batchCalls, 0);
     });
 
-    test('the batch embedder preserves order and length, one service call',
-        () async {
-      final fake = _FakeEmbeddingService();
-      final embedder = SpecProviderEmbedder(fake);
+    test(
+      'the batch embedder preserves order and length, one service call',
+      () async {
+        final fake = _FakeEmbeddingService();
+        final embedder = SpecProviderEmbedder(fake);
 
-      final texts = ['a', 'bb', 'ccc'];
-      final vecs = await embedder.batchEmbedder(texts);
+        final texts = ['a', 'bb', 'ccc'];
+        final vecs = await embedder.batchEmbedder(texts);
 
-      expect(fake.batchCalls, 1);
-      expect(vecs, hasLength(texts.length));
-      // result[i] is the embedding of texts[i] — seed is text length, so the
-      // first component echoes the input length and proves the alignment.
-      for (var i = 0; i < texts.length; i++) {
-        expect(vecs[i].values.first, texts[i].length.toDouble());
-      }
-    });
+        expect(fake.batchCalls, 1);
+        expect(vecs, hasLength(texts.length));
+        // result[i] is the embedding of texts[i] — seed is text length, so the
+        // first component echoes the input length and proves the alignment.
+        for (var i = 0; i < texts.length; i++) {
+          expect(vecs[i].values.first, texts[i].length.toDouble());
+        }
+      },
+    );
 
-    test('probe delegates to the service and threads previousIdentity',
-        () async {
-      final fake = _FakeEmbeddingService();
-      final embedder = SpecProviderEmbedder(fake);
+    test(
+      'probe delegates to the service and threads previousIdentity',
+      () async {
+        final fake = _FakeEmbeddingService();
+        final embedder = SpecProviderEmbedder(fake);
 
-      const previous = EmbeddingModelIdentity(
-        providerId: 'fake:test',
-        modelId: 'fake-embed',
-        dims: 4,
-        normalized: false, // differs → would be drift if compared
-      );
-      final result = await embedder.probe(previousIdentity: previous);
+        const previous = EmbeddingModelIdentity(
+          providerId: 'fake:test',
+          modelId: 'fake-embed',
+          dims: 4,
+          normalized: false, // differs → would be drift if compared
+        );
+        final result = await embedder.probe(previousIdentity: previous);
 
-      expect(fake.probeCalls, 1);
-      expect(fake.lastProbePrevious, previous);
-      expect(result.currentIdentity, _identity);
-    });
+        expect(fake.probeCalls, 1);
+        expect(fake.lastProbePrevious, previous);
+        expect(result.currentIdentity, _identity);
+      },
+    );
 
     test('close delegates to the wrapped service', () async {
       final fake = _FakeEmbeddingService();

@@ -23,27 +23,31 @@ import 'package:tom_spec_engine/dartscript.b.dart';
 /// the script made — the two access paths share one representation
 /// (`llm_and_d4rt_tools.md` §3).
 SpecModel _fixtureModel() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'D00SolutionBlueprint', 'title': 'Solution Blueprint', 'sectionId': 'SBP00'},
-      ],
-      'classes': {
-        'D00SolutionBlueprint': {
-          'name': 'D00SolutionBlueprint',
-          'sectionId': 'SBP00',
-          'doc': 'Root of a solution blueprint document.',
-          'fields': [
-            {
-              'name': 'vision',
-              'kind': 'content',
-              'sectionId': 'SBP00-VIS',
-              'contentType': 'text',
-              'doc': 'Why the system exists.',
-            },
-          ],
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'D00SolutionBlueprint',
+      'title': 'Solution Blueprint',
+      'sectionId': 'SBP00',
+    },
+  ],
+  'classes': {
+    'D00SolutionBlueprint': {
+      'name': 'D00SolutionBlueprint',
+      'sectionId': 'SBP00',
+      'doc': 'Root of a solution blueprint document.',
+      'fields': [
+        {
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'SBP00-VIS',
+          'contentType': 'text',
+          'doc': 'Why the system exists.',
         },
-      },
-    });
+      ],
+    },
+  },
+});
 
 /// The D4rt script: imports ONLY the bridged SOM packages (no engine-internal
 /// access) and exercises the typed facade, the generic runtime, and the query
@@ -90,10 +94,8 @@ void main() {
 
     test('script drives typed + generic API and a query against the native '
         'document, and native code sees every edit', () {
-      final result = d4rt.execute(
-        source: _script,
-        positionalArgs: [doc, model],
-      ) as Map;
+      final result =
+          d4rt.execute(source: _script, positionalArgs: [doc, model]) as Map;
 
       // The script's own observations (read back inside the sandbox).
       expect(result['typedReadBack'], 'Vision via typed facade');
@@ -101,11 +103,16 @@ void main() {
 
       // The decisive check: native code's *own* document object carries the
       // edits the script made — same in-memory representation, both paths.
-      expect(doc.content('SBP/content'), 'Vision via typed facade',
-          reason: 'typed facade write must land in the native document');
-      expect(doc.content('SBP00/SBP00-VIS'),
-          'Deliver a resilient rollout platform.',
-          reason: 'generic write must land in the native document');
+      expect(
+        doc.content('SBP/content'),
+        'Vision via typed facade',
+        reason: 'typed facade write must land in the native document',
+      );
+      expect(
+        doc.content('SBP00/SBP00-VIS'),
+        'Deliver a resilient rollout platform.',
+        reason: 'generic write must land in the native document',
+      );
     });
 
     test('a query the script runs returns a live cursor native code can also '

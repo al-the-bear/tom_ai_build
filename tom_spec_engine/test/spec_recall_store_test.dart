@@ -25,30 +25,39 @@ import 'support/vector_runtime.dart';
 /// `package:tom_brain_memory` owns it — and explains why it is probed rather
 /// than inferred from the binary's presence.
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'fields': [
+        {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'SIT',
+          'type': 'CurrentSituation',
+        },
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'fields': [
-            {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
-            {'name': 'situation', 'kind': 'complex', 'sectionId': 'SIT', 'type': 'CurrentSituation'},
-          ],
-        },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
-          'sectionId': 'CS00',
-          'mapsTo': 'PD00',
-          'fields': [
-            {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
-          ],
-        },
-      },
-    });
+    },
+    'CurrentSituation': {
+      'name': 'CurrentSituation',
+      'sectionId': 'CS00',
+      'mapsTo': 'PD00',
+      'fields': [
+        {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
+      ],
+    },
+  },
+});
 
 void main() {
   // Vector-runtime precondition — probed, not proxied: a present vec0 binary
@@ -103,37 +112,48 @@ void main() {
   }
 
   MemoryScope scopeFor(String document) => MemoryScope(
-        application: 'tomspecs',
-        session: 'phase3-review',
-        document: document,
-      );
+    application: 'tomspecs',
+    session: 'phase3-review',
+    document: document,
+  );
 
   group('SpecRecall (fused over a real vector tier)', () {
-    test('a section is surfaced by both the lexical and vector modes', () async {
-      final memory = openMemory();
-      final f = fixture();
-      final mem = await memory.openDocument(scopeFor('fused'));
-      final graph = SpecRagGraph.fromProjections(f.engine.projectNodes());
-      await mem.indexDocument(graph);
+    test(
+      'a section is surfaced by both the lexical and vector modes',
+      () async {
+        final memory = openMemory();
+        final f = fixture();
+        final mem = await memory.openDocument(scopeFor('fused'));
+        final graph = SpecRagGraph.fromProjections(f.engine.projectNodes());
+        await mem.indexDocument(graph);
 
-      final index = StructuralLexicalIndex()..rebuild(f.engine.projectNodes());
-      final recall = SpecRecall(
-        index: index,
-        vectorRecall: (query, {k = 10}) => mem.recallSections(query, k: k),
-        graph: graph,
-      );
+        final index = StructuralLexicalIndex()
+          ..rebuild(f.engine.projectNodes());
+        final recall = SpecRecall(
+          index: index,
+          vectorRecall: (query, {k = 10}) => mem.recallSections(query, k: k),
+          graph: graph,
+        );
 
-      // The query is VIS's exact text, so the deterministic embedder makes VIS
-      // the top vector hit; it also matches "platform"/"rollout" lexically.
-      final result =
-          await recall.recall(const SpecRecallQuery(text: 'resilient rollout platform'));
+        // The query is VIS's exact text, so the deterministic embedder makes VIS
+        // the top vector hit; it also matches "platform"/"rollout" lexically.
+        final result = await recall.recall(
+          const SpecRecallQuery(text: 'resilient rollout platform'),
+        );
 
-      expect(result.tier2Warm, isTrue);
-      expect(result.degraded, isFalse);
-      final vis = result.hits.firstWhere((h) => h.path == 'PD00/VIS');
-      expect(vis.modes,
-          containsAll(<SpecRecallMode>{SpecRecallMode.lexical, SpecRecallMode.vector}));
-    }, skip: skipNoBinary);
+        expect(result.tier2Warm, isTrue);
+        expect(result.degraded, isFalse);
+        final vis = result.hits.firstWhere((h) => h.path == 'PD00/VIS');
+        expect(
+          vis.modes,
+          containsAll(<SpecRecallMode>{
+            SpecRecallMode.lexical,
+            SpecRecallMode.vector,
+          }),
+        );
+      },
+      skip: skipNoBinary,
+    );
   });
 
   group('indexChangedSections (embed changed only)', () {
@@ -142,12 +162,14 @@ void main() {
       final f = fixture();
       final mem = await memory.openDocument(scopeFor('incremental'));
       await mem.indexDocument(
-          SpecRagGraph.fromProjections(f.engine.projectNodes()));
+        SpecRagGraph.fromProjections(f.engine.projectNodes()),
+      );
 
       // Edit one section; SUM and DET are untouched.
       f.doc.setContent('PD00/VIS', 'a wholly different vision statement');
-      final changedGraph =
-          SpecRagGraph.fromProjections(f.engine.projectNodes());
+      final changedGraph = SpecRagGraph.fromProjections(
+        f.engine.projectNodes(),
+      );
 
       embedCalls = 0;
       final result = await mem.indexChangedSections(
@@ -161,7 +183,9 @@ void main() {
       expect(result.unchanged, 2);
 
       // The new text is now recallable on the changed section.
-      final hits = await mem.recallSections('a wholly different vision statement');
+      final hits = await mem.recallSections(
+        'a wholly different vision statement',
+      );
       expect(hits.map((h) => h.path), contains('PD00/VIS'));
       expect(
         hits.firstWhere((h) => h.path == 'PD00/VIS').text,
@@ -169,23 +193,27 @@ void main() {
       );
     }, skip: skipNoBinary);
 
-    test('a removed section is forgotten and stops being recalled', () async {
-      final memory = openMemory();
-      final f = fixture();
-      final mem = await memory.openDocument(scopeFor('removal'));
-      final graph = SpecRagGraph.fromProjections(f.engine.projectNodes());
-      await mem.indexDocument(graph);
+    test(
+      'a removed section is forgotten and stops being recalled',
+      () async {
+        final memory = openMemory();
+        final f = fixture();
+        final mem = await memory.openDocument(scopeFor('removal'));
+        final graph = SpecRagGraph.fromProjections(f.engine.projectNodes());
+        await mem.indexDocument(graph);
 
-      final result = await mem.indexChangedSections(
-        graph,
-        removedPaths: const ['PD00/SIT/DET'],
-      );
-      expect(result.removed, 1);
+        final result = await mem.indexChangedSections(
+          graph,
+          removedPaths: const ['PD00/SIT/DET'],
+        );
+        expect(result.removed, 1);
 
-      final hits = await mem.recallSections('current situation analysis');
-      expect(hits.map((h) => h.path), isNot(contains('PD00/SIT/DET')));
-      expect(await mem.edgesFrom('PD00/SIT/DET'), isEmpty);
-    }, skip: skipNoBinary);
+        final hits = await mem.recallSections('current situation analysis');
+        expect(hits.map((h) => h.path), isNot(contains('PD00/SIT/DET')));
+        expect(await mem.edgesFrom('PD00/SIT/DET'), isEmpty);
+      },
+      skip: skipNoBinary,
+    );
 
     test('re-running with no real changes embeds nothing', () async {
       final memory = openMemory();

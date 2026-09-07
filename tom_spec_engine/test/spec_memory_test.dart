@@ -63,73 +63,82 @@ void main() {
   }
 
   group('SpecMemory façade', () {
-    test('MemoryScope validates its three levels and derives a profile name',
-        () {
-      final scope = MemoryScope(
-        application: 'tomspecs',
-        session: 'phase3-review',
-        document: 'pd00-acme',
-      );
-      // The memory partition ("named memory") is the document.
-      expect(scope.profileName, 'pd00-acme');
-      expect(scope.application, 'tomspecs');
-      expect(scope.session, 'phase3-review');
+    test(
+      'MemoryScope validates its three levels and derives a profile name',
+      () {
+        final scope = MemoryScope(
+          application: 'tomspecs',
+          session: 'phase3-review',
+          document: 'pd00-acme',
+        );
+        // The memory partition ("named memory") is the document.
+        expect(scope.profileName, 'pd00-acme');
+        expect(scope.application, 'tomspecs');
+        expect(scope.session, 'phase3-review');
 
-      // Components that could escape the profiles directory are rejected.
-      expect(
-        () => MemoryScope(
-            application: 'a', session: 's', document: '../escape'),
-        throwsArgumentError,
-      );
-      expect(
-        () => MemoryScope(application: '', session: 's', document: 'd'),
-        throwsArgumentError,
-      );
-    });
+        // Components that could escape the profiles directory are rejected.
+        expect(
+          () => MemoryScope(
+            application: 'a',
+            session: 's',
+            document: '../escape',
+          ),
+          throwsArgumentError,
+        );
+        expect(
+          () => MemoryScope(application: '', session: 's', document: 'd'),
+          throwsArgumentError,
+        );
+      },
+    );
 
-    test('embed() returns a fixed-dimension vector through the façade',
-        () async {
-      final memory = openMemory();
-      final vec = await memory.embed('staged rollout concept');
-      expect(vec.dimension, 768);
-      // Never opens the store, so the weaker precondition is enough: this runs
-      // wherever the packaged binary exists, working runtime or not.
-    }, skip: vectorRuntime.binariesSkipReason);
+    test(
+      'embed() returns a fixed-dimension vector through the façade',
+      () async {
+        final memory = openMemory();
+        final vec = await memory.embed('staged rollout concept');
+        expect(vec.dimension, 768);
+        // Never opens the store, so the weaker precondition is enough: this runs
+        // wherever the packaged binary exists, working runtime or not.
+      },
+      skip: vectorRuntime.binariesSkipReason,
+    );
 
-    test('remember then recall the same string finds it in-process', () async {
-      final memory = openMemory();
-      final scope = MemoryScope(
-        application: 'tomspecs',
-        session: 'phase3-review',
-        document: 'pd00-acme',
-      );
-      const text = 'The system rollout concept covers staged deployment.';
+    test(
+      'remember then recall the same string finds it in-process',
+      () async {
+        final memory = openMemory();
+        final scope = MemoryScope(
+          application: 'tomspecs',
+          session: 'phase3-review',
+          document: 'pd00-acme',
+        );
+        const text = 'The system rollout concept covers staged deployment.';
 
-      final doc = await memory.openDocument(scope);
-      await doc.remember(text);
+        final doc = await memory.openDocument(scope);
+        await doc.remember(text);
 
-      final hits = await doc.recall(text);
-      expect(hits, isNotEmpty);
-      expect(hits.map((h) => h.text), contains(text));
-    }, skip: skipNoBinary);
+        final hits = await doc.recall(text);
+        expect(hits, isNotEmpty);
+        expect(hits.map((h) => h.text), contains(text));
+      },
+      skip: skipNoBinary,
+    );
 
     test('two documents never cross-talk (profile isolation)', () async {
       final memory = openMemory();
       const text = 'Authorization concept: role-based access control.';
 
       final docA = await memory.openDocument(
-        MemoryScope(
-            application: 'tomspecs', session: 'p3', document: 'doc-a'),
+        MemoryScope(application: 'tomspecs', session: 'p3', document: 'doc-a'),
       );
       await docA.remember(text);
 
       final docB = await memory.openDocument(
-        MemoryScope(
-            application: 'tomspecs', session: 'p3', document: 'doc-b'),
+        MemoryScope(application: 'tomspecs', session: 'p3', document: 'doc-b'),
       );
       final hits = await docB.recall(text);
       expect(hits, isEmpty);
     }, skip: skipNoBinary);
   });
 }
-

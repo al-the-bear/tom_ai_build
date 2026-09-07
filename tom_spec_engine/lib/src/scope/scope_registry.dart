@@ -44,8 +44,8 @@ final class ScopeProfile {
     required this.name,
     required List<String> scopeNames,
     List<String> assetDirs = const [],
-  })  : scopeNames = List.unmodifiable(scopeNames),
-        assetDirs = List.unmodifiable(assetDirs);
+  }) : scopeNames = List.unmodifiable(scopeNames),
+       assetDirs = List.unmodifiable(assetDirs);
 
   @override
   String toString() => 'ScopeProfile($name: ${scopeNames.join(', ')})';
@@ -75,10 +75,10 @@ final class RunEnvironment {
     required List<BridgedLibrary> libraries,
     required List<ScopeGlobal> globals,
     required List<Permission> grants,
-  })  : scopeNames = List.unmodifiable(scopeNames),
-        libraries = List.unmodifiable(libraries),
-        globals = List.unmodifiable(globals),
-        grants = List.unmodifiable(grants);
+  }) : scopeNames = List.unmodifiable(scopeNames),
+       libraries = List.unmodifiable(libraries),
+       globals = List.unmodifiable(globals),
+       grants = List.unmodifiable(grants);
 
   /// Applies this environment to [interpreter]: registers each bridged library,
   /// injects each global, and grants each permission. Idempotent registrations

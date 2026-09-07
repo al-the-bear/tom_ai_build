@@ -146,7 +146,9 @@ final class SpecRagGraph {
   /// cross-document target (the common case for a single open spec) is left
   /// unlinked rather than dangling, since the `llm_and_d4rt_tools.md` §9.1
   /// named memory is per-document.
-  factory SpecRagGraph.fromProjections(Iterable<SpecNodeProjection> projections) {
+  factory SpecRagGraph.fromProjections(
+    Iterable<SpecNodeProjection> projections,
+  ) {
     final list = projections.toList(growable: false);
     final paths = {for (final p in list) p.path};
 
@@ -164,30 +166,44 @@ final class SpecRagGraph {
 
     for (final p in list) {
       final parent = _parentOf(p.path, paths);
-      nodes.add(SpecRagNode(
-        path: p.path,
-        sectionId: p.sectionId,
-        kind: p.kind,
-        classId: p.classId,
-        headline: p.headline,
-        parentPath: parent,
-        mapsTo: p.mapsTo,
-        detailedIn: p.detailedIn,
-        text: _renderText(p),
-      ));
+      nodes.add(
+        SpecRagNode(
+          path: p.path,
+          sectionId: p.sectionId,
+          kind: p.kind,
+          classId: p.classId,
+          headline: p.headline,
+          parentPath: parent,
+          mapsTo: p.mapsTo,
+          detailedIn: p.detailedIn,
+          text: _renderText(p),
+        ),
+      );
 
       if (parent != null) {
-        edges.add(SpecRagEdge(
-          fromPath: p.path,
-          toPath: parent,
-          kind: SpecRagEdgeKind.tree,
-        ));
+        edges.add(
+          SpecRagEdge(
+            fromPath: p.path,
+            toPath: parent,
+            kind: SpecRagEdgeKind.tree,
+          ),
+        );
       }
 
       _addProjectionEdge(
-        edges, p.path, p.mapsTo, sectionIdToPath, SpecRagEdgeKind.mapsTo);
+        edges,
+        p.path,
+        p.mapsTo,
+        sectionIdToPath,
+        SpecRagEdgeKind.mapsTo,
+      );
       _addProjectionEdge(
-        edges, p.path, p.detailedIn, sectionIdToPath, SpecRagEdgeKind.detailedIn);
+        edges,
+        p.path,
+        p.detailedIn,
+        sectionIdToPath,
+        SpecRagEdgeKind.detailedIn,
+      );
     }
 
     return SpecRagGraph(nodes: nodes, edges: edges);

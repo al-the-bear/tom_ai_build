@@ -10,38 +10,58 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// Done-criterion: index refresh is incremental and search returns correct hits
 /// with no LLM call.
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'fields': [
+        {
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'VIS',
+          'doc': 'Why the system exists.',
+        },
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'SIT',
+          'type': 'CurrentSituation',
+        },
+        {
+          'name': 'risks',
+          'kind': 'list',
+          'sectionId': 'RSK',
+          'elementType': 'Risk',
+          'elementIsComplex': true,
+        },
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'fields': [
-            {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS', 'doc': 'Why the system exists.'},
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
-            {'name': 'situation', 'kind': 'complex', 'sectionId': 'SIT', 'type': 'CurrentSituation'},
-            {'name': 'risks', 'kind': 'list', 'sectionId': 'RSK', 'elementType': 'Risk', 'elementIsComplex': true},
-          ],
-        },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
-          'sectionId': 'CS00',
-          'mapsTo': 'PD00',
-          'fields': [
-            {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
-          ],
-        },
-        'Risk': {
-          'name': 'Risk',
-          'sectionId': 'RISK',
-          'fields': [
-            {'name': 'title', 'kind': 'content', 'sectionId': 'TIT'},
-          ],
-        },
-      },
-    });
+    },
+    'CurrentSituation': {
+      'name': 'CurrentSituation',
+      'sectionId': 'CS00',
+      'mapsTo': 'PD00',
+      'fields': [
+        {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
+      ],
+    },
+    'Risk': {
+      'name': 'Risk',
+      'sectionId': 'RISK',
+      'fields': [
+        {'name': 'title', 'kind': 'content', 'sectionId': 'TIT'},
+      ],
+    },
+  },
+});
 
 void main() {
   late SpecModel model;
@@ -81,13 +101,20 @@ void main() {
 
   group('structural facets', () {
     test('kind filter narrows to a node kind', () {
-      final hits = index.search(const IndexQuery(kinds: {SpecNodeKind.content}));
-      expect(paths(hits), containsAll(['PD00/VIS', 'PD00/SUM', 'PD00/SIT/DET']));
+      final hits = index.search(
+        const IndexQuery(kinds: {SpecNodeKind.content}),
+      );
+      expect(
+        paths(hits),
+        containsAll(['PD00/VIS', 'PD00/SUM', 'PD00/SIT/DET']),
+      );
       expect(paths(hits), isNot(contains('PD00'))); // the root is not content
     });
 
     test('className filter selects nodes of a class', () {
-      final hits = index.search(const IndexQuery(className: 'CurrentSituation'));
+      final hits = index.search(
+        const IndexQuery(className: 'CurrentSituation'),
+      );
       expect(paths(hits), ['PD00/SIT']);
     });
 
@@ -103,21 +130,31 @@ void main() {
 
     test('state facet (non-empty) excludes empty declared leaves', () {
       final hits = index.search(
-          const IndexQuery(kinds: {SpecNodeKind.content}, state: IndexStateFilter.nonEmpty));
-      expect(paths(hits), containsAll(['PD00/VIS', 'PD00/SUM', 'PD00/SIT/DET']));
+        const IndexQuery(
+          kinds: {SpecNodeKind.content},
+          state: IndexStateFilter.nonEmpty,
+        ),
+      );
+      expect(
+        paths(hits),
+        containsAll(['PD00/VIS', 'PD00/SUM', 'PD00/SIT/DET']),
+      );
     });
 
     test('text + facet are AND-combined', () {
       final hits = index.search(
-          const IndexQuery(text: 'platform', sectionIdPrefix: 'SUM'));
+        const IndexQuery(text: 'platform', sectionIdPrefix: 'SUM'),
+      );
       expect(paths(hits), ['PD00/SUM']);
     });
   });
 
   group('incremental refresh', () {
     test('updating one section touches only that section', () {
-      expect(paths(index.search(const IndexQuery(text: 'resilient'))),
-          ['PD00/VIS', 'PD00/SUM']);
+      expect(paths(index.search(const IndexQuery(text: 'resilient'))), [
+        'PD00/VIS',
+        'PD00/SUM',
+      ]);
       final before = index.sectionCount;
 
       doc.setContent('PD00/VIS', 'bar baz quux');
@@ -129,23 +166,25 @@ void main() {
       expect(index.sectionCount, before); // no full rebuild
 
       // VIS no longer matches the old term; the new term hits it.
-      expect(paths(index.search(const IndexQuery(text: 'resilient'))),
-          ['PD00/SUM']);
+      expect(paths(index.search(const IndexQuery(text: 'resilient'))), [
+        'PD00/SUM',
+      ]);
       expect(paths(index.search(const IndexQuery(text: 'bar'))), ['PD00/VIS']);
       // An untouched section's postings are intact.
-      expect(paths(index.search(const IndexQuery(text: 'situation'))),
-          ['PD00/SIT/DET']);
+      expect(paths(index.search(const IndexQuery(text: 'situation'))), [
+        'PD00/SIT/DET',
+      ]);
     });
 
     test('adding then removing a list item refreshes incrementally', () {
       final item = doc.addListItem('PD00/RSK');
       doc.setContent('$item/TIT', 'vendor lockin risk');
-      index.update(changed: [
-        engine.projectNode(item)!,
-        engine.projectNode('$item/TIT')!,
+      index.update(
+        changed: [engine.projectNode(item)!, engine.projectNode('$item/TIT')!],
+      );
+      expect(paths(index.search(const IndexQuery(text: 'lockin'))), [
+        '$item/TIT',
       ]);
-      expect(paths(index.search(const IndexQuery(text: 'lockin'))),
-          ['$item/TIT']);
 
       final afterAdd = index.sectionCount;
       doc.removeListItem(item);

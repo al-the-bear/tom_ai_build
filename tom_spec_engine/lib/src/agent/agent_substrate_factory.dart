@@ -42,7 +42,8 @@ enum AgentSubstrateMode {
 /// (b), Agent-SDK-through-`tom_brain`. The application gets the profile /
 /// session / memory isolation unless it explicitly opts into
 /// [AgentSubstrateMode.direct].
-const AgentSubstrateMode defaultAgentSubstrateMode = AgentSubstrateMode.tomBrain;
+const AgentSubstrateMode defaultAgentSubstrateMode =
+    AgentSubstrateMode.tomBrain;
 
 /// Builds the [AgentSubstrate] for [mode] over the shared [tools].
 ///

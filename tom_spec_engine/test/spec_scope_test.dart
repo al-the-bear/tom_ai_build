@@ -20,14 +20,22 @@ SpecModel _model() {
   final risk = SpecClass(
     name: 'Risk',
     fields: [
-      SpecField(name: 'title', kind: SpecFieldKind.content, sectionId: 'RISK-TITLE'),
+      SpecField(
+        name: 'title',
+        kind: SpecFieldKind.content,
+        sectionId: 'RISK-TITLE',
+      ),
     ],
   );
   final pd = SpecClass(
     name: 'ProjectDefinition',
     sectionId: 'PD00',
     fields: [
-      SpecField(name: 'vision', kind: SpecFieldKind.content, sectionId: 'PD00-VIS'),
+      SpecField(
+        name: 'vision',
+        kind: SpecFieldKind.content,
+        sectionId: 'PD00-VIS',
+      ),
       SpecField(
         name: 'risks',
         kind: SpecFieldKind.list,
@@ -45,7 +53,9 @@ SpecModel _model() {
     ],
   );
   return SpecModel(
-    roots: [SpecRoot(type: 'ProjectDefinition', title: 'PD', sectionId: 'PD00')],
+    roots: [
+      SpecRoot(type: 'ProjectDefinition', title: 'PD', sectionId: 'PD00'),
+    ],
     classes: {'ProjectDefinition': pd, 'Risk': risk},
   );
 }
@@ -109,8 +119,10 @@ class _RecordingController implements SpecController {
     final before = document.captureState();
     final beforeVal = document.content(path);
     document.setContent(path, value);
-    _commit(before,
-        () => _Change('content', path, beforeVal, value.isEmpty ? null : value));
+    _commit(
+      before,
+      () => _Change('content', path, beforeVal, value.isEmpty ? null : value),
+    );
   }
 
   @override
@@ -119,9 +131,10 @@ class _RecordingController implements SpecController {
     final beforeVal = document.formField(path, field);
     document.setFormField(path, field, value);
     _commit(
-        before,
-        () => _Change('form:$field', path, beforeVal,
-            value.isEmpty ? null : value));
+      before,
+      () =>
+          _Change('form:$field', path, beforeVal, value.isEmpty ? null : value),
+    );
   }
 
   @override
@@ -145,8 +158,10 @@ class _RecordingController implements SpecController {
   @override
   String addChild(String parentPath, String childSegment, {String? itemId}) {
     final before = document.captureState();
-    final childPath = SpecNodeCreator(model, document)
-        .add(parentPath, childSegment, itemId: itemId);
+    final childPath = SpecNodeCreator(
+      model,
+      document,
+    ).add(parentPath, childSegment, itemId: itemId);
     _commit(before, () => _Change('add', childPath, null, childPath));
     return childPath;
   }
@@ -235,7 +250,9 @@ $_import
 main() => spec.addChild('PD00', 'PD00-RISK');
 ''');
       expect(childPath, 'PD00/PD00-RISK-1');
-      expect(scripted.log, [const _Change('add', 'PD00/PD00-RISK-1', null, 'PD00/PD00-RISK-1')]);
+      expect(scripted.log, [
+        const _Change('add', 'PD00/PD00-RISK-1', null, 'PD00/PD00-RISK-1'),
+      ]);
       expect(scripted.listItems('PD00/PD00-RISK'), ['PD00/PD00-RISK-1']);
     });
 
@@ -269,14 +286,19 @@ main() => spec.content('PD00/PD00-VIS');
     ScriptScope reflectingScope(_RecordingController c) =>
         specScope(c, model: () => c.model);
 
-    test('scope exposes spec_model_api only when a model provider is given', () {
-      final without = specScope(_controller());
-      expect(without.libraries.map((l) => l.name),
-          isNot(contains('spec_model_api')));
+    test(
+      'scope exposes spec_model_api only when a model provider is given',
+      () {
+        final without = specScope(_controller());
+        expect(
+          without.libraries.map((l) => l.name),
+          isNot(contains('spec_model_api')),
+        );
 
-      final with_ = reflectingScope(_controller());
-      expect(with_.libraries.map((l) => l.name), contains('spec_model_api'));
-    });
+        final with_ = reflectingScope(_controller());
+        expect(with_.libraries.map((l) => l.name), contains('spec_model_api'));
+      },
+    );
 
     test('resolves / kindOf / classOf / sectionId reflect the meta-model', () {
       final c = _controller();
@@ -304,10 +326,12 @@ main() => [for (final ch in model.allowedChildren('PD00')) ch['segment']];
 
     test('reflect returns the full JSON-friendly node descriptor', () {
       final c = _controller();
-      final out = _run(reflectingScope(c), '''
+      final out =
+          _run(reflectingScope(c), '''
 $_modelImport
 main() => model.reflect('PD00');
-''') as Map;
+''')
+              as Map;
       expect(out['resolved'], true);
       expect(out['classId'], 'ProjectDefinition');
       expect(out['sectionId'], 'PD00');
@@ -333,26 +357,32 @@ main() => model.resolves('PD00');
     ScriptScope searchingScope(_RecordingController c) =>
         specScope(c, search: () => engineOf(c));
 
-    test('scope exposes spec_search_api only when a search provider is given',
-        () {
-      final without = specScope(_controller());
-      expect(without.libraries.map((l) => l.name),
-          isNot(contains('spec_search_api')));
+    test(
+      'scope exposes spec_search_api only when a search provider is given',
+      () {
+        final without = specScope(_controller());
+        expect(
+          without.libraries.map((l) => l.name),
+          isNot(contains('spec_search_api')),
+        );
 
-      final with_ = searchingScope(_controller());
-      expect(with_.libraries.map((l) => l.name), contains('spec_search_api'));
-    });
+        final with_ = searchingScope(_controller());
+        expect(with_.libraries.map((l) => l.name), contains('spec_search_api'));
+      },
+    );
 
     test('grep pages matches the live document carries as JSON maps', () {
       final c = _controller()
         ..setContent('PD00/PD00-VIS', 'a bold and clear vision');
-      final out = _run(searchingScope(c), '''
+      final out =
+          _run(searchingScope(c), '''
 $_searchImport
 main() {
   final cur = search.grep('bold');
   return cur.toList();
 }
-''') as List;
+''')
+              as List;
       expect(out, hasLength(1));
       final match = out.single as Map;
       expect(match['path'], 'PD00/PD00-VIS');
@@ -374,9 +404,9 @@ main() {
     });
 
     test('next + take page a cursor forward', () {
-      final c = _controller()
-        ..setContent('PD00/PD00-VIS', 'alpha beta gamma');
-      final out = _run(searchingScope(c), '''
+      final c = _controller()..setContent('PD00/PD00-VIS', 'alpha beta gamma');
+      final out =
+          _run(searchingScope(c), '''
 $_searchImport
 main() {
   final cur = search.grep('alpha');
@@ -384,7 +414,8 @@ main() {
   final rest = cur.take(5);
   return [first == null, rest.length];
 }
-''') as List;
+''')
+              as List;
       expect(out, [false, 0]);
     });
 

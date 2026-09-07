@@ -73,34 +73,43 @@ final class SpecApi {
 /// single controller-bound instance as a global — so the bridge declares no
 /// constructors, only the instance methods.
 BridgedClass specApiBridgedClass() => BridgedClass(
-      nativeType: SpecApi,
-      name: 'SpecApi',
-      isAssignable: (v) => v is SpecApi,
-      methods: {
-        'content': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecApi).content(positionalArgs[0] as String),
-        'formField': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecApi).formField(
-                positionalArgs[0] as String, positionalArgs[1] as String),
-        'listItems': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecApi).listItems(positionalArgs[0] as String),
-        'setContent': (visitor, target, positionalArgs, namedArgs, _) {
-          (target as SpecApi).setContent(
-              positionalArgs[0] as String, positionalArgs[1] as String);
-          return null;
-        },
-        'setFormField': (visitor, target, positionalArgs, namedArgs, _) {
-          (target as SpecApi).setFormField(positionalArgs[0] as String,
-              positionalArgs[1] as String, positionalArgs[2] as String);
-          return null;
-        },
-        'addListItem': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecApi).addListItem(positionalArgs[0] as String),
-        'removeListItem': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecApi).removeListItem(positionalArgs[0] as String),
-        'addChild': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecApi).addChild(
-                positionalArgs[0] as String, positionalArgs[1] as String,
-                itemId: namedArgs['itemId'] as String?),
-      },
-    );
+  nativeType: SpecApi,
+  name: 'SpecApi',
+  isAssignable: (v) => v is SpecApi,
+  methods: {
+    'content': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecApi).content(positionalArgs[0] as String),
+    'formField': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecApi).formField(
+          positionalArgs[0] as String,
+          positionalArgs[1] as String,
+        ),
+    'listItems': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecApi).listItems(positionalArgs[0] as String),
+    'setContent': (visitor, target, positionalArgs, namedArgs, _) {
+      (target as SpecApi).setContent(
+        positionalArgs[0] as String,
+        positionalArgs[1] as String,
+      );
+      return null;
+    },
+    'setFormField': (visitor, target, positionalArgs, namedArgs, _) {
+      (target as SpecApi).setFormField(
+        positionalArgs[0] as String,
+        positionalArgs[1] as String,
+        positionalArgs[2] as String,
+      );
+      return null;
+    },
+    'addListItem': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecApi).addListItem(positionalArgs[0] as String),
+    'removeListItem': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecApi).removeListItem(positionalArgs[0] as String),
+    'addChild': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecApi).addChild(
+          positionalArgs[0] as String,
+          positionalArgs[1] as String,
+          itemId: namedArgs['itemId'] as String?,
+        ),
+  },
+);

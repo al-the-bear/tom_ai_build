@@ -13,38 +13,58 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// is covered by `spec_rag_store_test.dart` (which needs the bundled vec0
 /// binary).
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'fields': [
+        {
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'VIS',
+          'doc': 'Why the system exists.',
+        },
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'SIT',
+          'type': 'CurrentSituation',
+        },
+        {
+          'name': 'risks',
+          'kind': 'list',
+          'sectionId': 'RSK',
+          'elementType': 'Risk',
+          'elementIsComplex': true,
+        },
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'fields': [
-            {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS', 'doc': 'Why the system exists.'},
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
-            {'name': 'situation', 'kind': 'complex', 'sectionId': 'SIT', 'type': 'CurrentSituation'},
-            {'name': 'risks', 'kind': 'list', 'sectionId': 'RSK', 'elementType': 'Risk', 'elementIsComplex': true},
-          ],
-        },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
-          'sectionId': 'CS00',
-          'mapsTo': 'PD00',
-          'fields': [
-            {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
-          ],
-        },
-        'Risk': {
-          'name': 'Risk',
-          'sectionId': 'RISK',
-          'fields': [
-            {'name': 'title', 'kind': 'content', 'sectionId': 'TIT'},
-          ],
-        },
-      },
-    });
+    },
+    'CurrentSituation': {
+      'name': 'CurrentSituation',
+      'sectionId': 'CS00',
+      'mapsTo': 'PD00',
+      'fields': [
+        {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
+      ],
+    },
+    'Risk': {
+      'name': 'Risk',
+      'sectionId': 'RISK',
+      'fields': [
+        {'name': 'title', 'kind': 'content', 'sectionId': 'TIT'},
+      ],
+    },
+  },
+});
 
 void main() {
   late SpecModel model;
@@ -66,7 +86,9 @@ void main() {
       g.nodes.firstWhere((n) => n.path == path);
 
   bool hasEdge(SpecRagGraph g, String from, String to, SpecRagEdgeKind kind) =>
-      g.edges.any((e) => e.fromPath == from && e.toPath == to && e.kind == kind);
+      g.edges.any(
+        (e) => e.fromPath == from && e.toPath == to && e.kind == kind,
+      );
 
   group('node building', () {
     test('a node is built for every projected section path', () {
@@ -114,8 +136,12 @@ void main() {
 
     test('the root emits no tree edge', () {
       final g = build();
-      expect(g.edges.any((e) => e.fromPath == 'PD00' && e.kind == SpecRagEdgeKind.tree),
-          isFalse);
+      expect(
+        g.edges.any(
+          (e) => e.fromPath == 'PD00' && e.kind == SpecRagEdgeKind.tree,
+        ),
+        isFalse,
+      );
     });
 
     test('a list item links to its container, not its grandparent', () {
@@ -129,12 +155,15 @@ void main() {
   });
 
   group('projection edges (mentions)', () {
-    test('a @MapsTo class projects a mentions edge to the resolved section', () {
-      // CurrentSituation (the class at PD00/SIT) carries @MapsTo('PD00');
-      // PD00 is the root node, so the projection resolves to a mentions edge.
-      final g = build();
-      expect(hasEdge(g, 'PD00/SIT', 'PD00', SpecRagEdgeKind.mapsTo), isTrue);
-    });
+    test(
+      'a @MapsTo class projects a mentions edge to the resolved section',
+      () {
+        // CurrentSituation (the class at PD00/SIT) carries @MapsTo('PD00');
+        // PD00 is the root node, so the projection resolves to a mentions edge.
+        final g = build();
+        expect(hasEdge(g, 'PD00/SIT', 'PD00', SpecRagEdgeKind.mapsTo), isTrue);
+      },
+    );
 
     test('an unresolvable projection target emits no edge', () {
       // No node carries sectionId 'ZZZ', so nothing links there.

@@ -32,7 +32,8 @@ import '../tools/doc_tools.dart';
 
 /// The library URI a script imports to bring the injected `model` global (and
 /// the `SpecModelApi` type) into scope.
-const String specModelApiLibrary = 'package:tom_spec_engine/spec_model_api.dart';
+const String specModelApiLibrary =
+    'package:tom_spec_engine/spec_model_api.dart';
 
 /// The name of the injected reflection global (`model`).
 const String specModelApiGlobalName = 'model';
@@ -68,7 +69,8 @@ final class SpecModelApi {
   String? classOf(String path) => DocReflection.resolve(model, path).classId;
 
   /// The node's `@SectionId` (field, class, or root), or `null`.
-  String? sectionId(String path) => DocReflection.resolve(model, path).sectionId;
+  String? sectionId(String path) =>
+      DocReflection.resolve(model, path).sectionId;
 
   /// The `@MapsTo` target on the node's class, or `null`.
   String? mapsTo(String path) => DocReflection.resolve(model, path).mapsTo;
@@ -85,16 +87,15 @@ final class SpecModelApi {
   /// (`segment`, `field`, `kind`, `type`/`elementType`, `sectionIdPattern`,
   /// `enumValues`, `annotations`). Empty for leaves / unresolved paths.
   List<Map<String, Object?>> allowedChildren(String path) => [
-        for (final c in DocReflection.resolve(model, path).allowedChildren)
-          c.toJson(),
-      ];
+    for (final c in DocReflection.resolve(model, path).allowedChildren)
+      c.toJson(),
+  ];
 
   /// The class-level annotations on the node at [path], each a JSON-friendly
   /// map (`name`, `arguments`). Empty for leaves / unresolved paths.
   List<Map<String, Object?>> annotations(String path) => [
-        for (final a in DocReflection.resolve(model, path).annotations)
-          a.toJson(),
-      ];
+    for (final a in DocReflection.resolve(model, path).annotations) a.toJson(),
+  ];
 }
 
 /// The [BridgedClass] that exposes [SpecModelApi]'s read-only reflection methods
@@ -104,30 +105,29 @@ final class SpecModelApi {
 /// bridge declares no constructors — only the read accessors. No setter or
 /// mutating method is exposed: reflection is strictly read-only.
 BridgedClass specModelApiBridgedClass() => BridgedClass(
-      nativeType: SpecModelApi,
-      name: 'SpecModelApi',
-      isAssignable: (v) => v is SpecModelApi,
-      methods: {
-        'reflect': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecModelApi).reflect(positionalArgs[0] as String),
-        'resolves': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecModelApi).resolves(positionalArgs[0] as String),
-        'kindOf': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecModelApi).kindOf(positionalArgs[0] as String),
-        'classOf': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecModelApi).classOf(positionalArgs[0] as String),
-        'sectionId': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecModelApi).sectionId(positionalArgs[0] as String),
-        'mapsTo': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecModelApi).mapsTo(positionalArgs[0] as String),
-        'detailedIn': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecModelApi).detailedIn(positionalArgs[0] as String),
-        'headline': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecModelApi).headline(positionalArgs[0] as String),
-        'allowedChildren': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecModelApi)
-                .allowedChildren(positionalArgs[0] as String),
-        'annotations': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecModelApi).annotations(positionalArgs[0] as String),
-      },
-    );
+  nativeType: SpecModelApi,
+  name: 'SpecModelApi',
+  isAssignable: (v) => v is SpecModelApi,
+  methods: {
+    'reflect': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecModelApi).reflect(positionalArgs[0] as String),
+    'resolves': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecModelApi).resolves(positionalArgs[0] as String),
+    'kindOf': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecModelApi).kindOf(positionalArgs[0] as String),
+    'classOf': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecModelApi).classOf(positionalArgs[0] as String),
+    'sectionId': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecModelApi).sectionId(positionalArgs[0] as String),
+    'mapsTo': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecModelApi).mapsTo(positionalArgs[0] as String),
+    'detailedIn': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecModelApi).detailedIn(positionalArgs[0] as String),
+    'headline': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecModelApi).headline(positionalArgs[0] as String),
+    'allowedChildren': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecModelApi).allowedChildren(positionalArgs[0] as String),
+    'annotations': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecModelApi).annotations(positionalArgs[0] as String),
+  },
+);

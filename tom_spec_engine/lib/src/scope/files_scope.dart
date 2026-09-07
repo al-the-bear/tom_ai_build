@@ -44,9 +44,14 @@ ScriptScope filesScope(SpecFileFacade facade, {String name = filesScopeName}) {
     libraries: [
       BridgedLibrary(specFilesLibraryName, (interpreter) {
         interpreter.registerBridgedClass(
-            specFileFacadeBridgedClass(), specFilesLibrary);
+          specFileFacadeBridgedClass(),
+          specFilesLibrary,
+        );
         interpreter.registerGlobalVariable(
-            specFilesGlobalName, facade, specFilesLibrary);
+          specFilesGlobalName,
+          facade,
+          specFilesLibrary,
+        );
       }),
     ],
     grants: [
@@ -63,57 +68,71 @@ ScriptScope filesScope(SpecFileFacade facade, {String name = filesScopeName}) {
 /// injects a single facade-bound instance), so the bridge declares no
 /// constructors — only the read and whitelist-guarded write methods.
 BridgedClass specFileFacadeBridgedClass() => BridgedClass(
-      nativeType: SpecFileFacade,
-      name: 'SpecFileFacade',
-      isAssignable: (v) => v is SpecFileFacade,
-      methods: {
-        // read — any path
-        'readText': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecFileFacade).readText(positionalArgs[0] as String),
-        'readLines': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecFileFacade).readLines(positionalArgs[0] as String),
-        'head': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecFileFacade).head(positionalArgs[0] as String,
-                lines: (namedArgs['lines'] as int?) ?? 10),
-        'tail': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecFileFacade).tail(positionalArgs[0] as String,
-                lines: (namedArgs['lines'] as int?) ?? 10),
-        'exists': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecFileFacade).exists(positionalArgs[0] as String),
-        'stat': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecFileFacade).stat(positionalArgs[0] as String),
-        'find': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecFileFacade).find(positionalArgs[0] as String,
-                glob: namedArgs['glob'] as String?,
-                includeAssets: (namedArgs['includeAssets'] as bool?) ?? false),
-        // write — whitelist only
-        'writeText': (visitor, target, positionalArgs, namedArgs, _) {
-          (target as SpecFileFacade).writeText(
-              positionalArgs[0] as String, positionalArgs[1] as String);
-          return null;
-        },
-        'append': (visitor, target, positionalArgs, namedArgs, _) {
-          (target as SpecFileFacade).append(
-              positionalArgs[0] as String, positionalArgs[1] as String);
-          return null;
-        },
-        'createDir': (visitor, target, positionalArgs, namedArgs, _) {
-          (target as SpecFileFacade).createDir(positionalArgs[0] as String);
-          return null;
-        },
-        'copy': (visitor, target, positionalArgs, namedArgs, _) {
-          (target as SpecFileFacade).copy(
-              positionalArgs[0] as String, positionalArgs[1] as String);
-          return null;
-        },
-        'move': (visitor, target, positionalArgs, namedArgs, _) {
-          (target as SpecFileFacade).move(
-              positionalArgs[0] as String, positionalArgs[1] as String);
-          return null;
-        },
-        'delete': (visitor, target, positionalArgs, namedArgs, _) {
-          (target as SpecFileFacade).delete(positionalArgs[0] as String);
-          return null;
-        },
-      },
-    );
+  nativeType: SpecFileFacade,
+  name: 'SpecFileFacade',
+  isAssignable: (v) => v is SpecFileFacade,
+  methods: {
+    // read — any path
+    'readText': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecFileFacade).readText(positionalArgs[0] as String),
+    'readLines': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecFileFacade).readLines(positionalArgs[0] as String),
+    'head': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecFileFacade).head(
+          positionalArgs[0] as String,
+          lines: (namedArgs['lines'] as int?) ?? 10,
+        ),
+    'tail': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecFileFacade).tail(
+          positionalArgs[0] as String,
+          lines: (namedArgs['lines'] as int?) ?? 10,
+        ),
+    'exists': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecFileFacade).exists(positionalArgs[0] as String),
+    'stat': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecFileFacade).stat(positionalArgs[0] as String),
+    'find': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecFileFacade).find(
+          positionalArgs[0] as String,
+          glob: namedArgs['glob'] as String?,
+          includeAssets: (namedArgs['includeAssets'] as bool?) ?? false,
+        ),
+    // write — whitelist only
+    'writeText': (visitor, target, positionalArgs, namedArgs, _) {
+      (target as SpecFileFacade).writeText(
+        positionalArgs[0] as String,
+        positionalArgs[1] as String,
+      );
+      return null;
+    },
+    'append': (visitor, target, positionalArgs, namedArgs, _) {
+      (target as SpecFileFacade).append(
+        positionalArgs[0] as String,
+        positionalArgs[1] as String,
+      );
+      return null;
+    },
+    'createDir': (visitor, target, positionalArgs, namedArgs, _) {
+      (target as SpecFileFacade).createDir(positionalArgs[0] as String);
+      return null;
+    },
+    'copy': (visitor, target, positionalArgs, namedArgs, _) {
+      (target as SpecFileFacade).copy(
+        positionalArgs[0] as String,
+        positionalArgs[1] as String,
+      );
+      return null;
+    },
+    'move': (visitor, target, positionalArgs, namedArgs, _) {
+      (target as SpecFileFacade).move(
+        positionalArgs[0] as String,
+        positionalArgs[1] as String,
+      );
+      return null;
+    },
+    'delete': (visitor, target, positionalArgs, namedArgs, _) {
+      (target as SpecFileFacade).delete(positionalArgs[0] as String);
+      return null;
+    },
+  },
+);

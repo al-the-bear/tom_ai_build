@@ -70,12 +70,8 @@ final class SpecFileFacade {
     List<String> assetDirs = const [],
   }) {
     final root = _canonicalize(workspaceRoot, workspaceRoot);
-    final roots = [
-      for (final dir in writableDirs) _canonicalize(dir, root),
-    ];
-    final assets = [
-      for (final dir in assetDirs) _canonicalize(dir, root),
-    ];
+    final roots = [for (final dir in writableDirs) _canonicalize(dir, root)];
+    final assets = [for (final dir in assetDirs) _canonicalize(dir, root)];
     return SpecFileFacade._(root, roots, assets);
   }
 
@@ -85,8 +81,7 @@ final class SpecFileFacade {
   String readText(String path) => File(_resolve(path)).readAsStringSync();
 
   /// The lines of the file at [path].
-  List<String> readLines(String path) =>
-      File(_resolve(path)).readAsLinesSync();
+  List<String> readLines(String path) => File(_resolve(path)).readAsLinesSync();
 
   /// The first [lines] lines of the file at [path].
   String head(String path, {int lines = 10}) =>
@@ -145,8 +140,9 @@ final class SpecFileFacade {
       final base = Directory(rootPath);
       if (!base.existsSync()) continue;
       for (final e in base.listSync(recursive: true)) {
-        final candidate =
-            usePath ? _relative(e.path, rootPath) : _basename(e.path);
+        final candidate = usePath
+            ? _relative(e.path, rootPath)
+            : _basename(e.path);
         if (re == null || re.hasMatch(candidate)) {
           if (seen.add(e.path)) out.add(e.path);
         }

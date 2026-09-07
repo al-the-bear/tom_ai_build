@@ -16,40 +16,40 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// `risks` is intentionally the **first** field and an addable list, so the
 /// procedure's autonomous "first model-permitted child" selection lands on it.
 SpecModel buildAgentTestModel() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'fields': [
         {
-          'type': 'ProjectDefinition',
-          'title': 'Project Definition',
-          'sectionId': 'PD00',
+          'name': 'risks',
+          'kind': 'list',
+          'sectionId': 'RSK',
+          'sectionIdPattern': r'PD00/RSK-\d+',
+          'elementType': 'Risk',
+          'elementIsComplex': true,
         },
+        {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'fields': [
-            {
-              'name': 'risks',
-              'kind': 'list',
-              'sectionId': 'RSK',
-              'sectionIdPattern': r'PD00/RSK-\d+',
-              'elementType': 'Risk',
-              'elementIsComplex': true,
-            },
-            {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
-          ],
-        },
-        'Risk': {
-          'name': 'Risk',
-          'sectionId': 'RISK',
-          'fields': [
-            {'name': 'title', 'kind': 'content', 'sectionId': 'TIT'},
-          ],
-        },
-      },
-    });
+    },
+    'Risk': {
+      'name': 'Risk',
+      'sectionId': 'RISK',
+      'fields': [
+        {'name': 'title', 'kind': 'content', 'sectionId': 'TIT'},
+      ],
+    },
+  },
+});
 
 /// A single change-log entry the loop's done-criterion compares against.
 class Change {
@@ -138,8 +138,10 @@ class RecordingController implements SpecController {
   @override
   String addChild(String parentPath, String childSegment, {String? itemId}) {
     final before = document.captureState();
-    final childPath = SpecNodeCreator(model, document)
-        .add(parentPath, childSegment, itemId: itemId);
+    final childPath = SpecNodeCreator(
+      model,
+      document,
+    ).add(parentPath, childSegment, itemId: itemId);
     _commit(before, () => Change('add', childPath));
     return childPath;
   }

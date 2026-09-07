@@ -18,21 +18,25 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// Contract (`llm_and_d4rt_tools.md` §8.1): author → validate → run
 /// round-trips, capturing all three output channels.
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'fields': [
+        {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'fields': [
-            {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
-          ],
-        },
-      },
-    });
+    },
+  },
+});
 
 /// A controller that records every effective mutation (the run-mutation tests
 /// assert a script edit lands here exactly like a tool edit).
@@ -116,7 +120,11 @@ void main() {
 
   group('script_author', () {
     test('stores a *.d4rt.dart under agent/scripts and records its scopes', () {
-      final authored = tools.author('x', 'main() {}', scopes: ['spec', 'memory']);
+      final authored = tools.author(
+        'x',
+        'main() {}',
+        scopes: ['spec', 'memory'],
+      );
       expect(authored.name, 'x');
       expect(authored.scopes, ['spec', 'memory']);
       expect(authored.path, endsWith('agent/scripts/x.d4rt.dart'));
@@ -124,8 +132,10 @@ void main() {
     });
 
     test('rejects a name with path separators', () {
-      expect(() => tools.author('../escape', 'main() {}'),
-          throwsA(isA<ArgumentError>()));
+      expect(
+        () => tools.author('../escape', 'main() {}'),
+        throwsA(isA<ArgumentError>()),
+      );
     });
   });
 
@@ -157,17 +167,19 @@ void main() {
       expect(v.diagnostics, isEmpty);
     });
 
-    test('a syntactically broken script reports diagnostics and does not run',
-        () {
-      final v = tools.validate(
-        source: "main() { this is not valid );",
-        scopes: ['spec'],
-      );
-      expect(v.ok, isFalse);
-      expect(v.diagnostics, isNotEmpty);
-      // Validation never executes main, so nothing reached the controller.
-      expect(controller.log, isEmpty);
-    });
+    test(
+      'a syntactically broken script reports diagnostics and does not run',
+      () {
+        final v = tools.validate(
+          source: "main() { this is not valid );",
+          scopes: ['spec'],
+        );
+        expect(v.ok, isFalse);
+        expect(v.diagnostics, isNotEmpty);
+        // Validation never executes main, so nothing reached the controller.
+        expect(controller.log, isEmpty);
+      },
+    );
 
     test('validating a mutating script does not perform the mutation', () {
       tools.validate(
@@ -310,26 +322,32 @@ main() { spec.setContent('PD00/VIS', 'via script'); }
       expect(run.result, 'ROLLOUT');
     });
 
-    test('fails fast on an arg-contract mismatch instead of an opaque error',
-        () async {
-      final run = await tools.run(
-        source: 'main() {}',
-        scopes: ['spec'],
-        args: const ['unexpected'],
-      );
-      expect(run.ok, isFalse);
-      expect(run.error, contains('at most 0'));
-      expect(run.stack, isNull);
-      expect(run.result, isNull);
-      // The contract is checked before execution — nothing reached stdout.
-      expect(run.stdout, isEmpty);
-    });
+    test(
+      'fails fast on an arg-contract mismatch instead of an opaque error',
+      () async {
+        final run = await tools.run(
+          source: 'main() {}',
+          scopes: ['spec'],
+          args: const ['unexpected'],
+        );
+        expect(run.ok, isFalse);
+        expect(run.error, contains('at most 0'));
+        expect(run.stack, isNull);
+        expect(run.result, isNull);
+        // The contract is checked before execution — nothing reached stdout.
+        expect(run.stdout, isEmpty);
+      },
+    );
 
     test('run by name uses the script\'s recorded scopes', () async {
-      tools.author('recallit', '''
+      tools.author(
+        'recallit',
+        '''
 import 'package:tom_spec_engine/memory.dart';
 main() async => await memory.recallPaths('resilient rollout platform');
-''', scopes: ['memory']);
+''',
+        scopes: ['memory'],
+      );
 
       // No scopes passed → the recorded `memory` scope must be applied, so the
       // `memory` global resolves.
@@ -341,14 +359,18 @@ main() async => await memory.recallPaths('resilient rollout platform');
 
   group('round-trip (done-criterion)', () {
     test('author -> validate -> run captures all three channels', () async {
-      final authored = tools.author('greet', '''
+      final authored = tools.author(
+        'greet',
+        '''
 import 'package:tom_spec_engine/spec_api.dart';
 main() {
   print('hello from script');
   spec.setContent('PD00/VIS', 'authored vision');
   return spec.content('PD00/VIS');
 }
-''', scopes: ['spec']);
+''',
+        scopes: ['spec'],
+      );
       expect(authored.path, endsWith('agent/scripts/greet.d4rt.dart'));
 
       final validation = tools.validate(name: 'greet');

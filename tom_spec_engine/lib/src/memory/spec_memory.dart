@@ -137,7 +137,8 @@ final class SpecRagRefreshResult {
   });
 
   @override
-  String toString() => 'SpecRagRefreshResult(embedded: $embedded, '
+  String toString() =>
+      'SpecRagRefreshResult(embedded: $embedded, '
       'unchanged: $unchanged, edges: $edgeCount, removed: $removed)';
 }
 
@@ -237,8 +238,8 @@ final class SpecMemory {
     required this.sqliteVecBinariesRoot,
     required SpecEmbedder embedder,
     SpecBatchEmbedder? batchEmbedder,
-  })  : _embedder = embedder,
-        _batchEmbedder = batchEmbedder;
+  }) : _embedder = embedder,
+       _batchEmbedder = batchEmbedder;
 
   /// The façade's embedding surface. Delegates to the injected embedder; the
   /// provider-backed path (`llm_and_d4rt_tools.md` §9.3) swaps in the Tom Brain
@@ -322,9 +323,9 @@ final class SpecDocumentMemory {
     required SqliteTomBrainMemory store,
     required SpecEmbedder embedder,
     SpecBatchEmbedder? batchEmbedder,
-  })  : _store = store,
-        _embedder = embedder,
-        _batchEmbedder = batchEmbedder;
+  }) : _store = store,
+       _embedder = embedder,
+       _batchEmbedder = batchEmbedder;
 
   /// The producer stamp on every node this engine writes.
   static const Scope _producer = Scope(producer: 'tom_spec_engine');
@@ -405,10 +406,7 @@ final class SpecDocumentMemory {
       await _persistSection(nodes[i], embedding: embeddings?[i]);
     }
     final edgeCount = await _linkEdges(graph.edges);
-    return SpecRagIndexResult(
-      nodeCount: nodes.length,
-      edgeCount: edgeCount,
-    );
+    return SpecRagIndexResult(nodeCount: nodes.length, edgeCount: edgeCount);
   }
 
   /// Embeds [texts] through the bulk surface when one is bound, returning a
@@ -512,10 +510,7 @@ final class SpecDocumentMemory {
     final id = await _store.persist(
       NodeDraft(
         typeName: _sectionType,
-        values: <String, Object?>{
-          'name': node.path,
-          'description': node.text,
-        },
+        values: <String, Object?>{'name': node.path, 'description': node.text},
         embedding: vector,
       ),
       scope: Scope(
@@ -591,10 +586,12 @@ final class SpecDocumentMemory {
     );
     return result.nodes
         .where((node) => node.typeName == _sectionType)
-        .map((node) => SpecRagHit(
-              path: node.values['name'] as String,
-              text: node.values['description'] as String,
-            ))
+        .map(
+          (node) => SpecRagHit(
+            path: node.values['name'] as String,
+            text: node.values['description'] as String,
+          ),
+        )
         .toList(growable: false);
   }
 
@@ -609,17 +606,16 @@ final class SpecDocumentMemory {
     for (final edge in edges) {
       final toPath = _pathByNodeId[edge.to.toString()];
       if (toPath == null) continue;
-      out.add(SpecRagStoredEdge(
-        toPath: toPath,
-        partOf: edge.type == EdgeType.partOf,
-      ));
+      out.add(
+        SpecRagStoredEdge(toPath: toPath, partOf: edge.type == EdgeType.partOf),
+      );
     }
     return out;
   }
 
   static EdgeType _edgeTypeOf(SpecRagEdgeKind kind) => switch (kind) {
-        SpecRagEdgeKind.tree => EdgeType.partOf,
-        SpecRagEdgeKind.mapsTo => EdgeType.mentions,
-        SpecRagEdgeKind.detailedIn => EdgeType.mentions,
-      };
+    SpecRagEdgeKind.tree => EdgeType.partOf,
+    SpecRagEdgeKind.mapsTo => EdgeType.mentions,
+    SpecRagEdgeKind.detailedIn => EdgeType.mentions,
+  };
 }

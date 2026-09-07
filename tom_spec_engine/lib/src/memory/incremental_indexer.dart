@@ -57,11 +57,12 @@ import 'spec_rag_graph.dart' show SpecRagGraph;
 /// exactly [SpecDocumentMemory.indexChangedSections]'s shape, taken as a
 /// callback so the indexer needs no live `vec0` store to be unit-tested and so
 /// the editor can bind a lazily-opened document handle.
-typedef SpecTier2Reindex = Future<SpecRagRefreshResult> Function(
-  SpecRagGraph graph, {
-  required Set<String> changedPaths,
-  required Set<String> removedPaths,
-});
+typedef SpecTier2Reindex =
+    Future<SpecRagRefreshResult> Function(
+      SpecRagGraph graph, {
+      required Set<String> changedPaths,
+      required Set<String> removedPaths,
+    });
 
 /// Supplies the document's *current* node projection (post-edit). Called once
 /// per [SpecIncrementalIndexer.flush]; the indexer keys it by path to resolve
@@ -103,16 +104,17 @@ final class SpecReindexResult {
 
   /// The no-op result of a flush with nothing pending.
   const SpecReindexResult.empty()
-      : tier1 = const IndexUpdateStats(),
-        tier2 = null,
-        changedPaths = const <String>{},
-        removedPaths = const <String>{};
+    : tier1 = const IndexUpdateStats(),
+      tier2 = null,
+      changedPaths = const <String>{},
+      removedPaths = const <String>{};
 
   /// Whether the flush touched nothing.
   bool get isEmpty => changedPaths.isEmpty && removedPaths.isEmpty;
 
   @override
-  String toString() => 'SpecReindexResult(changed: ${changedPaths.length}, '
+  String toString() =>
+      'SpecReindexResult(changed: ${changedPaths.length}, '
       'removed: ${removedPaths.length}, tier2: ${tier2 == null ? 'off' : 'on'})';
 }
 
@@ -190,10 +192,10 @@ final class SpecIncrementalIndexer {
   /// reads the pending set at the moment it runs, so a flush invoked while
   /// another is in flight simply processes whatever remains (often nothing).
   Future<SpecReindexResult> flush() => _enqueue(() {
-        final dirty = Set<String>.from(_pending);
-        _pending.clear();
-        return dirty;
-      });
+    final dirty = Set<String>.from(_pending);
+    _pending.clear();
+    return dirty;
+  });
 
   /// Forces a **full current-state reconcile** of [paths] (a manual
   /// `mem_refresh`, `llm_and_d4rt_tools.md` §9.2) through the **same
@@ -254,7 +256,10 @@ final class SpecIncrementalIndexer {
       }
     }
 
-    final tier1 = index.update(changed: changedProjections, removed: removedPaths);
+    final tier1 = index.update(
+      changed: changedProjections,
+      removed: removedPaths,
+    );
 
     SpecRagRefreshResult? tier2Result;
     final tier2Fn = tier2;

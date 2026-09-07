@@ -254,7 +254,9 @@ class StructuralLexicalIndex {
         if (_matchesFacets(query, entry.value)) entry.key,
     ];
 
-    final terms = query.text == null ? const <String>[] : _tokenize(query.text!);
+    final terms = query.text == null
+        ? const <String>[]
+        : _tokenize(query.text!);
     if (terms.isEmpty) {
       candidates.sort();
       final hits = [for (final path in candidates) _hit(path, 0.0)];
@@ -278,12 +280,12 @@ class StructuralLexicalIndex {
       }
     }
 
-    final hits = [
-      for (final entry in scores.entries) _hit(entry.key, entry.value),
-    ]..sort((a, b) {
-        final byScore = b.score.compareTo(a.score);
-        return byScore != 0 ? byScore : a.path.compareTo(b.path);
-      });
+    final hits =
+        [for (final entry in scores.entries) _hit(entry.key, entry.value)]
+          ..sort((a, b) {
+            final byScore = b.score.compareTo(a.score);
+            return byScore != 0 ? byScore : a.path.compareTo(b.path);
+          });
     return _capped(hits, query.limit);
   }
 
@@ -348,9 +350,7 @@ class StructuralLexicalIndex {
   }
 
   List<IndexHit> _capped(List<IndexHit> hits, int? limit) =>
-      (limit != null && limit < hits.length)
-          ? hits.sublist(0, limit)
-          : hits;
+      (limit != null && limit < hits.length) ? hits.sublist(0, limit) : hits;
 
   bool _matchesFacets(IndexQuery query, _Section section) {
     if (query.kinds != null && !query.kinds!.contains(section.kind)) {

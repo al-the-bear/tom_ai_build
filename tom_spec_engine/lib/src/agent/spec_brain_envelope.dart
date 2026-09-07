@@ -75,12 +75,9 @@ final class SpecBrainSessionEnvelope implements BrainSessionEnvelope {
       },
     );
 
-    runs.add(BrainRunRecord(
-      scope: scope,
-      task: task,
-      result: result,
-      effort: effort,
-    ));
+    runs.add(
+      BrainRunRecord(scope: scope, task: task, result: result, effort: effort),
+    );
     return result;
   }
 

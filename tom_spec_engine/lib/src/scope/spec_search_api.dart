@@ -145,12 +145,11 @@ final class SpecSearchApi {
     String pattern, {
     bool regex = false,
     bool caseInsensitive = false,
-  }) =>
-      SpecSearchCursor(engine.query(SpecQuery(
-        text: pattern,
-        regex: regex,
-        caseInsensitive: caseInsensitive,
-      )));
+  }) => SpecSearchCursor(
+    engine.query(
+      SpecQuery(text: pattern, regex: regex, caseInsensitive: caseInsensitive),
+    ),
+  );
 }
 
 /// A script-facing paging view over a `llm_and_d4rt_tools.md` §6
@@ -172,12 +171,14 @@ final class SpecSearchCursor {
   }
 
   /// Up to [n] further matches (fewer when the cursor exhausts first).
-  List<Map<String, Object?>> take(int n) =>
-      [for (final m in cursor.take(n)) DocSearchMatch.from(m).toJson()];
+  List<Map<String, Object?>> take(int n) => [
+    for (final m in cursor.take(n)) DocSearchMatch.from(m).toJson(),
+  ];
 
   /// Every remaining match, draining the cursor.
-  List<Map<String, Object?>> toList() =>
-      [for (final m in cursor.toList()) DocSearchMatch.from(m).toJson()];
+  List<Map<String, Object?>> toList() => [
+    for (final m in cursor.toList()) DocSearchMatch.from(m).toJson(),
+  ];
 
   /// How many matches remain from the current position, re-validated against the
   /// live document, without consuming any.
@@ -191,37 +192,38 @@ final class SpecSearchCursor {
 /// bridge declares no constructors — only the read accessors. Each returns a
 /// [SpecSearchCursor] the script pages; no setter or mutating method is exposed.
 BridgedClass specSearchApiBridgedClass() => BridgedClass(
-      nativeType: SpecSearchApi,
-      name: 'SpecSearchApi',
-      isAssignable: (v) => v is SpecSearchApi,
-      methods: {
-        'query': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecSearchApi)
-                .query(positionalArgs[0] as Map<Object?, Object?>),
-        'grep': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecSearchApi).grep(
-              positionalArgs[0] as String,
-              regex: (namedArgs['regex'] as bool?) ?? false,
-              caseInsensitive: (namedArgs['caseInsensitive'] as bool?) ?? false,
-            ),
-      },
-    );
+  nativeType: SpecSearchApi,
+  name: 'SpecSearchApi',
+  isAssignable: (v) => v is SpecSearchApi,
+  methods: {
+    'query': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecSearchApi).query(
+          positionalArgs[0] as Map<Object?, Object?>,
+        ),
+    'grep': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecSearchApi).grep(
+          positionalArgs[0] as String,
+          regex: (namedArgs['regex'] as bool?) ?? false,
+          caseInsensitive: (namedArgs['caseInsensitive'] as bool?) ?? false,
+        ),
+  },
+);
 
 /// The [BridgedClass] that exposes [SpecSearchCursor]'s paging methods to a D4rt
 /// script. The cursor is returned by [SpecSearchApi.query] / [SpecSearchApi.grep]
 /// — never constructed from a script — so the bridge declares no constructors.
 BridgedClass specSearchCursorBridgedClass() => BridgedClass(
-      nativeType: SpecSearchCursor,
-      name: 'SpecSearchCursor',
-      isAssignable: (v) => v is SpecSearchCursor,
-      methods: {
-        'next': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecSearchCursor).next(),
-        'take': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecSearchCursor).take(positionalArgs[0] as int),
-        'toList': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecSearchCursor).toList(),
-        'count': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as SpecSearchCursor).count(),
-      },
-    );
+  nativeType: SpecSearchCursor,
+  name: 'SpecSearchCursor',
+  isAssignable: (v) => v is SpecSearchCursor,
+  methods: {
+    'next': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecSearchCursor).next(),
+    'take': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecSearchCursor).take(positionalArgs[0] as int),
+    'toList': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecSearchCursor).toList(),
+    'count': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as SpecSearchCursor).count(),
+  },
+);

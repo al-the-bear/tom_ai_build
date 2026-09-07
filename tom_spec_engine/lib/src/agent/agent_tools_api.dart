@@ -86,9 +86,11 @@ final class AgentToolsApi {
   /// `doc_add_node` — the `llm_and_d4rt_tools.md` §5 meta-model-validated
   /// creation of child [childSegment] under [parentPath]; a rejected add is a
   /// coded `{ok:false, code, error}` map, never a throw.
-  Map<String, Object?> addNode(String parentPath, String childSegment,
-          {String? itemId}) =>
-      doc.addNode(parentPath, childSegment, itemId: itemId).toJson();
+  Map<String, Object?> addNode(
+    String parentPath,
+    String childSegment, {
+    String? itemId,
+  }) => doc.addNode(parentPath, childSegment, itemId: itemId).toJson();
 
   /// `mem_recall` — the fused two-tier recall for [query], as JSON
   /// (`hits`, `degraded`).
@@ -131,34 +133,46 @@ final class AgentToolsApi {
 /// `Map` (or a `Future` of one), so the procedure never touches a rich Dart
 /// result type.
 BridgedClass agentToolsApiBridgedClass() => BridgedClass(
-      nativeType: AgentToolsApi,
-      name: 'AgentToolsApi',
-      isAssignable: (v) => v is AgentToolsApi,
-      methods: {
-        'search': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as AgentToolsApi).search(positionalArgs[0] as String,
-                pageSize: namedArgs['pageSize'] as int?),
-        'searchNext': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as AgentToolsApi).searchNext(positionalArgs[0] as String,
-                pageSize: namedArgs['pageSize'] as int?),
-        'reflect': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as AgentToolsApi).reflect(positionalArgs[0] as String),
-        'addNode': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as AgentToolsApi).addNode(
-                positionalArgs[0] as String, positionalArgs[1] as String,
-                itemId: namedArgs['itemId'] as String?),
-        'recall': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as AgentToolsApi).recall(positionalArgs[0] as String,
-                k: (namedArgs['k'] as int?) ?? 10),
-        'refresh': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as AgentToolsApi).refresh(),
-        'fileRead': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as AgentToolsApi).fileRead(positionalArgs[0] as String),
-        'fileFind': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as AgentToolsApi).fileFind(positionalArgs[0] as String,
-                dir: (namedArgs['dir'] as String?) ?? '.'),
-        'fileWrite': (visitor, target, positionalArgs, namedArgs, _) =>
-            (target as AgentToolsApi).fileWrite(
-                positionalArgs[0] as String, positionalArgs[1] as String),
-      },
-    );
+  nativeType: AgentToolsApi,
+  name: 'AgentToolsApi',
+  isAssignable: (v) => v is AgentToolsApi,
+  methods: {
+    'search': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as AgentToolsApi).search(
+          positionalArgs[0] as String,
+          pageSize: namedArgs['pageSize'] as int?,
+        ),
+    'searchNext': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as AgentToolsApi).searchNext(
+          positionalArgs[0] as String,
+          pageSize: namedArgs['pageSize'] as int?,
+        ),
+    'reflect': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as AgentToolsApi).reflect(positionalArgs[0] as String),
+    'addNode': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as AgentToolsApi).addNode(
+          positionalArgs[0] as String,
+          positionalArgs[1] as String,
+          itemId: namedArgs['itemId'] as String?,
+        ),
+    'recall': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as AgentToolsApi).recall(
+          positionalArgs[0] as String,
+          k: (namedArgs['k'] as int?) ?? 10,
+        ),
+    'refresh': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as AgentToolsApi).refresh(),
+    'fileRead': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as AgentToolsApi).fileRead(positionalArgs[0] as String),
+    'fileFind': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as AgentToolsApi).fileFind(
+          positionalArgs[0] as String,
+          dir: (namedArgs['dir'] as String?) ?? '.',
+        ),
+    'fileWrite': (visitor, target, positionalArgs, namedArgs, _) =>
+        (target as AgentToolsApi).fileWrite(
+          positionalArgs[0] as String,
+          positionalArgs[1] as String,
+        ),
+  },
+);

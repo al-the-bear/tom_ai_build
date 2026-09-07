@@ -84,16 +84,17 @@ final class RunEffort {
 
   /// A JSON-able view of the metrics — the run node's `payload`.
   Map<String, Object?> toJson() => <String, Object?>{
-        'wallClockMs': wallClock.inMilliseconds,
-        'transcriptChars': transcriptChars,
-        'transcriptLines': transcriptLines,
-        'inputCount': inputCount,
-        'ok': ok,
-        'produced': produced,
-      };
+    'wallClockMs': wallClock.inMilliseconds,
+    'transcriptChars': transcriptChars,
+    'transcriptLines': transcriptLines,
+    'inputCount': inputCount,
+    'ok': ok,
+    'produced': produced,
+  };
 
   @override
-  String toString() => 'RunEffort(${wallClock.inMilliseconds}ms, '
+  String toString() =>
+      'RunEffort(${wallClock.inMilliseconds}ms, '
       '$transcriptChars chars, ok: $ok)';
 }
 
@@ -170,16 +171,18 @@ final class RecordingBrainEnvelope implements BrainSessionEnvelope {
     final stopwatch = Stopwatch()..start();
     final result = await body();
     stopwatch.stop();
-    runs.add(BrainRunRecord(
-      scope: scope,
-      task: task,
-      result: result,
-      effort: RunEffort.measure(
-        wallClock: stopwatch.elapsed,
+    runs.add(
+      BrainRunRecord(
+        scope: scope,
+        task: task,
         result: result,
-        inputCount: task.inputs.length,
+        effort: RunEffort.measure(
+          wallClock: stopwatch.elapsed,
+          result: result,
+          inputCount: task.inputs.length,
+        ),
       ),
-    ));
+    );
     return result;
   }
 }

@@ -35,9 +35,14 @@ ScriptScope memoryScope(SpecRecall recall, {String name = memoryScopeName}) {
     libraries: [
       BridgedLibrary(memoryApiLibraryName, (interpreter) {
         interpreter.registerBridgedClass(
-            memoryApiBridgedClass(), memoryApiLibrary);
+          memoryApiBridgedClass(),
+          memoryApiLibrary,
+        );
         interpreter.registerGlobalVariable(
-            memoryApiGlobalName, api, memoryApiLibrary);
+          memoryApiGlobalName,
+          api,
+          memoryApiLibrary,
+        );
       }),
     ],
   );

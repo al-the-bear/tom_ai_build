@@ -12,53 +12,73 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// Done-criterion: each tool returns compact JSON and the mutating tool lands in
 /// the one change log.
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'annotations': [
+        {
+          'name': 'Document',
+          'arguments': {'title': 'Project Definition'},
+        },
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'annotations': [
-            {'name': 'Document', 'arguments': {'title': 'Project Definition'}},
-          ],
-          'fields': [
-            {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS', 'doc': 'Why the system exists.'},
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
-            {'name': 'situation', 'kind': 'complex', 'sectionId': 'SIT', 'type': 'CurrentSituation'},
-            {
-              'name': 'risks',
-              'kind': 'list',
-              'sectionId': 'RSK',
-              'sectionIdPattern': r'PD00/RSK-\d+',
-              'elementType': 'Risk',
-              'elementIsComplex': true,
-            },
-          ],
+      'fields': [
+        {
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'VIS',
+          'doc': 'Why the system exists.',
         },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
-          'sectionId': 'CS00',
-          'mapsTo': 'PD00',
-          'detailedIn': 'CS00',
-          'doc': 'The current situation, detailed elsewhere.',
-          'annotations': [
-            {'name': 'MapsTo', 'arguments': {'target': 'PD00'}},
-          ],
-          'fields': [
-            {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
-          ],
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'SIT',
+          'type': 'CurrentSituation',
         },
-        'Risk': {
-          'name': 'Risk',
-          'sectionId': 'RISK',
-          'fields': [
-            {'name': 'title', 'kind': 'content', 'sectionId': 'TIT'},
-          ],
+        {
+          'name': 'risks',
+          'kind': 'list',
+          'sectionId': 'RSK',
+          'sectionIdPattern': r'PD00/RSK-\d+',
+          'elementType': 'Risk',
+          'elementIsComplex': true,
         },
-      },
-    });
+      ],
+    },
+    'CurrentSituation': {
+      'name': 'CurrentSituation',
+      'sectionId': 'CS00',
+      'mapsTo': 'PD00',
+      'detailedIn': 'CS00',
+      'doc': 'The current situation, detailed elsewhere.',
+      'annotations': [
+        {
+          'name': 'MapsTo',
+          'arguments': {'target': 'PD00'},
+        },
+      ],
+      'fields': [
+        {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
+      ],
+    },
+    'Risk': {
+      'name': 'Risk',
+      'sectionId': 'RISK',
+      'fields': [
+        {'name': 'title', 'kind': 'content', 'sectionId': 'TIT'},
+      ],
+    },
+  },
+});
 
 /// A minimal change-log entry the done-criterion compares.
 class _Change {
@@ -136,8 +156,10 @@ class _RecordingController implements SpecController {
   @override
   String addChild(String parentPath, String childSegment, {String? itemId}) {
     final before = document.captureState();
-    final childPath = SpecNodeCreator(model, document)
-        .add(parentPath, childSegment, itemId: itemId);
+    final childPath = SpecNodeCreator(
+      model,
+      document,
+    ).add(parentPath, childSegment, itemId: itemId);
     _commit(before, () => _Change('add', childPath));
     return childPath;
   }
@@ -164,7 +186,10 @@ void main() {
   group('doc_search', () {
     test('a text query returns compact-JSON matches', () {
       final page = tools.search(const SpecQuery(text: 'platform'));
-      expect(page.matches.map((m) => m.path), containsAll(['PD00/VIS', 'PD00/SUM']));
+      expect(
+        page.matches.map((m) => m.path),
+        containsAll(['PD00/VIS', 'PD00/SUM']),
+      );
 
       final json = page.toJson();
       expect(json['cursorId'], isNotEmpty);
@@ -179,7 +204,9 @@ void main() {
   group('doc_search_iterate', () {
     test('a stable cursor paginates the llm_and_d4rt_tools.md §6 facility', () {
       // Three content nodes; pageSize 2 → page1 of 2 (more), page2 of 1 (done).
-      final page1 = tools.search(const SpecQuery(kinds: {SpecNodeKind.content}));
+      final page1 = tools.search(
+        const SpecQuery(kinds: {SpecNodeKind.content}),
+      );
       expect(page1.matches, hasLength(2));
       expect(page1.done, isFalse);
 

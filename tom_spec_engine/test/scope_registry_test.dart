@@ -26,13 +26,18 @@ void main() {
       libs.add(_recordingLibrary('b', []));
       expect(scope.libraries, hasLength(1));
       // The scope's own list is unmodifiable.
-      expect(() => scope.libraries.add(_recordingLibrary('c', [])),
-          throwsUnsupportedError);
+      expect(
+        () => scope.libraries.add(_recordingLibrary('c', [])),
+        throwsUnsupportedError,
+      );
     });
 
     test('identity and equality are by name', () {
       expect(ScriptScope(name: 'spec'), equals(ScriptScope(name: 'spec')));
-      expect(ScriptScope(name: 'spec'), isNot(equals(ScriptScope(name: 'files'))));
+      expect(
+        ScriptScope(name: 'spec'),
+        isNot(equals(ScriptScope(name: 'files'))),
+      );
     });
   });
 
@@ -56,23 +61,30 @@ void main() {
 
     test('duplicate registration throws ScopeError', () {
       registry.register(ScriptScope(name: 'spec'));
-      expect(() => registry.register(ScriptScope(name: 'spec')),
-          throwsA(isA<ScopeError>()));
+      expect(
+        () => registry.register(ScriptScope(name: 'spec')),
+        throwsA(isA<ScopeError>()),
+      );
     });
   });
 
   group('build — single scope', () {
     test('environment carries the scope libraries, globals and grants', () {
       final registry = ScopeRegistry();
-      registry.register(ScriptScope(
-        name: 'files',
-        libraries: [_recordingLibrary('dcli', [])],
-        globals: [
-          const ScopeGlobal(
-              name: 'root', value: '/work', library: 'package:x/x.dart'),
-        ],
-        grants: [FilesystemPermission.read],
-      ));
+      registry.register(
+        ScriptScope(
+          name: 'files',
+          libraries: [_recordingLibrary('dcli', [])],
+          globals: [
+            const ScopeGlobal(
+              name: 'root',
+              value: '/work',
+              library: 'package:x/x.dart',
+            ),
+          ],
+          grants: [FilesystemPermission.read],
+        ),
+      );
 
       final env = registry.build(['files']);
       expect(env.scopeNames, ['files']);
@@ -89,27 +101,36 @@ void main() {
     });
 
     test('unions libraries/globals/grants and preserves request order', () {
-      registry.register(ScriptScope(
-        name: 'spec',
-        libraries: [_recordingLibrary('tom_som', [])],
-        globals: [
-          const ScopeGlobal(
-              name: 'doc', value: 1, library: 'package:som/som.dart'),
-        ],
-        grants: [FilesystemPermission.read],
-      ));
-      registry.register(ScriptScope(
-        name: 'files',
-        libraries: [_recordingLibrary('dcli', [])],
-        grants: [FilesystemPermission.write],
-      ));
+      registry.register(
+        ScriptScope(
+          name: 'spec',
+          libraries: [_recordingLibrary('tom_som', [])],
+          globals: [
+            const ScopeGlobal(
+              name: 'doc',
+              value: 1,
+              library: 'package:som/som.dart',
+            ),
+          ],
+          grants: [FilesystemPermission.read],
+        ),
+      );
+      registry.register(
+        ScriptScope(
+          name: 'files',
+          libraries: [_recordingLibrary('dcli', [])],
+          grants: [FilesystemPermission.write],
+        ),
+      );
 
       final env = registry.build(['spec', 'files']);
       expect(env.scopeNames, ['spec', 'files']);
       expect(env.libraries.map((l) => l.name), ['tom_som', 'dcli']);
       expect(env.globals.map((g) => g.name), ['doc']);
-      expect(env.grants,
-          containsAll([FilesystemPermission.read, FilesystemPermission.write]));
+      expect(
+        env.grants,
+        containsAll([FilesystemPermission.read, FilesystemPermission.write]),
+      );
     });
 
     test('a library shared by two scopes is de-duplicated by name', () {
@@ -124,7 +145,10 @@ void main() {
 
     test('an identical global injected by two scopes collapses', () {
       const g = ScopeGlobal(
-          name: 'doc', value: 'D1', library: 'package:som/som.dart');
+        name: 'doc',
+        value: 'D1',
+        library: 'package:som/som.dart',
+      );
       registry.register(ScriptScope(name: 'spec', globals: [g]));
       registry.register(ScriptScope(name: 'memory', globals: [g]));
       final env = registry.build(['spec', 'memory']);
@@ -132,42 +156,65 @@ void main() {
     });
 
     test('the same global key bound to different values is a ScopeError', () {
-      registry.register(ScriptScope(name: 'spec', globals: [
-        const ScopeGlobal(
-            name: 'doc', value: 'A', library: 'package:som/som.dart'),
-      ]));
-      registry.register(ScriptScope(name: 'memory', globals: [
-        const ScopeGlobal(
-            name: 'doc', value: 'B', library: 'package:som/som.dart'),
-      ]));
-      expect(() => registry.build(['spec', 'memory']),
-          throwsA(isA<ScopeError>()));
+      registry.register(
+        ScriptScope(
+          name: 'spec',
+          globals: [
+            const ScopeGlobal(
+              name: 'doc',
+              value: 'A',
+              library: 'package:som/som.dart',
+            ),
+          ],
+        ),
+      );
+      registry.register(
+        ScriptScope(
+          name: 'memory',
+          globals: [
+            const ScopeGlobal(
+              name: 'doc',
+              value: 'B',
+              library: 'package:som/som.dart',
+            ),
+          ],
+        ),
+      );
+      expect(
+        () => registry.build(['spec', 'memory']),
+        throwsA(isA<ScopeError>()),
+      );
     });
 
     test('duplicate grants are de-duplicated', () {
-      registry.register(ScriptScope(
-          name: 'spec', grants: [FilesystemPermission.read]));
-      registry.register(ScriptScope(
-          name: 'memory', grants: [FilesystemPermission.read]));
+      registry.register(
+        ScriptScope(name: 'spec', grants: [FilesystemPermission.read]),
+      );
+      registry.register(
+        ScriptScope(name: 'memory', grants: [FilesystemPermission.read]),
+      );
       final env = registry.build(['spec', 'memory']);
       expect(env.grants, hasLength(1));
     });
   });
 
   group('ScopeProfile — declarative', () {
-    test('buildProfile builds from the profile scope names (data, not code)', () {
-      final registry = ScopeRegistry();
-      registry.register(ScriptScope(name: 'spec'));
-      registry.register(ScriptScope(name: 'files'));
-      registry.register(ScriptScope(name: 'memory'));
+    test(
+      'buildProfile builds from the profile scope names (data, not code)',
+      () {
+        final registry = ScopeRegistry();
+        registry.register(ScriptScope(name: 'spec'));
+        registry.register(ScriptScope(name: 'files'));
+        registry.register(ScriptScope(name: 'memory'));
 
-      final docSpecs = ScopeProfile(
-        name: 'docspecs',
-        scopeNames: ['spec', 'files', 'memory'],
-      );
-      final env = registry.buildProfile(docSpecs);
-      expect(env.scopeNames, ['spec', 'files', 'memory']);
-    });
+        final docSpecs = ScopeProfile(
+          name: 'docspecs',
+          scopeNames: ['spec', 'files', 'memory'],
+        );
+        final env = registry.buildProfile(docSpecs);
+        expect(env.scopeNames, ['spec', 'files', 'memory']);
+      },
+    );
 
     test('a profile carries opt-in asset dirs; default is empty '
         '(llm_and_d4rt_tools.md §7)', () {
@@ -188,17 +235,23 @@ void main() {
   group('applyTo — real interpreter integration', () {
     test('registers the SOM bridge, injects a global, grants permission; a '
         'script under the environment uses all three', () {
-      const globalLib = 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+      const globalLib =
+          'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
       final registry = ScopeRegistry();
-      registry.register(ScriptScope(
-        name: 'spec',
-        libraries: [somBridgedLibrary()],
-        globals: [
-          const ScopeGlobal(
-              name: 'runLabel', value: 'docspecs-run', library: globalLib),
-        ],
-        grants: [FilesystemPermission.read],
-      ));
+      registry.register(
+        ScriptScope(
+          name: 'spec',
+          libraries: [somBridgedLibrary()],
+          globals: [
+            const ScopeGlobal(
+              name: 'runLabel',
+              value: 'docspecs-run',
+              library: globalLib,
+            ),
+          ],
+          grants: [FilesystemPermission.read],
+        ),
+      );
 
       final env = registry.build(['spec']);
       final d4rt = D4rt();
@@ -209,7 +262,9 @@ void main() {
 
       // A script reaches both the bridged SOM API and the injected global,
       // proving the scope's libraries + globals are both live.
-      final result = d4rt.execute(source: r'''
+      final result =
+          d4rt.execute(
+                source: r'''
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 main() {
@@ -217,7 +272,9 @@ main() {
   doc.setContent('PD/content', 'via scope');
   return {'read': doc.content('PD/content'), 'label': runLabel};
 }
-''') as Map;
+''',
+              )
+              as Map;
 
       expect(result['read'], 'via scope');
       expect(result['label'], 'docspecs-run');

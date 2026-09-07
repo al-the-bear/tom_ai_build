@@ -29,10 +29,12 @@ void main() {
   group('the complex agent procedure', () {
     test('drives search → recall → edit → verify and the edit lands in the '
         'one change log', () async {
-      final result = await substrate.run(const AgentTask(
-        goal: 'platform',
-        inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
-      ));
+      final result = await substrate.run(
+        const AgentTask(
+          goal: 'platform',
+          inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'},
+        ),
+      );
 
       expect(result.ok, isTrue, reason: result.error);
       // The procedure's `main()` returns a D4rt map literal
@@ -59,10 +61,9 @@ void main() {
 
     test('autonomously picks the first model-permitted child when none is '
         'given', () async {
-      final result = await substrate.run(const AgentTask(
-        goal: 'platform',
-        inputs: {'parentPath': 'PD00'},
-      ));
+      final result = await substrate.run(
+        const AgentTask(goal: 'platform', inputs: {'parentPath': 'PD00'}),
+      );
 
       expect(result.ok, isTrue, reason: result.error);
       final out = (result.output as Map).cast<String, Object?>();
@@ -74,10 +75,12 @@ void main() {
 
     test('a meta-model-rejected edit is handled gracefully (ok:false output, '
         'no throw, empty change log)', () async {
-      final result = await substrate.run(const AgentTask(
-        goal: 'platform',
-        inputs: {'parentPath': 'PD00', 'childSegment': 'NOPE'},
-      ));
+      final result = await substrate.run(
+        const AgentTask(
+          goal: 'platform',
+          inputs: {'parentPath': 'PD00', 'childSegment': 'NOPE'},
+        ),
+      );
 
       // The run itself did not throw …
       expect(result.ok, isTrue);

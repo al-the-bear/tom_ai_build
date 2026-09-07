@@ -21,30 +21,44 @@ import 'support/vector_runtime.dart';
 /// precondition — `package:tom_brain_memory` owns it — and explains why it is
 /// probed rather than inferred from the binary's presence.
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'fields': [
+        {
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'VIS',
+          'doc': 'Why the system exists.',
+        },
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'SIT',
+          'type': 'CurrentSituation',
+        },
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'fields': [
-            {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS', 'doc': 'Why the system exists.'},
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
-            {'name': 'situation', 'kind': 'complex', 'sectionId': 'SIT', 'type': 'CurrentSituation'},
-          ],
-        },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
-          'sectionId': 'CS00',
-          'mapsTo': 'PD00',
-          'fields': [
-            {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
-          ],
-        },
-      },
-    });
+    },
+    'CurrentSituation': {
+      'name': 'CurrentSituation',
+      'sectionId': 'CS00',
+      'mapsTo': 'PD00',
+      'fields': [
+        {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
+      ],
+    },
+  },
+});
 
 void main() {
   // Vector-runtime precondition — probed, not proxied: a present vec0 binary
@@ -94,10 +108,10 @@ void main() {
   }
 
   MemoryScope scopeFor(String document) => MemoryScope(
-        application: 'tomspecs',
-        session: 'phase3-review',
-        document: document,
-      );
+    application: 'tomspecs',
+    session: 'phase3-review',
+    document: document,
+  );
 
   group('SpecRagStore (index + recall)', () {
     test('indexes every section node and every resolvable edge', () async {
@@ -113,43 +127,53 @@ void main() {
       expect(result.edgeCount, graph.edges.length);
     }, skip: skipNoBinary);
 
-    test('recall returns the section whose text matches the query', () async {
-      final memory = openMemory();
-      final graph = buildGraph();
-      final doc = await memory.openDocument(scopeFor('pd00-recall'));
-      await doc.indexDocument(graph);
+    test(
+      'recall returns the section whose text matches the query',
+      () async {
+        final memory = openMemory();
+        final graph = buildGraph();
+        final doc = await memory.openDocument(scopeFor('pd00-recall'));
+        await doc.indexDocument(graph);
 
-      final vis = graph.nodes.firstWhere((n) => n.path == 'PD00/VIS');
-      final hits = await doc.recallSections(vis.text);
+        final vis = graph.nodes.firstWhere((n) => n.path == 'PD00/VIS');
+        final hits = await doc.recallSections(vis.text);
 
-      expect(hits, isNotEmpty);
-      expect(hits.map((h) => h.path), contains('PD00/VIS'));
-      expect(hits.firstWhere((h) => h.path == 'PD00/VIS').text,
-          contains('resilient rollout platform'));
-    }, skip: skipNoBinary);
+        expect(hits, isNotEmpty);
+        expect(hits.map((h) => h.path), contains('PD00/VIS'));
+        expect(
+          hits.firstWhere((h) => h.path == 'PD00/VIS').text,
+          contains('resilient rollout platform'),
+        );
+      },
+      skip: skipNoBinary,
+    );
 
-    test('persisted edges round-trip: a tree edge and a mentions edge', () async {
-      final memory = openMemory();
-      final graph = buildGraph();
-      final doc = await memory.openDocument(scopeFor('pd00-edges'));
-      await doc.indexDocument(graph);
+    test(
+      'persisted edges round-trip: a tree edge and a mentions edge',
+      () async {
+        final memory = openMemory();
+        final graph = buildGraph();
+        final doc = await memory.openDocument(scopeFor('pd00-edges'));
+        await doc.indexDocument(graph);
 
-      // Tree: PD00/VIS is part_of PD00.
-      final visEdges = await doc.edgesFrom('PD00/VIS');
-      expect(
-        visEdges.any((e) => e.toPath == 'PD00' && e.partOf),
-        isTrue,
-        reason: 'expected a part_of tree edge PD00/VIS -> PD00',
-      );
+        // Tree: PD00/VIS is part_of PD00.
+        final visEdges = await doc.edgesFrom('PD00/VIS');
+        expect(
+          visEdges.any((e) => e.toPath == 'PD00' && e.partOf),
+          isTrue,
+          reason: 'expected a part_of tree edge PD00/VIS -> PD00',
+        );
 
-      // Projection: CurrentSituation (PD00/SIT) mentions PD00 via @MapsTo.
-      final sitEdges = await doc.edgesFrom('PD00/SIT');
-      expect(
-        sitEdges.any((e) => e.toPath == 'PD00' && !e.partOf),
-        isTrue,
-        reason: 'expected a mentions projection edge PD00/SIT -> PD00',
-      );
-    }, skip: skipNoBinary);
+        // Projection: CurrentSituation (PD00/SIT) mentions PD00 via @MapsTo.
+        final sitEdges = await doc.edgesFrom('PD00/SIT');
+        expect(
+          sitEdges.any((e) => e.toPath == 'PD00' && !e.partOf),
+          isTrue,
+          reason: 'expected a mentions projection edge PD00/SIT -> PD00',
+        );
+      },
+      skip: skipNoBinary,
+    );
 
     test('two documents never cross-talk (profile isolation)', () async {
       final memory = openMemory();
@@ -210,27 +234,30 @@ void main() {
       expect(hits.map((h) => h.path), contains('PD00/VIS'));
     }, skip: skipNoBinary);
 
-    test('with no batch embedder bound, indexDocument uses the per-section path',
-        () async {
-      var singleCalls = 0;
-      Future<Vec> countingSingle(String text) async {
-        singleCalls++;
-        return embedText(text);
-      }
+    test(
+      'with no batch embedder bound, indexDocument uses the per-section path',
+      () async {
+        var singleCalls = 0;
+        Future<Vec> countingSingle(String text) async {
+          singleCalls++;
+          return embedText(text);
+        }
 
-      final memory = SpecMemory(
-        memoryRoot: freshRoot(),
-        sqliteVecBinariesRoot: vectorRuntime.requireBinariesRoot,
-        embedder: countingSingle,
-      );
-      addTearDown(memory.close);
+        final memory = SpecMemory(
+          memoryRoot: freshRoot(),
+          sqliteVecBinariesRoot: vectorRuntime.requireBinariesRoot,
+          embedder: countingSingle,
+        );
+        addTearDown(memory.close);
 
-      final graph = buildGraph();
-      final doc = await memory.openDocument(scopeFor('pd00-no-batch'));
-      await doc.indexDocument(graph);
+        final graph = buildGraph();
+        final doc = await memory.openDocument(scopeFor('pd00-no-batch'));
+        await doc.indexDocument(graph);
 
-      // One embed per section — the fallback path.
-      expect(singleCalls, graph.nodes.length);
-    }, skip: skipNoBinary);
+        // One embed per section — the fallback path.
+        expect(singleCalls, graph.nodes.length);
+      },
+      skip: skipNoBinary,
+    );
   });
 }

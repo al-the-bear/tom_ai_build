@@ -8,21 +8,25 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// index is real (object-model derived, zero LLM); the tier-2 vector mode is a
 /// canned fake, so the fusion and the `mode` filter assert deterministically.
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'fields': [
+        {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'fields': [
-            {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
-          ],
-        },
-      },
-    });
+    },
+  },
+});
 
 void main() {
   late StructuralLexicalIndex index;
@@ -37,17 +41,23 @@ void main() {
 
   SpecVectorRecall fakeVector(List<String> paths) =>
       (String query, {int k = 10}) async => [
-            for (final p in paths.take(k)) SpecRagHit(path: p, text: p),
-          ];
+        for (final p in paths.take(k)) SpecRagHit(path: p, text: p),
+      ];
 
   group('mem_recall', () {
     test('a fused recall returns compact-JSON hits', () async {
       final tools = MemoryTools(
-        recall: SpecRecall(index: index, vectorRecall: fakeVector(['PD00/SUM'])),
+        recall: SpecRecall(
+          index: index,
+          vectorRecall: fakeVector(['PD00/SUM']),
+        ),
       );
       final result = await tools.recallQuery('platform');
 
-      expect(result.hits.map((h) => h.path), containsAll(['PD00/VIS', 'PD00/SUM']));
+      expect(
+        result.hits.map((h) => h.path),
+        containsAll(['PD00/VIS', 'PD00/SUM']),
+      );
       // SUM is surfaced by lexical AND vector → ranks first.
       expect(result.hits.first.path, 'PD00/SUM');
       expect(result.degraded, isFalse);
@@ -61,10 +71,15 @@ void main() {
 
     test('mode:vector filters to hits the vector tier surfaced', () async {
       final tools = MemoryTools(
-        recall: SpecRecall(index: index, vectorRecall: fakeVector(['PD00/SUM'])),
+        recall: SpecRecall(
+          index: index,
+          vectorRecall: fakeVector(['PD00/SUM']),
+        ),
       );
-      final result =
-          await tools.recallQuery('platform', mode: MemRecallMode.vector);
+      final result = await tools.recallQuery(
+        'platform',
+        mode: MemRecallMode.vector,
+      );
 
       expect(result.hits.map((h) => h.path), ['PD00/SUM']);
     });
@@ -74,7 +89,10 @@ void main() {
       final result = await tools.recallQuery('platform');
 
       expect(result.degraded, isTrue);
-      expect(result.hits.map((h) => h.path), containsAll(['PD00/VIS', 'PD00/SUM']));
+      expect(
+        result.hits.map((h) => h.path),
+        containsAll(['PD00/VIS', 'PD00/SUM']),
+      );
     });
   });
 

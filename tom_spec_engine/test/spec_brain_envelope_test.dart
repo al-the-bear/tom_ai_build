@@ -54,11 +54,8 @@ void main() {
     return memory;
   }
 
-  MemoryScope scope() => MemoryScope(
-        application: 'docspecs',
-        session: 'phase3',
-        document: 'pd00',
-      );
+  MemoryScope scope() =>
+      MemoryScope(application: 'docspecs', session: 'phase3', document: 'pd00');
 
   const task = AgentTask(
     goal: 'platform',
@@ -93,11 +90,7 @@ void main() {
     });
 
     test('a failed run with no output is reflected in the metrics', () {
-      const result = AgentRunResult(
-        ok: false,
-        transcript: '',
-        error: 'boom',
-      );
+      const result = AgentRunResult(ok: false, transcript: '', error: 'boom');
       final effort = RunEffort.measure(
         wallClock: Duration.zero,
         result: result,
@@ -108,81 +101,91 @@ void main() {
       expect(effort.transcriptLines, 0);
     });
 
-    test('the recording envelope now stamps each run with its effort', () async {
-      final fixture = buildAgentFixture();
-      final envelope = RecordingBrainEnvelope();
-      final substrate = BrainAgentSubstrate(
-        tools: fixture.tools,
-        envelope: envelope,
-        scope: scope(),
-      );
-      await substrate.run(task);
-      expect(envelope.runs, hasLength(1));
-      expect(envelope.runs.single.effort.ok, isTrue);
-      expect(envelope.runs.single.effort.inputCount, 2);
-    });
+    test(
+      'the recording envelope now stamps each run with its effort',
+      () async {
+        final fixture = buildAgentFixture();
+        final envelope = RecordingBrainEnvelope();
+        final substrate = BrainAgentSubstrate(
+          tools: fixture.tools,
+          envelope: envelope,
+          scope: scope(),
+        );
+        await substrate.run(task);
+        expect(envelope.runs, hasLength(1));
+        expect(envelope.runs.single.effort.ok, isTrue);
+        expect(envelope.runs.single.effort.inputCount, 2);
+      },
+    );
   });
 
   group('SpecBrainSessionEnvelope (live)', () {
-    test('drives the same loop and records the run into named memory', () async {
-      final fixture = buildAgentFixture();
-      final memory = openMemory();
-      final envelope = SpecBrainSessionEnvelope(memory);
-      final substrate = buildAgentSubstrate(
-        mode: AgentSubstrateMode.tomBrain,
-        tools: fixture.tools,
-        envelope: envelope,
-        scope: scope(),
-      );
+    test(
+      'drives the same loop and records the run into named memory',
+      () async {
+        final fixture = buildAgentFixture();
+        final memory = openMemory();
+        final envelope = SpecBrainSessionEnvelope(memory);
+        final substrate = buildAgentSubstrate(
+          mode: AgentSubstrateMode.tomBrain,
+          tools: fixture.tools,
+          envelope: envelope,
+          scope: scope(),
+        );
 
-      final result = await substrate.run(task);
+        final result = await substrate.run(task);
 
-      // The loop ran identically to mode (a): the constrained add landed.
-      expect(result.ok, isTrue, reason: result.error);
-      expect(fixture.controller.log, [const Change('add', 'PD00/RSK-1')]);
+        // The loop ran identically to mode (a): the constrained add landed.
+        expect(result.ok, isTrue, reason: result.error);
+        expect(fixture.controller.log, [const Change('add', 'PD00/RSK-1')]);
 
-      // The run was recorded into the document's named memory with effort.
-      expect(envelope.runs, hasLength(1));
-      final record = envelope.runs.single;
-      expect(record.task.goal, 'platform');
-      expect(record.effort.ok, isTrue);
-      expect(record.effort.inputCount, 2);
+        // The run was recorded into the document's named memory with effort.
+        expect(envelope.runs, hasLength(1));
+        final record = envelope.runs.single;
+        expect(record.task.goal, 'platform');
+        expect(record.effort.ok, isTrue);
+        expect(record.effort.inputCount, 2);
 
-      // The run node is recoverable by recall from the same document memory.
-      final document = await memory.openDocument(scope());
-      final hits = await document.recall('agent run');
-      expect(hits, isNotEmpty);
-      expect(hits.first.text, contains('agent run'));
-      expect(hits.first.text, contains('platform'));
-    }, skip: skipNoBinary);
+        // The run node is recoverable by recall from the same document memory.
+        final document = await memory.openDocument(scope());
+        final hits = await document.recall('agent run');
+        expect(hits, isNotEmpty);
+        expect(hits.first.text, contains('agent run'));
+        expect(hits.first.text, contains('platform'));
+      },
+      skip: skipNoBinary,
+    );
 
-    test('records a failing run too (the run trail never swallows failures)',
-        () async {
-      final fixture = buildAgentFixture();
-      final memory = openMemory();
-      final envelope = SpecBrainSessionEnvelope(memory);
-      final substrate = BrainAgentSubstrate(
-        tools: fixture.tools,
-        envelope: envelope,
-        scope: scope(),
-        procedure: const AgentProcedure(
-          name: 'broken',
-          source: '''
+    test(
+      'records a failing run too (the run trail never swallows failures)',
+      () async {
+        final fixture = buildAgentFixture();
+        final memory = openMemory();
+        final envelope = SpecBrainSessionEnvelope(memory);
+        final substrate = BrainAgentSubstrate(
+          tools: fixture.tools,
+          envelope: envelope,
+          scope: scope(),
+          procedure: const AgentProcedure(
+            name: 'broken',
+            source: '''
 import 'package:tom_spec_engine/agent.dart';
 main(task) => undefinedSymbol();
 ''',
-        ),
-      );
+          ),
+        );
 
-      final result = await substrate.run(const AgentTask(goal: 'x'));
-      expect(result.ok, isFalse);
-      expect(envelope.runs, hasLength(1));
-      expect(envelope.runs.single.effort.ok, isFalse);
+        final result = await substrate.run(const AgentTask(goal: 'x'));
+        expect(result.ok, isFalse);
+        expect(envelope.runs, hasLength(1));
+        expect(envelope.runs.single.effort.ok, isFalse);
 
-      final document = await memory.openDocument(scope());
-      final hits = await document.recall('agent run x failed');
-      expect(hits, isNotEmpty);
-    }, skip: skipNoBinary);
+        final document = await memory.openDocument(scope());
+        final hits = await document.recall('agent run x failed');
+        expect(hits, isNotEmpty);
+      },
+      skip: skipNoBinary,
+    );
 
     test('two documents keep their run trails isolated', () async {
       final fixtureA = buildAgentFixture();
@@ -190,10 +193,16 @@ main(task) => undefinedSymbol();
       final memory = openMemory();
       final envelope = SpecBrainSessionEnvelope(memory);
 
-      final scopeA =
-          MemoryScope(application: 'docspecs', session: 'p3', document: 'doc-a');
-      final scopeB =
-          MemoryScope(application: 'docspecs', session: 'p3', document: 'doc-b');
+      final scopeA = MemoryScope(
+        application: 'docspecs',
+        session: 'p3',
+        document: 'doc-a',
+      );
+      final scopeB = MemoryScope(
+        application: 'docspecs',
+        session: 'p3',
+        document: 'doc-b',
+      );
 
       await BrainAgentSubstrate(
         tools: fixtureA.tools,

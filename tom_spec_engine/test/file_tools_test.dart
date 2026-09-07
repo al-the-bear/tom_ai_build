@@ -15,7 +15,10 @@ void main() {
 
   setUp(() {
     ws = Directory.systemTemp.createTempSync('tse_file_tools_');
-    facade = SpecFileFacade(workspaceRoot: ws.path, writableDirs: const ['scratch']);
+    facade = SpecFileFacade(
+      workspaceRoot: ws.path,
+      writableDirs: const ['scratch'],
+    );
     tools = FileTools(facade);
   });
 
@@ -86,8 +89,10 @@ void main() {
       final cls = tools.find('[ab].dart').matches.map((p) => p.split('/').last);
       expect(cls.toSet(), {'a.dart', 'b.dart'});
 
-      final alt =
-          tools.find('{a,c}.dart').matches.map((p) => p.split('/').last);
+      final alt = tools
+          .find('{a,c}.dart')
+          .matches
+          .map((p) => p.split('/').last);
       expect(alt.toSet(), {'a.dart', 'c.dart'});
     });
 
@@ -112,32 +117,36 @@ void main() {
   });
 
   group('file_find includeAssets (llm_and_d4rt_tools.md §7)', () {
-    test('searches the declared asset dirs and returns the de-duplicated union',
-        () {
-      // The asset directory lives OUTSIDE the workspace root, so a default
-      // workspace walk never reaches it — only includeAssets does.
-      final assets = Directory.systemTemp.createTempSync('tse_assets_');
-      addTearDown(() {
-        if (assets.existsSync()) assets.deleteSync(recursive: true);
-      });
-      File('${assets.path}/template.md').writeAsStringSync('# tmpl');
-      final f = SpecFileFacade(
-        workspaceRoot: ws.path,
-        writableDirs: const ['scratch'],
-        assetDirs: [assets.path],
-      );
-      final t = FileTools(f);
-      t.write('scratch/local.md', '# local');
+    test(
+      'searches the declared asset dirs and returns the de-duplicated union',
+      () {
+        // The asset directory lives OUTSIDE the workspace root, so a default
+        // workspace walk never reaches it — only includeAssets does.
+        final assets = Directory.systemTemp.createTempSync('tse_assets_');
+        addTearDown(() {
+          if (assets.existsSync()) assets.deleteSync(recursive: true);
+        });
+        File('${assets.path}/template.md').writeAsStringSync('# tmpl');
+        final f = SpecFileFacade(
+          workspaceRoot: ws.path,
+          writableDirs: const ['scratch'],
+          assetDirs: [assets.path],
+        );
+        final t = FileTools(f);
+        t.write('scratch/local.md', '# local');
 
-      // Without includeAssets, only the workspace search root is walked.
-      final localOnly = t.find('*.md').matches.map((p) => p.split('/').last);
-      expect(localOnly, contains('local.md'));
-      expect(localOnly, isNot(contains('template.md')));
+        // Without includeAssets, only the workspace search root is walked.
+        final localOnly = t.find('*.md').matches.map((p) => p.split('/').last);
+        expect(localOnly, contains('local.md'));
+        expect(localOnly, isNot(contains('template.md')));
 
-      // With includeAssets, the out-of-workspace asset dir is also enumerated.
-      final withAssets =
-          t.find('*.md', includeAssets: true).matches.map((p) => p.split('/').last);
-      expect(withAssets, containsAll(['local.md', 'template.md']));
-    });
+        // With includeAssets, the out-of-workspace asset dir is also enumerated.
+        final withAssets = t
+            .find('*.md', includeAssets: true)
+            .matches
+            .map((p) => p.split('/').last);
+        expect(withAssets, containsAll(['local.md', 'template.md']));
+      },
+    );
   });
 }

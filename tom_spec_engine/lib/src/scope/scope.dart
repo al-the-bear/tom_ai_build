@@ -47,7 +47,7 @@ final class BridgedLibrary {
 
   /// Creates a bridged-library block bound to its [name] and [registrar].
   const BridgedLibrary(this.name, LibraryRegistrar registrar)
-      : _registrar = registrar;
+    : _registrar = registrar;
 
   /// Registers this library's bridged surface with [interpreter].
   void register(D4rt interpreter) => _registrar(interpreter);
@@ -115,9 +115,9 @@ final class ScriptScope {
     List<BridgedLibrary>? libraries,
     List<ScopeGlobal>? globals,
     List<Permission>? grants,
-  })  : libraries = List.unmodifiable(libraries ?? const []),
-        globals = List.unmodifiable(globals ?? const []),
-        grants = List.unmodifiable(grants ?? const []);
+  }) : libraries = List.unmodifiable(libraries ?? const []),
+       globals = List.unmodifiable(globals ?? const []),
+       grants = List.unmodifiable(grants ?? const []);
 
   @override
   bool operator ==(Object other) => other is ScriptScope && other.name == name;
@@ -126,7 +126,8 @@ final class ScriptScope {
   int get hashCode => name.hashCode;
 
   @override
-  String toString() => 'ScriptScope($name, libraries: ${libraries.length}, '
+  String toString() =>
+      'ScriptScope($name, libraries: ${libraries.length}, '
       'globals: ${globals.length}, grants: ${grants.length})';
 }
 

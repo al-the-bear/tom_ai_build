@@ -42,12 +42,12 @@ final class BrainAgentSubstrate implements AgentSubstrate {
     required MemoryScope scope,
     AgentProcedure? procedure,
     String scopeName = agentScopeName,
-  })  : _envelope = envelope,
-        _scope = scope,
-        _procedure = procedure ?? AgentProcedure.searchRecallEditVerify,
-        _scopeName = scopeName,
-        _registry = ScopeRegistry()
-          ..register(agentScope(tools, name: scopeName));
+  }) : _envelope = envelope,
+       _scope = scope,
+       _procedure = procedure ?? AgentProcedure.searchRecallEditVerify,
+       _scopeName = scopeName,
+       _registry = ScopeRegistry()
+         ..register(agentScope(tools, name: scopeName));
 
   final BrainSessionEnvelope _envelope;
   final MemoryScope _scope;
@@ -66,13 +66,13 @@ final class BrainAgentSubstrate implements AgentSubstrate {
 
   @override
   Future<AgentRunResult> run(AgentTask task) => _envelope.runInSession(
-        _scope,
-        task,
-        () => runAgentProcedure(
-          registry: _registry,
-          scopeNames: [_scopeName],
-          procedure: _procedure,
-          task: task,
-        ),
-      );
+    _scope,
+    task,
+    () => runAgentProcedure(
+      registry: _registry,
+      scopeNames: [_scopeName],
+      procedure: _procedure,
+      task: task,
+    ),
+  );
 }

@@ -135,11 +135,9 @@ final class SpecProviderEmbedder {
   /// fan-out over [service]. Bound into [SpecMemory] so `indexDocument` embeds
   /// all sections in a single call.
   SpecBatchEmbedder get batchEmbedder => (List<String> texts) async {
-        final results = await service.embedBatch(texts);
-        return results
-            .map((EmbeddingResult r) => r.vec)
-            .toList(growable: false);
-      };
+    final results = await service.embedBatch(texts);
+    return results.map((EmbeddingResult r) => r.vec).toList(growable: false);
+  };
 
   /// Boot-time reachability + dimensionality check. Round-trips a probe string
   /// through the backend, surfacing an unreachable daemon or a dimension
@@ -150,8 +148,7 @@ final class SpecProviderEmbedder {
   /// fall back to a different embedder for a *fresh* store.
   Future<EmbeddingProbeResult> probe({
     EmbeddingModelIdentity? previousIdentity,
-  }) =>
-      service.probeIdentity(previousIdentity: previousIdentity);
+  }) => service.probeIdentity(previousIdentity: previousIdentity);
 
   /// Closes the wrapped service and any collaborator the factory built.
   Future<void> close() async {

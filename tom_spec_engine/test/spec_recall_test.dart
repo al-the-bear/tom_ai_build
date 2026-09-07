@@ -12,30 +12,39 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// Contract (`llm_and_d4rt_tools.md` §9.2): *recall fuses both tiers and
 /// degrades gracefully.*
 SpecModel _model() => SpecModel.fromJson({
-      'modelVersion': 1,
-      'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+  'modelVersion': 1,
+  'roots': [
+    {
+      'type': 'ProjectDefinition',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+    },
+  ],
+  'classes': {
+    'ProjectDefinition': {
+      'name': 'ProjectDefinition',
+      'sectionId': 'PD00',
+      'fields': [
+        {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
+        {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'SIT',
+          'type': 'CurrentSituation',
+        },
       ],
-      'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'fields': [
-            {'name': 'vision', 'kind': 'content', 'sectionId': 'VIS'},
-            {'name': 'summary', 'kind': 'content', 'sectionId': 'SUM'},
-            {'name': 'situation', 'kind': 'complex', 'sectionId': 'SIT', 'type': 'CurrentSituation'},
-          ],
-        },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
-          'sectionId': 'CS00',
-          'mapsTo': 'PD00',
-          'fields': [
-            {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
-          ],
-        },
-      },
-    });
+    },
+    'CurrentSituation': {
+      'name': 'CurrentSituation',
+      'sectionId': 'CS00',
+      'mapsTo': 'PD00',
+      'fields': [
+        {'name': 'detail', 'kind': 'content', 'sectionId': 'DET'},
+      ],
+    },
+  },
+});
 
 void main() {
   late SpecQueryEngine engine;
@@ -55,52 +64,74 @@ void main() {
   /// A canned vector tier: returns [paths] (in order) as exact section hits.
   SpecVectorRecall fakeVector(List<String> paths) =>
       (String query, {int k = 10}) async => [
-            for (final p in paths.take(k)) SpecRagHit(path: p, text: p),
-          ];
+        for (final p in paths.take(k)) SpecRagHit(path: p, text: p),
+      ];
 
   SpecRecallHit hitFor(SpecRecallResult r, String path) =>
       r.hits.firstWhere((h) => h.path == path);
 
   group('fusion (RRF over tier-1 + tier-2)', () {
-    test('a section found by lexical AND vector outranks a lexical-only one',
-        () async {
-      // "platform" matches VIS and SUM lexically; the vector tier returns SUM
-      // only, so SUM is surfaced by two modes and must rank first.
-      final recall = SpecRecall(
-        index: index,
-        vectorRecall: fakeVector(['PD00/SUM']),
-      );
-      final result = await recall.recall(const SpecRecallQuery(text: 'platform'));
+    test(
+      'a section found by lexical AND vector outranks a lexical-only one',
+      () async {
+        // "platform" matches VIS and SUM lexically; the vector tier returns SUM
+        // only, so SUM is surfaced by two modes and must rank first.
+        final recall = SpecRecall(
+          index: index,
+          vectorRecall: fakeVector(['PD00/SUM']),
+        );
+        final result = await recall.recall(
+          const SpecRecallQuery(text: 'platform'),
+        );
 
-      expect(result.tier2Warm, isTrue);
-      expect(result.degraded, isFalse);
-      expect(result.hits.first.path, 'PD00/SUM');
-      expect(hitFor(result, 'PD00/SUM').modes,
-          containsAll(<SpecRecallMode>{SpecRecallMode.lexical, SpecRecallMode.vector}));
-      expect(hitFor(result, 'PD00/VIS').modes, {SpecRecallMode.lexical});
-    });
+        expect(result.tier2Warm, isTrue);
+        expect(result.degraded, isFalse);
+        expect(result.hits.first.path, 'PD00/SUM');
+        expect(
+          hitFor(result, 'PD00/SUM').modes,
+          containsAll(<SpecRecallMode>{
+            SpecRecallMode.lexical,
+            SpecRecallMode.vector,
+          }),
+        );
+        expect(hitFor(result, 'PD00/VIS').modes, {SpecRecallMode.lexical});
+      },
+    );
   });
 
   group('graceful degradation to tier 1', () {
-    test('no vector tier bound → degraded, lexical hits still returned',
-        () async {
-      final recall = SpecRecall(index: index);
-      final result = await recall.recall(const SpecRecallQuery(text: 'platform'));
+    test(
+      'no vector tier bound → degraded, lexical hits still returned',
+      () async {
+        final recall = SpecRecall(index: index);
+        final result = await recall.recall(
+          const SpecRecallQuery(text: 'platform'),
+        );
 
-      expect(result.tier2Warm, isFalse);
-      expect(result.degraded, isTrue);
-      expect(result.hits.map((h) => h.path),
-          containsAll(<String>['PD00/VIS', 'PD00/SUM']));
-    });
+        expect(result.tier2Warm, isFalse);
+        expect(result.degraded, isTrue);
+        expect(
+          result.hits.map((h) => h.path),
+          containsAll(<String>['PD00/VIS', 'PD00/SUM']),
+        );
+      },
+    );
 
-    test('vector tier bound but cold (empty) → still degrades to tier 1',
-        () async {
-      final recall = SpecRecall(index: index, vectorRecall: fakeVector(const []));
-      final result = await recall.recall(const SpecRecallQuery(text: 'platform'));
+    test(
+      'vector tier bound but cold (empty) → still degrades to tier 1',
+      () async {
+        final recall = SpecRecall(
+          index: index,
+          vectorRecall: fakeVector(const []),
+        );
+        final result = await recall.recall(
+          const SpecRecallQuery(text: 'platform'),
+        );
 
-      expect(result.degraded, isTrue);
-      expect(result.hits.map((h) => h.path), contains('PD00/VIS'));
-    });
+        expect(result.degraded, isTrue);
+        expect(result.hits.map((h) => h.path), contains('PD00/VIS'));
+      },
+    );
   });
 
   group('symbolic (facet) mode', () {
@@ -108,13 +139,18 @@ void main() {
       final recall = SpecRecall(index: index);
       // Text matches nothing; the className facet selects the CurrentSituation
       // container via the symbolic mode.
-      final result = await recall.recall(const SpecRecallQuery(
-        text: 'zzznotaword',
-        facets: IndexQuery(className: 'CurrentSituation'),
-      ));
+      final result = await recall.recall(
+        const SpecRecallQuery(
+          text: 'zzznotaword',
+          facets: IndexQuery(className: 'CurrentSituation'),
+        ),
+      );
 
       expect(result.hits.map((h) => h.path), contains('PD00/SIT'));
-      expect(hitFor(result, 'PD00/SIT').modes, contains(SpecRecallMode.symbolic));
+      expect(
+        hitFor(result, 'PD00/SIT').modes,
+        contains(SpecRecallMode.symbolic),
+      );
     });
   });
 
@@ -123,11 +159,13 @@ void main() {
       final recall = SpecRecall(index: index, graph: graph);
       // Seeds VIS + SUM; a one-hop walk reaches their parent PD00, which no
       // other mode surfaced.
-      final result = await recall.recall(const SpecRecallQuery(
-        text: 'platform',
-        graphWalk: true,
-        graphWalkDepth: 1,
-      ));
+      final result = await recall.recall(
+        const SpecRecallQuery(
+          text: 'platform',
+          graphWalk: true,
+          graphWalkDepth: 1,
+        ),
+      );
 
       expect(result.hits.map((h) => h.path), contains('PD00'));
       expect(hitFor(result, 'PD00').modes, contains(SpecRecallMode.graphWalk));
@@ -135,7 +173,9 @@ void main() {
 
     test('GraphWalk is off by default', () async {
       final recall = SpecRecall(index: index, graph: graph);
-      final result = await recall.recall(const SpecRecallQuery(text: 'platform'));
+      final result = await recall.recall(
+        const SpecRecallQuery(text: 'platform'),
+      );
       expect(result.hits.map((h) => h.path), isNot(contains('PD00')));
     });
   });

@@ -70,24 +70,26 @@ final class DocSearchMatch {
   /// facade (`SpecSearchCursor`), so a tool match and a script match render
   /// identically.
   factory DocSearchMatch.from(SpecQueryMatch m) => DocSearchMatch(
-        path: m.path,
-        kind: m.kind,
-        classId: m.classId,
-        headline: m.headline,
-        snippet: m.snippet,
-        matchSpans: m.matchSpans,
-      );
+    path: m.path,
+    kind: m.kind,
+    classId: m.classId,
+    headline: m.headline,
+    snippet: m.snippet,
+    matchSpans: m.matchSpans,
+  );
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'path': path,
-        'kind': kind.name,
-        if (classId != null) 'classId': classId,
-        if (headline != null) 'headline': headline,
-        if (snippet != null) 'snippet': snippet,
-        if (matchSpans.isNotEmpty)
-          'spans': [for (final s in matchSpans) [s.start, s.end]],
-      };
+    'path': path,
+    'kind': kind.name,
+    if (classId != null) 'classId': classId,
+    if (headline != null) 'headline': headline,
+    if (snippet != null) 'snippet': snippet,
+    if (matchSpans.isNotEmpty)
+      'spans': [
+        for (final s in matchSpans) [s.start, s.end],
+      ],
+  };
 }
 
 /// One page of `doc_search` / `doc_search_iterate` results plus the cursor id
@@ -123,11 +125,11 @@ final class DocSearchPage {
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'cursorId': cursorId,
-        'matches': [for (final m in matches) m.toJson()],
-        'done': done,
-        'remaining': remaining,
-      };
+    'cursorId': cursorId,
+    'matches': [for (final m in matches) m.toJson()],
+    'done': done,
+    'remaining': remaining,
+  };
 }
 
 /// A single annotation captured on a class or field (`doc_reflect`).
@@ -152,9 +154,9 @@ final class DocAnnotation {
 
   /// A compact JSON view.
   Map<String, Object?> toJson() => {
-        'name': name,
-        if (arguments.isNotEmpty) 'arguments': arguments,
-      };
+    'name': name,
+    if (arguments.isNotEmpty) 'arguments': arguments,
+  };
 }
 
 /// One model-permitted child of a reflected container node (`doc_reflect`): the
@@ -208,30 +210,30 @@ final class DocAllowedChild {
   });
 
   factory DocAllowedChild._from(SpecField f) => DocAllowedChild(
-        segment: f.sectionId ?? f.name,
-        field: f.name,
-        kind: f.kind,
-        type: f.type,
-        elementType: f.elementType,
-        elementIsComplex: f.elementIsComplex,
-        sectionIdPattern: f.sectionIdPattern,
-        enumValues: f.enumValues,
-        annotations: [for (final a in f.annotations) DocAnnotation._from(a)],
-      );
+    segment: f.sectionId ?? f.name,
+    field: f.name,
+    kind: f.kind,
+    type: f.type,
+    elementType: f.elementType,
+    elementIsComplex: f.elementIsComplex,
+    sectionIdPattern: f.sectionIdPattern,
+    enumValues: f.enumValues,
+    annotations: [for (final a in f.annotations) DocAnnotation._from(a)],
+  );
 
   /// A compact JSON view.
   Map<String, Object?> toJson() => {
-        'segment': segment,
-        'field': field,
-        'kind': kind.name,
-        if (type != null) 'type': type,
-        if (elementType != null) 'elementType': elementType,
-        if (elementIsComplex) 'elementIsComplex': true,
-        if (sectionIdPattern != null) 'sectionIdPattern': sectionIdPattern,
-        if (enumValues.isNotEmpty) 'enumValues': enumValues,
-        if (annotations.isNotEmpty)
-          'annotations': [for (final a in annotations) a.toJson()],
-      };
+    'segment': segment,
+    'field': field,
+    'kind': kind.name,
+    if (type != null) 'type': type,
+    if (elementType != null) 'elementType': elementType,
+    if (elementIsComplex) 'elementIsComplex': true,
+    if (sectionIdPattern != null) 'sectionIdPattern': sectionIdPattern,
+    if (enumValues.isNotEmpty) 'enumValues': enumValues,
+    if (annotations.isNotEmpty)
+      'annotations': [for (final a in annotations) a.toJson()],
+  };
 }
 
 /// The `doc_reflect` result: the meta-model facts a node addresses.
@@ -290,15 +292,15 @@ final class DocReflection {
 
   /// An unresolved-path reflection.
   const DocReflection.unresolved(this.path)
-      : resolved = false,
-        kind = null,
-        classId = null,
-        sectionId = null,
-        mapsTo = null,
-        detailedIn = null,
-        headline = null,
-        annotations = const [],
-        allowedChildren = const [];
+    : resolved = false,
+      kind = null,
+      classId = null,
+      sectionId = null,
+      mapsTo = null,
+      detailedIn = null,
+      headline = null,
+      annotations = const [],
+      allowedChildren = const [];
 
   /// Reflects the node at [path] against [model] — the read-only meta-model
   /// facts the path addresses: its kind/class, structural facets
@@ -322,7 +324,8 @@ final class DocReflection {
       sectionId: res.field?.sectionId ?? cls?.sectionId ?? res.root.sectionId,
       mapsTo: cls?.mapsTo,
       detailedIn: cls?.detailedIn,
-      headline: res.field?.doc ??
+      headline:
+          res.field?.doc ??
           cls?.doc ??
           (res.kind == SpecNodeKind.root ? res.root.description : null),
       annotations: cls == null
@@ -336,19 +339,19 @@ final class DocReflection {
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'path': path,
-        'resolved': resolved,
-        if (kind != null) 'kind': kind!.name,
-        if (classId != null) 'classId': classId,
-        if (sectionId != null) 'sectionId': sectionId,
-        if (mapsTo != null) 'mapsTo': mapsTo,
-        if (detailedIn != null) 'detailedIn': detailedIn,
-        if (headline != null) 'headline': headline,
-        if (annotations.isNotEmpty)
-          'annotations': [for (final a in annotations) a.toJson()],
-        if (allowedChildren.isNotEmpty)
-          'allowedChildren': [for (final c in allowedChildren) c.toJson()],
-      };
+    'path': path,
+    'resolved': resolved,
+    if (kind != null) 'kind': kind!.name,
+    if (classId != null) 'classId': classId,
+    if (sectionId != null) 'sectionId': sectionId,
+    if (mapsTo != null) 'mapsTo': mapsTo,
+    if (detailedIn != null) 'detailedIn': detailedIn,
+    if (headline != null) 'headline': headline,
+    if (annotations.isNotEmpty)
+      'annotations': [for (final a in annotations) a.toJson()],
+    if (allowedChildren.isNotEmpty)
+      'allowedChildren': [for (final c in allowedChildren) c.toJson()],
+  };
 }
 
 /// The `doc_add_node` result: the new node's path, or the coded reason the
@@ -375,20 +378,15 @@ final class DocAddNodeResult {
   /// only when a `llm_and_d4rt_tools.md` §5 creation rule was violated — it is
   /// `null` for every other failure, so branching on it must always fall back to
   /// [error]'s human-readable text.
-  const DocAddNodeResult({
-    required this.ok,
-    this.path,
-    this.error,
-    this.code,
-  });
+  const DocAddNodeResult({required this.ok, this.path, this.error, this.code});
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'ok': ok,
-        if (path != null) 'path': path,
-        if (error != null) 'error': error,
-        if (code != null) 'code': code,
-      };
+    'ok': ok,
+    if (path != null) 'path': path,
+    if (error != null) 'error': error,
+    if (code != null) 'code': code,
+  };
 }
 
 /// Searches, reflects, and grows a live document under the
@@ -431,7 +429,11 @@ final class DocTools {
   DocSearchPage iterate(String cursorId, {int? pageSize}) {
     final cursor = _cursors[cursorId];
     if (cursor == null) {
-      throw ArgumentError.value(cursorId, 'cursorId', 'no such (or exhausted) cursor');
+      throw ArgumentError.value(
+        cursorId,
+        'cursorId',
+        'no such (or exhausted) cursor',
+      );
     }
     return _page(cursorId, cursor, pageSize ?? this.pageSize);
   }
@@ -466,8 +468,11 @@ final class DocTools {
     Map<String, String>? fields,
   }) {
     try {
-      final path =
-          controller.addChild(parentPath, childSegment, itemId: itemId);
+      final path = controller.addChild(
+        parentPath,
+        childSegment,
+        itemId: itemId,
+      );
       if (content != null && content.isNotEmpty) {
         controller.setContent(path, content);
       }
@@ -487,9 +492,7 @@ final class DocTools {
   // --- helpers ---------------------------------------------------------------
 
   DocSearchPage _page(String id, SpecQueryCursor cursor, int size) {
-    final matches = [
-      for (final m in cursor.take(size)) DocSearchMatch.from(m),
-    ];
+    final matches = [for (final m in cursor.take(size)) DocSearchMatch.from(m)];
     final remaining = cursor.count;
     final done = remaining == 0;
     if (done) _cursors.remove(id);

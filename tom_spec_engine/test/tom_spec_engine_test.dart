@@ -1,6 +1,7 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
-import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart' show SpecDocument;
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show SpecDocument;
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart' show D00SolutionBlueprint;
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 

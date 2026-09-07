@@ -38,10 +38,10 @@ final class DirectAgentSubstrate implements AgentSubstrate {
     required AgentToolsApi tools,
     AgentProcedure? procedure,
     String scopeName = agentScopeName,
-  })  : _procedure = procedure ?? AgentProcedure.searchRecallEditVerify,
-        _scopeName = scopeName,
-        _registry = ScopeRegistry()
-          ..register(agentScope(tools, name: scopeName));
+  }) : _procedure = procedure ?? AgentProcedure.searchRecallEditVerify,
+       _scopeName = scopeName,
+       _registry = ScopeRegistry()
+         ..register(agentScope(tools, name: scopeName));
 
   final AgentProcedure _procedure;
   final String _scopeName;
@@ -55,9 +55,9 @@ final class DirectAgentSubstrate implements AgentSubstrate {
 
   @override
   Future<AgentRunResult> run(AgentTask task) => runAgentProcedure(
-        registry: _registry,
-        scopeNames: [_scopeName],
-        procedure: _procedure,
-        task: task,
-      );
+    registry: _registry,
+    scopeNames: [_scopeName],
+    procedure: _procedure,
+    task: task,
+  );
 }

@@ -38,10 +38,10 @@ final class FileReadResult {
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'path': path,
-        'exists': exists,
-        if (content != null) 'content': content,
-      };
+    'path': path,
+    'exists': exists,
+    if (content != null) 'content': content,
+  };
 }
 
 /// The `file_find` result.
@@ -89,10 +89,10 @@ final class FileWriteResult {
 
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
-        'ok': ok,
-        'path': path,
-        if (error != null) 'error': error,
-      };
+    'ok': ok,
+    'path': path,
+    if (error != null) 'error': error,
+  };
 }
 
 /// Reads, finds, and writes files under the `llm_and_d4rt_tools.md` §8.2
@@ -124,11 +124,14 @@ final class FileTools {
   /// path relative to the search root, otherwise the basename (see
   /// [SpecFileFacade.find]). With [includeAssets] the search also walks the
   /// profile's declared asset directories and returns the de-duplicated union.
-  FileFindResult find(String glob, {String dir = '.', bool includeAssets = false}) =>
-      FileFindResult(
-        glob: glob,
-        matches: facade.find(dir, glob: glob, includeAssets: includeAssets),
-      );
+  FileFindResult find(
+    String glob, {
+    String dir = '.',
+    bool includeAssets = false,
+  }) => FileFindResult(
+    glob: glob,
+    matches: facade.find(dir, glob: glob, includeAssets: includeAssets),
+  );
 
   /// `file_write` — writes [content] to [path] (whitelist-checked). A path
   /// outside the writable whitelist returns a failed result carrying the

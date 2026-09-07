@@ -142,7 +142,10 @@ SpecModel _specModel() {
     name: 'Risk',
     fields: [
       SpecField(
-          name: 'title', kind: SpecFieldKind.content, sectionId: 'RISK-TITLE'),
+        name: 'title',
+        kind: SpecFieldKind.content,
+        sectionId: 'RISK-TITLE',
+      ),
     ],
   );
   final pd = SpecClass(
@@ -150,7 +153,10 @@ SpecModel _specModel() {
     sectionId: 'PD00',
     fields: [
       SpecField(
-          name: 'vision', kind: SpecFieldKind.content, sectionId: 'PD00-VIS'),
+        name: 'vision',
+        kind: SpecFieldKind.content,
+        sectionId: 'PD00-VIS',
+      ),
       SpecField(
         name: 'risks',
         kind: SpecFieldKind.list,
@@ -162,7 +168,9 @@ SpecModel _specModel() {
     ],
   );
   return SpecModel(
-    roots: [SpecRoot(type: 'ProjectDefinition', title: 'PD', sectionId: 'PD00')],
+    roots: [
+      SpecRoot(type: 'ProjectDefinition', title: 'PD', sectionId: 'PD00'),
+    ],
     classes: {'ProjectDefinition': pd, 'Risk': risk},
   );
 }
@@ -194,8 +202,10 @@ class _Controller implements SpecController {
   bool removeListItem(String itemPath) => document.removeListItem(itemPath);
   @override
   String addChild(String parentPath, String childSegment, {String? itemId}) =>
-      SpecNodeCreator(model, document)
-          .add(parentPath, childSegment, itemId: itemId);
+      SpecNodeCreator(
+        model,
+        document,
+      ).add(parentPath, childSegment, itemId: itemId);
 }
 
 /// The `spec` scope as a host binds it once a document is loaded: all three
@@ -203,10 +213,10 @@ class _Controller implements SpecController {
 /// reflecting, `search` querying. The providers are the lazy shape
 /// `tom_specs_editor` supplies (`spec_script_runner.dart`).
 ScriptScope _fullSpecScope(SpecModel model, SpecDocument document) => specScope(
-      _Controller(model, document),
-      model: () => model,
-      search: () => SpecQueryEngine(model: model, document: document),
-    );
+  _Controller(model, document),
+  model: () => model,
+  search: () => SpecQueryEngine(model: model, document: document),
+);
 
 Future<Object?> _run(ScriptScope scope, String source) async {
   final env = (ScopeRegistry()..register(scope)).build([scope.name]);
@@ -262,31 +272,39 @@ void main() {
       final scope = _fullSpecScope(_specModel(), doc);
       final result = await _run(scope, example64) as Map;
 
-      expect(result['touched'],
-          ['PD00/PD00-VIS', 'PD00/PD00-RISK-1/RISK-TITLE']);
-      expect(doc.content('PD00/PD00-VIS'),
-          'A resilient Rollout platform.\n\n_Flagged for review._');
+      expect(result['touched'], [
+        'PD00/PD00-VIS',
+        'PD00/PD00-RISK-1/RISK-TITLE',
+      ]);
+      expect(
+        doc.content('PD00/PD00-VIS'),
+        'A resilient Rollout platform.\n\n_Flagged for review._',
+      );
       expect(doc.content('PD00/PD00-RISK-2/RISK-TITLE'), 'Vendor lock-in');
     });
   });
 
   group('llm_guidelines_specification.md §6.5 read anywhere, write '
       'scratchpad only (files scope)', () {
-    test('reads an external note and stages its head under scratchpad',
-        () async {
-      final ws = Directory.systemTemp.createTempSync('tse_guidelines_ws_');
-      final notes = File('${ws.path}/notes.md')
-        ..writeAsStringSync('line1\nline2\nline3\nline4');
-      addTearDown(() => ws.deleteSync(recursive: true));
+    test(
+      'reads an external note and stages its head under scratchpad',
+      () async {
+        final ws = Directory.systemTemp.createTempSync('tse_guidelines_ws_');
+        final notes = File('${ws.path}/notes.md')
+          ..writeAsStringSync('line1\nline2\nline3\nline4');
+        addTearDown(() => ws.deleteSync(recursive: true));
 
-      final scope = filesScope(SpecFileFacade(workspaceRoot: ws.path));
-      final source = example65.replaceAll('__NOTES__', notes.path);
-      final result = await _run(scope, source) as Map;
+        final scope = filesScope(SpecFileFacade(workspaceRoot: ws.path));
+        final source = example65.replaceAll('__NOTES__', notes.path);
+        final result = await _run(scope, source) as Map;
 
-      expect(result['bytes'], 'line1\nline2\nline3'.length);
-      expect(File('${ws.path}/agent/scratchpad/notes_head.md').readAsStringSync(),
-          'line1\nline2\nline3');
-    });
+        expect(result['bytes'], 'line1\nline2\nline3'.length);
+        expect(
+          File('${ws.path}/agent/scratchpad/notes_head.md').readAsStringSync(),
+          'line1\nline2\nline3',
+        );
+      },
+    );
   });
 
   group('llm_guidelines_specification.md §6.6 semantic recall '

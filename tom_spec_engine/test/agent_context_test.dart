@@ -40,10 +40,13 @@ void main() {
       expect(tomSpecsApplications.toSet(), hasLength(3));
     });
 
-    test('DocSpecs is the reference application and binds its profile name', () {
-      expect(docSpecsAgentContext().application, docSpecsApplication);
-      expect(docSpecsAgentContext().profileName, docSpecsApplication);
-    });
+    test(
+      'DocSpecs is the reference application and binds its profile name',
+      () {
+        expect(docSpecsAgentContext().application, docSpecsApplication);
+        expect(docSpecsAgentContext().profileName, docSpecsApplication);
+      },
+    );
   });
 
   group('docSpecsAgentContext', () {
@@ -54,15 +57,12 @@ void main() {
       expect(context.application, 'docspecs');
       expect(context.guidelinesName, docSpecsGuidelinesName);
       expect(context.guidelinesName, 'llm_guidelines_specification.md');
-      expect(
-        context.toolset,
-        {
-          AgentToolGroup.doc,
-          AgentToolGroup.memory,
-          AgentToolGroup.file,
-          AgentToolGroup.script,
-        },
-      );
+      expect(context.toolset, {
+        AgentToolGroup.doc,
+        AgentToolGroup.memory,
+        AgentToolGroup.file,
+        AgentToolGroup.script,
+      });
       expect(context.scopeProfile.name, 'docspecs');
       expect(context.scopeProfile.scopeNames, ['spec', 'files', 'memory']);
     });
@@ -110,80 +110,97 @@ void main() {
       expect(context.scopeProfile.scopeNames, ['spec', 'files', 'memory']);
     });
 
-    test('memoryScope addresses the CodeSpecs profile + session + document', () {
-      final scope = codeSpecsAgentContext()
-          .memoryScope(session: 'phase4', document: 'CS00');
-      expect(scope.application, 'codespecs');
-      expect(scope.session, 'phase4');
-      expect(scope.document, 'CS00');
-      expect(scope.profileName, 'CS00');
-    });
+    test(
+      'memoryScope addresses the CodeSpecs profile + session + document',
+      () {
+        final scope = codeSpecsAgentContext().memoryScope(
+          session: 'phase4',
+          document: 'CS00',
+        );
+        expect(scope.application, 'codespecs');
+        expect(scope.session, 'phase4');
+        expect(scope.document, 'CS00');
+        expect(scope.profileName, 'CS00');
+      },
+    );
   });
 
   group('implementationAgentContext (llm_and_d4rt_tools.md §11)', () {
-    test('binds the Implementation guidelines, the full four-group surface, and '
-        'the three base scopes', () {
-      final context = implementationAgentContext();
-
-      expect(context.application, implementationApplication);
-      expect(context.application, 'implementation');
-      expect(context.profileName, implementationApplication);
-      expect(context.guidelinesName, implementationGuidelinesName);
-      expect(context.guidelinesName, 'guidelines_implementation.md');
-      expect(context.toolset, {
-        AgentToolGroup.doc,
-        AgentToolGroup.memory,
-        AgentToolGroup.file,
-        AgentToolGroup.script,
-      });
-      expect(context.scopeProfile.name, 'implementation');
-      expect(context.scopeProfile.scopeNames, ['spec', 'files', 'memory']);
-    });
-  });
-
-  group('the three contexts are distinct applications with distinct prompts',
+    test(
+      'binds the Implementation guidelines, the full four-group surface, and '
+      'the three base scopes',
       () {
-    test('each canonical application binds its own guidelines + profile name',
-        () {
-      final contexts = [
-        docSpecsAgentContext(),
-        codeSpecsAgentContext(),
-        implementationAgentContext(),
-      ];
+        final context = implementationAgentContext();
 
-      expect(
-        contexts.map((c) => c.application).toList(),
-        tomSpecsApplications,
-      );
-      // Distinct guidelines prompts — the real differentiator.
-      expect(
-        contexts.map((c) => c.guidelinesName).toSet(),
-        hasLength(3),
-      );
-      // Distinct scope-profile labels.
-      expect(
-        contexts.map((c) => c.scopeProfile.name).toSet(),
-        {'docspecs', 'codespecs', 'implementation'},
-      );
-    });
+        expect(context.application, implementationApplication);
+        expect(context.application, 'implementation');
+        expect(context.profileName, implementationApplication);
+        expect(context.guidelinesName, implementationGuidelinesName);
+        expect(context.guidelinesName, 'guidelines_implementation.md');
+        expect(context.toolset, {
+          AgentToolGroup.doc,
+          AgentToolGroup.memory,
+          AgentToolGroup.file,
+          AgentToolGroup.script,
+        });
+        expect(context.scopeProfile.name, 'implementation');
+        expect(context.scopeProfile.scopeNames, ['spec', 'files', 'memory']);
+      },
+    );
   });
+
+  group(
+    'the three contexts are distinct applications with distinct prompts',
+    () {
+      test(
+        'each canonical application binds its own guidelines + profile name',
+        () {
+          final contexts = [
+            docSpecsAgentContext(),
+            codeSpecsAgentContext(),
+            implementationAgentContext(),
+          ];
+
+          expect(
+            contexts.map((c) => c.application).toList(),
+            tomSpecsApplications,
+          );
+          // Distinct guidelines prompts — the real differentiator.
+          expect(contexts.map((c) => c.guidelinesName).toSet(), hasLength(3));
+          // Distinct scope-profile labels.
+          expect(contexts.map((c) => c.scopeProfile.name).toSet(), {
+            'docspecs',
+            'codespecs',
+            'implementation',
+          });
+        },
+      );
+    },
+  );
 
   group('tomSpecsContextRegistry (llm_and_d4rt_tools.md §11)', () {
-    test('registers all three canonical applications, each resolving to its own '
-        'context', () {
-      final registry = tomSpecsContextRegistry();
+    test(
+      'registers all three canonical applications, each resolving to its own '
+      'context',
+      () {
+        final registry = tomSpecsContextRegistry();
 
-      expect(registry.applications.toSet(), tomSpecsApplications.toSet());
-      for (final application in tomSpecsApplications) {
-        expect(registry.has(application), isTrue);
-        expect(registry.context(application).application, application);
-      }
+        expect(registry.applications.toSet(), tomSpecsApplications.toSet());
+        for (final application in tomSpecsApplications) {
+          expect(registry.has(application), isTrue);
+          expect(registry.context(application).application, application);
+        }
 
-      expect(registry.context(codeSpecsApplication).guidelinesName,
-          codeSpecsGuidelinesName);
-      expect(registry.context(implementationApplication).guidelinesName,
-          implementationGuidelinesName);
-    });
+        expect(
+          registry.context(codeSpecsApplication).guidelinesName,
+          codeSpecsGuidelinesName,
+        );
+        expect(
+          registry.context(implementationApplication).guidelinesName,
+          implementationGuidelinesName,
+        );
+      },
+    );
   });
 
   group('AgentContext construction', () {
@@ -204,7 +221,10 @@ void main() {
         application: 'readonly',
         guidelinesName: 'readonly_guidelines.md',
         toolset: {AgentToolGroup.doc, AgentToolGroup.memory},
-        scopeProfile: ScopeProfile(name: 'readonly', scopeNames: ['spec', 'memory']),
+        scopeProfile: ScopeProfile(
+          name: 'readonly',
+          scopeNames: ['spec', 'memory'],
+        ),
       );
 
       expect(context.toolset, {AgentToolGroup.doc, AgentToolGroup.memory});
@@ -218,8 +238,10 @@ void main() {
         application: 'readonly',
         guidelinesName: 'readonly_guidelines.md',
         toolset: {AgentToolGroup.doc, AgentToolGroup.memory},
-        scopeProfile:
-            ScopeProfile(name: 'readonly', scopeNames: ['spec', 'memory']),
+        scopeProfile: ScopeProfile(
+          name: 'readonly',
+          scopeNames: ['spec', 'memory'],
+        ),
       );
       final registry = AgentContextRegistry()
         ..register(docSpecsAgentContext())
@@ -247,24 +269,26 @@ void main() {
   });
 
   group('brainSubstrate', () {
-    test('builds a tom_brain substrate addressed by the context memory scope',
-        () {
-      final context = docSpecsAgentContext();
-      final fixture = buildAgentFixture();
-      final envelope = RecordingBrainEnvelope();
+    test(
+      'builds a tom_brain substrate addressed by the context memory scope',
+      () {
+        final context = docSpecsAgentContext();
+        final fixture = buildAgentFixture();
+        final envelope = RecordingBrainEnvelope();
 
-      final substrate = context.brainSubstrate(
-        tools: fixture.tools,
-        envelope: envelope,
-        session: 'phase3',
-        document: 'PD00',
-      );
+        final substrate = context.brainSubstrate(
+          tools: fixture.tools,
+          envelope: envelope,
+          session: 'phase3',
+          document: 'PD00',
+        );
 
-      expect(substrate.mode, 'tom_brain');
-      expect(
-        substrate.scope,
-        context.memoryScope(session: 'phase3', document: 'PD00'),
-      );
-    });
+        expect(substrate.mode, 'tom_brain');
+        expect(
+          substrate.scope,
+          context.memoryScope(session: 'phase3', document: 'PD00'),
+        );
+      },
+    );
   });
 }

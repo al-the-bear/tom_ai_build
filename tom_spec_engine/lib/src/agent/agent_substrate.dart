@@ -71,12 +71,12 @@ final class AgentRunResult {
 
   /// A compact JSON view for the MCP / agent-loop surface.
   Map<String, Object?> toJson() => {
-        'ok': ok,
-        if (output != null) 'output': output,
-        if (transcript.isNotEmpty) 'transcript': transcript,
-        if (error != null) 'error': error,
-        if (stack != null) 'stack': stack,
-      };
+    'ok': ok,
+    if (output != null) 'output': output,
+    if (transcript.isNotEmpty) 'transcript': transcript,
+    if (error != null) 'error': error,
+    if (stack != null) 'stack': stack,
+  };
 }
 
 /// The pluggable agent substrate (`llm_and_d4rt_tools.md` §10): runs an

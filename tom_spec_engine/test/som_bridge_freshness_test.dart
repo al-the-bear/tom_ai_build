@@ -32,45 +32,46 @@ void main() {
       },
     );
 
-    test('the committed bridges were generated from the current SOM surface',
-        () {
-      final stamp = readSomSurfaceStamp(engineRoot: engineRoot);
-      expect(
-        stamp,
-        isNotNull,
-        reason: 'No $somSurfaceStampPath found. It is written by '
-            '`dart run tool/regenerate_bridges.dart`; run that once to '
-            'establish the baseline.',
-      );
-
-      final current = computeSomSurface(engineRoot: engineRoot);
-      if (current.fingerprint == stamp!.fingerprint) return;
-
-      // Name the package(s) that moved and by how much, so the failure says
-      // what to do rather than just that two hex strings differ.
-      final moved = <String>[];
-      for (final name in current.perPackage.keys) {
-        if (current.perPackage[name] == stamp.perPackage[name]) continue;
-        final before = stamp.declarationCounts[name];
-        final now = current.declarationCounts[name];
-        moved.add(
-          '  - $name (top-level declarations: $before -> $now)',
+    test(
+      'the committed bridges were generated from the current SOM surface',
+      () {
+        final stamp = readSomSurfaceStamp(engineRoot: engineRoot);
+        expect(
+          stamp,
+          isNotNull,
+          reason:
+              'No $somSurfaceStampPath found. It is written by '
+              '`dart run tool/regenerate_bridges.dart`; run that once to '
+              'establish the baseline.',
         );
-      }
 
-      fail(
-        'The SOM public surface has changed since the bridges were last '
-        'generated:\n${moved.join('\n')}\n\n'
-        'The committed bridges in lib/src/bridges/ are therefore stale. '
-        'Regenerate them:\n'
-        '    dart run tool/regenerate_bridges.dart\n'
-        'and commit both the regenerated bridges and the refreshed '
-        '$somSurfaceStampPath. If the regen turns out to be a no-op (only the '
-        '`// Generated:` header lines differ), discard the bridge diff with '
-        '`git checkout -- lib` and commit the stamp alone.\n'
-        'See _copilot_guidelines/bridge_regeneration.md.',
-      );
-    });
+        final current = computeSomSurface(engineRoot: engineRoot);
+        if (current.fingerprint == stamp!.fingerprint) return;
+
+        // Name the package(s) that moved and by how much, so the failure says
+        // what to do rather than just that two hex strings differ.
+        final moved = <String>[];
+        for (final name in current.perPackage.keys) {
+          if (current.perPackage[name] == stamp.perPackage[name]) continue;
+          final before = stamp.declarationCounts[name];
+          final now = current.declarationCounts[name];
+          moved.add('  - $name (top-level declarations: $before -> $now)');
+        }
+
+        fail(
+          'The SOM public surface has changed since the bridges were last '
+          'generated:\n${moved.join('\n')}\n\n'
+          'The committed bridges in lib/src/bridges/ are therefore stale. '
+          'Regenerate them:\n'
+          '    dart run tool/regenerate_bridges.dart\n'
+          'and commit both the regenerated bridges and the refreshed '
+          '$somSurfaceStampPath. If the regen turns out to be a no-op (only the '
+          '`// Generated:` header lines differ), discard the bridge diff with '
+          '`git checkout -- lib` and commit the stamp alone.\n'
+          'See _copilot_guidelines/bridge_regeneration.md.',
+        );
+      },
+    );
   });
 
   // These prove the fingerprint moves for the right reasons and holds still for
@@ -82,8 +83,7 @@ void main() {
     tearDown(() => temp.deleteSync(recursive: true));
 
     String hashOf(String source) {
-      final lib = Directory('${temp.path}/lib')
-        ..createSync(recursive: true);
+      final lib = Directory('${temp.path}/lib')..createSync(recursive: true);
       File('${lib.path}/a.dart').writeAsStringSync(source);
       final hash = fingerprintLibrary(lib).hash;
       lib.deleteSync(recursive: true);
@@ -105,10 +105,12 @@ class Widget {
       // The silent-staleness case: nothing else in the workspace goes red for
       // this, because the bridge still compiles — it is just incomplete.
       expect(
-        hashOf(baseline.replaceFirst(
-          'Widget(this.name);',
-          'Widget(this.name);\n  int get width => 0;',
-        )),
+        hashOf(
+          baseline.replaceFirst(
+            'Widget(this.name);',
+            'Widget(this.name);\n  int get width => 0;',
+          ),
+        ),
         isNot(hashOf(baseline)),
       );
     });
@@ -138,10 +140,12 @@ class Widget {
       // Comments are `precedingComments` on a token, so a walk along
       // `Token.next` never sees them.
       expect(
-        hashOf(baseline.replaceFirst(
-          '/// A doc comment.',
-          '/// A substantially longer and quite differently worded comment.',
-        )),
+        hashOf(
+          baseline.replaceFirst(
+            '/// A doc comment.',
+            '/// A substantially longer and quite differently worded comment.',
+          ),
+        ),
         hashOf(baseline),
       );
     });
@@ -157,20 +161,24 @@ class Widget {
     test('rewriting a method body does not change the fingerprint', () {
       // The generator binds signatures, not implementations.
       expect(
-        hashOf(baseline.replaceFirst(
-          "    return 'widget \$name';\n",
-          "    final parts = ['widget', name];\n    return parts.join(' ');\n",
-        )),
+        hashOf(
+          baseline.replaceFirst(
+            "    return 'widget \$name';\n",
+            "    final parts = ['widget', name];\n    return parts.join(' ');\n",
+          ),
+        ),
         hashOf(baseline),
       );
     });
 
     test('=> and {} body forms are indistinguishable to the fingerprint', () {
       expect(
-        hashOf(baseline.replaceFirst(
-          "  String describe() {\n    return 'widget \$name';\n  }\n",
-          "  String describe() => 'widget \$name';\n",
-        )),
+        hashOf(
+          baseline.replaceFirst(
+            "  String describe() {\n    return 'widget \$name';\n  }\n",
+            "  String describe() => 'widget \$name';\n",
+          ),
+        ),
         hashOf(baseline),
       );
     });

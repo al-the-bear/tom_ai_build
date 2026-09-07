@@ -32,7 +32,9 @@ void main() {
 
   /// Runs [source] under a `files` scope bound to [facade].
   Object? run(String source) {
-    final env = (ScopeRegistry()..register(filesScope(facade))).build(['files']);
+    final env = (ScopeRegistry()..register(filesScope(facade))).build([
+      'files',
+    ]);
     final d4rt = D4rt();
     env.applyTo(d4rt);
     return d4rt.execute(source: source);
@@ -45,8 +47,10 @@ void main() {
       expect(facade.writableRoots, hasLength(1));
       expect(
         facade.writableRoots.single,
-        endsWith('${Platform.pathSeparator}agent'
-            '${Platform.pathSeparator}scratchpad'),
+        endsWith(
+          '${Platform.pathSeparator}agent'
+          '${Platform.pathSeparator}scratchpad',
+        ),
       );
     });
   });
@@ -152,15 +156,20 @@ main() => files.readText(r'${outside.path}/data.txt');
       expect(scope.libraries.map((l) => l.name), contains('spec_files'));
       // read=any grant present.
       expect(
-        scope.grants.any((g) => g.toString() == FilesystemPermission.read.toString()),
+        scope.grants.any(
+          (g) => g.toString() == FilesystemPermission.read.toString(),
+        ),
         isTrue,
       );
       // a writePath grant for the scratchpad present.
       expect(
-        scope.grants.any((g) =>
-            g.toString() ==
-            FilesystemPermission.writePath(facade.writableRoots.single)
-                .toString()),
+        scope.grants.any(
+          (g) =>
+              g.toString() ==
+              FilesystemPermission.writePath(
+                facade.writableRoots.single,
+              ).toString(),
+        ),
         isTrue,
       );
     });
@@ -198,17 +207,20 @@ main() { files.writeText('outside.txt', 'x'); }
       File('${ws.path}/local.md').writeAsStringSync('# local');
 
       Object? runWith(String source) {
-        final env =
-            (ScopeRegistry()..register(filesScope(assetFacade))).build(['files']);
+        final env = (ScopeRegistry()..register(filesScope(assetFacade))).build([
+          'files',
+        ]);
         final d4rt = D4rt();
         env.applyTo(d4rt);
         return d4rt.execute(source: source);
       }
 
-      final found = runWith('''
+      final found =
+          runWith('''
 $importFiles
 main() => files.find('.', glob: '*.md', includeAssets: true);
-''') as List;
+''')
+              as List;
       final names = found.map((p) => (p as String).split('/').last).toSet();
       expect(names, containsAll(['local.md', 'template.md']));
     });

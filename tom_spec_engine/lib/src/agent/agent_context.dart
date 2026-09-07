@@ -158,12 +158,14 @@ final class AgentContext {
 
   /// Addresses one run: the application profile + a per-run [session] (named
   /// session) + a per-document [document] (named memory).
-  MemoryScope memoryScope({required String session, required String document}) =>
-      MemoryScope(
-        application: application,
-        session: session,
-        document: document,
-      );
+  MemoryScope memoryScope({
+    required String session,
+    required String document,
+  }) => MemoryScope(
+    application: application,
+    session: session,
+    document: document,
+  );
 
   /// Builds the [RunEnvironment] for this application's scope profile against
   /// [registry] — the union of its base scopes' libraries, globals, and grants.
@@ -184,14 +186,13 @@ final class AgentContext {
     required String document,
     AgentProcedure? procedure,
     String scopeName = agentScopeName,
-  }) =>
-      BrainAgentSubstrate(
-        tools: tools,
-        envelope: envelope,
-        scope: memoryScope(session: session, document: document),
-        procedure: procedure,
-        scopeName: scopeName,
-      );
+  }) => BrainAgentSubstrate(
+    tools: tools,
+    envelope: envelope,
+    scope: memoryScope(session: session, document: document),
+    procedure: procedure,
+    scopeName: scopeName,
+  );
 
   @override
   String toString() =>
@@ -207,19 +208,19 @@ final class AgentContext {
 /// **three base scopes** (`spec` / `files` / `memory`) — the full TomSpecs
 /// editing surface.
 AgentContext docSpecsAgentContext() => AgentContext(
-      application: docSpecsApplication,
-      guidelinesName: docSpecsGuidelinesName,
-      toolset: {
-        AgentToolGroup.doc,
-        AgentToolGroup.memory,
-        AgentToolGroup.file,
-        AgentToolGroup.script,
-      },
-      scopeProfile: ScopeProfile(
-        name: 'docspecs',
-        scopeNames: ['spec', 'files', 'memory'],
-      ),
-    );
+  application: docSpecsApplication,
+  guidelinesName: docSpecsGuidelinesName,
+  toolset: {
+    AgentToolGroup.doc,
+    AgentToolGroup.memory,
+    AgentToolGroup.file,
+    AgentToolGroup.script,
+  },
+  scopeProfile: ScopeProfile(
+    name: 'docspecs',
+    scopeNames: ['spec', 'files', 'memory'],
+  ),
+);
 
 /// The CodeSpecs application context (`llm_and_d4rt_tools.md` §11).
 ///
@@ -232,19 +233,19 @@ AgentContext docSpecsAgentContext() => AgentContext(
 /// tool *narrowing* is deliberately not invented here (no concrete need; the
 /// toolset ⊆ scopes invariant already bounds capability).
 AgentContext codeSpecsAgentContext() => AgentContext(
-      application: codeSpecsApplication,
-      guidelinesName: codeSpecsGuidelinesName,
-      toolset: {
-        AgentToolGroup.doc,
-        AgentToolGroup.memory,
-        AgentToolGroup.file,
-        AgentToolGroup.script,
-      },
-      scopeProfile: ScopeProfile(
-        name: 'codespecs',
-        scopeNames: ['spec', 'files', 'memory'],
-      ),
-    );
+  application: codeSpecsApplication,
+  guidelinesName: codeSpecsGuidelinesName,
+  toolset: {
+    AgentToolGroup.doc,
+    AgentToolGroup.memory,
+    AgentToolGroup.file,
+    AgentToolGroup.script,
+  },
+  scopeProfile: ScopeProfile(
+    name: 'codespecs',
+    scopeNames: ['spec', 'files', 'memory'],
+  ),
+);
 
 /// The Implementation application context (`llm_and_d4rt_tools.md` §11).
 ///
@@ -254,19 +255,19 @@ AgentContext codeSpecsAgentContext() => AgentContext(
 /// four-group surface and three base scopes, differentiated by its own
 /// guidelines prompt and isolated Tom Brain profile / memory.
 AgentContext implementationAgentContext() => AgentContext(
-      application: implementationApplication,
-      guidelinesName: implementationGuidelinesName,
-      toolset: {
-        AgentToolGroup.doc,
-        AgentToolGroup.memory,
-        AgentToolGroup.file,
-        AgentToolGroup.script,
-      },
-      scopeProfile: ScopeProfile(
-        name: 'implementation',
-        scopeNames: ['spec', 'files', 'memory'],
-      ),
-    );
+  application: implementationApplication,
+  guidelinesName: implementationGuidelinesName,
+  toolset: {
+    AgentToolGroup.doc,
+    AgentToolGroup.memory,
+    AgentToolGroup.file,
+    AgentToolGroup.script,
+  },
+  scopeProfile: ScopeProfile(
+    name: 'implementation',
+    scopeNames: ['spec', 'files', 'memory'],
+  ),
+);
 
 /// A registry holding **all three** canonical TomSpecs application contexts —
 /// the full application mapping authored (DocSpecs → CodeSpecs →
