@@ -58091,16 +58091,25 @@ static void meta_build_entity_follow_up_entry_entity_ref(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "Which entity these follow-up facets describe.\n\nThe facets below are operational and governance material rather than part\nof the generation-owned entity schema, which is why the block sits outside\n[DataEntityEntry] rather than inside it — and that is exactly what makes a\ncorrelation key necessary. The entry headline carries the entity name and\nthis band carries the short alias used in diagrams and narrative. Point it\nat the wrong entity and both halves stay well-formed on their own, so\nnothing detects the error; it is worth checking against\n`dataModel.entities` when the block is written.");
+  meta_set(&n->doc_comment, "Which entity these follow-up facets describe.\n\nThe facets below are operational and governance material rather than part\nof the generation-owned entity schema, which is why the block sits outside\n[DataEntityEntry] rather than inside it — and that is exactly what makes a\ncorrelation key necessary.\n\n**`entityName` is the checked half of that key.** It carries `refersTo`,\nso a name that matches no entry of the entity registry is reported rather\nthan left to a reader — which is the whole difference between a\ncorrelation that is stated and one that is merely intended. `entityAlias`\nstays beside it for the short form used in diagrams and narrative; it\ncannot itself be the reference, because `tom_specs_model_rules.md` §6.2\nrule 4 requires a registry key to be `required` on the target, and\n`DAENT.entityAlias` is optional.\n\nThe reference is optional, so a block that names no entity is still\nwell-formed — an existing document does not become invalid for never\nhaving carried the field. What it no longer is, once filled in, is\nunvalidated.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 1;
-  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("entityAlias");
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("entityName");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Alias/Abbreviation");
+  n->form->fields[0].description = som_strdup("Entity Name");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Short alias of the referenced entity (e.g., CUST, ORD)");
+  n->form->fields[0].hint = som_strdup("Must match an entity declared in the entity registry (DAENT)");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[1].name = som_strdup("entityAlias");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Alias/Abbreviation");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Short alias of the referenced entity (e.g., CUST, ORD)");
+  n->form->fields[1].order = 1;
 }
 static void meta_build_entity_follow_up_entry_volume_metrics(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityFollowUpEntry");

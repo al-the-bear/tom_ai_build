@@ -13514,11 +13514,21 @@ class EntityFollowUpEntry : public som::SomNode {
   // The facets below are operational and governance material rather than part
   // of the generation-owned entity schema, which is why the block sits outside
   // [DataEntityEntry] rather than inside it — and that is exactly what makes a
-  // correlation key necessary. The entry headline carries the entity name and
-  // this band carries the short alias used in diagrams and narrative. Point it
-  // at the wrong entity and both halves stay well-formed on their own, so
-  // nothing detects the error; it is worth checking against
-  // `dataModel.entities` when the block is written.
+  // correlation key necessary.
+  //
+  // **`entityName` is the checked half of that key.** It carries `refersTo`,
+  // so a name that matches no entry of the entity registry is reported rather
+  // than left to a reader — which is the whole difference between a
+  // correlation that is stated and one that is merely intended. `entityAlias`
+  // stays beside it for the short form used in diagrams and narrative; it
+  // cannot itself be the reference, because `tom_specs_model_rules.md` §6.2
+  // rule 4 requires a registry key to be `required` on the target, and
+  // `DAENT.entityAlias` is optional.
+  //
+  // The reference is optional, so a block that names no entity is still
+  // well-formed — an existing document does not become invalid for never
+  // having carried the field. What it no longer is, once filled in, is
+  // unvalidated.
   EntityFollowUpEntryEntityRefForm entityRef() const;
   // How much data this entity accumulates, and how fast.
   //
@@ -47158,6 +47168,8 @@ class EntityFollowUpEntryEntityRefForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string entityName() const;
+  void setEntityName(const std::string& value);
   std::string entityAlias() const;
   void setEntityAlias(const std::string& value);
 };

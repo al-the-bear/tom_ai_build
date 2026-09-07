@@ -86012,6 +86012,13 @@ char *entity_follow_up_entry_entity_ref_form_content(const EntityFollowUpEntryEn
 void entity_follow_up_entry_entity_ref_form_set_content(EntityFollowUpEntryEntityRefForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
+char *entity_follow_up_entry_entity_ref_form_entity_name(const EntityFollowUpEntryEntityRefForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityName");
+  return som_strdup(v != NULL ? v : "");
+}
+void entity_follow_up_entry_entity_ref_form_set_entity_name(EntityFollowUpEntryEntityRefForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "entityName", value);
+}
 char *entity_follow_up_entry_entity_ref_form_entity_alias(const EntityFollowUpEntryEntityRefForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityAlias");
   return som_strdup(v != NULL ? v : "");

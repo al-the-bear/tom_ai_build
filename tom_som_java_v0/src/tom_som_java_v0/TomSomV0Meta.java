@@ -36416,9 +36416,10 @@ public final class TomSomV0Meta {
         n.memberName = "entityRef";
         n.sectionId = "DMFUE-ENTI";
         n.serializationOrder = 1;
-        n.docComment = "Which entity these follow-up facets describe.\n\nThe facets below are operational and governance material rather than part\nof the generation-owned entity schema, which is why the block sits outside\n[DataEntityEntry] rather than inside it — and that is exactly what makes a\ncorrelation key necessary. The entry headline carries the entity name and\nthis band carries the short alias used in diagrams and narrative. Point it\nat the wrong entity and both halves stay well-formed on their own, so\nnothing detects the error; it is worth checking against\n`dataModel.entities` when the block is written.";
+        n.docComment = "Which entity these follow-up facets describe.\n\nThe facets below are operational and governance material rather than part\nof the generation-owned entity schema, which is why the block sits outside\n[DataEntityEntry] rather than inside it — and that is exactly what makes a\ncorrelation key necessary.\n\n**`entityName` is the checked half of that key.** It carries `refersTo`,\nso a name that matches no entry of the entity registry is reported rather\nthan left to a reader — which is the whole difference between a\ncorrelation that is stated and one that is merely intended. `entityAlias`\nstays beside it for the short form used in diagrams and narrative; it\ncannot itself be the reference, because `tom_specs_model_rules.md` §6.2\nrule 4 requires a registry key to be `required` on the target, and\n`DAENT.entityAlias` is optional.\n\nThe reference is optional, so a block that names no entity is still\nwell-formed — an existing document does not become invalid for never\nhaving carried the field. What it no longer is, once filled in, is\nunvalidated.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("entityAlias", "String", "Alias/Abbreviation", false, "Short alias of the referenced entity (e.g., CUST, ORD)", 0)));
+            new SomFormFieldMeta("entityName", "String", "Entity Name", false, "Must match an entity declared in the entity registry (DAENT)", 0, java.util.List.of(), java.util.List.of("DAENT.entityName")),
+            new SomFormFieldMeta("entityAlias", "String", "Alias/Abbreviation", false, "Short alias of the referenced entity (e.g., CUST, ORD)", 1)));
         out.add(n);
       }
       {

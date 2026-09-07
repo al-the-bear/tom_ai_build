@@ -33482,6 +33482,8 @@ form-types:
         description: "What the handler must decide, in business terms"
   dmfue-enti-form:
     fields:
+      - fieldname: entityName
+        description: Must match an entity declared in the entity registry (DAENT)
       - fieldname: entityAlias
         description: "Short alias of the referenced entity (e.g., CUST, ORD)"
   trareq-tran-form:

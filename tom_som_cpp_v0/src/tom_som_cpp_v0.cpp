@@ -48317,6 +48317,12 @@ std::string EntityFollowUpEntryEntityRefForm::content() const {
 void EntityFollowUpEntryEntityRefForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string EntityFollowUpEntryEntityRefForm::entityName() const {
+  return doc().formField(path(), "entityName");
+}
+void EntityFollowUpEntryEntityRefForm::setEntityName(const std::string& value) {
+  doc().setFormField(path(), "entityName", value);
+}
 std::string EntityFollowUpEntryEntityRefForm::entityAlias() const {
   return doc().formField(path(), "entityAlias");
 }
