@@ -165,6 +165,17 @@ Editing rules:
 - **Different major versions are non-editable across each other** — cross-major
   is read/convert only, never in-place edit.
 
+**Bumping the model version is a nine-suite change, not a one-line one.** The
+stamp is asserted literally by each language's committed behavioural suite —
+`tom_som_<lang>_v0`'s own tests pin the constant, the accepted-equal stamp and
+the rejected-newer one — so a bump moves a value in nine places. The 1.0 → 1.1
+bump updated the Dart suite and left the other eight asserting the old ladder,
+which failed all eight for as long as nobody ran them. When bumping, shift each
+ladder together: the equal stamp becomes the new version, the
+must-be-rejected stamp becomes the one above it, and document-stamp round-trips
+stay where they are — an older stamp is still valid, which is what those cases
+exercise.
+
 `SomEditability` plus the pure classifier `somEditabilityFor(...)` is the single
 definition of these rules; the throwing constructor check delegates to it, so a
 read-only viewer branches on the result instead of catching the exception. The
@@ -781,6 +792,25 @@ embedded node's methods, C++ hides non-virtual ones, and Dart/JavaScript accept
 an override whose body then calls itself — a wrong read, not a build failure, is
 the failure mode. So the emitters **rename the generated accessor** (appending
 `_`) rather than relying on the prefix.
+
+**The names are fixed across the nine; the section-id setter's behaviour on an
+absent value is not, and that is a known divergence rather than a rule.** All
+nine silently accept a call that assigns nothing, and they disagree on what
+"nothing" is: Dart (before it was changed), TypeScript, JavaScript, Python and
+Java guard `null`; Go, Rust and C++ guard the empty string; C guards both. So
+one call is a no-op in nine runtimes for three different reasons, and in none of
+them does the caller learn that nothing happened.
+
+The reason it reads as meaningful is the two sibling accessors: `$headline` and
+`$codeSpec` are sparse overlays where the absent value *does* mean **clear the
+store**. The section id has no such operation — no runtime's `SpecDocument` can
+return a list item to "no id assigned" once one is set — so the same call shape
+means "clear" on two accessors and "do nothing at all" on the third.
+
+Dart is now the exception: its setter takes a non-nullable `String`, so the call
+cannot be written. Making the nine agree is a contract decision (refuse / add a
+clear operation / one documented uniform no-op) recorded in
+`open_topics.tom_specs.md`, topic 6, with the per-runtime table.
 
 The reserved set is a single table, `SomStructuralMember` ×
 `SomLanguage` in `tom_specs_clitool/lib/src/som_structural_accessors.dart`, from
