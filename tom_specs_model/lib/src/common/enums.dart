@@ -1,31 +1,6 @@
 /// Enums shared across TomSpecs document models.
 library;
 
-/// Section type in DocSpecs annotations.
-///
-/// Names the *shape of a section's body*, which decides what may be parsed out
-/// of it: only a form body yields scalar fields, so a class carrying scalar
-/// members alongside its `content` must be a form
-/// (`tom_specs_model_rules.md` §5.6).
-enum SectionType {
-  /// Prose narrative: the body is written for a human reader and nothing is
-  /// extracted from it. The default for a section whose entire value is the
-  /// text between its headline and the next one.
-  description,
-
-  /// Field container: the section's scalar members are the form fields parsed
-  /// out of the body. Per `tom_specs_model_rules.md` §5.6 this is the *only*
-  /// body shape a class with sibling scalar fields may declare — declaring any
-  /// other shape alongside scalar fields is a model error, not a style choice.
-  form,
-
-  /// Machine-language body (`SQL`, `DDL`, `Dart`, `Mermaid`, …) carried
-  /// verbatim and never parsed for fields. A class using this shape may
-  /// therefore have no sibling scalar members
-  /// (`tom_specs_model_rules.md` §5.6).
-  code,
-}
-
 /// Priority level for requirements.
 ///
 /// The MoSCoW vocabulary. The four constants are not four points on a scale of
