@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 21 files
-// Generated: 2026-09-07T11:40:50.036445
+// Generated: 2026-09-07T12:29:39.270466
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -3703,10 +3703,13 @@ BridgedClass _createFormFieldSpecBridge() {
         final enumValues = named.containsKey('enumValues') && named['enumValues'] != null
             ? D4.coerceList<String>(named['enumValues'], 'enumValues')
             : const <String>[];
+        final enumValueDocs = named.containsKey('enumValueDocs') && named['enumValueDocs'] != null
+            ? D4.coerceMap<String, String>(named['enumValueDocs'], 'enumValueDocs')
+            : const <String, String>{};
         final refersTo = named.containsKey('refersTo') && named['refersTo'] != null
             ? D4.coerceList<String>(named['refersTo'], 'refersTo')
             : const <String>[];
-        return $tom_som_dart_runtime_12.FormFieldSpec(name: name, label: label, type: type, hint: hint, required: required, enumValues: enumValues, refersTo: refersTo);
+        return $tom_som_dart_runtime_12.FormFieldSpec(name: name, label: label, type: type, hint: hint, required: required, enumValues: enumValues, enumValueDocs: enumValueDocs, refersTo: refersTo);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FormFieldSpec');
@@ -3724,10 +3727,11 @@ BridgedClass _createFormFieldSpecBridge() {
       'type': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').type,
       'required': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').required,
       'enumValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').enumValues,
+      'enumValueDocs': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').enumValueDocs,
       'refersTo': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').refersTo,
     },
     constructorSignatures: {
-      '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const [], List<String> refersTo = const []})',
+      '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const [], Map<String, String> enumValueDocs = const {}, List<String> refersTo = const []})',
       'fromJson': 'factory FormFieldSpec.fromJson(Map<String, dynamic> j)',
     },
     getterSignatures: {
@@ -3737,6 +3741,7 @@ BridgedClass _createFormFieldSpecBridge() {
       'type': 'String get type',
       'required': 'bool get required',
       'enumValues': 'List<String> get enumValues',
+      'enumValueDocs': 'Map<String, String> get enumValueDocs',
       'refersTo': 'List<String> get refersTo',
     },
   );
@@ -3888,6 +3893,9 @@ BridgedClass _createSpecFieldBridge() {
         final enumValues = named.containsKey('enumValues') && named['enumValues'] != null
             ? D4.coerceList<String>(named['enumValues'], 'enumValues')
             : const <String>[];
+        final enumValueDocs = named.containsKey('enumValueDocs') && named['enumValueDocs'] != null
+            ? D4.coerceMap<String, String>(named['enumValueDocs'], 'enumValueDocs')
+            : const <String, String>{};
         final type = D4.getOptionalNamedArg<String?>(named, 'type');
         final formFields = named.containsKey('formFields') && named['formFields'] != null
             ? D4.coerceList<$tom_som_dart_runtime_12.FormFieldSpec>(named['formFields'], 'formFields')
@@ -3896,7 +3904,7 @@ BridgedClass _createSpecFieldBridge() {
             ? D4.coerceList<$tom_som_dart_runtime_12.SpecAnnotation>(named['annotations'], 'annotations')
             : const <$tom_som_dart_runtime_12.SpecAnnotation>[];
         final standardReferences = D4.getOptionalNamedArg<$tom_som_dart_runtime_12.StandardReferences?>(named, 'standardReferences');
-        return $tom_som_dart_runtime_12.SpecField(name: name, kind: kind, doc: doc, help: help, headline: headline, sectionId: sectionId, sectionIdPattern: sectionIdPattern, serializationOrder: serializationOrder, elementType: elementType, elementIsComplex: elementIsComplex, min: min, contentType: contentType, sectionType: sectionType, enumType: enumType, enumValues: enumValues, type: type, formFields: formFields, annotations: annotations, standardReferences: standardReferences);
+        return $tom_som_dart_runtime_12.SpecField(name: name, kind: kind, doc: doc, help: help, headline: headline, sectionId: sectionId, sectionIdPattern: sectionIdPattern, serializationOrder: serializationOrder, elementType: elementType, elementIsComplex: elementIsComplex, min: min, contentType: contentType, sectionType: sectionType, enumType: enumType, enumValues: enumValues, enumValueDocs: enumValueDocs, type: type, formFields: formFields, annotations: annotations, standardReferences: standardReferences);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecField');
@@ -3923,6 +3931,7 @@ BridgedClass _createSpecFieldBridge() {
       'sectionType': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').sectionType,
       'enumType': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').enumType,
       'enumValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').enumValues,
+      'enumValueDocs': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').enumValueDocs,
       'type': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').type,
       'formFields': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').formFields,
       'annotations': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').annotations,
@@ -3959,7 +3968,7 @@ BridgedClass _createSpecFieldBridge() {
       },
     },
     constructorSignatures: {
-      '': 'SpecField({required String name, required SpecFieldKind kind, String? doc, String? help, String? headline, String? sectionId, String? sectionIdPattern, int? serializationOrder, String? elementType, bool elementIsComplex = false, int? min, String? contentType, String? sectionType, String? enumType, List<String> enumValues = const [], String? type, List<FormFieldSpec> formFields = const [], List<SpecAnnotation> annotations = const [], StandardReferences? standardReferences})',
+      '': 'SpecField({required String name, required SpecFieldKind kind, String? doc, String? help, String? headline, String? sectionId, String? sectionIdPattern, int? serializationOrder, String? elementType, bool elementIsComplex = false, int? min, String? contentType, String? sectionType, String? enumType, List<String> enumValues = const [], Map<String, String> enumValueDocs = const {}, String? type, List<FormFieldSpec> formFields = const [], List<SpecAnnotation> annotations = const [], StandardReferences? standardReferences})',
       'fromJson': 'factory SpecField.fromJson(Map<String, dynamic> j)',
     },
     methodSignatures: {
@@ -3983,6 +3992,7 @@ BridgedClass _createSpecFieldBridge() {
       'sectionType': 'String? get sectionType',
       'enumType': 'String? get enumType',
       'enumValues': 'List<String> get enumValues',
+      'enumValueDocs': 'Map<String, String> get enumValueDocs',
       'type': 'String? get type',
       'formFields': 'List<FormFieldSpec> get formFields',
       'annotations': 'List<SpecAnnotation> get annotations',
