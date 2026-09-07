@@ -54,23 +54,26 @@ void main() {
   Future<void> pumpTree(WidgetTester tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 2400));
     addTearDown(() => tester.binding.setSurfaceSize(null));
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: SpecTree(
-          model: model,
-          root: model.roots.single,
-          store: store,
-          showSerializationOrder: true,
-          onHandoffTap: (_, _) {},
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: model.roots.single,
+            store: store,
+            showSerializationOrder: true,
+            onHandoffTap: (_, _) {},
+          ),
         ),
       ),
-    ));
+    );
     await tester.pumpAndSettle();
     await _expandAll(tester);
   }
 
-  testWidgets('RAR1: every shared chip descriptor reaches the reviewer tree',
-      (tester) async {
+  testWidgets('RAR1: every shared chip descriptor reaches the reviewer tree', (
+    tester,
+  ) async {
     await pumpTree(tester);
 
     final expected = expectedShowcaseChipLabels(model);
@@ -79,13 +82,18 @@ void main() {
       for (final label in expected)
         if (find.text(label).evaluate().isEmpty) label,
     ];
-    expect(missing, isEmpty,
-        reason: 'the shared display layer produces these chips but the '
-            'reviewer tree does not render them');
+    expect(
+      missing,
+      isEmpty,
+      reason:
+          'the shared display layer produces these chips but the '
+          'reviewer tree does not render them',
+    );
   });
 
-  testWidgets('RAR2: the non-chip row extras reach the reviewer tree',
-      (tester) async {
+  testWidgets('RAR2: the non-chip row extras reach the reviewer tree', (
+    tester,
+  ) async {
     await pumpTree(tester);
 
     // `@Headline` — the authored section title, distinct from the member name.
@@ -112,8 +120,9 @@ void main() {
     expect(find.text('→ references $kShowcaseReference'), findsOneWidget);
   });
 
-  testWidgets('RAR4: a @SectionIdPattern list also shows its own section id',
-      (tester) async {
+  testWidgets('RAR4: a @SectionIdPattern list also shows its own section id', (
+    tester,
+  ) async {
     // The regression this pins: a tree that renders
     // `sectionId ?? sectionIdPattern` makes the pattern unreachable on every
     // list that carries both — and in the real model, all of them do.

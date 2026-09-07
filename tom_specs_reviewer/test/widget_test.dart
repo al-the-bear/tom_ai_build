@@ -111,17 +111,16 @@ SpecModel _stampedModel({
   String generatedAt = '2026-07-20T08:00:00.000000Z',
   int classCount = 2,
   int rootCount = 1,
-}) =>
-    SpecModel.fromJson({
-      ...json.decode(_sampleJson) as Map<String, dynamic>,
-      'modelVersion': 1,
-      'modelVersionLabel': '1.0.0+3.50e0102',
-      'generatedAt': generatedAt,
-      'metaSchemaVersion': 1,
-      'classCount': classCount,
-      'rootCount': rootCount,
-      'containerRoot': 'DocSpecsProject',
-    });
+}) => SpecModel.fromJson({
+  ...json.decode(_sampleJson) as Map<String, dynamic>,
+  'modelVersion': 1,
+  'modelVersionLabel': '1.0.0+3.50e0102',
+  'generatedAt': generatedAt,
+  'metaSchemaVersion': 1,
+  'classCount': classCount,
+  'rootCount': rootCount,
+  'containerRoot': 'DocSpecsProject',
+});
 
 /// A model exercising all three `@CodeSpecKind` states plus the field-level and
 /// collapsed-complex cases.
@@ -318,11 +317,14 @@ SpecModel _oneOfModel() =>
 /// The same fixture with `divider` removed from the discriminator enum, so the
 /// choice is fully covered.
 SpecModel _completeOneOfModel() => SpecModel.fromJson(
-      json.decode(_oneOfJson.replaceAll(
-        '"action", "input", "display", "divider"',
-        '"action", "input", "display"',
-      )) as Map<String, dynamic>,
-    );
+  json.decode(
+        _oneOfJson.replaceAll(
+          '"action", "input", "display", "divider"',
+          '"action", "input", "display"',
+        ),
+      )
+      as Map<String, dynamic>,
+);
 
 /// A model carrying the annotations TSRA5 renders: the `@Unused` marker, the
 /// `@Comment` note at both class and field level (including the `locus:`
@@ -382,12 +384,13 @@ const _annotationJson = '''
 }
 ''';
 
-SpecModel _annotationModel() => SpecModel.fromJson(
-    json.decode(_annotationJson) as Map<String, dynamic>);
+SpecModel _annotationModel() =>
+    SpecModel.fromJson(json.decode(_annotationJson) as Map<String, dynamic>);
 
 File _tempReviewFile(String name) {
   final dir = Directory(
-      '${Directory.current.path}/.dart_tool/specs_reviewer_test');
+    '${Directory.current.path}/.dart_tool/specs_reviewer_test',
+  );
   dir.createSync(recursive: true);
   return File('${dir.path}/$name');
 }
@@ -483,8 +486,11 @@ void main() {
   group('pathToType (navigation chain)', () {
     test('finds the shortest chain root→target', () {
       final model = _handoffModel();
-      expect(pathToType(model, 'OtherDoc', 'Detail'),
-          {'OtherDoc', 'Handoff', 'Detail'});
+      expect(pathToType(model, 'OtherDoc', 'Detail'), {
+        'OtherDoc',
+        'Handoff',
+        'Detail',
+      });
     });
 
     test('returns just the root when target equals root', () {
@@ -499,25 +505,28 @@ void main() {
   });
 
   group('Hand-off cut (2b)', () {
-    testWidgets('hides detailed subsections but keeps the section content',
-        (tester) async {
+    testWidgets('hides detailed subsections but keeps the section content', (
+      tester,
+    ) async {
       final file = _tempReviewFile('cut.yaml');
       if (file.existsSync()) file.deleteSync();
       final store = ReviewStore(file);
       final model = _handoffModel();
       final mainRoot = model.roots.firstWhere((r) => r.type == 'MainDoc');
 
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: mainRoot,
-            store: store,
-            cutAtDetails: true,
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: mainRoot,
+              store: store,
+              cutAtDetails: true,
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       // Expand the Handoff complex node.
       await tester.tap(find.text('handoff'));
       await tester.pumpAndSettle();
@@ -531,25 +540,28 @@ void main() {
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('the maps switch does not cut a detail-only hand-off',
-        (tester) async {
+    testWidgets('the maps switch does not cut a detail-only hand-off', (
+      tester,
+    ) async {
       final file = _tempReviewFile('detailonly.yaml');
       if (file.existsSync()) file.deleteSync();
       final store = ReviewStore(file);
       final model = _handoffModel();
       final mainRoot = model.roots.firstWhere((r) => r.type == 'MainDoc');
 
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: mainRoot,
-            store: store,
-            cutAtMaps: true, // only maps; Handoff is a detail hand-off
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: mainRoot,
+              store: store,
+              cutAtMaps: true, // only maps; Handoff is a detail hand-off
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       await tester.tap(find.text('handoff'));
       await tester.pumpAndSettle();
 
@@ -558,8 +570,7 @@ void main() {
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('the maps switch cuts a @MapsTo hand-off (2d)',
-        (tester) async {
+    testWidgets('the maps switch cuts a @MapsTo hand-off (2d)', (tester) async {
       final file = _tempReviewFile('mapscut.yaml');
       if (file.existsSync()) file.deleteSync();
       final store = ReviewStore(file);
@@ -567,17 +578,19 @@ void main() {
       // OtherDoc contains "Mapped" (mapsTo MainDoc) with a "detail" subsection.
       final otherRoot = model.roots.firstWhere((r) => r.type == 'OtherDoc');
 
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: otherRoot,
-            store: store,
-            cutAtMaps: true,
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: otherRoot,
+              store: store,
+              cutAtMaps: true,
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       await tester.tap(find.text('mapped'));
       await tester.pumpAndSettle();
 
@@ -594,16 +607,18 @@ void main() {
       final model = _handoffModel();
       final mainRoot = model.roots.firstWhere((r) => r.type == 'MainDoc');
 
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: mainRoot,
-            store: store,
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: mainRoot,
+              store: store,
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       await tester.tap(find.text('handoff'));
       await tester.pumpAndSettle();
 
@@ -614,24 +629,27 @@ void main() {
   });
 
   group('List section content', () {
-    testWidgets('an expanded list shows its own intro content part',
-        (tester) async {
+    testWidgets('an expanded list shows its own intro content part', (
+      tester,
+    ) async {
       final file = _tempReviewFile('listcontent.yaml');
       if (file.existsSync()) file.deleteSync();
       final store = ReviewStore(file);
       final model = _model();
       final root = model.roots.single;
 
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: SpecRoot(type: root.type, title: root.title),
-            store: store,
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: SpecRoot(type: root.type, title: root.title),
+              store: store,
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       // The DemoDoc root is expanded by default; expand the `items` list.
       await tester.tap(find.text('items'));
       await tester.pumpAndSettle();
@@ -653,16 +671,18 @@ void main() {
       final model = _handoffModel();
       final mainRoot = model.roots.firstWhere((r) => r.type == 'MainDoc');
 
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: mainRoot,
-            store: store,
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: mainRoot,
+              store: store,
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       // MainDoc is expanded by default; its `handoff` complex field collapses
       // with the Handoff class into one row.
       // Variable (field) name appears exactly once — not duplicated by a
@@ -688,16 +708,18 @@ void main() {
       // intro content part is injected.
       final mainRoot = model.roots.firstWhere((r) => r.type == 'MainDoc');
 
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: mainRoot,
-            store: store,
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: mainRoot,
+              store: store,
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       // Root expanded by default; the injected content node is visible while
       // `handoff` is still collapsed (so no other 'content' label competes).
       expect(find.text('content'), findsOneWidget);
@@ -710,9 +732,11 @@ void main() {
       final file = _tempReviewFile('widget.yaml');
       if (file.existsSync()) file.deleteSync();
       final store = ReviewStore(file);
-      await tester.pumpWidget(MaterialApp(
-        home: StartPage(model: _model(), store: store),
-      ));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: StartPage(model: _model(), store: store),
+        ),
+      );
       expect(find.text('Document Structures'), findsOneWidget);
       expect(find.text('Demo Document'), findsWidgets);
 
@@ -731,21 +755,24 @@ void main() {
       final file = _tempReviewFile(name);
       if (file.existsSync()) file.deleteSync();
       final model = _kindModel();
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: model.roots.single,
-            store: ReviewStore(file),
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: model.roots.single,
+              store: ReviewStore(file),
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       return file;
     }
 
-    testWidgets('a mapped class shows one chip per kind, not just the first',
-        (tester) async {
+    testWidgets('a mapped class shows one chip per kind, not just the first', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'kind_multi.yaml');
       // The root is expanded by default, so its own chips are on screen.
       expect(find.text('cs:authorization'), findsOneWidget);
@@ -755,23 +782,27 @@ void main() {
 
     testWidgets('the mapping note is available as a tooltip', (tester) async {
       final file = await pumpTree(tester, 'kind_note.yaml');
-      final tooltip = tester.widget<Tooltip>(find.ancestor(
-        of: find.text('cs:authorization'),
-        matching: find.byType(Tooltip),
-      ));
+      final tooltip = tester.widget<Tooltip>(
+        find.ancestor(
+          of: find.text('cs:authorization'),
+          matching: find.byType(Tooltip),
+        ),
+      );
       expect(tooltip.message, 'CE-AZ — access rules');
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('a field carries its own mapping, independent of its class',
-        (tester) async {
+    testWidgets('a field carries its own mapping, independent of its class', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'kind_field.yaml');
       expect(find.text('cs:serverConfiguration'), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('an unmapped node shows the unmapped marker, not a blank',
-        (tester) async {
+    testWidgets('an unmapped node shows the unmapped marker, not a blank', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'kind_unmapped.yaml');
       // `plain`, `empty`'s and `none`'s rows are all unannotated in their own
       // right; the marker must be present rather than the row simply going
@@ -780,8 +811,9 @@ void main() {
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('an empty kind list is distinct from an absent annotation',
-        (tester) async {
+    testWidgets('an empty kind list is distinct from an absent annotation', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'kind_empty.yaml');
       // EmptyKinds collapses into the `empty` field row and states "no part";
       // NoKinds collapses into `none` and states "not mapped yet".
@@ -790,8 +822,9 @@ void main() {
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('a class without the annotation renders no kind chips',
-        (tester) async {
+    testWidgets('a class without the annotation renders no kind chips', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'kind_absent.yaml');
       expect(find.textContaining('cs:authorization'), findsOneWidget);
       // Nothing invented for the unannotated classes.
@@ -805,16 +838,18 @@ void main() {
       final file = _tempReviewFile(name);
       if (file.existsSync()) file.deleteSync();
       final model = _followUpModel();
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: model.rootByType('AuthoringDoc'),
-            store: ReviewStore(file),
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: model.rootByType('AuthoringDoc'),
+              store: ReviewStore(file),
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       await tester.pumpAndSettle();
       return file;
     }
@@ -836,10 +871,9 @@ void main() {
 
     testWidgets('the follow-up note is available as a tooltip', (tester) async {
       final file = await pumpTree(tester, 'fu_note.yaml');
-      final tooltip = tester.widget<Tooltip>(find.ancestor(
-        of: find.text('fu:doc'),
-        matching: find.byType(Tooltip),
-      ));
+      final tooltip = tester.widget<Tooltip>(
+        find.ancestor(of: find.text('fu:doc'), matching: find.byType(Tooltip)),
+      );
       expect(tooltip.message, 'Feeds the data-migration handbook');
       if (file.existsSync()) file.deleteSync();
     });
@@ -855,21 +889,26 @@ void main() {
         of: find.text('fu:doc'),
         matching: find.byType(Wrap),
       );
-      expect(find.descendant(of: row.first, matching: find.text('cs?')),
-          findsNothing);
+      expect(
+        find.descendant(of: row.first, matching: find.text('cs?')),
+        findsNothing,
+      );
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('a CodeSpecs-mapped section carries no follow-up chip',
-        (tester) async {
+    testWidgets('a CodeSpecs-mapped section carries no follow-up chip', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'fu_none.yaml');
       expect(find.text('cs:validation'), findsOneWidget);
       final row = find.ancestor(
         of: find.text('cs:validation'),
         matching: find.byType(Wrap),
       );
-      expect(find.descendant(of: row.first, matching: find.textContaining('fu:')),
-          findsNothing);
+      expect(
+        find.descendant(of: row.first, matching: find.textContaining('fu:')),
+        findsNothing,
+      );
       if (file.existsSync()) file.deleteSync();
     });
   });
@@ -878,15 +917,18 @@ void main() {
     Future<File> pumpStart(WidgetTester tester, String name) async {
       final file = _tempReviewFile(name);
       if (file.existsSync()) file.deleteSync();
-      await tester.pumpWidget(MaterialApp(
-        home: StartPage(model: _followUpModel(), store: ReviewStore(file)),
-      ));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: StartPage(model: _followUpModel(), store: ReviewStore(file)),
+        ),
+      );
       await tester.pumpAndSettle();
       return file;
     }
 
-    testWidgets('the projection root is labelled in the root list',
-        (tester) async {
+    testWidgets('the projection root is labelled in the root list', (
+      tester,
+    ) async {
       final file = await pumpStart(tester, 'proj_list.yaml');
       // Exactly one of the two roots is a projection.
       expect(find.text('projection'), findsOneWidget);
@@ -894,13 +936,16 @@ void main() {
         of: find.text('Projection Document'),
         matching: find.byType(ListTile),
       );
-      expect(find.descendant(of: tile, matching: find.text('projection')),
-          findsOneWidget);
+      expect(
+        find.descendant(of: tile, matching: find.text('projection')),
+        findsOneWidget,
+      );
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('the projection root is labelled in the tree it opens',
-        (tester) async {
+    testWidgets('the projection root is labelled in the tree it opens', (
+      tester,
+    ) async {
       final file = await pumpStart(tester, 'proj_tree.yaml');
       await tester.tap(find.text('Projection Document'));
       await tester.pumpAndSettle();
@@ -910,8 +955,9 @@ void main() {
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('the detail review controls are caveated inside a projection',
-        (tester) async {
+    testWidgets('the detail review controls are caveated inside a projection', (
+      tester,
+    ) async {
       final file = await pumpStart(tester, 'proj_caveat.yaml');
       await tester.tap(find.text('Projection Document'));
       await tester.pumpAndSettle();
@@ -919,41 +965,52 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.textContaining('CodeSpecs projection'), findsOneWidget);
-      expect(find.textContaining('Detail belongs on the source section'),
-          findsOneWidget);
+      expect(
+        find.textContaining('Detail belongs on the source section'),
+        findsOneWidget,
+      );
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('an authoring document keeps the ordinary detail controls',
-        (tester) async {
+    testWidgets('an authoring document keeps the ordinary detail controls', (
+      tester,
+    ) async {
       final file = await pumpStart(tester, 'proj_authoring.yaml');
       await tester.tap(find.text('Authoring Document'));
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.edit_note).first);
       await tester.pumpAndSettle();
 
-      expect(find.text('This node needs further specification'), findsOneWidget);
+      expect(
+        find.text('This node needs further specification'),
+        findsOneWidget,
+      );
       expect(find.textContaining('CodeSpecs projection'), findsNothing);
       if (file.existsSync()) file.deleteSync();
     });
   });
 
   group('@OneOf / @Case rendering (TSRA4)', () {
-    Future<File> pumpTree(WidgetTester tester, String name,
-        {SpecModel? model}) async {
+    Future<File> pumpTree(
+      WidgetTester tester,
+      String name, {
+      SpecModel? model,
+    }) async {
       final file = _tempReviewFile(name);
       if (file.existsSync()) file.deleteSync();
       final m = model ?? _oneOfModel();
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: m,
-            root: m.roots.single,
-            store: ReviewStore(file),
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: m,
+              root: m.roots.single,
+              store: ReviewStore(file),
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       await tester.pumpAndSettle();
       // `element` collapses the field and its class into one row, closed by
       // default; the choice lives inside it.
@@ -965,9 +1022,11 @@ void main() {
     /// The left indent of the tree row whose headline is [label], as rendered
     /// by `_NodeRow` (`16 * depth`).
     double indentOf(WidgetTester tester, String label) {
-      final padding = tester.widget<Padding>(find
-          .ancestor(of: find.text(label), matching: find.byType(Padding))
-          .first);
+      final padding = tester.widget<Padding>(
+        find
+            .ancestor(of: find.text(label), matching: find.byType(Padding))
+            .first,
+      );
       return (padding.padding as EdgeInsets).left;
     }
 
@@ -984,15 +1043,19 @@ void main() {
       // not inferred from a chip on an otherwise ordinary sibling row.
       final file = await pumpTree(tester, 'oneof_indent.yaml');
       final group = indentOf(tester, 'one of: elementType');
-      expect(indentOf(tester, 'layout'), group,
-          reason: 'a common section is a sibling of the group');
+      expect(
+        indentOf(tester, 'layout'),
+        group,
+        reason: 'a common section is a sibling of the group',
+      );
       expect(indentOf(tester, 'elementAction'), greaterThan(group));
       expect(indentOf(tester, 'fieldSpec'), greaterThan(group));
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('each alternative shows every case value, not just the first',
-        (tester) async {
+    testWidgets('each alternative shows every case value, not just the first', (
+      tester,
+    ) async {
       // `@Case` is repeatable; `fieldSpec` claims two kinds.
       final file = await pumpTree(tester, 'oneof_cases.yaml');
       expect(find.text('case:action'), findsOneWidget);
@@ -1003,33 +1066,43 @@ void main() {
 
     testWidgets('a common section carries no case chip', (tester) async {
       final file = await pumpTree(tester, 'oneof_common.yaml');
-      final row =
-          find.ancestor(of: find.text('layout'), matching: find.byType(Wrap));
+      final row = find.ancestor(
+        of: find.text('layout'),
+        matching: find.byType(Wrap),
+      );
       expect(
-          find.descendant(of: row.first, matching: find.textContaining('case:')),
-          findsNothing);
+        find.descendant(of: row.first, matching: find.textContaining('case:')),
+        findsNothing,
+      );
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('the group states its coverage against the discriminator enum',
-        (tester) async {
-      final file = await pumpTree(tester, 'oneof_coverage.yaml');
-      expect(find.text('covers 3/4'), findsOneWidget);
-      if (file.existsSync()) file.deleteSync();
-    });
+    testWidgets(
+      'the group states its coverage against the discriminator enum',
+      (tester) async {
+        final file = await pumpTree(tester, 'oneof_coverage.yaml');
+        expect(find.text('covers 3/4'), findsOneWidget);
+        if (file.existsSync()) file.deleteSync();
+      },
+    );
 
-    testWidgets('uncovered discriminator values are named, not merely counted',
-        (tester) async {
+    testWidgets('uncovered discriminator values are named, not merely counted', (
+      tester,
+    ) async {
       // "Is this set complete?" is unanswerable unless the gap is spelled out.
       final file = await pumpTree(tester, 'oneof_uncovered.yaml');
       expect(find.text('uncovered: divider'), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('a fully covered choice shows no uncovered chip',
-        (tester) async {
-      final file = await pumpTree(tester, 'oneof_complete.yaml',
-          model: _completeOneOfModel());
+    testWidgets('a fully covered choice shows no uncovered chip', (
+      tester,
+    ) async {
+      final file = await pumpTree(
+        tester,
+        'oneof_complete.yaml',
+        model: _completeOneOfModel(),
+      );
       expect(find.text('covers 3/3'), findsOneWidget);
       expect(find.textContaining('uncovered:'), findsNothing);
       if (file.existsSync()) file.deleteSync();
@@ -1037,8 +1110,10 @@ void main() {
 
     testWidgets('the @OneOf note is shown on the group', (tester) async {
       final file = await pumpTree(tester, 'oneof_note.yaml');
-      expect(find.text('The element kind selects its facet subsection'),
-          findsOneWidget);
+      expect(
+        find.text('The element kind selects its facet subsection'),
+        findsOneWidget,
+      );
       if (file.existsSync()) file.deleteSync();
     });
 
@@ -1061,10 +1136,13 @@ void main() {
       final file = await pumpTree(tester, 'oneof_absent.yaml');
       expect(find.textContaining('one of:'), findsOneWidget);
       final row = find.ancestor(
-          of: find.text('plainSection'), matching: find.byType(Wrap));
+        of: find.text('plainSection'),
+        matching: find.byType(Wrap),
+      );
       expect(
-          find.descendant(of: row.first, matching: find.textContaining('one of')),
-          findsNothing);
+        find.descendant(of: row.first, matching: find.textContaining('one of')),
+        findsNothing,
+      );
       if (file.existsSync()) file.deleteSync();
     });
   });
@@ -1076,8 +1154,9 @@ void main() {
     // from the snapshot, so refreshing it cannot make these tests wrong — only
     // a renderer that stops covering the model can.
     final model = SpecModel.fromJson(
-        json.decode(File('assets/spec_model.json').readAsStringSync())
-            as Map<String, dynamic>);
+      json.decode(File('assets/spec_model.json').readAsStringSync())
+          as Map<String, dynamic>,
+    );
     final choiceClasses = [
       for (final c in model.classes.values)
         if (c.oneOf != null) c,
@@ -1089,30 +1168,39 @@ void main() {
     });
 
     for (final cls in choiceClasses) {
-      testWidgets('${cls.name} renders as a choice group with every case',
-          (tester) async {
+      testWidgets('${cls.name} renders as a choice group with every case', (
+        tester,
+      ) async {
         final group = cls.oneOf!;
         final file = _tempReviewFile('asset_${cls.name}.yaml');
         if (file.existsSync()) file.deleteSync();
-        await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-            body: SpecTree(
-              model: model,
-              root: SpecRoot(type: cls.name, title: cls.name),
-              store: ReviewStore(file),
-              onHandoffTap: (_, _) {},
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: SpecTree(
+                model: model,
+                root: SpecRoot(type: cls.name, title: cls.name),
+                store: ReviewStore(file),
+                onHandoffTap: (_, _) {},
+              ),
             ),
           ),
-        ));
+        );
         await tester.pumpAndSettle();
 
         expect(find.text('one of: ${group.discriminator}'), findsOneWidget);
         expect(
-            find.text('covers ${group.coveredValues.length}/'
-                '${group.discriminatorValues.length}'),
-            findsOneWidget);
-        expect(find.text('discriminator not found'), findsNothing,
-            reason: 'every shipped discriminator must resolve');
+          find.text(
+            'covers ${group.coveredValues.length}/'
+            '${group.discriminatorValues.length}',
+          ),
+          findsOneWidget,
+        );
+        expect(
+          find.text('discriminator not found'),
+          findsNothing,
+          reason: 'every shipped discriminator must resolve',
+        );
 
         // Every `@Case` on every alternative reaches the screen — the count is
         // what catches a reader that stopped at the first repeated annotation.
@@ -1139,16 +1227,18 @@ void main() {
       final file = _tempReviewFile(name);
       if (file.existsSync()) file.deleteSync();
       final m = _annotationModel();
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: m,
-            root: m.roots.single,
-            store: ReviewStore(file),
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: m,
+              root: m.roots.single,
+              store: ReviewStore(file),
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       await tester.pumpAndSettle();
       return file;
     }
@@ -1170,8 +1260,9 @@ void main() {
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('@Comment renders inline at class and field level',
-        (tester) async {
+    testWidgets('@Comment renders inline at class and field level', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'ann_comment.yaml');
       expect(find.text('← Seeds -> QAP'), findsOneWidget);
       // The `locus:` variant drives the `codespecs_mapping.md` §4.2 project
@@ -1180,8 +1271,9 @@ void main() {
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('references are collapsed behind a chip by default',
-        (tester) async {
+    testWidgets('references are collapsed behind a chip by default', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'ann_refs_collapsed.yaml');
       // Three nodes carry provenance: the root class and the `items` list via
       // `@StandardReferences`, `intro` via `@Reference`.
@@ -1196,8 +1288,10 @@ void main() {
       final file = await pumpTree(tester, 'ann_refs_open.yaml');
       await tester.tap(find.text(kReferencesChipLabel).first);
       await tester.pumpAndSettle();
-      expect(find.textContaining('ISO 21502:2020 -- project management'),
-          findsOneWidget);
+      expect(
+        find.textContaining('ISO 21502:2020 -- project management'),
+        findsOneWidget,
+      );
       expect(find.textContaining('What the document owns.'), findsOneWidget);
       // Opening one node must not open the other.
       expect(find.textContaining('IEEE 829-2008'), findsNothing);
@@ -1219,18 +1313,22 @@ void main() {
       // `intro` carries only a `@Reference`, no `@StandardReferences` — the
       // affordance must appear for it too.
       expect(find.text(kReferencesChipLabel), findsNWidgets(3));
-      await tester.tap(find.descendant(
-        of: find.ancestor(
-            of: find.text('intro'), matching: find.byType(Column)).first,
-        matching: find.text(kReferencesChipLabel),
-      ));
+      await tester.tap(
+        find.descendant(
+          of: find
+              .ancestor(of: find.text('intro'), matching: find.byType(Column))
+              .first,
+          matching: find.text(kReferencesChipLabel),
+        ),
+      );
       await tester.pumpAndSettle();
       expect(find.textContaining('objectName'), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('@SectionIdPattern shows alongside the sectionId',
-        (tester) async {
+    testWidgets('@SectionIdPattern shows alongside the sectionId', (
+      tester,
+    ) async {
       // Every one of the shipped 578 patterns sits on a field that *also* has
       // a sectionId, so the old `sectionId ?? pattern` fallback never showed
       // a single one of them.
@@ -1247,22 +1345,25 @@ void main() {
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('@SerializationOrder shows when the tree is asked for it',
-        (tester) async {
+    testWidgets('@SerializationOrder shows when the tree is asked for it', (
+      tester,
+    ) async {
       final file = _tempReviewFile('ann_order_on.yaml');
       if (file.existsSync()) file.deleteSync();
       final m = _annotationModel();
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: m,
-            root: m.roots.single,
-            store: ReviewStore(file),
-            showSerializationOrder: true,
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: m,
+              root: m.roots.single,
+              store: ReviewStore(file),
+              showSerializationOrder: true,
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       await tester.pumpAndSettle();
       expect(find.text('#0'), findsOneWidget);
       expect(find.text('#1'), findsOneWidget);
@@ -1272,24 +1373,26 @@ void main() {
   });
 
   group('Serialization-order toggle persistence (TSRA5)', () {
-    testWidgets('the toggle keeps its state when the document is switched',
-        (tester) async {
+    testWidgets('the toggle keeps its state when the document is switched', (
+      tester,
+    ) async {
       final file = _tempReviewFile('order_toggle.yaml');
       if (file.existsSync()) file.deleteSync();
       // `_handoffModel` has two roots, so switching documents rebuilds the
       // whole tree — the toggle must live above it, not inside it.
       final model = _handoffModel();
-      await tester.pumpWidget(MaterialApp(
-        home: StartPage(model: model, store: ReviewStore(file)),
-      ));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: StartPage(model: model, store: ReviewStore(file)),
+        ),
+      );
       await tester.tap(find.text('Main').first);
       await tester.pumpAndSettle();
       expect(find.text(kSerializationOrderToggleLabel), findsOneWidget);
 
       // The toolbar's third switch is the serialization-order one; the two
       // before it are the hand-off cuts.
-      Switch orderSwitch() =>
-          tester.widget<Switch>(find.byType(Switch).at(2));
+      Switch orderSwitch() => tester.widget<Switch>(find.byType(Switch).at(2));
       expect(orderSwitch().value, isFalse);
 
       await tester.tap(find.byType(Switch).at(2));
@@ -1298,8 +1401,11 @@ void main() {
 
       await tester.tap(find.text('Other').first);
       await tester.pumpAndSettle();
-      expect(orderSwitch().value, isTrue,
-          reason: 'the toggle must survive a document switch');
+      expect(
+        orderSwitch().value,
+        isTrue,
+        reason: 'the toggle must survive a document switch',
+      );
       if (file.existsSync()) file.deleteSync();
     });
   });
@@ -1311,8 +1417,9 @@ void main() {
     // named renderer. A model that grows a new annotation fails here until a
     // decision is recorded about how to show it.
     final model = SpecModel.fromJson(
-        json.decode(File('assets/spec_model.json').readAsStringSync())
-            as Map<String, dynamic>);
+      json.decode(File('assets/spec_model.json').readAsStringSync())
+          as Map<String, dynamic>,
+    );
 
     test('every annotation name in the snapshot has a renderer', () {
       final present = <String>{};
@@ -1323,13 +1430,18 @@ void main() {
         }
       }
       expect(present, isNotEmpty);
-      expect(present.difference(kRenderedAnnotations), isEmpty,
-          reason: 'unrendered annotations must be added to '
-              'kRenderedAnnotations with a rendering');
+      expect(
+        present.difference(kRenderedAnnotations),
+        isEmpty,
+        reason:
+            'unrendered annotations must be added to '
+            'kRenderedAnnotations with a rendering',
+      );
     });
 
-    testWidgets('a shipped document root shows no ordinals until asked',
-        (tester) async {
+    testWidgets('a shipped document root shows no ordinals until asked', (
+      tester,
+    ) async {
       // The readability guarantee, stated against the real model rather than a
       // fixture: 4936 members carry an ordinal, and none of them may reach the
       // default view.
@@ -1337,17 +1449,19 @@ void main() {
       Future<void> pump({required bool showOrder}) async {
         final file = _tempReviewFile('asset_order_$showOrder.yaml');
         if (file.existsSync()) file.deleteSync();
-        await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-            body: SpecTree(
-              model: model,
-              root: root,
-              store: ReviewStore(file),
-              showSerializationOrder: showOrder,
-              onHandoffTap: (_, _) {},
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: SpecTree(
+                model: model,
+                root: root,
+                store: ReviewStore(file),
+                showSerializationOrder: showOrder,
+                onHandoffTap: (_, _) {},
+              ),
             ),
           ),
-        ));
+        );
         await tester.pumpAndSettle();
         if (file.existsSync()) file.deleteSync();
       }
@@ -1360,27 +1474,32 @@ void main() {
 
     testWidgets('a shipped section with provenance offers the references '
         'affordance', (tester) async {
-      final cls = model.classes.values.firstWhere((c) =>
-          c.standardReferences != null &&
-          c.fields.any((f) => f.sectionIdPattern != null));
+      final cls = model.classes.values.firstWhere(
+        (c) =>
+            c.standardReferences != null &&
+            c.fields.any((f) => f.sectionIdPattern != null),
+      );
       final file = _tempReviewFile('asset_refs_${cls.name}.yaml');
       if (file.existsSync()) file.deleteSync();
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: SpecRoot(type: cls.name, title: cls.name),
-            store: ReviewStore(file),
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: SpecRoot(type: cls.name, title: cls.name),
+              store: ReviewStore(file),
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       await tester.pumpAndSettle();
       expect(find.text(kReferencesChipLabel), findsWidgets);
       // The pattern of the first patterned list field must be on screen next
       // to its own section id.
-      final patterned =
-          cls.fields.firstWhere((f) => f.sectionIdPattern != null);
+      final patterned = cls.fields.firstWhere(
+        (f) => f.sectionIdPattern != null,
+      );
       expect(find.text(patterned.sectionIdPattern!), findsOneWidget);
       expect(find.text(patterned.sectionId!), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
@@ -1401,20 +1520,30 @@ void main() {
     }) async {
       final file = _tempReviewFile(name);
       if (file.existsSync()) file.deleteSync();
-      await tester.pumpWidget(MaterialApp(
-        home: StartPage(model: model, store: ReviewStore(file), now: now),
-      ));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: StartPage(model: model, store: ReviewStore(file), now: now),
+        ),
+      );
       return file;
     }
 
-    testWidgets('names the model, its export time and its size', (tester) async {
-      final file = await pumpStart(tester,
-          name: 'stamp_ok.yaml', model: _stampedModel(), now: fresh);
+    testWidgets('names the model, its export time and its size', (
+      tester,
+    ) async {
+      final file = await pumpStart(
+        tester,
+        name: 'stamp_ok.yaml',
+        model: _stampedModel(),
+        now: fresh,
+      );
 
       expect(find.textContaining('Model 1.0'), findsOneWidget);
       expect(find.textContaining('(1.0.0+3.50e0102)'), findsOneWidget);
-      expect(find.textContaining('generated 2026-07-20 08:00 UTC'),
-          findsOneWidget);
+      expect(
+        find.textContaining('generated 2026-07-20 08:00 UTC'),
+        findsOneWidget,
+      );
       expect(find.textContaining('1 day ago'), findsOneWidget);
       expect(find.textContaining('2 classes'), findsOneWidget);
       expect(find.textContaining('1 roots'), findsOneWidget);
@@ -1422,10 +1551,15 @@ void main() {
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('a fresh, self-consistent snapshot raises no warning',
-        (tester) async {
-      final file = await pumpStart(tester,
-          name: 'stamp_fresh.yaml', model: _stampedModel(), now: fresh);
+    testWidgets('a fresh, self-consistent snapshot raises no warning', (
+      tester,
+    ) async {
+      final file = await pumpStart(
+        tester,
+        name: 'stamp_fresh.yaml',
+        model: _stampedModel(),
+        now: fresh,
+      );
 
       expect(find.byIcon(Icons.verified_outlined), findsOneWidget);
       expect(find.byIcon(Icons.warning_amber_rounded), findsNothing);
@@ -1433,34 +1567,47 @@ void main() {
     });
 
     testWidgets('an artificially aged snapshot warns', (tester) async {
-      final file = await pumpStart(tester,
-          name: 'stamp_aged.yaml', model: _stampedModel(), now: longAfter);
+      final file = await pumpStart(
+        tester,
+        name: 'stamp_aged.yaml',
+        model: _stampedModel(),
+        now: longAfter,
+      );
 
       expect(find.byIcon(Icons.warning_amber_rounded), findsOneWidget);
       expect(find.textContaining('60 days old'), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('a snapshot edited after export warns about the count',
-        (tester) async {
+    testWidgets('a snapshot edited after export warns about the count', (
+      tester,
+    ) async {
       // The exporter derives classCount from the payload, so a disagreement can
       // only mean the file was changed by hand afterwards.
-      final file = await pumpStart(tester,
-          name: 'stamp_edited.yaml',
-          model: _stampedModel(classCount: 99),
-          now: fresh);
+      final file = await pumpStart(
+        tester,
+        name: 'stamp_edited.yaml',
+        model: _stampedModel(classCount: 99),
+        now: fresh,
+      );
 
       expect(find.byIcon(Icons.warning_amber_rounded), findsOneWidget);
       expect(
-          find.textContaining('declares 99 classes but the snapshot carries 2'),
-          findsOneWidget);
+        find.textContaining('declares 99 classes but the snapshot carries 2'),
+        findsOneWidget,
+      );
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('a snapshot without the stamp keys still renders, degraded',
-        (tester) async {
-      final file = await pumpStart(tester,
-          name: 'stamp_absent.yaml', model: _model(), now: longAfter);
+    testWidgets('a snapshot without the stamp keys still renders, degraded', (
+      tester,
+    ) async {
+      final file = await pumpStart(
+        tester,
+        name: 'stamp_absent.yaml',
+        model: _model(),
+        now: longAfter,
+      );
 
       // No generatedAt means no age can be computed — and therefore no aged
       // warning, rather than a false alarm.
@@ -1472,39 +1619,52 @@ void main() {
 
   group('CodeSpecs-mapping feedback vocabulary (TSRA6)', () {
     test('the kind vocabulary is the canonical CodeSpecPart enum', () {
-      expect(kCodeSpecPartTokens,
-          {for (final part in CodeSpecPart.values) part.name});
+      expect(kCodeSpecPartTokens, {
+        for (final part in CodeSpecPart.values) part.name,
+      });
       expect(kCodeSpecPartTokens, hasLength(28));
       // Deferred kinds are part of the vocabulary: a reviewer proposing one is
       // exactly the case that needs recording.
-      expect(kCodeSpecPartTokens,
-          containsAll(['workflow', 'notification', 'auditLog', 'reporting']));
+      expect(
+        kCodeSpecPartTokens,
+        containsAll(['workflow', 'notification', 'auditLog', 'reporting']),
+      );
     });
 
     test('normalization accepts both the bare and the prefixed token form', () {
       expect(normalizeCodeSpecKindToken('form'), 'form');
-      expect(normalizeCodeSpecKindToken('CodeSpecPart.dataAccess'),
-          'dataAccess');
+      expect(
+        normalizeCodeSpecKindToken('CodeSpecPart.dataAccess'),
+        'dataAccess',
+      );
       expect(normalizeCodeSpecKindToken('  serverApi  '), 'serverApi');
     });
 
     test('an invalid kind token is rejected at entry', () {
       expect(() => normalizeCodeSpecKindToken('formm'), throwsArgumentError);
-      expect(() => ReviewEntry(suggestedCodeSpecKinds: const ['nope']),
-          throwsArgumentError);
+      expect(
+        () => ReviewEntry(suggestedCodeSpecKinds: const ['nope']),
+        throwsArgumentError,
+      );
       final entry = ReviewEntry();
-      expect(() => entry.suggestedCodeSpecKinds = ['form', 'bogus'],
-          throwsArgumentError);
-      expect(() => entry.toggleSuggestedCodeSpecKind('bogus'),
-          throwsArgumentError);
+      expect(
+        () => entry.suggestedCodeSpecKinds = ['form', 'bogus'],
+        throwsArgumentError,
+      );
+      expect(
+        () => entry.toggleSuggestedCodeSpecKind('bogus'),
+        throwsArgumentError,
+      );
       // A rejected assignment leaves the entry untouched.
       expect(entry.suggestedCodeSpecKinds, isEmpty);
     });
 
     test('the suggested-kind list cannot be mutated behind the validator', () {
       final entry = ReviewEntry(suggestedCodeSpecKinds: const ['form']);
-      expect(() => entry.suggestedCodeSpecKinds.add('bogus'),
-          throwsUnsupportedError);
+      expect(
+        () => entry.suggestedCodeSpecKinds.add('bogus'),
+        throwsUnsupportedError,
+      );
     });
 
     test('toggling adds and removes a kind', () {
@@ -1592,21 +1752,25 @@ entries:
       file.deleteSync();
     });
 
-    test('a hand-edited file with a bad token drops it rather than failing',
-        () {
-      final file = _tempReviewFile('codespecs_badtoken.yaml');
-      file.writeAsStringSync('''
+    test(
+      'a hand-edited file with a bad token drops it rather than failing',
+      () {
+        final file = _tempReviewFile('codespecs_badtoken.yaml');
+        file.writeAsStringSync('''
 version: 2
 entries:
   "DemoDoc/intro":
     scope: none
     suggested_code_spec_kinds: ["form", "typo", "CodeSpecPart.validation"]
 ''');
-      final store = ReviewStore(file)..load();
-      expect(store.entryFor('DemoDoc/intro')!.suggestedCodeSpecKinds,
-          ['form', 'validation']);
-      file.deleteSync();
-    });
+        final store = ReviewStore(file)..load();
+        expect(store.entryFor('DemoDoc/intro')!.suggestedCodeSpecKinds, [
+          'form',
+          'validation',
+        ]);
+        file.deleteSync();
+      },
+    );
   });
 
   group('CodeSpecs-mapping controls (TSRA6)', () {
@@ -1614,22 +1778,25 @@ entries:
       final file = _tempReviewFile(name);
       if (file.existsSync()) file.deleteSync();
       final model = _model();
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: model.roots.single,
-            store: ReviewStore(file),
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: model.roots.single,
+              store: ReviewStore(file),
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       await tester.pumpAndSettle();
       return file;
     }
 
-    testWidgets('the dialog offers the CodeSpecs axis on a class node',
-        (tester) async {
+    testWidgets('the dialog offers the CodeSpecs axis on a class node', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'controls_class.yaml');
       await tester.tap(find.byIcon(Icons.edit_note).first);
       await tester.pumpAndSettle();
@@ -1646,8 +1813,9 @@ entries:
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('the axis is reachable on a form-field node too',
-        (tester) async {
+    testWidgets('the axis is reachable on a form-field node too', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'controls_field.yaml');
       // The last edit control on screen belongs to a nested field row, not the
       // root class row.
@@ -1657,8 +1825,9 @@ entries:
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('checking a CodeSpecs flag persists it to the store',
-        (tester) async {
+    testWidgets('checking a CodeSpecs flag persists it to the store', (
+      tester,
+    ) async {
       final file = await pumpTree(tester, 'controls_persist.yaml');
       await tester.tap(find.byIcon(Icons.edit_note).first);
       await tester.pumpAndSettle();
@@ -1688,7 +1857,9 @@ entries:
       expect(ReviewEntry().destination, ReviewDestination.unset);
       expect(ReviewEntry().isEmpty, isTrue);
       expect(
-          ReviewEntry(destination: ReviewDestination.neither).isEmpty, isFalse);
+        ReviewEntry(destination: ReviewDestination.neither).isEmpty,
+        isFalse,
+      );
     });
 
     test('every destination round-trips through YAML', () {
@@ -1709,20 +1880,34 @@ entries:
     });
 
     test('an unreadable destination token degrades to unset', () {
-      expect(ReviewDestination.parse('not_a_destination'),
-          ReviewDestination.unset);
+      expect(
+        ReviewDestination.parse('not_a_destination'),
+        ReviewDestination.unset,
+      );
       expect(ReviewDestination.parse(null), ReviewDestination.unset);
     });
   });
 
   group('Follow-up feedback vocabulary (TSRA7)', () {
     test('the known vocabulary is the FollowUpProcess enum', () {
-      expect(kFollowUpProcessTokens,
-          {for (final process in FollowUpProcess.values) process.name});
+      expect(kFollowUpProcessTokens, {
+        for (final process in FollowUpProcess.values) process.name,
+      });
       expect(kFollowUpProcessTokens, hasLength(9));
-      expect(kFollowUpProcessTokens,
-          containsAll(['doc', 'trn', 'org', 'ops', 'cap', 'cmp', 'mig',
-            'l10n', 'acc']));
+      expect(
+        kFollowUpProcessTokens,
+        containsAll([
+          'doc',
+          'trn',
+          'org',
+          'ops',
+          'cap',
+          'cmp',
+          'mig',
+          'l10n',
+          'acc',
+        ]),
+      );
     });
 
     test('an unknown code is warned about, not rejected', () {
@@ -1743,8 +1928,10 @@ entries:
       expect(normalizeFollowUpKindToken('FollowUpProcess.l10n'), 'l10n');
       expect(normalizeFollowUpKindToken('L10N'), 'l10n');
       expect(() => normalizeFollowUpKindToken('   '), throwsArgumentError);
-      expect(() => ReviewEntry(suggestedFollowUpKinds: const ['']),
-          throwsArgumentError);
+      expect(
+        () => ReviewEntry(suggestedFollowUpKinds: const ['']),
+        throwsArgumentError,
+      );
     });
 
     test('toggling adds and removes, including an extension code', () {
@@ -1758,15 +1945,18 @@ entries:
 
     test('the suggested list cannot be mutated behind the normaliser', () {
       final entry = ReviewEntry(suggestedFollowUpKinds: const ['doc']);
-      expect(() => entry.suggestedFollowUpKinds.add('x'),
-          throwsUnsupportedError);
+      expect(
+        () => entry.suggestedFollowUpKinds.add('x'),
+        throwsUnsupportedError,
+      );
     });
 
     test('an unknown code survives a YAML round-trip', () {
       final file = _tempReviewFile('followup_unknown.yaml');
       if (file.existsSync()) file.deleteSync();
-      ReviewStore(file)
-          .update('p', (e) => e.suggestedFollowUpKinds = ['mig', 'sec']);
+      ReviewStore(
+        file,
+      ).update('p', (e) => e.suggestedFollowUpKinds = ['mig', 'sec']);
       final reloaded = ReviewStore(file)..load();
       final entry = reloaded.entryFor('p')!;
       expect(entry.suggestedFollowUpKinds, ['mig', 'sec']);
@@ -1787,8 +1977,10 @@ entries:
 
     test('parsing accepts both the bare and the prefixed token form', () {
       expect(parseNoArtifactReason('container'), NoArtifactReason.container);
-      expect(parseNoArtifactReason('NoArtifactReason.overview'),
-          NoArtifactReason.overview);
+      expect(
+        parseNoArtifactReason('NoArtifactReason.overview'),
+        NoArtifactReason.overview,
+      );
       expect(parseNoArtifactReason('  VIEW  '), NoArtifactReason.view);
     });
 
@@ -1811,17 +2003,22 @@ entries:
       final file = _tempReviewFile('no_artifact_reason.yaml');
       for (final reason in NoArtifactReason.values) {
         if (file.existsSync()) file.deleteSync();
-        ReviewStore(file).update('p', (e) => e.suggestedNoArtifactReason = reason);
-        expect((ReviewStore(file)..load()).entryFor('p')!
-            .suggestedNoArtifactReason, reason);
+        ReviewStore(
+          file,
+        ).update('p', (e) => e.suggestedNoArtifactReason = reason);
+        expect(
+          (ReviewStore(file)..load()).entryFor('p')!.suggestedNoArtifactReason,
+          reason,
+        );
       }
       if (file.existsSync()) file.deleteSync();
     });
 
-    test('a hand-edited file with a bad reason keeps the rest of the entry',
-        () {
-      final file = _tempReviewFile('no_artifact_badtoken.yaml');
-      file.writeAsStringSync('''
+    test(
+      'a hand-edited file with a bad reason keeps the rest of the entry',
+      () {
+        final file = _tempReviewFile('no_artifact_badtoken.yaml');
+        file.writeAsStringSync('''
 version: 2
 entries:
   "DemoDoc/intro":
@@ -1829,11 +2026,12 @@ entries:
     no_artifact_wrong: true
     suggested_no_artifact_reason: containr
 ''');
-      final entry = (ReviewStore(file)..load()).entryFor('DemoDoc/intro')!;
-      expect(entry.noArtifactWrong, isTrue);
-      expect(entry.suggestedNoArtifactReason, isNull);
-      file.deleteSync();
-    });
+        final entry = (ReviewStore(file)..load()).entryFor('DemoDoc/intro')!;
+        expect(entry.noArtifactWrong, isTrue);
+        expect(entry.suggestedNoArtifactReason, isNull);
+        file.deleteSync();
+      },
+    );
 
     test('the two opposing verdicts stay independent flags', () {
       // Unlike the @Unused pair, neither authorises a deletion, so a reviewer
@@ -1863,17 +2061,19 @@ entries:
       if (file.existsSync()) file.deleteSync();
     });
 
-    test('a free-text comment that reads as a scalar survives the round-trip',
-        () {
-      // The store emits from one map now, and that map holds closed tokens and
-      // free text side by side. Quoting every string is what keeps `true` a
-      // comment rather than a bool on the way back in.
-      final file = _tempReviewFile('scalar_comment.yaml');
-      if (file.existsSync()) file.deleteSync();
-      ReviewStore(file).update('p', (e) => e.comment = 'true');
-      expect((ReviewStore(file)..load()).entryFor('p')!.comment, 'true');
-      file.deleteSync();
-    });
+    test(
+      'a free-text comment that reads as a scalar survives the round-trip',
+      () {
+        // The store emits from one map now, and that map holds closed tokens and
+        // free text side by side. Quoting every string is what keeps `true` a
+        // comment rather than a bool on the way back in.
+        final file = _tempReviewFile('scalar_comment.yaml');
+        if (file.existsSync()) file.deleteSync();
+        ReviewStore(file).update('p', (e) => e.comment = 'true');
+        expect((ReviewStore(file)..load()).entryFor('p')!.comment, 'true');
+        file.deleteSync();
+      },
+    );
   });
 
   group('Structural feedback axes (TSRA7)', () {
@@ -1960,8 +2160,10 @@ entries:
       expect(entry.unusedRejected, isFalse);
 
       // The invariant holds through a hand-edited file that states both.
-      final loaded = ReviewEntry.fromMap(
-          {'unused_confirmed': true, 'unused_rejected': true});
+      final loaded = ReviewEntry.fromMap({
+        'unused_confirmed': true,
+        'unused_rejected': true,
+      });
       expect(loaded.unusedConfirmed && loaded.unusedRejected, isFalse);
     });
 
@@ -1992,46 +2194,56 @@ entries:
   });
 
   group('TSRA7 controls', () {
-    Future<File> pumpDialog(WidgetTester tester, String name,
-        {void Function(ReviewEntry)? seed}) async {
+    Future<File> pumpDialog(
+      WidgetTester tester,
+      String name, {
+      void Function(ReviewEntry)? seed,
+    }) async {
       final file = _tempReviewFile(name);
       if (file.existsSync()) file.deleteSync();
       final model = _model();
       final store = ReviewStore(file);
       if (seed != null) store.update('DemoDoc', seed);
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: SpecTree(
-            model: model,
-            root: model.roots.single,
-            store: store,
-            onHandoffTap: (_, _) {},
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SpecTree(
+              model: model,
+              root: model.roots.single,
+              store: store,
+              onHandoffTap: (_, _) {},
+            ),
           ),
         ),
-      ));
+      );
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.edit_note).first);
       await tester.pumpAndSettle();
       return file;
     }
 
-    testWidgets('the destination choice is offered without expanding anything',
-        (tester) async {
-      final file = await pumpDialog(tester, 'dest_visible.yaml');
-      expect(find.text(kDestinationLabel), findsOneWidget);
-      // Scoped to the destination group: scope and destination both offer an
-      // "Undecided" option, and both are legitimately worded that way.
-      final group = find.byKey(const ValueKey('destination-options'));
-      expect(group, findsOneWidget);
-      for (final destination in ReviewDestination.values) {
-        expect(find.descendant(of: group, matching: find.text(destination.label)),
-            findsOneWidget);
-      }
-      if (file.existsSync()) file.deleteSync();
-    });
+    testWidgets(
+      'the destination choice is offered without expanding anything',
+      (tester) async {
+        final file = await pumpDialog(tester, 'dest_visible.yaml');
+        expect(find.text(kDestinationLabel), findsOneWidget);
+        // Scoped to the destination group: scope and destination both offer an
+        // "Undecided" option, and both are legitimately worded that way.
+        final group = find.byKey(const ValueKey('destination-options'));
+        expect(group, findsOneWidget);
+        for (final destination in ReviewDestination.values) {
+          expect(
+            find.descendant(of: group, matching: find.text(destination.label)),
+            findsOneWidget,
+          );
+        }
+        if (file.existsSync()) file.deleteSync();
+      },
+    );
 
-    testWidgets('every axis has a control once its section is expanded',
-        (tester) async {
+    testWidgets('every axis has a control once its section is expanded', (
+      tester,
+    ) async {
       final file = await pumpDialog(tester, 'all_axes.yaml');
       for (final section in [
         kStructureSectionLabel,
@@ -2069,12 +2281,16 @@ entries:
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('a section that already carries feedback starts expanded',
-        (tester) async {
+    testWidgets('a section that already carries feedback starts expanded', (
+      tester,
+    ) async {
       // Collapsing a section that holds a recorded judgement would hide it —
       // the one failure mode a collapsible dialog must not have.
-      final file = await pumpDialog(tester, 'section_expanded.yaml',
-          seed: (e) => e.idPatternWrong = true);
+      final file = await pumpDialog(
+        tester,
+        'section_expanded.yaml',
+        seed: (e) => e.idPatternWrong = true,
+      );
       await tester.ensureVisible(find.text(kIdPatternWrongLabel));
       expect(find.text(kIdPatternWrongLabel), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
@@ -2101,10 +2317,14 @@ entries:
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('an unknown follow-up code is flagged in the summary',
-        (tester) async {
-      final file = await pumpDialog(tester, 'followup_warn.yaml',
-          seed: (e) => e.suggestedFollowUpKinds = ['doc', 'sec']);
+    testWidgets('an unknown follow-up code is flagged in the summary', (
+      tester,
+    ) async {
+      final file = await pumpDialog(
+        tester,
+        'followup_warn.yaml',
+        seed: (e) => e.suggestedFollowUpKinds = ['doc', 'sec'],
+      );
       // The dialog names the extension code as unrecognised rather than
       // silently accepting or dropping it.
       await tester.ensureVisible(find.text(kUnknownFollowUpWarning));
@@ -2112,8 +2332,9 @@ entries:
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('disagreeing with a @NoArtifact verdict persists it',
-        (tester) async {
+    testWidgets('disagreeing with a @NoArtifact verdict persists it', (
+      tester,
+    ) async {
       // The case the axis exists for: the tree shows `na:overview`, and the
       // reviewer thinks the section carries normative content after all.
       final file = await pumpDialog(tester, 'no_artifact_persist.yaml');
@@ -2125,34 +2346,47 @@ entries:
       await tester.tap(find.text(kNoArtifactWrongLabel));
       await tester.pumpAndSettle();
 
-      expect((ReviewStore(file)..load()).entryFor('DemoDoc')!.noArtifactWrong,
-          isTrue);
+      expect(
+        (ReviewStore(file)..load()).entryFor('DemoDoc')!.noArtifactWrong,
+        isTrue,
+      );
       if (file.existsSync()) file.deleteSync();
     });
 
-    testWidgets('the reason picker offers one choice per reason plus undecided',
-        (tester) async {
-      // Scoped to the picker's own group: scope and destination each offer an
-      // "Undecided" too, and all three are legitimately worded that way.
-      final file = await pumpDialog(tester, 'no_artifact_reason_ui.yaml',
-          seed: (e) => e.suggestedNoArtifactReason = NoArtifactReason.view);
-      final group = find.byKey(const ValueKey('no-artifact-reason-options'));
-      expect(group, findsOneWidget);
-      for (final reason in <NoArtifactReason?>[
-        null,
-        ...NoArtifactReason.values,
-      ]) {
-        expect(
+    testWidgets(
+      'the reason picker offers one choice per reason plus undecided',
+      (tester) async {
+        // Scoped to the picker's own group: scope and destination each offer an
+        // "Undecided" too, and all three are legitimately worded that way.
+        final file = await pumpDialog(
+          tester,
+          'no_artifact_reason_ui.yaml',
+          seed: (e) => e.suggestedNoArtifactReason = NoArtifactReason.view,
+        );
+        final group = find.byKey(const ValueKey('no-artifact-reason-options'));
+        expect(group, findsOneWidget);
+        for (final reason in <NoArtifactReason?>[
+          null,
+          ...NoArtifactReason.values,
+        ]) {
+          expect(
             find.descendant(
-                of: group, matching: find.text(noArtifactReasonLabel(reason))),
-            findsOneWidget);
-      }
-      if (file.existsSync()) file.deleteSync();
-    });
+              of: group,
+              matching: find.text(noArtifactReasonLabel(reason)),
+            ),
+            findsOneWidget,
+          );
+        }
+        if (file.existsSync()) file.deleteSync();
+      },
+    );
 
     testWidgets('a recorded reason opens the section expanded', (tester) async {
-      final file = await pumpDialog(tester, 'no_artifact_expanded.yaml',
-          seed: (e) => e.suggestedNoArtifactReason = NoArtifactReason.container);
+      final file = await pumpDialog(
+        tester,
+        'no_artifact_expanded.yaml',
+        seed: (e) => e.suggestedNoArtifactReason = NoArtifactReason.container,
+      );
       await tester.ensureVisible(find.text(kNoArtifactMissingLabel));
       expect(find.text(kNoArtifactMissingLabel), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
@@ -2165,8 +2399,9 @@ entries:
     // none, so these tests pin it to the asset: refreshing to a model of a
     // different size fails here until the README is updated with it.
     final readme = File('README.md').readAsStringSync();
-    final stamp = json.decode(File('assets/spec_model.json').readAsStringSync())
-        as Map<String, dynamic>;
+    final stamp =
+        json.decode(File('assets/spec_model.json').readAsStringSync())
+            as Map<String, dynamic>;
     final model = SpecModel.fromJson(stamp);
 
     /// The value cell of the `| \`key\` | value |` row documenting [key].
@@ -2174,10 +2409,10 @@ entries:
     /// Anchored to the start of a table row, because the same keys are also
     /// discussed in the surrounding prose — an unanchored match happily read a
     /// sentence and captured the *next* table's header cell.
-    String? documented(String key) =>
-        RegExp('^\\|\\s*`$key`[^|]*\\|\\s*([^|]+?)\\s*\\|', multiLine: true)
-            .firstMatch(readme)
-            ?.group(1);
+    String? documented(String key) => RegExp(
+      '^\\|\\s*`$key`[^|]*\\|\\s*([^|]+?)\\s*\\|',
+      multiLine: true,
+    ).firstMatch(readme)?.group(1);
 
     test('records the shipped class and root counts', () {
       expect(documented('classCount'), '${stamp['classCount']}');
@@ -2194,10 +2429,15 @@ entries:
       // versions), and the baseline it records must be the stamp the shipped
       // asset actually carries.
       expect(readme, contains('--target reviewer'));
-      expect(documented('modelVersion'),
-          '`${stamp['modelVersion']}` / `${stamp['modelVersionLabel']}`');
-      expect(readme, isNot(contains('--model-version')),
-          reason: 'the README must not document a hand-supplied stamp');
+      expect(
+        documented('modelVersion'),
+        '`${stamp['modelVersion']}` / `${stamp['modelVersionLabel']}`',
+      );
+      expect(
+        readme,
+        isNot(contains('--model-version')),
+        reason: 'the README must not document a hand-supplied stamp',
+      );
     });
 
     test('the shipped stamp agrees with its own label', () {
@@ -2208,15 +2448,22 @@ entries:
       final label = stamp['modelVersionLabel'] as String?;
       expect(label, isNotNull);
       final major = int.tryParse(label!.split('+').first.split('.').first);
-      expect(stamp['modelVersion'], major,
-          reason: 'the snapshot claims model ${stamp['modelVersion']} beside '
-              'label "$label", which describes model $major');
+      expect(
+        stamp['modelVersion'],
+        major,
+        reason:
+            'the snapshot claims model ${stamp['modelVersion']} beside '
+            'label "$label", which describes model $major',
+      );
     });
 
     test('lists every document root the snapshot carries', () {
       for (final root in model.roots) {
-        expect(readme, contains('| ${root.sectionId} | ${root.title} |'),
-            reason: '${root.sectionId} is missing from the README root table');
+        expect(
+          readme,
+          contains('| ${root.sectionId} | ${root.title} |'),
+          reason: '${root.sectionId} is missing from the README root table',
+        );
       }
     });
   });

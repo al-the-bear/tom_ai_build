@@ -28,10 +28,12 @@ const String kAnnotationsSectionLabel = 'Annotations';
 /// Heading of the CodeSpecs routing section: whether the section becomes code
 /// at all, and as which parts.
 const String kCodeSpecsSectionLabel = 'CodeSpecs mapping';
+
 /// Note the trailing noun: the *destination* choice already offers a plain
 /// "Follow-up", and two identical labels in one dialog would name two different
 /// decisions.
 const String kFollowUpSectionLabel = 'Follow-up mapping';
+
 /// The third routing verdict gets its own group rather than a corner of the
 /// CodeSpecs one. The tree states three verdicts, so the feedback vocabulary
 /// has to know three: folding "produces nothing" into the CodeSpecs axis would
@@ -70,6 +72,7 @@ const String kSuggestedKindsLabel = 'Suggested kinds';
 /// Labels of the follow-up judgements and their picker.
 const String kFollowUpKindMissingLabel =
     'Should carry a follow-up process (none declared)';
+
 /// Records that the subtree is routed to follow-up but to the wrong processes.
 const String kFollowUpKindWrongLabel =
     'Declared follow-up processes are wrong or incomplete';
@@ -99,13 +102,13 @@ const String kUnknownFollowUpWarning =
 /// rather than a hazard worth silently resolving.
 const String kNoArtifactMissingLabel =
     'Feeds nothing — should carry @NoArtifact';
+
 /// The converse of the label above: `@NoArtifact` is declared and is wrong.
 ///
 /// Deliberately an independent flag rather than clearing its counterpart — see
 /// the group comment: neither verdict authorises anything, so a reviewer who
 /// ticks both has recorded a muddle worth seeing.
-const String kNoArtifactWrongLabel =
-    'Declared to feed nothing, but it does';
+const String kNoArtifactWrongLabel = 'Declared to feed nothing, but it does';
 
 /// Accepts the verdict but disputes which of the three reasons applies.
 const String kNoArtifactReasonWrongLabel = 'Declared reason is the wrong one';
@@ -115,6 +118,7 @@ const String kSuggestedNoArtifactReasonLabel = 'Suggested reason';
 
 /// Labels of the closed-choice judgements (`@OneOf` / `@Case`).
 const String kShouldBeOneOfLabel = 'These siblings are really alternatives';
+
 /// Records that an existing `@OneOf` group does not cover every discriminator
 /// constant — the case the static validator cannot always tell from a
 /// deliberate `noCase` entry.
@@ -122,6 +126,7 @@ const String kCaseSetIncompleteLabel = 'The closed set is missing a case';
 
 /// Labels of the annotation-level judgements.
 const String kIdPatternWrongLabel = 'Section id / pattern is wrong or collides';
+
 /// Records that a `@MapsTo` or `@DetailedIn` names the wrong document.
 const String kHandoffWrongLabel = 'Handoff points at the wrong target';
 
@@ -224,34 +229,40 @@ class ReviewControls extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
                 onTap: () => _openDialog(context),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 3,
+                    vertical: 2,
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       _dot(scope, entry?.stopHere ?? false),
                       const SizedBox(width: 2),
-                      Icon(Icons.edit_note,
-                          size: 16, color: Colors.grey.shade700),
+                      Icon(
+                        Icons.edit_note,
+                        size: 16,
+                        color: Colors.grey.shade700,
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
             Tooltip(
-              message:
-                  reviewed ? 'Reviewed — click to clear' : 'Mark as reviewed',
+              message: reviewed
+                  ? 'Reviewed — click to clear'
+                  : 'Mark as reviewed',
               child: InkWell(
                 borderRadius: BorderRadius.circular(4),
                 onTap: () =>
                     store.update(path, (e) => e.reviewed = !e.reviewed),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 2,
+                    vertical: 2,
+                  ),
                   child: Icon(
-                    reviewed
-                        ? Icons.check_circle
-                        : Icons.check_circle_outline,
+                    reviewed ? Icons.check_circle : Icons.check_circle_outline,
                     size: 17,
                     color: reviewed
                         ? Colors.green.shade600
@@ -266,7 +277,9 @@ class ReviewControls extends StatelessWidget {
                 child: Text(
                   summary,
                   style: TextStyle(
-                      fontSize: 11, color: Colors.blueGrey.shade700),
+                    fontSize: 11,
+                    color: Colors.blueGrey.shade700,
+                  ),
                 ),
               ),
           ],
@@ -481,22 +494,26 @@ class _ReviewDialogState extends State<_ReviewDialog> {
   /// API paths, not the reviewer's typing.
   Widget _suggestedKinds(ReviewEntry entry) {
     final chosen = entry.suggestedCodeSpecKinds;
-    final remaining = kCodeSpecPartTokens.where((t) => !chosen.contains(t))
-        .toList()
-      ..sort();
+    final remaining =
+        kCodeSpecPartTokens.where((t) => !chosen.contains(t)).toList()..sort();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(kSuggestedKindsLabel,
-            style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+        Text(
+          kSuggestedKindsLabel,
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+        ),
         const SizedBox(height: 4),
         if (chosen.isEmpty)
-          Text('none proposed',
-              style: TextStyle(
-                  fontSize: 12,
-                  fontStyle: FontStyle.italic,
-                  color: Colors.grey.shade600))
+          Text(
+            'none proposed',
+            style: TextStyle(
+              fontSize: 12,
+              fontStyle: FontStyle.italic,
+              color: Colors.grey.shade600,
+            ),
+          )
         else
           Wrap(
             spacing: 4,
@@ -507,8 +524,10 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                   label: Text(kind, style: const TextStyle(fontSize: 12)),
                   visualDensity: VisualDensity.compact,
                   onDeleted: () {
-                    widget.store.update(widget.path,
-                        (e) => e.toggleSuggestedCodeSpecKind(kind));
+                    widget.store.update(
+                      widget.path,
+                      (e) => e.toggleSuggestedCodeSpecKind(kind),
+                    );
                     setState(() {});
                   },
                 ),
@@ -529,7 +548,9 @@ class _ReviewDialogState extends State<_ReviewDialog> {
             onChanged: (kind) {
               if (kind == null) return;
               widget.store.update(
-                  widget.path, (e) => e.toggleSuggestedCodeSpecKind(kind));
+                widget.path,
+                (e) => e.toggleSuggestedCodeSpecKind(kind),
+              );
               setState(() {});
             },
           ),
@@ -553,8 +574,10 @@ class _ReviewDialogState extends State<_ReviewDialog> {
     void propose(String raw) {
       final code = raw.trim();
       if (code.isEmpty) return;
-      widget.store
-          .update(widget.path, (e) => e.toggleSuggestedFollowUpKind(code));
+      widget.store.update(
+        widget.path,
+        (e) => e.toggleSuggestedFollowUpKind(code),
+      );
       _followUpCode.clear();
       setState(() {});
     }
@@ -563,15 +586,20 @@ class _ReviewDialogState extends State<_ReviewDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(kSuggestedFollowUpKindsLabel,
-            style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+        Text(
+          kSuggestedFollowUpKindsLabel,
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+        ),
         const SizedBox(height: 4),
         if (chosen.isEmpty)
-          Text('none proposed',
-              style: TextStyle(
-                  fontSize: 12,
-                  fontStyle: FontStyle.italic,
-                  color: Colors.grey.shade600))
+          Text(
+            'none proposed',
+            style: TextStyle(
+              fontSize: 12,
+              fontStyle: FontStyle.italic,
+              color: Colors.grey.shade600,
+            ),
+          )
         else
           Wrap(
             spacing: 4,
@@ -581,8 +609,9 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                 InputChip(
                   label: Text(kind, style: const TextStyle(fontSize: 12)),
                   visualDensity: VisualDensity.compact,
-                  backgroundColor:
-                      unknown.contains(kind) ? Colors.amber.shade100 : null,
+                  backgroundColor: unknown.contains(kind)
+                      ? Colors.amber.shade100
+                      : null,
                   onDeleted: () => propose(kind),
                 ),
             ],
@@ -593,13 +622,20 @@ class _ReviewDialogState extends State<_ReviewDialog> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.info_outline,
-                    size: 14, color: Colors.amber.shade800),
+                Icon(
+                  Icons.info_outline,
+                  size: 14,
+                  color: Colors.amber.shade800,
+                ),
                 const SizedBox(width: 4),
                 Expanded(
-                  child: Text(kUnknownFollowUpWarning,
-                      style: TextStyle(
-                          fontSize: 11, color: Colors.amber.shade900)),
+                  child: Text(
+                    kUnknownFollowUpWarning,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.amber.shade900,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -669,11 +705,16 @@ class _ReviewDialogState extends State<_ReviewDialog> {
             padding: const EdgeInsets.symmetric(vertical: 4),
             child: Row(
               children: [
-                Icon(expanded ? Icons.expand_less : Icons.expand_more,
-                    size: 18, color: Colors.grey.shade700),
+                Icon(
+                  expanded ? Icons.expand_less : Icons.expand_more,
+                  size: 18,
+                  color: Colors.grey.shade700,
+                ),
                 const SizedBox(width: 4),
-                Text(label,
-                    style: const TextStyle(fontWeight: FontWeight.w600)),
+                Text(
+                  label,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
               ],
             ),
           ),
@@ -690,8 +731,10 @@ class _ReviewDialogState extends State<_ReviewDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text(kDestinationLabel,
-            style: TextStyle(fontWeight: FontWeight.w600)),
+        const Text(
+          kDestinationLabel,
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
         RadioGroup<ReviewDestination>(
           groupValue: entry.destination,
           onChanged: (value) {
@@ -708,8 +751,10 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     value: destination,
-                    title: Text(destination.label,
-                        style: const TextStyle(fontSize: 13)),
+                    title: Text(
+                      destination.label,
+                      style: const TextStyle(fontSize: 13),
+                    ),
                   ),
                 ),
             ],
@@ -732,13 +777,17 @@ class _ReviewDialogState extends State<_ReviewDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(kSuggestedNoArtifactReasonLabel,
-            style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+        Text(
+          kSuggestedNoArtifactReasonLabel,
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+        ),
         RadioGroup<NoArtifactReason?>(
           groupValue: entry.suggestedNoArtifactReason,
           onChanged: (value) {
-            widget.store
-                .update(widget.path, (e) => e.suggestedNoArtifactReason = value);
+            widget.store.update(
+              widget.path,
+              (e) => e.suggestedNoArtifactReason = value,
+            );
             setState(() {});
           },
           child: Wrap(
@@ -753,8 +802,10 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     value: reason,
-                    title: Text(noArtifactReasonLabel(reason),
-                        style: const TextStyle(fontSize: 13)),
+                    title: Text(
+                      noArtifactReasonLabel(reason),
+                      style: const TextStyle(fontSize: 13),
+                    ),
                   ),
                 ),
             ],
@@ -776,19 +827,24 @@ class _ReviewDialogState extends State<_ReviewDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(widget.nodeLabel,
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                widget.nodeLabel,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 2),
               SelectableText(
                 widget.path,
                 style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey.shade600,
-                    fontFamily: 'monospace'),
+                  fontSize: 11,
+                  color: Colors.grey.shade600,
+                  fontFamily: 'monospace',
+                ),
               ),
               const Divider(height: 20),
-              const Text('Scope',
-                  style: TextStyle(fontWeight: FontWeight.w600)),
+              const Text(
+                'Scope',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
               RadioGroup<ReviewScope>(
                 groupValue: entry.scope,
                 onChanged: (value) {
@@ -810,8 +866,9 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                               width: 12,
                               height: 12,
                               decoration: BoxDecoration(
-                                  color: scopeColor(scope),
-                                  shape: BoxShape.circle),
+                                color: scopeColor(scope),
+                                shape: BoxShape.circle,
+                              ),
                             ),
                             const SizedBox(width: 8),
                             Text(scope.label),
@@ -829,12 +886,16 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                 controlAffinity: ListTileControlAffinity.leading,
                 value: entry.stopHere,
                 title: const Text('Stop here'),
-                subtitle: Text(widget.isProjection
-                    ? 'Do not descend further into this re-referenced branch'
-                    : 'Do not descend further into this branch'),
+                subtitle: Text(
+                  widget.isProjection
+                      ? 'Do not descend further into this re-referenced branch'
+                      : 'Do not descend further into this branch',
+                ),
                 onChanged: (value) {
-                  widget.store
-                      .update(widget.path, (e) => e.stopHere = value ?? false);
+                  widget.store.update(
+                    widget.path,
+                    (e) => e.stopHere = value ?? false,
+                  );
                   setState(() {});
                 },
               ),
@@ -844,77 +905,143 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                 controlAffinity: ListTileControlAffinity.leading,
                 value: entry.addDetails,
                 title: const Text('Add details'),
-                subtitle: Text(widget.isProjection
-                    ? kProjectionDetailSubtitle
-                    : 'This node needs further specification'),
+                subtitle: Text(
+                  widget.isProjection
+                      ? kProjectionDetailSubtitle
+                      : 'This node needs further specification',
+                ),
                 onChanged: (value) {
                   widget.store.update(
-                      widget.path, (e) => e.addDetails = value ?? false);
+                    widget.path,
+                    (e) => e.addDetails = value ?? false,
+                  );
                   setState(() {});
                 },
               ),
               const Divider(height: 20),
               _destination(entry),
               _section(kStructureSectionLabel, [
-                _check('Must be a list', entry.mustBeList,
-                    (e, v) => e.mustBeList = v),
-                _check('Is only a single entry (not a list)', entry.singleEntry,
-                    (e, v) => e.singleEntry = v),
-                _check('Must be a content string (not a form field)',
-                    entry.mustBeContentString,
-                    (e, v) => e.mustBeContentString = v),
-                _check('Convert form field → content string subsection',
-                    entry.convertFormToContent,
-                    (e, v) => e.convertFormToContent = v),
-                _check(kShouldBeOneOfLabel, entry.shouldBeOneOf,
-                    (e, v) => e.shouldBeOneOf = v),
-                _check(kCaseSetIncompleteLabel, entry.caseSetIncomplete,
-                    (e, v) => e.caseSetIncomplete = v,
-                    subtitle: 'Closure is the point of a closed choice'),
+                _check(
+                  'Must be a list',
+                  entry.mustBeList,
+                  (e, v) => e.mustBeList = v,
+                ),
+                _check(
+                  'Is only a single entry (not a list)',
+                  entry.singleEntry,
+                  (e, v) => e.singleEntry = v,
+                ),
+                _check(
+                  'Must be a content string (not a form field)',
+                  entry.mustBeContentString,
+                  (e, v) => e.mustBeContentString = v,
+                ),
+                _check(
+                  'Convert form field → content string subsection',
+                  entry.convertFormToContent,
+                  (e, v) => e.convertFormToContent = v,
+                ),
+                _check(
+                  kShouldBeOneOfLabel,
+                  entry.shouldBeOneOf,
+                  (e, v) => e.shouldBeOneOf = v,
+                ),
+                _check(
+                  kCaseSetIncompleteLabel,
+                  entry.caseSetIncomplete,
+                  (e, v) => e.caseSetIncomplete = v,
+                  subtitle: 'Closure is the point of a closed choice',
+                ),
               ]),
               _section(kAnnotationsSectionLabel, [
-                _check(kIdPatternWrongLabel, entry.idPatternWrong,
-                    (e, v) => e.idPatternWrong = v),
-                _check(kHandoffWrongLabel, entry.handoffWrong,
-                    (e, v) => e.handoffWrong = v),
-                _check(kContentTypeWrongLabel, entry.contentTypeWrong,
-                    (e, v) => e.contentTypeWrong = v),
-                _check(kStandardRefWrongLabel, entry.standardRefWrong,
-                    (e, v) => e.standardRefWrong = v),
-                _check(kStandardRefMissingLabel, entry.standardRefMissing,
-                    (e, v) => e.standardRefMissing = v),
-                _check(kUnusedConfirmedLabel, entry.unusedConfirmed,
-                    (e, v) => e.unusedConfirmed = v),
-                _check(kUnusedRejectedLabel, entry.unusedRejected,
-                    (e, v) => e.unusedRejected = v),
+                _check(
+                  kIdPatternWrongLabel,
+                  entry.idPatternWrong,
+                  (e, v) => e.idPatternWrong = v,
+                ),
+                _check(
+                  kHandoffWrongLabel,
+                  entry.handoffWrong,
+                  (e, v) => e.handoffWrong = v,
+                ),
+                _check(
+                  kContentTypeWrongLabel,
+                  entry.contentTypeWrong,
+                  (e, v) => e.contentTypeWrong = v,
+                ),
+                _check(
+                  kStandardRefWrongLabel,
+                  entry.standardRefWrong,
+                  (e, v) => e.standardRefWrong = v,
+                ),
+                _check(
+                  kStandardRefMissingLabel,
+                  entry.standardRefMissing,
+                  (e, v) => e.standardRefMissing = v,
+                ),
+                _check(
+                  kUnusedConfirmedLabel,
+                  entry.unusedConfirmed,
+                  (e, v) => e.unusedConfirmed = v,
+                ),
+                _check(
+                  kUnusedRejectedLabel,
+                  entry.unusedRejected,
+                  (e, v) => e.unusedRejected = v,
+                ),
               ]),
               _section(kCodeSpecsSectionLabel, [
-                _check(kCodeSpecKindMissingLabel, entry.codeSpecKindMissing,
-                    (e, v) => e.codeSpecKindMissing = v),
-                _check(kCodeSpecKindWrongLabel, entry.codeSpecKindWrong,
-                    (e, v) => e.codeSpecKindWrong = v),
-                _check(kNotCodeSpecsLabel, entry.notCodeSpecs,
-                    (e, v) => e.notCodeSpecs = v),
+                _check(
+                  kCodeSpecKindMissingLabel,
+                  entry.codeSpecKindMissing,
+                  (e, v) => e.codeSpecKindMissing = v,
+                ),
+                _check(
+                  kCodeSpecKindWrongLabel,
+                  entry.codeSpecKindWrong,
+                  (e, v) => e.codeSpecKindWrong = v,
+                ),
+                _check(
+                  kNotCodeSpecsLabel,
+                  entry.notCodeSpecs,
+                  (e, v) => e.notCodeSpecs = v,
+                ),
                 const SizedBox(height: 6),
                 _suggestedKinds(entry),
               ]),
               _section(kFollowUpSectionLabel, [
-                _check(kFollowUpKindMissingLabel, entry.followUpKindMissing,
-                    (e, v) => e.followUpKindMissing = v),
-                _check(kFollowUpKindWrongLabel, entry.followUpKindWrong,
-                    (e, v) => e.followUpKindWrong = v),
+                _check(
+                  kFollowUpKindMissingLabel,
+                  entry.followUpKindMissing,
+                  (e, v) => e.followUpKindMissing = v,
+                ),
+                _check(
+                  kFollowUpKindWrongLabel,
+                  entry.followUpKindWrong,
+                  (e, v) => e.followUpKindWrong = v,
+                ),
                 const SizedBox(height: 6),
                 _suggestedFollowUpKinds(entry),
               ]),
               _section(kNoArtifactSectionLabel, [
-                _check(kNoArtifactMissingLabel, entry.noArtifactMissing,
-                    (e, v) => e.noArtifactMissing = v),
-                _check(kNoArtifactWrongLabel, entry.noArtifactWrong,
-                    (e, v) => e.noArtifactWrong = v,
-                    subtitle: 'It carries normative content, or a view a '
-                        'generator would consume'),
-                _check(kNoArtifactReasonWrongLabel, entry.noArtifactReasonWrong,
-                    (e, v) => e.noArtifactReasonWrong = v),
+                _check(
+                  kNoArtifactMissingLabel,
+                  entry.noArtifactMissing,
+                  (e, v) => e.noArtifactMissing = v,
+                ),
+                _check(
+                  kNoArtifactWrongLabel,
+                  entry.noArtifactWrong,
+                  (e, v) => e.noArtifactWrong = v,
+                  subtitle:
+                      'It carries normative content, or a view a '
+                      'generator would consume',
+                ),
+                _check(
+                  kNoArtifactReasonWrongLabel,
+                  entry.noArtifactReasonWrong,
+                  (e, v) => e.noArtifactReasonWrong = v,
+                ),
                 const SizedBox(height: 6),
                 _suggestedNoArtifactReason(entry),
               ]),
@@ -929,8 +1056,7 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                   alignLabelWithHint: true,
                 ),
                 onChanged: (value) {
-                  widget.store
-                      .update(widget.path, (e) => e.comment = value);
+                  widget.store.update(widget.path, (e) => e.comment = value);
                 },
               ),
             ],

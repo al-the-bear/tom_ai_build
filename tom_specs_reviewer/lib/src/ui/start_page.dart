@@ -42,8 +42,10 @@ class StartPage extends StatelessWidget {
               builder: (context, _) => Padding(
                 padding: const EdgeInsets.only(right: 16),
                 child: Center(
-                  child: Text('${store.count} reviewed',
-                      style: const TextStyle(fontSize: 12)),
+                  child: Text(
+                    '${store.count} reviewed',
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ),
               ),
             ),
@@ -60,9 +62,7 @@ class StartPage extends StatelessWidget {
             ModelStampBar(model: model, check: check),
             Expanded(
               child: TabBarView(
-                children: [
-                  _DocumentStructuresTab(model: model, store: store),
-                ],
+                children: [_DocumentStructuresTab(model: model, store: store)],
               ),
             ),
           ],
@@ -118,8 +118,7 @@ class ModelStampBar extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontFeatures: const [FontFeature.tabularFigures()],
-                      color:
-                          stale ? scheme.onErrorContainer : scheme.onSurface,
+                      color: stale ? scheme.onErrorContainer : scheme.onSurface,
                     ),
                   ),
                 ),
@@ -154,10 +153,12 @@ String _stampLine(SpecModel model, SpecModelStampCheck check) {
     if (model.modelVersionLabel != null) '(${model.modelVersionLabel})',
   ];
   final generated = model.generatedAt;
-  parts.add(generated == null
-      ? 'generated: unknown'
-      : 'generated ${_formatTimestamp(generated)}'
-          '${check.age == null ? '' : ' · ${_formatAge(check.age!)}'}');
+  parts.add(
+    generated == null
+        ? 'generated: unknown'
+        : 'generated ${_formatTimestamp(generated)}'
+              '${check.age == null ? '' : ' · ${_formatAge(check.age!)}'}',
+  );
   parts.add('${check.actualClassCount} classes');
   parts.add('${check.actualRootCount} roots');
   if (model.containerRoot != null) {
@@ -238,9 +239,9 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
       }
     }
     if (root == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No document for "$targetRoot"')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('No document for "$targetRoot"')));
       return;
     }
     _selectRoot(root, navTargetType: targetType);
@@ -264,13 +265,15 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
                 final selected = root == _selected;
                 final projection =
                     widget.model.classNamed(root.type)?.isCodeSpecsProjection ??
-                        false;
+                    false;
                 return ListTile(
                   dense: true,
                   selected: selected,
                   leading: const Icon(Icons.description_outlined),
-                  title: Text(root.title,
-                      style: const TextStyle(fontWeight: FontWeight.w600)),
+                  title: Text(
+                    root.title,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   subtitle: Row(
                     children: [
                       Flexible(
@@ -301,8 +304,10 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
               Material(
                 elevation: 1,
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 4,
+                  ),
                   child: Wrap(
                     spacing: 16,
                     runSpacing: 0,
@@ -334,8 +339,10 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
               Expanded(
                 child: _selected == null
                     ? const Center(
-                        child:
-                            Text('Select a document to browse its structure'))
+                        child: Text(
+                          'Select a document to browse its structure',
+                        ),
+                      )
                     : SpecTree(
                         key: ValueKey(_selected!.type),
                         model: widget.model,
@@ -379,8 +386,11 @@ class _ToolbarToggle extends StatelessWidget {
       children: [
         Switch(value: value, onChanged: onChanged, activeThumbColor: color),
         const SizedBox(width: 4),
-        Container(width: 10, height: 10,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 10,
+          height: 10,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         const SizedBox(width: 4),
         Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
       ],
@@ -409,9 +419,10 @@ class _ProjectionBadge extends StatelessWidget {
         child: Text(
           kProjectionLabel,
           style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: Colors.teal.shade800),
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+            color: Colors.teal.shade800,
+          ),
         ),
       ),
     );

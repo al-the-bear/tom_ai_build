@@ -39,7 +39,10 @@ String normalizeCodeSpecKindToken(String raw) {
   final token = tryNormalizeCodeSpecKindToken(raw);
   if (token == null) {
     throw ArgumentError.value(
-        raw, 'kind', 'not a known CodeSpecPart (see kCodeSpecPartTokens)');
+      raw,
+      'kind',
+      'not a known CodeSpecPart (see kCodeSpecPartTokens)',
+    );
   }
   return token;
 }
@@ -439,15 +442,17 @@ class ReviewEntry {
     List<String> suggestedCodeSpecKinds = const [],
     List<String> suggestedFollowUpKinds = const [],
     this.comment = '',
-  })  : _suggestedCodeSpecKinds =
-            suggestedCodeSpecKinds.map(normalizeCodeSpecKindToken).toList(),
-        _suggestedFollowUpKinds =
-            suggestedFollowUpKinds.map(normalizeFollowUpKindToken).toList(),
-        // A source that states both verdicts is contradictory. Drop the
-        // confirmation rather than the rejection: confirming authorises a
-        // deletion, and an ambiguous source must never authorise one.
-        _unusedConfirmed = unusedConfirmed && !unusedRejected,
-        _unusedRejected = unusedRejected;
+  }) : _suggestedCodeSpecKinds = suggestedCodeSpecKinds
+           .map(normalizeCodeSpecKindToken)
+           .toList(),
+       _suggestedFollowUpKinds = suggestedFollowUpKinds
+           .map(normalizeFollowUpKindToken)
+           .toList(),
+       // A source that states both verdicts is contradictory. Drop the
+       // confirmation rather than the rejection: confirming authorises a
+       // deletion, and an ambiguous source must never authorise one.
+       _unusedConfirmed = unusedConfirmed && !unusedRejected,
+       _unusedRejected = unusedRejected;
 
   /// The `@Unused` marking on this node is correct — the node can be dropped.
   ///
@@ -492,9 +497,9 @@ class ReviewEntry {
   /// Not an error — the taxonomy is extensible — but the UI surfaces them so
   /// the reviewer sees that they are proposing to *extend* it, not to pick.
   List<String> get unknownFollowUpKinds => [
-        for (final kind in _suggestedFollowUpKinds)
-          if (!kFollowUpProcessTokens.contains(kind)) kind,
-      ];
+    for (final kind in _suggestedFollowUpKinds)
+      if (!kFollowUpProcessTokens.contains(kind)) kind,
+  ];
 
   /// Whether any proposed follow-up code is outside `FollowUpProcess`.
   ///
@@ -514,8 +519,7 @@ class ReviewEntry {
   set suggestedCodeSpecKinds(List<String> kinds) {
     // Normalise the whole list before assigning: a rejected token must leave
     // the entry as it was rather than half-applied.
-    _suggestedCodeSpecKinds =
-        kinds.map(normalizeCodeSpecKindToken).toList();
+    _suggestedCodeSpecKinds = kinds.map(normalizeCodeSpecKindToken).toList();
   }
 
   /// Adds [kind] if absent, removes it if present.
@@ -569,41 +573,41 @@ class ReviewEntry {
   /// can be forgotten, and a forgotten writer loses a reviewer's judgement
   /// silently.
   Map<String, Object?> toMap() => {
-        'scope': scope.token,
-        if (stopHere) 'stop_here': true,
-        if (addDetails) 'add_details': true,
-        if (mustBeList) 'must_be_list': true,
-        if (singleEntry) 'single_entry': true,
-        if (mustBeContentString) 'must_be_content_string': true,
-        if (convertFormToContent) 'convert_form_to_content': true,
-        if (reviewed) 'reviewed': true,
-        if (codeSpecKindMissing) 'code_spec_kind_missing': true,
-        if (codeSpecKindWrong) 'code_spec_kind_wrong': true,
-        if (notCodeSpecs) 'not_code_specs': true,
-        if (destination != ReviewDestination.unset)
-          'destination': destination.token,
-        if (followUpKindMissing) 'follow_up_kind_missing': true,
-        if (followUpKindWrong) 'follow_up_kind_wrong': true,
-        if (noArtifactMissing) 'no_artifact_missing': true,
-        if (noArtifactWrong) 'no_artifact_wrong': true,
-        if (noArtifactReasonWrong) 'no_artifact_reason_wrong': true,
-        if (suggestedNoArtifactReason != null)
-          'suggested_no_artifact_reason': suggestedNoArtifactReason!.name,
-        if (shouldBeOneOf) 'should_be_one_of': true,
-        if (caseSetIncomplete) 'case_set_incomplete': true,
-        if (idPatternWrong) 'id_pattern_wrong': true,
-        if (handoffWrong) 'handoff_wrong': true,
-        if (contentTypeWrong) 'content_type_wrong': true,
-        if (standardRefWrong) 'standard_ref_wrong': true,
-        if (standardRefMissing) 'standard_ref_missing': true,
-        if (_unusedConfirmed) 'unused_confirmed': true,
-        if (_unusedRejected) 'unused_rejected': true,
-        if (_suggestedCodeSpecKinds.isNotEmpty)
-          'suggested_code_spec_kinds': List<String>.of(_suggestedCodeSpecKinds),
-        if (_suggestedFollowUpKinds.isNotEmpty)
-          'suggested_follow_up_kinds': List<String>.of(_suggestedFollowUpKinds),
-        if (comment.trim().isNotEmpty) 'comment': comment.trim(),
-      };
+    'scope': scope.token,
+    if (stopHere) 'stop_here': true,
+    if (addDetails) 'add_details': true,
+    if (mustBeList) 'must_be_list': true,
+    if (singleEntry) 'single_entry': true,
+    if (mustBeContentString) 'must_be_content_string': true,
+    if (convertFormToContent) 'convert_form_to_content': true,
+    if (reviewed) 'reviewed': true,
+    if (codeSpecKindMissing) 'code_spec_kind_missing': true,
+    if (codeSpecKindWrong) 'code_spec_kind_wrong': true,
+    if (notCodeSpecs) 'not_code_specs': true,
+    if (destination != ReviewDestination.unset)
+      'destination': destination.token,
+    if (followUpKindMissing) 'follow_up_kind_missing': true,
+    if (followUpKindWrong) 'follow_up_kind_wrong': true,
+    if (noArtifactMissing) 'no_artifact_missing': true,
+    if (noArtifactWrong) 'no_artifact_wrong': true,
+    if (noArtifactReasonWrong) 'no_artifact_reason_wrong': true,
+    if (suggestedNoArtifactReason != null)
+      'suggested_no_artifact_reason': suggestedNoArtifactReason!.name,
+    if (shouldBeOneOf) 'should_be_one_of': true,
+    if (caseSetIncomplete) 'case_set_incomplete': true,
+    if (idPatternWrong) 'id_pattern_wrong': true,
+    if (handoffWrong) 'handoff_wrong': true,
+    if (contentTypeWrong) 'content_type_wrong': true,
+    if (standardRefWrong) 'standard_ref_wrong': true,
+    if (standardRefMissing) 'standard_ref_missing': true,
+    if (_unusedConfirmed) 'unused_confirmed': true,
+    if (_unusedRejected) 'unused_rejected': true,
+    if (_suggestedCodeSpecKinds.isNotEmpty)
+      'suggested_code_spec_kinds': List<String>.of(_suggestedCodeSpecKinds),
+    if (_suggestedFollowUpKinds.isNotEmpty)
+      'suggested_follow_up_kinds': List<String>.of(_suggestedFollowUpKinds),
+    if (comment.trim().isNotEmpty) 'comment': comment.trim(),
+  };
 
   /// Rebuilds an entry from its persisted map.
   ///
@@ -611,39 +615,41 @@ class ReviewEntry {
   /// rather than throwing — because the review file is hand-editable and a
   /// partially written entry must still open.
   factory ReviewEntry.fromMap(Map map) => ReviewEntry(
-        scope: ReviewScope.parse(map['scope'] as String?),
-        stopHere: map['stop_here'] == true,
-        addDetails: map['add_details'] == true,
-        mustBeList: map['must_be_list'] == true,
-        singleEntry: map['single_entry'] == true,
-        mustBeContentString: map['must_be_content_string'] == true,
-        convertFormToContent: map['convert_form_to_content'] == true,
-        reviewed: map['reviewed'] == true,
-        codeSpecKindMissing: map['code_spec_kind_missing'] == true,
-        codeSpecKindWrong: map['code_spec_kind_wrong'] == true,
-        notCodeSpecs: map['not_code_specs'] == true,
-        destination: ReviewDestination.parse(map['destination'] as String?),
-        followUpKindMissing: map['follow_up_kind_missing'] == true,
-        followUpKindWrong: map['follow_up_kind_wrong'] == true,
-        noArtifactMissing: map['no_artifact_missing'] == true,
-        noArtifactWrong: map['no_artifact_wrong'] == true,
-        noArtifactReasonWrong: map['no_artifact_reason_wrong'] == true,
-        suggestedNoArtifactReason: parseNoArtifactReason(
-            map['suggested_no_artifact_reason'] as String?),
-        shouldBeOneOf: map['should_be_one_of'] == true,
-        caseSetIncomplete: map['case_set_incomplete'] == true,
-        idPatternWrong: map['id_pattern_wrong'] == true,
-        handoffWrong: map['handoff_wrong'] == true,
-        contentTypeWrong: map['content_type_wrong'] == true,
-        standardRefWrong: map['standard_ref_wrong'] == true,
-        standardRefMissing: map['standard_ref_missing'] == true,
-        unusedConfirmed: map['unused_confirmed'] == true,
-        unusedRejected: map['unused_rejected'] == true,
-        suggestedCodeSpecKinds: _kindsFromYaml(map['suggested_code_spec_kinds']),
-        suggestedFollowUpKinds:
-            _followUpKindsFromYaml(map['suggested_follow_up_kinds']),
-        comment: (map['comment'] as String?) ?? '',
-      );
+    scope: ReviewScope.parse(map['scope'] as String?),
+    stopHere: map['stop_here'] == true,
+    addDetails: map['add_details'] == true,
+    mustBeList: map['must_be_list'] == true,
+    singleEntry: map['single_entry'] == true,
+    mustBeContentString: map['must_be_content_string'] == true,
+    convertFormToContent: map['convert_form_to_content'] == true,
+    reviewed: map['reviewed'] == true,
+    codeSpecKindMissing: map['code_spec_kind_missing'] == true,
+    codeSpecKindWrong: map['code_spec_kind_wrong'] == true,
+    notCodeSpecs: map['not_code_specs'] == true,
+    destination: ReviewDestination.parse(map['destination'] as String?),
+    followUpKindMissing: map['follow_up_kind_missing'] == true,
+    followUpKindWrong: map['follow_up_kind_wrong'] == true,
+    noArtifactMissing: map['no_artifact_missing'] == true,
+    noArtifactWrong: map['no_artifact_wrong'] == true,
+    noArtifactReasonWrong: map['no_artifact_reason_wrong'] == true,
+    suggestedNoArtifactReason: parseNoArtifactReason(
+      map['suggested_no_artifact_reason'] as String?,
+    ),
+    shouldBeOneOf: map['should_be_one_of'] == true,
+    caseSetIncomplete: map['case_set_incomplete'] == true,
+    idPatternWrong: map['id_pattern_wrong'] == true,
+    handoffWrong: map['handoff_wrong'] == true,
+    contentTypeWrong: map['content_type_wrong'] == true,
+    standardRefWrong: map['standard_ref_wrong'] == true,
+    standardRefMissing: map['standard_ref_missing'] == true,
+    unusedConfirmed: map['unused_confirmed'] == true,
+    unusedRejected: map['unused_rejected'] == true,
+    suggestedCodeSpecKinds: _kindsFromYaml(map['suggested_code_spec_kinds']),
+    suggestedFollowUpKinds: _followUpKindsFromYaml(
+      map['suggested_follow_up_kinds'],
+    ),
+    comment: (map['comment'] as String?) ?? '',
+  );
 
   /// Reads the suggested-kind list off a file, dropping anything unrecognised.
   ///
@@ -726,8 +732,7 @@ class ReviewStore extends ChangeNotifier {
 
   /// Returns the entry for [path], creating an empty one if absent. The
   /// returned object is *not* yet stored — call [update] to persist edits.
-  ReviewEntry entryOrNew(String path) =>
-      _entries[path] ?? ReviewEntry();
+  ReviewEntry entryOrNew(String path) => _entries[path] ?? ReviewEntry();
 
   /// Applies [mutate] to the entry at [path] and persists immediately.
   ///
@@ -748,8 +753,10 @@ class ReviewStore extends ChangeNotifier {
   void _save() {
     final buffer = StringBuffer()
       ..writeln('# TomSpecs structure review.')
-      ..writeln('# Keyed by structural path into the specification object '
-          'model.')
+      ..writeln(
+        '# Keyed by structural path into the specification object '
+        'model.',
+      )
       ..writeln('# Generated by tom_specs_reviewer — edit via the app.')
       ..writeln('version: $kReviewFileVersion')
       ..writeln('entries:');
