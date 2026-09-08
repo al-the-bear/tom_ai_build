@@ -1,0 +1,22 @@
+# Files kept in the repository but NOT shipped in the published archive.
+#
+# The rest of `test/` ships and runs from a hosted install: those tests are
+# about this runtime's own behaviour, and the two corpus fixtures they need are
+# copied into `test/fixtures/corpus/` for exactly that reason.
+#
+# These two cannot be, and the reason is the same for both: their subject IS the
+# shared nine-language conformance corpus, which lives in `tom_som_conformance`
+# and is not published.
+#
+#   conformance_test.dart  — the Dart side of the cross-language harness. It
+#     replays the committed corpus tables; without them there is nothing to
+#     replay.
+#   enum_coverage_test.dart — proves every guarded enum constant is exercised by
+#     a corpus table. Copying the tables in would make it assert against a copy,
+#     which is the opposite of what it is for.
+#
+# Both build their paths from `Directory.current` plus components rather than
+# from a `../` literal, so the shipped-path scanner cannot see them; a
+# hosted-install simulation is what found them.
+test/conformance_test.dart
+test/enum_coverage_test.dart

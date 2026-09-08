@@ -318,62 +318,26 @@ document:
   });
 
   group('bindDocSpecsMarkdown', () {
+    // The two fixtures are COPIES of the shared conformance corpus, kept inside
+    // this package because `dart pub publish` ships `test/` and a shipped test
+    // that reads a sibling workspace project cannot run from a hosted install
+    // there. They are 15 KB together, so the copy is cheap; what it is not
+    // is self-policing, so the comparison against the original lives with the
+    // original — `tom_som_conformance/tool/check_corpus_copies.dart`, in a
+    // package that is source-only and may therefore read across the workspace.
+    // Doing it here would have put the very path back that the copy removed.
+    const corpusFixtureDir = 'test/fixtures/corpus';
+
     test('binds the markdown onto the SOM tree via the SOM §11.7 parse', () {
       final model = SpecModel.fromJson(
-        jsonDecode(
-              File(
-                '../tom_som_conformance/corpus/model.meta.json',
-              ).readAsStringSync(),
-            )
+        jsonDecode(File('$corpusFixtureDir/model.meta.json').readAsStringSync())
             as Map<String, dynamic>,
       );
-      final md = File(
-        '../tom_som_conformance/corpus/expected.md',
-      ).readAsStringSync();
+      final md = File('$corpusFixtureDir/expected.md').readAsStringSync();
       final result = bindDocSpecsMarkdown(model, SpecDocument(), md);
       expect(result.isClean, isTrue);
       expect(result.appliedCount, greaterThan(0));
     });
-  });
-
-  group('acceptance: emitted sample vs generated schema', () {
-    test(
-      'the Solution Blueprint sample emitted by the markdown codec (SOM §11) validates '
-      'cleanly against the generated solution-blueprint schema',
-      () {
-        final model = SpecModel.fromJson(
-          jsonDecode(
-                File(
-                  '../tom_som_dart_v0/meta/spec_model.meta.json',
-                ).readAsStringSync(),
-              )
-              as Map<String, dynamic>,
-        );
-        // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12):
-        // decode it against the metadata tree bridged from the exported model.
-        final document = SpecDocument.fromFile(
-          '../tom_som_dart_v0/documents/meridian_order_management'
-          '.docspecs.yaml',
-          buildSomMetaTree(model, rootType: 'D00SolutionBlueprint'),
-        );
-        final md = document.toMarkdown(model);
-
-        final schema = DocSpecsSchema.fromYamlText(
-          File(
-            '../tom_som_dart_v0/schemas/solution-blueprint/'
-            'solution-blueprint.1.0.docspecs-schema.yaml',
-          ).readAsStringSync(),
-        );
-        expect(schema.rootSectionId, 'SBP');
-
-        final violations = DocSpecsValidator(schema).validateMarkdown(md);
-        expect(
-          violations,
-          isEmpty,
-          reason: violations.take(20).map((v) => '\n$v').join(),
-        );
-      },
-    );
   });
 
   group('DocSpecsViolation.path (SOM §14)', () {

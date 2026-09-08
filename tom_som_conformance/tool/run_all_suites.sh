@@ -26,7 +26,8 @@
 # Usage:  ./tool/run_all_suites.sh [--strict] [--log-dir DIR] [suite ...]
 #         suite names are package names without the `tom_som_` prefix,
 #         e.g. `go_v0 rust_runtime`, plus `sample_coverage` for the SOM §19
-#         instantiation-coverage gate (check_sample_coverage.dart) and
+#         instantiation-coverage gate (check_sample_coverage.dart),
+#         `corpus_copies` for the copied-fixture drift gate, and
 #         `sample_decode` for the shared-sample decode gate
 #         (tom_som_dart_v0/tool/verify_samples.dart). With none given, all
 #         eighteen suites run and the two sample gates run first.
@@ -120,6 +121,37 @@ if [ "$run_coverage" -eq 1 ]; then
       echo "---- sample_coverage failed; last 30 lines of $log ----"
       tail -30 "$log"
       echo "---- end sample_coverage ----"
+    fi
+  fi
+fi
+
+# The corpus-copy gate: `tom_som_dart_runtime` is published, so two of its
+# tests carry COPIES of corpus fixtures rather than reading across the workspace
+# instead. A copy nothing compares is a copy that drifts, and the comparison
+# has to live here — this package is source-only and may read the workspace,
+# which is exactly what the copy exists to spare the published one.
+run_copies=1
+if [ ${#SELECTED[@]} -gt 0 ]; then
+  run_copies=0
+  for s in "${SELECTED[@]}"; do [ "$s" = "corpus_copies" ] && run_copies=1; done
+fi
+if [ "$run_copies" -eq 1 ]; then
+  echo "== corpus_copies =="
+  if ! command -v dart > /dev/null 2>&1; then
+    echo "== corpus_copies: SKIP (dart not on PATH) =="
+    RESULTS+=("SKIP corpus_copies  (dart not on PATH)")
+    skipped=$((skipped + 1))
+  else
+    log="$LOG_DIR/corpus_copies.log"
+    if dart "$HERE/check_corpus_copies.dart" "$CONF" > "$log" 2>&1; then
+      RESULTS+=("PASS corpus_copies")
+      passed=$((passed + 1))
+    else
+      RESULTS+=("FAIL corpus_copies  (log: $log)")
+      failed=$((failed + 1))
+      echo "---- corpus_copies failed; last 30 lines of $log ----"
+      tail -30 "$log"
+      echo "---- end corpus_copies ----"
     fi
   fi
 fi

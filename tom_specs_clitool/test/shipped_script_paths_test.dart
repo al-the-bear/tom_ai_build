@@ -149,13 +149,17 @@ export '../../other/lib.dart';
       );
     });
 
-    test('only the shipped script directories are scanned', () {
-      write('test/a.dart', "var f = File('../../elsewhere/thing.yaml');");
+    test('only the shipped directories are scanned', () {
+      // `lib/` is out of scope and `test/` is IN it: `dart pub
+      // publish` ships both, but a library file is compiled against the
+      // consumer's own resolution while a test is run as-is from the archive.
       write('lib/a.dart', "var f = File('../../elsewhere/thing.yaml');");
       expect(findEscapingPaths(root), isEmpty);
     });
 
-    test('all four script directories are scanned', () {
+    test('every shipped directory is scanned', () {
+      // Counted from the constant rather than written out, so adding one to
+      // the set cannot leave this assertion measuring the old number.
       for (final d in shippedScriptDirs) {
         write('$d/a.dart', "var f = File('../../elsewhere/thing.yaml');");
       }

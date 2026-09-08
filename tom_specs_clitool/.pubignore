@@ -1,0 +1,18 @@
+# Files kept in the repository but NOT shipped in the published archive.
+#
+# `test/` holds this package's own suite, and that suite is workspace-bound by
+# design rather than by accident. It checks the real object model, the real
+# documentation corpus and the real citation set: `areas_catalog_test.dart`
+# reads `tom_specs_model/doc/codespecs_mapping.md` to prove the 27-area
+# catalogue is a transcription of it, `invariant_correspondence_test.dart`
+# reads that document and the model's own annotations to hold §10.2's invariant
+# list against the validator, and `shipped_script_paths_test.dart` carries
+# fixture paths that escape a package on purpose — that is what it is testing.
+#
+# None of these can be made self-contained: copying the corpus in would make
+# the test assert against a copy, which is the opposite of what it is for. The
+# rule this package's own `check_shipped_paths` gate enforces is that a SHIPPED
+# file must resolve inside its package; the honest answer for a suite that
+# cannot is to stop shipping it, which is what this line does. `bin/` and
+# `tool/` stay: those are the tool a consumer installs.
+test/

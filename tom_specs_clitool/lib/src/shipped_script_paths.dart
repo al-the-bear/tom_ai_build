@@ -40,11 +40,20 @@
 /// ships (a `.pubignore` entry takes it out of the archive, and an unshipped
 /// workspace tool is free to read the workspace).
 ///
-/// `test/` is **not** in scope even though `dart pub publish` ships it, and
-/// that is a judgement rather than an oversight: a workspace tool's tests are
-/// legitimately workspace-bound, and holding them to this rule would report
-/// two dozen violations that are all correct as written. The residue is real
-/// and is tracked separately.
+/// `test/` **is** in scope, because `dart pub publish` ships it and a shipped
+/// test that cannot run names files a consumer does not have. Two shapes are
+/// legitimate and both are visible to the rule rather than exempted by it:
+///
+/// * a test that reads a fixture **inside** its own package resolves, and
+///   passes — which is what "self-contained" means and what a package whose
+///   tests describe its own behaviour should be;
+/// * a package whose tests are genuinely workspace-bound — a workspace tool
+///   testing the real model, the real documentation corpus — takes `test/` out
+///   of the archive with a `.pubignore` entry, and the scan then skips it for
+///   the same reason it skips an unshipped `tool/`.
+///
+/// So the rule has one statement and two admissible answers, and neither is a
+/// silent exception: the `.pubignore` entry is a decision a reader can see.
 ///
 /// ## The one class of path this cannot see
 ///
@@ -66,8 +75,18 @@ library;
 
 import 'dart:io';
 
-/// Script directories whose contents a consumer is invited to run.
-const List<String> shippedScriptDirs = ['example', 'examples', 'bin', 'tool'];
+/// Shipped directories whose contents must resolve inside their own package.
+///
+/// The first four are what a consumer is invited to *run*; `test` is what
+/// `dart pub publish` ships whether or not anyone runs it, and a test reaching
+/// out of its package is the same defect one directory over.
+const List<String> shippedScriptDirs = [
+  'example',
+  'examples',
+  'bin',
+  'tool',
+  'test',
+];
 
 /// One path literal that resolves nowhere inside its own package.
 class EscapingPath {

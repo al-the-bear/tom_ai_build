@@ -72,21 +72,22 @@ void main() {
       expect(pd.introductionAndScope.path, 'SBP/introductionAndScope');
     });
 
-    test('a value written through a nested typed section is visible generically',
-        () {
-      final doc = SpecDocument();
-      final pd = D00SolutionBlueprint(doc);
-      final headerPath = pd.documentControl.path;
-      // documentControl is a nested section; set a generic content leaf beneath
-      // the nested node and confirm the typed path addresses the same place.
-      doc.setContent('$headerPath/probe', 'x');
-      expect(doc.content('SBP/documentControl/probe'), 'x');
-    });
+    test(
+      'a value written through a nested typed section is visible generically',
+      () {
+        final doc = SpecDocument();
+        final pd = D00SolutionBlueprint(doc);
+        final headerPath = pd.documentControl.path;
+        // documentControl is a nested section; set a generic content leaf beneath
+        // the nested node and confirm the typed path addresses the same place.
+        doc.setContent('$headerPath/probe', 'x');
+        expect(doc.content('SBP/documentControl/probe'), 'x');
+      },
+    );
 
     test('reports the generated v0 model version', () {
       expect(D00SolutionBlueprint.modelVersion, _current);
-      expect(
-          D00SolutionBlueprint(SpecDocument()).objectModelVersion, _current);
+      expect(D00SolutionBlueprint(SpecDocument()).objectModelVersion, _current);
     });
   });
 
@@ -94,9 +95,9 @@ void main() {
     test('a new / unstamped document is editable', () {
       expect(() => D00SolutionBlueprint(SpecDocument()), returnsNormally);
       expect(
-          () =>
-              D00SolutionBlueprint(SpecDocument(), documentVersion: _current),
-          returnsNormally);
+        () => D00SolutionBlueprint(SpecDocument(), documentVersion: _current),
+        returnsNormally,
+      );
     });
 
     test('an older same-major document is editable', () {
@@ -108,39 +109,54 @@ void main() {
         return;
       }
       expect(
-          () => D00SolutionBlueprint(SpecDocument(), documentVersion: _older),
-          returnsNormally);
+        () => D00SolutionBlueprint(SpecDocument(), documentVersion: _older),
+        returnsNormally,
+      );
     });
 
     test('a newer same-major document is rejected', () {
       expect(
-          () => D00SolutionBlueprint(SpecDocument(), documentVersion: _newer),
-          throwsA(isA<SomVersionException>()));
+        () => D00SolutionBlueprint(SpecDocument(), documentVersion: _newer),
+        throwsA(isA<SomVersionException>()),
+      );
     });
 
     test('a different major document is rejected', () {
       expect(
-          () =>
-              D00SolutionBlueprint(SpecDocument(), documentVersion: _nextMajor),
-          throwsA(isA<SomVersionException>()));
+        () => D00SolutionBlueprint(SpecDocument(), documentVersion: _nextMajor),
+        throwsA(isA<SomVersionException>()),
+      );
     });
   });
 
   group('tom_som_dart_v0 non-throwing editabilityFor (SOM §21)', () {
     test('classifies every SOM §4.2 outcome without throwing', () {
-      expect(D00SolutionBlueprint.editabilityFor(null), SomEditability.editable);
+      expect(
+        D00SolutionBlueprint.editabilityFor(null),
+        SomEditability.editable,
+      );
       if (_older != null) {
-        expect(D00SolutionBlueprint.editabilityFor(_older),
-            SomEditability.editable);
+        expect(
+          D00SolutionBlueprint.editabilityFor(_older),
+          SomEditability.editable,
+        );
       }
-      expect(D00SolutionBlueprint.editabilityFor(_current),
-          SomEditability.editable);
-      expect(D00SolutionBlueprint.editabilityFor(_newer),
-          SomEditability.rejectedNewerMinor);
-      expect(D00SolutionBlueprint.editabilityFor(_nextMajor),
-          SomEditability.readOnlyCrossMajor);
-      expect(D00SolutionBlueprint.editabilityFor('nope'),
-          SomEditability.invalidVersion);
+      expect(
+        D00SolutionBlueprint.editabilityFor(_current),
+        SomEditability.editable,
+      );
+      expect(
+        D00SolutionBlueprint.editabilityFor(_newer),
+        SomEditability.rejectedNewerMinor,
+      );
+      expect(
+        D00SolutionBlueprint.editabilityFor(_nextMajor),
+        SomEditability.readOnlyCrossMajor,
+      );
+      expect(
+        D00SolutionBlueprint.editabilityFor('nope'),
+        SomEditability.invalidVersion,
+      );
     });
 
     test('editable iff the constructor accepts the same stamp', () {
@@ -152,7 +168,8 @@ void main() {
         _nextMajor,
         'nope',
       ]) {
-        final editable = D00SolutionBlueprint.editabilityFor(stamp) ==
+        final editable =
+            D00SolutionBlueprint.editabilityFor(stamp) ==
             SomEditability.editable;
         var accepted = true;
         try {
@@ -178,22 +195,29 @@ void main() {
       // it with the generated one-call loader, which decodes against the SBP
       // metadata tree and applies the yaml's modelVersion stamp.
       sbp = D00SolutionBlueprint.loadFile(
-          'documents/meridian_order_management.docspecs.yaml');
+        'documents/meridian_order_management.docspecs.yaml',
+      );
       doc = sbp.doc;
     });
 
     test('top-level sections match generic reads', () {
       expect(sbp.content, doc.content('SBP/content'));
-      expect(sbp.introductionAndScope.content,
-          doc.content('SBP/introductionAndScope/content'));
+      expect(
+        sbp.introductionAndScope.content,
+        doc.content('SBP/introductionAndScope/content'),
+      );
       expect(sbp.requirements.content, doc.content('SBP/requirements/content'));
-      expect(sbp.targetOperatingModelConcept.content,
-          doc.content('SBP/targetOperatingModelConcept/content'));
+      expect(
+        sbp.targetOperatingModelConcept.content,
+        doc.content('SBP/targetOperatingModelConcept/content'),
+      );
     });
 
     test('nested section matches generic read', () {
-      expect(sbp.introductionAndScope.goals.content,
-          doc.content('SBP/introductionAndScope/goals/content'));
+      expect(
+        sbp.introductionAndScope.goals.content,
+        doc.content('SBP/introductionAndScope/goals/content'),
+      );
     });
 
     test('list is populated and elements match generic reads', () {
@@ -244,19 +268,22 @@ void main() {
       expect(doc.content('${m.path}/content'), 'Orders/day: 12k');
     });
 
-    test('contents reads every element content leaf, matching the index loop',
-        () {
-      final doc = SpecDocument();
-      final sbp = D00SolutionBlueprint(doc);
-      final metrics = sbp.currentLandscape.operationalMetrics;
-      metrics.addContent('one');
-      metrics.addContent('two');
-      metrics.addContent('three');
-      expect(metrics.contents.toList(), ['one', 'two', 'three']);
-      // Parity with reading each element's typed .content.
-      expect(metrics.contents.toList(),
-          [for (var i = 0; i < metrics.length; i++) metrics[i].content]);
-    });
+    test(
+      'contents reads every element content leaf, matching the index loop',
+      () {
+        final doc = SpecDocument();
+        final sbp = D00SolutionBlueprint(doc);
+        final metrics = sbp.currentLandscape.operationalMetrics;
+        metrics.addContent('one');
+        metrics.addContent('two');
+        metrics.addContent('three');
+        expect(metrics.contents.toList(), ['one', 'two', 'three']);
+        // Parity with reading each element's typed .content.
+        expect(metrics.contents.toList(), [
+          for (var i = 0; i < metrics.length; i++) metrics[i].content,
+        ]);
+      },
+    );
   });
 
   group('aligned absence semantics (SOM §21)', () {
@@ -314,8 +341,11 @@ void main() {
       // A scalar list element is a `SomScalar`: its value *is* its item path,
       // so it declares no `content` leaf and inherits the `SomNode` false
       // default. This is the whole of the predicate's surviving false side.
-      final item = sbp.introductionAndScope.systemsToReplace
-          .migrationConsiderations.escalationProcedures
+      final item = sbp
+          .introductionAndScope
+          .systemsToReplace
+          .migrationConsiderations
+          .escalationProcedures
           .add();
       expect(item.canHaveContent, isFalse);
     });
@@ -346,8 +376,10 @@ void main() {
       final control = sbp.documentControl;
       expect(control.canHaveContent, isTrue);
       control.content = 'Prose is possible even where it is not expected.';
-      expect(control.content,
-          'Prose is possible even where it is not expected.');
+      expect(
+        control.content,
+        'Prose is possible even where it is not expected.',
+      );
       expect(control.canHaveContent, isTrue);
     });
 
@@ -358,8 +390,11 @@ void main() {
       goals.content = 'Grow revenue';
       expect(goals.canHaveContent, isTrue);
       // A filled scalar item still reports false.
-      final item = sbp.introductionAndScope.systemsToReplace
-          .migrationConsiderations.escalationProcedures
+      final item = sbp
+          .introductionAndScope
+          .systemsToReplace
+          .migrationConsiderations
+          .escalationProcedures
           .add();
       item.value = 'Escalate to the migration board';
       expect(item.canHaveContent, isFalse);
@@ -388,19 +423,24 @@ void main() {
         ..addContent('Orders/day: 12k')
         ..addContent('Manual reconciliation: ~12 h/week');
       return SpecDocumentYaml.encode(
-          document: doc,
-          tree: d00SolutionBlueprintMetaTree,
-          modelVersion: modelVersion);
+        document: doc,
+        tree: d00SolutionBlueprintMetaTree,
+        modelVersion: modelVersion,
+      );
     }
 
     test('loadYaml collapses decode → thread-version to one call', () {
       final yaml = buildV2Yaml();
 
       // The former multi-step incantation.
-      final decoded =
-          SpecDocumentYaml.decode(yaml, d00SolutionBlueprintMetaTree);
-      final manual = D00SolutionBlueprint(decoded.document,
-          documentVersion: decoded.modelVersion);
+      final decoded = SpecDocumentYaml.decode(
+        yaml,
+        d00SolutionBlueprintMetaTree,
+      );
+      final manual = D00SolutionBlueprint(
+        decoded.document,
+        documentVersion: decoded.modelVersion,
+      );
 
       // The one-call convenience.
       final oneCall = D00SolutionBlueprint.loadYaml(yaml);
@@ -409,10 +449,14 @@ void main() {
       expect(oneCall.doc.modelVersion, decoded.modelVersion);
       // Both paths read identical content from the round-tripped document.
       expect(oneCall.content, manual.content);
-      expect(oneCall.introductionAndScope.goals.content,
-          manual.introductionAndScope.goals.content);
-      expect(oneCall.currentLandscape.operationalMetrics.length,
-          manual.currentLandscape.operationalMetrics.length);
+      expect(
+        oneCall.introductionAndScope.goals.content,
+        manual.introductionAndScope.goals.content,
+      );
+      expect(
+        oneCall.currentLandscape.operationalMetrics.length,
+        manual.currentLandscape.operationalMetrics.length,
+      );
     });
 
     test('loadFile reads the file then delegates to loadYaml', () {
@@ -429,7 +473,9 @@ void main() {
 
     test('SpecDocument.fromYaml retains the parsed model version', () {
       final doc = SpecDocument.fromYaml(
-          buildV2Yaml(), d00SolutionBlueprintMetaTree);
+        buildV2Yaml(),
+        d00SolutionBlueprintMetaTree,
+      );
       expect(doc.modelVersion, '1.0');
       expect(doc.content('SBP/content'), 'A clear vision');
     });
@@ -453,10 +499,8 @@ void main() {
   // that silently drops any of them from the Dart reference fails `dart test` —
   // not only a full nine-toolchain golden run.
   group('shared sample: live-document case durability (YRD8 / dsa7)', () {
-    const samplePath =
-        'documents/meridian_order_management.docspecs.yaml';
-    const sampleMdPath =
-        'documents/meridian_order_management.md';
+    const samplePath = 'documents/meridian_order_management.docspecs.yaml';
+    const sampleMdPath = 'documents/meridian_order_management.md';
     const schemaPath =
         'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
     const modelMetaPath = 'meta/spec_model.meta.json';
@@ -465,97 +509,173 @@ void main() {
       // Mirrors the golden's `generic-content` / `generic-lists` sections: the
       // full generic reading survives a re-serialisation round-trip byte-for-
       // byte at the value level.
-      final original =
-          SpecDocument.fromFile(samplePath, d00SolutionBlueprintMetaTree);
+      final original = SpecDocument.fromFile(
+        samplePath,
+        d00SolutionBlueprintMetaTree,
+      );
       final reEncoded = SpecDocumentYaml.encode(
         document: original,
         tree: d00SolutionBlueprintMetaTree,
         modelVersion: original.modelVersion,
       );
-      final roundTripped =
-          SpecDocument.fromYaml(reEncoded, d00SolutionBlueprintMetaTree);
+      final roundTripped = SpecDocument.fromYaml(
+        reEncoded,
+        d00SolutionBlueprintMetaTree,
+      );
 
       expect(roundTripped.modelVersion, original.modelVersion);
 
       final originalContent = original.contentPaths.toList()..sort();
       final roundTripContent = roundTripped.contentPaths.toList()..sort();
-      expect(roundTripContent, originalContent,
-          reason: 'content-path set changed across round-trip');
+      expect(
+        roundTripContent,
+        originalContent,
+        reason: 'content-path set changed across round-trip',
+      );
       for (final p in originalContent) {
-        expect(roundTripped.content(p), original.content(p),
-            reason: 'content diverged at $p');
+        expect(
+          roundTripped.content(p),
+          original.content(p),
+          reason: 'content diverged at $p',
+        );
       }
 
       final originalLists = original.listPaths.toList()..sort();
       final roundTripLists = roundTripped.listPaths.toList()..sort();
-      expect(roundTripLists, originalLists,
-          reason: 'list-path set changed across round-trip');
+      expect(
+        roundTripLists,
+        originalLists,
+        reason: 'list-path set changed across round-trip',
+      );
       for (final p in originalLists) {
-        expect(roundTripped.listItems(p), original.listItems(p),
-            reason: 'list items diverged at $p');
+        expect(
+          roundTripped.listItems(p),
+          original.listItems(p),
+          reason: 'list items diverged at $p',
+        );
       }
     });
 
-    test('validation: sample markdown validates cleanly against the schema',
-        () {
-      // Mirrors the golden's `docspecs` section: root `SBP`, zero schema
-      // warnings, zero markdown violations.
-      final schema =
-          DocSpecsSchema.fromYamlText(File(schemaPath).readAsStringSync());
-      final sampleMd = File(sampleMdPath).readAsStringSync();
-      final violations = DocSpecsValidator(schema).validateMarkdown(sampleMd);
+    test(
+      'validation: sample markdown validates cleanly against the schema',
+      () {
+        // Mirrors the golden's `docspecs` section: root `SBP`, zero schema
+        // warnings, zero markdown violations.
+        final schema = DocSpecsSchema.fromYamlText(
+          File(schemaPath).readAsStringSync(),
+        );
+        final sampleMd = File(sampleMdPath).readAsStringSync();
+        final violations = DocSpecsValidator(schema).validateMarkdown(sampleMd);
 
-      expect(schema.rootSectionId, 'SBP');
-      expect(schema.warnings, isEmpty,
-          reason: 'generated schema carries warnings');
-      expect(violations, isEmpty,
-          reason: 'sample markdown violates the generated schema');
-    });
+        expect(schema.rootSectionId, 'SBP');
+        expect(
+          schema.warnings,
+          isEmpty,
+          reason: 'generated schema carries warnings',
+        );
+        expect(
+          violations,
+          isEmpty,
+          reason: 'sample markdown violates the generated schema',
+        );
+      },
+    );
 
-    test('validation: sample document validates cleanly on the instance tier',
-        () {
-      // The second tier of the same gate `build_shared_sample.dart` applies.
-      // It is a separate assertion because the two tiers ask disjoint
-      // questions: the schema tier above asks whether every required field is
-      // filled, this one asks whether the values are admissible — kinds, form
-      // keys, list minima, and `refersTo` resolution (SOM §9). A sample that
-      // names a message key, a role or a route nothing declares passes the
-      // first and fails this one. Asserted here as well as in the builder
-      // because the sample is *committed*: a hand-edit or a merge can reach it
-      // without anyone re-running the builder.
+    test('validation: markdown rendered from the yaml validates against the '
+        'schema', () {
+      // Moved here from `tom_som_dart_runtime`, whose copy read this package's
+      // `documents/`, `meta/` and `schemas/` across the workspace and so could
+      // not run from a hosted install. Here the same three files sit
+      // inside the package.
+      //
+      // It is NOT the neighbouring test one line up, and the difference is the
+      // point: that one validates the COMMITTED `.md`, this one renders
+      // markdown from the yaml through the codec and validates what the codec
+      // just produced. A codec regression leaves the committed file untouched,
+      // so only this assertion sees it.
       final model = SpecModel.fromJson(
+        jsonDecode(File(modelMetaPath).readAsStringSync())
+            as Map<String, dynamic>,
+      );
+      final document = SpecDocument.fromFile(
+        samplePath,
+        buildSomMetaTree(model, rootType: 'D00SolutionBlueprint'),
+      );
+      final rendered = document.toMarkdown(model);
+
+      final schema = DocSpecsSchema.fromYamlText(
+        File(schemaPath).readAsStringSync(),
+      );
+      expect(schema.rootSectionId, 'SBP');
+
+      final violations = DocSpecsValidator(schema).validateMarkdown(rendered);
+      expect(
+        violations,
+        isEmpty,
+        reason: violations.take(20).map((v) => '\n$v').join(),
+      );
+    });
+
+    test(
+      'validation: sample document validates cleanly on the instance tier',
+      () {
+        // The second tier of the same gate `build_shared_sample.dart` applies.
+        // It is a separate assertion because the two tiers ask disjoint
+        // questions: the schema tier above asks whether every required field is
+        // filled, this one asks whether the values are admissible — kinds, form
+        // keys, list minima, and `refersTo` resolution (SOM §9). A sample that
+        // names a message key, a role or a route nothing declares passes the
+        // first and fails this one. Asserted here as well as in the builder
+        // because the sample is *committed*: a hand-edit or a merge can reach it
+        // without anyone re-running the builder.
+        final model = SpecModel.fromJson(
           jsonDecode(File(modelMetaPath).readAsStringSync())
-              as Map<String, dynamic>);
-      final doc =
-          SpecDocument.fromFile(samplePath, d00SolutionBlueprintMetaTree);
+              as Map<String, dynamic>,
+        );
+        final doc = SpecDocument.fromFile(
+          samplePath,
+          d00SolutionBlueprintMetaTree,
+        );
 
-      expect(validateDocument(model, doc), isEmpty,
-          reason: 'sample document violates the instance tier');
-    });
+        expect(
+          validateDocument(model, doc),
+          isEmpty,
+          reason: 'sample document violates the instance tier',
+        );
+      },
+    );
 
-    test('node operations: metadata tree / nav / id resolve to the same node',
-        () {
-      // Mirrors the golden's `meta` / `meta-nav` / `meta-id` sections: a node
-      // reached by path, by dot-notation nav, and by hoisted id is one and the
-      // same node.
-      final tree = d00SolutionBlueprintMetaTree;
+    test(
+      'node operations: metadata tree / nav / id resolve to the same node',
+      () {
+        // Mirrors the golden's `meta` / `meta-nav` / `meta-id` sections: a node
+        // reached by path, by dot-notation nav, and by hoisted id is one and the
+        // same node.
+        final tree = d00SolutionBlueprintMetaTree;
 
-      final listByPath = tree.byPath('SBP/currentLandscape/CUOPME-OPER-LST');
-      expect(listByPath, isNotNull);
-      expect(listByPath!.kind, SomMetaKind.list);
+        final listByPath = tree.byPath('SBP/currentLandscape/CUOPME-OPER-LST');
+        expect(listByPath, isNotNull);
+        expect(listByPath!.kind, SomMetaKind.list);
 
-      final navRef = d00SolutionBlueprint.currentLandscape.operationalMetrics;
-      expect(navRef.path, 'SBP/currentLandscape/CUOPME-OPER-LST');
-      expect(identical(navRef.meta, listByPath), isTrue,
-          reason: 'nav did not resolve to the byPath node');
+        final navRef = d00SolutionBlueprint.currentLandscape.operationalMetrics;
+        expect(navRef.path, 'SBP/currentLandscape/CUOPME-OPER-LST');
+        expect(
+          identical(navRef.meta, listByPath),
+          isTrue,
+          reason: 'nav did not resolve to the byPath node',
+        );
 
-      // Hoisted-id accessor agrees with the dot-notation position.
-      final idRef = SBP.RVENT_REVS_LST.item(0);
-      final navItem =
-          d00SolutionBlueprint.documentControl.revisionHistory.item(0);
-      expect(idRef.path, navItem.path);
-      expect(identical(idRef.meta, navItem.meta), isTrue,
-          reason: 'id-tree and nav positions disagree');
-    });
+        // Hoisted-id accessor agrees with the dot-notation position.
+        final idRef = SBP.RVENT_REVS_LST.item(0);
+        final navItem = d00SolutionBlueprint.documentControl.revisionHistory
+            .item(0);
+        expect(idRef.path, navItem.path);
+        expect(
+          identical(idRef.meta, navItem.meta),
+          isTrue,
+          reason: 'id-tree and nav positions disagree',
+        );
+      },
+    );
   });
 }

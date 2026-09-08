@@ -1,0 +1,628 @@
+{
+  "metaSchemaVersion": 1,
+  "modelVersion": 1,
+  "modelVersionLabel": "demo-1.0",
+  "generatedAt": "2026-07-20T08:00:00.000000Z",
+  "classCount": 12,
+  "rootCount": 2,
+  "roots": [
+    {
+      "type": "Demo",
+      "title": "Demo Document",
+      "sectionId": "DEMO",
+      "description": "A compact conformance fixture. SYNTHETIC codec-exerciser covering the full field-kind matrix (incl. an int scalar, id-less content leaves, and a dual-content class) — NOT a tom_specs_model convention reference."
+    },
+    {
+      "type": "Sidecar",
+      "title": "Sidecar Document",
+      "sectionId": "SIDE",
+      "description": "A second root reaching no registry — the fixture's cross-document reference scope (csrf3)."
+    }
+  ],
+  "classes": {
+    "Demo": {
+      "name": "Demo",
+      "sectionId": "DEMO",
+      "annotations": [
+        {
+          "name": "Document",
+          "arguments": {
+            "title": "Demo Document"
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DEMO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.form",
+              "CodeSpecPart.viewState"
+            ],
+            "note": "the demo capture screen and its view state"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "title",
+          "kind": "content",
+          "sectionId": "TTL",
+          "contentType": "text",
+          "headline": "Document Title"
+        },
+        {
+          "name": "summary",
+          "kind": "content",
+          "sectionId": "SUM",
+          "contentType": "markdown",
+          "headline": "Summary"
+        },
+        {
+          "name": "priority",
+          "kind": "enum",
+          "sectionId": "PRI",
+          "enumType": "Priority",
+          "enumValues": [
+            "low",
+            "high"
+          ],
+          "annotations": [
+            {
+              "name": "CodeSpecKind",
+              "arguments": {
+                "kinds": [
+                  "CodeSpecPart.navigation"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "count",
+          "kind": "scalar",
+          "sectionId": "CNT",
+          "type": "int",
+          "doc": "How many items are tracked."
+        },
+        {
+          "name": "ratio",
+          "kind": "scalar",
+          "sectionId": "RTO",
+          "type": "double"
+        },
+        {
+          "name": "score",
+          "kind": "scalar",
+          "sectionId": "SCR",
+          "type": "num"
+        },
+        {
+          "name": "details",
+          "kind": "form",
+          "sectionId": "DET",
+          "formFields": [
+            {
+              "name": "owner",
+              "label": "Owner",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "contact",
+              "label": "Contact",
+              "type": "String"
+            },
+            {
+              "name": "estimate",
+              "label": "Estimate",
+              "type": "int"
+            },
+            {
+              "name": "weight",
+              "label": "Weight",
+              "type": "double"
+            },
+            {
+              "name": "tally",
+              "label": "Tally",
+              "type": "num"
+            },
+            {
+              "name": "active",
+              "label": "Active",
+              "type": "bool"
+            },
+            {
+              "name": "priority",
+              "label": "Priority",
+              "type": "Priority",
+              "enumValues": [
+                "low",
+                "high"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "items",
+          "kind": "list",
+          "elementType": "Item",
+          "elementIsComplex": true,
+          "min": 2,
+          "annotations": [
+            {
+              "name": "Min",
+              "arguments": {
+                "value": 2
+              }
+            }
+          ]
+        },
+        {
+          "name": "refs",
+          "kind": "list",
+          "sectionId": "REF-LST",
+          "sectionIdPattern": "REF-xxx",
+          "elementType": "String",
+          "elementIsComplex": false
+        },
+        {
+          "name": "cards",
+          "kind": "list",
+          "sectionId": "CARD-LST",
+          "sectionIdPattern": "CARD-xxx",
+          "elementType": "Card",
+          "elementIsComplex": true
+        },
+        {
+          "name": "meta",
+          "kind": "complex",
+          "sectionId": "META",
+          "type": "Meta"
+        },
+        {
+          "name": "control",
+          "kind": "complex",
+          "type": "Control"
+        },
+        {
+          "name": "notes",
+          "kind": "section",
+          "type": "Notes"
+        },
+        {
+          "name": "registry",
+          "kind": "complex",
+          "sectionId": "REG",
+          "type": "Registry"
+        }
+      ]
+    },
+    "Registry": {
+      "name": "Registry",
+      "sectionId": "REG",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "REG"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "entries",
+          "kind": "list",
+          "sectionId": "RGE-LST",
+          "sectionIdPattern": "RGE-xxx",
+          "elementType": "RegistryEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "links",
+          "kind": "list",
+          "sectionId": "RGL-LST",
+          "sectionIdPattern": "RGL-xxx",
+          "elementType": "RegistryLink",
+          "elementIsComplex": true
+        },
+        {
+          "name": "choice",
+          "kind": "complex",
+          "sectionId": "CHO",
+          "type": "Choice"
+        }
+      ]
+    },
+    "RegistryEntry": {
+      "name": "RegistryEntry",
+      "sectionId": "RGE",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RGE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "details",
+          "kind": "form",
+          "sectionId": "RGE-DET",
+          "formFields": [
+            {
+              "name": "code",
+              "label": "Code",
+              "type": "String"
+            },
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "String"
+            }
+          ]
+        }
+      ]
+    },
+    "RegistryLink": {
+      "name": "RegistryLink",
+      "sectionId": "RGL",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RGL"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "details",
+          "kind": "form",
+          "sectionId": "RGL-DET",
+          "formFields": [
+            {
+              "name": "entryCode",
+              "label": "Entry Code",
+              "type": "String",
+              "refersTo": [
+                "RGE.code"
+              ]
+            },
+            {
+              "name": "entryId",
+              "label": "Entry Id",
+              "type": "String",
+              "refersTo": [
+                "RGE.@sectionId"
+              ]
+            },
+            {
+              "name": "anyRefs",
+              "label": "Any Refs",
+              "type": "String",
+              "refersTo": [
+                "RGE.code",
+                "RGE.@sectionId"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Choice": {
+      "name": "Choice",
+      "sectionId": "CHO",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CHO"
+          }
+        },
+        {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "kind"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "selector",
+          "kind": "form",
+          "sectionId": "CHO-SEL",
+          "formFields": [
+            {
+              "name": "kind",
+              "label": "Kind",
+              "type": "ChoiceKind",
+              "enumValues": [
+                "alpha",
+                "beta"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "alphaPart",
+          "kind": "complex",
+          "sectionId": "CHO-ALP",
+          "type": "ChoicePart",
+          "annotations": [
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ChoiceKind.alpha"
+              }
+            }
+          ]
+        },
+        {
+          "name": "alphaExtra",
+          "kind": "complex",
+          "sectionId": "CHO-AL2",
+          "type": "ChoicePart",
+          "annotations": [
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ChoiceKind.alpha"
+              }
+            }
+          ]
+        },
+        {
+          "name": "betaPart",
+          "kind": "complex",
+          "sectionId": "CHO-BET",
+          "type": "ChoicePart",
+          "annotations": [
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ChoiceKind.beta"
+              }
+            }
+          ]
+        },
+        {
+          "name": "commonPart",
+          "kind": "complex",
+          "sectionId": "CHO-COM",
+          "type": "ChoicePart"
+        }
+      ]
+    },
+    "ChoicePart": {
+      "name": "ChoicePart",
+      "annotations": [
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "note",
+          "kind": "content"
+        }
+      ]
+    },
+    "Sidecar": {
+      "name": "Sidecar",
+      "sectionId": "SIDE",
+      "annotations": [
+        {
+          "name": "Document",
+          "arguments": {
+            "title": "Sidecar Document"
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SIDE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "details",
+          "kind": "form",
+          "sectionId": "SIDE-DET",
+          "formFields": [
+            {
+              "name": "entryCode",
+              "label": "Entry Code",
+              "type": "String",
+              "refersTo": [
+                "RGE.code"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Control": {
+      "name": "Control",
+      "sectionId": "CTRL",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CTRL"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "delivered as operator documentation, not as code"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "summary",
+          "kind": "content",
+          "sectionId": "CTRL-SUM"
+        },
+        {
+          "name": "owner",
+          "kind": "content"
+        }
+      ]
+    },
+    "Notes": {
+      "name": "Notes",
+      "sectionId": "NOTE",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "NOTE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "body",
+          "kind": "content",
+          "sectionId": "NOTE-BDY"
+        }
+      ]
+    },
+    "Item": {
+      "name": "Item",
+      "headline": "Task",
+      "annotations": [
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.form"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "label",
+          "kind": "content"
+        },
+        {
+          "name": "status",
+          "kind": "enum",
+          "sectionId": "STS",
+          "enumType": "Status",
+          "enumValues": [
+            "open",
+            "done"
+          ]
+        }
+      ]
+    },
+    "Card": {
+      "name": "Card",
+      "mapsTo": "CS00-CARD",
+      "detailedIn": "BP00-CARDS",
+      "doc": "A card entry.",
+      "annotations": [
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.viewState"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "note",
+              "label": "Note",
+              "type": "String"
+            }
+          ]
+        }
+      ]
+    },
+    "Meta": {
+      "name": "Meta",
+      "annotations": [
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.overview"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "owner",
+          "kind": "content",
+          "sectionId": "OWNR"
+        },
+        {
+          "name": "tags",
+          "kind": "list",
+          "elementType": "String",
+          "elementIsComplex": false
+        }
+      ]
+    }
+  }
+}

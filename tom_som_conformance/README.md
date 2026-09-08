@@ -74,8 +74,9 @@ other gates cannot: whether a table is actually *read* by all nine runners.
 | Sample decode | [`tom_som_dart_v0/tool/verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart) | a committed sample no longer decodes through the typed loader |
 | Golden byte-identity | [`tool/regenerate_golden.sh`](tool/regenerate_golden.sh) → [`tool/compare_golden.dart`](tool/compare_golden.dart) | any of the nine logs differs from the Dart reference by one byte |
 | Corpus load-bearing | [`tool/parity_gate.sh`](tool/parity_gate.sh) | a deliberately broken expectation leaves any suite green |
+| Corpus copies | [`tool/check_corpus_copies.dart`](tool/check_corpus_copies.dart) | a fixture copied into a published package has drifted from the corpus it came from |
 | Enum coverage | [`tom_som_dart_runtime/test/enum_coverage_test.dart`](../tom_som_dart_runtime/test/enum_coverage_test.dart) | a contract enum carries a constant no corpus table exercises |
-| Aggregate suites | [`tool/run_all_suites.sh`](tool/run_all_suites.sh) | any of the twenty reported results is a failure |
+| Aggregate suites | [`tool/run_all_suites.sh`](tool/run_all_suites.sh) | any of the twenty-one reported results is a failure |
 | Packaging sweep | the nine `buildFromSource` commands (SOM §17) | a facade regenerates with churn, or a language fails to build or pack |
 
 Every gate is *ratcheted* rather than advisory: each has a committed expectation
@@ -88,7 +89,7 @@ un-reopenable.
 # Everything hand-authored, plus the two sample gates. Absent toolchains skip
 # with the reason stated; --strict turns a skip into a failure.
 ./tool/run_all_suites.sh
-# → a PASS / FAIL / SKIP table over twenty results, non-zero exit on any failure
+# → a PASS / FAIL / SKIP table over twenty-one results, non-zero exit on any failure
 
 # The nine-way byte-identity proof (needs all nine toolchains installed).
 ./tool/regenerate_golden.sh
@@ -753,11 +754,22 @@ so a suite could stay red without anyone noticing.
 [`tool/run_all_suites.sh`](tool/run_all_suites.sh) closes that: every SOM package
 now carries a uniform `run_tests.sh` that runs everything hand-authored in it,
 whatever the ecosystem underneath, and this driver is the aggregate over all
-eighteen. Before the suites it runs the two sample gates — `sample_coverage`
-([`tool/check_sample_coverage.dart`](tool/check_sample_coverage.dart)) and
+eighteen. Before the suites it runs three gates — `sample_coverage`
+([`tool/check_sample_coverage.dart`](tool/check_sample_coverage.dart)),
 `sample_decode`
 ([`tom_som_dart_v0/tool/verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart))
-— so a run reports twenty results in total.
+and `corpus_copies`
+([`tool/check_corpus_copies.dart`](tool/check_corpus_copies.dart)) — so a run
+reports twenty-one results in total.
+
+`corpus_copies` is here rather than in the package it checks, and the reason is
+the point of it. `dart pub publish` ships `test/`, so a shipped test that reads
+a sibling workspace project cannot run from a hosted install; two of
+`tom_som_dart_runtime`'s tests did, and now carry copies of the corpus fixtures
+instead. Comparing a copy against its original means reading across the
+workspace — exactly what the copy exists to spare the published package. This
+package is source-only, so it can do the reading; the owner of a file is also
+the right place to ask whether its copies still agree with it.
 
 ```bash
 ./tool/run_all_suites.sh                    # everything, skipping absent toolchains
