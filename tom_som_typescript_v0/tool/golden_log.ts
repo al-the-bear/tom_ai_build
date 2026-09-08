@@ -251,7 +251,9 @@ function main(): void {
   out.push('TL\t' + coverage.listPath + '\t' + coverage.length);
   for (let i = 0; i < coverage.length; i++) {
     const cform = coverage.at(i).content;
-    typedForm(cform.path, 'characteristic', cform.characteristic || '');
+    // YRD7: the accessor is now the generated value union; the value IS the
+    // token, so the emitted line is unchanged and stays byte-identical.
+    typedForm(cform.path, 'characteristic', cform.characteristic ?? '');
   }
 
   // --- Meta (FORMAT 2): the generated metadata tree read three ways. ---

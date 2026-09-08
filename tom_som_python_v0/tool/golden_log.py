@@ -241,7 +241,11 @@ def main() -> None:
     out.append("TL\t%s\t%d" % (coverage.list_path, coverage.length))
     for i in range(coverage.length):
         cform = coverage[i].content
-        typed_form(cform.path, "characteristic", cform.characteristic or "")
+        # YRD7: the accessor now returns the generated Enum, so the token
+        # is `.value` — the emitted line stays the raw stored string and
+        # therefore byte-identical to every other port.
+        c = cform.characteristic
+        typed_form(cform.path, "characteristic", c.value if c else "")
 
     # --- Meta (FORMAT 2): the generated metadata tree read three ways. ---
     meta_tree = m.d00SolutionBlueprintMetaTree

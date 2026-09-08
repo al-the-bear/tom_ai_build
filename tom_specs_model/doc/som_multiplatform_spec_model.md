@@ -884,13 +884,31 @@ what separates them exists nowhere else. The model documents all 163 of its
 constants across 25 enums; 20 of those enums reach the meta, through the 22
 enum-typed `@Form` fields that use them.
 
-Only the **Dart** facade renders them today, and that is not an emitter
-oversight — it is because only the Dart facade has an enum to render them onto.
-YRD7's typed enums were implemented in the Dart emitter alone: the other eight
-collect enum types from `enum`-kind *fields*, of which the model has none, so
-they emit no enum type at all and render an enum-typed form field as a plain
-string accessor. Attaching the docs there means porting YRD7 first, which is a
-change to eight generated APIs rather than to eight comment templates.
+**All nine facades render them**, each in its own comment syntax, and the fix
+was one rule rather than nine ports. Eight emitters carried a private copy of
+"which enums are reachable" that collected only `enum`-**kind fields**, of which
+the model declares none; the Dart copy was the odd one out because it also
+walked `@Form` fields, which is where every one of the model's enums actually
+lives. So eight facades emitted no enum at all while their enum-emission
+machinery — parse helpers, constant allocation, comment writers — sat complete
+and unused. The rule now lives once, in
+`tom_specs_clitool/lib/src/som_emitted_surface.dart`, beside the root filter and
+reachability walk that were consolidated there for the same reason.
+
+**The vocabulary's *representation* is idiomatic per language, and its accessor
+is typed wherever the language has a name for the type.** Dart, Python and Java
+emit a real enum; TypeScript emits a frozen object plus the value-union alias
+that gives an accessor something to return; JavaScript emits the frozen object
+alone, having no static types to carry; Go, Rust, C and C++ emit constants.
+Where a nominal type exists the enum-valued `@Form` accessor returns it —
+`Iso25010Characteristic` in Dart, Python and Java, `Iso25010CharacteristicValue`
+in TypeScript — and where it does not, the accessor returns the token. **The
+stored value is the same string in all nine either way**, which is what keeps a
+document written by one port readable by the rest; the golden logs canonicalise
+a typed value back to its token for exactly that reason.
+
+Giving Go, Rust, C++ and C a nominal type is a change to what those ports emit
+rather than to how an accessor is declared, and is tracked separately.
 
 **What the meta still cannot supply.** The `@ContentType` *description* is
 dropped; only the type token reaches the meta. That is a model-side gap rather

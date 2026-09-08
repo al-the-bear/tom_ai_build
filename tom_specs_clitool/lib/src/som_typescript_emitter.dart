@@ -186,26 +186,26 @@ class SomTypeScriptEmitter {
       somReachableClasses(model, rootTypes);
 
   /// The distinct enum types referenced by reachable classes, with their values.
-  List<_EnumType> _reachableEnums(Set<String> reachable) {
-    final byName = <String, _EnumType>{};
-    for (final name in reachable) {
-      final cls = model.classNamed(name);
-      if (cls == null) continue;
-      for (final f in cls.fields) {
-        if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
-          byName.putIfAbsent(
-            f.enumType!,
-            () => _EnumType(f.enumType!, f.enumValues),
-          );
-        }
-      }
-    }
-    final result = byName.values.toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
-    return result;
-  }
+  /// The reachable enums, mapped onto this emitter's own [_EnumType].
+  ///
+  /// The *rule* — which enums a facade must declare — lives once in
+  /// [somReachableEnums]. It used to live in nine private copies, eight of
+  /// which collected only `SpecFieldKind.enumValue` fields; the model declares
+  /// none of those, so eight facades emitted no enum at all.
+  List<_EnumType> _reachableEnums(Set<String> reachable) => [
+    for (final e in somReachableEnums(model, reachable))
+      _EnumType(e.name, e.values, e.docs),
+  ];
 
   // --- emit ---------------------------------------------------------------
+
+  /// Renders a constant's model documentation above it as a `//` comment.
+  void _writeConstDoc(StringBuffer b, String? doc, String indent) {
+    if (doc == null || doc.trim().isEmpty) return;
+    for (final line in doc.trimRight().split('\n')) {
+      b.writeln(line.isEmpty ? '$indent//' : '$indent// $line');
+    }
+  }
 
   String _emitEnum(_EnumType e) {
     final b = StringBuffer()
@@ -216,22 +216,33 @@ class SomTypeScriptEmitter {
       // name) verbatim — a TS object key is quoted so any token is valid, and
       // parse/encode round-trips through the stored token, keeping documents
       // cross-language compatible.
+      _writeConstDoc(b, e.docs[v], '  ');
       b.writeln('  "${_jstr(v)}": "${_jstr(v)}",');
     }
     b
       ..writeln('});')
       ..writeln()
+      // The frozen object is the vocabulary; this alias is the TYPE of one of
+      // its values, which is what an accessor can be declared to return.
+      // Without it TypeScript has the constants but no name for "one of
+      // them", and every enum-valued accessor stays a bare `string`.
+      ..writeln('export type ${e.name}Value =')
+      ..writeln('  typeof ${e.name}[keyof typeof ${e.name}];')
+      ..writeln()
       ..writeln('// Parses a stored token into a ${e.name} value, or null.')
       ..writeln(
         'function _parse${e.name}('
-        'token: string | null | undefined): string | null {',
+        'token: string | null | undefined): ${e.name}Value | null {',
       )
       ..writeln('  if (!token) {')
       ..writeln('    return null;')
       ..writeln('  }')
       ..writeln('  for (const value of Object.values(${e.name})) {')
       ..writeln('    if (value === token) {')
-      ..writeln('      return value;')
+      // `Object.values` widens a frozen object to its value union already,
+      // but the loop variable is only as narrow as that union — the cast
+      // states the invariant the comparison just established.
+      ..writeln('      return value as ${e.name}Value;')
       ..writeln('    }')
       ..writeln('  }')
       ..writeln('  return null;')
@@ -532,6 +543,24 @@ class SomTypeScriptEmitter {
     // identifier is keyword-sanitised.
     final acc = _acc(ff.name);
     b.writeln();
+    // YRD7: an enum-valued form member is declared as the generated value
+    // union rather than a bare `string`. The STORED value is unchanged — it is
+    // the same token every other port reads — so typing the accessor cannot
+    // make a document written here unreadable elsewhere.
+    if (ff.enumValues.isNotEmpty) {
+      final et = somScalarBaseName(ff.type);
+      b
+        ..writeln('  get $acc(): ${et}Value | null {')
+        ..writeln(
+          '    return _parse$et(this.doc.formField(this.path, $field));',
+        )
+        ..writeln('  }')
+        ..writeln()
+        ..writeln('  set $acc(value: ${et}Value | null) {')
+        ..writeln("    this.doc.setFormField(this.path, $field, value ?? '');")
+        ..writeln('  }');
+      return;
+    }
     switch (_scalarType(ff.type)) {
       case 'int':
         b
@@ -742,7 +771,16 @@ class _EnumType {
   /// document, and it is byte-identical across every language port, which is
   /// what lets a document written by one be read by all of them.
   final List<String> values;
-  _EnumType(this.name, this.values);
+
+  /// Each constant's model doc comment, keyed by constant name; a constant
+  /// with no comment is absent.
+  ///
+  /// [values] alone says which tokens are legal, which for a closed vocabulary
+  /// is the smaller half of the question — the author's choice is between
+  /// adjacent constants, and what separates them lives only here.
+  final Map<String, String> docs;
+
+  _EnumType(this.name, this.values, [this.docs = const {}]);
 }
 
 class _FormClass {

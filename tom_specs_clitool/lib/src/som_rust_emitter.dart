@@ -326,26 +326,27 @@ class SomRustEmitter {
       somReachableClasses(model, rootTypes);
 
   /// The distinct enum types referenced by reachable classes, with their values.
-  List<_EnumType> _reachableEnums(Set<String> reachable) {
-    final byName = <String, _EnumType>{};
-    for (final name in reachable) {
-      final cls = model.classNamed(name);
-      if (cls == null) continue;
-      for (final f in cls.fields) {
-        if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
-          byName.putIfAbsent(
-            f.enumType!,
-            () => _EnumType(f.enumType!, f.enumValues),
-          );
-        }
-      }
-    }
-    final result = byName.values.toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
-    return result;
-  }
+  /// The reachable enums, mapped onto this emitter's own [_EnumType].
+  ///
+  /// The *rule* — which enums a facade must declare — lives once in
+  /// [somReachableEnums]. It used to live in nine private copies, eight of
+  /// which collected only `SpecFieldKind.enumValue` fields; the model declares
+  /// none of those, so eight facades emitted no enum at all.
+  List<_EnumType> _reachableEnums(Set<String> reachable) => [
+    for (final e in somReachableEnums(model, reachable))
+      _EnumType(e.name, e.values, e.docs),
+  ];
 
   // --- emit ---------------------------------------------------------------
+
+  /// Renders a constant's model documentation above it as a `///` doc comment,
+  /// so `cargo doc` carries it the way the Dart reference carries it.
+  void _writeConstDoc(StringBuffer b, String? doc) {
+    if (doc == null || doc.trim().isEmpty) return;
+    for (final line in doc.trimRight().split('\n')) {
+      b.writeln(line.isEmpty ? '///' : '/// $line');
+    }
+  }
 
   String _emitEnum(_EnumType e) {
     final consts = _enumConsts[e.name] ?? const <_EnumConst>[];
@@ -360,6 +361,7 @@ class SomRustEmitter {
         'cross-compatible.',
       );
     for (final c in consts) {
+      _writeConstDoc(b, e.docs[c.token]);
       b.writeln('pub const ${c.ident}: &str = "${_rustStr(c.token)}";');
     }
     if (consts.isNotEmpty) b.writeln();
@@ -1028,7 +1030,16 @@ class _EnumType {
   /// string falls back to a positional `_VALUE_<i>` identifier, so reordering
   /// the model would rename constants rather than merely reorder them.
   final List<String> values;
-  _EnumType(this.name, this.values);
+
+  /// Each constant's model doc comment, keyed by constant name; a constant
+  /// with no comment is absent.
+  ///
+  /// [values] alone says which tokens are legal, which for a closed vocabulary
+  /// is the smaller half of the question — the author's choice is between
+  /// adjacent constants, and what separates them lives only here.
+  final Map<String, String> docs;
+
+  _EnumType(this.name, this.values, [this.docs = const {}]);
 }
 
 class _EnumConst {

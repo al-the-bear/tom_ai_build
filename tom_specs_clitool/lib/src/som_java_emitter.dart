@@ -159,26 +159,28 @@ class SomJavaEmitter {
       somReachableClasses(model, rootTypes);
 
   /// The distinct enum types referenced by reachable classes, with their values.
-  List<_EnumType> _reachableEnums(Set<String> reachable) {
-    final byName = <String, _EnumType>{};
-    for (final name in reachable) {
-      final cls = model.classNamed(name);
-      if (cls == null) continue;
-      for (final f in cls.fields) {
-        if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
-          byName.putIfAbsent(
-            f.enumType!,
-            () => _EnumType(f.enumType!, f.enumValues),
-          );
-        }
-      }
-    }
-    final result = byName.values.toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
-    return result;
-  }
+  /// The reachable enums, mapped onto this emitter's own [_EnumType].
+  ///
+  /// The *rule* — which enums a facade must declare — lives once in
+  /// [somReachableEnums]. It used to live in nine private copies, eight of
+  /// which collected only `SpecFieldKind.enumValue` fields; the model declares
+  /// none of those, so eight facades emitted no enum at all.
+  List<_EnumType> _reachableEnums(Set<String> reachable) => [
+    for (final e in somReachableEnums(model, reachable))
+      _EnumType(e.name, e.values, e.docs),
+  ];
 
   // --- emit ---------------------------------------------------------------
+
+  /// Renders a constant's model documentation above it as a Javadoc block.
+  void _writeConstDoc(StringBuffer b, String? doc, String indent) {
+    if (doc == null || doc.trim().isEmpty) return;
+    b.writeln('$indent/**');
+    for (final line in doc.trimRight().split('\n')) {
+      b.writeln(line.isEmpty ? '$indent *' : '$indent * $line');
+    }
+    b.writeln('$indent */');
+  }
 
   String _emitEnum(_EnumType e) {
     final b = StringBuffer()
@@ -189,6 +191,7 @@ class SomJavaEmitter {
       // The constant *identifier* may be keyword-sanitised, but the carried
       // *token* keeps the original Dart constant name byte-for-byte so parse /
       // encode round-trips through `token`, not the identifier.
+      _writeConstDoc(b, e.docs[e.values[i]], _i2);
       b.writeln('$_i2${_acc(e.values[i])}("${_jstr(e.values[i])}")$sep');
     }
     b
@@ -527,6 +530,25 @@ class SomJavaEmitter {
     // identifier is keyword-sanitised.
     final acc = _memberAcc(ff.name);
     b.writeln();
+    // YRD7: an enum-valued form member returns the generated `enum` rather
+    // than its token. The STORED value is unchanged — `.token` is what the
+    // other ports read — so typing the accessor cannot make a document
+    // written here unreadable elsewhere.
+    if (ff.enumValues.isNotEmpty) {
+      final et = somScalarBaseName(ff.type);
+      b
+        ..writeln('${_i2}public $et $acc() {')
+        ..writeln('${_i3}return $et.parse(doc.formField(path, $field));')
+        ..writeln('$_i2}')
+        ..writeln()
+        ..writeln('${_i2}public void set${_pascal(acc)}($et value) {')
+        ..writeln(
+          '${_i3}doc.setFormField(path, $field, '
+          'value == null ? "" : value.token);',
+        )
+        ..writeln('$_i2}');
+      return;
+    }
     switch (_scalarType(ff.type)) {
       case 'int':
         b
@@ -731,7 +753,16 @@ class _EnumType {
   /// may be keyword-sanitised, so parse/encode round-trips through `token` and
   /// the value stored in a document stays byte-identical across languages.
   final List<String> values;
-  _EnumType(this.name, this.values);
+
+  /// Each constant's model doc comment, keyed by constant name; a constant
+  /// with no comment is absent.
+  ///
+  /// [values] alone says which tokens are legal, which for a closed vocabulary
+  /// is the smaller half of the question — the author's choice is between
+  /// adjacent constants, and what separates them lives only here.
+  final Map<String, String> docs;
+
+  _EnumType(this.name, this.values, [this.docs = const {}]);
 }
 
 class _FormClass {

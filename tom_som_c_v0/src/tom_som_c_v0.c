@@ -9,6 +9,265 @@
 #include <string.h>
 #include <stdio.h>
 
+char *parse_authorization_requirement_kind(const char *token) {
+  if (strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_ROLE) == 0 ||
+      strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_GROUP) == 0 ||
+      strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_ENTITLEMENT) == 0 ||
+      strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_RESOURCE_KEY) == 0 ||
+      strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_CUSTOM) == 0 ||
+      strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_GRADED) == 0 ||
+      strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_DENIED) == 0 ||
+      strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_PUBLIC) == 0 ||
+      strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_AUTHENTICATED) == 0 ||
+      strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_GUEST) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_basic_authorization_requirement_kind(const char *token) {
+  if (strcmp(token, BASIC_AUTHORIZATION_REQUIREMENT_KIND_ROLE) == 0 ||
+      strcmp(token, BASIC_AUTHORIZATION_REQUIREMENT_KIND_GROUP) == 0 ||
+      strcmp(token, BASIC_AUTHORIZATION_REQUIREMENT_KIND_ENTITLEMENT) == 0 ||
+      strcmp(token, BASIC_AUTHORIZATION_REQUIREMENT_KIND_RESOURCE_KEY) == 0 ||
+      strcmp(token, BASIC_AUTHORIZATION_REQUIREMENT_KIND_CUSTOM) == 0 ||
+      strcmp(token, BASIC_AUTHORIZATION_REQUIREMENT_KIND_DENIED) == 0 ||
+      strcmp(token, BASIC_AUTHORIZATION_REQUIREMENT_KIND_PUBLIC) == 0 ||
+      strcmp(token, BASIC_AUTHORIZATION_REQUIREMENT_KIND_AUTHENTICATED) == 0 ||
+      strcmp(token, BASIC_AUTHORIZATION_REQUIREMENT_KIND_GUEST) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_client_application_kind(const char *token) {
+  if (strcmp(token, CLIENT_APPLICATION_KIND_GRAPHICAL_APPLICATION) == 0 ||
+      strcmp(token, CLIENT_APPLICATION_KIND_COMMAND_LINE) == 0 ||
+      strcmp(token, CLIENT_APPLICATION_KIND_SERVER) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_data_attribute_kind(const char *token) {
+  if (strcmp(token, DATA_ATTRIBUTE_KIND_STRING) == 0 ||
+      strcmp(token, DATA_ATTRIBUTE_KIND_INTEGER) == 0 ||
+      strcmp(token, DATA_ATTRIBUTE_KIND_DECIMAL) == 0 ||
+      strcmp(token, DATA_ATTRIBUTE_KIND_DATE) == 0 ||
+      strcmp(token, DATA_ATTRIBUTE_KIND_DATE_TIME) == 0 ||
+      strcmp(token, DATA_ATTRIBUTE_KIND_BINARY) == 0 ||
+      strcmp(token, DATA_ATTRIBUTE_KIND_FILE_REFERENCE) == 0 ||
+      strcmp(token, DATA_ATTRIBUTE_KIND_BOOLEAN) == 0 ||
+      strcmp(token, DATA_ATTRIBUTE_KIND_UUID) == 0 ||
+      strcmp(token, DATA_ATTRIBUTE_KIND_JSON) == 0 ||
+      strcmp(token, DATA_ATTRIBUTE_KIND_ENUMERATION) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_export_field_kind(const char *token) {
+  if (strcmp(token, EXPORT_FIELD_KIND_STRING) == 0 ||
+      strcmp(token, EXPORT_FIELD_KIND_INTEGER) == 0 ||
+      strcmp(token, EXPORT_FIELD_KIND_DECIMAL) == 0 ||
+      strcmp(token, EXPORT_FIELD_KIND_DATE) == 0 ||
+      strcmp(token, EXPORT_FIELD_KIND_DATE_TIME) == 0 ||
+      strcmp(token, EXPORT_FIELD_KIND_BOOLEAN) == 0 ||
+      strcmp(token, EXPORT_FIELD_KIND_ENUMERATION) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_flow_return_point(const char *token) {
+  if (strcmp(token, FLOW_RETURN_POINT_RESUME_AT_STEP) == 0 ||
+      strcmp(token, FLOW_RETURN_POINT_END_FLOW) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_graded_access_level(const char *token) {
+  if (strcmp(token, GRADED_ACCESS_LEVEL_FULL) == 0 ||
+      strcmp(token, GRADED_ACCESS_LEVEL_READ) == 0 ||
+      strcmp(token, GRADED_ACCESS_LEVEL_DISABLED) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_iso25010_characteristic(const char *token) {
+  if (strcmp(token, ISO25010_CHARACTERISTIC_FUNCTIONAL_SUITABILITY) == 0 ||
+      strcmp(token, ISO25010_CHARACTERISTIC_PERFORMANCE_EFFICIENCY) == 0 ||
+      strcmp(token, ISO25010_CHARACTERISTIC_COMPATIBILITY) == 0 ||
+      strcmp(token, ISO25010_CHARACTERISTIC_INTERACTION_CAPABILITY) == 0 ||
+      strcmp(token, ISO25010_CHARACTERISTIC_RELIABILITY) == 0 ||
+      strcmp(token, ISO25010_CHARACTERISTIC_SECURITY) == 0 ||
+      strcmp(token, ISO25010_CHARACTERISTIC_MAINTAINABILITY) == 0 ||
+      strcmp(token, ISO25010_CHARACTERISTIC_FLEXIBILITY) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_migration_artifact_kind(const char *token) {
+  if (strcmp(token, MIGRATION_ARTIFACT_KIND_INITIAL_DDL) == 0 ||
+      strcmp(token, MIGRATION_ARTIFACT_KIND_REFERENCE_DATA) == 0 ||
+      strcmp(token, MIGRATION_ARTIFACT_KIND_SCHEMA_CHANGE) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_object_lifecycle_kind(const char *token) {
+  if (strcmp(token, OBJECT_LIFECYCLE_KIND_INITIAL) == 0 ||
+      strcmp(token, OBJECT_LIFECYCLE_KIND_INTERMEDIATE) == 0 ||
+      strcmp(token, OBJECT_LIFECYCLE_KIND_TERMINAL) == 0 ||
+      strcmp(token, OBJECT_LIFECYCLE_KIND_ERROR) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_report_column_kind(const char *token) {
+  if (strcmp(token, REPORT_COLUMN_KIND_STRING) == 0 ||
+      strcmp(token, REPORT_COLUMN_KIND_INTEGER) == 0 ||
+      strcmp(token, REPORT_COLUMN_KIND_DECIMAL) == 0 ||
+      strcmp(token, REPORT_COLUMN_KIND_CURRENCY) == 0 ||
+      strcmp(token, REPORT_COLUMN_KIND_DATE) == 0 ||
+      strcmp(token, REPORT_COLUMN_KIND_BOOLEAN) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_report_filter_value_kind(const char *token) {
+  if (strcmp(token, REPORT_FILTER_VALUE_KIND_STRING) == 0 ||
+      strcmp(token, REPORT_FILTER_VALUE_KIND_INTEGER) == 0 ||
+      strcmp(token, REPORT_FILTER_VALUE_KIND_DECIMAL) == 0 ||
+      strcmp(token, REPORT_FILTER_VALUE_KIND_DATE) == 0 ||
+      strcmp(token, REPORT_FILTER_VALUE_KIND_DATE_TIME) == 0 ||
+      strcmp(token, REPORT_FILTER_VALUE_KIND_BOOLEAN) == 0 ||
+      strcmp(token, REPORT_FILTER_VALUE_KIND_ENUMERATION) == 0 ||
+      strcmp(token, REPORT_FILTER_VALUE_KIND_ENTITY_REF) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_scheduled_job_trigger(const char *token) {
+  if (strcmp(token, SCHEDULED_JOB_TRIGGER_CRON) == 0 ||
+      strcmp(token, SCHEDULED_JOB_TRIGGER_CALENDAR) == 0 ||
+      strcmp(token, SCHEDULED_JOB_TRIGGER_EVENT) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_screen_element_field_kind(const char *token) {
+  if (strcmp(token, SCREEN_ELEMENT_FIELD_KIND_STRING) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_INTEGER) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_DECIMAL) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_CURRENCY) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_DATE) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_DATE_TIME) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_TIME) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_BOOLEAN) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_ENUMERATION) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_EMAIL) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_PHONE) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_URL) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_PASSWORD) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_RICH_TEXT) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_COLOR) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_FIELD_KIND_FILE) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_screen_element_kind(const char *token) {
+  if (strcmp(token, SCREEN_ELEMENT_KIND_ACTION_BUTTON) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_LINK) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_TEXT_FIELD) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_NUMBER_FIELD) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_DATE_FIELD) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_SELECT_FIELD) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_CHECKBOX) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_TOGGLE) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_DATA_DISPLAY) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_DATA_TABLE) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_CARD) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_CHART) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_STATUS_INDICATOR) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_ICON) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_LABEL) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_IMAGE) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_BADGE) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_DIVIDER) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_SPACER) == 0 ||
+      strcmp(token, SCREEN_ELEMENT_KIND_TAB_BAR) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_screen_field_kind(const char *token) {
+  if (strcmp(token, SCREEN_FIELD_KIND_TEXT) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_MULTILINE_TEXT) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_EMAIL) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_PHONE) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_URL) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_PASSWORD) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_INTEGER) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_DECIMAL) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_CURRENCY) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_DATE) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_DATE_TIME) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_TIME) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_SINGLE_SELECT) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_MULTI_SELECT) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_FILE) == 0 ||
+      strcmp(token, SCREEN_FIELD_KIND_BOOLEAN) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_screen_flow_outcome(const char *token) {
+  if (strcmp(token, SCREEN_FLOW_OUTCOME_SUCCESS) == 0 ||
+      strcmp(token, SCREEN_FLOW_OUTCOME_ERROR) == 0 ||
+      strcmp(token, SCREEN_FLOW_OUTCOME_VALIDATION_ERROR) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_screen_presentation_mode(const char *token) {
+  if (strcmp(token, SCREEN_PRESENTATION_MODE_REPLACE) == 0 ||
+      strcmp(token, SCREEN_PRESENTATION_MODE_POPUP_OVERLAY) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_server_call_role(const char *token) {
+  if (strcmp(token, SERVER_CALL_ROLE_ASSEMBLE_REQUEST) == 0 ||
+      strcmp(token, SERVER_CALL_ROLE_HANDLE_RESPONSE) == 0 ||
+      strcmp(token, SERVER_CALL_ROLE_HANDLE_ERROR) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_user_attribute_placement(const char *token) {
+  if (strcmp(token, USER_ATTRIBUTE_PLACEMENT_PUBLIC) == 0 ||
+      strcmp(token, USER_ATTRIBUTE_PLACEMENT_ENCRYPTED) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 void acceptance_criteria_list_init(AcceptanceCriteriaList *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }

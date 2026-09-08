@@ -33,6 +33,9 @@ import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SomList;
 import tom_som_runtime.SomNode;
 import tom_som_java_v0.TomSomV0.D00SolutionBlueprint;
+// YRD7: the generated enums are nested in TomSomV0, like every other
+// generated type this file names.
+import tom_som_java_v0.TomSomV0.Iso25010Characteristic;
 import tom_som_java_v0.TomSomV0.CurrentOperationalMetric;
 import tom_som_java_v0.TomSomV0.FunctionalRequirements;
 import tom_som_java_v0.TomSomV0.ActorOverviewOverviewForm;
@@ -210,7 +213,10 @@ public final class GoldenLog {
     out.add("TL\t" + coverage.listPath + "\t" + coverage.length());
     for (int i = 0; i < coverage.length(); i++) {
       Iso25010CoverageEntryContentForm cform = coverage.get(i).content();
-      typedForm(doc, out, cform.path, "characteristic", cform.characteristic());
+      // YRD7: the accessor now returns the generated enum, so the token is
+      // `.token` — the emitted line stays the raw stored string.
+      Iso25010Characteristic ch = cform.characteristic();
+      typedForm(doc, out, cform.path, "characteristic", ch == null ? "" : ch.token);
     }
 
     // --- Meta (FORMAT 2): the generated metadata tree read three ways. ---

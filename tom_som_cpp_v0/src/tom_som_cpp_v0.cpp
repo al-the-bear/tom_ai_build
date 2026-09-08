@@ -10,6 +10,503 @@
 
 namespace tom_som_v0 {
 
+std::optional<std::string> AuthorizationRequirementKind::parse(const std::string& token) {
+  if (token == role) {
+    return token;
+  }
+  if (token == group) {
+    return token;
+  }
+  if (token == entitlement) {
+    return token;
+  }
+  if (token == resourceKey) {
+    return token;
+  }
+  if (token == custom) {
+    return token;
+  }
+  if (token == graded) {
+    return token;
+  }
+  if (token == denied) {
+    return token;
+  }
+  if (token == public_) {
+    return token;
+  }
+  if (token == authenticated) {
+    return token;
+  }
+  if (token == guest) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> BasicAuthorizationRequirementKind::parse(const std::string& token) {
+  if (token == role) {
+    return token;
+  }
+  if (token == group) {
+    return token;
+  }
+  if (token == entitlement) {
+    return token;
+  }
+  if (token == resourceKey) {
+    return token;
+  }
+  if (token == custom) {
+    return token;
+  }
+  if (token == denied) {
+    return token;
+  }
+  if (token == public_) {
+    return token;
+  }
+  if (token == authenticated) {
+    return token;
+  }
+  if (token == guest) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ClientApplicationKind::parse(const std::string& token) {
+  if (token == graphicalApplication) {
+    return token;
+  }
+  if (token == commandLine) {
+    return token;
+  }
+  if (token == server) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> DataAttributeKind::parse(const std::string& token) {
+  if (token == string) {
+    return token;
+  }
+  if (token == integer) {
+    return token;
+  }
+  if (token == decimal) {
+    return token;
+  }
+  if (token == date) {
+    return token;
+  }
+  if (token == dateTime) {
+    return token;
+  }
+  if (token == binary) {
+    return token;
+  }
+  if (token == fileReference) {
+    return token;
+  }
+  if (token == boolean) {
+    return token;
+  }
+  if (token == uuid) {
+    return token;
+  }
+  if (token == json) {
+    return token;
+  }
+  if (token == enumeration) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ExportFieldKind::parse(const std::string& token) {
+  if (token == string) {
+    return token;
+  }
+  if (token == integer) {
+    return token;
+  }
+  if (token == decimal) {
+    return token;
+  }
+  if (token == date) {
+    return token;
+  }
+  if (token == dateTime) {
+    return token;
+  }
+  if (token == boolean) {
+    return token;
+  }
+  if (token == enumeration) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> FlowReturnPoint::parse(const std::string& token) {
+  if (token == resumeAtStep) {
+    return token;
+  }
+  if (token == endFlow) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> GradedAccessLevel::parse(const std::string& token) {
+  if (token == full) {
+    return token;
+  }
+  if (token == read) {
+    return token;
+  }
+  if (token == disabled) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> Iso25010Characteristic::parse(const std::string& token) {
+  if (token == functionalSuitability) {
+    return token;
+  }
+  if (token == performanceEfficiency) {
+    return token;
+  }
+  if (token == compatibility) {
+    return token;
+  }
+  if (token == interactionCapability) {
+    return token;
+  }
+  if (token == reliability) {
+    return token;
+  }
+  if (token == security) {
+    return token;
+  }
+  if (token == maintainability) {
+    return token;
+  }
+  if (token == flexibility) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> MigrationArtifactKind::parse(const std::string& token) {
+  if (token == initialDdl) {
+    return token;
+  }
+  if (token == referenceData) {
+    return token;
+  }
+  if (token == schemaChange) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ObjectLifecycleKind::parse(const std::string& token) {
+  if (token == initial) {
+    return token;
+  }
+  if (token == intermediate) {
+    return token;
+  }
+  if (token == terminal) {
+    return token;
+  }
+  if (token == error) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ReportColumnKind::parse(const std::string& token) {
+  if (token == string) {
+    return token;
+  }
+  if (token == integer) {
+    return token;
+  }
+  if (token == decimal) {
+    return token;
+  }
+  if (token == currency) {
+    return token;
+  }
+  if (token == date) {
+    return token;
+  }
+  if (token == boolean) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ReportFilterValueKind::parse(const std::string& token) {
+  if (token == string) {
+    return token;
+  }
+  if (token == integer) {
+    return token;
+  }
+  if (token == decimal) {
+    return token;
+  }
+  if (token == date) {
+    return token;
+  }
+  if (token == dateTime) {
+    return token;
+  }
+  if (token == boolean) {
+    return token;
+  }
+  if (token == enumeration) {
+    return token;
+  }
+  if (token == entityRef) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ScheduledJobTrigger::parse(const std::string& token) {
+  if (token == cron) {
+    return token;
+  }
+  if (token == calendar) {
+    return token;
+  }
+  if (token == event) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ScreenElementFieldKind::parse(const std::string& token) {
+  if (token == string) {
+    return token;
+  }
+  if (token == integer) {
+    return token;
+  }
+  if (token == decimal) {
+    return token;
+  }
+  if (token == currency) {
+    return token;
+  }
+  if (token == date) {
+    return token;
+  }
+  if (token == dateTime) {
+    return token;
+  }
+  if (token == time) {
+    return token;
+  }
+  if (token == boolean) {
+    return token;
+  }
+  if (token == enumeration) {
+    return token;
+  }
+  if (token == email) {
+    return token;
+  }
+  if (token == phone) {
+    return token;
+  }
+  if (token == url) {
+    return token;
+  }
+  if (token == password) {
+    return token;
+  }
+  if (token == richText) {
+    return token;
+  }
+  if (token == color) {
+    return token;
+  }
+  if (token == file) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ScreenElementKind::parse(const std::string& token) {
+  if (token == actionButton) {
+    return token;
+  }
+  if (token == link) {
+    return token;
+  }
+  if (token == textField) {
+    return token;
+  }
+  if (token == numberField) {
+    return token;
+  }
+  if (token == dateField) {
+    return token;
+  }
+  if (token == selectField) {
+    return token;
+  }
+  if (token == checkbox) {
+    return token;
+  }
+  if (token == toggle) {
+    return token;
+  }
+  if (token == dataDisplay) {
+    return token;
+  }
+  if (token == dataTable) {
+    return token;
+  }
+  if (token == card) {
+    return token;
+  }
+  if (token == chart) {
+    return token;
+  }
+  if (token == statusIndicator) {
+    return token;
+  }
+  if (token == icon) {
+    return token;
+  }
+  if (token == label) {
+    return token;
+  }
+  if (token == image) {
+    return token;
+  }
+  if (token == badge) {
+    return token;
+  }
+  if (token == divider) {
+    return token;
+  }
+  if (token == spacer) {
+    return token;
+  }
+  if (token == tabBar) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ScreenFieldKind::parse(const std::string& token) {
+  if (token == text) {
+    return token;
+  }
+  if (token == multilineText) {
+    return token;
+  }
+  if (token == email) {
+    return token;
+  }
+  if (token == phone) {
+    return token;
+  }
+  if (token == url) {
+    return token;
+  }
+  if (token == password) {
+    return token;
+  }
+  if (token == integer) {
+    return token;
+  }
+  if (token == decimal) {
+    return token;
+  }
+  if (token == currency) {
+    return token;
+  }
+  if (token == date) {
+    return token;
+  }
+  if (token == dateTime) {
+    return token;
+  }
+  if (token == time) {
+    return token;
+  }
+  if (token == singleSelect) {
+    return token;
+  }
+  if (token == multiSelect) {
+    return token;
+  }
+  if (token == file) {
+    return token;
+  }
+  if (token == boolean) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ScreenFlowOutcome::parse(const std::string& token) {
+  if (token == success) {
+    return token;
+  }
+  if (token == error) {
+    return token;
+  }
+  if (token == validationError) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ScreenPresentationMode::parse(const std::string& token) {
+  if (token == replace) {
+    return token;
+  }
+  if (token == popupOverlay) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ServerCallRole::parse(const std::string& token) {
+  if (token == assembleRequest) {
+    return token;
+  }
+  if (token == handleResponse) {
+    return token;
+  }
+  if (token == handleError) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> UserAttributePlacement::parse(const std::string& token) {
+  if (token == public_) {
+    return token;
+  }
+  if (token == encrypted) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 AcceptanceCriteriaList::AcceptanceCriteriaList(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string AcceptanceCriteriaList::content() const {

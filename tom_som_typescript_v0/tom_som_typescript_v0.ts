@@ -21,6 +21,1188 @@ import {
 import * as _meta from './tom_som_typescript_v0_meta';
 export * from './tom_som_typescript_v0_meta';
 
+// Generated enum for `AuthorizationRequirementKind` values.
+export const AuthorizationRequirementKind = Object.freeze({
+  // The caller must hold one of a named set of roles.
+  "role": "role",
+  // The caller must belong to one of a named set of groups.
+  "group": "group",
+  // The caller's entitlements must match one of a set of patterns.
+  "entitlement": "entitlement",
+  // The caller must hold a grant on a named resource key.
+  "resourceKey": "resourceKey",
+  // A registered handler decides, against a named resource id.
+  "custom": "custom",
+  // A graded requirement resolving to one of the four access states.
+  "graded": "graded",
+  // Deny unconditionally.
+  "denied": "denied",
+  // Allow unconditionally, signed in or not.
+  "public": "public",
+  // Allow any signed-in caller.
+  "authenticated": "authenticated",
+  // Allow the guest caller.
+  "guest": "guest",
+});
+
+export type AuthorizationRequirementKindValue =
+  typeof AuthorizationRequirementKind[keyof typeof AuthorizationRequirementKind];
+
+// Parses a stored token into a AuthorizationRequirementKind value, or null.
+function _parseAuthorizationRequirementKind(token: string | null | undefined): AuthorizationRequirementKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(AuthorizationRequirementKind)) {
+    if (value === token) {
+      return value as AuthorizationRequirementKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `BasicAuthorizationRequirementKind` values.
+export const BasicAuthorizationRequirementKind = Object.freeze({
+  // The caller must hold one of a named set of roles.
+  "role": "role",
+  // The caller must belong to one of a named set of groups.
+  "group": "group",
+  // The caller's entitlements must match one of a set of patterns.
+  "entitlement": "entitlement",
+  // The caller must hold a grant on a named resource key.
+  "resourceKey": "resourceKey",
+  // A registered handler decides, against a named resource id.
+  "custom": "custom",
+  // Deny unconditionally.
+  "denied": "denied",
+  // Allow unconditionally, signed in or not.
+  "public": "public",
+  // Allow any signed-in caller.
+  "authenticated": "authenticated",
+  // Allow the guest caller.
+  "guest": "guest",
+});
+
+export type BasicAuthorizationRequirementKindValue =
+  typeof BasicAuthorizationRequirementKind[keyof typeof BasicAuthorizationRequirementKind];
+
+// Parses a stored token into a BasicAuthorizationRequirementKind value, or null.
+function _parseBasicAuthorizationRequirementKind(token: string | null | undefined): BasicAuthorizationRequirementKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(BasicAuthorizationRequirementKind)) {
+    if (value === token) {
+      return value as BasicAuthorizationRequirementKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ClientApplicationKind` values.
+export const ClientApplicationKind = Object.freeze({
+  // A graphical application with screens, forms and navigation.
+  "graphicalApplication": "graphicalApplication",
+  // A command-line client driven by arguments and standard streams.
+  "commandLine": "commandLine",
+  // Another server calling this system as a client.
+  "server": "server",
+});
+
+export type ClientApplicationKindValue =
+  typeof ClientApplicationKind[keyof typeof ClientApplicationKind];
+
+// Parses a stored token into a ClientApplicationKind value, or null.
+function _parseClientApplicationKind(token: string | null | undefined): ClientApplicationKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ClientApplicationKind)) {
+    if (value === token) {
+      return value as ClientApplicationKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `DataAttributeKind` values.
+export const DataAttributeKind = Object.freeze({
+  // Character data of bounded length. Binds
+  // [DataAttributeEntry.textTypeOptions], whose two attributes are what a text
+  // column cannot be emitted without: the length fixes the physical
+  // `VARCHAR(n)`, and the collation fixes how comparison and sorting behave
+  // (`codespecs_mapping.md` §5.13).
+  "string": "string",
+  // An exact whole number. Shares [DataAttributeEntry.numericTypeOptions] with
+  // [decimal], which carries precision and scale; an integer attribute leaves
+  // the scale at zero. It stays a constant of its own rather than a decimal
+  // with scale zero because the emitted column type differs, and because
+  // "whole number" is a statement about the domain that a zero scale only
+  // implies.
+  "integer": "integer",
+  // An exact fixed-point number. The distinction from [integer] is the scale:
+  // only a decimal may set a non-zero one, and the scale is a business fact —
+  // a monetary amount rounded to two places and one rounded to four are
+  // different specifications, and the difference is invisible in the physical
+  // type alone.
+  "decimal": "decimal",
+  // A calendar date with no time of day. Shares
+  // [DataAttributeEntry.temporalTypeOptions] with [dateTime], but the timezone
+  // attribute that option set carries is inert here: a date names a day, not
+  // an instant, so it must not shift when read in another zone. Storing a date
+  // as an instant to reuse one type is the classic way to make a birthday
+  // move.
+  "date": "date",
+  // An instant — a date together with a time of day. The kind for which the
+  // shared temporal timezone attribute is load-bearing: one instant renders as
+  // two different wall-clock readings in two zones, so the specification has
+  // to say which reading is stored (`ISO 8601-1:2019` is the representation
+  // authority named on that option set).
+  "dateTime": "dateTime",
+  // Raw bytes held in the record itself, so what a specification constrains is
+  // their stored size — see [DataAttributeEntry.binaryTypeOptions]. Bytes held
+  // *outside* the record are [fileReference], which is a separate kind rather
+  // than a storage mode of this one.
+  "binary": "binary",
+  // An attribute whose stored value is the **address of a stored file**, not
+  // the file's content (csra10).
+  //
+  // Separate from [binary] on the axis of *what the record holds*: a binary
+  // attribute holds the bytes, so its options constrain their stored size; a
+  // file reference holds an address, so its options say where the file is
+  // filed, which store holds it, whether it dies with the record and what may
+  // be uploaded into it. Nothing in the binary option set answers any of
+  // those, which is why this is a kind of its own rather than a mode of
+  // [binary].
+  "fileReference": "fileReference",
+  // A two-valued attribute. It binds no case because a truth value has nothing
+  // to constrain: no length, no precision, no range, no value set. The whole
+  // of its CE-DB surface is its value type (`codespecs_mapping.md` §5.13),
+  // which the discriminator itself already states.
+  "boolean": "boolean",
+  // An attribute holding a generated unique identifier. It binds no case
+  // because a specification chooses nothing about one: the value is machine-
+  // generated rather than authored, in the same way a file reference's stored
+  // address is derived and never authored (`codespecs_mapping.md` §5.13.1).
+  // Whether the identifier is the entity's key is the entity's identity
+  // attribute, not this attribute's type option.
+  "uuid": "uuid",
+  // An attribute whose stored value is a structured document rather than a
+  // scalar. It binds no case because `codespecs_mapping.md` §5.13's attribute
+  // surface carries the kind as a single flag — the substrate's
+  // `TomDbColumn.isJson` — with no payload beside it, and the flag follows
+  // from this constant. It deliberately carries **no schema reference**: a
+  // JSON payload whose shape is known is modelled as nested data entities, and
+  // one whose shape is only *checked* is checked by a constraint
+  // (`DataAttributeConstraintEntry`, CE-VA), so a schema attribute here would
+  // be a second home for one of those two answers.
+  "json": "json",
+  // An attribute drawn from a declared value set — a domain enum.
+  //
+  // It binds [DataAttributeEntry.enumerationTypeOptions], which names
+  // **which** domain enum the attribute is typed by. That is not optional
+  // detail: the emitted column's value type *is* the generated enum type
+  // (`TomDbColumn<DART_TYPE, …>`), so without the name the column cannot be
+  // emitted at all. Naming the registry entry rather than restating its values
+  // keeps the single source `DomainEnumRegistry` declares, and matches how
+  // every other enumerated value in the model is typed — an operation member
+  // (`SVOPM.domainEnum`) and a report parameter (`codespecs_mapping.md`
+  // §5.13's sibling surface) both name the enum rather than listing it.
+  //
+  // Narrowing — this attribute permitting only *some* of the enum's values —
+  // is a constraint, so it stays in the `constraints` list
+  // (`DATAA.allowedValues`) where every other per-attribute restriction lives.
+  "enumeration": "enumeration",
+});
+
+export type DataAttributeKindValue =
+  typeof DataAttributeKind[keyof typeof DataAttributeKind];
+
+// Parses a stored token into a DataAttributeKind value, or null.
+function _parseDataAttributeKind(token: string | null | undefined): DataAttributeKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(DataAttributeKind)) {
+    if (value === token) {
+      return value as DataAttributeKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ExportFieldKind` values.
+export const ExportFieldKind = Object.freeze({
+  // A textual export field.
+  //
+  // Selects the `textOutput` subsection, and the only kind that has to
+  // settle quoting and escaping — text is what can contain the delimiter the
+  // export file is built around.
+  "string": "string",
+  // A whole-number export field.
+  //
+  // Selects the `numericOutput` subsection together with
+  // [ExportFieldKind.decimal].
+  "integer": "integer",
+  // A fractional-number export field.
+  //
+  // Selects the `numericOutput` subsection, where the decimal separator and
+  // digit grouping are fixed. Unlike a displayed number these serve a
+  // consuming system, so the choice answers to the receiver's parser and not
+  // to any reader's locale.
+  "decimal": "decimal",
+  // A calendar-date export field.
+  //
+  // Selects the `temporalOutput` subsection with [ExportFieldKind.dateTime].
+  // The two are separate kinds so a date-only value is not given a spurious
+  // time component on the way out.
+  "date": "date",
+  // An instant export field carrying both date and time.
+  //
+  // Selects the `temporalOutput` subsection, which has to settle the time
+  // zone and the offset representation — the most common source of silently
+  // shifted values in an interchange file.
+  "dateTime": "dateTime",
+  // A two-state export field.
+  //
+  // Selects the `booleanOutput` subsection, which fixes the pair of tokens
+  // the two states are written as; a receiving system rarely accepts more
+  // than one such pair.
+  "boolean": "boolean",
+  // An export field whose value comes from a bounded set.
+  //
+  // Selects the `enumerationOutput` subsection. An export writes the stable
+  // code rather than the label a user reads, and this kind exists so that
+  // choice is made deliberately instead of falling out of whatever the
+  // screen happened to show.
+  "enumeration": "enumeration",
+});
+
+export type ExportFieldKindValue =
+  typeof ExportFieldKind[keyof typeof ExportFieldKind];
+
+// Parses a stored token into a ExportFieldKind value, or null.
+function _parseExportFieldKind(token: string | null | undefined): ExportFieldKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ExportFieldKind)) {
+    if (value === token) {
+      return value as ExportFieldKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `FlowReturnPoint` values.
+export const FlowReturnPoint = Object.freeze({
+  // The branch hands control back to a named step of the flow it left.
+  //
+  // Binds a case subsection, because the generated body cannot rejoin
+  // anywhere until the step it rejoins at has been named.
+  "resumeAtStep": "resumeAtStep",
+  // The branch is the end of the scenario — control goes back to nobody.
+  //
+  // The `noCase` arm: there is no step to name and no payload to carry, so a
+  // case subsection here would have nothing in it.
+  "endFlow": "endFlow",
+});
+
+export type FlowReturnPointValue =
+  typeof FlowReturnPoint[keyof typeof FlowReturnPoint];
+
+// Parses a stored token into a FlowReturnPoint value, or null.
+function _parseFlowReturnPoint(token: string | null | undefined): FlowReturnPointValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(FlowReturnPoint)) {
+    if (value === token) {
+      return value as FlowReturnPointValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `GradedAccessLevel` values.
+export const GradedAccessLevel = Object.freeze({
+  // Full, interactive access.
+  "full": "full",
+  // The value is shown but cannot be changed.
+  "read": "read",
+  // The thing is visible but locked.
+  "disabled": "disabled",
+});
+
+export type GradedAccessLevelValue =
+  typeof GradedAccessLevel[keyof typeof GradedAccessLevel];
+
+// Parses a stored token into a GradedAccessLevel value, or null.
+function _parseGradedAccessLevel(token: string | null | undefined): GradedAccessLevelValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(GradedAccessLevel)) {
+    if (value === token) {
+      return value as GradedAccessLevelValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `Iso25010Characteristic` values.
+export const Iso25010Characteristic = Object.freeze({
+  // ISO/IEC 25010:2023 *functional suitability* — the degree to which the
+  // product provides functions that meet stated **and implied** needs under
+  // specified conditions. The implied half is the reason this is a quality
+  // characteristic and not just "the requirements are done": correctness and
+  // completeness of what was asked for are judged here, not merely presence.
+  // Modelled by `FunctionalSuitabilityCharacteristic`.
+  "functionalSuitability": "functionalSuitability",
+  // ISO/IEC 25010:2023 *performance efficiency* — performing the functions
+  // within specified time and throughput parameters while being efficient in
+  // its use of resources. Both halves are required: hitting a latency target
+  // by consuming unbounded resources does not satisfy it. Targets under this
+  // characteristic are meaningless without the load profile they are stated
+  // against. Modelled by `PerformanceEfficiencyCharacteristic`.
+  "performanceEfficiency": "performanceEfficiency",
+  // ISO/IEC 25010:2023 *compatibility* — exchanging information with other
+  // products or systems, and performing its required functions while sharing
+  // a common environment and resources. Its two concerns are interoperability
+  // (the exchange) and co-existence (the sharing); the second is the one
+  // routinely forgotten, because nothing in a system's own requirements
+  // mentions the neighbours it must not disturb. Modelled by
+  // `CompatibilityCharacteristic`.
+  "compatibility": "compatibility",
+  // ISO/IEC 25010:2023 *interaction capability* — the degree to which
+  // specified users can interact with the product to exchange information
+  // through the user interface and complete specified tasks.
+  //
+  // **This is the 2023 renaming of *usability*.** A reader working from the
+  // 2011 edition looking for a `usability` constant lands here. The rename
+  // carries a widening, not just a new label: the characteristic covers the
+  // whole user–system exchange — including user assistance and
+  // self-descriptiveness — rather than ease of use alone, so a 2011 usability
+  // assessment mapped onto it is an under-assessment until those are added.
+  // Modelled by `InteractionCapabilityCharacteristic`.
+  "interactionCapability": "interactionCapability",
+  // ISO/IEC 25010:2023 *reliability* — performing specified functions under
+  // specified conditions for a specified period of time. All three
+  // qualifiers are part of the claim: a reliability target without the
+  // conditions and the period states nothing measurable. Modelled by
+  // `ReliabilityCharacteristic`.
+  "reliability": "reliability",
+  // ISO/IEC 25010:2023 *security* — protecting information and data so that
+  // persons and other products have the degree of data access appropriate to
+  // their types and levels of authorization.
+  //
+  // This is the *quality target* — what "secure enough" means and how it is
+  // evidenced. The control design that meets it is a separate document,
+  // `D08SecurityAccessSpecification`, anchored to ISO 27001
+  // (`tom_specs_model_rules.md` §2.2); recording controls here instead of
+  // targets produces a coverage entry that cannot be tested. Modelled by
+  // `SecurityCharacteristic`.
+  "security": "security",
+  // ISO/IEC 25010:2023 *maintainability* — the effectiveness and efficiency
+  // with which the product can be modified by its maintainers, whether to
+  // correct, improve or adapt it. The assessment is meaningless without
+  // naming *who* maintains it and over what horizon. Modelled by
+  // `MaintainabilityCharacteristic`.
+  "maintainability": "maintainability",
+  // ISO/IEC 25010:2023 *flexibility* — the degree to which the product can be
+  // adapted to changes in its requirements, contexts of use or system
+  // environment.
+  //
+  // **New in the 2023 edition, and where *portability* went.** A reader
+  // working from the 2011 edition looking for a `portability` constant lands
+  // here: the older characteristic's adaptability, installability and
+  // replaceability concerns are carried under flexibility, alongside
+  // scalability. The localization & translation concern cross-maps to exactly
+  // this portability/adaptability content
+  // (`tom_specs_model_rules.md` §2.3). Modelled by
+  // `FlexibilityCharacteristic`.
+  "flexibility": "flexibility",
+});
+
+export type Iso25010CharacteristicValue =
+  typeof Iso25010Characteristic[keyof typeof Iso25010Characteristic];
+
+// Parses a stored token into a Iso25010Characteristic value, or null.
+function _parseIso25010Characteristic(token: string | null | undefined): Iso25010CharacteristicValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(Iso25010Characteristic)) {
+    if (value === token) {
+      return value as Iso25010CharacteristicValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `MigrationArtifactKind` values.
+export const MigrationArtifactKind = Object.freeze({
+  // The baseline schema definition — the tables, indexes and constraints the
+  // system starts from.
+  "initialDdl": "initialDdl",
+  // The new system's own initial reference data — lookup values, defaults and
+  // built-in roles. Not business-data migration from a legacy system, which
+  // stays in the migration-mapping sections (`MIGME`).
+  "referenceData": "referenceData",
+  // An append-only schema-evolution step applied on top of the baseline.
+  "schemaChange": "schemaChange",
+});
+
+export type MigrationArtifactKindValue =
+  typeof MigrationArtifactKind[keyof typeof MigrationArtifactKind];
+
+// Parses a stored token into a MigrationArtifactKind value, or null.
+function _parseMigrationArtifactKind(token: string | null | undefined): MigrationArtifactKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(MigrationArtifactKind)) {
+    if (value === token) {
+      return value as MigrationArtifactKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ObjectLifecycleKind` values.
+export const ObjectLifecycleKind = Object.freeze({
+  // The state an instance is created in. Exactly one per lifecycle, and the
+  // one `BJOEN-LIFE.initialState` names; nothing may transition *into* it,
+  // because arriving there a second time would mean the instance had been
+  // re-created rather than moved.
+  "initial": "initial",
+  // A state the instance passes through — entered and left again. The only
+  // role for which both an inbound and an outbound transition are expected,
+  // which is what makes "this state can never be left" a detectable defect
+  // rather than a design choice.
+  "intermediate": "intermediate",
+  // A state in which the lifecycle ends by design: the order was closed, the
+  // claim was settled. It has no outbound transition, so marking a state
+  // terminal is also the assertion that no further business event can move
+  // the instance.
+  "terminal": "terminal",
+  // A state reached because something failed rather than because the intended
+  // path completed. Kept apart from [terminal] because it is not necessarily
+  // an end: an instance may be repaired and resume. What distinguishes it is
+  // the reason for arrival, not whether anything leads out — which is why the
+  // two cannot be collapsed into one "final" flag.
+  "error": "error",
+});
+
+export type ObjectLifecycleKindValue =
+  typeof ObjectLifecycleKind[keyof typeof ObjectLifecycleKind];
+
+// Parses a stored token into a ObjectLifecycleKind value, or null.
+function _parseObjectLifecycleKind(token: string | null | undefined): ObjectLifecycleKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ObjectLifecycleKind)) {
+    if (value === token) {
+      return value as ObjectLifecycleKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ReportColumnKind` values.
+export const ReportColumnKind = Object.freeze({
+  // A textual column.
+  //
+  // Selects the `textFormat` subsection. The fallback kind: a value with no
+  // numeric, temporal or boolean reading is formatted, aligned and sorted as
+  // text.
+  "string": "string",
+  // A whole-number column.
+  //
+  // Selects the `numericFormat` subsection alongside
+  // [ReportColumnKind.decimal]; keeping the two apart lets a report state
+  // that no fractional digits are to appear even when the underlying value
+  // carries them.
+  "integer": "integer",
+  // A fractional-number column.
+  //
+  // Selects the `numericFormat` subsection, where displayed precision,
+  // digit grouping and the presentation of negative values are fixed. A
+  // report that leaves them unstated is only reproducible by accident.
+  "decimal": "decimal",
+  // A monetary column.
+  //
+  // Chosen over [ReportColumnKind.decimal] when the figure carries a
+  // currency. It selects `currencyFormat` rather than the numeric
+  // subsection because the symbol, its position and the currency's own
+  // minor-unit precision all have to be settled together.
+  "currency": "currency",
+  // A temporal column.
+  //
+  // Selects the `dateFormat` subsection. A report is often read in a
+  // different locale and time zone from the one that produced it, so the
+  // format is authored here rather than inherited from the reader's
+  // environment.
+  "date": "date",
+  // A two-state column.
+  //
+  // Selects the `booleanFormat` subsection, which fixes the words or marks
+  // the two states are printed as — a report says "Yes"/"No" or
+  // "Active"/"Closed", never `true`/`false`.
+  "boolean": "boolean",
+});
+
+export type ReportColumnKindValue =
+  typeof ReportColumnKind[keyof typeof ReportColumnKind];
+
+// Parses a stored token into a ReportColumnKind value, or null.
+function _parseReportColumnKind(token: string | null | undefined): ReportColumnKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ReportColumnKind)) {
+    if (value === token) {
+      return value as ReportColumnKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ReportFilterValueKind` values.
+export const ReportFilterValueKind = Object.freeze({
+  // A text-valued filter.
+  //
+  // Selects `textFilterOptions`, where the match is settled — exact,
+  // prefix, contains. A text filter with no stated match rule is the one
+  // whose results readers most often dispute.
+  "string": "string",
+  // A whole-number filter.
+  //
+  // Selects `numericFilterOptions` together with
+  // [ReportFilterValueKind.decimal].
+  "integer": "integer",
+  // A fractional-number filter.
+  //
+  // Selects `numericFilterOptions`, where the bounds and whether they are
+  // inclusive are stated. An unstated bound convention makes two runs of the
+  // same report disagree at the edges.
+  "decimal": "decimal",
+  // A calendar-date filter.
+  //
+  // Selects `dateFilterOptions` with [ReportFilterValueKind.dateTime]. A
+  // range is not a separate kind — it is a choice of input control recorded
+  // inside those options.
+  "date": "date",
+  // An instant filter carrying both date and time.
+  //
+  // Selects `dateFilterOptions`. Chosen over [ReportFilterValueKind.date]
+  // when a boundary has to fall inside a day rather than at its edge.
+  "dateTime": "dateTime",
+  // A two-state filter.
+  //
+  // Selects `booleanFilterOptions`. A boolean filter usually has three
+  // user-visible positions rather than two — true, false, and not filtered
+  // at all — and it is those options that have to say so.
+  "boolean": "boolean",
+  // A filter over a bounded set of option values.
+  //
+  // Selects `selectFilterOptions`, which names the option source and
+  // whether several values may be selected at once. Pick it when the
+  // candidates are a fixed vocabulary rather than records the user has to
+  // look up.
+  "enumeration": "enumeration",
+  // A filter whose value refers to a record in the domain model.
+  //
+  // Selects `entityFilterOptions`. Chosen over
+  // [ReportFilterValueKind.enumeration] when the candidates are data rather
+  // than vocabulary — a customer, an account — so the control has to search
+  // and resolve instead of listing.
+  "entityRef": "entityRef",
+});
+
+export type ReportFilterValueKindValue =
+  typeof ReportFilterValueKind[keyof typeof ReportFilterValueKind];
+
+// Parses a stored token into a ReportFilterValueKind value, or null.
+function _parseReportFilterValueKind(token: string | null | undefined): ReportFilterValueKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ReportFilterValueKind)) {
+    if (value === token) {
+      return value as ReportFilterValueKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ScheduledJobTrigger` values.
+export const ScheduledJobTrigger = Object.freeze({
+  // The job fires on a recurring clock expression.
+  //
+  // Binds the cron case, whose payload is the recurrence expression itself,
+  // verbatim — a job whose schedule can be written as one expression needs
+  // nothing else said about when it runs.
+  "cron": "cron",
+  // The job fires on a date rule no clock expression can state — month-end,
+  // the third Monday of a quarter, the last working day before a holiday.
+  //
+  // A separate arm rather than a harder cron string, because the rule depends
+  // on a calendar that a recurrence expression cannot see.
+  "calendar": "calendar",
+  // The job does not run on a clock at all: it runs when something in the
+  // system happens, and what that occurrence carries is what the work reads.
+  //
+  // The arm with no schedule, so nothing about it can be answered by looking
+  // at a clock — including when it will next run, or whether it ever will.
+  "event": "event",
+});
+
+export type ScheduledJobTriggerValue =
+  typeof ScheduledJobTrigger[keyof typeof ScheduledJobTrigger];
+
+// Parses a stored token into a ScheduledJobTrigger value, or null.
+function _parseScheduledJobTrigger(token: string | null | undefined): ScheduledJobTriggerValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ScheduledJobTrigger)) {
+    if (value === token) {
+      return value as ScheduledJobTriggerValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ScreenElementFieldKind` values.
+export const ScreenElementFieldKind = Object.freeze({
+  // Free-form text with no narrower interpretation.
+  //
+  // The default text kind, and the one to pick when nothing about the value
+  // constrains it beyond length and pattern. Selects the `textOptions`
+  // subsection.
+  "string": "string",
+  // A whole number.
+  //
+  // Chosen over [ScreenElementFieldKind.decimal] when fractional input must
+  // be rejected outright rather than rounded — counts, quantities, ordinals.
+  // Selects the `numberOptions` subsection.
+  "integer": "integer",
+  // A number with a fractional part.
+  //
+  // Selects the `numberOptions` subsection, where the precision the value is
+  // captured and shown at is fixed. Leaving it unstated is what produces the
+  // familiar mismatch between the figure a user entered and the figure the
+  // system stored.
+  "decimal": "decimal",
+  // A monetary amount.
+  //
+  // Chosen over [ScreenElementFieldKind.decimal] when the figure carries a
+  // currency: the amount alone is not the value, so the field must also
+  // settle which currency applies and how the pair is presented. Selects the
+  // `numberOptions` subsection.
+  "currency": "currency",
+  // A calendar date with no time of day.
+  //
+  // Chosen over [ScreenElementFieldKind.dateTime] when the time of day is
+  // not merely unknown but meaningless — a birth date, an invoice date — so
+  // that no time-zone conversion can shift the value into a neighbouring
+  // day. Selects the `dateOptions` subsection.
+  "date": "date",
+  // A calendar date together with a time of day.
+  //
+  // The kind for an instant that must be located exactly, and therefore the
+  // one whose `dateOptions` have to settle the time zone the value is
+  // recorded and displayed in.
+  "dateTime": "dateTime",
+  // A time of day with no calendar date.
+  //
+  // Chosen for a recurring wall-clock value — an opening hour, a daily
+  // reminder — that is not tied to one particular day. Selects the
+  // `dateOptions` subsection.
+  "time": "time",
+  // A two-state true/false value.
+  //
+  // The one field kind that selects no promoted options subsection: a
+  // boolean has no format, no bounds and no option source, so it carries the
+  // field base alone. How it is drawn — tick box or switch — is the
+  // enclosing element's [ScreenElementKind], not this kind.
+  "boolean": "boolean",
+  // A value chosen from a bounded set of options.
+  //
+  // Selects the `selectOptions` subsection, which names where the options
+  // come from and whether one or several may be chosen. Pick it whenever the
+  // valid values are enumerable, even when the interface renders them as
+  // free text with completion.
+  "enumeration": "enumeration",
+  // An email address.
+  //
+  // A text kind — it selects `textOptions` — named separately so the
+  // generator can supply the address-shaped validation and the right
+  // keyboard without the specification restating either.
+  "email": "email",
+  // A telephone number.
+  //
+  // A text kind, named separately so the generator can supply
+  // dialling-friendly input and formatting. It is text rather than a number
+  // because leading zeros, country prefixes and separators are part of the
+  // value.
+  "phone": "phone",
+  // A web address.
+  //
+  // A text kind, named separately so the generator can supply scheme
+  // validation and an open affordance instead of treating the value as
+  // opaque text.
+  "url": "url",
+  // A secret the user types and that must not be shown back.
+  //
+  // A text kind whose distinguishing property is display rather than shape:
+  // the value is masked, kept out of ordinary autofill history, and never
+  // echoed back in messages or logs.
+  "password": "password",
+  // Formatted text carrying its own markup.
+  //
+  // Chosen over [ScreenElementFieldKind.string] when the formatting is part
+  // of the value rather than of the presentation. That makes the stored
+  // value a document, and moves sanitising the markup into the field's
+  // concern rather than the renderer's.
+  "richText": "richText",
+  // A colour value.
+  //
+  // **Realised by desugaring, not by a colour control**
+  // (`codespecs_mapping.md` §5.18): free colour entry lowers onto a text field
+  // whose value is the colour's textual form plus a pattern validation rule,
+  // and a palette/design-token colour lowers onto a single-choice field whose
+  // option source is the token catalogue. Naming this kind is what lets the
+  // generator supply the pattern rule and the swatch preview without the
+  // specification restating them — it does not promise a picker.
+  "color": "color",
+  // A file the user supplies rather than types.
+  //
+  // The one field kind whose value is a reference to content held elsewhere,
+  // which is why it has its own `fileOptions` subsection: which content
+  // kinds are accepted, and how the chosen file is presented back.
+  "file": "file",
+});
+
+export type ScreenElementFieldKindValue =
+  typeof ScreenElementFieldKind[keyof typeof ScreenElementFieldKind];
+
+// Parses a stored token into a ScreenElementFieldKind value, or null.
+function _parseScreenElementFieldKind(token: string | null | undefined): ScreenElementFieldKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ScreenElementFieldKind)) {
+    if (value === token) {
+      return value as ScreenElementFieldKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ScreenElementKind` values.
+export const ScreenElementKind = Object.freeze({
+  // A standalone command control: activating it runs an action.
+  //
+  // The kind to pick when the element *is* the command — a separately
+  // hit-testable target with its own label, weight and position in the
+  // section. Selects the [ScreenElementAction] facet.
+  "actionButton": "actionButton",
+  // An inline navigational control that reads as part of the surrounding
+  // text.
+  //
+  // Selects the same [ScreenElementAction] facet as
+  // [ScreenElementKind.actionButton]; choosing between the two records
+  // prominence and reading flow, not capability — a link sits inside the
+  // content and usually takes the user elsewhere, a button stands apart and
+  // usually performs work on the screen the user is on.
+  "link": "link",
+  // A free-text input.
+  //
+  // The general-purpose input kind: pick it when the value has no narrower
+  // structure the runtime could exploit. Selects the
+  // [ScreenElementFieldSpec] facet, whose own [ScreenElementFieldKind] then
+  // fixes the value type — so a text field still declares an email, phone or
+  // password field kind when that is what it holds.
+  "textField": "textField",
+  // A numeric input.
+  //
+  // Chosen over [ScreenElementKind.textField] when the value is a quantity,
+  // so the runtime may supply a numeric keyboard, step controls and range
+  // checks instead of the specification validating digits after the fact.
+  "numberField": "numberField",
+  // A date or time input.
+  //
+  // Chosen over [ScreenElementKind.textField] when the value is a point in
+  // time, which lets the runtime offer a calendar or clock affordance and
+  // parse in the user's locale rather than asking them to type a format.
+  "dateField": "dateField",
+  // An input that picks from a bounded set of options.
+  //
+  // Chosen when the valid values are enumerable at design time or come from
+  // a named option source; the field spec's `selectOptions` then carries
+  // where those options come from and whether one or several may be chosen.
+  "selectField": "selectField",
+  // A two-state input drawn as a tickable box with an adjacent label.
+  //
+  // Chosen over [ScreenElementKind.toggle] for a value the user is
+  // *asserting* — consent, membership of a set, an option that only takes
+  // effect when the surrounding form is submitted.
+  "checkbox": "checkbox",
+  // A two-state input drawn as a switch.
+  //
+  // Chosen over [ScreenElementKind.checkbox] for a setting that takes effect
+  // the moment it is flipped, so the control reads as turning something on
+  // rather than as answering a question on a form.
+  "toggle": "toggle",
+  // A read-only rendering of a single bound value.
+  //
+  // The general display kind, and the fallback when no narrower one fits.
+  // The value comes from the data binding rather than from authored copy,
+  // which is what separates it from [ScreenElementKind.label]. Selects the
+  // [ScreenElementDataDisplay] facet.
+  "dataDisplay": "dataDisplay",
+  // A read-only rendering of a collection as rows and columns.
+  //
+  // Chosen over [ScreenElementKind.dataDisplay] when the bound value is a
+  // collection whose members share a shape, so column identity, sorting and
+  // paging become properties of the element rather than of the screen around
+  // it.
+  "dataTable": "dataTable",
+  // A bounded surface grouping several bound values as one visual unit.
+  //
+  // Chosen when the grouping itself carries meaning — the values belong to
+  // one record and are read together — rather than merely sitting near each
+  // other, which is a layout concern of the enclosing section.
+  "card": "card",
+  // A graphical rendering of a collection as a series, distribution or
+  // proportion.
+  //
+  // Chosen over [ScreenElementKind.dataTable] when the shape of the data is
+  // the message and individual values need not be read exactly. A chart is
+  // declared here and rendered by whichever platform can
+  // (`codespecs_mapping.md` §5.28).
+  "chart": "chart",
+  // A compact rendering of a value as a condition — a health light, a
+  // lifecycle or progress marker.
+  //
+  // Chosen over [ScreenElementKind.dataDisplay] when the user is meant to
+  // read the state at a glance rather than read the underlying value.
+  // Because the reading is usually carried by colour, it needs a second cue
+  // as well: colour alone is not a usable channel for everyone (WCAG 2.2,
+  // success criterion 1.4.1).
+  "statusIndicator": "statusIndicator",
+  // A pictogram carrying no bound value.
+  //
+  // Chosen when the graphic is meaning rather than decoration but is not
+  // itself interactive; an icon the user activates is an
+  // [ScreenElementKind.actionButton] that happens to be drawn as one. It
+  // still needs a text alternative, since a pictogram on its own is not
+  // perceivable to assistive technology (WCAG 2.2, success criterion 1.1.1).
+  "icon": "icon",
+  // Authored static text.
+  //
+  // Distinguished from [ScreenElementKind.dataDisplay] by where the text
+  // comes from: a label's copy is authored, and therefore translatable
+  // through the CE-TX message-key catalogue (`codespecs_mapping.md` §5.21),
+  // while a data display renders whatever the binding produces.
+  "label": "label",
+  // A raster or vector graphic presented as content.
+  //
+  // Chosen over [ScreenElementKind.icon] when the graphic is content in its
+  // own right — a photograph, a diagram, a supplied asset — rather than a
+  // small symbol drawn from the interface's pictogram set.
+  "image": "image",
+  // A small count or marker attached to another element.
+  //
+  // Chosen over [ScreenElementKind.statusIndicator] when the value qualifies
+  // a neighbouring element — an unread count on a navigation item, a "new"
+  // marker on a tab — rather than standing on its own.
+  "badge": "badge",
+  // A structural separator drawn between groups of elements.
+  //
+  // One of the three structural kinds that select no facet subsection: a
+  // separator has no action, no value and no binding, so it carries only the
+  // common element subsections. Pick it when the break between groups is
+  // meant to be seen; if only distance is wanted, use
+  // [ScreenElementKind.spacer].
+  "divider": "divider",
+  // A structural gap that reserves space without drawing anything.
+  //
+  // Selects no facet subsection. Distinguished from
+  // [ScreenElementKind.divider] by visibility: a spacer separates by
+  // distance alone, so it adds no visual rule the reader has to account for.
+  "spacer": "spacer",
+  // A structural strip of tabs that switches which content is shown.
+  //
+  // Selects no facet subsection because the tabs themselves are specified
+  // separately as a [TabBarDefinitionEntry]; naming the kind here only
+  // places the strip within a screen section.
+  "tabBar": "tabBar",
+});
+
+export type ScreenElementKindValue =
+  typeof ScreenElementKind[keyof typeof ScreenElementKind];
+
+// Parses a stored token into a ScreenElementKind value, or null.
+function _parseScreenElementKind(token: string | null | undefined): ScreenElementKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ScreenElementKind)) {
+    if (value === token) {
+      return value as ScreenElementKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ScreenFieldKind` values.
+export const ScreenFieldKind = Object.freeze({
+  // A single-line free-text value.
+  //
+  // Binds the text constraints case (`SCFIVT`): length bounds plus a match
+  // pattern. Any narrower grammar is stated as that pattern, so the kind
+  // itself stays a statement about shape rather than about validation.
+  "text": "text",
+  // Free text the author expects to run to several lines.
+  //
+  // Carries the same constraints as [text]; what it records that [text] does
+  // not is how much room the value needs, which the D09 design pass turns
+  // into a concrete control.
+  "multilineText": "multilineText",
+  // A text value that must be a routable e-mail address.
+  //
+  // The address grammar is stated as the text case's pattern rather than
+  // implied by the kind, so a requirement that accepts only corporate
+  // addresses can say so.
+  "email": "email",
+  // A text value that must be a dialable telephone number.
+  //
+  // Format and length live in the text case's pattern: no single grammar is
+  // correct across locales, so the kind does not pretend to fix one.
+  "phone": "phone",
+  // A text value that must be a resolvable URL.
+  //
+  // The accepted schemes belong in the text case's pattern — a requirement
+  // that refuses anything but `https` says so there.
+  "url": "url",
+  // A secret text value.
+  //
+  // The kind is what tells the design pass to mask the input and keep it out
+  // of logs; composition rules ride on the text case. How the value is stored
+  // or hashed is the security model's decision, not this field's.
+  "password": "password",
+  // A whole number.
+  //
+  // Binds the numeric constraints case (`SCFIVN`): the permitted value range.
+  "integer": "integer",
+  // A fractional number.
+  //
+  // Shares the numeric case with [integer]. The precision the value must keep
+  // is a constraint on it, not a kind of its own.
+  "decimal": "decimal",
+  // A monetary amount.
+  //
+  // Shares the numeric case but is a distinct kind, because an amount is
+  // incomplete without the currency it is denominated in and is not rounded
+  // the way a plain [decimal] is.
+  "currency": "currency",
+  // A calendar date with no time of day.
+  //
+  // Binds the temporal constraints case (`SCFIVD`), whose bounds are dates or
+  // relative expressions rather than numbers.
+  "date": "date",
+  // An instant — a date together with a time of day.
+  //
+  // Kept apart from [date] because it is only unambiguous with a time zone,
+  // which a date neither has nor needs.
+  "dateTime": "dateTime",
+  // A time of day with no date.
+  //
+  // For recurring wall-clock values — an opening hour, a cut-off — where
+  // pinning the value to one day would be wrong.
+  "time": "time",
+  // A choice of exactly one option from a stated set.
+  //
+  // Binds the choice options case (`SCFICH`), which says where the option set
+  // comes from — static values, an API, or an entity.
+  "singleSelect": "singleSelect",
+  // A choice of any number of options from a stated set.
+  //
+  // Shares the choice case with [singleSelect]; what differs is the
+  // cardinality of the answer, which is what the design pass needs in order to
+  // pick a control and what storage needs in order to shape the column.
+  "multiSelect": "multiSelect",
+  // An uploaded file.
+  //
+  // Binds the file constraints case (`SCFIFI`) — what content kinds are
+  // accepted and how large a file may be. Where the bytes end up is neither
+  // this kind's business nor the design pass's: it is authored on the CE-DB
+  // file-reference column (`codespecs_mapping.md` §5.13.1).
+  "file": "file",
+  // A truth value.
+  //
+  // The one kind that binds no case — it is the `noCase` arm of the group.
+  // Once the question has been asked there is nothing left about a yes/no
+  // answer to constrain, so an empty case subsection would be the only
+  // honest one.
+  "boolean": "boolean",
+});
+
+export type ScreenFieldKindValue =
+  typeof ScreenFieldKind[keyof typeof ScreenFieldKind];
+
+// Parses a stored token into a ScreenFieldKind value, or null.
+function _parseScreenFieldKind(token: string | null | undefined): ScreenFieldKindValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ScreenFieldKind)) {
+    if (value === token) {
+      return value as ScreenFieldKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ScreenFlowOutcome` values.
+export const ScreenFlowOutcome = Object.freeze({
+  // The transition taken when the action completed as intended.
+  //
+  // The path a flow diagram usually shows. A screen that specifies only this
+  // outcome has left its failure paths undecided, not impossible.
+  "success": "success",
+  // The transition taken when the action failed while being processed.
+  //
+  // The CE-ER path: the input was accepted but the work did not complete, so
+  // the destination is normally somewhere the user can retry or ask for
+  // help, rather than back at the input.
+  "error": "error",
+  // The transition taken when the action's input was rejected before any
+  // processing.
+  //
+  // The CE-VA path. Distinguished from [ScreenFlowOutcome.error] by who can
+  // fix it: the user can, and only where the offending input is — which is
+  // why this outcome typically keeps them on the source screen instead of
+  // navigating away.
+  "validationError": "validationError",
+});
+
+export type ScreenFlowOutcomeValue =
+  typeof ScreenFlowOutcome[keyof typeof ScreenFlowOutcome];
+
+// Parses a stored token into a ScreenFlowOutcome value, or null.
+function _parseScreenFlowOutcome(token: string | null | undefined): ScreenFlowOutcomeValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ScreenFlowOutcome)) {
+    if (value === token) {
+      return value as ScreenFlowOutcomeValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ScreenPresentationMode` values.
+export const ScreenPresentationMode = Object.freeze({
+  // The target screen takes the place of the current one in the navigation
+  // stack.
+  //
+  // The ordinary reading of a transition: the source screen is left, so
+  // nothing about its transient state is guaranteed to survive the move.
+  "replace": "replace",
+  // The target screen is shown over the screen the user came from, which
+  // stays alive underneath and is revealed again when the overlay closes.
+  //
+  // Chosen over [ScreenPresentationMode.replace] when the user must come
+  // back to exactly the state they left — the overlay interrupts a task
+  // rather than being a step in one.
+  "popupOverlay": "popupOverlay",
+});
+
+export type ScreenPresentationModeValue =
+  typeof ScreenPresentationMode[keyof typeof ScreenPresentationMode];
+
+// Parses a stored token into a ScreenPresentationMode value, or null.
+function _parseScreenPresentationMode(token: string | null | undefined): ScreenPresentationModeValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ScreenPresentationMode)) {
+    if (value === token) {
+      return value as ScreenPresentationModeValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ServerCallRole` values.
+export const ServerCallRole = Object.freeze({
+  // Steps that run before the call leaves — the ones that build the request.
+  //
+  // Emitted into the `assembleRequest` method. A step here may read view
+  // state and validate, but it can say nothing about a response, because none
+  // exists yet.
+  "assembleRequest": "assembleRequest",
+  // Steps that run after a successful response — the ones that apply it.
+  //
+  // Emitted into the `handleResponse` method. It is reached only on success,
+  // so a step here never has to ask whether the call worked.
+  "handleResponse": "handleResponse",
+  // Steps that run after a failed call — the ones that surface the failure.
+  //
+  // Emitted into the `handleError` method, which is the sibling of
+  // `handleResponse` rather than a branch inside it: the two are separate
+  // bodies and exactly one of them runs.
+  "handleError": "handleError",
+});
+
+export type ServerCallRoleValue =
+  typeof ServerCallRole[keyof typeof ServerCallRole];
+
+// Parses a stored token into a ServerCallRole value, or null.
+function _parseServerCallRole(token: string | null | undefined): ServerCallRoleValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ServerCallRole)) {
+    if (value === token) {
+      return value as ServerCallRoleValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `UserAttributePlacement` values.
+export const UserAttributePlacement = Object.freeze({
+  // Rides the public token payload; read access may be guarded by a
+  // resource key.
+  "public": "public",
+  // Rides the encrypted token payload; readable only by token-decrypting
+  // layers.
+  "encrypted": "encrypted",
+});
+
+export type UserAttributePlacementValue =
+  typeof UserAttributePlacement[keyof typeof UserAttributePlacement];
+
+// Parses a stored token into a UserAttributePlacement value, or null.
+function _parseUserAttributePlacement(token: string | null | undefined): UserAttributePlacementValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(UserAttributePlacement)) {
+    if (value === token) {
+      return value as UserAttributePlacementValue;
+    }
+  }
+  return null;
+}
+
 // 14.2.1. Acceptance Criteria.
 export class AcceptanceCriteriaList extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -49306,12 +50488,12 @@ export class AlternativeFlowEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "outcome", value);
   }
 
-  get returnKind(): string {
-    return this.doc.formField(this.path, "returnKind") || '';
+  get returnKind(): FlowReturnPointValue | null {
+    return _parseFlowReturnPoint(this.doc.formField(this.path, "returnKind"));
   }
 
-  set returnKind(value: string) {
-    this.doc.setFormField(this.path, "returnKind", value);
+  set returnKind(value: FlowReturnPointValue | null) {
+    this.doc.setFormField(this.path, "returnKind", value ?? '');
   }
 
   get frequency(): string {
@@ -52373,12 +53555,12 @@ export class AuthorizationRequirementSpecContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get requirementKind(): string {
-    return this.doc.formField(this.path, "requirementKind") || '';
+  get requirementKind(): AuthorizationRequirementKindValue | null {
+    return _parseAuthorizationRequirementKind(this.doc.formField(this.path, "requirementKind"));
   }
 
-  set requirementKind(value: string) {
-    this.doc.setFormField(this.path, "requirementKind", value);
+  set requirementKind(value: AuthorizationRequirementKindValue | null) {
+    this.doc.setFormField(this.path, "requirementKind", value ?? '');
   }
 
   get rationale(): string {
@@ -61304,12 +62486,12 @@ export class ClientApplicationEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "clientId", value);
   }
 
-  get clientKind(): string {
-    return this.doc.formField(this.path, "clientKind") || '';
+  get clientKind(): ClientApplicationKindValue | null {
+    return _parseClientApplicationKind(this.doc.formField(this.path, "clientKind"));
   }
 
-  set clientKind(value: string) {
-    this.doc.setFormField(this.path, "clientKind", value);
+  set clientKind(value: ClientApplicationKindValue | null) {
+    this.doc.setFormField(this.path, "clientKind", value ?? '');
   }
 
   get purpose(): string {
@@ -72506,12 +73688,12 @@ export class DataAttributeEntryDataTypeSpecForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get dataType(): string {
-    return this.doc.formField(this.path, "dataType") || '';
+  get dataType(): DataAttributeKindValue | null {
+    return _parseDataAttributeKind(this.doc.formField(this.path, "dataType"));
   }
 
-  set dataType(value: string) {
-    this.doc.setFormField(this.path, "dataType", value);
+  set dataType(value: DataAttributeKindValue | null) {
+    this.doc.setFormField(this.path, "dataType", value ?? '');
   }
 
   get physicalType(): string {
@@ -92127,12 +93309,12 @@ export class ExportFieldMappingEntryFormattingForm extends SomNode {
     this.doc.setFormField(this.path, "displayOrder", value == null ? '' : String(value));
   }
 
-  get dataType(): string {
-    return this.doc.formField(this.path, "dataType") || '';
+  get dataType(): ExportFieldKindValue | null {
+    return _parseExportFieldKind(this.doc.formField(this.path, "dataType"));
   }
 
-  set dataType(value: string) {
-    this.doc.setFormField(this.path, "dataType", value);
+  set dataType(value: ExportFieldKindValue | null) {
+    this.doc.setFormField(this.path, "dataType", value ?? '');
   }
 }
 
@@ -93113,12 +94295,12 @@ export class ExtensionEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "outcome", value);
   }
 
-  get returnKind(): string {
-    return this.doc.formField(this.path, "returnKind") || '';
+  get returnKind(): FlowReturnPointValue | null {
+    return _parseFlowReturnPoint(this.doc.formField(this.path, "returnKind"));
   }
 
-  set returnKind(value: string) {
-    this.doc.setFormField(this.path, "returnKind", value);
+  set returnKind(value: FlowReturnPointValue | null) {
+    this.doc.setFormField(this.path, "returnKind", value ?? '');
   }
 
   get frequency(): string {
@@ -96812,12 +97994,12 @@ export class FormScreenAssignmentEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "routeId", value);
   }
 
-  get presentationMode(): string {
-    return this.doc.formField(this.path, "presentationMode") || '';
+  get presentationMode(): ScreenPresentationModeValue | null {
+    return _parseScreenPresentationMode(this.doc.formField(this.path, "presentationMode"));
   }
 
-  set presentationMode(value: string) {
-    this.doc.setFormField(this.path, "presentationMode", value);
+  set presentationMode(value: ScreenPresentationModeValue | null) {
+    this.doc.setFormField(this.path, "presentationMode", value ?? '');
   }
 }
 
@@ -99030,20 +100212,20 @@ export class GradedAccessLevelEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get accessLevel(): string {
-    return this.doc.formField(this.path, "accessLevel") || '';
+  get accessLevel(): GradedAccessLevelValue | null {
+    return _parseGradedAccessLevel(this.doc.formField(this.path, "accessLevel"));
   }
 
-  set accessLevel(value: string) {
-    this.doc.setFormField(this.path, "accessLevel", value);
+  set accessLevel(value: GradedAccessLevelValue | null) {
+    this.doc.setFormField(this.path, "accessLevel", value ?? '');
   }
 
-  get requirementKind(): string {
-    return this.doc.formField(this.path, "requirementKind") || '';
+  get requirementKind(): BasicAuthorizationRequirementKindValue | null {
+    return _parseBasicAuthorizationRequirementKind(this.doc.formField(this.path, "requirementKind"));
   }
 
-  set requirementKind(value: string) {
-    this.doc.setFormField(this.path, "requirementKind", value);
+  set requirementKind(value: BasicAuthorizationRequirementKindValue | null) {
+    this.doc.setFormField(this.path, "requirementKind", value ?? '');
   }
 }
 
@@ -107470,12 +108652,12 @@ export class Iso25010CoverageEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get characteristic(): string {
-    return this.doc.formField(this.path, "characteristic") || '';
+  get characteristic(): Iso25010CharacteristicValue | null {
+    return _parseIso25010Characteristic(this.doc.formField(this.path, "characteristic"));
   }
 
-  set characteristic(value: string) {
-    this.doc.setFormField(this.path, "characteristic", value);
+  set characteristic(value: Iso25010CharacteristicValue | null) {
+    this.doc.setFormField(this.path, "characteristic", value ?? '');
   }
 
   get addressedBy(): string {
@@ -121713,12 +122895,12 @@ export class ObjectStateEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "description", value);
   }
 
-  get stateType(): string {
-    return this.doc.formField(this.path, "stateType") || '';
+  get stateType(): ObjectLifecycleKindValue | null {
+    return _parseObjectLifecycleKind(this.doc.formField(this.path, "stateType"));
   }
 
-  set stateType(value: string) {
-    this.doc.setFormField(this.path, "stateType", value);
+  set stateType(value: ObjectLifecycleKindValue | null) {
+    this.doc.setFormField(this.path, "stateType", value ?? '');
   }
 
   get entryConditions(): string {
@@ -138804,12 +139986,12 @@ export class ReportColumnEntryDataSourceForm extends SomNode {
     this.doc.setFormField(this.path, "dataSourceField", value);
   }
 
-  get dataType(): string {
-    return this.doc.formField(this.path, "dataType") || '';
+  get dataType(): ReportColumnKindValue | null {
+    return _parseReportColumnKind(this.doc.formField(this.path, "dataType"));
   }
 
-  set dataType(value: string) {
-    this.doc.setFormField(this.path, "dataType", value);
+  set dataType(value: ReportColumnKindValue | null) {
+    this.doc.setFormField(this.path, "dataType", value ?? '');
   }
 }
 
@@ -140142,12 +141324,12 @@ export class ReportFilterEntryInputForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get dataType(): string {
-    return this.doc.formField(this.path, "dataType") || '';
+  get dataType(): ReportFilterValueKindValue | null {
+    return _parseReportFilterValueKind(this.doc.formField(this.path, "dataType"));
   }
 
-  set dataType(value: string) {
-    this.doc.setFormField(this.path, "dataType", value);
+  set dataType(value: ReportFilterValueKindValue | null) {
+    this.doc.setFormField(this.path, "dataType", value ?? '');
   }
 
   get defaultValue(): string {
@@ -148595,12 +149777,12 @@ export class ScheduledJobEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "purpose", value);
   }
 
-  get triggerKind(): string {
-    return this.doc.formField(this.path, "triggerKind") || '';
+  get triggerKind(): ScheduledJobTriggerValue | null {
+    return _parseScheduledJobTrigger(this.doc.formField(this.path, "triggerKind"));
   }
 
-  set triggerKind(value: string) {
-    this.doc.setFormField(this.path, "triggerKind", value);
+  set triggerKind(value: ScheduledJobTriggerValue | null) {
+    this.doc.setFormField(this.path, "triggerKind", value ?? '');
   }
 
   get primaryDataEntity(): string {
@@ -149139,12 +150321,12 @@ export class SchemaMigrationStepEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "description", value);
   }
 
-  get artifactKind(): string {
-    return this.doc.formField(this.path, "artifactKind") || '';
+  get artifactKind(): MigrationArtifactKindValue | null {
+    return _parseMigrationArtifactKind(this.doc.formField(this.path, "artifactKind"));
   }
 
-  set artifactKind(value: string) {
-    this.doc.setFormField(this.path, "artifactKind", value);
+  set artifactKind(value: MigrationArtifactKindValue | null) {
+    this.doc.setFormField(this.path, "artifactKind", value ?? '');
   }
 
   get migrationTarget(): string {
@@ -150049,12 +151231,12 @@ export class ScreenElementEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "elementId", value);
   }
 
-  get elementType(): string {
-    return this.doc.formField(this.path, "elementType") || '';
+  get elementType(): ScreenElementKindValue | null {
+    return _parseScreenElementKind(this.doc.formField(this.path, "elementType"));
   }
 
-  set elementType(value: string) {
-    this.doc.setFormField(this.path, "elementType", value);
+  set elementType(value: ScreenElementKindValue | null) {
+    this.doc.setFormField(this.path, "elementType", value ?? '');
   }
 }
 
@@ -150246,12 +151428,12 @@ export class ScreenElementFieldSpecContentForm extends SomNode {
     this.doc.setFormField(this.path, "fieldName", value);
   }
 
-  get dataType(): string {
-    return this.doc.formField(this.path, "dataType") || '';
+  get dataType(): ScreenElementFieldKindValue | null {
+    return _parseScreenElementFieldKind(this.doc.formField(this.path, "dataType"));
   }
 
-  set dataType(value: string) {
-    this.doc.setFormField(this.path, "dataType", value);
+  set dataType(value: ScreenElementFieldKindValue | null) {
+    this.doc.setFormField(this.path, "dataType", value ?? '');
   }
 
   get placeholderResource(): string {
@@ -150907,12 +152089,12 @@ export class ScreenFieldEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "fieldId", value);
   }
 
-  get fieldType(): string {
-    return this.doc.formField(this.path, "fieldType") || '';
+  get fieldType(): ScreenFieldKindValue | null {
+    return _parseScreenFieldKind(this.doc.formField(this.path, "fieldType"));
   }
 
-  set fieldType(value: string) {
-    this.doc.setFormField(this.path, "fieldType", value);
+  set fieldType(value: ScreenFieldKindValue | null) {
+    this.doc.setFormField(this.path, "fieldType", value ?? '');
   }
 }
 
@@ -151558,12 +152740,12 @@ export class ScreenTransitionEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "actionId", value);
   }
 
-  get outcome(): string {
-    return this.doc.formField(this.path, "outcome") || '';
+  get outcome(): ScreenFlowOutcomeValue | null {
+    return _parseScreenFlowOutcome(this.doc.formField(this.path, "outcome"));
   }
 
-  set outcome(value: string) {
-    this.doc.setFormField(this.path, "outcome", value);
+  set outcome(value: ScreenFlowOutcomeValue | null) {
+    this.doc.setFormField(this.path, "outcome", value ?? '');
   }
 
   get targetRouteId(): string {
@@ -151574,12 +152756,12 @@ export class ScreenTransitionEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "targetRouteId", value);
   }
 
-  get presentationMode(): string {
-    return this.doc.formField(this.path, "presentationMode") || '';
+  get presentationMode(): ScreenPresentationModeValue | null {
+    return _parseScreenPresentationMode(this.doc.formField(this.path, "presentationMode"));
   }
 
-  set presentationMode(value: string) {
-    this.doc.setFormField(this.path, "presentationMode", value);
+  set presentationMode(value: ScreenPresentationModeValue | null) {
+    this.doc.setFormField(this.path, "presentationMode", value ?? '');
   }
 
   get outcomeReference(): string {
@@ -154238,12 +155420,12 @@ export class ServerCallStepEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get role(): string {
-    return this.doc.formField(this.path, "role") || '';
+  get role(): ServerCallRoleValue | null {
+    return _parseServerCallRole(this.doc.formField(this.path, "role"));
   }
 
-  set role(value: string) {
-    this.doc.setFormField(this.path, "role", value);
+  set role(value: ServerCallRoleValue | null) {
+    this.doc.setFormField(this.path, "role", value ?? '');
   }
 
   get systemAction(): string {
@@ -180653,12 +181835,12 @@ export class UserAttributeEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "dataType", value);
   }
 
-  get placement(): string {
-    return this.doc.formField(this.path, "placement") || '';
+  get placement(): UserAttributePlacementValue | null {
+    return _parseUserAttributePlacement(this.doc.formField(this.path, "placement"));
   }
 
-  set placement(value: string) {
-    this.doc.setFormField(this.path, "placement", value);
+  set placement(value: UserAttributePlacementValue | null) {
+    this.doc.setFormField(this.path, "placement", value ?? '');
   }
 
   get accessGuard(): string {

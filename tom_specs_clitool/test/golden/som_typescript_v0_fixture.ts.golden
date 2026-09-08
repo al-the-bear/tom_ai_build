@@ -28,14 +28,17 @@ export const Probability = Object.freeze({
   "high": "high",
 });
 
+export type ProbabilityValue =
+  typeof Probability[keyof typeof Probability];
+
 // Parses a stored token into a Probability value, or null.
-function _parseProbability(token: string | null | undefined): string | null {
+function _parseProbability(token: string | null | undefined): ProbabilityValue | null {
   if (!token) {
     return null;
   }
   for (const value of Object.values(Probability)) {
     if (value === token) {
-      return value;
+      return value as ProbabilityValue;
     }
   }
   return null;

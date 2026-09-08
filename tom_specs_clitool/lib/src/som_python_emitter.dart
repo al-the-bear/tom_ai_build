@@ -162,26 +162,30 @@ class SomPythonEmitter {
       somReachableClasses(model, rootTypes);
 
   /// The distinct enum types referenced by reachable classes, with their values.
-  List<_EnumType> _reachableEnums(Set<String> reachable) {
-    final byName = <String, _EnumType>{};
-    for (final name in reachable) {
-      final cls = model.classNamed(name);
-      if (cls == null) continue;
-      for (final f in cls.fields) {
-        if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
-          byName.putIfAbsent(
-            f.enumType!,
-            () => _EnumType(f.enumType!, f.enumValues),
-          );
-        }
-      }
-    }
-    final result = byName.values.toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
-    return result;
-  }
+  /// The reachable enums, mapped onto this emitter's own [_EnumType].
+  ///
+  /// The *rule* — which enums a facade must declare — lives once in
+  /// [somReachableEnums]. It used to live in nine private copies, eight of
+  /// which collected only `SpecFieldKind.enumValue` fields; the model declares
+  /// none of those, so eight facades emitted no enum at all.
+  List<_EnumType> _reachableEnums(Set<String> reachable) => [
+    for (final e in somReachableEnums(model, reachable))
+      _EnumType(e.name, e.values, e.docs),
+  ];
 
   // --- emit ---------------------------------------------------------------
+
+  /// Renders a constant's model documentation above it as a `#` comment.
+  ///
+  /// Python has no per-member docstring — a string literal after an `Enum`
+  /// member is a *second member*, not documentation — so the comment form is
+  /// the only one that carries the text without changing the type.
+  void _writeConstDoc(StringBuffer b, String? doc, String indent) {
+    if (doc == null || doc.trim().isEmpty) return;
+    for (final line in doc.trimRight().split('\n')) {
+      b.writeln(line.isEmpty ? '$indent#' : '$indent# $line');
+    }
+  }
 
   String _emitEnum(_EnumType e) {
     final b = StringBuffer()
@@ -193,6 +197,7 @@ class SomPythonEmitter {
       // the member *identifier* may be keyword-sanitised, so parsing/encoding
       // round-trips through `.value`, not `.name` (keeps the stored token
       // identical to the Dart path — see `_acc`).
+      _writeConstDoc(b, e.docs[v], '    ');
       b.writeln('    ${_acc(v)} = "${_pystr(v)}"');
     }
     b
@@ -494,6 +499,26 @@ class SomPythonEmitter {
     b
       ..writeln()
       ..writeln('    @property');
+    // YRD7: an enum-valued form member returns the generated `Enum` rather
+    // than its token. The STORED value is unchanged — `.value` is the token
+    // the other ports read — so typing the accessor cannot make a document
+    // written here unreadable elsewhere.
+    if (ff.enumValues.isNotEmpty) {
+      final et = somScalarBaseName(ff.type);
+      b
+        ..writeln('    def $acc(self) -> "$et | None":')
+        ..writeln(
+          '        return _parse_$et(self.doc.form_field(self.path, $field))',
+        )
+        ..writeln()
+        ..writeln('    @$acc.setter')
+        ..writeln('    def $acc(self, value):')
+        ..writeln(
+          '        self.doc.set_form_field(self.path, $field, '
+          '"" if value is None else value.value)',
+        );
+      return;
+    }
     switch (_scalarType(ff.type)) {
       case 'int':
         b
@@ -704,7 +729,16 @@ class _EnumType {
   /// keyword-sanitised, so parsing round-trips through `.value` and the token
   /// stored in a document stays byte-identical to the Dart facade's.
   final List<String> values;
-  _EnumType(this.name, this.values);
+
+  /// Each constant's model doc comment, keyed by constant name; a constant
+  /// with no comment is absent.
+  ///
+  /// [values] alone says which tokens are legal, which for a closed vocabulary
+  /// is the smaller half of the question — the author's choice is between
+  /// adjacent constants, and what separates them lives only here.
+  final Map<String, String> docs;
+
+  _EnumType(this.name, this.values, [this.docs = const {}]);
 }
 
 class _FormClass {

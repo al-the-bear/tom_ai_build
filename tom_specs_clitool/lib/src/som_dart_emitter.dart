@@ -156,35 +156,17 @@ class SomDartEmitter {
   /// The distinct enum types referenced by reachable classes, with their
   /// values — both `enum`-kind leaves and enum-typed `@Form` fields (YRD7,
   /// which carry their constant names in [FormFieldSpec.enumValues]).
-  List<_EnumType> _reachableEnums(Set<String> reachable) {
-    final byName = <String, _EnumType>{};
-    for (final name in reachable) {
-      final cls = model.classNamed(name);
-      if (cls == null) continue;
-      for (final f in cls.fields) {
-        if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
-          byName.putIfAbsent(
-            f.enumType!,
-            () => _EnumType(f.enumType!, f.enumValues, f.enumValueDocs),
-          );
-        }
-        if (f.kind == SpecFieldKind.form) {
-          for (final ff in f.formFields) {
-            if (ff.enumValues.isNotEmpty) {
-              final et = _scalarBaseName(ff.type);
-              byName.putIfAbsent(
-                et,
-                () => _EnumType(et, ff.enumValues, ff.enumValueDocs),
-              );
-            }
-          }
-        }
-      }
-    }
-    final result = byName.values.toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
-    return result;
-  }
+  /// The reachable enums, mapped onto this emitter's own [_EnumType].
+  ///
+  /// The *rule* — which enums a facade must declare — lives once in
+  /// [somReachableEnums]. This emitter's copy used to be the only correct one:
+  /// it walked `@Form` fields, where the model's enums actually live, while the
+  /// other eight collected only `SpecFieldKind.enumValue` fields and therefore
+  /// emitted nothing.
+  List<_EnumType> _reachableEnums(Set<String> reachable) => [
+    for (final e in somReachableEnums(model, reachable))
+      _EnumType(e.name, e.values, e.docs),
+  ];
 
   // --- emit ---------------------------------------------------------------
 

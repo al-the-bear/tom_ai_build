@@ -167,7 +167,10 @@ export 'src/som_emitted_surface.dart'
         SomEmittedSurface,
         somEmittedSurface,
         somSelectedRoots,
-        somReachableClasses;
+        somReachableClasses,
+        SomEnumType,
+        somReachableEnums,
+        somScalarBaseName;
 export 'src/som_dart_emitter.dart' show SomDartEmitter;
 export 'src/som_dart_meta_emitter.dart' show SomDartMetaEmitter;
 export 'src/som_dart_model_emitter.dart' show SomDartModelEmitter;

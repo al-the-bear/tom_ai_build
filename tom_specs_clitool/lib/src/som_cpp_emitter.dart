@@ -334,6 +334,14 @@ class SomCppEmitter {
     return b.toString().replaceAll('\t', '  ');
   }
 
+  /// Renders a constant's model documentation above it as a `//` comment.
+  void _writeConstDoc(StringBuffer b, String? doc, String indent) {
+    if (doc == null || doc.trim().isEmpty) return;
+    for (final line in doc.trimRight().split('\n')) {
+      b.writeln(line.isEmpty ? '$indent//' : '$indent// $line');
+    }
+  }
+
   void _declEnum(StringBuffer b, _EnumType e) {
     b
       ..writeln(
@@ -348,6 +356,7 @@ class SomCppEmitter {
     var idx = 0;
     for (final v in e.values) {
       final ident = _enumConstName(v, idx);
+      _writeConstDoc(b, e.docs[v], '  ');
       b.writeln('  static constexpr const char* $ident = "${_cppStr(v)}";');
       idx++;
     }
@@ -901,24 +910,16 @@ class SomCppEmitter {
   Set<String> _reachableClasses(Set<String> rootTypes) =>
       somReachableClasses(model, rootTypes);
 
-  List<_EnumType> _reachableEnums(Set<String> reachable) {
-    final byName = <String, _EnumType>{};
-    for (final name in reachable) {
-      final cls = model.classNamed(name);
-      if (cls == null) continue;
-      for (final f in cls.fields) {
-        if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
-          byName.putIfAbsent(
-            f.enumType!,
-            () => _EnumType(f.enumType!, f.enumValues),
-          );
-        }
-      }
-    }
-    final result = byName.values.toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
-    return result;
-  }
+  /// The reachable enums, mapped onto this emitter's own [_EnumType].
+  ///
+  /// The *rule* — which enums a facade must declare — lives once in
+  /// [somReachableEnums]. It used to live in nine private copies, eight of
+  /// which collected only `SpecFieldKind.enumValue` fields; the model declares
+  /// none of those, so eight facades emitted no enum at all.
+  List<_EnumType> _reachableEnums(Set<String> reachable) => [
+    for (final e in somReachableEnums(model, reachable))
+      _EnumType(e.name, e.values, e.docs),
+  ];
 
   // --- text helpers --------------------------------------------------------
 
@@ -1025,7 +1026,16 @@ class _EnumType {
   /// to and read from the document, so they must stay byte-identical across
   /// every language port.
   final List<String> values;
-  _EnumType(this.name, this.values);
+
+  /// Each constant's model doc comment, keyed by constant name; a constant
+  /// with no comment is absent.
+  ///
+  /// [values] alone says which tokens are legal, which for a closed vocabulary
+  /// is the smaller half of the question — the author's choice is between
+  /// adjacent constants, and what separates them lives only here.
+  final Map<String, String> docs;
+
+  _EnumType(this.name, this.values, [this.docs = const {}]);
 }
 
 class _PendingForm {

@@ -8,6 +8,888 @@
 #include "tom_som_c_v0_meta.h"
 #include <stdbool.h>
 
+// Generated enum tokens for `AuthorizationRequirementKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The caller must hold one of a named set of roles.
+#define AUTHORIZATION_REQUIREMENT_KIND_ROLE "role"
+// The caller must belong to one of a named set of groups.
+#define AUTHORIZATION_REQUIREMENT_KIND_GROUP "group"
+// The caller's entitlements must match one of a set of patterns.
+#define AUTHORIZATION_REQUIREMENT_KIND_ENTITLEMENT "entitlement"
+// The caller must hold a grant on a named resource key.
+#define AUTHORIZATION_REQUIREMENT_KIND_RESOURCE_KEY "resourceKey"
+// A registered handler decides, against a named resource id.
+#define AUTHORIZATION_REQUIREMENT_KIND_CUSTOM "custom"
+// A graded requirement resolving to one of the four access states.
+#define AUTHORIZATION_REQUIREMENT_KIND_GRADED "graded"
+// Deny unconditionally.
+#define AUTHORIZATION_REQUIREMENT_KIND_DENIED "denied"
+// Allow unconditionally, signed in or not.
+#define AUTHORIZATION_REQUIREMENT_KIND_PUBLIC "public"
+// Allow any signed-in caller.
+#define AUTHORIZATION_REQUIREMENT_KIND_AUTHENTICATED "authenticated"
+// Allow the guest caller.
+#define AUTHORIZATION_REQUIREMENT_KIND_GUEST "guest"
+// parse_authorization_requirement_kind returns the token (owned) when it is a known AuthorizationRequirementKind value, else "".
+char *parse_authorization_requirement_kind(const char *token);
+
+// Generated enum tokens for `BasicAuthorizationRequirementKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The caller must hold one of a named set of roles.
+#define BASIC_AUTHORIZATION_REQUIREMENT_KIND_ROLE "role"
+// The caller must belong to one of a named set of groups.
+#define BASIC_AUTHORIZATION_REQUIREMENT_KIND_GROUP "group"
+// The caller's entitlements must match one of a set of patterns.
+#define BASIC_AUTHORIZATION_REQUIREMENT_KIND_ENTITLEMENT "entitlement"
+// The caller must hold a grant on a named resource key.
+#define BASIC_AUTHORIZATION_REQUIREMENT_KIND_RESOURCE_KEY "resourceKey"
+// A registered handler decides, against a named resource id.
+#define BASIC_AUTHORIZATION_REQUIREMENT_KIND_CUSTOM "custom"
+// Deny unconditionally.
+#define BASIC_AUTHORIZATION_REQUIREMENT_KIND_DENIED "denied"
+// Allow unconditionally, signed in or not.
+#define BASIC_AUTHORIZATION_REQUIREMENT_KIND_PUBLIC "public"
+// Allow any signed-in caller.
+#define BASIC_AUTHORIZATION_REQUIREMENT_KIND_AUTHENTICATED "authenticated"
+// Allow the guest caller.
+#define BASIC_AUTHORIZATION_REQUIREMENT_KIND_GUEST "guest"
+// parse_basic_authorization_requirement_kind returns the token (owned) when it is a known BasicAuthorizationRequirementKind value, else "".
+char *parse_basic_authorization_requirement_kind(const char *token);
+
+// Generated enum tokens for `ClientApplicationKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// A graphical application with screens, forms and navigation.
+#define CLIENT_APPLICATION_KIND_GRAPHICAL_APPLICATION "graphicalApplication"
+// A command-line client driven by arguments and standard streams.
+#define CLIENT_APPLICATION_KIND_COMMAND_LINE "commandLine"
+// Another server calling this system as a client.
+#define CLIENT_APPLICATION_KIND_SERVER "server"
+// parse_client_application_kind returns the token (owned) when it is a known ClientApplicationKind value, else "".
+char *parse_client_application_kind(const char *token);
+
+// Generated enum tokens for `DataAttributeKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Character data of bounded length. Binds
+// [DataAttributeEntry.textTypeOptions], whose two attributes are what a text
+// column cannot be emitted without: the length fixes the physical
+// `VARCHAR(n)`, and the collation fixes how comparison and sorting behave
+// (`codespecs_mapping.md` §5.13).
+#define DATA_ATTRIBUTE_KIND_STRING "string"
+// An exact whole number. Shares [DataAttributeEntry.numericTypeOptions] with
+// [decimal], which carries precision and scale; an integer attribute leaves
+// the scale at zero. It stays a constant of its own rather than a decimal
+// with scale zero because the emitted column type differs, and because
+// "whole number" is a statement about the domain that a zero scale only
+// implies.
+#define DATA_ATTRIBUTE_KIND_INTEGER "integer"
+// An exact fixed-point number. The distinction from [integer] is the scale:
+// only a decimal may set a non-zero one, and the scale is a business fact —
+// a monetary amount rounded to two places and one rounded to four are
+// different specifications, and the difference is invisible in the physical
+// type alone.
+#define DATA_ATTRIBUTE_KIND_DECIMAL "decimal"
+// A calendar date with no time of day. Shares
+// [DataAttributeEntry.temporalTypeOptions] with [dateTime], but the timezone
+// attribute that option set carries is inert here: a date names a day, not
+// an instant, so it must not shift when read in another zone. Storing a date
+// as an instant to reuse one type is the classic way to make a birthday
+// move.
+#define DATA_ATTRIBUTE_KIND_DATE "date"
+// An instant — a date together with a time of day. The kind for which the
+// shared temporal timezone attribute is load-bearing: one instant renders as
+// two different wall-clock readings in two zones, so the specification has
+// to say which reading is stored (`ISO 8601-1:2019` is the representation
+// authority named on that option set).
+#define DATA_ATTRIBUTE_KIND_DATE_TIME "dateTime"
+// Raw bytes held in the record itself, so what a specification constrains is
+// their stored size — see [DataAttributeEntry.binaryTypeOptions]. Bytes held
+// *outside* the record are [fileReference], which is a separate kind rather
+// than a storage mode of this one.
+#define DATA_ATTRIBUTE_KIND_BINARY "binary"
+// An attribute whose stored value is the **address of a stored file**, not
+// the file's content (csra10).
+//
+// Separate from [binary] on the axis of *what the record holds*: a binary
+// attribute holds the bytes, so its options constrain their stored size; a
+// file reference holds an address, so its options say where the file is
+// filed, which store holds it, whether it dies with the record and what may
+// be uploaded into it. Nothing in the binary option set answers any of
+// those, which is why this is a kind of its own rather than a mode of
+// [binary].
+#define DATA_ATTRIBUTE_KIND_FILE_REFERENCE "fileReference"
+// A two-valued attribute. It binds no case because a truth value has nothing
+// to constrain: no length, no precision, no range, no value set. The whole
+// of its CE-DB surface is its value type (`codespecs_mapping.md` §5.13),
+// which the discriminator itself already states.
+#define DATA_ATTRIBUTE_KIND_BOOLEAN "boolean"
+// An attribute holding a generated unique identifier. It binds no case
+// because a specification chooses nothing about one: the value is machine-
+// generated rather than authored, in the same way a file reference's stored
+// address is derived and never authored (`codespecs_mapping.md` §5.13.1).
+// Whether the identifier is the entity's key is the entity's identity
+// attribute, not this attribute's type option.
+#define DATA_ATTRIBUTE_KIND_UUID "uuid"
+// An attribute whose stored value is a structured document rather than a
+// scalar. It binds no case because `codespecs_mapping.md` §5.13's attribute
+// surface carries the kind as a single flag — the substrate's
+// `TomDbColumn.isJson` — with no payload beside it, and the flag follows
+// from this constant. It deliberately carries **no schema reference**: a
+// JSON payload whose shape is known is modelled as nested data entities, and
+// one whose shape is only *checked* is checked by a constraint
+// (`DataAttributeConstraintEntry`, CE-VA), so a schema attribute here would
+// be a second home for one of those two answers.
+#define DATA_ATTRIBUTE_KIND_JSON "json"
+// An attribute drawn from a declared value set — a domain enum.
+//
+// It binds [DataAttributeEntry.enumerationTypeOptions], which names
+// **which** domain enum the attribute is typed by. That is not optional
+// detail: the emitted column's value type *is* the generated enum type
+// (`TomDbColumn<DART_TYPE, …>`), so without the name the column cannot be
+// emitted at all. Naming the registry entry rather than restating its values
+// keeps the single source `DomainEnumRegistry` declares, and matches how
+// every other enumerated value in the model is typed — an operation member
+// (`SVOPM.domainEnum`) and a report parameter (`codespecs_mapping.md`
+// §5.13's sibling surface) both name the enum rather than listing it.
+//
+// Narrowing — this attribute permitting only *some* of the enum's values —
+// is a constraint, so it stays in the `constraints` list
+// (`DATAA.allowedValues`) where every other per-attribute restriction lives.
+#define DATA_ATTRIBUTE_KIND_ENUMERATION "enumeration"
+// parse_data_attribute_kind returns the token (owned) when it is a known DataAttributeKind value, else "".
+char *parse_data_attribute_kind(const char *token);
+
+// Generated enum tokens for `ExportFieldKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// A textual export field.
+//
+// Selects the `textOutput` subsection, and the only kind that has to
+// settle quoting and escaping — text is what can contain the delimiter the
+// export file is built around.
+#define EXPORT_FIELD_KIND_STRING "string"
+// A whole-number export field.
+//
+// Selects the `numericOutput` subsection together with
+// [ExportFieldKind.decimal].
+#define EXPORT_FIELD_KIND_INTEGER "integer"
+// A fractional-number export field.
+//
+// Selects the `numericOutput` subsection, where the decimal separator and
+// digit grouping are fixed. Unlike a displayed number these serve a
+// consuming system, so the choice answers to the receiver's parser and not
+// to any reader's locale.
+#define EXPORT_FIELD_KIND_DECIMAL "decimal"
+// A calendar-date export field.
+//
+// Selects the `temporalOutput` subsection with [ExportFieldKind.dateTime].
+// The two are separate kinds so a date-only value is not given a spurious
+// time component on the way out.
+#define EXPORT_FIELD_KIND_DATE "date"
+// An instant export field carrying both date and time.
+//
+// Selects the `temporalOutput` subsection, which has to settle the time
+// zone and the offset representation — the most common source of silently
+// shifted values in an interchange file.
+#define EXPORT_FIELD_KIND_DATE_TIME "dateTime"
+// A two-state export field.
+//
+// Selects the `booleanOutput` subsection, which fixes the pair of tokens
+// the two states are written as; a receiving system rarely accepts more
+// than one such pair.
+#define EXPORT_FIELD_KIND_BOOLEAN "boolean"
+// An export field whose value comes from a bounded set.
+//
+// Selects the `enumerationOutput` subsection. An export writes the stable
+// code rather than the label a user reads, and this kind exists so that
+// choice is made deliberately instead of falling out of whatever the
+// screen happened to show.
+#define EXPORT_FIELD_KIND_ENUMERATION "enumeration"
+// parse_export_field_kind returns the token (owned) when it is a known ExportFieldKind value, else "".
+char *parse_export_field_kind(const char *token);
+
+// Generated enum tokens for `FlowReturnPoint` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The branch hands control back to a named step of the flow it left.
+//
+// Binds a case subsection, because the generated body cannot rejoin
+// anywhere until the step it rejoins at has been named.
+#define FLOW_RETURN_POINT_RESUME_AT_STEP "resumeAtStep"
+// The branch is the end of the scenario — control goes back to nobody.
+//
+// The `noCase` arm: there is no step to name and no payload to carry, so a
+// case subsection here would have nothing in it.
+#define FLOW_RETURN_POINT_END_FLOW "endFlow"
+// parse_flow_return_point returns the token (owned) when it is a known FlowReturnPoint value, else "".
+char *parse_flow_return_point(const char *token);
+
+// Generated enum tokens for `GradedAccessLevel` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Full, interactive access.
+#define GRADED_ACCESS_LEVEL_FULL "full"
+// The value is shown but cannot be changed.
+#define GRADED_ACCESS_LEVEL_READ "read"
+// The thing is visible but locked.
+#define GRADED_ACCESS_LEVEL_DISABLED "disabled"
+// parse_graded_access_level returns the token (owned) when it is a known GradedAccessLevel value, else "".
+char *parse_graded_access_level(const char *token);
+
+// Generated enum tokens for `Iso25010Characteristic` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// ISO/IEC 25010:2023 *functional suitability* — the degree to which the
+// product provides functions that meet stated **and implied** needs under
+// specified conditions. The implied half is the reason this is a quality
+// characteristic and not just "the requirements are done": correctness and
+// completeness of what was asked for are judged here, not merely presence.
+// Modelled by `FunctionalSuitabilityCharacteristic`.
+#define ISO25010_CHARACTERISTIC_FUNCTIONAL_SUITABILITY "functionalSuitability"
+// ISO/IEC 25010:2023 *performance efficiency* — performing the functions
+// within specified time and throughput parameters while being efficient in
+// its use of resources. Both halves are required: hitting a latency target
+// by consuming unbounded resources does not satisfy it. Targets under this
+// characteristic are meaningless without the load profile they are stated
+// against. Modelled by `PerformanceEfficiencyCharacteristic`.
+#define ISO25010_CHARACTERISTIC_PERFORMANCE_EFFICIENCY "performanceEfficiency"
+// ISO/IEC 25010:2023 *compatibility* — exchanging information with other
+// products or systems, and performing its required functions while sharing
+// a common environment and resources. Its two concerns are interoperability
+// (the exchange) and co-existence (the sharing); the second is the one
+// routinely forgotten, because nothing in a system's own requirements
+// mentions the neighbours it must not disturb. Modelled by
+// `CompatibilityCharacteristic`.
+#define ISO25010_CHARACTERISTIC_COMPATIBILITY "compatibility"
+// ISO/IEC 25010:2023 *interaction capability* — the degree to which
+// specified users can interact with the product to exchange information
+// through the user interface and complete specified tasks.
+//
+// **This is the 2023 renaming of *usability*.** A reader working from the
+// 2011 edition looking for a `usability` constant lands here. The rename
+// carries a widening, not just a new label: the characteristic covers the
+// whole user–system exchange — including user assistance and
+// self-descriptiveness — rather than ease of use alone, so a 2011 usability
+// assessment mapped onto it is an under-assessment until those are added.
+// Modelled by `InteractionCapabilityCharacteristic`.
+#define ISO25010_CHARACTERISTIC_INTERACTION_CAPABILITY "interactionCapability"
+// ISO/IEC 25010:2023 *reliability* — performing specified functions under
+// specified conditions for a specified period of time. All three
+// qualifiers are part of the claim: a reliability target without the
+// conditions and the period states nothing measurable. Modelled by
+// `ReliabilityCharacteristic`.
+#define ISO25010_CHARACTERISTIC_RELIABILITY "reliability"
+// ISO/IEC 25010:2023 *security* — protecting information and data so that
+// persons and other products have the degree of data access appropriate to
+// their types and levels of authorization.
+//
+// This is the *quality target* — what "secure enough" means and how it is
+// evidenced. The control design that meets it is a separate document,
+// `D08SecurityAccessSpecification`, anchored to ISO 27001
+// (`tom_specs_model_rules.md` §2.2); recording controls here instead of
+// targets produces a coverage entry that cannot be tested. Modelled by
+// `SecurityCharacteristic`.
+#define ISO25010_CHARACTERISTIC_SECURITY "security"
+// ISO/IEC 25010:2023 *maintainability* — the effectiveness and efficiency
+// with which the product can be modified by its maintainers, whether to
+// correct, improve or adapt it. The assessment is meaningless without
+// naming *who* maintains it and over what horizon. Modelled by
+// `MaintainabilityCharacteristic`.
+#define ISO25010_CHARACTERISTIC_MAINTAINABILITY "maintainability"
+// ISO/IEC 25010:2023 *flexibility* — the degree to which the product can be
+// adapted to changes in its requirements, contexts of use or system
+// environment.
+//
+// **New in the 2023 edition, and where *portability* went.** A reader
+// working from the 2011 edition looking for a `portability` constant lands
+// here: the older characteristic's adaptability, installability and
+// replaceability concerns are carried under flexibility, alongside
+// scalability. The localization & translation concern cross-maps to exactly
+// this portability/adaptability content
+// (`tom_specs_model_rules.md` §2.3). Modelled by
+// `FlexibilityCharacteristic`.
+#define ISO25010_CHARACTERISTIC_FLEXIBILITY "flexibility"
+// parse_iso25010_characteristic returns the token (owned) when it is a known Iso25010Characteristic value, else "".
+char *parse_iso25010_characteristic(const char *token);
+
+// Generated enum tokens for `MigrationArtifactKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The baseline schema definition — the tables, indexes and constraints the
+// system starts from.
+#define MIGRATION_ARTIFACT_KIND_INITIAL_DDL "initialDdl"
+// The new system's own initial reference data — lookup values, defaults and
+// built-in roles. Not business-data migration from a legacy system, which
+// stays in the migration-mapping sections (`MIGME`).
+#define MIGRATION_ARTIFACT_KIND_REFERENCE_DATA "referenceData"
+// An append-only schema-evolution step applied on top of the baseline.
+#define MIGRATION_ARTIFACT_KIND_SCHEMA_CHANGE "schemaChange"
+// parse_migration_artifact_kind returns the token (owned) when it is a known MigrationArtifactKind value, else "".
+char *parse_migration_artifact_kind(const char *token);
+
+// Generated enum tokens for `ObjectLifecycleKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The state an instance is created in. Exactly one per lifecycle, and the
+// one `BJOEN-LIFE.initialState` names; nothing may transition *into* it,
+// because arriving there a second time would mean the instance had been
+// re-created rather than moved.
+#define OBJECT_LIFECYCLE_KIND_INITIAL "initial"
+// A state the instance passes through — entered and left again. The only
+// role for which both an inbound and an outbound transition are expected,
+// which is what makes "this state can never be left" a detectable defect
+// rather than a design choice.
+#define OBJECT_LIFECYCLE_KIND_INTERMEDIATE "intermediate"
+// A state in which the lifecycle ends by design: the order was closed, the
+// claim was settled. It has no outbound transition, so marking a state
+// terminal is also the assertion that no further business event can move
+// the instance.
+#define OBJECT_LIFECYCLE_KIND_TERMINAL "terminal"
+// A state reached because something failed rather than because the intended
+// path completed. Kept apart from [terminal] because it is not necessarily
+// an end: an instance may be repaired and resume. What distinguishes it is
+// the reason for arrival, not whether anything leads out — which is why the
+// two cannot be collapsed into one "final" flag.
+#define OBJECT_LIFECYCLE_KIND_ERROR "error"
+// parse_object_lifecycle_kind returns the token (owned) when it is a known ObjectLifecycleKind value, else "".
+char *parse_object_lifecycle_kind(const char *token);
+
+// Generated enum tokens for `ReportColumnKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// A textual column.
+//
+// Selects the `textFormat` subsection. The fallback kind: a value with no
+// numeric, temporal or boolean reading is formatted, aligned and sorted as
+// text.
+#define REPORT_COLUMN_KIND_STRING "string"
+// A whole-number column.
+//
+// Selects the `numericFormat` subsection alongside
+// [ReportColumnKind.decimal]; keeping the two apart lets a report state
+// that no fractional digits are to appear even when the underlying value
+// carries them.
+#define REPORT_COLUMN_KIND_INTEGER "integer"
+// A fractional-number column.
+//
+// Selects the `numericFormat` subsection, where displayed precision,
+// digit grouping and the presentation of negative values are fixed. A
+// report that leaves them unstated is only reproducible by accident.
+#define REPORT_COLUMN_KIND_DECIMAL "decimal"
+// A monetary column.
+//
+// Chosen over [ReportColumnKind.decimal] when the figure carries a
+// currency. It selects `currencyFormat` rather than the numeric
+// subsection because the symbol, its position and the currency's own
+// minor-unit precision all have to be settled together.
+#define REPORT_COLUMN_KIND_CURRENCY "currency"
+// A temporal column.
+//
+// Selects the `dateFormat` subsection. A report is often read in a
+// different locale and time zone from the one that produced it, so the
+// format is authored here rather than inherited from the reader's
+// environment.
+#define REPORT_COLUMN_KIND_DATE "date"
+// A two-state column.
+//
+// Selects the `booleanFormat` subsection, which fixes the words or marks
+// the two states are printed as — a report says "Yes"/"No" or
+// "Active"/"Closed", never `true`/`false`.
+#define REPORT_COLUMN_KIND_BOOLEAN "boolean"
+// parse_report_column_kind returns the token (owned) when it is a known ReportColumnKind value, else "".
+char *parse_report_column_kind(const char *token);
+
+// Generated enum tokens for `ReportFilterValueKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// A text-valued filter.
+//
+// Selects `textFilterOptions`, where the match is settled — exact,
+// prefix, contains. A text filter with no stated match rule is the one
+// whose results readers most often dispute.
+#define REPORT_FILTER_VALUE_KIND_STRING "string"
+// A whole-number filter.
+//
+// Selects `numericFilterOptions` together with
+// [ReportFilterValueKind.decimal].
+#define REPORT_FILTER_VALUE_KIND_INTEGER "integer"
+// A fractional-number filter.
+//
+// Selects `numericFilterOptions`, where the bounds and whether they are
+// inclusive are stated. An unstated bound convention makes two runs of the
+// same report disagree at the edges.
+#define REPORT_FILTER_VALUE_KIND_DECIMAL "decimal"
+// A calendar-date filter.
+//
+// Selects `dateFilterOptions` with [ReportFilterValueKind.dateTime]. A
+// range is not a separate kind — it is a choice of input control recorded
+// inside those options.
+#define REPORT_FILTER_VALUE_KIND_DATE "date"
+// An instant filter carrying both date and time.
+//
+// Selects `dateFilterOptions`. Chosen over [ReportFilterValueKind.date]
+// when a boundary has to fall inside a day rather than at its edge.
+#define REPORT_FILTER_VALUE_KIND_DATE_TIME "dateTime"
+// A two-state filter.
+//
+// Selects `booleanFilterOptions`. A boolean filter usually has three
+// user-visible positions rather than two — true, false, and not filtered
+// at all — and it is those options that have to say so.
+#define REPORT_FILTER_VALUE_KIND_BOOLEAN "boolean"
+// A filter over a bounded set of option values.
+//
+// Selects `selectFilterOptions`, which names the option source and
+// whether several values may be selected at once. Pick it when the
+// candidates are a fixed vocabulary rather than records the user has to
+// look up.
+#define REPORT_FILTER_VALUE_KIND_ENUMERATION "enumeration"
+// A filter whose value refers to a record in the domain model.
+//
+// Selects `entityFilterOptions`. Chosen over
+// [ReportFilterValueKind.enumeration] when the candidates are data rather
+// than vocabulary — a customer, an account — so the control has to search
+// and resolve instead of listing.
+#define REPORT_FILTER_VALUE_KIND_ENTITY_REF "entityRef"
+// parse_report_filter_value_kind returns the token (owned) when it is a known ReportFilterValueKind value, else "".
+char *parse_report_filter_value_kind(const char *token);
+
+// Generated enum tokens for `ScheduledJobTrigger` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The job fires on a recurring clock expression.
+//
+// Binds the cron case, whose payload is the recurrence expression itself,
+// verbatim — a job whose schedule can be written as one expression needs
+// nothing else said about when it runs.
+#define SCHEDULED_JOB_TRIGGER_CRON "cron"
+// The job fires on a date rule no clock expression can state — month-end,
+// the third Monday of a quarter, the last working day before a holiday.
+//
+// A separate arm rather than a harder cron string, because the rule depends
+// on a calendar that a recurrence expression cannot see.
+#define SCHEDULED_JOB_TRIGGER_CALENDAR "calendar"
+// The job does not run on a clock at all: it runs when something in the
+// system happens, and what that occurrence carries is what the work reads.
+//
+// The arm with no schedule, so nothing about it can be answered by looking
+// at a clock — including when it will next run, or whether it ever will.
+#define SCHEDULED_JOB_TRIGGER_EVENT "event"
+// parse_scheduled_job_trigger returns the token (owned) when it is a known ScheduledJobTrigger value, else "".
+char *parse_scheduled_job_trigger(const char *token);
+
+// Generated enum tokens for `ScreenElementFieldKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Free-form text with no narrower interpretation.
+//
+// The default text kind, and the one to pick when nothing about the value
+// constrains it beyond length and pattern. Selects the `textOptions`
+// subsection.
+#define SCREEN_ELEMENT_FIELD_KIND_STRING "string"
+// A whole number.
+//
+// Chosen over [ScreenElementFieldKind.decimal] when fractional input must
+// be rejected outright rather than rounded — counts, quantities, ordinals.
+// Selects the `numberOptions` subsection.
+#define SCREEN_ELEMENT_FIELD_KIND_INTEGER "integer"
+// A number with a fractional part.
+//
+// Selects the `numberOptions` subsection, where the precision the value is
+// captured and shown at is fixed. Leaving it unstated is what produces the
+// familiar mismatch between the figure a user entered and the figure the
+// system stored.
+#define SCREEN_ELEMENT_FIELD_KIND_DECIMAL "decimal"
+// A monetary amount.
+//
+// Chosen over [ScreenElementFieldKind.decimal] when the figure carries a
+// currency: the amount alone is not the value, so the field must also
+// settle which currency applies and how the pair is presented. Selects the
+// `numberOptions` subsection.
+#define SCREEN_ELEMENT_FIELD_KIND_CURRENCY "currency"
+// A calendar date with no time of day.
+//
+// Chosen over [ScreenElementFieldKind.dateTime] when the time of day is
+// not merely unknown but meaningless — a birth date, an invoice date — so
+// that no time-zone conversion can shift the value into a neighbouring
+// day. Selects the `dateOptions` subsection.
+#define SCREEN_ELEMENT_FIELD_KIND_DATE "date"
+// A calendar date together with a time of day.
+//
+// The kind for an instant that must be located exactly, and therefore the
+// one whose `dateOptions` have to settle the time zone the value is
+// recorded and displayed in.
+#define SCREEN_ELEMENT_FIELD_KIND_DATE_TIME "dateTime"
+// A time of day with no calendar date.
+//
+// Chosen for a recurring wall-clock value — an opening hour, a daily
+// reminder — that is not tied to one particular day. Selects the
+// `dateOptions` subsection.
+#define SCREEN_ELEMENT_FIELD_KIND_TIME "time"
+// A two-state true/false value.
+//
+// The one field kind that selects no promoted options subsection: a
+// boolean has no format, no bounds and no option source, so it carries the
+// field base alone. How it is drawn — tick box or switch — is the
+// enclosing element's [ScreenElementKind], not this kind.
+#define SCREEN_ELEMENT_FIELD_KIND_BOOLEAN "boolean"
+// A value chosen from a bounded set of options.
+//
+// Selects the `selectOptions` subsection, which names where the options
+// come from and whether one or several may be chosen. Pick it whenever the
+// valid values are enumerable, even when the interface renders them as
+// free text with completion.
+#define SCREEN_ELEMENT_FIELD_KIND_ENUMERATION "enumeration"
+// An email address.
+//
+// A text kind — it selects `textOptions` — named separately so the
+// generator can supply the address-shaped validation and the right
+// keyboard without the specification restating either.
+#define SCREEN_ELEMENT_FIELD_KIND_EMAIL "email"
+// A telephone number.
+//
+// A text kind, named separately so the generator can supply
+// dialling-friendly input and formatting. It is text rather than a number
+// because leading zeros, country prefixes and separators are part of the
+// value.
+#define SCREEN_ELEMENT_FIELD_KIND_PHONE "phone"
+// A web address.
+//
+// A text kind, named separately so the generator can supply scheme
+// validation and an open affordance instead of treating the value as
+// opaque text.
+#define SCREEN_ELEMENT_FIELD_KIND_URL "url"
+// A secret the user types and that must not be shown back.
+//
+// A text kind whose distinguishing property is display rather than shape:
+// the value is masked, kept out of ordinary autofill history, and never
+// echoed back in messages or logs.
+#define SCREEN_ELEMENT_FIELD_KIND_PASSWORD "password"
+// Formatted text carrying its own markup.
+//
+// Chosen over [ScreenElementFieldKind.string] when the formatting is part
+// of the value rather than of the presentation. That makes the stored
+// value a document, and moves sanitising the markup into the field's
+// concern rather than the renderer's.
+#define SCREEN_ELEMENT_FIELD_KIND_RICH_TEXT "richText"
+// A colour value.
+//
+// **Realised by desugaring, not by a colour control**
+// (`codespecs_mapping.md` §5.18): free colour entry lowers onto a text field
+// whose value is the colour's textual form plus a pattern validation rule,
+// and a palette/design-token colour lowers onto a single-choice field whose
+// option source is the token catalogue. Naming this kind is what lets the
+// generator supply the pattern rule and the swatch preview without the
+// specification restating them — it does not promise a picker.
+#define SCREEN_ELEMENT_FIELD_KIND_COLOR "color"
+// A file the user supplies rather than types.
+//
+// The one field kind whose value is a reference to content held elsewhere,
+// which is why it has its own `fileOptions` subsection: which content
+// kinds are accepted, and how the chosen file is presented back.
+#define SCREEN_ELEMENT_FIELD_KIND_FILE "file"
+// parse_screen_element_field_kind returns the token (owned) when it is a known ScreenElementFieldKind value, else "".
+char *parse_screen_element_field_kind(const char *token);
+
+// Generated enum tokens for `ScreenElementKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// A standalone command control: activating it runs an action.
+//
+// The kind to pick when the element *is* the command — a separately
+// hit-testable target with its own label, weight and position in the
+// section. Selects the [ScreenElementAction] facet.
+#define SCREEN_ELEMENT_KIND_ACTION_BUTTON "actionButton"
+// An inline navigational control that reads as part of the surrounding
+// text.
+//
+// Selects the same [ScreenElementAction] facet as
+// [ScreenElementKind.actionButton]; choosing between the two records
+// prominence and reading flow, not capability — a link sits inside the
+// content and usually takes the user elsewhere, a button stands apart and
+// usually performs work on the screen the user is on.
+#define SCREEN_ELEMENT_KIND_LINK "link"
+// A free-text input.
+//
+// The general-purpose input kind: pick it when the value has no narrower
+// structure the runtime could exploit. Selects the
+// [ScreenElementFieldSpec] facet, whose own [ScreenElementFieldKind] then
+// fixes the value type — so a text field still declares an email, phone or
+// password field kind when that is what it holds.
+#define SCREEN_ELEMENT_KIND_TEXT_FIELD "textField"
+// A numeric input.
+//
+// Chosen over [ScreenElementKind.textField] when the value is a quantity,
+// so the runtime may supply a numeric keyboard, step controls and range
+// checks instead of the specification validating digits after the fact.
+#define SCREEN_ELEMENT_KIND_NUMBER_FIELD "numberField"
+// A date or time input.
+//
+// Chosen over [ScreenElementKind.textField] when the value is a point in
+// time, which lets the runtime offer a calendar or clock affordance and
+// parse in the user's locale rather than asking them to type a format.
+#define SCREEN_ELEMENT_KIND_DATE_FIELD "dateField"
+// An input that picks from a bounded set of options.
+//
+// Chosen when the valid values are enumerable at design time or come from
+// a named option source; the field spec's `selectOptions` then carries
+// where those options come from and whether one or several may be chosen.
+#define SCREEN_ELEMENT_KIND_SELECT_FIELD "selectField"
+// A two-state input drawn as a tickable box with an adjacent label.
+//
+// Chosen over [ScreenElementKind.toggle] for a value the user is
+// *asserting* — consent, membership of a set, an option that only takes
+// effect when the surrounding form is submitted.
+#define SCREEN_ELEMENT_KIND_CHECKBOX "checkbox"
+// A two-state input drawn as a switch.
+//
+// Chosen over [ScreenElementKind.checkbox] for a setting that takes effect
+// the moment it is flipped, so the control reads as turning something on
+// rather than as answering a question on a form.
+#define SCREEN_ELEMENT_KIND_TOGGLE "toggle"
+// A read-only rendering of a single bound value.
+//
+// The general display kind, and the fallback when no narrower one fits.
+// The value comes from the data binding rather than from authored copy,
+// which is what separates it from [ScreenElementKind.label]. Selects the
+// [ScreenElementDataDisplay] facet.
+#define SCREEN_ELEMENT_KIND_DATA_DISPLAY "dataDisplay"
+// A read-only rendering of a collection as rows and columns.
+//
+// Chosen over [ScreenElementKind.dataDisplay] when the bound value is a
+// collection whose members share a shape, so column identity, sorting and
+// paging become properties of the element rather than of the screen around
+// it.
+#define SCREEN_ELEMENT_KIND_DATA_TABLE "dataTable"
+// A bounded surface grouping several bound values as one visual unit.
+//
+// Chosen when the grouping itself carries meaning — the values belong to
+// one record and are read together — rather than merely sitting near each
+// other, which is a layout concern of the enclosing section.
+#define SCREEN_ELEMENT_KIND_CARD "card"
+// A graphical rendering of a collection as a series, distribution or
+// proportion.
+//
+// Chosen over [ScreenElementKind.dataTable] when the shape of the data is
+// the message and individual values need not be read exactly. A chart is
+// declared here and rendered by whichever platform can
+// (`codespecs_mapping.md` §5.28).
+#define SCREEN_ELEMENT_KIND_CHART "chart"
+// A compact rendering of a value as a condition — a health light, a
+// lifecycle or progress marker.
+//
+// Chosen over [ScreenElementKind.dataDisplay] when the user is meant to
+// read the state at a glance rather than read the underlying value.
+// Because the reading is usually carried by colour, it needs a second cue
+// as well: colour alone is not a usable channel for everyone (WCAG 2.2,
+// success criterion 1.4.1).
+#define SCREEN_ELEMENT_KIND_STATUS_INDICATOR "statusIndicator"
+// A pictogram carrying no bound value.
+//
+// Chosen when the graphic is meaning rather than decoration but is not
+// itself interactive; an icon the user activates is an
+// [ScreenElementKind.actionButton] that happens to be drawn as one. It
+// still needs a text alternative, since a pictogram on its own is not
+// perceivable to assistive technology (WCAG 2.2, success criterion 1.1.1).
+#define SCREEN_ELEMENT_KIND_ICON "icon"
+// Authored static text.
+//
+// Distinguished from [ScreenElementKind.dataDisplay] by where the text
+// comes from: a label's copy is authored, and therefore translatable
+// through the CE-TX message-key catalogue (`codespecs_mapping.md` §5.21),
+// while a data display renders whatever the binding produces.
+#define SCREEN_ELEMENT_KIND_LABEL "label"
+// A raster or vector graphic presented as content.
+//
+// Chosen over [ScreenElementKind.icon] when the graphic is content in its
+// own right — a photograph, a diagram, a supplied asset — rather than a
+// small symbol drawn from the interface's pictogram set.
+#define SCREEN_ELEMENT_KIND_IMAGE "image"
+// A small count or marker attached to another element.
+//
+// Chosen over [ScreenElementKind.statusIndicator] when the value qualifies
+// a neighbouring element — an unread count on a navigation item, a "new"
+// marker on a tab — rather than standing on its own.
+#define SCREEN_ELEMENT_KIND_BADGE "badge"
+// A structural separator drawn between groups of elements.
+//
+// One of the three structural kinds that select no facet subsection: a
+// separator has no action, no value and no binding, so it carries only the
+// common element subsections. Pick it when the break between groups is
+// meant to be seen; if only distance is wanted, use
+// [ScreenElementKind.spacer].
+#define SCREEN_ELEMENT_KIND_DIVIDER "divider"
+// A structural gap that reserves space without drawing anything.
+//
+// Selects no facet subsection. Distinguished from
+// [ScreenElementKind.divider] by visibility: a spacer separates by
+// distance alone, so it adds no visual rule the reader has to account for.
+#define SCREEN_ELEMENT_KIND_SPACER "spacer"
+// A structural strip of tabs that switches which content is shown.
+//
+// Selects no facet subsection because the tabs themselves are specified
+// separately as a [TabBarDefinitionEntry]; naming the kind here only
+// places the strip within a screen section.
+#define SCREEN_ELEMENT_KIND_TAB_BAR "tabBar"
+// parse_screen_element_kind returns the token (owned) when it is a known ScreenElementKind value, else "".
+char *parse_screen_element_kind(const char *token);
+
+// Generated enum tokens for `ScreenFieldKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// A single-line free-text value.
+//
+// Binds the text constraints case (`SCFIVT`): length bounds plus a match
+// pattern. Any narrower grammar is stated as that pattern, so the kind
+// itself stays a statement about shape rather than about validation.
+#define SCREEN_FIELD_KIND_TEXT "text"
+// Free text the author expects to run to several lines.
+//
+// Carries the same constraints as [text]; what it records that [text] does
+// not is how much room the value needs, which the D09 design pass turns
+// into a concrete control.
+#define SCREEN_FIELD_KIND_MULTILINE_TEXT "multilineText"
+// A text value that must be a routable e-mail address.
+//
+// The address grammar is stated as the text case's pattern rather than
+// implied by the kind, so a requirement that accepts only corporate
+// addresses can say so.
+#define SCREEN_FIELD_KIND_EMAIL "email"
+// A text value that must be a dialable telephone number.
+//
+// Format and length live in the text case's pattern: no single grammar is
+// correct across locales, so the kind does not pretend to fix one.
+#define SCREEN_FIELD_KIND_PHONE "phone"
+// A text value that must be a resolvable URL.
+//
+// The accepted schemes belong in the text case's pattern — a requirement
+// that refuses anything but `https` says so there.
+#define SCREEN_FIELD_KIND_URL "url"
+// A secret text value.
+//
+// The kind is what tells the design pass to mask the input and keep it out
+// of logs; composition rules ride on the text case. How the value is stored
+// or hashed is the security model's decision, not this field's.
+#define SCREEN_FIELD_KIND_PASSWORD "password"
+// A whole number.
+//
+// Binds the numeric constraints case (`SCFIVN`): the permitted value range.
+#define SCREEN_FIELD_KIND_INTEGER "integer"
+// A fractional number.
+//
+// Shares the numeric case with [integer]. The precision the value must keep
+// is a constraint on it, not a kind of its own.
+#define SCREEN_FIELD_KIND_DECIMAL "decimal"
+// A monetary amount.
+//
+// Shares the numeric case but is a distinct kind, because an amount is
+// incomplete without the currency it is denominated in and is not rounded
+// the way a plain [decimal] is.
+#define SCREEN_FIELD_KIND_CURRENCY "currency"
+// A calendar date with no time of day.
+//
+// Binds the temporal constraints case (`SCFIVD`), whose bounds are dates or
+// relative expressions rather than numbers.
+#define SCREEN_FIELD_KIND_DATE "date"
+// An instant — a date together with a time of day.
+//
+// Kept apart from [date] because it is only unambiguous with a time zone,
+// which a date neither has nor needs.
+#define SCREEN_FIELD_KIND_DATE_TIME "dateTime"
+// A time of day with no date.
+//
+// For recurring wall-clock values — an opening hour, a cut-off — where
+// pinning the value to one day would be wrong.
+#define SCREEN_FIELD_KIND_TIME "time"
+// A choice of exactly one option from a stated set.
+//
+// Binds the choice options case (`SCFICH`), which says where the option set
+// comes from — static values, an API, or an entity.
+#define SCREEN_FIELD_KIND_SINGLE_SELECT "singleSelect"
+// A choice of any number of options from a stated set.
+//
+// Shares the choice case with [singleSelect]; what differs is the
+// cardinality of the answer, which is what the design pass needs in order to
+// pick a control and what storage needs in order to shape the column.
+#define SCREEN_FIELD_KIND_MULTI_SELECT "multiSelect"
+// An uploaded file.
+//
+// Binds the file constraints case (`SCFIFI`) — what content kinds are
+// accepted and how large a file may be. Where the bytes end up is neither
+// this kind's business nor the design pass's: it is authored on the CE-DB
+// file-reference column (`codespecs_mapping.md` §5.13.1).
+#define SCREEN_FIELD_KIND_FILE "file"
+// A truth value.
+//
+// The one kind that binds no case — it is the `noCase` arm of the group.
+// Once the question has been asked there is nothing left about a yes/no
+// answer to constrain, so an empty case subsection would be the only
+// honest one.
+#define SCREEN_FIELD_KIND_BOOLEAN "boolean"
+// parse_screen_field_kind returns the token (owned) when it is a known ScreenFieldKind value, else "".
+char *parse_screen_field_kind(const char *token);
+
+// Generated enum tokens for `ScreenFlowOutcome` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The transition taken when the action completed as intended.
+//
+// The path a flow diagram usually shows. A screen that specifies only this
+// outcome has left its failure paths undecided, not impossible.
+#define SCREEN_FLOW_OUTCOME_SUCCESS "success"
+// The transition taken when the action failed while being processed.
+//
+// The CE-ER path: the input was accepted but the work did not complete, so
+// the destination is normally somewhere the user can retry or ask for
+// help, rather than back at the input.
+#define SCREEN_FLOW_OUTCOME_ERROR "error"
+// The transition taken when the action's input was rejected before any
+// processing.
+//
+// The CE-VA path. Distinguished from [ScreenFlowOutcome.error] by who can
+// fix it: the user can, and only where the offending input is — which is
+// why this outcome typically keeps them on the source screen instead of
+// navigating away.
+#define SCREEN_FLOW_OUTCOME_VALIDATION_ERROR "validationError"
+// parse_screen_flow_outcome returns the token (owned) when it is a known ScreenFlowOutcome value, else "".
+char *parse_screen_flow_outcome(const char *token);
+
+// Generated enum tokens for `ScreenPresentationMode` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The target screen takes the place of the current one in the navigation
+// stack.
+//
+// The ordinary reading of a transition: the source screen is left, so
+// nothing about its transient state is guaranteed to survive the move.
+#define SCREEN_PRESENTATION_MODE_REPLACE "replace"
+// The target screen is shown over the screen the user came from, which
+// stays alive underneath and is revealed again when the overlay closes.
+//
+// Chosen over [ScreenPresentationMode.replace] when the user must come
+// back to exactly the state they left — the overlay interrupts a task
+// rather than being a step in one.
+#define SCREEN_PRESENTATION_MODE_POPUP_OVERLAY "popupOverlay"
+// parse_screen_presentation_mode returns the token (owned) when it is a known ScreenPresentationMode value, else "".
+char *parse_screen_presentation_mode(const char *token);
+
+// Generated enum tokens for `ServerCallRole` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Steps that run before the call leaves — the ones that build the request.
+//
+// Emitted into the `assembleRequest` method. A step here may read view
+// state and validate, but it can say nothing about a response, because none
+// exists yet.
+#define SERVER_CALL_ROLE_ASSEMBLE_REQUEST "assembleRequest"
+// Steps that run after a successful response — the ones that apply it.
+//
+// Emitted into the `handleResponse` method. It is reached only on success,
+// so a step here never has to ask whether the call worked.
+#define SERVER_CALL_ROLE_HANDLE_RESPONSE "handleResponse"
+// Steps that run after a failed call — the ones that surface the failure.
+//
+// Emitted into the `handleError` method, which is the sibling of
+// `handleResponse` rather than a branch inside it: the two are separate
+// bodies and exactly one of them runs.
+#define SERVER_CALL_ROLE_HANDLE_ERROR "handleError"
+// parse_server_call_role returns the token (owned) when it is a known ServerCallRole value, else "".
+char *parse_server_call_role(const char *token);
+
+// Generated enum tokens for `UserAttributePlacement` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Rides the public token payload; read access may be guarded by a
+// resource key.
+#define USER_ATTRIBUTE_PLACEMENT_PUBLIC "public"
+// Rides the encrypted token payload; readable only by token-decrypting
+// layers.
+#define USER_ATTRIBUTE_PLACEMENT_ENCRYPTED "encrypted"
+// parse_user_attribute_placement returns the token (owned) when it is a known UserAttributePlacement value, else "".
+char *parse_user_attribute_placement(const char *token);
+
 // D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (SOM §4.2).
 #define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.1"
 // D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (SOM §4.2).

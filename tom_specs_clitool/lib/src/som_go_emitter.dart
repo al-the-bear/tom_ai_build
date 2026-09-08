@@ -298,26 +298,26 @@ class SomGoEmitter {
       somReachableClasses(model, rootTypes);
 
   /// The distinct enum types referenced by reachable classes, with their values.
-  List<_EnumType> _reachableEnums(Set<String> reachable) {
-    final byName = <String, _EnumType>{};
-    for (final name in reachable) {
-      final cls = model.classNamed(name);
-      if (cls == null) continue;
-      for (final f in cls.fields) {
-        if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
-          byName.putIfAbsent(
-            f.enumType!,
-            () => _EnumType(f.enumType!, f.enumValues),
-          );
-        }
-      }
-    }
-    final result = byName.values.toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
-    return result;
-  }
+  /// The reachable enums, mapped onto this emitter's own [_EnumType].
+  ///
+  /// The *rule* — which enums a facade must declare — lives once in
+  /// [somReachableEnums]. It used to live in nine private copies, eight of
+  /// which collected only `SpecFieldKind.enumValue` fields; the model declares
+  /// none of those, so eight facades emitted no enum at all.
+  List<_EnumType> _reachableEnums(Set<String> reachable) => [
+    for (final e in somReachableEnums(model, reachable))
+      _EnumType(e.name, e.values, e.docs),
+  ];
 
   // --- emit ---------------------------------------------------------------
+
+  /// Renders a constant's model documentation above it as a `//` comment.
+  void _writeConstDoc(StringBuffer b, String? doc, String indent) {
+    if (doc == null || doc.trim().isEmpty) return;
+    for (final line in doc.trimRight().split('\n')) {
+      b.writeln(line.isEmpty ? '$indent//' : '$indent// $line');
+    }
+  }
 
   String _emitEnum(_EnumType e) {
     final consts = _enumConsts[e.name] ?? const <_EnumConst>[];
@@ -332,14 +332,38 @@ class SomGoEmitter {
         'cross-compatible.',
       );
     if (consts.isNotEmpty) {
-      // gofmt column-aligns the `=` of a const group — pad to the widest name
-      // so the emitted block is gofmt-stable.
-      final width = consts
-          .map((c) => c.ident.length)
-          .reduce((a, b) => a > b ? a : b);
+      // gofmt column-aligns the `=` of a const group, and a comment line
+      // ENDS one group and starts another — so the padding width is per RUN of
+      // consecutive undocumented constants, not per enum. Padding to the
+      // enum-wide width would leave gofmt wanting to re-align every run that a
+      // constant's documentation interrupts.
       b.writeln('const (');
-      for (final c in consts) {
-        b.writeln('\t${c.ident.padRight(width)} = "${_goStr(c.token)}"');
+      var i = 0;
+      while (i < consts.length) {
+        final doc = e.docs[consts[i].token];
+        if (doc != null && doc.trim().isNotEmpty) {
+          _writeConstDoc(b, doc, '\t');
+          b.writeln('\t${consts[i].ident} = "${_goStr(consts[i].token)}"');
+          i++;
+          continue;
+        }
+        // A run of undocumented constants aligns within itself.
+        var end = i;
+        while (end < consts.length) {
+          final d = e.docs[consts[end].token];
+          if (d != null && d.trim().isNotEmpty) break;
+          end++;
+        }
+        final width = consts
+            .sublist(i, end)
+            .map((c) => c.ident.length)
+            .reduce((a, b) => a > b ? a : b);
+        for (var k = i; k < end; k++) {
+          b.writeln(
+            '\t${consts[k].ident.padRight(width)} = "${_goStr(consts[k].token)}"',
+          );
+        }
+        i = end;
       }
       b.writeln(')');
       b.writeln();
@@ -941,7 +965,16 @@ class _EnumType {
   /// constant whose value is this exact token, so a document written by the Go
   /// facade stays readable by every other language port.
   final List<String> values;
-  _EnumType(this.name, this.values);
+
+  /// Each constant's model doc comment, keyed by constant name; a constant
+  /// with no comment is absent.
+  ///
+  /// [values] alone says which tokens are legal, which for a closed vocabulary
+  /// is the smaller half of the question — the author's choice is between
+  /// adjacent constants, and what separates them lives only here.
+  final Map<String, String> docs;
+
+  _EnumType(this.name, this.values, [this.docs = const {}]);
 }
 
 class _EnumConst {
