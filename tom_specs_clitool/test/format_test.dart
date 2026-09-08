@@ -1,11 +1,13 @@
 /// The formatting gate, in the default `dart test` run.
 ///
-/// Seven of the ten quest packages drifted out of `dart format` conformance
-/// when Dart 3.7 changed the formatter's style, and stayed there for months
-/// because nothing looked. This suite is what stops that recurring: it runs the
-/// real formatter over the real manifest, like `release_closure_test.dart` and
-/// `scan_set_coverage_test.dart` beside it, because a fixture would only prove
-/// the walker works on a fixture.
+/// Packages drift out of `dart format` conformance and stay there: Dart 3.7
+/// changed the formatter's style, and seven of the first ten quest packages sat
+/// non-conforming for months because nothing looked. `tom_forge/tom_specs_editor`
+/// sat there longer still, at 58 of 68 files, because it was outside the
+/// manifest rather than outside the rule. This suite is what stops that
+/// recurring: it runs the real formatter over the real manifest, like
+/// `release_closure_test.dart` and `scan_set_coverage_test.dart` beside it,
+/// because a fixture would only prove the walker works on a fixture.
 library;
 
 import 'dart:io';
@@ -33,7 +35,10 @@ void main() {
         isEmpty,
         reason: 'tool/format_set.yaml names a package that is not here',
       );
-      expect(set.packages.length, greaterThanOrEqualTo(10));
+      // Anti-vacuity: the walker reporting no unformatted file over an empty
+      // or truncated manifest is not a pass. The floor is the count at the
+      // time of writing, so it may rise and cannot silently fall.
+      expect(set.packages.length, greaterThanOrEqualTo(16));
     });
 
     test('nothing the formatter governs is unformatted', () {

@@ -31,11 +31,25 @@
 # formatting nine trees. That is real work with a real benefit and it is not
 # this manifest's; if it is ever done, they belong here.
 #
-# NOT LISTED: `tom_forge/tom_specs_editor`, 59 of its 68 files non-conforming.
-# It is a Flutter application outside this quest's documentation scope
-# (`tom_specs_documentation_standard.md` §6), it builds on a different
-# toolchain, and reformatting it is a change to a codebase this gate's authors
-# do not otherwise touch. Tracked as `tsdocc3_aigk`.
+# LISTED, THOUGH IT IS NEITHER IN THIS REPOSITORY NOR IN THIS QUEST'S
+# DOCUMENTATION SCOPE: `tom_forge/tom_specs_editor`. Three reasons had kept it
+# out and none of them is a reason about formatting.
+#
+# It is a Flutter application, but this gate never runs `dart test` in a
+# package — it enumerates files and shells out to `dart format`, which reads
+# Flutter Dart like any other. It is outside the *documentation* scope of
+# `tom_specs_documentation_standard.md` §6, but that scope governs what must be
+# documented, not what must be formatted; the two boundaries are unrelated and
+# treating one as the other is how a package ends up ungoverned for a reason
+# nobody stated. And it lives in `tom_forge`, which is a fact about which commit
+# the reformat belongs in rather than about whether it should happen.
+#
+# What decided it is the cost, which was being paid: 58 of 68 files carried the
+# Dart 3.7 short-to-tall drift, so `dart format` was unusable there as a gate,
+# nothing caught genuinely mis-formatted new code, and any file touched for
+# another reason invited an incidental reformat that buried the real change.
+# The editor is actively developed, so that was a live cost rather than a
+# latent one.
 
 # Source directories checked in each package. A package that lacks one is not
 # an error — `tom_specs_core` has no `bin/`, and a manifest that demanded one
@@ -77,3 +91,6 @@ packages:
   - tom_ai/ai_build/tom_specs_samples/build_a_specification_tool
   - tom_ai/ai_build/tom_specs_samples/full_lifecycle_walkthrough
   - tom_ai/ai_build/tom_specs_samples/phase4_codespecs_run
+  # The one governed tree outside `tom_ai`. Paths here are container-root
+  # relative, so a sibling repository needs no code change — only this line.
+  - tom_forge/tom_specs_editor
