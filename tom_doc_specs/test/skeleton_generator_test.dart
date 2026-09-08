@@ -35,27 +35,31 @@ void main() {
     test('generates all six levels for a 6-deep chain', () {
       final md = DocSpecsSkeletonGenerator.generate(_chainSchema(6));
 
-      for (var level = 1; level <= 6; level++) {
+      // Level 1 is the document title; the chain occupies 2..7.
+      for (var level = 2; level <= 7; level++) {
         expect(
           md,
           contains('\n${'#' * level} '),
-          reason: 'level $level heading missing',
+          reason: 'chain level ${level - 1} heading missing',
         );
       }
+      expect(md, isNot(contains('\n${'#' * 8} ')));
     });
 
     test('generates headings beyond level 6 (uncapped nesting, YRD2)', () {
       final md = DocSpecsSkeletonGenerator.generate(_chainSchema(9));
 
-      for (var level = 1; level <= 9; level++) {
+      // Level 1 is the document title; the chain occupies 2..10, so this still
+      // proves headings are emitted past markdown's conventional level-6 floor.
+      for (var level = 2; level <= 10; level++) {
         expect(
           md,
           contains('\n${'#' * level} '),
-          reason: 'level $level heading missing',
+          reason: 'chain level ${level - 1} heading missing',
         );
       }
       // No spurious deeper level.
-      expect(md, isNot(contains('\n${'#' * 10} ')));
+      expect(md, isNot(contains('\n${'#' * 11} ')));
     });
 
     test('self-recursive section type terminates via cycle guard', () {
@@ -79,11 +83,12 @@ void main() {
         version: '1.0',
       );
 
-      // Must terminate (no infinite recursion) and emit the type once.
+      // Must terminate (no infinite recursion) and emit the type once, at
+      // level 2 — level 1 is the document title.
       final md = DocSpecsSkeletonGenerator.generate(schema);
-      expect('# '.allMatches(md).length, greaterThanOrEqualTo(1));
       expect(md, contains('\n# '));
-      expect(md, isNot(contains('\n## ')));
+      expect(md, contains('\n## '));
+      expect(md, isNot(contains('\n### ')));
     });
 
     test('mutually recursive section types terminate via cycle guard', () {
@@ -114,10 +119,11 @@ void main() {
       );
 
       final md = DocSpecsSkeletonGenerator.generate(schema);
-      // a -> b, then the guard stops the a recursion: exactly 2 levels.
-      expect(md, contains('\n# '));
+      // a -> b, then the guard stops the a recursion: exactly 2 section levels,
+      // at 2 and 3, beneath the level-1 document title.
       expect(md, contains('\n## '));
-      expect(md, isNot(contains('\n### ')));
+      expect(md, contains('\n### '));
+      expect(md, isNot(contains('\n#### ')));
     });
   });
 }

@@ -129,6 +129,41 @@ class MarkdownParser {
           }
         }
 
+        // A section id may instead sit in an HTML comment on the line *after*
+        // the heading — `## Overview` followed by `<!--[note-001] -->`. Both
+        // placements are documented and both occur in practice, but only the
+        // in-heading one used to be read, so the following-line form fell back
+        // to an id derived from the heading text. That failure is silent: the
+        // section still scans, it just carries a different id, and whether
+        // anything noticed depended on luck of naming.
+        //
+        // Deliberately only the IMMEDIATELY next line, and only when it is a
+        // comment rather than a heading. Scanning further would let a comment
+        // that belongs to the body be mistaken for the section's metadata.
+        // The in-heading form is checked first and therefore wins: two ids is a
+        // malformed document, and the more specific placement should decide.
+        if (explicitId == null && i + 1 < lines.length) {
+          final next = lines[i + 1];
+          if (!_headlinePattern.hasMatch(next)) {
+            final nextComment = _htmlCommentPattern.firstMatch(next);
+            if (nextComment != null) {
+              final nextContent = nextComment.group(1)!;
+              final idOnNextLine = _squareBracketIdPattern.firstMatch(
+                nextContent,
+              );
+              if (idOnNextLine != null) {
+                explicitId = idOnNextLine.group(1);
+                // Read the rest of that comment as fields, so the two
+                // placements differ only in where they sit.
+                _parseKeyValuePairs(
+                  nextContent.replaceFirst(_squareBracketIdPattern, '').trim(),
+                  fields,
+                );
+              }
+            }
+          }
+        }
+
         // Parse any key=value pairs from text outside comment (if no comment, this is all text)
         if (htmlMatch == null) {
           // No HTML comment - check for key=value after removing [id]

@@ -10,20 +10,35 @@ class DocSpecsSkeletonGenerator {
   ///
   /// Returns a markdown string with:
   /// - A docspec comment linking to the schema
-  /// - All required sections from the document structure
+  /// - A document title at level 1
+  /// - All required sections from the document structure, at level 2 and below
   /// - Placeholder text in each section
   /// - Correct heading levels based on nesting
+  ///
+  /// **The title is a heading, not the first section.** The scanner reads a
+  /// level-1 heading as the document title, so emitting the first document
+  /// section there made it disappear as a section and then be reported
+  /// missing — a skeleton that its own schema rejected. Sections therefore
+  /// start at level 2, which is also the shape every hand-written fixture in
+  /// this package uses.
+  ///
+  /// The title text is the schema id, title-cased. The schema model carries no
+  /// title field, so the id is the only thing available that says anything at
+  /// all; it is a placeholder an author is expected to replace, and it carries
+  /// no section id because a title is not a section.
   static String generate(DocSpecSchema schema) {
     final buffer = StringBuffer();
 
     // Add schema declaration comment
     buffer.writeln('<!-- docspec: ${schema.id}/${schema.version} -->');
 
+    buffer.writeln();
+    buffer.writeln('# ${_formatSectionName(schema.id)}');
+
     // Generate sections from document structure
     final documentStructure = schema.document;
     final sections = documentStructure.sections;
 
-    var isFirst = true;
     for (final entry in sections.entries) {
       final sectionName = entry.key;
       final sectionDef = entry.value;
@@ -36,17 +51,14 @@ class DocSpecsSkeletonGenerator {
       final sectionType = schema.sectionTypes[sectionDef.sectionType];
       if (sectionType == null) continue;
 
-      // Determine heading level (first section is title at level 1)
-      final level = isFirst ? 1 : 2;
-      isFirst = false;
-
-      // Generate section heading
+      // Generate section heading, beneath the document title.
       _generateSection(
         buffer,
         sectionName: sectionName,
         sectionType: sectionType,
-        level: level,
+        level: 2,
         schema: schema,
+        displayName: sectionDef.accessKey,
       );
     }
 
@@ -66,16 +78,20 @@ class DocSpecsSkeletonGenerator {
     required int level,
     required DocSpecSchema schema,
     Set<String> typePath = const {},
+    String? displayName,
   }) {
     // Generate heading with ID prefix
     final prefix = sectionType.prefix ?? sectionType.name;
     final headingId = _generateId(prefix, sectionName);
     final headingMarker = '#' * level;
 
+    // A section's `access-key` is the name it is addressed by, so it is the
+    // better heading text when the schema states one; the map key is a
+    // structural identifier and often reads like one (`note-001`).
+    final heading = _formatSectionName(displayName ?? sectionName);
+
     buffer.writeln();
-    buffer.writeln(
-      '$headingMarker [$headingId] ${_formatSectionName(sectionName)}',
-    );
+    buffer.writeln('$headingMarker [$headingId] $heading');
     buffer.writeln();
 
     // Add placeholder text
@@ -128,6 +144,11 @@ class DocSpecsSkeletonGenerator {
   }
 
   /// Generate a section ID from prefix and name.
+  ///
+  /// The validator requires a section id to *start with* its type's prefix, so
+  /// a key that already does needs no second one: a section keyed `note-001`
+  /// under prefix `note` is `note-001`, not `note-note-001`. Only a key that
+  /// does not carry the prefix gets it added.
   static String _generateId(String prefix, String sectionName) {
     // Convert section name to kebab-case and combine with prefix
     final kebabName = sectionName
@@ -135,6 +156,10 @@ class DocSpecsSkeletonGenerator {
         .toLowerCase()
         .replaceAll(RegExp(r'^-+|-+$'), '');
 
+    final kebabPrefix = prefix.toLowerCase();
+    if (kebabName == kebabPrefix || kebabName.startsWith('$kebabPrefix-')) {
+      return kebabName;
+    }
     return '$prefix-$kebabName';
   }
 

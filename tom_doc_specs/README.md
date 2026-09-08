@@ -200,7 +200,12 @@ first wins. Bounding the search at the second heading is what stops a
 `<!-- docspec: … -->` quoted inside some section's body from being taken for the
 document's own declaration.
 
-Passing `schemaId:` to `scanDocument` overrides whatever the document says.
+Passing `schemaId:` to `scanDocument` overrides whatever the document says, and
+`schemaFolder:` overrides where the schema is looked for — a directory searched
+*before* the `.tom/docspecs-schema/` walk. Without it a caller whose schemas
+live anywhere else cannot validate at all: the resolve returns null and the
+document scans as schemaless, which reports no errors and reads exactly like a
+pass.
 
 **When neither the document nor the caller names a schema, nothing is
 validated** — and that is not a pass:
@@ -261,25 +266,34 @@ print(DocSpecsSkeletonGenerator.generate(schema));
 
 // <!-- docspec: release-notes/1.0 -->
 //
-// # [note-note-001] Note 001
+// # Release Notes
 //
+// ## [note-001] Note 001
 //
 // ## [req-requirements] Requirements
 ```
 
-A skeleton is a starting point, not a valid document — it carries placeholder
-content and its sections are the ones the schema *requires*, so validating one
-straight out of the generator will report what you have not filled in yet. That
-is the point of it.
+A skeleton carries placeholder content and only the sections the schema
+*requires*, so it is a starting point rather than a finished document. It is,
+however, **a document its own schema accepts**: generating one and validating it
+straight back reports nothing. That is the generator's job — to start a document
+in the right shape rather than to produce one that has to be corrected into it.
 
-Two rough edges are visible in that output and are tracked as
-`tsdocc1_aigi`: headings are named and identified from the schema's **section
-key** rather than its `access-key`, so a key of `note-001` becomes
-`[note-note-001] Note 001`; and the first document section is emitted at level 1,
-where the scanner reads it as the document *title* rather than as a section.
+Three things in that output are deliberate:
 
-It does now **scan back with its own schema**, though: `DocSpecs.scanDocument`
-reads both declaration forms out of a document's preamble — the standalone
+- **The level-1 heading is the document title, not the first section.** The
+  scanner reads a level-1 heading as the title, so sections start at level 2.
+  The title text is the schema id, title-cased — the schema model carries no
+  title field, so it is a placeholder to replace.
+- **A section id is not given a prefix it already has.** A section keyed
+  `note-001` under prefix `note` is `[note-001]`; only a key that does not carry
+  the prefix gets one, as `requirements` becomes `[req-requirements]`.
+- **`access-key` names the heading when the schema states one.** The map key is
+  a structural identifier and often reads like one; the access key is the name
+  the section is addressed by.
+
+It also **scans back with its own schema**: `DocSpecs.scanDocument` reads both
+declaration forms out of a document's preamble — the standalone
 `<!-- docspec: id/version -->` comment the generator writes, and the older
 `schema=id/version` inside the first headline.
 

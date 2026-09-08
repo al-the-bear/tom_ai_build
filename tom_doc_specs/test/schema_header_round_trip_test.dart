@@ -87,24 +87,15 @@ void main() {
       );
     });
 
-    test('the round trip validates rather than passing vacuously', () {
+    test('the round trip validates, and validates clean', () {
       // `wasValidated`, not `isValid`, is what distinguishes "checked and
-      // clean" from "never checked". A skeleton is a starting point and does
-      // not validate clean — the point here is that it now gets a REAL verdict
-      // instead of a vacuous one.
+      // clean" from "never checked" — so both are asserted. A skeleton is
+      // generated FROM a schema, so the one document it produces must be one
+      // that schema accepts; anything less means the generator's only job is
+      // not done.
       final doc = scan(DocSpecsSkeletonGenerator.generate(loadSchema()));
-      expect(doc.wasValidated, isTrue);
-      expect(
-        doc.validationErrors,
-        isNotEmpty,
-        reason:
-            'a skeleton makes its first document section the level-1 '
-            'heading, which the scanner reads as the document title — so the '
-            'required section is reported missing. That is a second '
-            'generator/scanner divergence, tracked separately as '
-            'tsdocc1_aigi; this suite pins the behaviour so the fix has a '
-            'red test to turn green.',
-      );
+      expect(doc.wasValidated, isTrue, reason: 'a vacuous pass is not a pass');
+      expect(doc.validationErrors, isEmpty);
     });
 
     test(

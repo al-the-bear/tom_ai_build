@@ -53,10 +53,20 @@ class DocSpecs {
   /// The schema is determined from:
   /// 1. The [schemaId] parameter if provided
   /// 2. The document's `schema` field in the first headline
+  ///
+  /// [schemaFolder] names a directory of `*.docspecs-schema.yaml` files to
+  /// search *before* the `.tom/docspecs-schema/` folders found by walking up
+  /// from the document. Without it a caller whose schemas live anywhere else
+  /// cannot validate at all: `SchemaResolver` has always accepted the
+  /// parameter, but nothing plumbed it through, so the resolve silently
+  /// returned null and the document scanned as schemaless — which reports no
+  /// errors and reads exactly like a pass. This package's own fixtures were in
+  /// that position.
   static Future<SpecDoc> scanDocument({
     required String filePath,
     String? schemaId,
     String? workspaceRoot,
+    String? schemaFolder,
   }) async {
     final absolutePath = _toAbsolutePath(filePath);
     final wsRoot = workspaceRoot ?? Directory.current.path;
@@ -77,6 +87,7 @@ class DocSpecs {
         schemaId: effectiveSchemaId,
         documentPath: absolutePath,
         workspaceRoot: wsRoot,
+        schemaFolder: schemaFolder,
       );
     }
 
@@ -103,10 +114,12 @@ class DocSpecs {
   }
 
   /// Load and validate a single document (sync).
+  /// The synchronous twin of [scanDocument]; [schemaFolder] means the same.
   static SpecDoc scanDocumentSync({
     required String filePath,
     String? schemaId,
     String? workspaceRoot,
+    String? schemaFolder,
   }) {
     final absolutePath = _toAbsolutePath(filePath);
     final wsRoot = workspaceRoot ?? Directory.current.path;
@@ -127,6 +140,7 @@ class DocSpecs {
         schemaId: effectiveSchemaId,
         documentPath: absolutePath,
         workspaceRoot: wsRoot,
+        schemaFolder: schemaFolder,
       );
     }
 
