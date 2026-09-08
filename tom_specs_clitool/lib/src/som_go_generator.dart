@@ -236,7 +236,7 @@ SomGoGenerationResult writeSomGoProject({
   // Identical to every other language path — schemas are language-agnostic.
   final schemas = DocSpecsSchemaGenerator(
     classes,
-  ).generateAll(modelVersion: modelVersion);
+  ).generateAll(modelVersion: modelVersion, modelLabel: modelLabel);
   final schemaPaths = DocSpecsSchemaGenerator.writeSchemaTree(
     outputRoot,
     schemas,

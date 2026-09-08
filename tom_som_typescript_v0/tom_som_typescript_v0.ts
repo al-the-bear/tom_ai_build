@@ -350,6 +350,41 @@ function _parseGradedAccessLevel(token: string | null | undefined): GradedAccess
   return null;
 }
 
+// Generated enum for `Impact` values.
+export const Impact = Object.freeze({
+  // Absorbed inside normal working. No measurable change to schedule, budget
+  // or quality, and nobody outside the team doing the work has to know.
+  "negligible": "negligible",
+  // Felt within one workstream and covered by that workstream's own
+  // contingency. Nothing outside it is replanned.
+  "minor": "minor",
+  // Exceeds a single workstream's contingency and forces replanning across
+  // workstreams. Project management decides; the sponsor is informed.
+  "moderate": "moderate",
+  // Threatens a committed date, budget or quality commitment. Recovery
+  // requires a sponsor decision — more money, less scope, or a later date.
+  "major": "major",
+  // The objective itself fails and no contingency inside the project recovers
+  // it. The decision at this level is whether the project continues at all.
+  "critical": "critical",
+});
+
+export type ImpactValue =
+  typeof Impact[keyof typeof Impact];
+
+// Parses a stored token into a Impact value, or null.
+function _parseImpact(token: string | null | undefined): ImpactValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(Impact)) {
+    if (value === token) {
+      return value as ImpactValue;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `Iso25010Characteristic` values.
 export const Iso25010Characteristic = Object.freeze({
   // ISO/IEC 25010:2023 *functional suitability* — the degree to which the
@@ -505,6 +540,83 @@ function _parseObjectLifecycleKind(token: string | null | undefined): ObjectLife
   for (const value of Object.values(ObjectLifecycleKind)) {
     if (value === token) {
       return value as ObjectLifecycleKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `Priority` values.
+export const Priority = Object.freeze({
+  // MoSCoW *must have*: the release is not shippable without it. A failed
+  // must-have is a release blocker — the date moves, the requirement does
+  // not. Anything that can be traded away under schedule pressure was never
+  // a must.
+  "must": "must",
+  // MoSCoW *should have*: painful to omit, but the release still ships
+  // without it. This is the first band traded away when the timebox is
+  // threatened, and dropping one is expected to come with a stated
+  // workaround rather than silence.
+  "should": "should",
+  // MoSCoW *could have*: included only while it costs nothing that a
+  // [must] or [should] item needs. Dropping it is a routine timebox decision
+  // and requires no re-approval.
+  "could": "could",
+  // MoSCoW *won't have — this time*: deliberately excluded from **this**
+  // delivery and recorded rather than deleted, so the decision (and its
+  // reasoning) survives into the next planning round. Distinct from
+  // [Status.rejected], which means never; this means not now.
+  "wontThisTime": "wontThisTime",
+});
+
+export type PriorityValue =
+  typeof Priority[keyof typeof Priority];
+
+// Parses a stored token into a Priority value, or null.
+function _parsePriority(token: string | null | undefined): PriorityValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(Priority)) {
+    if (value === token) {
+      return value as PriorityValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `Probability` values.
+export const Probability = Object.freeze({
+  // Would be surprising: no trigger for it is visible in the current plan.
+  // Carried on the register to be watched, not to be mitigated.
+  "veryLow": "veryLow",
+  // Plausible but not expected — a known trigger exists and is not currently
+  // active. Cheap mitigations are worth taking; expensive ones are not.
+  "low": "low",
+  // As likely as not. The band where the decision to mitigate turns on cost
+  // rather than on likelihood, and the one most often used as a default when
+  // nobody has actually estimated — a medium with no reasoning behind it is
+  // worth challenging.
+  "medium": "medium",
+  // Expected unless something about the plan changes. Mitigation is assumed;
+  // its absence needs an explicit reason.
+  "high": "high",
+  // Effectively certain on the current plan. At this point it is a planned
+  // event, not a risk: it belongs in the plan with an owner and a date, and
+  // leaving it on the risk register hides work rather than tracking it.
+  "veryHigh": "veryHigh",
+});
+
+export type ProbabilityValue =
+  typeof Probability[keyof typeof Probability];
+
+// Parses a stored token into a Probability value, or null.
+function _parseProbability(token: string | null | undefined): ProbabilityValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(Probability)) {
+    if (value === token) {
+      return value as ProbabilityValue;
     }
   }
   return null;
@@ -1172,6 +1284,53 @@ function _parseServerCallRole(token: string | null | undefined): ServerCallRoleV
   for (const value of Object.values(ServerCallRole)) {
     if (value === token) {
       return value as ServerCallRoleValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `Status` values.
+export const Status = Object.freeze({
+  // Being authored. The wording may change without notice and nothing
+  // downstream may be planned, estimated or built against it.
+  "draft": "draft",
+  // Complete enough to be reviewed and awaiting a decision. Review may still
+  // send it back or reject it outright, so it is not yet a commitment.
+  "proposed": "proposed",
+  // Signed off as the agreed intent, and the baseline that downstream work is
+  // planned and estimated against. From here on a change is a change request
+  // with its own approval, not a quiet edit.
+  "approved": "approved",
+  // A realising artifact exists, but nothing has yet confirmed it does what
+  // [approved] committed to. The gap between this and [verified] is exactly
+  // the evidence, which is why the two are separate states rather than one
+  // "done".
+  "implemented": "implemented",
+  // Implemented *and* shown to meet its acceptance criteria by test or review
+  // evidence. The only terminal state that means the item is finished.
+  "verified": "verified",
+  // Approved in substance but not scheduled for this delivery, and kept in the
+  // document so it returns to the backlog instead of being lost. This is the
+  // lifecycle position; [Priority.wontThisTime] is the scoping decision that
+  // puts an item here.
+  "deferred": "deferred",
+  // Decided against, permanently. Retained rather than deleted so a later
+  // reader can see the option was considered and why it lost, instead of
+  // re-proposing it.
+  "rejected": "rejected",
+});
+
+export type StatusValue =
+  typeof Status[keyof typeof Status];
+
+// Parses a stored token into a Status value, or null.
+function _parseStatus(token: string | null | undefined): StatusValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(Status)) {
+    if (value === token) {
+      return value as StatusValue;
     }
   }
   return null;
@@ -60117,12 +60276,12 @@ export class ChangeCategoryEntryHandlingForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get defaultImpactLevel(): string {
-    return this.doc.formField(this.path, "defaultImpactLevel") || '';
+  get defaultImpactLevel(): ImpactValue | null {
+    return _parseImpact(this.doc.formField(this.path, "defaultImpactLevel"));
   }
 
-  set defaultImpactLevel(value: string) {
-    this.doc.setFormField(this.path, "defaultImpactLevel", value);
+  set defaultImpactLevel(value: ImpactValue | null) {
+    this.doc.setFormField(this.path, "defaultImpactLevel", value ?? '');
   }
 
   get approvalPath(): string {
@@ -68925,20 +69084,20 @@ export class ComponentRiskEntryAssessmentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get probability(): string {
-    return this.doc.formField(this.path, "probability") || '';
+  get probability(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "probability"));
   }
 
-  set probability(value: string) {
-    this.doc.setFormField(this.path, "probability", value);
+  set probability(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "probability", value ?? '');
   }
 
-  get impact(): string {
-    return this.doc.formField(this.path, "impact") || '';
+  get impact(): ImpactValue | null {
+    return _parseImpact(this.doc.formField(this.path, "impact"));
   }
 
-  set impact(value: string) {
-    this.doc.setFormField(this.path, "impact", value);
+  set impact(value: ImpactValue | null) {
+    this.doc.setFormField(this.path, "impact", value ?? '');
   }
 
   get riskScore(): number | null {
@@ -96714,12 +96873,12 @@ export class FeaturePriorityEntryPriorityScoringForm extends SomNode {
     this.doc.setFormField(this.path, "weightedPriorityScore", value);
   }
 
-  get moscowTier(): string {
-    return this.doc.formField(this.path, "moscowTier") || '';
+  get moscowTier(): PriorityValue | null {
+    return _parsePriority(this.doc.formField(this.path, "moscowTier"));
   }
 
-  set moscowTier(value: string) {
-    this.doc.setFormField(this.path, "moscowTier", value);
+  set moscowTier(value: PriorityValue | null) {
+    this.doc.setFormField(this.path, "moscowTier", value ?? '');
   }
 
   get wsjfScore(): string {
@@ -98789,12 +98948,12 @@ export class FunctionalRequirementEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get status(): string {
-    return this.doc.formField(this.path, "status") || '';
+  get status(): StatusValue | null {
+    return _parseStatus(this.doc.formField(this.path, "status"));
   }
 
-  set status(value: string) {
-    this.doc.setFormField(this.path, "status", value);
+  set status(value: StatusValue | null) {
+    this.doc.setFormField(this.path, "status", value ?? '');
   }
 }
 
@@ -98902,12 +99061,12 @@ export class FunctionalRequirementEntryPriorityForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): PriorityValue | null {
+    return _parsePriority(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: PriorityValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get businessValue(): string {
@@ -116758,12 +116917,12 @@ export class MigrationRiskEntryMitigationForm extends SomNode {
     this.doc.setFormField(this.path, "mitigationStatus", value);
   }
 
-  get residualProbability(): string {
-    return this.doc.formField(this.path, "residualProbability") || '';
+  get residualProbability(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "residualProbability"));
   }
 
-  set residualProbability(value: string) {
-    this.doc.setFormField(this.path, "residualProbability", value);
+  set residualProbability(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "residualProbability", value ?? '');
   }
 
   get residualImpact(): string {
@@ -116802,12 +116961,12 @@ export class MigrationRiskEntryProbabilityForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get probabilityRating(): string {
-    return this.doc.formField(this.path, "probabilityRating") || '';
+  get probabilityRating(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "probabilityRating"));
   }
 
-  set probabilityRating(value: string) {
-    this.doc.setFormField(this.path, "probabilityRating", value);
+  set probabilityRating(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "probabilityRating", value ?? '');
   }
 
   get probabilityScore(): number | null {
@@ -119100,12 +119259,12 @@ export class MoscowEntryClassificationForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get moscowCategory(): string {
-    return this.doc.formField(this.path, "moscowCategory") || '';
+  get moscowCategory(): PriorityValue | null {
+    return _parsePriority(this.doc.formField(this.path, "moscowCategory"));
   }
 
-  set moscowCategory(value: string) {
-    this.doc.setFormField(this.path, "moscowCategory", value);
+  set moscowCategory(value: PriorityValue | null) {
+    this.doc.setFormField(this.path, "moscowCategory", value ?? '');
   }
 
   get justification(): string {
@@ -125001,12 +125160,12 @@ export class OrganizationalRequirementEntryClassificationForm extends SomNode {
     this.doc.setFormField(this.path, "subcategory", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): PriorityValue | null {
+    return _parsePriority(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: PriorityValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get source(): string {
@@ -145818,12 +145977,12 @@ export class RiskEntryAnalysisForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get probability(): string {
-    return this.doc.formField(this.path, "probability") || '';
+  get probability(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "probability"));
   }
 
-  set probability(value: string) {
-    this.doc.setFormField(this.path, "probability", value);
+  set probability(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "probability", value ?? '');
   }
 
   get probabilityValue(): number | null {
@@ -145835,12 +145994,12 @@ export class RiskEntryAnalysisForm extends SomNode {
     this.doc.setFormField(this.path, "probabilityValue", value == null ? '' : String(value));
   }
 
-  get impact(): string {
-    return this.doc.formField(this.path, "impact") || '';
+  get impact(): ImpactValue | null {
+    return _parseImpact(this.doc.formField(this.path, "impact"));
   }
 
-  set impact(value: string) {
-    this.doc.setFormField(this.path, "impact", value);
+  set impact(value: ImpactValue | null) {
+    this.doc.setFormField(this.path, "impact", value ?? '');
   }
 
   get impactValue(): number | null {
@@ -146464,20 +146623,20 @@ export class RiskResponseResidualForm extends SomNode {
     this.doc.setFormField(this.path, "residualRisk", value);
   }
 
-  get residualProbability(): string {
-    return this.doc.formField(this.path, "residualProbability") || '';
+  get residualProbability(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "residualProbability"));
   }
 
-  set residualProbability(value: string) {
-    this.doc.setFormField(this.path, "residualProbability", value);
+  set residualProbability(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "residualProbability", value ?? '');
   }
 
-  get residualImpact(): string {
-    return this.doc.formField(this.path, "residualImpact") || '';
+  get residualImpact(): ImpactValue | null {
+    return _parseImpact(this.doc.formField(this.path, "residualImpact"));
   }
 
-  set residualImpact(value: string) {
-    this.doc.setFormField(this.path, "residualImpact", value);
+  set residualImpact(value: ImpactValue | null) {
+    this.doc.setFormField(this.path, "residualImpact", value ?? '');
   }
 
   get secondaryRisks(): string {
@@ -154280,12 +154439,12 @@ export class SecurityRequirementEntryStatusInfoForm extends SomNode {
     this.doc.setFormField(this.path, "riskOwner", value);
   }
 
-  get status(): string {
-    return this.doc.formField(this.path, "status") || '';
+  get status(): StatusValue | null {
+    return _parseStatus(this.doc.formField(this.path, "status"));
   }
 
-  set status(value: string) {
-    this.doc.setFormField(this.path, "status", value);
+  set status(value: StatusValue | null) {
+    this.doc.setFormField(this.path, "status", value ?? '');
   }
 }
 
@@ -161117,20 +161276,20 @@ export class StageMigrationRiskEntryProbabilityImpactForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get probability(): string {
-    return this.doc.formField(this.path, "probability") || '';
+  get probability(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "probability"));
   }
 
-  set probability(value: string) {
-    this.doc.setFormField(this.path, "probability", value);
+  set probability(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "probability", value ?? '');
   }
 
-  get impact(): string {
-    return this.doc.formField(this.path, "impact") || '';
+  get impact(): ImpactValue | null {
+    return _parseImpact(this.doc.formField(this.path, "impact"));
   }
 
-  set impact(value: string) {
-    this.doc.setFormField(this.path, "impact", value);
+  set impact(value: ImpactValue | null) {
+    this.doc.setFormField(this.path, "impact", value ?? '');
   }
 
   get riskScore(): string {
@@ -161176,20 +161335,20 @@ export class StageMigrationRiskEntryResidualForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get residualProbability(): string {
-    return this.doc.formField(this.path, "residualProbability") || '';
+  get residualProbability(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "residualProbability"));
   }
 
-  set residualProbability(value: string) {
-    this.doc.setFormField(this.path, "residualProbability", value);
+  set residualProbability(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "residualProbability", value ?? '');
   }
 
-  get residualImpact(): string {
-    return this.doc.formField(this.path, "residualImpact") || '';
+  get residualImpact(): ImpactValue | null {
+    return _parseImpact(this.doc.formField(this.path, "residualImpact"));
   }
 
-  set residualImpact(value: string) {
-    this.doc.setFormField(this.path, "residualImpact", value);
+  set residualImpact(value: ImpactValue | null) {
+    this.doc.setFormField(this.path, "residualImpact", value ?? '');
   }
 
   get residualRiskAcceptable(): string {
@@ -171572,12 +171731,12 @@ export class TechnicalRequirementEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get status(): string {
-    return this.doc.formField(this.path, "status") || '';
+  get status(): StatusValue | null {
+    return _parseStatus(this.doc.formField(this.path, "status"));
   }
 
-  set status(value: string) {
-    this.doc.setFormField(this.path, "status", value);
+  set status(value: StatusValue | null) {
+    this.doc.setFormField(this.path, "status", value ?? '');
   }
 }
 

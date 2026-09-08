@@ -302,6 +302,35 @@ def _parse_GradedAccessLevel(token):
             return v
     return None
 
+class Impact(Enum):
+    """Generated enum for `Impact` values."""
+
+    # Absorbed inside normal working. No measurable change to schedule, budget
+    # or quality, and nobody outside the team doing the work has to know.
+    negligible = "negligible"
+    # Felt within one workstream and covered by that workstream's own
+    # contingency. Nothing outside it is replanned.
+    minor = "minor"
+    # Exceeds a single workstream's contingency and forces replanning across
+    # workstreams. Project management decides; the sponsor is informed.
+    moderate = "moderate"
+    # Threatens a committed date, budget or quality commitment. Recovery
+    # requires a sponsor decision — more money, less scope, or a later date.
+    major = "major"
+    # The objective itself fails and no contingency inside the project recovers
+    # it. The decision at this level is whether the project continues at all.
+    critical = "critical"
+
+
+def _parse_Impact(token):
+    """Parses a stored token into a Impact, or None."""
+    if not token:
+        return None
+    for v in Impact:
+        if v.value == token:
+            return v
+    return None
+
 class Iso25010Characteristic(Enum):
     """Generated enum for `Iso25010Characteristic` values."""
 
@@ -440,6 +469,71 @@ def _parse_ObjectLifecycleKind(token):
     if not token:
         return None
     for v in ObjectLifecycleKind:
+        if v.value == token:
+            return v
+    return None
+
+class Priority(Enum):
+    """Generated enum for `Priority` values."""
+
+    # MoSCoW *must have*: the release is not shippable without it. A failed
+    # must-have is a release blocker — the date moves, the requirement does
+    # not. Anything that can be traded away under schedule pressure was never
+    # a must.
+    must = "must"
+    # MoSCoW *should have*: painful to omit, but the release still ships
+    # without it. This is the first band traded away when the timebox is
+    # threatened, and dropping one is expected to come with a stated
+    # workaround rather than silence.
+    should = "should"
+    # MoSCoW *could have*: included only while it costs nothing that a
+    # [must] or [should] item needs. Dropping it is a routine timebox decision
+    # and requires no re-approval.
+    could = "could"
+    # MoSCoW *won't have — this time*: deliberately excluded from **this**
+    # delivery and recorded rather than deleted, so the decision (and its
+    # reasoning) survives into the next planning round. Distinct from
+    # [Status.rejected], which means never; this means not now.
+    wontThisTime = "wontThisTime"
+
+
+def _parse_Priority(token):
+    """Parses a stored token into a Priority, or None."""
+    if not token:
+        return None
+    for v in Priority:
+        if v.value == token:
+            return v
+    return None
+
+class Probability(Enum):
+    """Generated enum for `Probability` values."""
+
+    # Would be surprising: no trigger for it is visible in the current plan.
+    # Carried on the register to be watched, not to be mitigated.
+    veryLow = "veryLow"
+    # Plausible but not expected — a known trigger exists and is not currently
+    # active. Cheap mitigations are worth taking; expensive ones are not.
+    low = "low"
+    # As likely as not. The band where the decision to mitigate turns on cost
+    # rather than on likelihood, and the one most often used as a default when
+    # nobody has actually estimated — a medium with no reasoning behind it is
+    # worth challenging.
+    medium = "medium"
+    # Expected unless something about the plan changes. Mitigation is assumed;
+    # its absence needs an explicit reason.
+    high = "high"
+    # Effectively certain on the current plan. At this point it is a planned
+    # event, not a risk: it belongs in the plan with an owner and a date, and
+    # leaving it on the risk register hides work rather than tracking it.
+    veryHigh = "veryHigh"
+
+
+def _parse_Probability(token):
+    """Parses a stored token into a Probability, or None."""
+    if not token:
+        return None
+    for v in Probability:
         if v.value == token:
             return v
     return None
@@ -1053,6 +1147,47 @@ def _parse_ServerCallRole(token):
     if not token:
         return None
     for v in ServerCallRole:
+        if v.value == token:
+            return v
+    return None
+
+class Status(Enum):
+    """Generated enum for `Status` values."""
+
+    # Being authored. The wording may change without notice and nothing
+    # downstream may be planned, estimated or built against it.
+    draft = "draft"
+    # Complete enough to be reviewed and awaiting a decision. Review may still
+    # send it back or reject it outright, so it is not yet a commitment.
+    proposed = "proposed"
+    # Signed off as the agreed intent, and the baseline that downstream work is
+    # planned and estimated against. From here on a change is a change request
+    # with its own approval, not a quiet edit.
+    approved = "approved"
+    # A realising artifact exists, but nothing has yet confirmed it does what
+    # [approved] committed to. The gap between this and [verified] is exactly
+    # the evidence, which is why the two are separate states rather than one
+    # "done".
+    implemented = "implemented"
+    # Implemented *and* shown to meet its acceptance criteria by test or review
+    # evidence. The only terminal state that means the item is finished.
+    verified = "verified"
+    # Approved in substance but not scheduled for this delivery, and kept in the
+    # document so it returns to the backlog instead of being lost. This is the
+    # lifecycle position; [Priority.wontThisTime] is the scoping decision that
+    # puts an item here.
+    deferred = "deferred"
+    # Decided against, permanently. Retained rather than deleted so a later
+    # reader can see the option was considered and why it lost, instead of
+    # re-proposing it.
+    rejected = "rejected"
+
+
+def _parse_Status(token):
+    """Parses a stored token into a Status, or None."""
+    if not token:
+        return None
+    for v in Status:
         if v.value == token:
             return v
     return None
@@ -58255,12 +58390,12 @@ class ChangeCategoryEntryHandlingForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def defaultImpactLevel(self) -> str:
-        return self.doc.form_field(self.path, "defaultImpactLevel") or ""
+    def defaultImpactLevel(self) -> "Impact | None":
+        return _parse_Impact(self.doc.form_field(self.path, "defaultImpactLevel"))
 
     @defaultImpactLevel.setter
     def defaultImpactLevel(self, value):
-        self.doc.set_form_field(self.path, "defaultImpactLevel", value)
+        self.doc.set_form_field(self.path, "defaultImpactLevel", "" if value is None else value.value)
 
     @property
     def approvalPath(self) -> str:
@@ -66774,20 +66909,20 @@ class ComponentRiskEntryAssessmentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def probability(self) -> str:
-        return self.doc.form_field(self.path, "probability") or ""
+    def probability(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "probability"))
 
     @probability.setter
     def probability(self, value):
-        self.doc.set_form_field(self.path, "probability", value)
+        self.doc.set_form_field(self.path, "probability", "" if value is None else value.value)
 
     @property
-    def impact(self) -> str:
-        return self.doc.form_field(self.path, "impact") or ""
+    def impact(self) -> "Impact | None":
+        return _parse_Impact(self.doc.form_field(self.path, "impact"))
 
     @impact.setter
     def impact(self, value):
-        self.doc.set_form_field(self.path, "impact", value)
+        self.doc.set_form_field(self.path, "impact", "" if value is None else value.value)
 
     @property
     def riskScore(self) -> "int | None":
@@ -93654,12 +93789,12 @@ class FeaturePriorityEntryPriorityScoringForm(SomNode):
         self.doc.set_form_field(self.path, "weightedPriorityScore", value)
 
     @property
-    def moscowTier(self) -> str:
-        return self.doc.form_field(self.path, "moscowTier") or ""
+    def moscowTier(self) -> "Priority | None":
+        return _parse_Priority(self.doc.form_field(self.path, "moscowTier"))
 
     @moscowTier.setter
     def moscowTier(self, value):
-        self.doc.set_form_field(self.path, "moscowTier", value)
+        self.doc.set_form_field(self.path, "moscowTier", "" if value is None else value.value)
 
     @property
     def wsjfScore(self) -> str:
@@ -95650,12 +95785,12 @@ class FunctionalRequirementEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def status(self) -> str:
-        return self.doc.form_field(self.path, "status") or ""
+    def status(self) -> "Status | None":
+        return _parse_Status(self.doc.form_field(self.path, "status"))
 
     @status.setter
     def status(self, value):
-        self.doc.set_form_field(self.path, "status", value)
+        self.doc.set_form_field(self.path, "status", "" if value is None else value.value)
 
 class FunctionalRequirementEntryDetailsForm(SomNode):
     """Generated section facade for the `details` @Form section: its own content text followed by one typed member per form field."""
@@ -95757,12 +95892,12 @@ class FunctionalRequirementEntryPriorityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "Priority | None":
+        return _parse_Priority(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def businessValue(self) -> str:
@@ -113063,12 +113198,12 @@ class MigrationRiskEntryMitigationForm(SomNode):
         self.doc.set_form_field(self.path, "mitigationStatus", value)
 
     @property
-    def residualProbability(self) -> str:
-        return self.doc.form_field(self.path, "residualProbability") or ""
+    def residualProbability(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "residualProbability"))
 
     @residualProbability.setter
     def residualProbability(self, value):
-        self.doc.set_form_field(self.path, "residualProbability", value)
+        self.doc.set_form_field(self.path, "residualProbability", "" if value is None else value.value)
 
     @property
     def residualImpact(self) -> str:
@@ -113110,12 +113245,12 @@ class MigrationRiskEntryProbabilityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def probabilityRating(self) -> str:
-        return self.doc.form_field(self.path, "probabilityRating") or ""
+    def probabilityRating(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "probabilityRating"))
 
     @probabilityRating.setter
     def probabilityRating(self, value):
-        self.doc.set_form_field(self.path, "probabilityRating", value)
+        self.doc.set_form_field(self.path, "probabilityRating", "" if value is None else value.value)
 
     @property
     def probabilityScore(self) -> "int | None":
@@ -115335,12 +115470,12 @@ class MoscowEntryClassificationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def moscowCategory(self) -> str:
-        return self.doc.form_field(self.path, "moscowCategory") or ""
+    def moscowCategory(self) -> "Priority | None":
+        return _parse_Priority(self.doc.form_field(self.path, "moscowCategory"))
 
     @moscowCategory.setter
     def moscowCategory(self, value):
-        self.doc.set_form_field(self.path, "moscowCategory", value)
+        self.doc.set_form_field(self.path, "moscowCategory", "" if value is None else value.value)
 
     @property
     def justification(self) -> str:
@@ -121072,12 +121207,12 @@ class OrganizationalRequirementEntryClassificationForm(SomNode):
         self.doc.set_form_field(self.path, "subcategory", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "Priority | None":
+        return _parse_Priority(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def source(self) -> str:
@@ -141346,12 +141481,12 @@ class RiskEntryAnalysisForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def probability(self) -> str:
-        return self.doc.form_field(self.path, "probability") or ""
+    def probability(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "probability"))
 
     @probability.setter
     def probability(self, value):
-        self.doc.set_form_field(self.path, "probability", value)
+        self.doc.set_form_field(self.path, "probability", "" if value is None else value.value)
 
     @property
     def probabilityValue(self) -> "float | None":
@@ -141368,12 +141503,12 @@ class RiskEntryAnalysisForm(SomNode):
         self.doc.set_form_field(self.path, "probabilityValue", "" if value is None else str(value))
 
     @property
-    def impact(self) -> str:
-        return self.doc.form_field(self.path, "impact") or ""
+    def impact(self) -> "Impact | None":
+        return _parse_Impact(self.doc.form_field(self.path, "impact"))
 
     @impact.setter
     def impact(self, value):
-        self.doc.set_form_field(self.path, "impact", value)
+        self.doc.set_form_field(self.path, "impact", "" if value is None else value.value)
 
     @property
     def impactValue(self) -> "float | None":
@@ -141990,20 +142125,20 @@ class RiskResponseResidualForm(SomNode):
         self.doc.set_form_field(self.path, "residualRisk", value)
 
     @property
-    def residualProbability(self) -> str:
-        return self.doc.form_field(self.path, "residualProbability") or ""
+    def residualProbability(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "residualProbability"))
 
     @residualProbability.setter
     def residualProbability(self, value):
-        self.doc.set_form_field(self.path, "residualProbability", value)
+        self.doc.set_form_field(self.path, "residualProbability", "" if value is None else value.value)
 
     @property
-    def residualImpact(self) -> str:
-        return self.doc.form_field(self.path, "residualImpact") or ""
+    def residualImpact(self) -> "Impact | None":
+        return _parse_Impact(self.doc.form_field(self.path, "residualImpact"))
 
     @residualImpact.setter
     def residualImpact(self, value):
-        self.doc.set_form_field(self.path, "residualImpact", value)
+        self.doc.set_form_field(self.path, "residualImpact", "" if value is None else value.value)
 
     @property
     def secondaryRisks(self) -> str:
@@ -149594,12 +149729,12 @@ class SecurityRequirementEntryStatusInfoForm(SomNode):
         self.doc.set_form_field(self.path, "riskOwner", value)
 
     @property
-    def status(self) -> str:
-        return self.doc.form_field(self.path, "status") or ""
+    def status(self) -> "Status | None":
+        return _parse_Status(self.doc.form_field(self.path, "status"))
 
     @status.setter
     def status(self, value):
-        self.doc.set_form_field(self.path, "status", value)
+        self.doc.set_form_field(self.path, "status", "" if value is None else value.value)
 
 class SecurityRequirementEntryVerificationForm(SomNode):
     """Generated section facade for the `verification` @Form section: its own content text followed by one typed member per form field."""
@@ -156199,20 +156334,20 @@ class StageMigrationRiskEntryProbabilityImpactForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def probability(self) -> str:
-        return self.doc.form_field(self.path, "probability") or ""
+    def probability(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "probability"))
 
     @probability.setter
     def probability(self, value):
-        self.doc.set_form_field(self.path, "probability", value)
+        self.doc.set_form_field(self.path, "probability", "" if value is None else value.value)
 
     @property
-    def impact(self) -> str:
-        return self.doc.form_field(self.path, "impact") or ""
+    def impact(self) -> "Impact | None":
+        return _parse_Impact(self.doc.form_field(self.path, "impact"))
 
     @impact.setter
     def impact(self, value):
-        self.doc.set_form_field(self.path, "impact", value)
+        self.doc.set_form_field(self.path, "impact", "" if value is None else value.value)
 
     @property
     def riskScore(self) -> str:
@@ -156256,20 +156391,20 @@ class StageMigrationRiskEntryResidualForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def residualProbability(self) -> str:
-        return self.doc.form_field(self.path, "residualProbability") or ""
+    def residualProbability(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "residualProbability"))
 
     @residualProbability.setter
     def residualProbability(self, value):
-        self.doc.set_form_field(self.path, "residualProbability", value)
+        self.doc.set_form_field(self.path, "residualProbability", "" if value is None else value.value)
 
     @property
-    def residualImpact(self) -> str:
-        return self.doc.form_field(self.path, "residualImpact") or ""
+    def residualImpact(self) -> "Impact | None":
+        return _parse_Impact(self.doc.form_field(self.path, "residualImpact"))
 
     @residualImpact.setter
     def residualImpact(self, value):
-        self.doc.set_form_field(self.path, "residualImpact", value)
+        self.doc.set_form_field(self.path, "residualImpact", "" if value is None else value.value)
 
     @property
     def residualRiskAcceptable(self) -> str:
@@ -166487,12 +166622,12 @@ class TechnicalRequirementEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def status(self) -> str:
-        return self.doc.form_field(self.path, "status") or ""
+    def status(self) -> "Status | None":
+        return _parse_Status(self.doc.form_field(self.path, "status"))
 
     @status.setter
     def status(self, value):
-        self.doc.set_form_field(self.path, "status", value)
+        self.doc.set_form_field(self.path, "status", "" if value is None else value.value)
 
 class TechnicalRequirementEntryDetailsForm(SomNode):
     """Generated section facade for the `details` @Form section: its own content text followed by one typed member per form field."""

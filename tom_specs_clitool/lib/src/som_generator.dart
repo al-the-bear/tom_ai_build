@@ -262,7 +262,7 @@ SomGenerationResult writeSomDartProject({
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   final schemas = DocSpecsSchemaGenerator(
     classes,
-  ).generateAll(modelVersion: modelVersion);
+  ).generateAll(modelVersion: modelVersion, modelLabel: modelLabel);
   final schemaPaths = DocSpecsSchemaGenerator.writeSchemaTree(
     outputRoot,
     schemas,

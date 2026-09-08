@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: current-landscape-assessment/1.0
+# Schema: current-landscape-assessment/1.1
 
 title-format: "# <!--[CLA]--> Current Landscape Assessment"
 section-types:
@@ -3766,7 +3766,7 @@ form-types:
   miripr-form:
     fields:
       - fieldname: probabilityRating
-        description: "Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)"
+        description: "Qualitative likelihood band — veryHigh >80%, high 60-80%, medium 40-60%, low 20-40%, veryLow <20%."
       - fieldname: probabilityScore
         description: Numeric score for calculations
       - fieldname: probabilityRationale
@@ -3830,7 +3830,7 @@ form-types:
       - fieldname: mitigationStatus
         description: "Not started, in progress, completed"
       - fieldname: residualProbability
-        description: Probability after mitigation
+        description: Expected likelihood band once the mitigation is in place.
       - fieldname: residualImpact
         description: Impact after mitigation
       - fieldname: residualRiskScore

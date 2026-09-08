@@ -299,6 +299,32 @@ pub fn parse_graded_access_level(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `Impact` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Absorbed inside normal working. No measurable change to schedule, budget
+/// or quality, and nobody outside the team doing the work has to know.
+pub const IMPACT_NEGLIGIBLE: &str = "negligible";
+/// Felt within one workstream and covered by that workstream's own
+/// contingency. Nothing outside it is replanned.
+pub const IMPACT_MINOR: &str = "minor";
+/// Exceeds a single workstream's contingency and forces replanning across
+/// workstreams. Project management decides; the sponsor is informed.
+pub const IMPACT_MODERATE: &str = "moderate";
+/// Threatens a committed date, budget or quality commitment. Recovery
+/// requires a sponsor decision — more money, less scope, or a later date.
+pub const IMPACT_MAJOR: &str = "major";
+/// The objective itself fails and no contingency inside the project recovers
+/// it. The decision at this level is whether the project continues at all.
+pub const IMPACT_CRITICAL: &str = "critical";
+
+/// parse_impact returns token when it is a known Impact value, else "".
+pub fn parse_impact(token: &str) -> String {
+    match token {
+        IMPACT_NEGLIGIBLE | IMPACT_MINOR | IMPACT_MODERATE | IMPACT_MAJOR | IMPACT_CRITICAL => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `Iso25010Characteristic` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// ISO/IEC 25010:2023 *functional suitability* — the degree to which the
@@ -428,6 +454,65 @@ pub const OBJECT_LIFECYCLE_KIND_ERROR: &str = "error";
 pub fn parse_object_lifecycle_kind(token: &str) -> String {
     match token {
         OBJECT_LIFECYCLE_KIND_INITIAL | OBJECT_LIFECYCLE_KIND_INTERMEDIATE | OBJECT_LIFECYCLE_KIND_TERMINAL | OBJECT_LIFECYCLE_KIND_ERROR => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `Priority` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// MoSCoW *must have*: the release is not shippable without it. A failed
+/// must-have is a release blocker — the date moves, the requirement does
+/// not. Anything that can be traded away under schedule pressure was never
+/// a must.
+pub const PRIORITY_MUST: &str = "must";
+/// MoSCoW *should have*: painful to omit, but the release still ships
+/// without it. This is the first band traded away when the timebox is
+/// threatened, and dropping one is expected to come with a stated
+/// workaround rather than silence.
+pub const PRIORITY_SHOULD: &str = "should";
+/// MoSCoW *could have*: included only while it costs nothing that a
+/// [must] or [should] item needs. Dropping it is a routine timebox decision
+/// and requires no re-approval.
+pub const PRIORITY_COULD: &str = "could";
+/// MoSCoW *won't have — this time*: deliberately excluded from **this**
+/// delivery and recorded rather than deleted, so the decision (and its
+/// reasoning) survives into the next planning round. Distinct from
+/// [Status.rejected], which means never; this means not now.
+pub const PRIORITY_WONT_THIS_TIME: &str = "wontThisTime";
+
+/// parse_priority returns token when it is a known Priority value, else "".
+pub fn parse_priority(token: &str) -> String {
+    match token {
+        PRIORITY_MUST | PRIORITY_SHOULD | PRIORITY_COULD | PRIORITY_WONT_THIS_TIME => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `Probability` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Would be surprising: no trigger for it is visible in the current plan.
+/// Carried on the register to be watched, not to be mitigated.
+pub const PROBABILITY_VERY_LOW: &str = "veryLow";
+/// Plausible but not expected — a known trigger exists and is not currently
+/// active. Cheap mitigations are worth taking; expensive ones are not.
+pub const PROBABILITY_LOW: &str = "low";
+/// As likely as not. The band where the decision to mitigate turns on cost
+/// rather than on likelihood, and the one most often used as a default when
+/// nobody has actually estimated — a medium with no reasoning behind it is
+/// worth challenging.
+pub const PROBABILITY_MEDIUM: &str = "medium";
+/// Expected unless something about the plan changes. Mitigation is assumed;
+/// its absence needs an explicit reason.
+pub const PROBABILITY_HIGH: &str = "high";
+/// Effectively certain on the current plan. At this point it is a planned
+/// event, not a risk: it belongs in the plan with an owner and a date, and
+/// leaving it on the risk register hides work rather than tracking it.
+pub const PROBABILITY_VERY_HIGH: &str = "veryHigh";
+
+/// parse_probability returns token when it is a known Probability value, else "".
+pub fn parse_probability(token: &str) -> String {
+    match token {
+        PROBABILITY_VERY_LOW | PROBABILITY_LOW | PROBABILITY_MEDIUM | PROBABILITY_HIGH | PROBABILITY_VERY_HIGH => token.to_string(),
         _ => String::new(),
     }
 }
@@ -1014,6 +1099,44 @@ pub const SERVER_CALL_ROLE_HANDLE_ERROR: &str = "handleError";
 pub fn parse_server_call_role(token: &str) -> String {
     match token {
         SERVER_CALL_ROLE_ASSEMBLE_REQUEST | SERVER_CALL_ROLE_HANDLE_RESPONSE | SERVER_CALL_ROLE_HANDLE_ERROR => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `Status` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Being authored. The wording may change without notice and nothing
+/// downstream may be planned, estimated or built against it.
+pub const STATUS_DRAFT: &str = "draft";
+/// Complete enough to be reviewed and awaiting a decision. Review may still
+/// send it back or reject it outright, so it is not yet a commitment.
+pub const STATUS_PROPOSED: &str = "proposed";
+/// Signed off as the agreed intent, and the baseline that downstream work is
+/// planned and estimated against. From here on a change is a change request
+/// with its own approval, not a quiet edit.
+pub const STATUS_APPROVED: &str = "approved";
+/// A realising artifact exists, but nothing has yet confirmed it does what
+/// [approved] committed to. The gap between this and [verified] is exactly
+/// the evidence, which is why the two are separate states rather than one
+/// "done".
+pub const STATUS_IMPLEMENTED: &str = "implemented";
+/// Implemented *and* shown to meet its acceptance criteria by test or review
+/// evidence. The only terminal state that means the item is finished.
+pub const STATUS_VERIFIED: &str = "verified";
+/// Approved in substance but not scheduled for this delivery, and kept in the
+/// document so it returns to the backlog instead of being lost. This is the
+/// lifecycle position; [Priority.wontThisTime] is the scoping decision that
+/// puts an item here.
+pub const STATUS_DEFERRED: &str = "deferred";
+/// Decided against, permanently. Retained rather than deleted so a later
+/// reader can see the option was considered and why it lost, instead of
+/// re-proposing it.
+pub const STATUS_REJECTED: &str = "rejected";
+
+/// parse_status returns token when it is a known Status value, else "".
+pub fn parse_status(token: &str) -> String {
+    match token {
+        STATUS_DRAFT | STATUS_PROPOSED | STATUS_APPROVED | STATUS_IMPLEMENTED | STATUS_VERIFIED | STATUS_DEFERRED | STATUS_REJECTED => token.to_string(),
         _ => String::new(),
     }
 }

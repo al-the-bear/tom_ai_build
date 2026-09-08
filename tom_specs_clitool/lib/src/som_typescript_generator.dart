@@ -251,7 +251,7 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
   // language-agnostic.
   final schemas = DocSpecsSchemaGenerator(
     classes,
-  ).generateAll(modelVersion: modelVersion);
+  ).generateAll(modelVersion: modelVersion, modelLabel: modelLabel);
   final schemaPaths = DocSpecsSchemaGenerator.writeSchemaTree(
     outputRoot,
     schemas,

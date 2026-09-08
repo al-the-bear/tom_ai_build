@@ -5,6 +5,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../common/enums.dart';
+
 import '../document_stubs.dart';
 
 /// 13. System Stage Plan. Seeds → DRM.
@@ -3091,9 +3093,9 @@ class MoscowEntry extends DocSpecsSection {
   @Form([
     Field(
       'moscowCategory',
-      String,
+      Priority,
       'MoSCoW Category',
-      hint: 'Must / Should / Could / Wont',
+      hint: 'MoSCoW scoping band for this item.',
       required: true,
     ),
     Field(
@@ -3778,9 +3780,9 @@ class FeaturePriorityEntry extends DocSpecsSection {
     ),
     Field(
       'moscowTier',
-      String,
+      Priority,
       'MoSCoW Tier',
-      hint: 'Must / Should / Could / Wont',
+      hint: 'MoSCoW scoping band for this feature.',
       required: true,
     ),
     Field(
@@ -5843,16 +5845,16 @@ class StageMigrationRiskEntry extends DocSpecsSection {
   @Form([
     Field(
       'probability',
-      String,
+      Probability,
       'Probability',
-      hint: 'VeryLow / Low / Medium / High / VeryHigh',
+      hint: 'Qualitative likelihood band for this migration risk.',
       required: true,
     ),
     Field(
       'impact',
-      String,
+      Impact,
       'Impact',
-      hint: 'Negligible / Minor / Moderate / Major / Critical',
+      hint: 'Qualitative consequence band if the risk lands.',
       required: true,
     ),
     Field(
@@ -6020,15 +6022,15 @@ class StageMigrationRiskEntry extends DocSpecsSection {
   @Form([
     Field(
       'residualProbability',
-      String,
+      Probability,
       'Residual Probability',
-      hint: 'VeryLow / Low / Medium / High — after mitigation',
+      hint: 'Expected likelihood band once the mitigation is in place.',
     ),
     Field(
       'residualImpact',
-      String,
+      Impact,
       'Residual Impact',
-      hint: 'Negligible / Minor / Moderate / Major — after mitigation',
+      hint: 'Expected consequence band once the mitigation is in place.',
     ),
     Field(
       'residualRiskAcceptable',

@@ -173,6 +173,25 @@ std::optional<std::string> GradedAccessLevel::parse(const std::string& token) {
   return std::nullopt;
 }
 
+std::optional<std::string> Impact::parse(const std::string& token) {
+  if (token == negligible) {
+    return token;
+  }
+  if (token == minor) {
+    return token;
+  }
+  if (token == moderate) {
+    return token;
+  }
+  if (token == major) {
+    return token;
+  }
+  if (token == critical) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> Iso25010Characteristic::parse(const std::string& token) {
   if (token == functionalSuitability) {
     return token;
@@ -225,6 +244,41 @@ std::optional<std::string> ObjectLifecycleKind::parse(const std::string& token) 
     return token;
   }
   if (token == error) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> Priority::parse(const std::string& token) {
+  if (token == must) {
+    return token;
+  }
+  if (token == should) {
+    return token;
+  }
+  if (token == could) {
+    return token;
+  }
+  if (token == wontThisTime) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> Probability::parse(const std::string& token) {
+  if (token == veryLow) {
+    return token;
+  }
+  if (token == low) {
+    return token;
+  }
+  if (token == medium) {
+    return token;
+  }
+  if (token == high) {
+    return token;
+  }
+  if (token == veryHigh) {
     return token;
   }
   return std::nullopt;
@@ -492,6 +546,31 @@ std::optional<std::string> ServerCallRole::parse(const std::string& token) {
     return token;
   }
   if (token == handleError) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> Status::parse(const std::string& token) {
+  if (token == draft) {
+    return token;
+  }
+  if (token == proposed) {
+    return token;
+  }
+  if (token == approved) {
+    return token;
+  }
+  if (token == implemented) {
+    return token;
+  }
+  if (token == verified) {
+    return token;
+  }
+  if (token == deferred) {
+    return token;
+  }
+  if (token == rejected) {
     return token;
   }
   return std::nullopt;

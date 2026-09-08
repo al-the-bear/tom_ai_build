@@ -75,7 +75,7 @@ static std::string dartKind(const char* kind) {
 int main(int argc, char** argv) {
   const std::string sample =
       argc > 1 ? argv[1]
-               : "../tom_som_conformance/samples/"
+               : "../tom_som_dart_v0/documents/"
                  "meridian_order_management.docspecs.yaml";
   const std::string output =
       argc > 2 ? argv[2] : "../tom_som_conformance/golden/cpp.log";

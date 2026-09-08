@@ -325,9 +325,20 @@ parallel-run gate passes.''');
   stdout.writeln('Wrote sample to ${samplesDir.absolute.path}');
   stdout.writeln('  meridian_order_management.docspecs.yaml (${yaml.length} bytes)');
   stdout.writeln('  meridian_order_management.md (${markdown.length} bytes)');
-  stdout.writeln('  markdown validates cleanly against solution-blueprint/1.0');
+  // Reported from the rendition's own `<!-- docspec: id/version -->` line
+  // rather than a literal: the version tracks the model's minor, so a literal
+  // here goes stale on the next version bump and says so to nobody.
+  stdout.writeln('  markdown validates cleanly against '
+      '${_docspecDeclaration(markdown)}');
   stdout.writeln('  document validates cleanly against the instance tier');
 }
+
+/// The `id/version` a rendition declares in its SOM §11.1 header line.
+String _docspecDeclaration(String markdown) =>
+    RegExp(r'<!--\s*docspec:\s*([^\s]+)\s*-->')
+        .firstMatch(markdown.split('\n').first)
+        ?.group(1) ??
+    '(no docspec declaration)';
 
 /// Collapses a hard-wrapped multi-line string literal into a single paragraph.
 /// Used for *form-field* values, which the DocSpecs markdown format renders as
@@ -418,7 +429,7 @@ every downstream artifact traces back to a requirement.''');
   // human FR-nn title is the stored item headline. Neither is a form field any
   // more (the content form carries only `status`), so both are authored through
   // the generic `$sectionId`/`$headline` stores.
-  fr1.content.status = 'Approved';
+  fr1.content.status = Status.approved;
   fr1.$sectionId = 'FRE-REQU-ORDER-CAPTURE';
   fr1.$headline = 'FR-01 — Capture orders from EDI and REST channels';
   fr1.details
@@ -429,7 +440,7 @@ so downstream processing is channel-agnostic.''')
     ..requirementType = 'Functional'
     ..category = 'Order Capture';
   fr1.priority
-    ..priority = 'Must'
+    ..priority = Priority.must
     ..businessValue = 'High'
     ..effort = 'M'
     ..riskLevel = 'Medium';
@@ -453,7 +464,7 @@ so downstream processing is channel-agnostic.''')
       then: 'an Order is created in state Captured with the same shape as EDI');
 
   final fr2 = fr.add();
-  fr2.content.status = 'Approved';
+  fr2.content.status = Status.approved;
   fr2.$sectionId = 'FRE-REQU-SYNC-PRICING';
   fr2.$headline = 'FR-02 — Price orders synchronously at capture time';
   fr2.details
@@ -464,7 +475,7 @@ making historical orders reproducible.''')
     ..requirementType = 'Functional'
     ..category = 'Pricing';
   fr2.priority
-    ..priority = 'Must'
+    ..priority = Priority.must
     ..businessValue = 'High'
     ..effort = 'M'
     ..riskLevel = 'Medium';
@@ -477,7 +488,7 @@ making historical orders reproducible.''')
       then: 'each line stores the resolved unit price as of the pricing timestamp');
 
   final fr3 = fr.add();
-  fr3.content.status = 'Approved';
+  fr3.content.status = Status.approved;
   fr3.$sectionId = 'FRE-REQU-STOCK-RESERVATION';
   fr3.$headline = 'FR-03 — Reserve stock before confirmation';
   fr3.details
@@ -488,7 +499,7 @@ whole order.''')
     ..requirementType = 'Functional'
     ..category = 'Fulfilment';
   fr3.priority
-    ..priority = 'Must'
+    ..priority = Priority.must
     ..businessValue = 'High'
     ..effort = 'L'
     ..riskLevel = 'High';
@@ -504,7 +515,7 @@ whole order.''')
       then: 'only the short line is placed on Hold while the remaining lines reserve normally');
 
   final fr4 = fr.add();
-  fr4.content.status = 'Approved';
+  fr4.content.status = Status.approved;
   fr4.$sectionId = 'FRE-REQU-CONFIRM-SLA';
   fr4.$headline = 'FR-04 — Confirm orders within five minutes';
   fr4.details
@@ -515,7 +526,7 @@ the operations work list and the public tracking page.''')
     ..requirementType = 'Functional'
     ..category = 'Order Lifecycle';
   fr4.priority
-    ..priority = 'Must'
+    ..priority = Priority.must
     ..businessValue = 'High'
     ..effort = 'M'
     ..riskLevel = 'Medium';
@@ -531,7 +542,7 @@ the operations work list and the public tracking page.''')
       then: 'the order appears as Confirmed on the operations work list and the public tracking page');
 
   final fr5 = fr.add();
-  fr5.content.status = 'Approved';
+  fr5.content.status = Status.approved;
   fr5.$sectionId = 'FRE-REQU-AMEND-CANCEL';
   fr5.$headline = 'FR-05 — Amend or cancel an order before dispatch';
   fr5.details
@@ -542,7 +553,7 @@ for the affected lines and is fully audited.''')
     ..requirementType = 'Functional'
     ..category = 'Order Amendment';
   fr5.priority
-    ..priority = 'Should'
+    ..priority = Priority.should
     ..businessValue = 'Medium'
     ..effort = 'M'
     ..riskLevel = 'Medium';
@@ -558,7 +569,7 @@ for the affected lines and is fully audited.''')
       then: 'the cancellation is rejected and the rejection is recorded in the audit trail');
 
   final fr6 = fr.add();
-  fr6.content.status = 'Approved';
+  fr6.content.status = Status.approved;
   fr6.$sectionId = 'FRE-REQU-HOLD-RELEASE';
   fr6.$headline = 'FR-06 — Release a manual hold';
   fr6.details
@@ -568,7 +579,7 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..requirementType = 'Functional'
     ..category = 'Exception Handling';
   fr6.priority
-    ..priority = 'Must'
+    ..priority = Priority.must
     ..businessValue = 'High'
     ..effort = 'S'
     ..riskLevel = 'Low';
@@ -582,7 +593,7 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
   final tr = reqs.technicalRequirements.requirements;
 
   final tr1 = tr.add();
-  tr1.content.status = 'Approved';
+  tr1.content.status = Status.approved;
   tr1.$sectionId = 'TERQ-REQU-CONFIRM-LATENCY';
   tr1.$headline = 'TR-01 — Confirmation latency budget';
   tr1.details
@@ -601,7 +612,7 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..measurementFrequency = 'Per release + continuous in production';
 
   final tr2 = tr.add();
-  tr2.content.status = 'Approved';
+  tr2.content.status = Status.approved;
   tr2.$sectionId = 'TERQ-REQU-CAPTURE-AVAILABILITY';
   tr2.$headline = 'TR-02 — Capture API availability';
   tr2.details
@@ -618,7 +629,7 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..measurementFrequency = 'Monthly';
 
   final tr3 = tr.add();
-  tr3.content.status = 'Approved';
+  tr3.content.status = Status.approved;
   tr3.$sectionId = 'TERQ-REQU-EVENT-SOURCED';
   tr3.$headline = 'TR-03 — Event-sourced order service';
   tr3.details

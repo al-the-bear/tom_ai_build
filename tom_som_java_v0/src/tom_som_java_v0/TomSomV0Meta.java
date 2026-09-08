@@ -11466,7 +11466,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Default handling and approval path.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("defaultImpactLevel", "String", "Default Impact Level", false, "Typical impact level — Minor / Moderate / Major / Critical", 0),
+            new SomFormFieldMeta("defaultImpactLevel", "Impact", "Default Impact Level", false, "Typical consequence band for changes in this category.", 0, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("approvalPath", "String", "Approval Path", false, "Who approves changes in this category", 1),
             new SomFormFieldMeta("expeditedProcessAllowed", "String", "Expedited Process Allowed", false, "Yes / No — whether fast-track is available", 2),
             new SomFormFieldMeta("minimumLeadTime", "String", "Minimum Lead Time", false, "Minimum time needed for assessment", 3),
@@ -17621,8 +17621,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Risk assessment.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("probability", "String", "Probability", false, "VeryLow / Low / Medium / High / VeryHigh", 0),
-            new SomFormFieldMeta("impact", "String", "Business Impact", false, "Negligible / Minor / Moderate / Major / Critical", 1),
+            new SomFormFieldMeta("probability", "Probability", "Probability", false, "Qualitative likelihood band for this component risk.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
+            new SomFormFieldMeta("impact", "Impact", "Business Impact", false, "Qualitative consequence band if the risk lands.", 1, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("riskScore", "int", "Risk Score", false, "Calculated score (probability × impact)", 2),
             new SomFormFieldMeta("riskTrend", "String", "Risk Trend", false, "Increasing / Stable / Decreasing — direction since last review", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk"), "connotation", "Records the assessment of a component risk, including probability, business impact, risk score, and risk trend.")));
@@ -41553,7 +41553,7 @@ public final class TomSomV0Meta {
         n.docComment = "Priority scoring.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("weightedPriorityScore", "String", "Weighted Priority Score", true, "Calculated score from weighted criteria", 0),
-            new SomFormFieldMeta("moscowTier", "String", "MoSCoW Tier", true, "Must / Should / Could / Wont", 1),
+            new SomFormFieldMeta("moscowTier", "Priority", "MoSCoW Tier", true, "MoSCoW scoping band for this feature.", 1, java.util.List.of("must", "should", "could", "wontThisTime")),
             new SomFormFieldMeta("wsjfScore", "String", "WSJF Score", false, "Weighted Shortest Job First score — CoD / JobSize", 2),
             new SomFormFieldMeta("kanoClassification", "String", "Kano Classification", false, "Basic / Performance / Excitement / Indifferent", 3),
             new SomFormFieldMeta("prioritizationNotes", "String", "Prioritization Notes", false, "Justification or context for the scoring", 4)));
@@ -43243,7 +43243,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("status", "String", "Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)", true, "Draft, Proposed, Approved, Implemented, Verified, or Deferred", 0)));
+            new SomFormFieldMeta("status", "Status", "Status", true, "Lifecycle position of the requirement, from authoring to evidence.", 0, java.util.List.of("draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"))));
         out.add(n);
       }
       {
@@ -43266,7 +43266,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Priority and effort assessment.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("priority", "String", "Priority (Must, Should, Could, Won't-This-Time)", true, "MoSCoW priority: Must, Should, Could, or Won't-This-Time", 0),
+            new SomFormFieldMeta("priority", "Priority", "Priority", true, "MoSCoW scoping band — what happens if this requirement does not ship.", 0, java.util.List.of("must", "should", "could", "wontThisTime")),
             new SomFormFieldMeta("businessValue", "String", "Business Value (High, Medium, Low) - benefit to business", false, "High / Medium / Low benefit to the business", 1),
             new SomFormFieldMeta("effort", "String", "Estimated Effort (Small, Medium, Large, XLarge)", false, "Estimated effort: Small, Medium, Large, or XLarge", 2),
             new SomFormFieldMeta("riskLevel", "String", "Risk Level (High, Medium, Low) - risk of not meeting", false, "High / Medium / Low risk of not meeting the requirement", 3)));
@@ -56060,7 +56060,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Probability assessment.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("probabilityRating", "String", "Probability Rating", false, "Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)", 0),
+            new SomFormFieldMeta("probabilityRating", "Probability", "Probability Rating", false, "Qualitative likelihood band — veryHigh >80%, high 60-80%, medium 40-60%, low 20-40%, veryLow <20%.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
             new SomFormFieldMeta("probabilityScore", "int", "Probability Score (1-5)", false, "Numeric score for calculations", 1),
             new SomFormFieldMeta("probabilityRationale", "String", "Probability Rationale", false, "Why this probability was assigned", 2),
             new SomFormFieldMeta("probabilityTrend", "String", "Probability Trend", false, "Increasing, stable, decreasing", 3)));
@@ -56119,7 +56119,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("mitigationDueDate", "String", "Mitigation Due Date", false, "Target completion date for mitigation", 4),
             new SomFormFieldMeta("mitigationCost", "String", "Mitigation Cost", false, "Cost to implement mitigation", 5),
             new SomFormFieldMeta("mitigationStatus", "String", "Mitigation Status", false, "Not started, in progress, completed", 6),
-            new SomFormFieldMeta("residualProbability", "String", "Residual Probability", false, "Probability after mitigation", 7),
+            new SomFormFieldMeta("residualProbability", "Probability", "Residual Probability", false, "Expected likelihood band once the mitigation is in place.", 7, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
             new SomFormFieldMeta("residualImpact", "String", "Residual Impact", false, "Impact after mitigation", 8),
             new SomFormFieldMeta("residualRiskScore", "int", "Residual Risk Score", false, "Risk score after mitigation", 9)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"), "connotation", "Captures the chosen response and actions to reduce a migration risk, including ownership, cost, status, and residual exposure after mitigation.")));
@@ -57813,7 +57813,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "MoSCoW classification details.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("moscowCategory", "String", "MoSCoW Category", true, "Must / Should / Could / Wont", 0),
+            new SomFormFieldMeta("moscowCategory", "Priority", "MoSCoW Category", true, "MoSCoW scoping band for this item.", 0, java.util.List.of("must", "should", "could", "wontThisTime")),
             new SomFormFieldMeta("justification", "String", "Justification", true, "Why this feature has this classification — business rationale, regulatory need, user demand", 1),
             new SomFormFieldMeta("reclassificationRisk", "String", "Reclassification Risk", false, "Low / Medium / High — likelihood the category will change before delivery", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"), "connotation", "Captures the MoSCoW category, justification, and reclassification risk for a single feature.")));
@@ -62230,7 +62230,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category (Training, Process Change, Role Change, Support, Communication, Policy, Governance, Culture, Staffing)", true, "Type of organizational change the requirement entails", 0),
             new SomFormFieldMeta("subcategory", "String", "Subcategory", false, "More specific aspect within the category", 1),
-            new SomFormFieldMeta("priority", "String", "Priority (Must, Should, Could, Won't-This-Time)", true, "MoSCoW priority: Must, Should, Could, or Won't-This-Time", 2),
+            new SomFormFieldMeta("priority", "Priority", "Priority", true, "MoSCoW scoping band — what happens if this requirement does not ship.", 2, java.util.List.of("must", "should", "could", "wontThisTime")),
             new SomFormFieldMeta("source", "String", "Source", true, "Stakeholder or document that originated it", 3),
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this organizational change is needed", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21500 — organizational project management", "BABOK v3 §10 — organizational readiness", "ISO/IEC/IEEE 29148 §9 — organizational requirements"), "connotation", "The classification of an organizational requirement — its change category, priority, source, and rationale.")));
@@ -77772,9 +77772,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Risk analysis — probability, impact, and scoring.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("probability", "String", "Probability — Very Low, Low, Medium, High, Very High", false, "Qualitative likelihood rating", 0),
+            new SomFormFieldMeta("probability", "Probability", "Probability", false, "Qualitative likelihood band — the likelihood axis of the matrix.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
             new SomFormFieldMeta("probabilityValue", "double", "Probability Value — numeric (0.0-1.0) for quantitative analysis", false, "Numeric likelihood between 0.0 and 1.0", 1),
-            new SomFormFieldMeta("impact", "String", "Impact — Negligible, Minor, Moderate, Major, Catastrophic", false, "Qualitative severity rating", 2),
+            new SomFormFieldMeta("impact", "Impact", "Impact", false, "Qualitative consequence band — the consequence axis of the matrix.", 2, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("impactValue", "double", "Impact Value — numeric score (1-5 or monetary value)", false, "Numeric severity score or monetary value", 3),
             new SomFormFieldMeta("riskScore", "double", "Risk Score — calculated (probability × impact)", false, "Computed score from probability times impact", 4),
             new SomFormFieldMeta("riskLevel", "String", "Risk Level — Low, Medium, High, Critical", false, "Overall risk level classification", 5),
@@ -78096,8 +78096,8 @@ public final class TomSomV0Meta {
         n.docComment = "Residual and secondary risk expectations.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("residualRisk", "String", "Residual Risk — level remaining after mitigation", false, "Risk level remaining after mitigation", 0),
-            new SomFormFieldMeta("residualProbability", "String", "Residual Probability — expected after mitigation", false, "Expected likelihood after mitigation", 1),
-            new SomFormFieldMeta("residualImpact", "String", "Residual Impact — expected after mitigation", false, "Expected impact after mitigation", 2),
+            new SomFormFieldMeta("residualProbability", "Probability", "Residual Probability — expected after mitigation", false, "Expected likelihood band once the response is in place.", 1, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
+            new SomFormFieldMeta("residualImpact", "Impact", "Residual Impact — expected after mitigation", false, "Expected consequence band once the response is in place.", 2, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("secondaryRisks", "String", "Secondary Risks — new risks from implementing response", false, "New risks arising from the response", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — risk management", "ISO/IEC 31010 — risk assessment techniques"), "connotation", "This section captures the residual risk expected after treatment and any secondary risks introduced by the response.")));
         out.add(n);
@@ -83967,7 +83967,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("residualRisk", "String", "Residual Risk (after mitigation)", false, "Risk remaining once controls are applied", 0),
             new SomFormFieldMeta("riskOwner", "String", "Risk Owner", false, "Person or role accountable for the residual risk", 1),
-            new SomFormFieldMeta("status", "String", "Status (Draft, Proposed, Approved, Implemented, Verified)", true, "Draft, Proposed, Approved, Implemented, or Verified", 2)));
+            new SomFormFieldMeta("status", "Status", "Status", true, "Lifecycle position of the requirement, from authoring to evidence.", 2, java.util.List.of("draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 27001 Annex A — security controls", "ISO/IEC/IEEE 29148 §9 — security requirements"), "connotation", "The lifecycle and ownership of a security requirement — residual risk after mitigation, the risk owner, and current status.")));
         out.add(n);
       }
@@ -88610,8 +88610,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Probability and impact assessment.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("probability", "String", "Probability", true, "VeryLow / Low / Medium / High / VeryHigh", 0),
-            new SomFormFieldMeta("impact", "String", "Impact", true, "Negligible / Minor / Moderate / Major / Critical", 1),
+            new SomFormFieldMeta("probability", "Probability", "Probability", true, "Qualitative likelihood band for this migration risk.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
+            new SomFormFieldMeta("impact", "Impact", "Impact", true, "Qualitative consequence band if the risk lands.", 1, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("riskScore", "String", "Risk Score", false, "Calculated risk rating — Probability x Impact", 2),
             new SomFormFieldMeta("impactAreas", "String", "Impact Areas", false, "DataIntegrity / SystemAvailability / Compliance / Budget", 3),
             new SomFormFieldMeta("affectedPhases", "String", "Affected Phases", false, "Which migration phases are exposed", 4)));
@@ -88678,8 +88678,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 7;
         n.docComment = "Residual risk assessment.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("residualProbability", "String", "Residual Probability", false, "VeryLow / Low / Medium / High — after mitigation", 0),
-            new SomFormFieldMeta("residualImpact", "String", "Residual Impact", false, "Negligible / Minor / Moderate / Major — after mitigation", 1),
+            new SomFormFieldMeta("residualProbability", "Probability", "Residual Probability", false, "Expected likelihood band once the mitigation is in place.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
+            new SomFormFieldMeta("residualImpact", "Impact", "Residual Impact", false, "Expected consequence band once the mitigation is in place.", 1, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("residualRiskAcceptable", "String", "Residual Risk Acceptable", false, "Yes / No / Conditional", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — the risk management guidance addresses residual risk remaining after treatment and whether it is acceptable"), "connotation", "Captures the residual probability, impact, and acceptability of a migration risk after mitigation.")));
         out.add(n);
@@ -97517,7 +97517,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("status", "String", "Status (Draft, Proposed, Approved, Verified, Deferred)", true, "Draft, Proposed, Approved, Verified, or Deferred", 0)));
+            new SomFormFieldMeta("status", "Status", "Status", true, "Lifecycle position of the requirement, from authoring to evidence.", 0, java.util.List.of("draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"))));
         out.add(n);
       }
       {

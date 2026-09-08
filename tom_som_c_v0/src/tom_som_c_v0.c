@@ -96,6 +96,17 @@ char *parse_graded_access_level(const char *token) {
   return som_strdup("");
 }
 
+char *parse_impact(const char *token) {
+  if (strcmp(token, IMPACT_NEGLIGIBLE) == 0 ||
+      strcmp(token, IMPACT_MINOR) == 0 ||
+      strcmp(token, IMPACT_MODERATE) == 0 ||
+      strcmp(token, IMPACT_MAJOR) == 0 ||
+      strcmp(token, IMPACT_CRITICAL) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 char *parse_iso25010_characteristic(const char *token) {
   if (strcmp(token, ISO25010_CHARACTERISTIC_FUNCTIONAL_SUITABILITY) == 0 ||
       strcmp(token, ISO25010_CHARACTERISTIC_PERFORMANCE_EFFICIENCY) == 0 ||
@@ -124,6 +135,27 @@ char *parse_object_lifecycle_kind(const char *token) {
       strcmp(token, OBJECT_LIFECYCLE_KIND_INTERMEDIATE) == 0 ||
       strcmp(token, OBJECT_LIFECYCLE_KIND_TERMINAL) == 0 ||
       strcmp(token, OBJECT_LIFECYCLE_KIND_ERROR) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_priority(const char *token) {
+  if (strcmp(token, PRIORITY_MUST) == 0 ||
+      strcmp(token, PRIORITY_SHOULD) == 0 ||
+      strcmp(token, PRIORITY_COULD) == 0 ||
+      strcmp(token, PRIORITY_WONT_THIS_TIME) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_probability(const char *token) {
+  if (strcmp(token, PROBABILITY_VERY_LOW) == 0 ||
+      strcmp(token, PROBABILITY_LOW) == 0 ||
+      strcmp(token, PROBABILITY_MEDIUM) == 0 ||
+      strcmp(token, PROBABILITY_HIGH) == 0 ||
+      strcmp(token, PROBABILITY_VERY_HIGH) == 0) {
     return som_strdup(token);
   }
   return som_strdup("");
@@ -255,6 +287,19 @@ char *parse_server_call_role(const char *token) {
   if (strcmp(token, SERVER_CALL_ROLE_ASSEMBLE_REQUEST) == 0 ||
       strcmp(token, SERVER_CALL_ROLE_HANDLE_RESPONSE) == 0 ||
       strcmp(token, SERVER_CALL_ROLE_HANDLE_ERROR) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_status(const char *token) {
+  if (strcmp(token, STATUS_DRAFT) == 0 ||
+      strcmp(token, STATUS_PROPOSED) == 0 ||
+      strcmp(token, STATUS_APPROVED) == 0 ||
+      strcmp(token, STATUS_IMPLEMENTED) == 0 ||
+      strcmp(token, STATUS_VERIFIED) == 0 ||
+      strcmp(token, STATUS_DEFERRED) == 0 ||
+      strcmp(token, STATUS_REJECTED) == 0) {
     return som_strdup(token);
   }
   return som_strdup("");

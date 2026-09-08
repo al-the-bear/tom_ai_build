@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: requirements-specification/1.0
+# Schema: requirements-specification/1.1
 
 title-format: "# <!--[RSP]--> Requirements Specification"
 section-types:
@@ -676,7 +676,7 @@ form-types:
     fields:
       - fieldname: priority
         required: true
-        description: "MoSCoW priority: Must, Should, Could, or Won't-This-Time"
+        description: MoSCoW scoping band — what happens if this requirement does not ship.
       - fieldname: businessValue
         description: High / Medium / Low benefit to the business
       - fieldname: effort
@@ -975,7 +975,7 @@ form-types:
         description: Person or role accountable for the residual risk
       - fieldname: status
         required: true
-        description: "Draft, Proposed, Approved, Implemented, or Verified"
+        description: "Lifecycle position of the requirement, from authoring to evidence."
   scei-form:
     fields:
       - fieldname: description
@@ -1019,7 +1019,7 @@ form-types:
         description: More specific aspect within the category
       - fieldname: priority
         required: true
-        description: "MoSCoW priority: Must, Should, Could, or Won't-This-Time"
+        description: MoSCoW scoping band — what happens if this requirement does not ship.
       - fieldname: source
         required: true
         description: Stakeholder or document that originated it

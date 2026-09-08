@@ -344,6 +344,38 @@ GradedAccessLevel? _parseGradedAccessLevel(String? token) {
   return null;
 }
 
+/// Generated enum for `Impact` values.
+enum Impact {
+  /// Absorbed inside normal working. No measurable change to schedule, budget
+  /// or quality, and nobody outside the team doing the work has to know.
+  negligible,
+
+  /// Felt within one workstream and covered by that workstream's own
+  /// contingency. Nothing outside it is replanned.
+  minor,
+
+  /// Exceeds a single workstream's contingency and forces replanning across
+  /// workstreams. Project management decides; the sponsor is informed.
+  moderate,
+
+  /// Threatens a committed date, budget or quality commitment. Recovery
+  /// requires a sponsor decision — more money, less scope, or a later date.
+  major,
+
+  /// The objective itself fails and no contingency inside the project recovers
+  /// it. The decision at this level is whether the project continues at all.
+  critical;
+}
+
+/// Parses a stored token into a [Impact], or `null`.
+Impact? _parseImpact(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in Impact.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `Iso25010Characteristic` values.
 enum Iso25010Characteristic {
   /// ISO/IEC 25010:2023 *functional suitability* — the degree to which the
@@ -490,6 +522,76 @@ enum ObjectLifecycleKind {
 ObjectLifecycleKind? _parseObjectLifecycleKind(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in ObjectLifecycleKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `Priority` values.
+enum Priority {
+  /// MoSCoW *must have*: the release is not shippable without it. A failed
+  /// must-have is a release blocker — the date moves, the requirement does
+  /// not. Anything that can be traded away under schedule pressure was never
+  /// a must.
+  must,
+
+  /// MoSCoW *should have*: painful to omit, but the release still ships
+  /// without it. This is the first band traded away when the timebox is
+  /// threatened, and dropping one is expected to come with a stated
+  /// workaround rather than silence.
+  should,
+
+  /// MoSCoW *could have*: included only while it costs nothing that a
+  /// [must] or [should] item needs. Dropping it is a routine timebox decision
+  /// and requires no re-approval.
+  could,
+
+  /// MoSCoW *won't have — this time*: deliberately excluded from **this**
+  /// delivery and recorded rather than deleted, so the decision (and its
+  /// reasoning) survives into the next planning round. Distinct from
+  /// [Status.rejected], which means never; this means not now.
+  wontThisTime;
+}
+
+/// Parses a stored token into a [Priority], or `null`.
+Priority? _parsePriority(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in Priority.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `Probability` values.
+enum Probability {
+  /// Would be surprising: no trigger for it is visible in the current plan.
+  /// Carried on the register to be watched, not to be mitigated.
+  veryLow,
+
+  /// Plausible but not expected — a known trigger exists and is not currently
+  /// active. Cheap mitigations are worth taking; expensive ones are not.
+  low,
+
+  /// As likely as not. The band where the decision to mitigate turns on cost
+  /// rather than on likelihood, and the one most often used as a default when
+  /// nobody has actually estimated — a medium with no reasoning behind it is
+  /// worth challenging.
+  medium,
+
+  /// Expected unless something about the plan changes. Mitigation is assumed;
+  /// its absence needs an explicit reason.
+  high,
+
+  /// Effectively certain on the current plan. At this point it is a planned
+  /// event, not a risk: it belongs in the plan with an owner and a date, and
+  /// leaving it on the risk register hides work rather than tracking it.
+  veryHigh;
+}
+
+/// Parses a stored token into a [Probability], or `null`.
+Probability? _parseProbability(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in Probability.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -1162,6 +1264,52 @@ enum ServerCallRole {
 ServerCallRole? _parseServerCallRole(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in ServerCallRole.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `Status` values.
+enum Status {
+  /// Being authored. The wording may change without notice and nothing
+  /// downstream may be planned, estimated or built against it.
+  draft,
+
+  /// Complete enough to be reviewed and awaiting a decision. Review may still
+  /// send it back or reject it outright, so it is not yet a commitment.
+  proposed,
+
+  /// Signed off as the agreed intent, and the baseline that downstream work is
+  /// planned and estimated against. From here on a change is a change request
+  /// with its own approval, not a quiet edit.
+  approved,
+
+  /// A realising artifact exists, but nothing has yet confirmed it does what
+  /// [approved] committed to. The gap between this and [verified] is exactly
+  /// the evidence, which is why the two are separate states rather than one
+  /// "done".
+  implemented,
+
+  /// Implemented *and* shown to meet its acceptance criteria by test or review
+  /// evidence. The only terminal state that means the item is finished.
+  verified,
+
+  /// Approved in substance but not scheduled for this delivery, and kept in the
+  /// document so it returns to the backlog instead of being lost. This is the
+  /// lifecycle position; [Priority.wontThisTime] is the scoping decision that
+  /// puts an item here.
+  deferred,
+
+  /// Decided against, permanently. Retained rather than deleted so a later
+  /// reader can see the option was considered and why it lost, instead of
+  /// re-proposing it.
+  rejected;
+}
+
+/// Parses a stored token into a [Status], or `null`.
+Status? _parseStatus(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in Status.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -54574,9 +54722,11 @@ class ChangeCategoryEntryHandlingForm extends SomNode {
 
   /// Default Impact Level.
   ///
-  /// Typical impact level — Minor / Moderate / Major / Critical
-  String get defaultImpactLevel => doc.formField(path, 'defaultImpactLevel') ?? '';
-  set defaultImpactLevel(String value) => doc.setFormField(path, 'defaultImpactLevel', value);
+  /// Typical consequence band for changes in this category.
+  ///
+  /// Stored as one of: `negligible`, `minor`, `moderate`, `major`, `critical`.
+  Impact? get defaultImpactLevel => _parseImpact(doc.formField(path, 'defaultImpactLevel'));
+  set defaultImpactLevel(Impact? value) => doc.setFormField(path, 'defaultImpactLevel', value?.name ?? '');
 
   /// Approval Path.
   ///
@@ -61110,15 +61260,19 @@ class ComponentRiskEntryAssessmentForm extends SomNode {
 
   /// Probability.
   ///
-  /// VeryLow / Low / Medium / High / VeryHigh
-  String get probability => doc.formField(path, 'probability') ?? '';
-  set probability(String value) => doc.setFormField(path, 'probability', value);
+  /// Qualitative likelihood band for this component risk.
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get probability => _parseProbability(doc.formField(path, 'probability'));
+  set probability(Probability? value) => doc.setFormField(path, 'probability', value?.name ?? '');
 
   /// Business Impact.
   ///
-  /// Negligible / Minor / Moderate / Major / Critical
-  String get impact => doc.formField(path, 'impact') ?? '';
-  set impact(String value) => doc.setFormField(path, 'impact', value);
+  /// Qualitative consequence band if the risk lands.
+  ///
+  /// Stored as one of: `negligible`, `minor`, `moderate`, `major`, `critical`.
+  Impact? get impact => _parseImpact(doc.formField(path, 'impact'));
+  set impact(Impact? value) => doc.setFormField(path, 'impact', value?.name ?? '');
 
   /// Risk Score.
   ///
@@ -81802,11 +81956,13 @@ class FeaturePriorityEntryPriorityScoringForm extends SomNode {
 
   /// MoSCoW Tier.
   ///
-  /// Must / Should / Could / Wont
+  /// MoSCoW scoping band for this feature.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get moscowTier => doc.formField(path, 'moscowTier') ?? '';
-  set moscowTier(String value) => doc.setFormField(path, 'moscowTier', value);
+  ///
+  /// Stored as one of: `must`, `should`, `could`, `wontThisTime`.
+  Priority? get moscowTier => _parsePriority(doc.formField(path, 'moscowTier'));
+  set moscowTier(Priority? value) => doc.setFormField(path, 'moscowTier', value?.name ?? '');
 
   /// WSJF Score.
   ///
@@ -83378,13 +83534,15 @@ class FunctionalRequirementEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Status (Draft, Proposed, Approved, Implemented, Verified, Deferred).
+  /// Status.
   ///
-  /// Draft, Proposed, Approved, Implemented, Verified, or Deferred
+  /// Lifecycle position of the requirement, from authoring to evidence.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get status => doc.formField(path, 'status') ?? '';
-  set status(String value) => doc.setFormField(path, 'status', value);
+  ///
+  /// Stored as one of: `draft`, `proposed`, `approved`, `implemented`, `verified`, `deferred`, `rejected`.
+  Status? get status => _parseStatus(doc.formField(path, 'status'));
+  set status(Status? value) => doc.setFormField(path, 'status', value?.name ?? '');
 }
 
 /// Generated section facade for the `details` `@Form` section:
@@ -83466,13 +83624,15 @@ class FunctionalRequirementEntryPriorityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Priority (Must, Should, Could, Won't-This-Time).
+  /// Priority.
   ///
-  /// MoSCoW priority: Must, Should, Could, or Won't-This-Time
+  /// MoSCoW scoping band — what happens if this requirement does not ship.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  ///
+  /// Stored as one of: `must`, `should`, `could`, `wontThisTime`.
+  Priority? get priority => _parsePriority(doc.formField(path, 'priority'));
+  set priority(Priority? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Business Value (High, Medium, Low) - benefit to business.
   ///
@@ -96736,9 +96896,11 @@ class MigrationRiskEntryMitigationForm extends SomNode {
 
   /// Residual Probability.
   ///
-  /// Probability after mitigation
-  String get residualProbability => doc.formField(path, 'residualProbability') ?? '';
-  set residualProbability(String value) => doc.setFormField(path, 'residualProbability', value);
+  /// Expected likelihood band once the mitigation is in place.
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get residualProbability => _parseProbability(doc.formField(path, 'residualProbability'));
+  set residualProbability(Probability? value) => doc.setFormField(path, 'residualProbability', value?.name ?? '');
 
   /// Residual Impact.
   ///
@@ -96768,9 +96930,11 @@ class MigrationRiskEntryProbabilityForm extends SomNode {
 
   /// Probability Rating.
   ///
-  /// Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)
-  String get probabilityRating => doc.formField(path, 'probabilityRating') ?? '';
-  set probabilityRating(String value) => doc.setFormField(path, 'probabilityRating', value);
+  /// Qualitative likelihood band — veryHigh >80%, high 60-80%, medium 40-60%, low 20-40%, veryLow <20%.
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get probabilityRating => _parseProbability(doc.formField(path, 'probabilityRating'));
+  set probabilityRating(Probability? value) => doc.setFormField(path, 'probabilityRating', value?.name ?? '');
 
   /// Probability Score (1-5).
   ///
@@ -98466,11 +98630,13 @@ class MoscowEntryClassificationForm extends SomNode {
 
   /// MoSCoW Category.
   ///
-  /// Must / Should / Could / Wont
+  /// MoSCoW scoping band for this item.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get moscowCategory => doc.formField(path, 'moscowCategory') ?? '';
-  set moscowCategory(String value) => doc.setFormField(path, 'moscowCategory', value);
+  ///
+  /// Stored as one of: `must`, `should`, `could`, `wontThisTime`.
+  Priority? get moscowCategory => _parsePriority(doc.formField(path, 'moscowCategory'));
+  set moscowCategory(Priority? value) => doc.setFormField(path, 'moscowCategory', value?.name ?? '');
 
   /// Justification.
   ///
@@ -102836,13 +103002,15 @@ class OrganizationalRequirementEntryClassificationForm extends SomNode {
   String get subcategory => doc.formField(path, 'subcategory') ?? '';
   set subcategory(String value) => doc.setFormField(path, 'subcategory', value);
 
-  /// Priority (Must, Should, Could, Won't-This-Time).
+  /// Priority.
   ///
-  /// MoSCoW priority: Must, Should, Could, or Won't-This-Time
+  /// MoSCoW scoping band — what happens if this requirement does not ship.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  ///
+  /// Stored as one of: `must`, `should`, `could`, `wontThisTime`.
+  Priority? get priority => _parsePriority(doc.formField(path, 'priority'));
+  set priority(Priority? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Source.
   ///
@@ -118390,11 +118558,13 @@ class RiskEntryAnalysisForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Probability — Very Low, Low, Medium, High, Very High.
+  /// Probability.
   ///
-  /// Qualitative likelihood rating
-  String get probability => doc.formField(path, 'probability') ?? '';
-  set probability(String value) => doc.setFormField(path, 'probability', value);
+  /// Qualitative likelihood band — the likelihood axis of the matrix.
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get probability => _parseProbability(doc.formField(path, 'probability'));
+  set probability(Probability? value) => doc.setFormField(path, 'probability', value?.name ?? '');
 
   /// Probability Value — numeric (0.0-1.0) for quantitative analysis.
   ///
@@ -118402,11 +118572,13 @@ class RiskEntryAnalysisForm extends SomNode {
   double? get probabilityValue => somParseDouble(doc.formField(path, 'probabilityValue'));
   set probabilityValue(double? value) => doc.setFormField(path, 'probabilityValue', somFormatDouble(value));
 
-  /// Impact — Negligible, Minor, Moderate, Major, Catastrophic.
+  /// Impact.
   ///
-  /// Qualitative severity rating
-  String get impact => doc.formField(path, 'impact') ?? '';
-  set impact(String value) => doc.setFormField(path, 'impact', value);
+  /// Qualitative consequence band — the consequence axis of the matrix.
+  ///
+  /// Stored as one of: `negligible`, `minor`, `moderate`, `major`, `critical`.
+  Impact? get impact => _parseImpact(doc.formField(path, 'impact'));
+  set impact(Impact? value) => doc.setFormField(path, 'impact', value?.name ?? '');
 
   /// Impact Value — numeric score (1-5 or monetary value).
   ///
@@ -118870,15 +119042,19 @@ class RiskResponseResidualForm extends SomNode {
 
   /// Residual Probability — expected after mitigation.
   ///
-  /// Expected likelihood after mitigation
-  String get residualProbability => doc.formField(path, 'residualProbability') ?? '';
-  set residualProbability(String value) => doc.setFormField(path, 'residualProbability', value);
+  /// Expected likelihood band once the response is in place.
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get residualProbability => _parseProbability(doc.formField(path, 'residualProbability'));
+  set residualProbability(Probability? value) => doc.setFormField(path, 'residualProbability', value?.name ?? '');
 
   /// Residual Impact — expected after mitigation.
   ///
-  /// Expected impact after mitigation
-  String get residualImpact => doc.formField(path, 'residualImpact') ?? '';
-  set residualImpact(String value) => doc.setFormField(path, 'residualImpact', value);
+  /// Expected consequence band once the response is in place.
+  ///
+  /// Stored as one of: `negligible`, `minor`, `moderate`, `major`, `critical`.
+  Impact? get residualImpact => _parseImpact(doc.formField(path, 'residualImpact'));
+  set residualImpact(Impact? value) => doc.setFormField(path, 'residualImpact', value?.name ?? '');
 
   /// Secondary Risks — new risks from implementing response.
   ///
@@ -124794,13 +124970,15 @@ class SecurityRequirementEntryStatusInfoForm extends SomNode {
   String get riskOwner => doc.formField(path, 'riskOwner') ?? '';
   set riskOwner(String value) => doc.setFormField(path, 'riskOwner', value);
 
-  /// Status (Draft, Proposed, Approved, Implemented, Verified).
+  /// Status.
   ///
-  /// Draft, Proposed, Approved, Implemented, or Verified
+  /// Lifecycle position of the requirement, from authoring to evidence.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get status => doc.formField(path, 'status') ?? '';
-  set status(String value) => doc.setFormField(path, 'status', value);
+  ///
+  /// Stored as one of: `draft`, `proposed`, `approved`, `implemented`, `verified`, `deferred`, `rejected`.
+  Status? get status => _parseStatus(doc.formField(path, 'status'));
+  set status(Status? value) => doc.setFormField(path, 'status', value?.name ?? '');
 }
 
 /// Generated section facade for the `verification` `@Form` section:
@@ -129912,19 +130090,23 @@ class StageMigrationRiskEntryProbabilityImpactForm extends SomNode {
 
   /// Probability.
   ///
-  /// VeryLow / Low / Medium / High / VeryHigh
+  /// Qualitative likelihood band for this migration risk.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get probability => doc.formField(path, 'probability') ?? '';
-  set probability(String value) => doc.setFormField(path, 'probability', value);
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get probability => _parseProbability(doc.formField(path, 'probability'));
+  set probability(Probability? value) => doc.setFormField(path, 'probability', value?.name ?? '');
 
   /// Impact.
   ///
-  /// Negligible / Minor / Moderate / Major / Critical
+  /// Qualitative consequence band if the risk lands.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get impact => doc.formField(path, 'impact') ?? '';
-  set impact(String value) => doc.setFormField(path, 'impact', value);
+  ///
+  /// Stored as one of: `negligible`, `minor`, `moderate`, `major`, `critical`.
+  Impact? get impact => _parseImpact(doc.formField(path, 'impact'));
+  set impact(Impact? value) => doc.setFormField(path, 'impact', value?.name ?? '');
 
   /// Risk Score.
   ///
@@ -129960,15 +130142,19 @@ class StageMigrationRiskEntryResidualForm extends SomNode {
 
   /// Residual Probability.
   ///
-  /// VeryLow / Low / Medium / High — after mitigation
-  String get residualProbability => doc.formField(path, 'residualProbability') ?? '';
-  set residualProbability(String value) => doc.setFormField(path, 'residualProbability', value);
+  /// Expected likelihood band once the mitigation is in place.
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get residualProbability => _parseProbability(doc.formField(path, 'residualProbability'));
+  set residualProbability(Probability? value) => doc.setFormField(path, 'residualProbability', value?.name ?? '');
 
   /// Residual Impact.
   ///
-  /// Negligible / Minor / Moderate / Major — after mitigation
-  String get residualImpact => doc.formField(path, 'residualImpact') ?? '';
-  set residualImpact(String value) => doc.setFormField(path, 'residualImpact', value);
+  /// Expected consequence band once the mitigation is in place.
+  ///
+  /// Stored as one of: `negligible`, `minor`, `moderate`, `major`, `critical`.
+  Impact? get residualImpact => _parseImpact(doc.formField(path, 'residualImpact'));
+  set residualImpact(Impact? value) => doc.setFormField(path, 'residualImpact', value?.name ?? '');
 
   /// Residual Risk Acceptable.
   ///
@@ -137632,13 +137818,15 @@ class TechnicalRequirementEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Status (Draft, Proposed, Approved, Verified, Deferred).
+  /// Status.
   ///
-  /// Draft, Proposed, Approved, Verified, or Deferred
+  /// Lifecycle position of the requirement, from authoring to evidence.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get status => doc.formField(path, 'status') ?? '';
-  set status(String value) => doc.setFormField(path, 'status', value);
+  ///
+  /// Stored as one of: `draft`, `proposed`, `approved`, `implemented`, `verified`, `deferred`, `rejected`.
+  Status? get status => _parseStatus(doc.formField(path, 'status'));
+  set status(Status? value) => doc.setFormField(path, 'status', value?.name ?? '');
 }
 
 /// Generated section facade for the `details` `@Form` section:

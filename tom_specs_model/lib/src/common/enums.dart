@@ -1,4 +1,26 @@
 /// Enums shared across TomSpecs document models.
+///
+/// ## Which fields a value enum types
+///
+/// [Priority], [Status], [Probability] and [Impact] are *value* vocabularies:
+/// unlike the kind enums, whose constants name a structural choice, theirs name
+/// a band an author picks. A form field takes one of them when the band set it
+/// documents **is** that enum's band set — a documented subset counts, since
+/// nothing an author has written stops being expressible.
+///
+/// The model also carries two *other* qualitative scales, and they are
+/// deliberately still `String`:
+///
+/// * the four-band importance scale (`Critical / High / Medium / Low`), used by
+///   some sixty fields for priority, criticality, severity and urgency;
+/// * the three-band matrix (`Low / Medium / High`), used by the risk entries
+///   that rate on 3×3 rather than 5×5.
+///
+/// Neither is one of these four. `High` is not an [Impact] band, and a 3×3
+/// matrix is a different instrument from the 5×5 one — binding one axis of it
+/// to [Probability] would let an author write `veryHigh` on an axis whose
+/// partner cannot answer. They need enums of their own, which is a decision
+/// about the scales rather than about these four.
 library;
 
 /// Priority level for requirements.

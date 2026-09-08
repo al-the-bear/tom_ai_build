@@ -5,6 +5,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../common/enums.dart';
+
 import '../document_stubs.dart';
 
 /// 12. Components and Dependencies. Seeds → ATS.
@@ -2384,15 +2386,15 @@ class ComponentRiskEntry extends DocSpecsSection {
   @Form([
     Field(
       'probability',
-      String,
+      Probability,
       'Probability',
-      hint: 'VeryLow / Low / Medium / High / VeryHigh',
+      hint: 'Qualitative likelihood band for this component risk.',
     ),
     Field(
       'impact',
-      String,
+      Impact,
       'Business Impact',
-      hint: 'Negligible / Minor / Moderate / Major / Critical',
+      hint: 'Qualitative consequence band if the risk lands.',
     ),
     Field(
       'riskScore',

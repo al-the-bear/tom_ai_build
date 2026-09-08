@@ -1,4 +1,4 @@
-<!-- docspec: solution-blueprint/1.0 -->
+<!-- docspec: solution-blueprint/1.1 -->
 # <!--[SBP]--> Solution Blueprint
 
 Solution Blueprint for the **Meridian Order Management (MOM)** programme.
@@ -91,7 +91,7 @@ every downstream artifact traces back to a requirement.
 
 ###### <!--[FRE-REQU-ORDER-CAPTURE] codeSpec="CsOrder,CsOrder.captureFromEdi,CsOrderRepository"--> FR-01 — Capture orders from EDI and REST channels
 
-Status: Approved
+Status: approved
 
 ####### <!--[FRED]--> Details
 
@@ -101,7 +101,7 @@ Category: Order Capture
 
 ####### <!--[FREP]--> Priority
 
-Priority: Must
+Priority: must
 BusinessValue: High
 Effort: M
 RiskLevel: Medium
@@ -144,7 +144,7 @@ Status: Draft
 
 ###### <!--[FRE-REQU-SYNC-PRICING]--> FR-02 — Price orders synchronously at capture time
 
-Status: Approved
+Status: approved
 
 ####### <!--[FRED]--> Details
 
@@ -154,7 +154,7 @@ Category: Pricing
 
 ####### <!--[FREP]--> Priority
 
-Priority: Must
+Priority: must
 BusinessValue: High
 Effort: M
 RiskLevel: Medium
@@ -179,7 +179,7 @@ Status: Draft
 
 ###### <!--[FRE-REQU-STOCK-RESERVATION]--> FR-03 — Reserve stock before confirmation
 
-Status: Approved
+Status: approved
 
 ####### <!--[FRED]--> Details
 
@@ -189,7 +189,7 @@ Category: Fulfilment
 
 ####### <!--[FREP]--> Priority
 
-Priority: Must
+Priority: must
 BusinessValue: High
 Effort: L
 RiskLevel: High
@@ -220,7 +220,7 @@ Status: Draft
 
 ###### <!--[FRE-REQU-CONFIRM-SLA]--> FR-04 — Confirm orders within five minutes
 
-Status: Approved
+Status: approved
 
 ####### <!--[FRED]--> Details
 
@@ -230,7 +230,7 @@ Category: Order Lifecycle
 
 ####### <!--[FREP]--> Priority
 
-Priority: Must
+Priority: must
 BusinessValue: High
 Effort: M
 RiskLevel: Medium
@@ -261,7 +261,7 @@ Status: Draft
 
 ###### <!--[FRE-REQU-AMEND-CANCEL]--> FR-05 — Amend or cancel an order before dispatch
 
-Status: Approved
+Status: approved
 
 ####### <!--[FRED]--> Details
 
@@ -271,7 +271,7 @@ Category: Order Amendment
 
 ####### <!--[FREP]--> Priority
 
-Priority: Should
+Priority: should
 BusinessValue: Medium
 Effort: M
 RiskLevel: Medium
@@ -302,7 +302,7 @@ Status: Draft
 
 ###### <!--[FRE-REQU-HOLD-RELEASE]--> FR-06 — Release a manual hold
 
-Status: Approved
+Status: approved
 
 ####### <!--[FRED]--> Details
 
@@ -312,7 +312,7 @@ Category: Exception Handling
 
 ####### <!--[FREP]--> Priority
 
-Priority: Must
+Priority: must
 BusinessValue: High
 Effort: S
 RiskLevel: Low
@@ -337,7 +337,7 @@ Status: Draft
 
 ###### <!--[TERQ-REQU-CONFIRM-LATENCY]--> TR-01 — Confirmation latency budget
 
-Status: Approved
+Status: approved
 
 ####### <!--[TRED]--> Details
 
@@ -359,7 +359,7 @@ MeasurementFrequency: Per release + continuous in production
 
 ###### <!--[TERQ-REQU-CAPTURE-AVAILABILITY]--> TR-02 — Capture API availability
 
-Status: Approved
+Status: approved
 
 ####### <!--[TRED]--> Details
 
@@ -379,7 +379,7 @@ MeasurementFrequency: Monthly
 
 ###### <!--[TERQ-REQU-EVENT-SOURCED]--> TR-03 — Event-sourced order service
 
-Status: Approved
+Status: approved
 
 ####### <!--[TRED]--> Details
 

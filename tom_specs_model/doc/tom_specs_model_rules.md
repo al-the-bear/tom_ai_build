@@ -465,6 +465,23 @@ Walking a class in serialization order, each member is exactly one of:
 | **`content: String?` required** | error | Every section class carries a `content: String?` override (§5.2) — the section text between the headline and the next headline. The only exemption is the container root (T1), which is a structural node rather than a section. |
 | **`content` documented** | error | That override carries one of the four §5.6 annotations. Same single exemption: the container root has no `content` to document. |
 
+**When a form field takes an enum rather than `String`.** A closed vocabulary is
+worth typing: the constants reach the meta with their own doc comments, so every
+plane offers the legal set and says what separates two adjacent bands. The rule
+is narrow — **a field takes enum `E` when the band set its label and hint
+document *is* `E`'s band set**, allowing a documented subset (nothing an author
+has written stops being expressible) and a band written under a synonym `E`'s
+own constant doc defines identically.
+
+The test is the *scale*, not the words. `Low / Medium / High` are all
+[`Probability`](../lib/src/common/enums.dart) constants, but a risk entry that
+rates on that three-band scale pairs it with a three-band impact axis, and
+binding one axis of a 3×3 matrix to the five-band enum would let an author write
+`veryHigh` opposite an impact that cannot answer it. Likewise `Critical / High /
+Medium / Low` — the model's most-repeated qualitative scale, some sixty fields —
+is not `Impact`, which has no `high`. Those fields stay `String` until the scale
+they use has an enum of its own.
+
 ### 5.5 Class style and naming
 
 | Rule | Description |

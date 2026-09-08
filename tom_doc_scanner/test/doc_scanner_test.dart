@@ -82,10 +82,16 @@ void main() {
       });
 
       test('parses SOM shared sample end-to-end (nests to level 12)', () async {
-        // Regression fixture: snapshot of
+        // Regression fixture: a FROZEN snapshot of
         // tom_som_dart_v0/documents/meridian_order_management.md, the SOM
         // shared conformance sample. SOM documents nest far past CommonMark's
         // 6 heading levels; DocScanner must be a conforming reader (YRD2).
+        //
+        // Frozen deliberately, and it has already drifted from the live
+        // document by more than a thousand lines. Do NOT refresh it to "keep
+        // it current": the counts below are properties of THIS input, so a
+        // refresh silently re-baselines the test onto whatever the sample
+        // happens to be. What is under test is the reader, not the sample.
         final doc = await DocScanner.scanDocument(
           filepath: path.join(fixturesPath, 'som_meridian_order_management.md'),
           workspaceRoot: Directory.current.path,

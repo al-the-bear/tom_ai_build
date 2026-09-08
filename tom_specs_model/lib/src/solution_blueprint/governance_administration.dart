@@ -12,6 +12,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../common/enums.dart';
+
 // The former `Administrative` (`ADMN`) wrapper was dissolved in L34C-5: its
 // children now hang directly off SBP.4 `StakeholdersAndGovernance`
 // (`ProjectOrganization`, `ProjectTeamStaffing`, `DistributionList`,
@@ -2647,9 +2649,9 @@ class ChangeCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
       'defaultImpactLevel',
-      String,
+      Impact,
       'Default Impact Level',
-      hint: 'Typical impact level — Minor / Moderate / Major / Critical',
+      hint: 'Typical consequence band for changes in this category.',
     ),
     Field(
       'approvalPath',

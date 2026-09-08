@@ -235,6 +235,10 @@ The config file itself is documented in
   version check. All loading and saving goes **through the memory
   representation**, never through the object model itself;
 - **`schemas/`** — one DocSpecs schema folder per document root (§5.4, §13);
+- **the whole-model accessor** (§10.3) where the plane has one — in Dart a
+  separate `lib/<package>_model.dart`, deliberately not exported from the
+  facade so the embedded payload costs nothing to a consumer that never reads
+  the model;
 - **the packaging files** — manifest, `README.md` how-to block and
   `readme_howtointegrate.md`, stamped with the resolved model version (§17).
 
@@ -839,7 +843,7 @@ none of them inferable from the model's structure:
 | `help` (`@ContentHelp`) | class, field | 128 classes, 1147 fields | how to *fill it in* |
 | `label` (`@Form` `Field`) | form field | 10953/10953 | the field's display name |
 | `hint` (`@Form` `Field`) | form field | 10547/10953 | what a valid value looks like |
-| `enumValueDocs` | form field, enum field | 22/22 enum-typed form fields | what each **constant** means |
+| `enumValueDocs` | form field, enum field | 42/42 enum-typed form fields | what each **constant** means |
 
 `doc` reached 5153/5153 from **3904/5153** by being **resolved through the
 superclass chain**, as dartdoc resolves it. Every section class re-declares
@@ -880,9 +884,18 @@ needs the line, and one whose reference does not gains 14,000 lines of nothing.
 tokens; `enumValueDocs` — an object keyed by constant name — gives each
 constant's model doc comment. For a **closed** vocabulary that second half is
 the load-bearing one: an author's choice is between adjacent constants, and
-what separates them exists nowhere else. The model documents all 163 of its
-constants across 25 enums; 20 of those enums reach the meta, through the 22
-enum-typed `@Form` fields that use them.
+what separates them exists nowhere else. The model documents all 160 of its
+constants across 24 enums, and **every one of the 24 reaches the meta**, through
+the 42 enum-typed `@Form` fields that use them.
+
+A value enum is bound where a field's documented band set **is** that enum's.
+The model also carries two qualitative scales that are none of its enums — the
+four-band `Critical / High / Medium / Low` importance scale used by some sixty
+priority / criticality / severity fields, and the three-band `Low / Medium /
+High` matrix some risk entries rate on — and those fields stay `String` until
+they have an enum of their own. Binding one of them to a five-band enum whose
+constants merely overlap would let an author write a band the field's partner
+axis cannot answer.
 
 **All nine facades render them**, each in its own comment syntax, and the fix
 was one rule rather than nine ports. Eight emitters carried a private copy of

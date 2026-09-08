@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: solution-blueprint/1.0
+# Schema: solution-blueprint/1.1
 
 title-format: "# <!--[SBP]--> Solution Blueprint"
 section-types:
@@ -27995,7 +27995,7 @@ form-types:
     fields:
       - fieldname: priority
         required: true
-        description: "MoSCoW priority: Must, Should, Could, or Won't-This-Time"
+        description: MoSCoW scoping band — what happens if this requirement does not ship.
       - fieldname: businessValue
         description: High / Medium / Low benefit to the business
       - fieldname: effort
@@ -28294,7 +28294,7 @@ form-types:
         description: Person or role accountable for the residual risk
       - fieldname: status
         required: true
-        description: "Draft, Proposed, Approved, Implemented, or Verified"
+        description: "Lifecycle position of the requirement, from authoring to evidence."
   scei-form:
     fields:
       - fieldname: description
@@ -28338,7 +28338,7 @@ form-types:
         description: More specific aspect within the category
       - fieldname: priority
         required: true
-        description: "MoSCoW priority: Must, Should, Could, or Won't-This-Time"
+        description: MoSCoW scoping band — what happens if this requirement does not ship.
       - fieldname: source
         required: true
         description: Stakeholder or document that originated it
@@ -28664,7 +28664,7 @@ form-types:
   miripr-form:
     fields:
       - fieldname: probabilityRating
-        description: "Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)"
+        description: "Qualitative likelihood band — veryHigh >80%, high 60-80%, medium 40-60%, low 20-40%, veryLow <20%."
       - fieldname: probabilityScore
         description: Numeric score for calculations
       - fieldname: probabilityRationale
@@ -28728,7 +28728,7 @@ form-types:
       - fieldname: mitigationStatus
         description: "Not started, in progress, completed"
       - fieldname: residualProbability
-        description: Probability after mitigation
+        description: Expected likelihood band once the mitigation is in place.
       - fieldname: residualImpact
         description: Impact after mitigation
       - fieldname: residualRiskScore
@@ -29210,11 +29210,11 @@ form-types:
   rian-form:
     fields:
       - fieldname: probability
-        description: Qualitative likelihood rating
+        description: Qualitative likelihood band — the likelihood axis of the matrix.
       - fieldname: probabilityValue
         description: Numeric likelihood between 0.0 and 1.0
       - fieldname: impact
-        description: Qualitative severity rating
+        description: Qualitative consequence band — the consequence axis of the matrix.
       - fieldname: impactValue
         description: Numeric severity score or monetary value
       - fieldname: riskScore
@@ -29234,9 +29234,9 @@ form-types:
       - fieldname: residualRisk
         description: Risk level remaining after mitigation
       - fieldname: residualProbability
-        description: Expected likelihood after mitigation
+        description: Expected likelihood band once the response is in place.
       - fieldname: residualImpact
-        description: Expected impact after mitigation
+        description: Expected consequence band once the response is in place.
       - fieldname: secondaryRisks
         description: New risks arising from the response
   rireim-form:
@@ -30226,7 +30226,7 @@ form-types:
   cceh-form:
     fields:
       - fieldname: defaultImpactLevel
-        description: Typical impact level — Minor / Moderate / Major / Critical
+        description: Typical consequence band for changes in this category.
       - fieldname: approvalPath
         description: Who approves changes in this category
       - fieldname: expeditedProcessAllowed
@@ -40923,9 +40923,9 @@ form-types:
   crea-form:
     fields:
       - fieldname: probability
-        description: VeryLow / Low / Medium / High / VeryHigh
+        description: Qualitative likelihood band for this component risk.
       - fieldname: impact
-        description: Negligible / Minor / Moderate / Major / Critical
+        description: Qualitative consequence band if the risk lands.
       - fieldname: riskScore
         description: Calculated score (probability × impact)
       - fieldname: riskTrend
@@ -47619,7 +47619,7 @@ form-types:
         description: Calculated score from weighted criteria
       - fieldname: moscowTier
         required: true
-        description: Must / Should / Could / Wont
+        description: MoSCoW scoping band for this feature.
       - fieldname: wsjfScore
         description: Weighted Shortest Job First score — CoD / JobSize
       - fieldname: kanoClassification
@@ -47676,7 +47676,7 @@ form-types:
     fields:
       - fieldname: moscowCategory
         required: true
-        description: Must / Should / Could / Wont
+        description: MoSCoW scoping band for this item.
       - fieldname: justification
         required: true
         description: "Why this feature has this classification — business rationale, regulatory need, user demand"
@@ -48004,10 +48004,10 @@ form-types:
     fields:
       - fieldname: probability
         required: true
-        description: VeryLow / Low / Medium / High / VeryHigh
+        description: Qualitative likelihood band for this migration risk.
       - fieldname: impact
         required: true
-        description: Negligible / Minor / Moderate / Major / Critical
+        description: Qualitative consequence band if the risk lands.
       - fieldname: riskScore
         description: Calculated risk rating — Probability x Impact
       - fieldname: impactAreas
@@ -48054,9 +48054,9 @@ form-types:
   smrr-form:
     fields:
       - fieldname: residualProbability
-        description: VeryLow / Low / Medium / High — after mitigation
+        description: Expected likelihood band once the mitigation is in place.
       - fieldname: residualImpact
-        description: Negligible / Minor / Moderate / Major — after mitigation
+        description: Expected consequence band once the mitigation is in place.
       - fieldname: residualRiskAcceptable
         description: Yes / No / Conditional
   smrs-form:

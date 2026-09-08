@@ -243,7 +243,7 @@ SomJavaGenerationResult writeSomJavaProject({
   // Identical to the Dart/Python path — schemas are language-agnostic.
   final schemas = DocSpecsSchemaGenerator(
     classes,
-  ).generateAll(modelVersion: modelVersion);
+  ).generateAll(modelVersion: modelVersion, modelLabel: modelLabel);
   final schemaPaths = DocSpecsSchemaGenerator.writeSchemaTree(
     outputRoot,
     schemas,

@@ -11089,7 +11089,7 @@ void buildChangeCategoryEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 2;
     (*n).docComment = "Default handling and approval path.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultImpactLevel", "String", "Default Impact Level", false, "Typical impact level — Minor / Moderate / Major / Critical", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultImpactLevel", "Impact", "Default Impact Level", false, "Typical consequence band for changes in this category.", 0, std::vector<std::string>{"negligible", "minor", "moderate", "major", "critical"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"approvalPath", "String", "Approval Path", false, "Who approves changes in this category", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"expeditedProcessAllowed", "String", "Expedited Process Allowed", false, "Yes / No — whether fast-track is available", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumLeadTime", "String", "Minimum Lead Time", false, "Minimum time needed for assessment", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -16398,8 +16398,8 @@ void buildComponentRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).serializationOrder = 2;
     (*n).docComment = "Risk assessment.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "String", "Probability", false, "VeryLow / Low / Medium / High / VeryHigh", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Business Impact", false, "Negligible / Minor / Moderate / Major / Critical", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "Probability", "Probability", false, "Qualitative likelihood band for this component risk.", 0, std::vector<std::string>{"veryLow", "low", "medium", "high", "veryHigh"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "Impact", "Business Impact", false, "Qualitative consequence band if the risk lands.", 1, std::vector<std::string>{"negligible", "minor", "moderate", "major", "critical"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskScore", "int", "Risk Score", false, "Calculated score (probability × impact)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskTrend", "String", "Risk Trend", false, "Increasing / Stable / Decreasing — direction since last review", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk\"],\"connotation\":\"Records the assessment of a component risk, including probability, business impact, risk score, and risk trend.\"}", nullptr)});
@@ -37235,7 +37235,7 @@ void buildFeaturePriorityEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).docComment = "Priority scoring.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"weightedPriorityScore", "String", "Weighted Priority Score", true, "Calculated score from weighted criteria", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"moscowTier", "String", "MoSCoW Tier", true, "Must / Should / Could / Wont", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"moscowTier", "Priority", "MoSCoW Tier", true, "MoSCoW scoping band for this feature.", 1, std::vector<std::string>{"must", "should", "could", "wontThisTime"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"wsjfScore", "String", "WSJF Score", false, "Weighted Shortest Job First score — CoD / JobSize", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"kanoClassification", "String", "Kano Classification", false, "Basic / Performance / Excitement / Indifferent", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"prioritizationNotes", "String", "Prioritization Notes", false, "Justification or context for the scoring", 4, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -38621,7 +38621,7 @@ void buildFunctionalRequirementEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)", true, "Draft, Proposed, Approved, Implemented, Verified, or Deferred", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "Status", "Status", true, "Lifecycle position of the requirement, from authoring to evidence.", 0, std::vector<std::string>{"draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -38652,7 +38652,7 @@ void buildFunctionalRequirementEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).serializationOrder = 2;
     (*n).docComment = "Priority and effort assessment.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Must, Should, Could, Won't-This-Time)", true, "MoSCoW priority: Must, Should, Could, or Won't-This-Time", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "Priority", "Priority", true, "MoSCoW scoping band — what happens if this requirement does not ship.", 0, std::vector<std::string>{"must", "should", "could", "wontThisTime"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"businessValue", "String", "Business Value (High, Medium, Low) - benefit to business", false, "High / Medium / Low benefit to the business", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"effort", "String", "Estimated Effort (Small, Medium, Large, XLarge)", false, "Estimated effort: Small, Medium, Large, or XLarge", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskLevel", "String", "Risk Level (High, Medium, Low) - risk of not meeting", false, "High / Medium / Low risk of not meeting the requirement", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -49449,7 +49449,7 @@ void buildMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).serializationOrder = 2;
     (*n).docComment = "Probability assessment.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"probabilityRating", "String", "Probability Rating", false, "Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"probabilityRating", "Probability", "Probability Rating", false, "Qualitative likelihood band — veryHigh >80%, high 60-80%, medium 40-60%, low 20-40%, veryLow <20%.", 0, std::vector<std::string>{"veryLow", "low", "medium", "high", "veryHigh"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"probabilityScore", "int", "Probability Score (1-5)", false, "Numeric score for calculations", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"probabilityRationale", "String", "Probability Rationale", false, "Why this probability was assigned", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"probabilityTrend", "String", "Probability Trend", false, "Increasing, stable, decreasing", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -49520,7 +49520,7 @@ void buildMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mitigationDueDate", "String", "Mitigation Due Date", false, "Target completion date for mitigation", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mitigationCost", "String", "Mitigation Cost", false, "Cost to implement mitigation", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mitigationStatus", "String", "Mitigation Status", false, "Not started, in progress, completed", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"residualProbability", "String", "Residual Probability", false, "Probability after mitigation", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"residualProbability", "Probability", "Residual Probability", false, "Expected likelihood band once the mitigation is in place.", 7, std::vector<std::string>{"veryLow", "low", "medium", "high", "veryHigh"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"residualImpact", "String", "Residual Impact", false, "Impact after mitigation", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"residualRiskScore", "int", "Residual Risk Score", false, "Risk score after mitigation", 9, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"Captures the chosen response and actions to reduce a migration risk, including ownership, cost, status, and residual exposure after mitigation.\"}", nullptr)});
@@ -51005,7 +51005,7 @@ void buildMoscowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).serializationOrder = 1;
     (*n).docComment = "MoSCoW classification details.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"moscowCategory", "String", "MoSCoW Category", true, "Must / Should / Could / Wont", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"moscowCategory", "Priority", "MoSCoW Category", true, "MoSCoW scoping band for this item.", 0, std::vector<std::string>{"must", "should", "could", "wontThisTime"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"justification", "String", "Justification", true, "Why this feature has this classification — business rationale, regulatory need, user demand", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"reclassificationRisk", "String", "Reclassification Risk", false, "Low / Medium / High — likelihood the category will change before delivery", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique\",\"SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization\"],\"connotation\":\"Captures the MoSCoW category, justification, and reclassification risk for a single feature.\"}", nullptr)});
@@ -54832,7 +54832,7 @@ void buildOrganizationalRequirementEntryChildren(som::SomMetaNode& parent, std::
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category (Training, Process Change, Role Change, Support, Communication, Policy, Governance, Culture, Staffing)", true, "Type of organizational change the requirement entails", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"subcategory", "String", "Subcategory", false, "More specific aspect within the category", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Must, Should, Could, Won't-This-Time)", true, "MoSCoW priority: Must, Should, Could, or Won't-This-Time", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "Priority", "Priority", true, "MoSCoW scoping band — what happens if this requirement does not ship.", 2, std::vector<std::string>{"must", "should", "could", "wontThisTime"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source", true, "Stakeholder or document that originated it", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale", false, "Why this organizational change is needed", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 21500 — organizational project management\",\"BABOK v3 §10 — organizational readiness\",\"ISO/IEC/IEEE 29148 §9 — organizational requirements\"],\"connotation\":\"The classification of an organizational requirement — its change category, priority, source, and rationale.\"}", nullptr)});
@@ -67907,9 +67907,9 @@ void buildRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& 
     (*n).serializationOrder = 2;
     (*n).docComment = "Risk analysis — probability, impact, and scoring.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "String", "Probability — Very Low, Low, Medium, High, Very High", false, "Qualitative likelihood rating", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "Probability", "Probability", false, "Qualitative likelihood band — the likelihood axis of the matrix.", 0, std::vector<std::string>{"veryLow", "low", "medium", "high", "veryHigh"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"probabilityValue", "double", "Probability Value — numeric (0.0-1.0) for quantitative analysis", false, "Numeric likelihood between 0.0 and 1.0", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact — Negligible, Minor, Moderate, Major, Catastrophic", false, "Qualitative severity rating", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "Impact", "Impact", false, "Qualitative consequence band — the consequence axis of the matrix.", 2, std::vector<std::string>{"negligible", "minor", "moderate", "major", "critical"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"impactValue", "double", "Impact Value — numeric score (1-5 or monetary value)", false, "Numeric severity score or monetary value", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskScore", "double", "Risk Score — calculated (probability × impact)", false, "Computed score from probability times impact", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskLevel", "String", "Risk Level — Low, Medium, High, Critical", false, "Overall risk level classification", 5, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -68179,8 +68179,8 @@ void buildRiskResponseChildren(som::SomMetaNode& parent, std::vector<std::string
     (*n).docComment = "Residual and secondary risk expectations.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"residualRisk", "String", "Residual Risk — level remaining after mitigation", false, "Risk level remaining after mitigation", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"residualProbability", "String", "Residual Probability — expected after mitigation", false, "Expected likelihood after mitigation", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"residualImpact", "String", "Residual Impact — expected after mitigation", false, "Expected impact after mitigation", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"residualProbability", "Probability", "Residual Probability — expected after mitigation", false, "Expected likelihood band once the response is in place.", 1, std::vector<std::string>{"veryLow", "low", "medium", "high", "veryHigh"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"residualImpact", "Impact", "Residual Impact — expected after mitigation", false, "Expected consequence band once the response is in place.", 2, std::vector<std::string>{"negligible", "minor", "moderate", "major", "critical"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"secondaryRisks", "String", "Secondary Risks — new risks from implementing response", false, "New risks arising from the response", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000:2018 — risk management\",\"ISO/IEC 31010 — risk assessment techniques\"],\"connotation\":\"This section captures the residual risk expected after treatment and any secondary risks introduced by the response.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -73189,7 +73189,7 @@ void buildSecurityRequirementEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"residualRisk", "String", "Residual Risk (after mitigation)", false, "Risk remaining once controls are applied", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskOwner", "String", "Risk Owner", false, "Person or role accountable for the residual risk", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Draft, Proposed, Approved, Implemented, Verified)", true, "Draft, Proposed, Approved, Implemented, or Verified", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "Status", "Status", true, "Lifecycle position of the requirement, from authoring to evidence.", 2, std::vector<std::string>{"draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 27001 Annex A — security controls\",\"ISO/IEC/IEEE 29148 §9 — security requirements\"],\"connotation\":\"The lifecycle and ownership of a security requirement — residual risk after mitigation, the risk owner, and current status.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -77155,8 +77155,8 @@ void buildStageMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).serializationOrder = 2;
     (*n).docComment = "Probability and impact assessment.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "String", "Probability", true, "VeryLow / Low / Medium / High / VeryHigh", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact", true, "Negligible / Minor / Moderate / Major / Critical", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "Probability", "Probability", true, "Qualitative likelihood band for this migration risk.", 0, std::vector<std::string>{"veryLow", "low", "medium", "high", "veryHigh"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "Impact", "Impact", true, "Qualitative consequence band if the risk lands.", 1, std::vector<std::string>{"negligible", "minor", "moderate", "major", "critical"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskScore", "String", "Risk Score", false, "Calculated risk rating — Probability x Impact", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"impactAreas", "String", "Impact Areas", false, "DataIntegrity / SystemAvailability / Compliance / Budget", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"affectedPhases", "String", "Affected Phases", false, "Which migration phases are exposed", 4, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -77243,8 +77243,8 @@ void buildStageMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).serializationOrder = 7;
     (*n).docComment = "Residual risk assessment.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"residualProbability", "String", "Residual Probability", false, "VeryLow / Low / Medium / High — after mitigation", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"residualImpact", "String", "Residual Impact", false, "Negligible / Minor / Moderate / Major — after mitigation", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"residualProbability", "Probability", "Residual Probability", false, "Expected likelihood band once the mitigation is in place.", 0, std::vector<std::string>{"veryLow", "low", "medium", "high", "veryHigh"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"residualImpact", "Impact", "Residual Impact", false, "Expected consequence band once the mitigation is in place.", 1, std::vector<std::string>{"negligible", "minor", "moderate", "major", "critical"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"residualRiskAcceptable", "String", "Residual Risk Acceptable", false, "Yes / No / Conditional", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000:2018 — the risk management guidance addresses residual risk remaining after treatment and whether it is acceptable\"],\"connotation\":\"Captures the residual probability, impact, and acceptability of a migration risk after mitigation.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -84996,7 +84996,7 @@ void buildTechnicalRequirementEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Draft, Proposed, Approved, Verified, Deferred)", true, "Draft, Proposed, Approved, Verified, or Deferred", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "Status", "Status", true, "Lifecycle position of the requirement, from authoring to evidence.", 0, std::vector<std::string>{"draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {

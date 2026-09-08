@@ -8,6 +8,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../common/enums.dart';
+
 import '../document_stubs.dart';
 
 /// The closed set of requirement-side screen field types (`ScreenFieldEntry`,
@@ -8363,10 +8365,11 @@ class FunctionalRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'status',
-      String,
-      'Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)',
+      Status,
+      'Status',
       required: true,
-      hint: 'Draft, Proposed, Approved, Implemented, Verified, or Deferred',
+      hint:
+          'Lifecycle position of the requirement, from authoring to evidence.',
     ),
   ])
   @override
@@ -8422,10 +8425,12 @@ class FunctionalRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'priority',
-      String,
-      'Priority (Must, Should, Could, Won\'t-This-Time)',
+      Priority,
+      'Priority',
       required: true,
-      hint: 'MoSCoW priority: Must, Should, Could, or Won\'t-This-Time',
+      hint:
+          'MoSCoW scoping band — what happens if this requirement does not '
+          'ship.',
     ),
     Field(
       'businessValue',
@@ -10365,10 +10370,11 @@ class TechnicalRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
       'status',
-      String,
-      'Status (Draft, Proposed, Approved, Verified, Deferred)',
+      Status,
+      'Status',
       required: true,
-      hint: 'Draft, Proposed, Approved, Verified, or Deferred',
+      hint:
+          'Lifecycle position of the requirement, from authoring to evidence.',
     ),
   ])
   @override
@@ -10907,10 +10913,11 @@ class SecurityRequirementEntry extends DocSpecsSection {
     ),
     Field(
       'status',
-      String,
-      'Status (Draft, Proposed, Approved, Implemented, Verified)',
+      Status,
+      'Status',
       required: true,
-      hint: 'Draft, Proposed, Approved, Implemented, or Verified',
+      hint:
+          'Lifecycle position of the requirement, from authoring to evidence.',
     ),
   ])
   @SerializationOrder(4)
@@ -11269,10 +11276,12 @@ class OrganizationalRequirementEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority (Must, Should, Could, Won\'t-This-Time)',
+      Priority,
+      'Priority',
       required: true,
-      hint: 'MoSCoW priority: Must, Should, Could, or Won\'t-This-Time',
+      hint:
+          'MoSCoW scoping band — what happens if this requirement does not '
+          'ship.',
     ),
     Field(
       'source',
@@ -14130,10 +14139,11 @@ class MigrationRiskEntry extends DocSpecsSection {
   @Form([
     Field(
       'probabilityRating',
-      String,
+      Probability,
       'Probability Rating',
       hint:
-          'Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)',
+          'Qualitative likelihood band — veryHigh >80%, high 60-80%, '
+          'medium 40-60%, low 20-40%, veryLow <20%.',
     ),
     Field(
       'probabilityScore',
@@ -14345,9 +14355,9 @@ class MigrationRiskEntry extends DocSpecsSection {
     ),
     Field(
       'residualProbability',
-      String,
+      Probability,
       'Residual Probability',
-      hint: 'Probability after mitigation',
+      hint: 'Expected likelihood band once the mitigation is in place.',
     ),
     Field(
       'residualImpact',
@@ -18435,9 +18445,9 @@ class RiskEntry extends DocSpecsSection {
   @Form([
     Field(
       'probability',
-      String,
-      'Probability — Very Low, Low, Medium, High, Very High',
-      hint: 'Qualitative likelihood rating',
+      Probability,
+      'Probability',
+      hint: 'Qualitative likelihood band — the likelihood axis of the matrix.',
     ),
     Field(
       'probabilityValue',
@@ -18447,9 +18457,10 @@ class RiskEntry extends DocSpecsSection {
     ),
     Field(
       'impact',
-      String,
-      'Impact — Negligible, Minor, Moderate, Major, Catastrophic',
-      hint: 'Qualitative severity rating',
+      Impact,
+      'Impact',
+      hint:
+          'Qualitative consequence band — the consequence axis of the matrix.',
     ),
     Field(
       'impactValue',
@@ -18734,15 +18745,15 @@ class RiskResponse extends DocSpecsSection {
     ),
     Field(
       'residualProbability',
-      String,
+      Probability,
       'Residual Probability — expected after mitigation',
-      hint: 'Expected likelihood after mitigation',
+      hint: 'Expected likelihood band once the response is in place.',
     ),
     Field(
       'residualImpact',
-      String,
+      Impact,
       'Residual Impact — expected after mitigation',
-      hint: 'Expected impact after mitigation',
+      hint: 'Expected consequence band once the response is in place.',
     ),
     Field(
       'secondaryRisks',

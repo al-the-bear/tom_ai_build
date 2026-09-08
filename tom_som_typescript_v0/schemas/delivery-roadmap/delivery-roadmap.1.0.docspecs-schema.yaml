@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: delivery-roadmap/1.0
+# Schema: delivery-roadmap/1.1
 
 title-format: "# <!--[DRM]--> Delivery Roadmap"
 section-types:
@@ -1851,7 +1851,7 @@ form-types:
         description: Calculated score from weighted criteria
       - fieldname: moscowTier
         required: true
-        description: Must / Should / Could / Wont
+        description: MoSCoW scoping band for this feature.
       - fieldname: wsjfScore
         description: Weighted Shortest Job First score — CoD / JobSize
       - fieldname: kanoClassification
@@ -1908,7 +1908,7 @@ form-types:
     fields:
       - fieldname: moscowCategory
         required: true
-        description: Must / Should / Could / Wont
+        description: MoSCoW scoping band for this item.
       - fieldname: justification
         required: true
         description: "Why this feature has this classification — business rationale, regulatory need, user demand"
@@ -2236,10 +2236,10 @@ form-types:
     fields:
       - fieldname: probability
         required: true
-        description: VeryLow / Low / Medium / High / VeryHigh
+        description: Qualitative likelihood band for this migration risk.
       - fieldname: impact
         required: true
-        description: Negligible / Minor / Moderate / Major / Critical
+        description: Qualitative consequence band if the risk lands.
       - fieldname: riskScore
         description: Calculated risk rating — Probability x Impact
       - fieldname: impactAreas
@@ -2286,9 +2286,9 @@ form-types:
   smrr-form:
     fields:
       - fieldname: residualProbability
-        description: VeryLow / Low / Medium / High — after mitigation
+        description: Expected likelihood band once the mitigation is in place.
       - fieldname: residualImpact
-        description: Negligible / Minor / Moderate / Major — after mitigation
+        description: Expected consequence band once the mitigation is in place.
       - fieldname: residualRiskAcceptable
         description: Yes / No / Conditional
   smrs-form:

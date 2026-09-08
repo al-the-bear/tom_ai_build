@@ -30017,9 +30017,23 @@
             {
               "name": "defaultImpactLevel",
               "label": "Default Impact Level",
-              "hint": "Typical impact level — Minor / Moderate / Major / Critical",
-              "type": "String",
-              "required": false
+              "hint": "Typical consequence band for changes in this category.",
+              "type": "Impact",
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ],
+              "enumValueDocs": {
+                "negligible": "Absorbed inside normal working. No measurable change to schedule, budget\nor quality, and nobody outside the team doing the work has to know.",
+                "minor": "Felt within one workstream and covered by that workstream's own\ncontingency. Nothing outside it is replanned.",
+                "moderate": "Exceeds a single workstream's contingency and forces replanning across\nworkstreams. Project management decides; the sponsor is informed.",
+                "major": "Threatens a committed date, budget or quality commitment. Recovery\nrequires a sponsor decision — more money, less scope, or a later date.",
+                "critical": "The objective itself fails and no contingency inside the project recovers\nit. The decision at this level is whether the project continues at all."
+              }
             },
             {
               "name": "approvalPath",
@@ -47626,16 +47640,44 @@
             {
               "name": "probability",
               "label": "Probability",
-              "hint": "VeryLow / Low / Medium / High / VeryHigh",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative likelihood band for this component risk.",
+              "type": "Probability",
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "impact",
               "label": "Business Impact",
-              "hint": "Negligible / Minor / Moderate / Major / Critical",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative consequence band if the risk lands.",
+              "type": "Impact",
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ],
+              "enumValueDocs": {
+                "negligible": "Absorbed inside normal working. No measurable change to schedule, budget\nor quality, and nobody outside the team doing the work has to know.",
+                "minor": "Felt within one workstream and covered by that workstream's own\ncontingency. Nothing outside it is replanned.",
+                "moderate": "Exceeds a single workstream's contingency and forces replanning across\nworkstreams. Project management decides; the sponsor is informed.",
+                "major": "Threatens a committed date, budget or quality commitment. Recovery\nrequires a sponsor decision — more money, less scope, or a later date.",
+                "critical": "The objective itself fails and no contingency inside the project recovers\nit. The decision at this level is whether the project continues at all."
+              }
             },
             {
               "name": "riskScore",
@@ -108120,9 +108162,21 @@
             {
               "name": "moscowTier",
               "label": "MoSCoW Tier",
-              "hint": "Must / Should / Could / Wont",
-              "type": "String",
-              "required": true
+              "hint": "MoSCoW scoping band for this feature.",
+              "type": "Priority",
+              "required": true,
+              "enumValues": [
+                "must",
+                "should",
+                "could",
+                "wontThisTime"
+              ],
+              "enumValueDocs": {
+                "must": "MoSCoW *must have*: the release is not shippable without it. A failed\nmust-have is a release blocker — the date moves, the requirement does\nnot. Anything that can be traded away under schedule pressure was never\na must.",
+                "should": "MoSCoW *should have*: painful to omit, but the release still ships\nwithout it. This is the first band traded away when the timebox is\nthreatened, and dropping one is expected to come with a stated\nworkaround rather than silence.",
+                "could": "MoSCoW *could have*: included only while it costs nothing that a\n[must] or [should] item needs. Dropping it is a routine timebox decision\nand requires no re-approval.",
+                "wontThisTime": "MoSCoW *won't have — this time*: deliberately excluded from **this**\ndelivery and recorded rather than deleted, so the decision (and its\nreasoning) survives into the next planning round. Distinct from\n[Status.rejected], which means never; this means not now."
+              }
             },
             {
               "name": "wsjfScore",
@@ -112638,10 +112692,28 @@
           "formFields": [
             {
               "name": "status",
-              "label": "Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)",
-              "hint": "Draft, Proposed, Approved, Implemented, Verified, or Deferred",
-              "type": "String",
-              "required": true
+              "label": "Status",
+              "hint": "Lifecycle position of the requirement, from authoring to evidence.",
+              "type": "Status",
+              "required": true,
+              "enumValues": [
+                "draft",
+                "proposed",
+                "approved",
+                "implemented",
+                "verified",
+                "deferred",
+                "rejected"
+              ],
+              "enumValueDocs": {
+                "draft": "Being authored. The wording may change without notice and nothing\ndownstream may be planned, estimated or built against it.",
+                "proposed": "Complete enough to be reviewed and awaiting a decision. Review may still\nsend it back or reject it outright, so it is not yet a commitment.",
+                "approved": "Signed off as the agreed intent, and the baseline that downstream work is\nplanned and estimated against. From here on a change is a change request\nwith its own approval, not a quiet edit.",
+                "implemented": "A realising artifact exists, but nothing has yet confirmed it does what\n[approved] committed to. The gap between this and [verified] is exactly\nthe evidence, which is why the two are separate states rather than one\n\"done\".",
+                "verified": "Implemented *and* shown to meet its acceptance criteria by test or review\nevidence. The only terminal state that means the item is finished.",
+                "deferred": "Approved in substance but not scheduled for this delivery, and kept in the\ndocument so it returns to the backlog instead of being lost. This is the\nlifecycle position; [Priority.wontThisTime] is the scoping decision that\nputs an item here.",
+                "rejected": "Decided against, permanently. Retained rather than deleted so a later\nreader can see the option was considered and why it lost, instead of\nre-proposing it."
+              }
             }
           ]
         },
@@ -112758,10 +112830,22 @@
           "formFields": [
             {
               "name": "priority",
-              "label": "Priority (Must, Should, Could, Won't-This-Time)",
-              "hint": "MoSCoW priority: Must, Should, Could, or Won't-This-Time",
-              "type": "String",
-              "required": true
+              "label": "Priority",
+              "hint": "MoSCoW scoping band — what happens if this requirement does not ship.",
+              "type": "Priority",
+              "required": true,
+              "enumValues": [
+                "must",
+                "should",
+                "could",
+                "wontThisTime"
+              ],
+              "enumValueDocs": {
+                "must": "MoSCoW *must have*: the release is not shippable without it. A failed\nmust-have is a release blocker — the date moves, the requirement does\nnot. Anything that can be traded away under schedule pressure was never\na must.",
+                "should": "MoSCoW *should have*: painful to omit, but the release still ships\nwithout it. This is the first band traded away when the timebox is\nthreatened, and dropping one is expected to come with a stated\nworkaround rather than silence.",
+                "could": "MoSCoW *could have*: included only while it costs nothing that a\n[must] or [should] item needs. Dropping it is a routine timebox decision\nand requires no re-approval.",
+                "wontThisTime": "MoSCoW *won't have — this time*: deliberately excluded from **this**\ndelivery and recorded rather than deleted, so the decision (and its\nreasoning) survives into the next planning round. Distinct from\n[Status.rejected], which means never; this means not now."
+              }
             },
             {
               "name": "businessValue",
@@ -148150,9 +148234,23 @@
             {
               "name": "probabilityRating",
               "label": "Probability Rating",
-              "hint": "Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative likelihood band — veryHigh >80%, high 60-80%, medium 40-60%, low 20-40%, veryLow <20%.",
+              "type": "Probability",
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "probabilityScore",
@@ -148491,9 +148589,23 @@
             {
               "name": "residualProbability",
               "label": "Residual Probability",
-              "hint": "Probability after mitigation",
-              "type": "String",
-              "required": false
+              "hint": "Expected likelihood band once the mitigation is in place.",
+              "type": "Probability",
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "residualImpact",
@@ -153122,9 +153234,21 @@
             {
               "name": "moscowCategory",
               "label": "MoSCoW Category",
-              "hint": "Must / Should / Could / Wont",
-              "type": "String",
-              "required": true
+              "hint": "MoSCoW scoping band for this item.",
+              "type": "Priority",
+              "required": true,
+              "enumValues": [
+                "must",
+                "should",
+                "could",
+                "wontThisTime"
+              ],
+              "enumValueDocs": {
+                "must": "MoSCoW *must have*: the release is not shippable without it. A failed\nmust-have is a release blocker — the date moves, the requirement does\nnot. Anything that can be traded away under schedule pressure was never\na must.",
+                "should": "MoSCoW *should have*: painful to omit, but the release still ships\nwithout it. This is the first band traded away when the timebox is\nthreatened, and dropping one is expected to come with a stated\nworkaround rather than silence.",
+                "could": "MoSCoW *could have*: included only while it costs nothing that a\n[must] or [should] item needs. Dropping it is a routine timebox decision\nand requires no re-approval.",
+                "wontThisTime": "MoSCoW *won't have — this time*: deliberately excluded from **this**\ndelivery and recorded rather than deleted, so the decision (and its\nreasoning) survives into the next planning round. Distinct from\n[Status.rejected], which means never; this means not now."
+              }
             },
             {
               "name": "justification",
@@ -165239,10 +165363,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority (Must, Should, Could, Won't-This-Time)",
-              "hint": "MoSCoW priority: Must, Should, Could, or Won't-This-Time",
-              "type": "String",
-              "required": true
+              "label": "Priority",
+              "hint": "MoSCoW scoping band — what happens if this requirement does not ship.",
+              "type": "Priority",
+              "required": true,
+              "enumValues": [
+                "must",
+                "should",
+                "could",
+                "wontThisTime"
+              ],
+              "enumValueDocs": {
+                "must": "MoSCoW *must have*: the release is not shippable without it. A failed\nmust-have is a release blocker — the date moves, the requirement does\nnot. Anything that can be traded away under schedule pressure was never\na must.",
+                "should": "MoSCoW *should have*: painful to omit, but the release still ships\nwithout it. This is the first band traded away when the timebox is\nthreatened, and dropping one is expected to come with a stated\nworkaround rather than silence.",
+                "could": "MoSCoW *could have*: included only while it costs nothing that a\n[must] or [should] item needs. Dropping it is a routine timebox decision\nand requires no re-approval.",
+                "wontThisTime": "MoSCoW *won't have — this time*: deliberately excluded from **this**\ndelivery and recorded rather than deleted, so the decision (and its\nreasoning) survives into the next planning round. Distinct from\n[Status.rejected], which means never; this means not now."
+              }
             },
             {
               "name": "source",
@@ -208390,10 +208526,24 @@
           "formFields": [
             {
               "name": "probability",
-              "label": "Probability — Very Low, Low, Medium, High, Very High",
-              "hint": "Qualitative likelihood rating",
-              "type": "String",
-              "required": false
+              "label": "Probability",
+              "hint": "Qualitative likelihood band — the likelihood axis of the matrix.",
+              "type": "Probability",
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "probabilityValue",
@@ -208404,10 +208554,24 @@
             },
             {
               "name": "impact",
-              "label": "Impact — Negligible, Minor, Moderate, Major, Catastrophic",
-              "hint": "Qualitative severity rating",
-              "type": "String",
-              "required": false
+              "label": "Impact",
+              "hint": "Qualitative consequence band — the consequence axis of the matrix.",
+              "type": "Impact",
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ],
+              "enumValueDocs": {
+                "negligible": "Absorbed inside normal working. No measurable change to schedule, budget\nor quality, and nobody outside the team doing the work has to know.",
+                "minor": "Felt within one workstream and covered by that workstream's own\ncontingency. Nothing outside it is replanned.",
+                "moderate": "Exceeds a single workstream's contingency and forces replanning across\nworkstreams. Project management decides; the sponsor is informed.",
+                "major": "Threatens a committed date, budget or quality commitment. Recovery\nrequires a sponsor decision — more money, less scope, or a later date.",
+                "critical": "The objective itself fails and no contingency inside the project recovers\nit. The decision at this level is whether the project continues at all."
+              }
             },
             {
               "name": "impactValue",
@@ -209341,16 +209505,44 @@
             {
               "name": "residualProbability",
               "label": "Residual Probability — expected after mitigation",
-              "hint": "Expected likelihood after mitigation",
-              "type": "String",
-              "required": false
+              "hint": "Expected likelihood band once the response is in place.",
+              "type": "Probability",
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "residualImpact",
               "label": "Residual Impact — expected after mitigation",
-              "hint": "Expected impact after mitigation",
-              "type": "String",
-              "required": false
+              "hint": "Expected consequence band once the response is in place.",
+              "type": "Impact",
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ],
+              "enumValueDocs": {
+                "negligible": "Absorbed inside normal working. No measurable change to schedule, budget\nor quality, and nobody outside the team doing the work has to know.",
+                "minor": "Felt within one workstream and covered by that workstream's own\ncontingency. Nothing outside it is replanned.",
+                "moderate": "Exceeds a single workstream's contingency and forces replanning across\nworkstreams. Project management decides; the sponsor is informed.",
+                "major": "Threatens a committed date, budget or quality commitment. Recovery\nrequires a sponsor decision — more money, less scope, or a later date.",
+                "critical": "The objective itself fails and no contingency inside the project recovers\nit. The decision at this level is whether the project continues at all."
+              }
             },
             {
               "name": "secondaryRisks",
@@ -226649,10 +226841,28 @@
             },
             {
               "name": "status",
-              "label": "Status (Draft, Proposed, Approved, Implemented, Verified)",
-              "hint": "Draft, Proposed, Approved, Implemented, or Verified",
-              "type": "String",
-              "required": true
+              "label": "Status",
+              "hint": "Lifecycle position of the requirement, from authoring to evidence.",
+              "type": "Status",
+              "required": true,
+              "enumValues": [
+                "draft",
+                "proposed",
+                "approved",
+                "implemented",
+                "verified",
+                "deferred",
+                "rejected"
+              ],
+              "enumValueDocs": {
+                "draft": "Being authored. The wording may change without notice and nothing\ndownstream may be planned, estimated or built against it.",
+                "proposed": "Complete enough to be reviewed and awaiting a decision. Review may still\nsend it back or reject it outright, so it is not yet a commitment.",
+                "approved": "Signed off as the agreed intent, and the baseline that downstream work is\nplanned and estimated against. From here on a change is a change request\nwith its own approval, not a quiet edit.",
+                "implemented": "A realising artifact exists, but nothing has yet confirmed it does what\n[approved] committed to. The gap between this and [verified] is exactly\nthe evidence, which is why the two are separate states rather than one\n\"done\".",
+                "verified": "Implemented *and* shown to meet its acceptance criteria by test or review\nevidence. The only terminal state that means the item is finished.",
+                "deferred": "Approved in substance but not scheduled for this delivery, and kept in the\ndocument so it returns to the backlog instead of being lost. This is the\nlifecycle position; [Priority.wontThisTime] is the scoping decision that\nputs an item here.",
+                "rejected": "Decided against, permanently. Retained rather than deleted so a later\nreader can see the option was considered and why it lost, instead of\nre-proposing it."
+              }
             }
           ]
         },
@@ -239429,16 +239639,44 @@
             {
               "name": "probability",
               "label": "Probability",
-              "hint": "VeryLow / Low / Medium / High / VeryHigh",
-              "type": "String",
-              "required": true
+              "hint": "Qualitative likelihood band for this migration risk.",
+              "type": "Probability",
+              "required": true,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "impact",
               "label": "Impact",
-              "hint": "Negligible / Minor / Moderate / Major / Critical",
-              "type": "String",
-              "required": true
+              "hint": "Qualitative consequence band if the risk lands.",
+              "type": "Impact",
+              "required": true,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ],
+              "enumValueDocs": {
+                "negligible": "Absorbed inside normal working. No measurable change to schedule, budget\nor quality, and nobody outside the team doing the work has to know.",
+                "minor": "Felt within one workstream and covered by that workstream's own\ncontingency. Nothing outside it is replanned.",
+                "moderate": "Exceeds a single workstream's contingency and forces replanning across\nworkstreams. Project management decides; the sponsor is informed.",
+                "major": "Threatens a committed date, budget or quality commitment. Recovery\nrequires a sponsor decision — more money, less scope, or a later date.",
+                "critical": "The objective itself fails and no contingency inside the project recovers\nit. The decision at this level is whether the project continues at all."
+              }
             },
             {
               "name": "riskScore",
@@ -239779,16 +240017,44 @@
             {
               "name": "residualProbability",
               "label": "Residual Probability",
-              "hint": "VeryLow / Low / Medium / High — after mitigation",
-              "type": "String",
-              "required": false
+              "hint": "Expected likelihood band once the mitigation is in place.",
+              "type": "Probability",
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "residualImpact",
               "label": "Residual Impact",
-              "hint": "Negligible / Minor / Moderate / Major — after mitigation",
-              "type": "String",
-              "required": false
+              "hint": "Expected consequence band once the mitigation is in place.",
+              "type": "Impact",
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ],
+              "enumValueDocs": {
+                "negligible": "Absorbed inside normal working. No measurable change to schedule, budget\nor quality, and nobody outside the team doing the work has to know.",
+                "minor": "Felt within one workstream and covered by that workstream's own\ncontingency. Nothing outside it is replanned.",
+                "moderate": "Exceeds a single workstream's contingency and forces replanning across\nworkstreams. Project management decides; the sponsor is informed.",
+                "major": "Threatens a committed date, budget or quality commitment. Recovery\nrequires a sponsor decision — more money, less scope, or a later date.",
+                "critical": "The objective itself fails and no contingency inside the project recovers\nit. The decision at this level is whether the project continues at all."
+              }
             },
             {
               "name": "residualRiskAcceptable",
@@ -262226,10 +262492,28 @@
           "formFields": [
             {
               "name": "status",
-              "label": "Status (Draft, Proposed, Approved, Verified, Deferred)",
-              "hint": "Draft, Proposed, Approved, Verified, or Deferred",
-              "type": "String",
-              "required": true
+              "label": "Status",
+              "hint": "Lifecycle position of the requirement, from authoring to evidence.",
+              "type": "Status",
+              "required": true,
+              "enumValues": [
+                "draft",
+                "proposed",
+                "approved",
+                "implemented",
+                "verified",
+                "deferred",
+                "rejected"
+              ],
+              "enumValueDocs": {
+                "draft": "Being authored. The wording may change without notice and nothing\ndownstream may be planned, estimated or built against it.",
+                "proposed": "Complete enough to be reviewed and awaiting a decision. Review may still\nsend it back or reject it outright, so it is not yet a commitment.",
+                "approved": "Signed off as the agreed intent, and the baseline that downstream work is\nplanned and estimated against. From here on a change is a change request\nwith its own approval, not a quiet edit.",
+                "implemented": "A realising artifact exists, but nothing has yet confirmed it does what\n[approved] committed to. The gap between this and [verified] is exactly\nthe evidence, which is why the two are separate states rather than one\n\"done\".",
+                "verified": "Implemented *and* shown to meet its acceptance criteria by test or review\nevidence. The only terminal state that means the item is finished.",
+                "deferred": "Approved in substance but not scheduled for this delivery, and kept in the\ndocument so it returns to the backlog instead of being lost. This is the\nlifecycle position; [Priority.wontThisTime] is the scoping decision that\nputs an item here.",
+                "rejected": "Decided against, permanently. Retained rather than deleted so a later\nreader can see the option was considered and why it lost, instead of\nre-proposing it."
+              }
             }
           ]
         },

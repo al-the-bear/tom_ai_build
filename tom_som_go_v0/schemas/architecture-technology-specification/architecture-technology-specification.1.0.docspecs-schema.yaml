@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: architecture-technology-specification/1.0
+# Schema: architecture-technology-specification/1.1
 
 title-format: "# <!--[ATS]--> Architecture & Technology Specification"
 section-types:
@@ -15926,9 +15926,9 @@ form-types:
   crea-form:
     fields:
       - fieldname: probability
-        description: VeryLow / Low / Medium / High / VeryHigh
+        description: Qualitative likelihood band for this component risk.
       - fieldname: impact
-        description: Negligible / Minor / Moderate / Major / Critical
+        description: Qualitative consequence band if the risk lands.
       - fieldname: riskScore
         description: Calculated score (probability × impact)
       - fieldname: riskTrend

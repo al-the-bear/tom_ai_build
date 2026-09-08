@@ -232,6 +232,26 @@ char *parse_flow_return_point(const char *token);
 // parse_graded_access_level returns the token (owned) when it is a known GradedAccessLevel value, else "".
 char *parse_graded_access_level(const char *token);
 
+// Generated enum tokens for `Impact` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Absorbed inside normal working. No measurable change to schedule, budget
+// or quality, and nobody outside the team doing the work has to know.
+#define IMPACT_NEGLIGIBLE "negligible"
+// Felt within one workstream and covered by that workstream's own
+// contingency. Nothing outside it is replanned.
+#define IMPACT_MINOR "minor"
+// Exceeds a single workstream's contingency and forces replanning across
+// workstreams. Project management decides; the sponsor is informed.
+#define IMPACT_MODERATE "moderate"
+// Threatens a committed date, budget or quality commitment. Recovery
+// requires a sponsor decision — more money, less scope, or a later date.
+#define IMPACT_MAJOR "major"
+// The objective itself fails and no contingency inside the project recovers
+// it. The decision at this level is whether the project continues at all.
+#define IMPACT_CRITICAL "critical"
+// parse_impact returns the token (owned) when it is a known Impact value, else "".
+char *parse_impact(const char *token);
+
 // Generated enum tokens for `Iso25010Characteristic` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // ISO/IEC 25010:2023 *functional suitability* — the degree to which the
@@ -346,6 +366,53 @@ char *parse_migration_artifact_kind(const char *token);
 #define OBJECT_LIFECYCLE_KIND_ERROR "error"
 // parse_object_lifecycle_kind returns the token (owned) when it is a known ObjectLifecycleKind value, else "".
 char *parse_object_lifecycle_kind(const char *token);
+
+// Generated enum tokens for `Priority` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// MoSCoW *must have*: the release is not shippable without it. A failed
+// must-have is a release blocker — the date moves, the requirement does
+// not. Anything that can be traded away under schedule pressure was never
+// a must.
+#define PRIORITY_MUST "must"
+// MoSCoW *should have*: painful to omit, but the release still ships
+// without it. This is the first band traded away when the timebox is
+// threatened, and dropping one is expected to come with a stated
+// workaround rather than silence.
+#define PRIORITY_SHOULD "should"
+// MoSCoW *could have*: included only while it costs nothing that a
+// [must] or [should] item needs. Dropping it is a routine timebox decision
+// and requires no re-approval.
+#define PRIORITY_COULD "could"
+// MoSCoW *won't have — this time*: deliberately excluded from **this**
+// delivery and recorded rather than deleted, so the decision (and its
+// reasoning) survives into the next planning round. Distinct from
+// [Status.rejected], which means never; this means not now.
+#define PRIORITY_WONT_THIS_TIME "wontThisTime"
+// parse_priority returns the token (owned) when it is a known Priority value, else "".
+char *parse_priority(const char *token);
+
+// Generated enum tokens for `Probability` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Would be surprising: no trigger for it is visible in the current plan.
+// Carried on the register to be watched, not to be mitigated.
+#define PROBABILITY_VERY_LOW "veryLow"
+// Plausible but not expected — a known trigger exists and is not currently
+// active. Cheap mitigations are worth taking; expensive ones are not.
+#define PROBABILITY_LOW "low"
+// As likely as not. The band where the decision to mitigate turns on cost
+// rather than on likelihood, and the one most often used as a default when
+// nobody has actually estimated — a medium with no reasoning behind it is
+// worth challenging.
+#define PROBABILITY_MEDIUM "medium"
+// Expected unless something about the plan changes. Mitigation is assumed;
+// its absence needs an explicit reason.
+#define PROBABILITY_HIGH "high"
+// Effectively certain on the current plan. At this point it is a planned
+// event, not a risk: it belongs in the plan with an owner and a date, and
+// leaving it on the risk register hides work rather than tracking it.
+#define PROBABILITY_VERY_HIGH "veryHigh"
+// parse_probability returns the token (owned) when it is a known Probability value, else "".
+char *parse_probability(const char *token);
 
 // Generated enum tokens for `ReportColumnKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
@@ -878,6 +945,38 @@ char *parse_screen_presentation_mode(const char *token);
 #define SERVER_CALL_ROLE_HANDLE_ERROR "handleError"
 // parse_server_call_role returns the token (owned) when it is a known ServerCallRole value, else "".
 char *parse_server_call_role(const char *token);
+
+// Generated enum tokens for `Status` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Being authored. The wording may change without notice and nothing
+// downstream may be planned, estimated or built against it.
+#define STATUS_DRAFT "draft"
+// Complete enough to be reviewed and awaiting a decision. Review may still
+// send it back or reject it outright, so it is not yet a commitment.
+#define STATUS_PROPOSED "proposed"
+// Signed off as the agreed intent, and the baseline that downstream work is
+// planned and estimated against. From here on a change is a change request
+// with its own approval, not a quiet edit.
+#define STATUS_APPROVED "approved"
+// A realising artifact exists, but nothing has yet confirmed it does what
+// [approved] committed to. The gap between this and [verified] is exactly
+// the evidence, which is why the two are separate states rather than one
+// "done".
+#define STATUS_IMPLEMENTED "implemented"
+// Implemented *and* shown to meet its acceptance criteria by test or review
+// evidence. The only terminal state that means the item is finished.
+#define STATUS_VERIFIED "verified"
+// Approved in substance but not scheduled for this delivery, and kept in the
+// document so it returns to the backlog instead of being lost. This is the
+// lifecycle position; [Priority.wontThisTime] is the scoping decision that
+// puts an item here.
+#define STATUS_DEFERRED "deferred"
+// Decided against, permanently. Retained rather than deleted so a later
+// reader can see the option was considered and why it lost, instead of
+// re-proposing it.
+#define STATUS_REJECTED "rejected"
+// parse_status returns the token (owned) when it is a known Status value, else "".
+char *parse_status(const char *token);
 
 // Generated enum tokens for `UserAttributePlacement` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.

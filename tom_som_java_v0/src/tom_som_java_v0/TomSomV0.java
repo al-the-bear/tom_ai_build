@@ -452,6 +452,54 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `Impact` values.
+  public enum Impact {
+    /**
+     * Absorbed inside normal working. No measurable change to schedule, budget
+     * or quality, and nobody outside the team doing the work has to know.
+     */
+    negligible("negligible"),
+    /**
+     * Felt within one workstream and covered by that workstream's own
+     * contingency. Nothing outside it is replanned.
+     */
+    minor("minor"),
+    /**
+     * Exceeds a single workstream's contingency and forces replanning across
+     * workstreams. Project management decides; the sponsor is informed.
+     */
+    moderate("moderate"),
+    /**
+     * Threatens a committed date, budget or quality commitment. Recovery
+     * requires a sponsor decision — more money, less scope, or a later date.
+     */
+    major("major"),
+    /**
+     * The objective itself fails and no contingency inside the project recovers
+     * it. The decision at this level is whether the project continues at all.
+     */
+    critical("critical");
+
+    public final String token;
+
+    Impact(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a Impact, or null.
+    public static Impact parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (Impact v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `Iso25010Characteristic` values.
   public enum Iso25010Characteristic {
     /**
@@ -643,6 +691,107 @@ public final class TomSomV0 {
         return null;
       }
       for (ObjectLifecycleKind v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `Priority` values.
+  public enum Priority {
+    /**
+     * MoSCoW *must have*: the release is not shippable without it. A failed
+     * must-have is a release blocker — the date moves, the requirement does
+     * not. Anything that can be traded away under schedule pressure was never
+     * a must.
+     */
+    must("must"),
+    /**
+     * MoSCoW *should have*: painful to omit, but the release still ships
+     * without it. This is the first band traded away when the timebox is
+     * threatened, and dropping one is expected to come with a stated
+     * workaround rather than silence.
+     */
+    should("should"),
+    /**
+     * MoSCoW *could have*: included only while it costs nothing that a
+     * [must] or [should] item needs. Dropping it is a routine timebox decision
+     * and requires no re-approval.
+     */
+    could("could"),
+    /**
+     * MoSCoW *won't have — this time*: deliberately excluded from **this**
+     * delivery and recorded rather than deleted, so the decision (and its
+     * reasoning) survives into the next planning round. Distinct from
+     * [Status.rejected], which means never; this means not now.
+     */
+    wontThisTime("wontThisTime");
+
+    public final String token;
+
+    Priority(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a Priority, or null.
+    public static Priority parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (Priority v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `Probability` values.
+  public enum Probability {
+    /**
+     * Would be surprising: no trigger for it is visible in the current plan.
+     * Carried on the register to be watched, not to be mitigated.
+     */
+    veryLow("veryLow"),
+    /**
+     * Plausible but not expected — a known trigger exists and is not currently
+     * active. Cheap mitigations are worth taking; expensive ones are not.
+     */
+    low("low"),
+    /**
+     * As likely as not. The band where the decision to mitigate turns on cost
+     * rather than on likelihood, and the one most often used as a default when
+     * nobody has actually estimated — a medium with no reasoning behind it is
+     * worth challenging.
+     */
+    medium("medium"),
+    /**
+     * Expected unless something about the plan changes. Mitigation is assumed;
+     * its absence needs an explicit reason.
+     */
+    high("high"),
+    /**
+     * Effectively certain on the current plan. At this point it is a planned
+     * event, not a risk: it belongs in the plan with an owner and a date, and
+     * leaving it on the risk register hides work rather than tracking it.
+     */
+    veryHigh("veryHigh");
+
+    public final String token;
+
+    Probability(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a Probability, or null.
+    public static Probability parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (Probability v : values()) {
         if (v.token.equals(token)) {
           return v;
         }
@@ -1491,6 +1640,70 @@ public final class TomSomV0 {
         return null;
       }
       for (ServerCallRole v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `Status` values.
+  public enum Status {
+    /**
+     * Being authored. The wording may change without notice and nothing
+     * downstream may be planned, estimated or built against it.
+     */
+    draft("draft"),
+    /**
+     * Complete enough to be reviewed and awaiting a decision. Review may still
+     * send it back or reject it outright, so it is not yet a commitment.
+     */
+    proposed("proposed"),
+    /**
+     * Signed off as the agreed intent, and the baseline that downstream work is
+     * planned and estimated against. From here on a change is a change request
+     * with its own approval, not a quiet edit.
+     */
+    approved("approved"),
+    /**
+     * A realising artifact exists, but nothing has yet confirmed it does what
+     * [approved] committed to. The gap between this and [verified] is exactly
+     * the evidence, which is why the two are separate states rather than one
+     * "done".
+     */
+    implemented("implemented"),
+    /**
+     * Implemented *and* shown to meet its acceptance criteria by test or review
+     * evidence. The only terminal state that means the item is finished.
+     */
+    verified("verified"),
+    /**
+     * Approved in substance but not scheduled for this delivery, and kept in the
+     * document so it returns to the backlog instead of being lost. This is the
+     * lifecycle position; [Priority.wontThisTime] is the scoping decision that
+     * puts an item here.
+     */
+    deferred("deferred"),
+    /**
+     * Decided against, permanently. Retained rather than deleted so a later
+     * reader can see the option was considered and why it lost, instead of
+     * re-proposing it.
+     */
+    rejected("rejected");
+
+    public final String token;
+
+    Status(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a Status, or null.
+    public static Status parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (Status v : values()) {
         if (v.token.equals(token)) {
           return v;
         }
@@ -63470,13 +63683,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String defaultImpactLevel() {
-      String v = doc.formField(path, "defaultImpactLevel");
-      return v == null ? "" : v;
+    public Impact defaultImpactLevel() {
+      return Impact.parse(doc.formField(path, "defaultImpactLevel"));
     }
 
-    public void defaultImpactLevel(String value) {
-      doc.setFormField(path, "defaultImpactLevel", value);
+    public void setDefaultImpactLevel(Impact value) {
+      doc.setFormField(path, "defaultImpactLevel", value == null ? "" : value.token);
     }
 
     public String approvalPath() {
@@ -73482,22 +73694,20 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String probability() {
-      String v = doc.formField(path, "probability");
-      return v == null ? "" : v;
+    public Probability probability() {
+      return Probability.parse(doc.formField(path, "probability"));
     }
 
-    public void probability(String value) {
-      doc.setFormField(path, "probability", value);
+    public void setProbability(Probability value) {
+      doc.setFormField(path, "probability", value == null ? "" : value.token);
     }
 
-    public String impact() {
-      String v = doc.formField(path, "impact");
-      return v == null ? "" : v;
+    public Impact impact() {
+      return Impact.parse(doc.formField(path, "impact"));
     }
 
-    public void impact(String value) {
-      doc.setFormField(path, "impact", value);
+    public void setImpact(Impact value) {
+      doc.setFormField(path, "impact", value == null ? "" : value.token);
     }
 
     public Integer riskScore() {
@@ -105070,13 +105280,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "weightedPriorityScore", value);
     }
 
-    public String moscowTier() {
-      String v = doc.formField(path, "moscowTier");
-      return v == null ? "" : v;
+    public Priority moscowTier() {
+      return Priority.parse(doc.formField(path, "moscowTier"));
     }
 
-    public void moscowTier(String value) {
-      doc.setFormField(path, "moscowTier", value);
+    public void setMoscowTier(Priority value) {
+      doc.setFormField(path, "moscowTier", value == null ? "" : value.token);
     }
 
     public String wsjfScore() {
@@ -107429,13 +107638,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String status() {
-      String v = doc.formField(path, "status");
-      return v == null ? "" : v;
+    public Status status() {
+      return Status.parse(doc.formField(path, "status"));
     }
 
-    public void status(String value) {
-      doc.setFormField(path, "status", value);
+    public void setStatus(Status value) {
+      doc.setFormField(path, "status", value == null ? "" : value.token);
     }
   }
 
@@ -107558,13 +107766,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public Priority priority() {
+      return Priority.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(Priority value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String businessValue() {
@@ -127843,13 +128050,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "mitigationStatus", value);
     }
 
-    public String residualProbability() {
-      String v = doc.formField(path, "residualProbability");
-      return v == null ? "" : v;
+    public Probability residualProbability() {
+      return Probability.parse(doc.formField(path, "residualProbability"));
     }
 
-    public void residualProbability(String value) {
-      doc.setFormField(path, "residualProbability", value);
+    public void setResidualProbability(Probability value) {
+      doc.setFormField(path, "residualProbability", value == null ? "" : value.token);
     }
 
     public String residualImpact() {
@@ -127893,13 +128099,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String probabilityRating() {
-      String v = doc.formField(path, "probabilityRating");
-      return v == null ? "" : v;
+    public Probability probabilityRating() {
+      return Probability.parse(doc.formField(path, "probabilityRating"));
     }
 
-    public void probabilityRating(String value) {
-      doc.setFormField(path, "probabilityRating", value);
+    public void setProbabilityRating(Probability value) {
+      doc.setFormField(path, "probabilityRating", value == null ? "" : value.token);
     }
 
     public Integer probabilityScore() {
@@ -130504,13 +130709,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String moscowCategory() {
-      String v = doc.formField(path, "moscowCategory");
-      return v == null ? "" : v;
+    public Priority moscowCategory() {
+      return Priority.parse(doc.formField(path, "moscowCategory"));
     }
 
-    public void moscowCategory(String value) {
-      doc.setFormField(path, "moscowCategory", value);
+    public void setMoscowCategory(Priority value) {
+      doc.setFormField(path, "moscowCategory", value == null ? "" : value.token);
     }
 
     public String justification() {
@@ -137207,13 +137411,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "subcategory", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public Priority priority() {
+      return Priority.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(Priority value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String source() {
@@ -160860,13 +161063,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String probability() {
-      String v = doc.formField(path, "probability");
-      return v == null ? "" : v;
+    public Probability probability() {
+      return Probability.parse(doc.formField(path, "probability"));
     }
 
-    public void probability(String value) {
-      doc.setFormField(path, "probability", value);
+    public void setProbability(Probability value) {
+      doc.setFormField(path, "probability", value == null ? "" : value.token);
     }
 
     public Double probabilityValue() {
@@ -160879,13 +161081,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "probabilityValue", value == null ? "" : String.valueOf(value));
     }
 
-    public String impact() {
-      String v = doc.formField(path, "impact");
-      return v == null ? "" : v;
+    public Impact impact() {
+      return Impact.parse(doc.formField(path, "impact"));
     }
 
-    public void impact(String value) {
-      doc.setFormField(path, "impact", value);
+    public void setImpact(Impact value) {
+      doc.setFormField(path, "impact", value == null ? "" : value.token);
     }
 
     public Double impactValue() {
@@ -161593,22 +161794,20 @@ public final class TomSomV0 {
       doc.setFormField(path, "residualRisk", value);
     }
 
-    public String residualProbability() {
-      String v = doc.formField(path, "residualProbability");
-      return v == null ? "" : v;
+    public Probability residualProbability() {
+      return Probability.parse(doc.formField(path, "residualProbability"));
     }
 
-    public void residualProbability(String value) {
-      doc.setFormField(path, "residualProbability", value);
+    public void setResidualProbability(Probability value) {
+      doc.setFormField(path, "residualProbability", value == null ? "" : value.token);
     }
 
-    public String residualImpact() {
-      String v = doc.formField(path, "residualImpact");
-      return v == null ? "" : v;
+    public Impact residualImpact() {
+      return Impact.parse(doc.formField(path, "residualImpact"));
     }
 
-    public void residualImpact(String value) {
-      doc.setFormField(path, "residualImpact", value);
+    public void setResidualImpact(Impact value) {
+      doc.setFormField(path, "residualImpact", value == null ? "" : value.token);
     }
 
     public String secondaryRisks() {
@@ -170475,13 +170674,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "riskOwner", value);
     }
 
-    public String status() {
-      String v = doc.formField(path, "status");
-      return v == null ? "" : v;
+    public Status status() {
+      return Status.parse(doc.formField(path, "status"));
     }
 
-    public void status(String value) {
-      doc.setFormField(path, "status", value);
+    public void setStatus(Status value) {
+      doc.setFormField(path, "status", value == null ? "" : value.token);
     }
   }
 
@@ -178251,22 +178449,20 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String probability() {
-      String v = doc.formField(path, "probability");
-      return v == null ? "" : v;
+    public Probability probability() {
+      return Probability.parse(doc.formField(path, "probability"));
     }
 
-    public void probability(String value) {
-      doc.setFormField(path, "probability", value);
+    public void setProbability(Probability value) {
+      doc.setFormField(path, "probability", value == null ? "" : value.token);
     }
 
-    public String impact() {
-      String v = doc.formField(path, "impact");
-      return v == null ? "" : v;
+    public Impact impact() {
+      return Impact.parse(doc.formField(path, "impact"));
     }
 
-    public void impact(String value) {
-      doc.setFormField(path, "impact", value);
+    public void setImpact(Impact value) {
+      doc.setFormField(path, "impact", value == null ? "" : value.token);
     }
 
     public String riskScore() {
@@ -178318,22 +178514,20 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String residualProbability() {
-      String v = doc.formField(path, "residualProbability");
-      return v == null ? "" : v;
+    public Probability residualProbability() {
+      return Probability.parse(doc.formField(path, "residualProbability"));
     }
 
-    public void residualProbability(String value) {
-      doc.setFormField(path, "residualProbability", value);
+    public void setResidualProbability(Probability value) {
+      doc.setFormField(path, "residualProbability", value == null ? "" : value.token);
     }
 
-    public String residualImpact() {
-      String v = doc.formField(path, "residualImpact");
-      return v == null ? "" : v;
+    public Impact residualImpact() {
+      return Impact.parse(doc.formField(path, "residualImpact"));
     }
 
-    public void residualImpact(String value) {
-      doc.setFormField(path, "residualImpact", value);
+    public void setResidualImpact(Impact value) {
+      doc.setFormField(path, "residualImpact", value == null ? "" : value.token);
     }
 
     public String residualRiskAcceptable() {
@@ -190122,13 +190316,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String status() {
-      String v = doc.formField(path, "status");
-      return v == null ? "" : v;
+    public Status status() {
+      return Status.parse(doc.formField(path, "status"));
     }
 
-    public void status(String value) {
-      doc.setFormField(path, "status", value);
+    public void setStatus(Status value) {
+      doc.setFormField(path, "status", value == null ? "" : value.token);
     }
   }
 

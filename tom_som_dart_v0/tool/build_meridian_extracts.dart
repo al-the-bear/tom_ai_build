@@ -143,7 +143,7 @@ void main() {
   final populated = extracts.where((x) => x.entries.isNotEmpty).toList();
 
   stdout.writeln('gate A1 passes — markdown validates against '
-      'solution-blueprint/1.0');
+      '${_docspecDeclaration(markdown)}');
   stdout.writeln('gate A2 passes — 0 instance-tier violations');
   stdout.writeln('gate A3 passes — ${routings.length} class nodes walked, '
       'every one routed');
@@ -158,3 +158,13 @@ void main() {
     stdout.writeln('    ${x.area.code}: ${x.entries.length}');
   }
 }
+
+/// The `id/version` the committed rendition declares in its SOM §11.1 header.
+///
+/// Read from the document rather than written as a literal: the version tracks
+/// the model's minor, so a literal goes stale at the next bump silently.
+String _docspecDeclaration(String markdown) =>
+    RegExp(r'<!--\s*docspec:\s*([^\s]+)\s*-->')
+        .firstMatch(markdown.split('\n').first)
+        ?.group(1) ??
+    '(no docspec declaration)';
