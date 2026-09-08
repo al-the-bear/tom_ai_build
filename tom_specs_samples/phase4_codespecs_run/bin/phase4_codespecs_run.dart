@@ -28,6 +28,7 @@ import 'dart:isolate';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 
 Future<void> main() async {
   final inputs = await _Inputs.load();
@@ -450,14 +451,10 @@ class _Inputs {
     final v0 = await _packageDir('tom_som_dart_v0');
     final specsModel = await _packageDir('tom_specs_model');
 
-    final model = SpecModel.fromJson(
-      jsonDecode(
-            File.fromUri(
-              v0.resolve('meta/spec_model.meta.json'),
-            ).readAsStringSync(),
-          )
-          as Map<String, dynamic>,
-    );
+    // The whole model, as one expression (SOM §10.3). The schema and the area
+    // catalogue below still go through the package URI: both ship as data with
+    // no accessor.
+    final model = somSpecModel;
 
     final schema = DocSpecsSchema.fromYamlText(
       File.fromUri(

@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.1.0+5.a15517b3
-  generatedAt       = 2026-09-06T08:01:24.305288Z
+  modelVersionLabel = 1.2.0+6.2c330083
+  generatedAt       = 2026-09-08T19:48:05.612280Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -29,7 +29,7 @@ holds are the ones this model describes. `modelVersionLabel` is a
 build label for humans — never branch on it.
 
 SNAPSHOT CHECK (`checkStamp`), against a fixed clock:
-  age                 : 0 days (aged: false)
+  age                 : 3 days (aged: false)
   classes  declared/actual : 1254/1254  disagrees: false
   roots    declared/actual : 14/14  disagrees: false
   Declared-vs-actual is not redundant: the declared value is what

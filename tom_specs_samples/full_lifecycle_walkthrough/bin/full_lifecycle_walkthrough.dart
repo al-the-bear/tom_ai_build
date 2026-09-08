@@ -29,6 +29,7 @@ import 'dart:isolate';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 
 Future<void> main() async {
   final env = await _Environment.load();
@@ -855,7 +856,7 @@ void _authorRequirements(D04RequirementsSpecification rsp) {
     ..requirementType = 'Functional'
     ..category = 'Booking';
   fr001.priority
-    ..priority = 'Must'
+    ..priority = Priority.must
     ..businessValue =
         'The reason the system exists: double bookings cost the '
         'sales team a client meeting room.';
@@ -943,14 +944,10 @@ class _Environment {
     );
 
     return _Environment(
-      SpecModel.fromJson(
-        jsonDecode(
-              File.fromUri(
-                v0.resolve('meta/spec_model.meta.json'),
-              ).readAsStringSync(),
-            )
-            as Map<String, dynamic>,
-      ),
+      // The whole model, as one expression (SOM §10.3). The schemas and the
+      // area catalogue below still go through the package URI: both ship as
+      // data with no accessor.
+      somSpecModel,
       schema('solution-blueprint'),
       schema('information-model'),
       schema('requirements-specification'),

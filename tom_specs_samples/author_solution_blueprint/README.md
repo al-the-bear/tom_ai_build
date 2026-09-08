@@ -66,15 +66,6 @@ validator is what notices, reporting `danglingPath`. Seeing the failure is the
 point: a sample that only shows success teaches you nothing about the day it
 does not work.
 
-## One wrinkle, and why it is here
-
-`toMarkdown` and `validateDocument` both take a `SpecModel`, and the generated
-facade exposes only a `SomMetaTree` per document root. The model ships as a
-data file inside the package, so `_loadShippedModel()` resolves the package URI
-and reads it. That is five lines a consumer should not have to write, and it is
-tracked as a defect rather than hidden here — a sample that quietly worked
-around it would leave the next reader to rediscover it.
-
 ## Where to go next
 
 The individual access styles each have a focused example in the facade package

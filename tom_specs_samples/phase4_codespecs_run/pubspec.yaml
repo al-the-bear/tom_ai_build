@@ -12,6 +12,6 @@ environment:
 # catalogue the extractor reads is generated-doc/codespecs/codespecs_areas.json
 # inside that package.
 dependencies:
-  tom_som_dart_v0: ^1.1.0
-  tom_som_dart_runtime: ^1.1.0
-  tom_specs_model: ^1.1.0
+  tom_som_dart_v0: ^1.2.0
+  tom_som_dart_runtime: ^1.2.0
+  tom_specs_model: ^1.2.0

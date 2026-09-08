@@ -1,5 +1,5 @@
 1. A typed root over an empty document
-   object model version : 1.1
+   object model version : 1.2
    root path            : SBP
 
 2. Authoring, printing each section id as it is written

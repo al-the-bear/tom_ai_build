@@ -30,15 +30,17 @@
 // author has to get right before writing any of it — see the README, and step 4.
 library;
 
-import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 
 Future<void> main() async {
-  final model = await _loadModel();
+  // The whole model, as one expression (SOM §10.3). The schema below still
+  // goes through the package URI: schemas ship as data with no accessor.
+  final model = somSpecModel;
   final schema = await _loadSchema();
 
   final doc = SpecDocument();
@@ -91,9 +93,19 @@ void _reflection(SpecModel model) {
 
   // A snapshot is a photograph. `checkStamp` compares what the exporter
   // DECLARED against what survived to the reader, and ages the file out.
+  //
   // `now:` is passed rather than defaulted so this sample's output does not
-  // change with the calendar.
-  final stamp = model.checkStamp(now: DateTime.utc(2026, 9, 7));
+  // change with the calendar — and it is derived from the model's OWN stamp
+  // rather than written as a date. A fixed literal drifts past the model at
+  // the next regeneration and prints a negative age, which reads as a snapshot
+  // from the future; anchoring it here keeps the printed age at exactly the
+  // offset this sample means to demonstrate.
+  //
+  // `generatedAt` is nullable — an export predating the key carries none — so
+  // the fallback keeps the sample runnable rather than throwing on a model it
+  // cannot date.
+  final exportedAt = model.generatedAt?.toUtc() ?? DateTime.utc(2026);
+  final stamp = model.checkStamp(now: exportedAt.add(const Duration(days: 3)));
   print('SNAPSHOT CHECK (`checkStamp`), against a fixed clock:');
   print(
     '  age                 : ${stamp.age?.inDays} days'
@@ -620,24 +632,6 @@ void _authorFixture(D00SolutionBlueprint sbp) {
 // ===========================================================================
 // Loading, and small helpers
 // ===========================================================================
-
-/// Loads the exported class graph shipped in `tom_som_dart_v0`.
-///
-/// The meta ships as **data**, not as Dart, so it is reached through the
-/// package URI. `Platform.script.resolve` — which the facade's own
-/// `c_reflection_metadata.dart` uses — works only for a script running inside
-/// that package, and silently resolves to nothing from a consuming project.
-Future<SpecModel> _loadModel() async {
-  final root = await _packageRoot('tom_som_dart_v0');
-  return SpecModel.fromJson(
-    jsonDecode(
-          File.fromUri(
-            root.resolve('meta/spec_model.meta.json'),
-          ).readAsStringSync(),
-        )
-        as Map<String, dynamic>,
-  );
-}
 
 /// Loads the generated DocSpecs schema for the Solution Blueprint root.
 Future<DocSpecsSchema> _loadSchema() async {

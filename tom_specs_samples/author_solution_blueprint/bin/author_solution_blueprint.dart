@@ -18,12 +18,11 @@
 // https://pub.dev/packages/tom_som_dart_v0/example
 library;
 
-import 'dart:convert';
 import 'dart:io';
-import 'dart:isolate';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 
 Future<void> main() async {
   final outDir = Directory('build')..createSync(recursive: true);
@@ -69,10 +68,11 @@ Future<void> main() async {
   // Both renditions of the same document. They are two encodings of one
   // store, not two documents — which is why step 4 can round-trip either.
   //
-  // `toMarkdown` and the validator both need a SpecModel, and the facade
-  // exposes only its per-root metadata trees. The model ships as a data file
-  // inside the package, so a consumer locates it through the package URI.
-  final model = await _loadShippedModel();
+  // `toMarkdown` and the validator both need a whole SpecModel. The facade
+  // ships one as a single expression — `somSpecModel`, in a library the barrel
+  // deliberately does not export, so a consumer that never reads the model does
+  // not pay for the embedded payload (SOM §10.3).
+  final model = somSpecModel;
 
   final yaml = SpecDocumentYaml.encode(
     document: doc,
@@ -144,25 +144,3 @@ void _wrote(String path, String what) =>
     print('   ${path.padRight(46)} ${what}');
 
 int _lines(String s) => s.trimRight().split('\n').length;
-
-/// Loads the `SpecModel` that ships inside `tom_som_dart_v0`.
-///
-/// The generated facade exposes a `SomMetaTree` per document root, which is
-/// what the typed accessors and the yaml codec need — but `toMarkdown` and
-/// `validateDocument` take a whole `SpecModel`, and the package publishes that
-/// as a data file rather than as Dart. So a consumer resolves the package URI
-/// and reads it from wherever pub put the package.
-Future<SpecModel> _loadShippedModel() async {
-  final lib = await Isolate.resolvePackageUri(
-    Uri.parse('package:tom_som_dart_v0/tom_som_dart_v0.dart'),
-  );
-  if (lib == null) {
-    throw StateError(
-      'cannot resolve package:tom_som_dart_v0 — run dart pub get',
-    );
-  }
-  final meta = File.fromUri(lib.resolve('../meta/spec_model.meta.json'));
-  return SpecModel.fromJson(
-    jsonDecode(meta.readAsStringSync()) as Map<String, dynamic>,
-  );
-}

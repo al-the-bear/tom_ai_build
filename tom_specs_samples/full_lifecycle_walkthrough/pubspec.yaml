@@ -12,9 +12,9 @@ environment:
 # tom_specs_model is here for its shipped DATA, not its Dart: Phase 4's extract
 # pass reads generated-doc/codespecs/codespecs_areas.json out of that package.
 dependencies:
-  tom_som_dart_v0: ^1.1.0
-  tom_som_dart_runtime: ^1.1.0
-  tom_specs_model: ^1.1.0
+  tom_som_dart_v0: ^1.2.0
+  tom_som_dart_runtime: ^1.2.0
+  tom_specs_model: ^1.2.0
 
 # Phase 5 derives a test suite and Phase 6 implements against it, so unlike the
 # other samples this one has a real `test/` folder and needs a test runner.

@@ -13,5 +13,5 @@ environment:
 # model, the document, reflection and both validators; the facade carries the
 # generated metadata tree, the shipped schemas and the typed accessors.
 dependencies:
-  tom_som_dart_v0: ^1.1.0
-  tom_som_dart_runtime: ^1.1.0
+  tom_som_dart_v0: ^1.2.0
+  tom_som_dart_runtime: ^1.2.0
