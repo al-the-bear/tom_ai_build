@@ -10607,7 +10607,7 @@ public final class TomSomV0 {
   // per the public-standards order of the `@StandardReferences` below.
   public static final class D00SolutionBlueprint extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -10745,7 +10745,7 @@ public final class TomSomV0 {
   // and the inventory / migration plan for the systems being replaced.
   public static final class D01CurrentLandscapeAssessment extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -10858,7 +10858,7 @@ public final class TomSomV0 {
   // cross-process analysis, exception handling, and KPIs.
   public static final class D02TargetOperatingModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -10982,7 +10982,7 @@ public final class TomSomV0 {
   // integrity constraints.
   public static final class D03InformationModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11166,7 +11166,7 @@ public final class TomSomV0 {
   // and coverage analysis.
   public static final class D04RequirementsSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11283,7 +11283,7 @@ public final class TomSomV0 {
   // and traceability.
   public static final class D05InteractionScenarios extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11392,7 +11392,7 @@ public final class TomSomV0 {
   // and translation handling.
   public static final class D06ArchitectureTechnologySpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11525,7 +11525,7 @@ public final class TomSomV0 {
   // migration, operational concerns, and cross-boundary error handling.
   public static final class D07IntegrationInterfaceSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11649,7 +11649,7 @@ public final class TomSomV0 {
   // compliance framework.
   public static final class D08SecurityAccessSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11775,7 +11775,7 @@ public final class TomSomV0 {
   // mockups.
   public static final class D09ExperienceDesignSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11914,7 +11914,7 @@ public final class TomSomV0 {
   // Full quality plan combining quality goals and the acceptance plan.
   public static final class D10QualityAcceptancePlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12083,7 +12083,7 @@ public final class TomSomV0 {
   // framework.
   public static final class D11DeliveryRoadmap extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12202,7 +12202,7 @@ public final class TomSomV0 {
   // transfer, and warranty/support.
   public static final class D12TransitionRolloutPlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12346,7 +12346,7 @@ public final class TomSomV0 {
   // models, the process-step interactions, and the client-side experience seed.
   public static final class D13CodeSpecsProjection extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.1";
+    public static final String MODEL_VERSION = "1.2";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).

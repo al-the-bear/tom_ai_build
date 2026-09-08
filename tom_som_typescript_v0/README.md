@@ -39,13 +39,13 @@ or pin it in your `package.json`:
 
 ```json
 "dependencies": {
-  "tom_som_typescript_v0": "^1.1.0"
+  "tom_som_typescript_v0": "^1.2.0"
 }
 ```
 
 The published package ships compiled `dist/` (`.js` + `.d.ts`), so no build step is required to consume it.
 
-`tom_som_typescript_v0` and `tom_som_typescript_runtime` both carry version `1.1.0`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
+`tom_som_typescript_v0` and `tom_som_typescript_runtime` both carry version `1.2.0`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
 
 ## Features
 
@@ -231,7 +231,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version and matching `tom_som_typescript_runtime`. Generated surface: 14 document roots, 1254 model classes. Verify the package with:
+Version **1.2.0**, tracking the TomSpecs model version and matching `tom_som_typescript_runtime`. Generated surface: 14 document roots, 1254 model classes. Verify the package with:
 
 ```bash
 npm install

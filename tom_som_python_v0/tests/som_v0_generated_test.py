@@ -120,11 +120,24 @@ def test_root_and_parity() -> None:
     _check("nested.typed-path==generic", doc.content("SBP/documentControl/probe") == "x")
 
 
+# The facade's own model version, and the three stamps SOM §4.2 classifies
+# against it. Derived rather than written out: these were literals ("1.1"
+# current, "1.0" older, "1.2" newer), so every model MINOR bump broke the
+# version checks in all nine languages at once — work with nothing to do with
+# the change. Deriving them keeps the assertions about the RULE.
+_CURRENT = m.D00SolutionBlueprint.model_version
+_MAJOR = int(_CURRENT.split(".")[0])
+_MINOR = int(_CURRENT.split(".")[-1])
+_OLDER = None if _MINOR == 0 else f"{_MAJOR}.{_MINOR - 1}"
+_NEWER = f"{_MAJOR}.{_MINOR + 1}"
+_NEXT_MAJOR = f"{_MAJOR + 1}.0"
+
+
 def test_model_version() -> None:
-    _check("version.classattr", m.D00SolutionBlueprint.model_version == "1.1",
+    _check("version.classattr", m.D00SolutionBlueprint.model_version == _CURRENT,
            m.D00SolutionBlueprint.model_version)
     pd = m.D00SolutionBlueprint(SpecDocument())
-    _check("version.accessor", pd.object_model_version == "1.1",
+    _check("version.accessor", pd.object_model_version == _CURRENT,
            pd.object_model_version)
 
 
@@ -132,22 +145,23 @@ def test_version_check() -> None:
     # New / equal-stamp document → accepted.
     try:
         m.D00SolutionBlueprint(SpecDocument())
-        m.D00SolutionBlueprint(SpecDocument(), document_version="1.1")
-        m.D00SolutionBlueprint(SpecDocument(), document_version="1.0")
+        m.D00SolutionBlueprint(SpecDocument(), document_version=_CURRENT)
+        if _OLDER is not None:
+            m.D00SolutionBlueprint(SpecDocument(), document_version=_OLDER)
         _check("version.editable", True)
     except SomVersionError as e:  # pragma: no cover
         _check("version.editable", False, str(e))
 
     # Newer minor → rejected.
     try:
-        m.D00SolutionBlueprint(SpecDocument(), document_version="1.2")
+        m.D00SolutionBlueprint(SpecDocument(), document_version=_NEWER)
         _check("version.newer-rejected", False, "expected SomVersionError")
     except SomVersionError:
         _check("version.newer-rejected", True)
 
     # Different major → rejected.
     try:
-        m.D00SolutionBlueprint(SpecDocument(), document_version="2.0")
+        m.D00SolutionBlueprint(SpecDocument(), document_version=_NEXT_MAJOR)
         _check("version.cross-major-rejected", False, "expected SomVersionError")
     except SomVersionError:
         _check("version.cross-major-rejected", True)
@@ -161,16 +175,16 @@ def test_editability_for() -> None:
            m.D00SolutionBlueprint.editability_for(None) ==
            SomEditability.EDITABLE)
     _check("editability.equal",
-           m.D00SolutionBlueprint.editability_for("1.1") ==
+           m.D00SolutionBlueprint.editability_for(_CURRENT) ==
            SomEditability.EDITABLE)
     _check("editability.older-minor",
-           m.D00SolutionBlueprint.editability_for("1.0") ==
+           m.D00SolutionBlueprint.editability_for(_OLDER or _CURRENT) ==
            SomEditability.EDITABLE)
     _check("editability.newer-minor",
-           m.D00SolutionBlueprint.editability_for("1.2") ==
+           m.D00SolutionBlueprint.editability_for(_NEWER) ==
            SomEditability.REJECTED_NEWER_MINOR)
     _check("editability.cross-major",
-           m.D00SolutionBlueprint.editability_for("2.0") ==
+           m.D00SolutionBlueprint.editability_for(_NEXT_MAJOR) ==
            SomEditability.READ_ONLY_CROSS_MAJOR)
     _check("editability.invalid",
            m.D00SolutionBlueprint.editability_for("nope") ==
@@ -178,7 +192,7 @@ def test_editability_for() -> None:
 
     # ``editable`` iff the constructor accepts the same stamp — the non-throwing
     # classifier and the throwing SOM §4.2 gate agree on every stamp.
-    for stamp in (None, "1.0", "1.1", "1.2", "2.0", "nope"):
+    for stamp in (None, _OLDER, _CURRENT, _NEWER, _NEXT_MAJOR, "nope"):
         editable = (m.D00SolutionBlueprint.editability_for(stamp) ==
                     SomEditability.EDITABLE)
         try:

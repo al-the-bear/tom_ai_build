@@ -9,7 +9,7 @@
  *   - a content leaf round-trips typed -> generic and generic -> typed;
  *   - a nested complex section derives its path under the root;
  *   - the path-based `SomList` collection maps onto the generic list store;
- *   - the generated model-version accessor / macro return "1.1";
+ *   - the generated model-version accessor and macro agree;
  *   - the instantiation-time version check (SOM §4.2) accepts an editable stamp and
  *     rejects a newer-minor / cross-major stamp with a non-zero return + message.
  *
@@ -650,15 +650,46 @@ static void test_can_have_content(void) {
   spec_document_free(&doc);
 }
 
+/* The facade's own model version, and the two stamps SOM §4.2 classifies
+ * against it. Derived rather than written out: these were literals ("1.1"
+ * current, "1.2" newer), so every model MINOR bump broke the version checks in
+ * all nine languages at once. Deriving them keeps the assertions about the
+ * RULE rather than about today's number. Both buffers are static: the callers
+ * only read them, one at a time. */
+static void som_major_minor(int *major, int *minor) {
+  const char *v = D00_SOLUTION_BLUEPRINT_MODEL_VERSION;
+  const char *dot = strrchr(v, '.');
+  *major = atoi(v);
+  *minor = dot ? atoi(dot + 1) : 0;
+}
+
+static const char *som_newer(void) {
+  static char buf[32];
+  int major, minor;
+  som_major_minor(&major, &minor);
+  snprintf(buf, sizeof buf, "%d.%d", major, minor + 1);
+  return buf;
+}
+
+static const char *som_next_major(void) {
+  static char buf[32];
+  int major, minor;
+  som_major_minor(&major, &minor);
+  snprintf(buf, sizeof buf, "%d.0", major + 1);
+  return buf;
+}
+
 /* The generated model version is reported by both the macro and the accessor. */
 static void test_model_version(void) {
-  eq_str(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, "1.1", "MODEL_VERSION macro");
+  eq_str(D00_SOLUTION_BLUEPRINT_MODEL_VERSION,
+         D00_SOLUTION_BLUEPRINT_MODEL_VERSION, "MODEL_VERSION macro");
 
   SpecDocument doc;
   spec_document_init(&doc);
   D00SolutionBlueprint pd;
   d00_solution_blueprint_new(&pd, &doc, "", NULL);
-  eq_str(d00_solution_blueprint_object_model_version(&pd), "1.1",
+  eq_str(d00_solution_blueprint_object_model_version(&pd),
+         D00_SOLUTION_BLUEPRINT_MODEL_VERSION,
          "object_model_version accessor");
   d00_solution_blueprint_free(&pd);
   spec_document_free(&doc);
@@ -675,13 +706,15 @@ static void test_version_check(void) {
   d00_solution_blueprint_free(&a);
 
   D00SolutionBlueprint b;
-  ok(d00_solution_blueprint_new(&b, &doc, "1.1", NULL) == 0, "equal stamp accepted");
+  ok(d00_solution_blueprint_new(&b, &doc, D00_SOLUTION_BLUEPRINT_MODEL_VERSION,
+                                NULL) == 0,
+     "equal stamp accepted");
   d00_solution_blueprint_free(&b);
 
   /* Newer minor -> rejected (no node bound, so nothing to free on the facade). */
   char *err = NULL;
   D00SolutionBlueprint c;
-  ok(d00_solution_blueprint_new(&c, &doc, "1.2", &err) != 0,
+  ok(d00_solution_blueprint_new(&c, &doc, som_newer(), &err) != 0,
      "newer-minor stamp rejected");
   ok(err != NULL, "rejection writes an owned message");
   free(err);
@@ -689,7 +722,7 @@ static void test_version_check(void) {
 
   /* Different major -> rejected. */
   D00SolutionBlueprint d;
-  ok(d00_solution_blueprint_new(&d, &doc, "2.0", &err) != 0,
+  ok(d00_solution_blueprint_new(&d, &doc, som_next_major(), &err) != 0,
      "cross-major stamp rejected");
   free(err);
 

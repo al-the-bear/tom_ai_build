@@ -111,12 +111,24 @@ public final class GeneratedModelTest {
     check("list.generic-count",
         doc.listItemCount("SBP/currentLandscape/CUOPME-OPER-LST") == 2);
   }
+  // The facade's own model version, and the two stamps SOM §4.2 classifies
+  // against it. Derived rather than written out: these were literals ("1.1"
+  // current, "1.2" newer), so every model MINOR bump broke the version checks
+  // in all nine languages at once. Deriving them keeps the assertions about
+  // the RULE.
+  static final String CURRENT = TomSomV0.D00SolutionBlueprint.MODEL_VERSION;
+  static final int MAJOR = Integer.parseInt(CURRENT.split("\\.")[0]);
+  static final int MINOR =
+      Integer.parseInt(CURRENT.substring(CURRENT.lastIndexOf('.') + 1));
+  static final String NEWER = MAJOR + "." + (MINOR + 1);
+  static final String NEXT_MAJOR = (MAJOR + 1) + ".0";
+
 
   private static void testModelVersion() {
-    check("version.classattr", TomSomV0.D00SolutionBlueprint.MODEL_VERSION.equals("1.1"),
+    check("version.classattr", TomSomV0.D00SolutionBlueprint.MODEL_VERSION.equals(CURRENT),
         TomSomV0.D00SolutionBlueprint.MODEL_VERSION);
     TomSomV0.D00SolutionBlueprint pd = new TomSomV0.D00SolutionBlueprint(new SpecDocument());
-    check("version.accessor", pd.objectModelVersion().equals("1.1"),
+    check("version.accessor", pd.objectModelVersion().equals(CURRENT),
         pd.objectModelVersion());
   }
 
@@ -124,7 +136,7 @@ public final class GeneratedModelTest {
     // New / equal-stamp document → accepted.
     try {
       new TomSomV0.D00SolutionBlueprint(new SpecDocument());
-      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "1.1");
+      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), CURRENT);
       check("version.editable", true);
     } catch (SomVersionError e) {
       check("version.editable", false, e.getMessage());
@@ -132,7 +144,7 @@ public final class GeneratedModelTest {
 
     // Newer minor → rejected.
     try {
-      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "1.2");
+      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), NEWER);
       check("version.newer-rejected", false, "expected SomVersionError");
     } catch (SomVersionError e) {
       check("version.newer-rejected", true);
@@ -140,7 +152,7 @@ public final class GeneratedModelTest {
 
     // Different major → rejected.
     try {
-      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "2.0");
+      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), NEXT_MAJOR);
       check("version.cross-major-rejected", false, "expected SomVersionError");
     } catch (SomVersionError e) {
       check("version.cross-major-rejected", true);

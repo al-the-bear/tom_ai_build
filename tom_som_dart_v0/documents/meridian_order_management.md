@@ -1,4 +1,4 @@
-<!-- docspec: solution-blueprint/1.1 -->
+<!-- docspec: solution-blueprint/1.2 -->
 # <!--[SBP]--> Solution Blueprint
 
 Solution Blueprint for the **Meridian Order Management (MOM)** programme.

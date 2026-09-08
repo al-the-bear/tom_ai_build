@@ -98,21 +98,31 @@ function testRootAndParity(): void {
   check('nested.typed-path==generic', doc.content('SBP/documentControl/probe') === 'x');
 }
 
+// The facade's own model version, and the two stamps SOM §4.2 classifies
+// against it. Derived rather than written out: these were literals ('1.1'
+// current, '1.2' newer), so every model MINOR bump broke the version checks in
+// all nine languages at once. Deriving them keeps the assertions about the RULE.
+const _CURRENT: string = D00SolutionBlueprint.MODEL_VERSION;
+const _MAJOR = parseInt(_CURRENT.split('.')[0], 10);
+const _MINOR = parseInt(_CURRENT.split('.').pop() as string, 10);
+const _NEWER = `${_MAJOR}.${_MINOR + 1}`;
+const _NEXT_MAJOR = `${_MAJOR + 1}.0`;
+
 function testModelVersion(): void {
   check(
     'version.classattr',
-    D00SolutionBlueprint.MODEL_VERSION === '1.1',
+    D00SolutionBlueprint.MODEL_VERSION === _CURRENT,
     D00SolutionBlueprint.MODEL_VERSION,
   );
   const pd = new D00SolutionBlueprint(new SpecDocument());
-  check('version.accessor', pd.objectModelVersion === '1.1', pd.objectModelVersion);
+  check('version.accessor', pd.objectModelVersion === _CURRENT, pd.objectModelVersion);
 }
 
 function testVersionCheck(): void {
   // New / equal-stamp document → accepted.
   try {
     new D00SolutionBlueprint(new SpecDocument());
-    new D00SolutionBlueprint(new SpecDocument(), '1.1');
+    new D00SolutionBlueprint(new SpecDocument(), _CURRENT);
     check('version.editable', true);
   } catch (e) {
     check('version.editable', false, String(e));
@@ -120,7 +130,7 @@ function testVersionCheck(): void {
 
   // Newer minor → rejected.
   try {
-    new D00SolutionBlueprint(new SpecDocument(), '1.2');
+    new D00SolutionBlueprint(new SpecDocument(), _NEWER);
     check('version.newer-rejected', false, 'expected SomVersionError');
   } catch (e) {
     check('version.newer-rejected', e instanceof SomVersionError, String(e));
@@ -128,7 +138,7 @@ function testVersionCheck(): void {
 
   // Different major → rejected.
   try {
-    new D00SolutionBlueprint(new SpecDocument(), '2.0');
+    new D00SolutionBlueprint(new SpecDocument(), _NEXT_MAJOR);
     check('version.cross-major-rejected', false, 'expected SomVersionError');
   } catch (e) {
     check('version.cross-major-rejected', e instanceof SomVersionError, String(e));

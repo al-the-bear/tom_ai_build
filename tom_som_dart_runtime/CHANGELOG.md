@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0
+
+- Version realigned to TomSpecs model 1.2 (lockstep with `tom_som_dart_v0`).
+- No behavioural change to the runtime itself: the model-side work in this
+  release (the four value enums bound to 20 form fields) reaches consumers
+  through the regenerated facade and metadata, both of which this runtime reads
+  generically.
+
 ## 1.1.0
 
 - The CodeSpecs extractor (`spec_codespecs_extract`) emits extract format 3:

@@ -1,6 +1,6 @@
 # TomSpecs document (*.docspecs.yaml). Hierarchical format v2.
 version: 2
-modelVersion: "1.1"
+modelVersion: "1.2"
 document:
   SBP D00SolutionBlueprint:
     content: |2-

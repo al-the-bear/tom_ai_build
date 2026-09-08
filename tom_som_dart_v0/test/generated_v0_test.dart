@@ -19,6 +19,27 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 import 'package:test/test.dart';
 
+/// The facade's own model version, and the three stamps SOM §4.2 classifies
+/// against it.
+///
+/// Derived rather than written out: these were literals (`1.1` current, `1.0`
+/// older, `1.2` newer), so every model **minor** bump broke three tests that
+/// had nothing to do with the change and had to be edited by hand. Deriving
+/// them keeps the assertions about the RULE — older editable, newer rejected,
+/// other major read-only — which is what SOM §4.2 actually says.
+final String _current = D00SolutionBlueprint.modelVersion;
+final int _major = int.parse(_current.split('.').first);
+final int _minor = int.parse(_current.split('.').last);
+
+/// One minor below [_current], or `null` at minor 0 where none exists.
+final String? _older = _minor == 0 ? null : '$_major.${_minor - 1}';
+
+/// One minor above [_current] — the "newer same-major" case.
+final String _newer = '$_major.${_minor + 1}';
+
+/// The next major — the cross-major, read-only case.
+final String _nextMajor = '${_major + 1}.0';
+
 void main() {
   group('tom_som_dart_v0 generated D00SolutionBlueprint', () {
     test('roots at the PD segment', () {
@@ -62,31 +83,45 @@ void main() {
       expect(doc.content('SBP/documentControl/probe'), 'x');
     });
 
-    test('reports the generated v0 model version (1.1)', () {
-      expect(D00SolutionBlueprint.modelVersion, '1.1');
-      expect(D00SolutionBlueprint(SpecDocument()).objectModelVersion, '1.1');
+    test('reports the generated v0 model version', () {
+      expect(D00SolutionBlueprint.modelVersion, _current);
+      expect(
+          D00SolutionBlueprint(SpecDocument()).objectModelVersion, _current);
     });
   });
 
   group('tom_som_dart_v0 instantiation-time version check (SOM §4.2)', () {
     test('a new / unstamped document is editable', () {
       expect(() => D00SolutionBlueprint(SpecDocument()), returnsNormally);
-      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.1'),
+      expect(
+          () =>
+              D00SolutionBlueprint(SpecDocument(), documentVersion: _current),
           returnsNormally);
     });
 
     test('an older same-major document is editable', () {
-      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.0'),
+      // Absent only at minor 0, where no older same-major stamp exists — and
+      // the assertion below pins that reason, so the branch cannot be taken
+      // for any other one.
+      if (_older == null) {
+        expect(_current, endsWith('.0'));
+        return;
+      }
+      expect(
+          () => D00SolutionBlueprint(SpecDocument(), documentVersion: _older),
           returnsNormally);
     });
 
     test('a newer same-major document is rejected', () {
-      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.2'),
+      expect(
+          () => D00SolutionBlueprint(SpecDocument(), documentVersion: _newer),
           throwsA(isA<SomVersionException>()));
     });
 
     test('a different major document is rejected', () {
-      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '2.0'),
+      expect(
+          () =>
+              D00SolutionBlueprint(SpecDocument(), documentVersion: _nextMajor),
           throwsA(isA<SomVersionException>()));
     });
   });
@@ -94,20 +129,29 @@ void main() {
   group('tom_som_dart_v0 non-throwing editabilityFor (SOM §21)', () {
     test('classifies every SOM §4.2 outcome without throwing', () {
       expect(D00SolutionBlueprint.editabilityFor(null), SomEditability.editable);
-      expect(
-          D00SolutionBlueprint.editabilityFor('1.0'), SomEditability.editable);
-      expect(
-          D00SolutionBlueprint.editabilityFor('1.1'), SomEditability.editable);
-      expect(D00SolutionBlueprint.editabilityFor('1.2'),
+      if (_older != null) {
+        expect(D00SolutionBlueprint.editabilityFor(_older),
+            SomEditability.editable);
+      }
+      expect(D00SolutionBlueprint.editabilityFor(_current),
+          SomEditability.editable);
+      expect(D00SolutionBlueprint.editabilityFor(_newer),
           SomEditability.rejectedNewerMinor);
-      expect(D00SolutionBlueprint.editabilityFor('2.0'),
+      expect(D00SolutionBlueprint.editabilityFor(_nextMajor),
           SomEditability.readOnlyCrossMajor);
       expect(D00SolutionBlueprint.editabilityFor('nope'),
           SomEditability.invalidVersion);
     });
 
     test('editable iff the constructor accepts the same stamp', () {
-      for (final stamp in [null, '1.0', '1.1', '1.2', '2.0', 'nope']) {
+      for (final stamp in [
+        null,
+        _older,
+        _current,
+        _newer,
+        _nextMajor,
+        'nope',
+      ]) {
         final editable = D00SolutionBlueprint.editabilityFor(stamp) ==
             SomEditability.editable;
         var accepted = true;

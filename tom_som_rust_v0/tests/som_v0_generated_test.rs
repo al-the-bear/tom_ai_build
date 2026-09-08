@@ -155,29 +155,72 @@ fn section_ids() {
     assert_eq!(metrics.add_on(MAR, DAY).node.section_id(), "CUOPME-OPER-CE3");
 }
 
+/// The facade's own model version, and the two stamps SOM §4.2 classifies
+/// against it. Derived rather than written out: these were literals ("1.1"
+/// current, "1.2" newer), so every model MINOR bump broke the version checks in
+/// all nine languages at once. Deriving them keeps the assertions about the
+/// RULE rather than about today's number.
+fn som_major_minor() -> (u32, u32) {
+    let parts: Vec<&str> = D00_SOLUTION_BLUEPRINT_MODEL_VERSION.split('.').collect();
+    (
+        parts[0].parse().unwrap_or(1),
+        parts[parts.len() - 1].parse().unwrap_or(0),
+    )
+}
+
+/// One minor below the current version, or `None` at minor 0 where none exists.
+fn som_older() -> Option<String> {
+    let (major, minor) = som_major_minor();
+    if minor == 0 {
+        None
+    } else {
+        Some(format!("{}.{}", major, minor - 1))
+    }
+}
+
+fn som_newer() -> String {
+    let (major, minor) = som_major_minor();
+    format!("{}.{}", major, minor + 1)
+}
+
+fn som_next_major() -> String {
+    let (major, _) = som_major_minor();
+    format!("{}.0", major + 1)
+}
+
 #[test]
 fn model_version() {
-    assert_eq!(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, "1.1");
     let pd = D00SolutionBlueprint::new(new_doc(), "").unwrap();
-    assert_eq!(pd.object_model_version(), "1.1");
+    assert_eq!(
+        pd.object_model_version(),
+        D00_SOLUTION_BLUEPRINT_MODEL_VERSION
+    );
 }
 
 #[test]
 fn version_check() {
     // New / equal-stamp document → accepted.
     assert!(D00SolutionBlueprint::new(new_doc(), "").is_ok(), "empty stamp");
-    assert!(D00SolutionBlueprint::new(new_doc(), "1.1").is_ok(), "equal stamp");
-    assert!(D00SolutionBlueprint::new(new_doc(), "1.0").is_ok(), "older stamp");
+    assert!(
+        D00SolutionBlueprint::new(new_doc(), D00_SOLUTION_BLUEPRINT_MODEL_VERSION).is_ok(),
+        "equal stamp"
+    );
+    if let Some(older) = som_older() {
+        assert!(
+            D00SolutionBlueprint::new(new_doc(), &older).is_ok(),
+            "older stamp"
+        );
+    }
 
     // Newer minor → rejected with a SomVersionError.
     assert!(
-        D00SolutionBlueprint::new(new_doc(), "1.2").is_err(),
+        D00SolutionBlueprint::new(new_doc(), &som_newer()).is_err(),
         "newer-minor stamp must be rejected"
     );
 
     // Different major → rejected with a SomVersionError.
     assert!(
-        D00SolutionBlueprint::new(new_doc(), "2.0").is_err(),
+        D00SolutionBlueprint::new(new_doc(), &som_next_major()).is_err(),
         "cross-major stamp must be rejected"
     );
 }

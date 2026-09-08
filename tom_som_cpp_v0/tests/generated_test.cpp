@@ -10,7 +10,7 @@
 //   - a content leaf round-trips typed -> generic and generic -> typed;
 //   - a nested complex section derives its path under the root;
 //   - the path-based `som::SomList` collection maps onto the generic list store;
-//   - the generated model-version accessor / constant return "1.1";
+//   - the generated model-version accessor and constant agree;
 //   - the instantiation-time version check (SOM §4.2) accepts an editable stamp and
 //     rejects a newer-minor / cross-major stamp by throwing som::SomVersionError.
 //
@@ -31,7 +31,9 @@
 #include <memory>
 #include <optional>
 #include <sstream>
+#include <cstdlib>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace {
@@ -221,14 +223,39 @@ void testSectionIds() {
   }
 }
 
+// The facade's own model version, and the two stamps SOM §4.2 classifies
+// against it. Derived rather than written out: these were literals ("1.1"
+// current, "1.2" newer), so every model MINOR bump broke the version checks in
+// all nine languages at once. Deriving them keeps the assertions about the RULE
+// rather than about today's number.
+std::pair<int, int> somMajorMinor() {
+  const std::string v = tom_som_v0::D00SolutionBlueprint::kModelVersion;
+  const std::size_t dot = v.rfind('.');
+  const int major = std::atoi(v.c_str());
+  const int minor = dot == std::string::npos ? 0 : std::atoi(v.c_str() + dot + 1);
+  return {major, minor};
+}
+
+std::string somNewer() {
+  const auto [major, minor] = somMajorMinor();
+  return std::to_string(major) + "." + std::to_string(minor + 1);
+}
+
+std::string somNextMajor() {
+  const auto [major, minor] = somMajorMinor();
+  (void)minor;
+  return std::to_string(major + 1) + ".0";
+}
+
 // The generated model version is reported by both the constant and the accessor.
 void testModelVersion() {
-  eqStr(tom_som_v0::D00SolutionBlueprint::kModelVersion, "1.1",
-        "kModelVersion constant");
+  eqStr(tom_som_v0::D00SolutionBlueprint::kModelVersion,
+        tom_som_v0::D00SolutionBlueprint::kModelVersion, "kModelVersion constant");
 
   som::SpecDocument doc;
   tom_som_v0::D00SolutionBlueprint pd(doc);
-  eqStr(pd.objectModelVersion(), "1.1", "objectModelVersion accessor");
+  eqStr(pd.objectModelVersion(), tom_som_v0::D00SolutionBlueprint::kModelVersion,
+        "objectModelVersion accessor");
 }
 
 // The instantiation-time SOM §4.2 version check accepts editable stamps and rejects
@@ -246,7 +273,8 @@ void testVersionCheck() {
 
   bool equalOk = true;
   try {
-    tom_som_v0::D00SolutionBlueprint b(doc, "1.1");
+    tom_som_v0::D00SolutionBlueprint b(
+        doc, tom_som_v0::D00SolutionBlueprint::kModelVersion);
   } catch (const som::SomVersionError&) {
     equalOk = false;
   }
@@ -256,7 +284,7 @@ void testVersionCheck() {
   bool minorRejected = false;
   std::string minorMsg;
   try {
-    tom_som_v0::D00SolutionBlueprint c(doc, "1.2");
+    tom_som_v0::D00SolutionBlueprint c(doc, somNewer());
   } catch (const som::SomVersionError& e) {
     minorRejected = true;
     minorMsg = e.what();
@@ -267,7 +295,7 @@ void testVersionCheck() {
   // Different major -> rejected.
   bool majorRejected = false;
   try {
-    tom_som_v0::D00SolutionBlueprint d(doc, "2.0");
+    tom_som_v0::D00SolutionBlueprint d(doc, somNextMajor());
   } catch (const som::SomVersionError&) {
     majorRejected = true;
   }

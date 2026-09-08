@@ -26,8 +26,11 @@ package somv0
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"sort"
+	"strconv"
+	"strings"
 	"testing"
 
 	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
@@ -194,14 +197,37 @@ func sliceEqual(a, b []string) bool {
 	return true
 }
 
+// The facade's own model version, and the two stamps SOM §4.2 classifies
+// against it. Derived rather than written out: these were literals ("1.1"
+// current, "1.2" newer), so every model MINOR bump broke the version checks in
+// all nine languages at once. Deriving them keeps the assertions about the RULE.
+const somCurrent = D00SolutionBlueprintModelVersion
+
+func somMajorMinor() (int, int) {
+	parts := strings.Split(somCurrent, ".")
+	major, _ := strconv.Atoi(parts[0])
+	minor, _ := strconv.Atoi(parts[len(parts)-1])
+	return major, minor
+}
+
+func somNewer() string {
+	major, minor := somMajorMinor()
+	return fmt.Sprintf("%d.%d", major, minor+1)
+}
+
+func somNextMajor() string {
+	major, _ := somMajorMinor()
+	return fmt.Sprintf("%d.0", major+1)
+}
+
 func TestModelVersion(t *testing.T) {
-	if D00SolutionBlueprintModelVersion != "1.1" {
-		t.Errorf("D00SolutionBlueprintModelVersion = %q, want 1.1",
-			D00SolutionBlueprintModelVersion)
+	if D00SolutionBlueprintModelVersion != somCurrent {
+		t.Errorf("D00SolutionBlueprintModelVersion = %q, want %q",
+			D00SolutionBlueprintModelVersion, somCurrent)
 	}
 	pd, _ := NewD00SolutionBlueprint(som.NewSpecDocument(), "")
-	if pd.ObjectModelVersion() != "1.1" {
-		t.Errorf("ObjectModelVersion() = %q, want 1.1", pd.ObjectModelVersion())
+	if pd.ObjectModelVersion() != somCurrent {
+		t.Errorf("ObjectModelVersion() = %q, want %q", pd.ObjectModelVersion(), somCurrent)
 	}
 }
 
@@ -210,19 +236,19 @@ func TestVersionCheck(t *testing.T) {
 	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), ""); err != nil {
 		t.Errorf("empty stamp rejected: %v", err)
 	}
-	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "1.1"); err != nil {
+	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), somCurrent); err != nil {
 		t.Errorf("equal stamp rejected: %v", err)
 	}
 
 	// Newer minor → rejected with a SomVersionError.
-	_, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "1.2")
+	_, err := NewD00SolutionBlueprint(som.NewSpecDocument(), somNewer())
 	var verr *som.SomVersionError
 	if err == nil || !errors.As(err, &verr) {
 		t.Errorf("newer-minor stamp: got %v, want *SomVersionError", err)
 	}
 
 	// Different major → rejected with a SomVersionError.
-	_, err = NewD00SolutionBlueprint(som.NewSpecDocument(), "2.0")
+	_, err = NewD00SolutionBlueprint(som.NewSpecDocument(), somNextMajor())
 	if err == nil || !errors.As(err, &verr) {
 		t.Errorf("cross-major stamp: got %v, want *SomVersionError", err)
 	}
