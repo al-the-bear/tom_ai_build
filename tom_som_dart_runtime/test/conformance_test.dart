@@ -825,7 +825,7 @@ void main() {
       }
     });
 
-    // Before this table existed the §14 golden read three lines off a *valid*
+    // Before this table existed the SOM §14 golden read three lines off a *valid*
     // sample — root id, 0 warnings, 0 violations — so all eleven rules were
     // unexercised and the nine goldens agreed byte-for-byte about a question
     // none of them had been asked. That every rule now has a case is enforced
@@ -1060,7 +1060,7 @@ void main() {
         );
         // The error case carries its own model and state rather than mutating
         // the shared fixture: `model.meta.json` is a VALID model by
-        // construction (§10.2 `ROUTE-TOTAL` holds over it), and a port in a
+        // construction (`tom_specs_model_rules.md` §10.2 `ROUTE-TOTAL` holds over it), and a port in a
         // language without cheap structural editing should not have to break it
         // to run this case. `state` is the ordinary `state.json` shape, so
         // every runtime already has the loader.
@@ -1376,7 +1376,7 @@ Map<String, dynamic> _buildMeta() => {
           'name': 'SectionId',
           'arguments': {'id': 'DEMO'},
         },
-        // The §8.3 routing verdict. Every class in this fixture carries
+        // The `codespecs_mapping.md` §8.3 routing verdict. Every class in this fixture carries
         // exactly one of the three (`@CodeSpecKind` / `@FollowUpKind` /
         // `@NoArtifact`) except `Sidecar`, which is a bare `@Document` root
         // and structurally exempt — that is what makes the fixture a VALID
@@ -1558,7 +1558,7 @@ Map<String, dynamic> _buildMeta() => {
           'type': 'Control',
         },
         {
-          // The §7.1 `section` kind — the seventh structural kind, and the
+          // The SOM §7.1 `section` kind — the seventh structural kind, and the
           // one nothing else in the fixture declares. It matters more than
           // its rarity suggests: `section` COLLAPSES into its target class
           // exactly as `complex` does, so a port that classifies it as a
@@ -2115,7 +2115,7 @@ List<Map<String, dynamic>> _reflectionCases(SpecModel model) {
     'DEMO/control',
     'DEMO/control/CTRL-SUM',
     'DEMO/control/owner',
-    // The `section` kind (§7.1): the node itself, and one leaf BENEATH it —
+    // The `section` kind (SOM §7.1): the node itself, and one leaf BENEATH it —
     // the second case is the load-bearing one, because a port that fails to
     // collapse a section into its target class resolves the parent correctly
     // and everything under it not at all.
@@ -3036,7 +3036,7 @@ Map<String, dynamic> _editabilityCases() {
         editability: 'rejectedNewerMinor',
         message: newerMinor('2.10', '2.9'),
       ),
-      // §21 calls somEditabilityFor a *pure*, *non-throwing* classifier. An
+      // SOM §21 calls somEditabilityFor a *pure*, *non-throwing* classifier. An
       // unparseable `generated` is therefore classified, not raised — a
       // classifier a caller must still guard with try/catch has given that
       // caller nothing over the throwing check it was meant to replace. The
@@ -4253,7 +4253,7 @@ Map<String, dynamic> _codeSpecsCatalogJson() => {
       'cites': [3, 4],
     },
   ],
-  // In §4.1 catalogue order, which §4.4.6 rule 2 uses as its tie-break and
+  // In `codespecs_mapping.md` §4.1 catalogue order, which `codespecs_mapping.md` §4.4.6 rule 2 uses as its tie-break and
   // which the extractor emits its extracts in.
   'areas': [
     {

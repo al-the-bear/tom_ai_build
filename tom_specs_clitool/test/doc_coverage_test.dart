@@ -56,7 +56,7 @@ void main() {
     });
 
     test('every §5 bar is one of the two the standard states', () {
-      // §5: 95% for libraries, tools and SOM runtimes; 90% for the reviewer.
+      // `tom_specs_documentation_standard.md` §5: 95% for libraries, tools and SOM runtimes; 90% for the reviewer.
       // A third number would mean the manifest had invented a bar rather than
       // transcribing one.
       for (final e in manifest.entries) {

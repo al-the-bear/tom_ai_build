@@ -240,7 +240,7 @@ void main() {
     test('the validator reports the int rather than descending into it', () {
       final result = validateModel(modelWithIntMember(), 'Root');
 
-      // §5.1 forbids a non-String primitive member outright, so the RIGHT
+      // `tom_specs_model_rules.md` §5.1 forbids a non-String primitive member outright, so the RIGHT
       // outcome is a named error. What must not happen is a crash, or the
       // member being resolved as a class named `int`.
       expect(

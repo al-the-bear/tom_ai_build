@@ -1137,7 +1137,7 @@ historical orders remain reproducible.''');
       pii: false, sensitivity: 'Internal');
   // The amend-line rule "quantity must be positive" stated as derivable
   // structure (DATAA) rather than step prose: a validationRules string in the
-  // §5.19 grammar, plus the CHECK expression the schema carries. CE-VA reads
+  // `codespecs_mapping.md` §5.19 grammar, plus the CHECK expression the schema carries. CE-VA reads
   // these fields; the prose in the use-case steps only *cites* the rule.
   final quantity = line.attributes.add();
   _attr(quantity, 'quantity', 'quantity',

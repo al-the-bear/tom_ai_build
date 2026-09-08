@@ -243,7 +243,7 @@ void main() {
   });
 
   group('the reader records how a member spells its finality', () {
-    // §2.4 admits three shapes for a member — plain, `late`, `late final` —
+    // `codespecs_derivation_contract.md` §2.4 admits three shapes for a member — plain, `late`, `late final` —
     // and rules the third out wherever reflection writes the member. A model
     // that collapses them cannot carry that rule, so the reader has to keep
     // the two keywords apart.
@@ -367,7 +367,7 @@ class submitButton {}
     );
 
     test('a reference resolves only in the locus that declares its kind', () {
-      // CsActionRef is client-owned (§2.6): a declaration of the same id in the
+      // CsActionRef is client-owned (`codespecs_derivation_contract.md` §2.6): a declaration of the same id in the
       // server project must not satisfy it.
       final input = _input(
         client: {
@@ -541,7 +541,7 @@ class OrderService {
     });
 
     test('a 3b body returns the last step\'s collaborator call', () {
-      // §2.4 B3's own shape. Reading "returns a value" as the offence would
+      // `codespecs_derivation_contract.md` §2.4 B3's own shape. Reading "returns a value" as the offence would
       // reject every form-3b body the derivation produces.
       final input = _input(
         server: {
@@ -576,7 +576,7 @@ class OrderService {
     });
 
     test('a return of a value the body composed is fabricated', () {
-      // The shape §2.4 invariant 2 exists for: the value looks obtained, and
+      // The shape `codespecs_derivation_contract.md` §2.4 invariant 2 exists for: the value looks obtained, and
       // every part of it came out of the generator.
       final input = _input(
         server: {
@@ -1733,7 +1733,7 @@ class CustomerActionController {
     );
 
     test('a collaborator call with no collaborator field at all', () {
-      // The call resolves against nothing: §3.0.1 injects through one field, so
+      // The call resolves against nothing: `codespecs_derivation_contract.md` §3.0.1 injects through one field, so
       // a body that reaches for `collaborator` on a declaration that has none
       // is a statement written against something never emitted.
       final input = _input(
@@ -1803,7 +1803,7 @@ class CustomerActionController {
     });
 
     test('a substrate call is left to the compiler, not to this check', () {
-      // The §6 division: a call on the `tom_core`-family substrate needs the
+      // The `codespecs_derivation_contract.md` §6 division: a call on the `tom_core`-family substrate needs the
       // resolved element model and is a compile error in the emitted trio
       // anyway, so the syntax pass must have no opinion about it.
       final input = _input(
@@ -1822,7 +1822,7 @@ class CustomerState {
     });
 
     test('a declaration whose 3b bodies all fell back to 3a emits none', () {
-      // §3.0: no calls, so no collaborator — and the check must not read the
+      // `codespecs_derivation_contract.md` §3.0: no calls, so no collaborator — and the check must not read the
       // absence as a defect.
       final input = _input(
         client: {
@@ -2201,7 +2201,7 @@ class Order {}
     );
 
     test('a leading @DocSpec is the first annotation, not blank lines', () {
-      // §2.9 step 4's member shape: doc comment, then @DocSpec (a member
+      // `codespecs_derivation_contract.md` §2.9 step 4's member shape: doc comment, then @DocSpec (a member
       // carries no @CodeSpec), then the Cs* marker. The @DocSpec lines are
       // annotation, not whitespace — C4.3 holds the block against them.
       final input = _input(
@@ -2230,7 +2230,7 @@ class Order {
     });
 
     test('an enum constant\'s comment is a comment C4 constrains too', () {
-      // §3.1.1 makes a domain enum's constant the one member whose comment is
+      // `codespecs_derivation_contract.md` §3.1.1 makes a domain enum's constant the one member whose comment is
       // its own trace, so the shape rules have to reach it like any other.
       final input = _input(
         shared: {
@@ -3119,7 +3119,7 @@ class Customer {
     );
 
     test('a truncated area fails the pass rather than warning', () {
-      // The completeness half of §9.6 made operational: an area whose extract
+      // The completeness half of `codespecs_mapping.md` §9.6 made operational: an area whose extract
       // holds three sections and whose generated code carries one is exactly
       // the failure a trio-only pass cannot see.
       final truncated = _input(
@@ -3450,7 +3450,7 @@ class Customer {
     });
 
     test('a CE-API DTO member is reflection-written too', () {
-      // §3.2.1 point 4 names the DTO by its suffix and point 5 puts it in the
+      // `codespecs_derivation_contract.md` §3.2.1 point 4 names the DTO by its suffix and point 5 puts it in the
       // shared locus; there is no `@CsDto` marker, so those two facts are the
       // whole recogniser. The wire decoder fills the member by name.
       final input = _input(
@@ -3491,7 +3491,7 @@ class CustomerName {
     });
 
     test('a client class named like a DTO is not one', () {
-      // §3.2.1 point 5 puts the DTOs in `shared`. Without the locus half of
+      // `codespecs_derivation_contract.md` §3.2.1 point 5 puts the DTOs in `shared`. Without the locus half of
       // the recogniser a client view-model holding a submitted request would
       // read as a wire type.
       final input = _input(
@@ -3507,7 +3507,7 @@ class CustomerSaveRequest {
       expect(_forCheck(37, input), isEmpty);
     });
 
-    // The three §2.4 carve-outs. A `@CsColumn` member is by construction none
+    // The three `codespecs_derivation_contract.md` §2.4 carve-outs. A `@CsColumn` member is by construction none
     // of them, so each is pinned inside a DTO, where every instance field is a
     // wire member and the guard is what keeps the check off a member nothing
     // reflective writes.

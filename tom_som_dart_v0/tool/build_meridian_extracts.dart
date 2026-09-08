@@ -3,7 +3,7 @@
 // Runs the `codespecs_prompt.md` §4 mechanical gate over the committed sample
 // document, then produces one extract pair per active CodeSpecs area
 // (`codespecs_mapping.md` §1.1.1 item 1) via the Dart runtime's
-// `spec_codespecs_extract` surface, writing to the §1.1.1 location:
+// `spec_codespecs_extract` surface, writing to the `codespecs_mapping.md` §1.1.1 location:
 // `tom_som_conformance/generated-doc/codespecs_extracts/` — the spec-root of
 // the Meridian sample being the `tom_som_conformance` project that holds the
 // extracts (the document itself ships in this package's `documents/`).
@@ -12,7 +12,7 @@
 //   A1 — DocSpecs schema completeness of the committed markdown rendition
 //   A2 — instance-tier values (`validateDocument`, SOM §9)
 //   A3 — routing totality: the extractor's strict walk throws on any section
-//        carrying none of the three §8.3 verdicts (`ROUTE-TOTAL`)
+//        carrying none of the three `codespecs_mapping.md` §8.3 verdicts (`ROUTE-TOTAL`)
 //   A4 — DOMEN closed-choice completeness (`codespecs_prompt.md` §4): every
 //        stored attribute of kind `enumeration` names, via
 //        `DAATT-DTEN.domainEnum`, an authored `DMENE` entry. A miss is a hard

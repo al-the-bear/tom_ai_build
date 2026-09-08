@@ -55,8 +55,8 @@ const String _sectionIdSlot = '@sectionId';
   // `tom_specs_model_rules.md` §5.7 — find reachable types from root
   final reachable = _findReachableTypes(classes, rootTypeName);
 
-  // --- §10.2 invariant MEMBER-SHAPE: member-shape legality, @ContentType
-  // compatibility, cycle detection. The one §10.2 rule enforced here rather than in
+  // --- `tom_specs_model_rules.md` §10.2 invariant MEMBER-SHAPE: member-shape legality, @ContentType
+  // compatibility, cycle detection. The one `tom_specs_model_rules.md` §10.2 rule enforced here rather than in
   // [validateStructuralInvariants]: it is a per-class shape rule that needs no
   // SBP tree, so it runs for every root the generator is pointed at, including
   // the synthetic fixtures that have no `D00SolutionBlueprint`.
@@ -530,7 +530,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 2 — §10.2 invariants ID-UNIQUE, PATTERN-PAIR, ID-COVER: -------
+  // --- Step 2 — `tom_specs_model_rules.md` §10.2 invariants ID-UNIQUE, PATTERN-PAIR, ID-COVER:
   // @SectionId uniqueness/length, per-class + pattern consistency, coverage;
   // collect traceability data ---------------------------------------------
 
@@ -562,8 +562,8 @@ void _validateStructuralInvariants(
     final sectionIdAnno = cls.getAnnotation('SectionId');
     if (sectionIdAnno != null) {
       final id = sectionIdAnno.arguments['id'] as String? ?? '';
-      // §7.1 length cap. A class-level id is a flat mnemonic (no `-`), and a
-      // long one is not paid for once: §7.2 derives every list container's
+      // `tom_specs_model_rules.md` §7.1 length cap. A class-level id is a flat mnemonic (no `-`), and a
+      // long one is not paid for once: `tom_specs_model_rules.md` §7.2 derives every list container's
       // prefix from it, so the excess propagates into every container id that
       // points at the class and into all nine generated SOM languages.
       if (id.length > _maxClassSectionIdLength && !id.contains('-')) {
@@ -609,7 +609,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 2b — §10.2 invariant PATTERN-PAIR: field-level @SectionId -----
+  // --- Step 2b — `tom_specs_model_rules.md` §10.2 invariant PATTERN-PAIR: field-level @SectionId
   //
   // Container IDs follow `<elementId>-<FIELDSUFFIX>-LST`. Enforced invariants:
   //   (i)   type-consistency  — a container ID maps to exactly one element type.
@@ -618,7 +618,7 @@ void _validateStructuralInvariants(
   //   (iii) pattern pairing    — @SectionIdPattern mirrors the container ID.
   //   (iv)  prefix derivation  — `<elementId>` IS the element type's class-level
   //                              @SectionId; for a `List<DocSpecsSection>` (no
-  //                              element class) it is the OWNING class's. §7.2.
+  //                              element class) it is the OWNING class's. `tom_specs_model_rules.md` §7.2.
   // Cross-class sharing of a container ID is allowed (same element type AND
   // same field name) — interpretation X, parent-path addressing.
 
@@ -654,7 +654,7 @@ void _validateStructuralInvariants(
       // (iv) prefix derivation — the `<elementId>` token is not a free
       // mnemonic: it is read back as "which class this list holds", so it must
       // BE that class's id rather than merely resemble it. @Reference lists sit
-      // outside the container scheme entirely (§7.2): they carry a §7.3 inline
+      // outside the container scheme entirely (`tom_specs_model_rules.md` §7.2): they carry a `tom_specs_model_rules.md` §7.3 inline
       // `<OWNER>-<FIELD4>-REF` id, not an `<elementId>`-prefixed container id.
       final String? expectedPrefix;
       if (field.getAnnotation('Reference') != null) {
@@ -719,7 +719,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 2c — §10.2 invariant PATTERN-COVER: @SectionIdPattern lists ---
+  // --- Step 2c — `tom_specs_model_rules.md` §10.2 invariant PATTERN-COVER: @SectionIdPattern lists
   //
   // Every reachable `List<T>` field of section elements — a complex `T` or the
   // untyped `DocSpecsSection` — must carry @SectionIdPattern so its elements
@@ -748,7 +748,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 3 — §10.2 invariant DETAIL-ANCHOR: @DetailedIn ⇒ @MapsTo ------
+  // --- Step 3 — `tom_specs_model_rules.md` §10.2 invariant DETAIL-ANCHOR: @DetailedIn ⇒ @MapsTo
 
   // Build a reverse-adjacency (parent) map for the SBP-reachable subgraph.
   // childType → set of parent class names that own a field of that type.
@@ -800,7 +800,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 4 — §10.2 invariant DETAIL-PRESENT: per-@Document details -----
+  // --- Step 4 — `tom_specs_model_rules.md` §10.2 invariant DETAIL-PRESENT: per-@Document details
 
   for (final docClassName in documentClasses) {
     if (docClassName == sbpRoot) continue; // SBP is the root, not a target
@@ -825,7 +825,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 5 — §10.2 invariant PURE-PROJECTION: (T2, N12) ----------------
+  // --- Step 5 — `tom_specs_model_rules.md` §10.2 invariant PURE-PROJECTION: (T2, N12)
   //
   // The twelve Phase 3 roots are `@Document(basedOn: [D00SolutionBlueprint])`
   // *projections*: they aggregate SBP00 sections and own no content of their own
@@ -855,7 +855,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 6 — §10.2 invariant NO-WRAPPER: collapsible wrappers ----------
+  // --- Step 6 — `tom_specs_model_rules.md` §10.2 invariant NO-WRAPPER: collapsible wrappers
   // `tom_specs_model_rules.md` §5.8 / TSMA4–TSMA5.
   //
   // The dual of the TSMA1/TSMA2 leaf collapse: a *single-subsection wrapper*
@@ -965,7 +965,7 @@ void _validateStructuralInvariants(
     );
   }
 
-  // --- Step 7 — §10.2 invariant ID-ROOT-FREE: root-independent ids (dsa4) -
+  // --- Step 7 — `tom_specs_model_rules.md` §10.2 invariant ID-ROOT-FREE: root-independent ids (dsa4)
   //
   // A class reachable from more than one @Document root must resolve to the
   // SAME section id from every root. Both id mechanisms are root-independent by
@@ -1020,7 +1020,7 @@ void _validateStructuralInvariants(
     );
   }
 
-  // --- Step 8 — §10.2 invariant CLOSED-CHOICE: @OneOf / @Case groups ------
+  // --- Step 8 — `tom_specs_model_rules.md` §10.2 invariant CLOSED-CHOICE: @OneOf / @Case groups
   //
   // A container section that resolves to exactly one of a closed set of typed
   // alternatives carries `@OneOf(discriminator: '<formField>')`; each
@@ -1038,7 +1038,7 @@ void _validateStructuralInvariants(
   //   (vi)  no constant is both `noCase` and `@Case`-bound.
   _validateOneOfGroups(classes, reachable, errors, warnings);
 
-  // --- Step 9 — §10.2 invariant REFERS-TO: cross-registry ids -------------
+  // --- Step 9 — `tom_specs_model_rules.md` §10.2 invariant REFERS-TO: cross-registry ids
   //
   // A form field whose String value is an *id declared elsewhere* names its
   // target registry key(s) as `<SECTIONID>.<formFieldName>`. The static tier
@@ -1053,15 +1053,15 @@ void _validateStructuralInvariants(
     warnings,
   );
 
-  // --- Step 10 — §10.2 invariant NO-RESTATED-NAME: no restated heading ----
+  // --- Step 10 — `tom_specs_model_rules.md` §10.2 invariant NO-RESTATED-NAME: no restated heading
   //
-  // A list-entry section's headline is per-instance free text (§8 rule 1), so
+  // A list-entry section's headline is per-instance free text (`tom_specs_model_rules.md` §8 rule 1), so
   // it is the entry's name. A form field holding that same name is a second
   // storage slot for one value — the thing rule 4 forbids. The two exemptions
   // are structural, so nothing has to be remembered or annotated.
   _validateEntryNameFields(classes, reachable, errors);
 
-  // --- Step 11 — §10.2 invariants KIND-EXCLUSIVE + PART-ROUTED +
+  // --- Step 11 — `tom_specs_model_rules.md` §10.2 invariants KIND-EXCLUSIVE + PART-ROUTED +
   // ROUTE-TOTAL: CodeSpecs / follow-up routing ----------------------------
   //
   // The CodeSpecs / follow-up split is decided by membership of the generation
@@ -1079,7 +1079,7 @@ void _validateStructuralInvariants(
     warnings,
   );
 
-  // --- Step 12 — §10.2 invariant REACHABLE: document reachability ---------
+  // --- Step 12 — `tom_specs_model_rules.md` §10.2 invariant REACHABLE: document reachability
   //
   // The SOM generator emits every class in the map, so a class no @Document
   // root reaches is generated into all nine languages, registered in
@@ -1165,7 +1165,7 @@ void _validateCodeSpecKindRouting(
   List<String> errors,
   List<String> warnings,
 ) {
-  // --- Step 11a — §10.2 invariant KIND-EXCLUSIVE: mutual exclusion --------
+  // --- Step 11a — `tom_specs_model_rules.md` §10.2 invariant KIND-EXCLUSIVE: mutual exclusion
   for (final className in reachable) {
     final cls = classes[className];
     if (cls == null) continue;
@@ -1182,7 +1182,7 @@ void _validateCodeSpecKindRouting(
     );
   }
 
-  // --- Step 11c — §10.2 invariant ROUTE-TOTAL: routing totality -----------
+  // --- Step 11c — `tom_specs_model_rules.md` §10.2 invariant ROUTE-TOTAL: routing totality
   //
   // Placed before 11b because 11b returns early on a model with no generation
   // projection, and totality is meaningful without one.
@@ -1214,7 +1214,7 @@ void _validateCodeSpecKindRouting(
     );
   }
 
-  // --- Step 11b — §10.2 invariant PART-ROUTED: per-part coverage ----------
+  // --- Step 11b — `tom_specs_model_rules.md` §10.2 invariant PART-ROUTED: per-part coverage
   //
   // The projection roots are the `@Document` classes marked
   // `@CodeSpecsProjection()`. A model with none (a synthetic test model, or the
@@ -1685,7 +1685,8 @@ void _validateReferenceTargets(
   _validateReferenceCoReachability(classes, documentClasses, errors);
 
   // Section id → class name(s). A duplicate section id is already an error of
-  // its own (§8.6 global uniqueness); here it only makes the target ambiguous.
+  // its own (`tom_specs_model_rules.md` §10.2 invariant ID-UNIQUE, global
+  // uniqueness); here it only makes the target ambiguous.
   final bySectionId = <String, List<String>>{};
   for (final entry in classes.entries) {
     final id = entry.value.getAnnotation('SectionId')?.arguments['id'];

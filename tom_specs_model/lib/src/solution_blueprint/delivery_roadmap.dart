@@ -3941,7 +3941,7 @@ class FeaturePriorityEntry extends DocSpecsSection {
           '(BPREN-PROC-…), comma-separated',
       refersTo: ['BPREN.@sectionId'],
     ),
-    // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Every
+    // Why: deliberately no `refersTo` (`tom_specs_model_rules.md` §6.2 "when not to annotate"). Every
     // other field in this form names a register the blueprint declares; user
     // stories are the delivery backlog's decomposition of an already-registered
     // feature (`FPE.featureId`, SBP.13.4.1), not a blueprint artifact. The ids are

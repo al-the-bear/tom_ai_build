@@ -451,7 +451,7 @@ String renderFacadeReadme(
     ..writeln()
     ..writeln(_generatedBanner)
     ..writeln()
-    // §2.2. Every `§` here is the `SOM §N` short form, which carries its own
+    // `tom_specs_documentation_standard.md` §2.2. Every `§` here is the `SOM §N` short form, which carries its own
     // document name, so no citation depends on a qualifier surviving a line
     // break across the `>` marker.
     ..writeln('> **Cross-references.**')
@@ -478,7 +478,7 @@ String renderFacadeReadme(
     ..writeln()
     ..writeln(d.manifestDescription)
     ..writeln()
-    // §2.3.
+    // `tom_specs_documentation_standard.md` §2.3.
     ..writeln('## Where this fits')
     ..writeln()
     ..writeln(
@@ -499,7 +499,7 @@ String renderFacadeReadme(
       '${d.whereThisFitsSentence}',
     )
     ..writeln()
-    // §2.1 row 5.
+    // `tom_specs_documentation_standard.md` §2.1 row 5.
     ..writeln('## Overview')
     ..writeln()
     ..writeln(
@@ -528,7 +528,7 @@ String renderFacadeReadme(
       'files, it never wipes the output root.',
     )
     ..writeln()
-    // §2.1 row 6.
+    // `tom_specs_documentation_standard.md` §2.1 row 6.
     ..writeln('## Installation')
     ..writeln();
   if (d.integrateRoutes.isNotEmpty) {
@@ -545,7 +545,7 @@ String renderFacadeReadme(
       '[readme_howtointegrate.md](readme_howtointegrate.md).',
     )
     ..writeln()
-    // §2.1 row 7.
+    // `tom_specs_documentation_standard.md` §2.1 row 7.
     ..writeln('## Features')
     ..writeln()
     ..writeln('### Document roots')
@@ -564,7 +564,7 @@ String renderFacadeReadme(
   }
   b
     ..writeln()
-    // §2.1 row 8.
+    // `tom_specs_documentation_standard.md` §2.1 row 8.
     ..writeln('## Quick start')
     ..writeln()
     ..writeln(_withVersion(d.installShort, version))
@@ -578,7 +578,7 @@ String renderFacadeReadme(
       '— the value just written, read back through the typed getter.',
     )
     ..writeln();
-  // §2.1 row 9.
+  // `tom_specs_documentation_standard.md` §2.1 row 9.
   if (d.examples.isNotEmpty) {
     b
       ..writeln('## Examples')
@@ -601,7 +601,7 @@ String renderFacadeReadme(
       // The distinction is worth stating in every facade README, because the
       // two are easy to confuse and land a reader in the wrong place: these
       // examples demonstrate THIS package, while a sample demonstrates
-      // TomSpecs across several (documentation standard §7).
+      // TomSpecs across several (`tom_specs_documentation_standard.md` §7).
       ..writeln(
         'For complete, runnable **sample projects** — a whole task '
         'carried end to end across several packages rather than one '
@@ -610,7 +610,7 @@ String renderFacadeReadme(
       )
       ..writeln();
   }
-  // §2.1 row 10.
+  // `tom_specs_documentation_standard.md` §2.1 row 10.
   b
     ..writeln('## Usage')
     ..writeln();
@@ -638,7 +638,7 @@ String renderFacadeReadme(
     ..writeln('dart run tom_specs_clitool/bin/generate_som.dart')
     ..writeln('```')
     ..writeln()
-    // §2.1 row 11.
+    // `tom_specs_documentation_standard.md` §2.1 row 11.
     ..writeln('## Architecture')
     ..writeln()
     ..writeln('```')
@@ -693,7 +693,7 @@ String renderFacadeReadme(
       '`${d.runtimePackageName}`; every type above is a view onto it. |',
     )
     ..writeln()
-    // §2.1 row 12.
+    // `tom_specs_documentation_standard.md` §2.1 row 12.
     ..writeln('## Ecosystem')
     ..writeln()
     ..writeln('```')
@@ -718,7 +718,7 @@ String renderFacadeReadme(
       'language" a measured claim rather than an intention (`SOM §19`).',
     )
     ..writeln()
-    // §2.4.
+    // `tom_specs_documentation_standard.md` §2.4.
     ..writeln('## Further documentation')
     ..writeln()
     ..writeln(
@@ -783,7 +783,7 @@ String renderFacadeReadme(
       'that writes this package. |',
     )
     ..writeln()
-    // §2.5.
+    // `tom_specs_documentation_standard.md` §2.5.
     ..writeln('## Status')
     ..writeln()
     ..writeln(

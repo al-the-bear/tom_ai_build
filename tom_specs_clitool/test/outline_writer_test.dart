@@ -384,7 +384,7 @@ void main() {
       // not match its type, and an unconstrained list of that same type, both
       // rendered as ``- name: `Entry` `` -- only a plural name hinted at the
       // difference, and that is a convention, not something a reader can rely
-      // on. §11.2.3 calls the list member name structurally significant (a
+      // on. `tom_specs_model_rules.md` §11.2.3 calls the list member name structurally significant (a
       // section level, each item a subsection) while a singular member is one
       // section, so this was eliding exactly the distinction it called
       // significant.
@@ -534,7 +534,7 @@ void main() {
     });
 
     test('nullability is stripped, not shown (§11.2.7)', () {
-      // §11.2.7 long claimed the opposite -- that `Type?` renders with its
+      // `tom_specs_model_rules.md` §11.2.7 long claimed the opposite -- that `Type?` renders with its
       // question mark. It does not, and never could distinguish the two: the
       // writer strips `?` from the type name, and a leaf renders as its bare
       // field name. Pinned so the claim cannot be reinstated unnoticed.

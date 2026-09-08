@@ -37,62 +37,57 @@ void main() {
       );
     });
 
-    test(
-      'every kind value is a CodeSpecPart the annotation package declares',
-      () {
-        final source = File(
-          '../tom_specs_core/lib/src/annotations/code_spec_kind.dart',
-        ).readAsStringSync();
-        final body = RegExp(
-          r'enum CodeSpecPart\s*\{([\s\S]*?)\n\}',
-        ).firstMatch(source)?.group(1);
-        expect(body, isNotNull, reason: 'CodeSpecPart enum not found');
+    test('every kind value is a CodeSpecPart the annotation package declares', () {
+      final source = File(
+        '../tom_specs_core/lib/src/annotations/code_spec_kind.dart',
+      ).readAsStringSync();
+      final body = RegExp(
+        r'enum CodeSpecPart\s*\{([\s\S]*?)\n\}',
+      ).firstMatch(source)?.group(1);
+      expect(body, isNotNull, reason: 'CodeSpecPart enum not found');
 
-        // Enum members are the identifiers at the start of a declaration line;
-        // doc comments and trailing commentary are skipped by the anchor.
-        final declared = {
-          for (final m in RegExp(
-            r'^\s{2}([a-z]\w*)\s*,',
-            multiLine: true,
-          ).allMatches(body!))
-            m.group(1)!,
-        };
-        expect(declared, isNotEmpty);
+      // Enum members are the identifiers at the start of a declaration line;
+      // doc comments and trailing commentary are skipped by the anchor.
+      final declared = {
+        for (final m in RegExp(
+          r'^\s{2}([a-z]\w*)\s*,',
+          multiLine: true,
+        ).allMatches(body!))
+          m.group(1)!,
+      };
+      expect(declared, isNotEmpty);
 
-        final catalog = buildAreasCatalog(mapping);
-        final transcribed = {
-          for (final a in catalog.areas) a['part'] as String,
-        };
+      final catalog = buildAreasCatalog(mapping);
+      final transcribed = {for (final a in catalog.areas) a['part'] as String};
 
-        expect(
-          transcribed.difference(declared),
-          isEmpty,
-          reason:
-              '§4.1 names a kind value the CodeSpecPart enum does not '
-              'declare — the enum is generated from that table, so one of the '
-              'two has moved without the other.',
-        );
+      expect(
+        transcribed.difference(declared),
+        isEmpty,
+        reason:
+            '§4.1 names a kind value the CodeSpecPart enum does not '
+            'declare — the enum is generated from that table, so one of the '
+            'two has moved without the other.',
+      );
 
-        // The other direction is not equality: §4.3 reserves a value for the
-        // deferred part, so the enum is legitimately larger. `domainEnum` is a
-        // member kind rather than a §4.1 part, but CE-EN — its extract home
-        // (§4.1 member-kind rule bullet) — transcribes it into the areas
-        // catalogue, so the only surplus left is the deferred candidate.
-        expect(
-          declared.difference(transcribed).length,
-          1,
-          reason:
-              'the enum should hold exactly one non-area value — the §4.3 '
-              'deferred candidate. Surplus: '
-              '${(declared.difference(transcribed).toList()..sort()).join(", ")}',
-        );
-        expect(
-          transcribed,
-          contains('domainEnum'),
-          reason: 'CE-EN, the member-kind extract home, must claim domainEnum',
-        );
-      },
-    );
+      // The other direction is not equality: `codespecs_mapping.md` §4.3 reserves a value for the
+      // deferred part, so the enum is legitimately larger. `domainEnum` is a
+      // member kind rather than a `codespecs_mapping.md` §4.1 part, but CE-EN — its extract home
+      // (`codespecs_mapping.md` §4.1 member-kind rule bullet) — transcribes it into the areas
+      // catalogue, so the only surplus left is the deferred candidate.
+      expect(
+        declared.difference(transcribed).length,
+        1,
+        reason:
+            'the enum should hold exactly one non-area value — the §4.3 '
+            'deferred candidate. Surplus: '
+            '${(declared.difference(transcribed).toList()..sort()).join(", ")}',
+      );
+      expect(
+        transcribed,
+        contains('domainEnum'),
+        reason: 'CE-EN, the member-kind extract home, must claim domainEnum',
+      );
+    });
 
     test(
       'the slice relation is acyclic and the authoring order respects it',
@@ -151,7 +146,7 @@ void main() {
     );
 
     test('a mapping document missing a table fails loudly', () {
-      // The transcription's one real hazard is silence: a §4.1 restructure that
+      // The transcription's one real hazard is silence: a `codespecs_mapping.md` §4.1 restructure that
       // moves the table would otherwise produce an empty catalogue and an
       // extract run over nothing.
       final broken = const LineSplitter()

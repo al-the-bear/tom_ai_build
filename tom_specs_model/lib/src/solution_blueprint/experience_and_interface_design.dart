@@ -1912,7 +1912,7 @@ class ScreenEntry extends DocSpecsSection {
       'Page Icon Resource',
       hint: 'Resource key for the screen icon',
     ),
-    // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Help
+    // Why: deliberately no `refersTo` (`tom_specs_model_rules.md` §6.2 "when not to annotate"). Help
     // content is a DOC follow-up — `UserAssistance` sits under
     // `ExperienceDesignFollowUp`, which is not a generation projection root —
     // so the topic catalogue belongs to the documentation process, not to the

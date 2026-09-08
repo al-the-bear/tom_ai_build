@@ -252,9 +252,9 @@ export 'src/validator.dart'
         validateStructuralInvariants,
         sectionIdCoverageGaps,
         unreachableClasses;
-// The both-directions gate between §10.2's invariant list and the validator's
+// The both-directions gate between `tom_specs_model_rules.md` §10.2's invariant list and the validator's
 // checks — neither side can grow an entry the other does not know about — plus
-// the corpus scan that resolves every `§10.2 invariant <ID>` citation against
+// the corpus scan that resolves every ``tom_specs_model_rules.md` §10.2 invariant <ID>` citation against
 // that list. See tom_specs_model_rules.md §10.2.
 export 'src/invariant_correspondence.dart'
     show
@@ -317,7 +317,7 @@ export 'src/codespecs/areas_catalog.dart'
         writeAreasCatalog,
         kSliceCites,
         kAuthoringSliceOrder;
-// The public-API dartdoc coverage gate — the §5 bars of
+// The public-API dartdoc coverage gate — the `tom_specs_documentation_standard.md` §5 bars of
 // tom_specs_documentation_standard.md, held against reality by a walker over
 // the committed manifest, in the shape of the release-closure gate beside it.
 export 'src/doc_coverage.dart';

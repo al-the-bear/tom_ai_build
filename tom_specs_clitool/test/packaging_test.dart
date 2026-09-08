@@ -209,7 +209,7 @@ void main() {
       expect(md, startsWith('# tom_som_dart_v0 — typed TomSpecs object model'));
       expect(md, contains('do not edit by hand'));
       expect(md, contains('> **Cross-references.**'));
-      // The §1.2 boundary sentence closes the blockquote.
+      // The `tom_specs_documentation_standard.md` §1.2 boundary sentence closes the blockquote.
       expect(md, contains('nothing here restates them.'));
     });
 
@@ -276,7 +276,7 @@ void main() {
       final md = render();
       expect(md, contains('Version **1.0.0**'));
       expect(md, contains('dart test'));
-      // A generated file states no fixed test count — see the §2.5 carve-out.
+      // A generated file states no fixed test count — see the `tom_specs_documentation_standard.md` §2.5 carve-out.
       expect(md, isNot(contains('tests passed')));
     });
 
@@ -321,27 +321,24 @@ void main() {
       final d = packagingDescriptorFor(lang);
       if (d == null) continue;
 
-      test(
-        '${lang.slug}: the mandatory per-language sentences are present',
-        () {
-          // §4.2: the tutorial link is emitted from the template, so a tenth
-          // language cannot be registered without a sentence describing its
-          // tutorial. Same for the §2.1 row 3 description and the §2.3 closer.
-          expect(d.tutorialSentence, isNotEmpty);
-          expect(d.manifestDescription, isNotEmpty);
-          expect(d.manifestDescriptionFile, isNotEmpty);
-          expect(d.whereThisFitsSentence, isNotEmpty);
-          expect(d.verifyCommand, isNotEmpty);
-          expect(d.exampleDirName, anyOf('example', 'examples'));
-          expect(d.examples, isNotEmpty);
-          expect(d.usageSections, isNotEmpty);
-          for (final usage in d.usageSections) {
-            expect(usage.heading, isNotEmpty);
-            expect(usage.intro, isNotEmpty);
-            expect(usage.snippet.trim(), isNotEmpty);
-          }
-        },
-      );
+      test('${lang.slug}: the mandatory per-language sentences are present', () {
+        // `tom_specs_documentation_standard.md` §4.2: the tutorial link is emitted from the template, so a tenth
+        // language cannot be registered without a sentence describing its
+        // tutorial. Same for the `tom_specs_documentation_standard.md` §2.1 row 3 description and the `tom_specs_documentation_standard.md` §2.3 closer.
+        expect(d.tutorialSentence, isNotEmpty);
+        expect(d.manifestDescription, isNotEmpty);
+        expect(d.manifestDescriptionFile, isNotEmpty);
+        expect(d.whereThisFitsSentence, isNotEmpty);
+        expect(d.verifyCommand, isNotEmpty);
+        expect(d.exampleDirName, anyOf('example', 'examples'));
+        expect(d.examples, isNotEmpty);
+        expect(d.usageSections, isNotEmpty);
+        for (final usage in d.usageSections) {
+          expect(usage.heading, isNotEmpty);
+          expect(usage.intro, isNotEmpty);
+          expect(usage.snippet.trim(), isNotEmpty);
+        }
+      });
 
       test('${lang.slug}: every listed example file exists', () {
         final root = _aiBuildDir();

@@ -266,7 +266,7 @@ void main() {
     });
 
     // SOM §9, "Form-field order": md refuses an undeclared stored field, as
-    // yaml does (§12.8). Omitting it would lose a stored value in a file that
+    // yaml does (SOM §12.8). Omitting it would lose a stored value in a file that
     // looks complete — the silent drop the codecs must never do.
     test('a form field the model does not declare throws ArgumentError', () {
       final doc = _populated()..setFormField('D00/D00-HDR', 'stale', 'x');

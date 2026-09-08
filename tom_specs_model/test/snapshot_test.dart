@@ -42,7 +42,7 @@ void main() {
       expect(identical(s1.headerA, live.headerA), isFalse);
 
       // Edit exactly one leaf and route the change through markDirty (the
-      // editor's shared controller does this on every edit, §8).
+      // editor's shared controller does this on every edit, `tom_specs_editor_specification.md` §8).
       live.headerA.content = 'A1';
       live.headerA.markDirty();
 

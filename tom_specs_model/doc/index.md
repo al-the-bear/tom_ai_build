@@ -79,6 +79,14 @@ full at least once per file where it reads naturally, then use the short form.
 Every other document is cited by **file name plus section** —
 `codespecs_mapping.md §9.2`, `tom_specs_model_rules.md §6.1`.
 
+**A citation in source code always names its document**, whatever comment
+marker it is written under. A source file is not a document, so "this document"
+names nothing there — the bare form has no meaning to resolve against, and the
+gate reports it. This holds for `//` and `/* … */` exactly as for `///`: the
+rule is about *citing*, not about which marker a comment happens to carry, and
+an earlier `///`-only reading was retired when the corpus was measured against
+it — 492 `§`-carrying `//` lines, 362 of them already naming their document.
+
 **A bare `§N` means *this* document.** Only a reference that leaves its own
 document has to name one; within a document, `§N` is the section of the file you
 are reading. That is how these documents have always been written — the

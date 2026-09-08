@@ -243,7 +243,7 @@ void main() {
 
     test('@SeedFor is gone — it duplicated @MapsTo/@DetailedIn', () {
       // It named the single document a section seeds, which is exactly what
-      // @MapsTo/@DetailedIn say — and those are enforced by the §10.2
+      // @MapsTo/@DetailedIn say — and those are enforced by the `tom_specs_model_rules.md` §10.2
       // structural invariants, while @SeedFor was enforced by nothing and had
       // no DocSpecs counterpart to be generated into.
       final correspondence = checkAnnotationCatalogue(_annotationsDir);

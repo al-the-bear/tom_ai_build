@@ -14507,7 +14507,7 @@ class MigrationRiskEntry extends DocSpecsSection {
           'SYMIRI-RISK-…), comma-separated',
       refersTo: ['MGRSK.@sectionId'],
     ),
-    // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). An issue is
+    // Why: deliberately no `refersTo` (`tom_specs_model_rules.md` §6.2 "when not to annotate"). An issue is
     // a risk that has materialised, tracked in the project's issue log — live
     // execution state, not a blueprint artifact, so the blueprint declares no
     // issue register to resolve against. What it does declare is the risk
@@ -14521,7 +14521,7 @@ class MigrationRiskEntry extends DocSpecsSection {
           'Issue ids from the project issue tracker — owned by the tracker, '
           'not declared in this blueprint',
     ),
-    // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Unlike the
+    // Why: deliberately no `refersTo` (`tom_specs_model_rules.md` §6.2 "when not to annotate"). Unlike the
     // traceability fields, "requirements impacted" invites prose — an author
     // naming an area rather than ids is answering the question correctly, and
     // annotating would red-flag them.
@@ -19027,7 +19027,7 @@ class RiskRelationships extends DocSpecsSection {
       'Related Assumptions — assumptions that could affect this risk',
       hint: 'Assumptions that could affect this risk',
     ),
-    // Why: deliberately no `refersTo` (§6.2 "when not to annotate") — same
+    // Why: deliberately no `refersTo` (`tom_specs_model_rules.md` §6.2 "when not to annotate") — same
     // reason as the migration risk register's "related issues" field: an issue
     // is a materialised risk tracked in the project's issue log, so there is no
     // issue register in the blueprint to resolve against. The field name is
@@ -19041,7 +19041,7 @@ class RiskRelationships extends DocSpecsSection {
           '— the issue log is owned outside this blueprint',
     ),
     // Why: deliberately no `refersTo` — same reason as the risk register's
-    // "requirements impacted" field (§6.2 "when not to annotate").
+    // "requirements impacted" field (`tom_specs_model_rules.md` §6.2 "when not to annotate").
     Field(
       'relatedRequirements',
       String,

@@ -147,7 +147,7 @@ AreasCatalog buildAreasCatalog(String mappingDocument) {
   _checkCites(sliceRows.keys.toList()..sort());
 
   // CE-EN, the `domainEnum` member-kind extract home (`codespecs_mapping.md`
-  // §4.1 rule bullet), leads the catalogue: §4.4.6 gives the member kind
+  // §4.1 rule bullet), leads the catalogue: `codespecs_mapping.md` §4.4.6 gives the member kind
   // position 0 ("everything else cites it"), and catalogue order is the rule-2
   // tie-break, so the position is load-bearing.
   final areas = <Map<String, dynamic>>[kMemberKindArea];
@@ -230,7 +230,7 @@ String writeAreasCatalog({
 }
 
 // ---------------------------------------------------------------------------
-// §4.1 — the parts catalogue
+// `codespecs_mapping.md` §4.1 — the parts catalogue
 // ---------------------------------------------------------------------------
 
 class _PartRow {
@@ -274,7 +274,7 @@ List<_PartRow> _parsePartsCatalogue(List<String> lines) {
 }
 
 // ---------------------------------------------------------------------------
-// §4.4.3 — the ordered slices
+// `codespecs_mapping.md` §4.4.3 — the ordered slices
 // ---------------------------------------------------------------------------
 
 class _SliceRow {
@@ -305,7 +305,7 @@ Map<int, _SliceRow> _parseSliceTable(List<String> lines) {
 }
 
 // ---------------------------------------------------------------------------
-// §4.4.6 — the authoring order
+// `codespecs_mapping.md` §4.4.6 — the authoring order
 // ---------------------------------------------------------------------------
 
 Map<int, int> _parseStepTable(List<String> lines) {
@@ -375,7 +375,7 @@ Map<String, List<int>> _parseCoverage(List<String> lines) {
 }
 
 // ---------------------------------------------------------------------------
-// §5 — the attribute surfaces
+// `codespecs_mapping.md` §5 — the attribute surfaces
 // ---------------------------------------------------------------------------
 
 /// Maps each CE code to the `codespecs_mapping.md` §5.x headings that name it.

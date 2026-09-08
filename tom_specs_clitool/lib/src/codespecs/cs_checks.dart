@@ -2944,7 +2944,7 @@ _CsCommentSources? _commentSources(
   // owns it, and its one sentence is the single piece of generated prose C1
   // permits.
   if (declaration.isTopLevel) return null;
-  // §2.8's one exception: §3.1.1 withholds the per-constant `@DocSpec` from a
+  // `codespecs_derivation_contract.md` §2.8's one exception: `codespecs_derivation_contract.md` §3.1.1 withholds the per-constant `@DocSpec` from a
   // domain enum *because* the constant's own comment identifies it. The comment
   // is still author text, so it must still occur in the specification — the
   // extract can say that much even though it cannot say which section.
@@ -3444,7 +3444,7 @@ class CsReflectionWrittenNotFinalCheck extends CodeSpecsCheck {
               : null;
           if (written == null) continue;
 
-          // The §2.4 carve-outs, in the order the section states them.
+          // The `codespecs_derivation_contract.md` §2.4 carve-outs, in the order the section states them.
           if (member.isStatic) continue;
           if (member.name == csCollaboratorField) continue;
           if (_assignedByOwner(owner, member.name)) continue;

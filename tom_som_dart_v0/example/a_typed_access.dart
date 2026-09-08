@@ -18,7 +18,8 @@ import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 
 void main() {
   // A typed root over a fresh, empty document. The constructor also runs the
-  // §2.2 instantiation-time version check (an unstamped document is editable).
+  // SOM §4.2 instantiation-time version check (an unstamped document is
+  // editable).
   final doc = SpecDocument();
   final pd = D00SolutionBlueprint(doc);
 

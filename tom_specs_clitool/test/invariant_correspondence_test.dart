@@ -191,7 +191,7 @@ void main() {
     test('a citation written as an ordinal is reported as such', () {
       // The pre-`tscompc9` form. It is named specifically rather than treated as
       // an unknown id, because the remedy is different: an ordinal citation is
-      // not a typo, it is the habit §10.2's third meta-rule retired.
+      // not a typo, it is the habit `tom_specs_model_rules.md` §10.2's third meta-rule retired.
       final report = compareInvariants(
         rulesMarkdown: _rulesWith(['ALPHA-ONE']),
         validatorSource:
@@ -205,7 +205,7 @@ void main() {
     });
 
     test('reordering the list cannot invalidate a citation', () {
-      // The regression this whole mechanism exists for. Deleting §10.2's first
+      // The regression this whole mechanism exists for. Deleting `tom_specs_model_rules.md` §10.2's first
       // entry used to shift every later ordinal and silently re-point eleven
       // citations; with ids, the surviving citation still resolves and the only
       // failure reported is the one that is actually true — the deleted rule.

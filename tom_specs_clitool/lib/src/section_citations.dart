@@ -291,7 +291,7 @@ const defaultCitedReadmes = [
   'tom_ai/ai_build/tom_specs_model/README.md',
   'tom_ai/ai_build/tom_specs_reviewer/README.md',
   'tom_ai/ai_build/tom_som_conformance/README.md',
-  // The samples index. It cites the standard's §7 for the sample
+  // The samples index. It cites `tom_specs_documentation_standard.md` §7 for the sample
   // convention rather than restating it, so it is gated like any other
   // citing README.
   'tom_ai/ai_build/tom_specs_samples/README.md',
@@ -416,20 +416,26 @@ const defaultCitedDocFolders = [
 /// broken in every copy at once, and is fixed in the emitter
 /// (`tom_specs_clitool/lib/src/packaging.dart`) rather than in the output.
 ///
-/// **Four citing roots are deliberately absent**, and for one reason: they cite
-/// from a comment form no lift reads. `tom_som_dart_v0/test`,
-/// `tom_som_dart_v0/example` and `tom_specs_editor/test` head their files with
-/// plain `//` notes, and the Dart lift reads `///` alone — a decision this
-/// corpus made on purpose and one this list is not the place to reverse.
-/// `tom_som_c_v0/tool` comments in `/* … */`, a fourth syntax.
+/// **Every citing root is listed, and the rule that decides membership is about
+/// citing rather than about comment syntax.** Four roots used to sit outside
+/// the gate — `tom_som_dart_v0/test`, `tom_som_dart_v0/example`,
+/// `tom_specs_editor/test` and `tom_som_c_v0/tool` — not by any judgement about
+/// what documentation is, but because each cites from a comment form no lift
+/// read: the first three head their files with plain `//`, the fourth comments
+/// in `/* … */`. Both lifts learned those forms, so a root is now in or out on
+/// whether it cites, which is what the rule always said.
 ///
-/// Listing any of them would turn the SCC6 anti-vacuity guard red, which is
-/// that guard working: a root contributing no citation is a root nobody can
-/// tell is being scanned. Their citations are well-formed today; what is
-/// missing is a rule about which comment forms are documentation, which is
-/// `tsdocc2_aigj` rather than a list entry.
+/// That there was a syntax gap at all is the point worth keeping: a rule of
+/// citing enforced by a lift that reads three of four comment forms is a rule
+/// of syntax wearing a rule of citing's words, and it excluded 492 `§`-carrying
+/// lines — **362 of which already named their document**, written to the
+/// convention by authors no gate was holding.
 const defaultCitedSourceRoots = [
   'tom_ai/ai_build/tom_code_specs/lib',
+  'tom_ai/ai_build/tom_som_c_v0/tool',
+  'tom_ai/ai_build/tom_som_dart_v0/example',
+  'tom_ai/ai_build/tom_som_dart_v0/test',
+  'tom_forge/tom_specs_editor/test',
   'tom_ai/ai_build/tom_code_specs/test',
   'tom_ai/ai_build/tom_spec_engine/lib',
   'tom_ai/ai_build/tom_spec_engine/test',
@@ -539,8 +545,24 @@ List<String> listMarkdownSources(String root) {
 ///
 /// Without the lift, a citation whose document name wrapped onto the previous
 /// line would read as bare: the lookback crosses a soft wrap but not a `///`.
-/// Only `///` is lifted; these packages document with it exclusively, and a
-/// `/** */` block would need brace tracking to no benefit.
+///
+/// **Every comment is lifted, `//` as well as `///`, and that is a measured
+/// reversal of an earlier position.** The rule used to be `///` only, on the
+/// reasoning that a `//` note is implementation commentary rather than
+/// something a reader follows as documentation. The corpus disagrees with that
+/// reading of itself: it carries **492** `§`-citing `//` lines, and **362 of
+/// them already name their document** — authors were applying the citation
+/// convention there voluntarily, in comments no gate has ever read. A rule that
+/// called them undocumentation would have been describing a practice nobody
+/// follows.
+///
+/// It also removed an asymmetry that had no defence: `validator.dart` cites
+/// `tom_specs_model_rules.md` §10.2 from both a `///` and a `//` comment, and
+/// only the first was held. The same citation, in the same file, gated or not
+/// by which marker it happened to be written under.
+///
+/// A `/** */` block is still not lifted — no Dart file in the corpus uses one,
+/// so it would be brace tracking for no reader.
 ///
 /// **The lift is a parse, not a line scan, and that becomes load-bearing the
 /// moment `test/` is in scope.** A test that exercises this gate writes its
@@ -575,7 +597,10 @@ String dartDocComments(String source) {
       comment = comment.next
     ) {
       if (!seen.add(comment.offset)) continue;
-      if (!comment.lexeme.startsWith('///')) continue;
+      // Every comment form, not `///` alone. Taking them from the parse
+      // rather than by line is what keeps a `//` inside a string literal out:
+      // the analyzer says which tokens are comments, and a literal is not one.
+      if (!comment.lexeme.startsWith('//')) continue;
       final line = lineInfo.getLocation(comment.offset).lineNumber - 1;
       if (line < 0 || line >= lines.length) continue;
       lines[line] = _docLine.firstMatch(comment.lexeme)?.group(1) ?? '';
@@ -594,8 +619,14 @@ String _dartDocCommentsByLine(String source) => [
     _docLine.firstMatch(line)?.group(1) ?? '',
 ].join('\n');
 
-/// A `///` documentation line, capturing what follows the marker.
-final RegExp _docLine = RegExp(r'^\s*///[ \t]?(.*)$');
+/// A Dart comment line, capturing what follows the marker.
+///
+/// Used by the parse-based lift to strip the marker, and by the fallback to
+/// find comments at all. In the fallback — and only there — a line of a string
+/// literal that begins with `//` would be read as a comment; that is the
+/// price of scanning a source too broken to parse, and it is paid on the side
+/// that reports rather than the side that hides.
+final RegExp _docLine = RegExp(r'^\s*//+[ \t]?(.*)$');
 
 /// Lifts the `#` comments of a shell script, Python script or YAML manifest out
 /// of the lines around them — the non-Dart twin of [dartDocComments].
@@ -621,7 +652,7 @@ String hashComments(String source) => [
 /// A whole-line `#` comment, capturing what follows the marker.
 final RegExp _hashLine = RegExp(r'^\s*#[ \t]?(.*)$');
 
-/// Lifts the whole-line `//` comments of a C-family source — the third comment
+/// Lifts the comments of a C-family source — the third comment
 /// syntax the corpus writes.
 ///
 /// The eight non-Dart SOM planes are C, C++, Go, Java, JavaScript, TypeScript
@@ -631,12 +662,55 @@ final RegExp _hashLine = RegExp(r'^\s*#[ \t]?(.*)$');
 /// — worse — would let the coverage walk report them as needing no gate, since
 /// it asks the same lift.
 ///
+/// Both `//` lines and `/* … */` blocks are read; the block form is what
+/// `tom_som_c_v0/tool` documents in, and reading only `//` left that root
+/// outside every gate for want of a syntax rather than by any rule.
+///
 /// Whole-line only, for [hashComments]' reason: a trailing `//` after code is a
 /// note, and a `//` inside a string is not a comment at all.
-String slashComments(String source) => [
-  for (final line in source.split('\n'))
-    _slashLine.firstMatch(line)?.group(1) ?? '',
-].join('\n');
+String slashComments(String source) {
+  final out = <String>[];
+  var inBlock = false;
+  for (final line in source.split('\n')) {
+    if (!inBlock) {
+      final slash = _slashLine.firstMatch(line);
+      if (slash != null) {
+        out.add(slash.group(1) ?? '');
+        continue;
+      }
+    }
+    // `/* … */` blocks, tracked across lines. C is the only plane that
+    // documents this way, and it documents *only* this way: every citation in
+    // `tom_som_c_v0/tool` sits in one. A lift that read `//` alone left that
+    // root outside every gate, which is not a rule about what documentation is
+    // — it is a syntax the lift had not learned.
+    var rest = line;
+    if (!inBlock) {
+      final open = line.indexOf('/*');
+      if (open < 0) {
+        out.add('');
+        continue;
+      }
+      rest = line.substring(open + 2);
+      inBlock = true;
+    }
+    // The close is looked for on the RAW remainder, before any `*` gutter is
+    // stripped: stripping first eats the `*` of `*/` and the block never ends,
+    // which then reads every following line of code as prose.
+    final close = rest.indexOf('*/');
+    if (close >= 0) {
+      rest = rest.substring(0, close);
+      inBlock = false;
+    }
+    out.add(_blockGutter.firstMatch(rest)?.group(1)?.trim() ?? rest.trim());
+  }
+  return out.join('\n');
+}
+
+/// The `*` gutter a block comment's continuation lines are written with,
+/// capturing what follows it. Applied after the close has been found, never
+/// before — the `*` of `*/` is a gutter to this pattern.
+final RegExp _blockGutter = RegExp(r'^\s*\*+[ \t]?(.*)$');
 
 /// A whole-line `//` comment, capturing what follows the marker.
 ///

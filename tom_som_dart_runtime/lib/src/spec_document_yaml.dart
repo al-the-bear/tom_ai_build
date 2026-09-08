@@ -792,7 +792,7 @@ class _Decoder {
               return;
             }
             if (name == 'content') {
-              // The form's preamble (SOM §11.4 rule 7 / §12.2).
+              // The form's preamble (SOM §11.4 rule 7 / SOM §12.2).
               doc.setContent(path, _scalarOf(v, '$path/content'));
               return;
             }

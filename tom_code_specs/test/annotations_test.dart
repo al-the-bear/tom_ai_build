@@ -18,7 +18,7 @@
 // declaration already says it" and "the `tom_core` substrate constructor already
 // takes it" reasons NOT to add an argument. Pinning those markers at
 // `{note}` is what stops a later pass from quietly adding the second,
-// disagreeing source §2.3 exists to prevent.
+// disagreeing source `codespecs_derivation_contract.md` §2.3 exists to prevent.
 //
 // A CodeSpec is an ordinary class BUILT ON a `tom_core`-family class and MARKED
 // by `Cs*` annotations — never extends a `Cs*` base. `tom_code_specs` does not
@@ -154,7 +154,7 @@ class CustomerEditForm {
   @CsValidation(rules: 'required, pattern:^[A-Z]{3}-')
   String? reference;
 
-  // CE-EL FileInput: the client half of a §5.13.1 file-reference column. Every
+  // CE-EL FileInput: the client half of a `codespecs_mapping.md` §5.13.1 file-reference column. Every
   // per-kind extra — accepted content kinds, size cap, presentation, upload-on-
   // pick — rides the `TomFormFileField` declaration, so the marker still carries
   // nothing but the kind. The declared type is singular because cardinality is a
@@ -630,7 +630,7 @@ void main() {
       // The catalogue is CLOSED: a new semantic kind is a catalogue edit,
       // reviewed as such, not a free-form attribute a specification can invent.
       // Pinning the membership here is what makes that reviewable — an arm added
-      // without the §5.18 entry and its widget mapping fails this test rather
+      // without the `codespecs_mapping.md` §5.18 entry and its widget mapping fails this test rather
       // than shipping as an unrealisable kind.
       expect(CsElementKind.values, hasLength(11));
 
@@ -656,7 +656,7 @@ void main() {
 
     test('CsElement marks a file input with the kind alone', () {
       // FileInput is the element that produces and presents a file reference —
-      // the client counterpart of a §5.13.1 CE-DB column. Its four extras all
+      // the client counterpart of a `codespecs_mapping.md` §5.13.1 CE-DB column. Its four extras all
       // ride the `TomFormFileField` declaration, so the marker's surface is
       // unchanged: no new annotation, one catalogue value (csrb8).
       const element = CsElement(
@@ -696,7 +696,7 @@ void main() {
 
     // The one place a declaration string beats typed arguments: the rule set is
     // a composition of variable arity, which a fixed parameter list cannot
-    // express, and the §5.19 grammar is specified and parsed rather than
+    // express, and the `codespecs_mapping.md` §5.19 grammar is specified and parsed rather than
     // free-form.
     test('CsValidation carries the §5.19 rule declaration string', () {
       const validation = CsValidation(
@@ -707,7 +707,7 @@ void main() {
       expect(validation.note, 'password policy');
     });
 
-    // §5.1 specifies `rules` as an optional POSITIONAL argument, but Dart
+    // `codespecs_derivation_contract.md` §5.1 specifies `rules` as an optional POSITIONAL argument, but Dart
     // forbids one signature carrying both optional-positional and named
     // parameters, and every marker keeps a named `note`. Named it is.
     test('CsValidation.rules is empty on a shared rule-library holder', () {
@@ -808,7 +808,7 @@ void main() {
       expect(trigger.phase, CsLifecyclePhase.dispose);
     });
 
-    // Channel names are open, deployment-declared values (§5.23), so there is no
+    // Channel names are open, deployment-declared values (`codespecs_mapping.md` §5.23), so there is no
     // Dart declaration to resolve a ref against.
     test('serverEvent fills channel + eventType, both strings', () {
       const trigger = CsTrigger(
@@ -1011,7 +1011,7 @@ void main() {
 
   group('csrc1: CE-JB target references are typed', () {
     // codespecs_mapping.md §5.29 scope part 3: a job's CE-RP targets are
-    // CsReportRef consts. They live on the annotation because §5.23 places the
+    // CsReportRef consts. They live on the annotation because `codespecs_mapping.md` §5.23 places the
     // Cs*Ref family in the annotation PARAMETER vocabulary — the same place
     // failureAlert's CsMessageKey already sits. The CE-DB half rides
     // TomJobDeclaration as Type literals; entities get no ref const by design.
@@ -1041,7 +1041,7 @@ void main() {
 
   group('csrb4: CE-AZ requirement kinds', () {
     // No arm is a default: defaulting an authorization requirement is the exact
-    // failure §5.16's fail-safe rule exists to prevent.
+    // failure `codespecs_mapping.md` §5.16's fail-safe rule exists to prevent.
     test('CsAuthRequirement folds six payload kinds and four presets', () {
       expect(CsAuthRequirement.values, hasLength(10));
       expect(
@@ -1071,7 +1071,7 @@ void main() {
     });
 
     // Roles are typed refs; groups and entitlements are strings because they
-    // reference runtime principal data, not Dart declarations (§5.23).
+    // reference runtime principal data, not Dart declarations (`codespecs_mapping.md` §5.23).
     test('role, group and entitlement fill their own list', () {
       const byRole = CsAuthorize(
         requirement: CsAuthRequirement.role,
@@ -1105,7 +1105,7 @@ void main() {
       expect(byHandler.resourceId, 'customer');
     });
 
-    // The slots hold a whole CsAuthorize because §5.15 defines them as
+    // The slots hold a whole CsAuthorize because `codespecs_mapping.md` §5.15 defines them as
     // recursion into the other requirement kinds. Reusing the annotation type
     // rather than declaring a parallel "requirement" value class is what keeps
     // the two from drifting.
@@ -1197,7 +1197,7 @@ void main() {
       expect(config.envAlias, 'BACKOFFICE_SERVER_URL');
     });
 
-    // §11: the scope key alone decides where a value lives, so the four settings
+    // `codespecs_mapping.md` §11: the scope key alone decides where a value lives, so the four settings
     // markers are distinguished by WHICH MARKER IS USED, never by a mode
     // argument on one of them.
     // The lattice bottoms out at CE-DS, and that is visible in the type
@@ -1253,7 +1253,7 @@ void main() {
       expect(deviceSetting.key, 'device.lastOpenedTab');
     });
 
-    // §5.16's fail-safe rule: broadening a value's blast radius must be a
+    // `codespecs_mapping.md` §5.16's fail-safe rule: broadening a value's blast radius must be a
     // deliberate authored act, so neither placement arm is a default.
     test('CsIdentityAttribute requires an explicit placement', () {
       expect(
@@ -1310,7 +1310,7 @@ void main() {
 
   group('csrb4: the note-only markers carry nothing beyond note', () {
     // Pinning these is as load-bearing as pinning the 24: each is note-only
-    // because §2.3's tests found an existing carrier — the declaration name, a
+    // because `codespecs_derivation_contract.md` §2.3's tests found an existing carrier — the declaration name, a
     // generic, or the `tom_core` substrate constructor — and adding an argument
     // later would create the second, disagreeing source those tests prevent.
     test('client/UI: CsWidget, CsForm, CsAction, CsRoute, CsScreenFlow', () {
@@ -1348,7 +1348,7 @@ void main() {
 
     test('not a part: CsCollaborator', () {
       // The strongest note-only case in the family: the method set *is* the
-      // declaration (§2.3 test a), and there is no substrate for test b to
+      // declaration (`codespecs_derivation_contract.md` §2.3 test a), and there is no substrate for test b to
       // reach — `@CsEnum` is the only other marker built on nothing.
       expect(const CsCollaborator(note: 'Phase-6 seam').note, 'Phase-6 seam');
       expect(const CsCollaborator().note, isNull);
@@ -1421,7 +1421,7 @@ void main() {
       expect(kind.kinds, [CodeSpecPart.form]);
     });
 
-    // Promotion out of §4.3 is a readiness change, never a renumbering: a
+    // Promotion out of `codespecs_mapping.md` §4.3 is a readiness change, never a renumbering: a
     // promoted part keeps the enum position it held while reserved.
     test('every part this suite marks has a distinct kind value', () {
       const kinds = <CodeSpecPart>[
@@ -1459,7 +1459,7 @@ void main() {
   // The two CE-VA markers annotate declarations of different SIGNATURES: a
   // field rule takes a value and returns a verdict; a form rule takes nothing
   // because it reads the form it hangs on. Both tear-offs resolving is the
-  // assertion — it proves the annotations are usable where §5.19 says the rules
+  // assertion — it proves the annotations are usable where `codespecs_mapping.md` §5.19 says the rules
   // live.
   test('CE-VA marks both rule shapes on their real declarations', () {
     expect(CustomerEditForm.validateReference, isA<String? Function(String)>());

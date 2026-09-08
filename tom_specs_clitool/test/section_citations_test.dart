@@ -332,7 +332,7 @@ void main() {
     test('a child id does not resolve through its parent heading', () {
       // Rejected deliberately: relaxing to the ancestor excuses a hundred
       // citations that belong to a different document, and nothing a parser can
-      // see tells that case from the genuine "rule 6 inside §12.3" one.
+      // see tells that case from the genuine "rule 6 inside §12.3" one. <!-- section-cite: exhibit 12.3 -->
       final citations = classify(
         'see §12.3.6',
         corpus: corpus,
@@ -525,11 +525,27 @@ class B {}
       expect(lifted.split('\n')[0], 'Cites `x.md` §1.');
       expect(lifted.split('\n')[6], 'Cites `x.md` §4.');
 
-      // Only `///` carries documentation. A `//` comment is a note to the next
-      // maintainer and a string literal is data; neither is read by a reader
-      // following a citation, so neither is held to the convention.
-      expect(lifted, isNot(contains('§2')));
+      // Every comment is documentation; a string literal is data. The corpus
+      // settled the first half against an earlier `///`-only rule: it carries
+      // 492 `§`-citing `//` lines and 362 of them already name their document,
+      // so calling them undocumentation described a practice nobody followed.
+      expect(lifted, contains('§2'));
+      // A literal is still not lifted, and that is what taking comments from
+      // the PARSE rather than by line buys: the analyzer says which tokens are
+      // comments, and `'a literal §3'` is not one of them. <!-- section-cite: exhibit 3 -->
       expect(lifted, isNot(contains('§3')));
+    });
+
+    test('a `//` note is lifted at its own line, like a `///` one', () {
+      const source = '''
+class A {
+  // Cites `x.md` §7.
+  final int n = 1;
+}
+''';
+      final lifted = dartDocComments(source).split('\n');
+      expect(lifted.length, source.split('\n').length);
+      expect(lifted[1], 'Cites `x.md` §7.');
     });
 
     test('the lookback crosses a `///` wrap, as it does a soft wrap', () {
@@ -561,7 +577,7 @@ class A {}
     test('a bare citation in a source file is dangling, always', () {
       // A Dart file declares no sections, so the self-reference carve-out has
       // nothing to resolve against: every citation in source must name its
-      // document. This is what makes `§0` catchable at all.
+      // document. This is what makes `§0` catchable at all. <!-- section-cite: exhibit 0 -->
       const source = '''
 /// The framework carries annotations only (§0).
 class A {}
@@ -581,7 +597,7 @@ class A {}
 
     test('every § citation in the TomSpecs source trees resolves', () {
       // The gate this group exists for. The doc-folder gate above reads `.md`
-      // only, which is why four `codespecs_mapping.md §0` citations sat in the
+      // only, which is why four `codespecs_mapping.md §0` citations sat in the <!-- section-cite: exhibit 0 -->
       // annotation packages unnoticed while the doc folder was clean — and a
       // package's doc comments are the first thing a reader of that package
       // sees, so they decay in exactly the same silence.
@@ -666,7 +682,7 @@ class A {}
       'without the rule the citation would pass as a correct self-reference',
       () {
         // Why this rule is not a tolerance widening but a defect fix. The citing
-        // document declares a §6 of its own, so reading the ISO citation as bare
+        // document declares a §6 of its own, so reading the ISO citation as bare <!-- section-cite: exhibit 6 -->
         // resolved it — silently, to the wrong document. A false alarm is
         // findable; this was not.
         final citations = classify(
@@ -688,7 +704,7 @@ class A {}
     test(
       'a bare body name does not qualify — the standard number is required',
       () {
-        // `ISO §4` names no standard. Admitting it would let the mere mention of
+        // `ISO §4` names no standard. Admitting it would let the mere mention of <!-- section-cite: exhibit 4 -->
         // an organisation vouch for a citation, which is the silent
         // mis-resolution the convention exists to prevent.
         final citations = classify(
@@ -731,7 +747,7 @@ class A {}
       expect(citations, hasLength(2));
       expect(citations.last.source, SectionQualifierSource.run);
       expect(citations.last.document, 'ISO/IEC 25010:2023');
-      // Notably `§4.2` does exist in the citing document — inheritance is what
+      // Notably `§4.2` does exist in the citing document — inheritance is what <!-- section-cite: exhibit 4.2 -->
       // stops the second member of an external run resolving locally too.
       expect(citations.first.verdict, SectionCitationVerdict.unverifiable);
       expect(citations.last.verdict, SectionCitationVerdict.unverifiable);
@@ -972,13 +988,14 @@ class A {}
 
     test('line numbers survive the lift', () {
       final source = [
-        '// not documentation',
+        '// a note, lifted like any other comment',
         '/// On line three, citing `codespecs_mapping.md` §4.1.',
         'class A {}',
       ].join('\n');
       final lines = dartDocComments(source).split('\n');
-      expect(lines[0], isEmpty);
+      expect(lines[0], 'a note, lifted like any other comment');
       expect(lines[1], contains('§4.1'));
+      // Code is still blanked, which is what keeps line numbers meaningful.
       expect(lines[2], isEmpty);
     });
 
@@ -1030,11 +1047,59 @@ class A {}
         liftComments('a.go', '// Cites §4.1.\nfunc main() {}'),
         contains('§4.1'),
       );
-      // A `//` in a Dart file is a note, not documentation — the one place the
-      // two line lifts deliberately disagree.
+      // A `//` in a Dart file is lifted too, so the three line lifts now agree
+      // about what a comment is; they differ only in the marker they read.
       expect(
-        liftComments('a.dart', '// Cites §4.1.\nclass A {}').trim(),
+        liftComments('a.dart', '// Cites §4.1.\nclass A {}'),
+        contains('§4.1'),
+      );
+      // The C family reads its block form as well — the syntax whose absence
+      // kept `tom_som_c_v0/tool` outside every gate.
+      expect(
+        liftComments('a.c', '/* Cites §4.1.\n * and more.\n */\nint main(){}'),
+        contains('§4.1'),
+      );
+    });
+
+    test('slashComments lifts a `/* … */` block across its lines', () {
+      // The syntax whose absence, not any rule, kept `tom_som_c_v0/tool`
+      // outside every gate: every citation in that root sits in one of these.
+      const src =
+          '/* Cross-language generator (SOM §19).\n'
+          ' *\n'
+          ' * Reads `codespecs_mapping.md` §9.2 at the same path.\n'
+          ' */\n'
+          'int main(void) { return 0; }\n';
+      final lines = slashComments(src).split('\n');
+      expect(
+        lines.length,
+        src.split('\n').length,
+        reason: 'line numbers must survive, as for every other lift',
+      );
+      expect(lines[0], contains('§19'));
+      expect(lines[2], contains('§9.2'));
+      expect(lines[4], isEmpty, reason: 'code is not a comment');
+    });
+
+    test('a block that opens and closes on one line is lifted', () {
+      expect(
+        slashComments('/* Cites §4.1. */\nint x;').split('\n')[0],
+        contains('§4.1'),
+      );
+    });
+
+    test('code after a block close is not lifted', () {
+      // The block tracker must end at `*/`, or every line after an unclosed
+      // comment would be read as prose.
+      final lines = slashComments(
+        '/* note */\nint n = 1; // §4.1 tail\n',
+      ).split('\n');
+      expect(
+        lines[1],
         isEmpty,
+        reason:
+            'a trailing comment after code is not lifted, per the '
+            'whole-line rule the other lifts follow',
       );
     });
 

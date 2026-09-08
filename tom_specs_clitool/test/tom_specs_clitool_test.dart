@@ -270,7 +270,7 @@ void main() {
     test('outliner validates IntegrationInterfaceSpecification root '
         'without non-field-shape errors', () {
       // IIS is a smoke-test root known to be clean of
-      // `tom_specs_model_rules.md` §5.6 ContentType issues. The §5.1 field-shape
+      // `tom_specs_model_rules.md` §5.6 ContentType issues. The `tom_specs_model_rules.md` §5.1 field-shape
       // rules of that same document (YRB1) DO fire here — D07 projects SBP
       // sections that still carry un-ided inline sub-section String fields
       // (the YRB5 id-sweep backlog). Those are enforced by the dedicated
@@ -504,7 +504,7 @@ void main() {
         'require projection reachability', () {
       // Guards the non-enforcement decision: the rule csre4 proposed — "a
       // @CodeSpecKind-bearing class must be reachable from D13" — has real
-      // counterexamples, ruled legitimate by §4.3. If a future pass adds that
+      // counterexamples, ruled legitimate by `codespecs_mapping.md` §4.3. If a future pass adds that
       // rule, this test says why it must not.
       final d13Reachable = _reachableFrom(classes, 'D13CodeSpecsProjection');
       final sbpReachable = _reachableFrom(classes, 'D00SolutionBlueprint');
@@ -689,7 +689,7 @@ void main() {
     });
 
     test('exempts container ids, which are longer by construction', () {
-      // A `-LST` container id is a three-token compound (§7.2) and routinely
+      // A `-LST` container id is a three-token compound (`tom_specs_model_rules.md` §7.2) and routinely
       // exceeds six characters; the cap is about the flat class mnemonic only.
       final classes = {
         'D00SolutionBlueprint': _cls(
@@ -1599,7 +1599,7 @@ void main() {
 
     test('a @CodeSpecKind inside a follow-up subtree passes when the part has '
         'a projection-reachable bearer', () {
-      // §4.3: only a section that must become a projection *root* is hoisted
+      // `codespecs_mapping.md` §4.3: only a section that must become a projection *root* is hoisted
       // out. The help copy is authored in the follow-up subtree and generated
       // through the registry, which the projection does reach.
       expect(routingErrors(model()), isEmpty);
@@ -1825,7 +1825,7 @@ void main() {
   });
 
   group('unit: tom_specs_model_rules.md §5.1 canonical field shapes (YRB1)', () {
-    // Field-shape errors carry the '§5.1 field-shape' prefix. Synthetic models
+    // Field-shape errors carry the '`tom_specs_model_rules.md` §5.1 field-shape' prefix. Synthetic models
     // deliberately omit D00SolutionBlueprint so the `tom_specs_model_rules.md`
     // §10.2 invariants stay a no-op and only the field-shape rules under test
     // can fire.
@@ -4314,7 +4314,7 @@ void main() {
           // The model's own case: `ProcessIdentification.processId` beneath
           // `BusinessProcessEntry`, with references resolving to it. For names
           // that is exemption (b); for ids it is not an exemption at all, since
-          // `@sectionId` (§6.2 rule 6) makes such a field unnecessary — so the
+          // `@sectionId` (`tom_specs_model_rules.md` §6.2 rule 6) makes such a field unnecessary — so the
           // field is accepted by the shape test alone, and nothing else.
           final classes = nameModel(
             {

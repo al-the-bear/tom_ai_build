@@ -280,7 +280,7 @@ void main() {
       final sbp = D00SolutionBlueprint(SpecDocument());
       // SystemsToReplace holds two child sections and no fields of its own, yet
       // it still declares `content` (its `@ContentHelp` asks the author to
-      // introduce the replacement portfolio). Pins §10.2's universal-content
+      // introduce the replacement portfolio). Pins `tom_specs_model_rules.md` §10.2's universal-content
       // rule at the generated facade: this goes red the day a section class
       // without a `content` leaf is reintroduced.
       expect(sbp.introductionAndScope.systemsToReplace.canHaveContent, isTrue);
