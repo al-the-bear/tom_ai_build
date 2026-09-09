@@ -39,10 +39,10 @@ or pin it explicitly in `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_som_dart_v0: ^1.3.0
+  tom_som_dart_v0: ^1.3.1
 ```
 
-`tom_som_dart_v0` and `tom_som_dart_runtime` both carry version `1.3.0`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
+`tom_som_dart_v0` and `tom_som_dart_runtime` both carry version `1.3.1`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
 
 ## Features
 
@@ -254,7 +254,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 
 ## Status
 
-Version **1.3.0**, tracking the TomSpecs model version and matching `tom_som_dart_runtime`. Generated surface: 14 document roots, 1254 model classes. Verify the package with:
+Version **1.3.1**, tracking the TomSpecs model version and matching `tom_som_dart_runtime`. Generated surface: 14 document roots, 1254 model classes. Verify the package with:
 
 ```bash
 dart pub get

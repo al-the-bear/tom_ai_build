@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.14.0
+
+22 files, +4051 lines since 0.13.0.
+
+- **The `Cs*` marker family is complete at 40**: 39 part markers plus
+  `@CsCollaborator`, which is deliberately not a part — it marks the abstract
+  collaborator a form-3b body calls.
+- **24 of the 40 markers take arguments**, shaped by the derivation contract
+  §5.1; the other 16 carry a single optional `note`, and each states which test
+  excuses it.
+- **`vocabulary.dart`** carries the 16 closed catalogues the arguments select
+  from, declared locally so the package needs no dependency on `tom_core`.
+- **`cross_part_refs.dart`** adds the typed cross-part reference family: 13
+  const value types with no shared supertype, so no parameter can accept the
+  wrong kind of id.
+- The package is documented — `doc/marking_code.md`, `doc/vocabulary.md`,
+  `doc/cross_references.md`, `doc/index.md`.
+
 ## 0.13.0
 
 - `@CsColumn` gains two optional facets mirrored from the SOM's

@@ -312,6 +312,16 @@ export 'src/codespecs/cs_check_table.dart'
 // The Phase-4 area catalogue — codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6
 // transcribed into the input `spec_codespecs_extract` reads in all nine
 // runtimes.
+// The release-drift gate — which release-set packages have moved since the
+// commit that set their current version, and which of those say why.
+export 'src/release_drift.dart'
+    show
+        PackageDrift,
+        ReleaseDriftReport,
+        computeReleaseDrift,
+        loadAcknowledgedDrift,
+        releaseDriftIgnoredPaths,
+        renderReleaseDrift;
 export 'src/codespecs/areas_catalog.dart'
     show
         AreasCatalog,

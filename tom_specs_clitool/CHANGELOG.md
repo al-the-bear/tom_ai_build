@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.3.0
+
+240 files, +34,604 lines since 0.2.0 — the largest drift in the release set,
+and it is mostly gates and generators rather than new surface.
+
+- **Two new generated accessors** (SOM §10.3): `SomDartSchemasEmitter` writes
+  the fourteen embedded DocSpecs schemas as `somDocSpecsSchema(id)`, and
+  `bin/codespecs_areas.dart` now writes a Dart accessor beside the area
+  catalogue JSON. Both close the same defect the whole-model accessor closed:
+  a package-relative read returns nothing in an AOT binary and does not say so.
+- **The model's value enums are bound**, and the generators carry them through:
+  `enums:` and `modelLabel:` reach `DocSpecsSchemaGenerator` from all nine
+  language generators, Go emits a defined type over string and Rust a real
+  `enum` with `as_str`/`from_token`.
+- **`somReachableEnums` and `somEmittedSurface`** consolidate rules that had
+  been written out once per emitter — nine byte-identical copies of the
+  reachability walk, eighteen of the root filter — and eight of the nine enum
+  copies were collecting a field kind the model never declares, so eight
+  facades emitted no enum at all.
+- **New standing gates**, all in the default `dart test` run: three citation
+  gates plus the scan-set coverage check that keeps their subject closed, the
+  formatting gate, the release-closure walk, the release-**drift** report added
+  in this release, the model-freshness stamp, invariant correspondence, the
+  doc-coverage ratchet, the `spec_ops` coverage checks, the spec-tree
+  duplication ratchet and the shipped-script path gate.
+- **`spec_ops.g.dart`** gains the `connect:` binding for all thirteen
+  projection roots, so a projection re-points onto the live document instead of
+  serializing default-constructed sections.
+- The package is documented, formatted under the tall style, and its README is
+  the CLI reference.
+
 ## 0.2.0
 
 - SOM generators emit the format-3 CodeSpecs extractor across all nine

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.1
+
+- Version realigned to TomSpecs model 1.3.1 (lockstep with `tom_som_dart_v0`).
+- No behavioural change to the runtime itself; 1.3.1 corrects dependency
+  constraints across the release set so the published chain resolves to a set
+  that actually compiles together.
+
 ## 1.3.0
 
 - Version realigned to TomSpecs model 1.3 (lockstep with `tom_som_dart_v0`).

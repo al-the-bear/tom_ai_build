@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.2.0
+
+The annotation catalogue grew with the model it annotates: 43 files, +2400
+lines since 0.1.0.
+
+- **New annotations.** `@CodeSpecKind` / `CodeSpecPart` (the type-level
+  DocSpecs↔CodeSpecs routing), `@FollowUpKind` / `FollowUpProcess`,
+  `@NoArtifact` / `NoArtifactReason` — the three routing verdicts that make the
+  `ROUTE-TOTAL` structural invariant checkable — plus `@CodeSpecsProjection`,
+  `@AccessKey`, `@AllowedTags`, `@Case`/`@CaseOf`, `@ValidationPrompt` and the
+  `refersTo` target on `Field`, which turns a free-text id contract from hint
+  prose into something both validation tiers can enforce.
+- **`DocSpecsSection` gains `codeSpec`**, the concrete forward link from a
+  section to the CodeSpecs code it was realised as.
+- The package is documented: `doc/annotations.md`, `doc/sections.md` and
+  `doc/index.md`, with the README as the annotation catalogue itself.
+- No behaviour to break — these are annotations — but the catalogue is larger,
+  so a consumer pinned to 0.1.0 sees none of it.
+
 ## 0.1.0
 
 Initial development release (pub.dev 0.x channel, BSD-3-Clause).

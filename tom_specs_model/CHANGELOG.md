@@ -1,3 +1,16 @@
+## 1.3.1
+
+- **Dependency constraints corrected, and this is a real fix rather than
+  housekeeping.** 1.3.0 shipped with `tom_specs_core: ^0.1.0` while depending
+  on annotations that package only gained in 0.2.0 — so the published 1.3.0
+  resolved against a `tom_specs_core` it could not compile against. The
+  constraint is now `^0.2.0`, and `tom_som_dart_runtime` moves to `^1.3.0`.
+- Carries the `lib/codespecs_areas.dart` CHANGELOG entry and the
+  `som_multiplatform_spec_model.md` §10.3 rewrite that landed after 1.3.0 was
+  uploaded.
+- No model change: the object model, the emitted metadata and the schemas are
+  byte-identical to 1.3.0.
+
 ## 1.3.0
 
 - **`lib/codespecs_areas.dart` — the CodeSpecs area catalogue as Dart.**

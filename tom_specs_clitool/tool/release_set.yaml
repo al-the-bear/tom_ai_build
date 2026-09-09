@@ -72,3 +72,25 @@ forbid:
 # third-party pub and permitted.
 workspace_prefixes:
   - tom_
+
+# ACKNOWLEDGED DRIFT — read by bin/check_release_drift.dart
+# (lib/src/release_drift.dart).
+#
+# A release member whose tree has moved since the commit that set its current
+# version has unpublished changes, and pub.dev says nothing about them. That is
+# a legitimate cadence — a package is published when something needs it
+# published — but it must be VISIBLE, and before this block the only way to see
+# it was to diff by hand against a commit you had to know to pick. Measured
+# 2026-09-08: `tom_specs_clitool` was 34,604 lines behind its published version
+# and nothing reported it.
+#
+# So drift fails the gate unless it is acknowledged here, package -> reason.
+# A hard failure on any drift would be red from the first edit after every
+# publish, which is every working day, and a gate that is always red is a gate
+# that gets switched off.
+#
+# EMPTY IS THE INTENDED STATE, and it is the state this block was created in:
+# tsdocd8 published all nine members so that the published set is what the
+# repository holds. An entry here is a deliberate exception with its reason,
+# not a backlog.
+unpublished_drift: {}

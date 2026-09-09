@@ -1,6 +1,6 @@
 name: tom_specs_clitool
 description: CLI tools for TomSpecs model analysis, validation, and SOM code generation.
-version: 0.2.0
+version: 0.3.0
 
 repository: https://github.com/al-the-bear/tom_ai_build
 homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_specs_clitool
@@ -33,14 +33,14 @@ dependencies:
   # Co-developed release-set siblings, resolved by path locally via
   # pubspec_overrides.yaml (excluded from publish); the published package uses
   # these hosted constraints.
-  tom_doc_specs: ^0.1.0
+  tom_doc_specs: ^0.3.0
   # The generic SOM runtime the Dart emitter targets — the emitter drives its
   # SpecModel and the generated code extends its SomNode/SomList facade base.
-  tom_som_dart_runtime: ^1.1.0
+  tom_som_dart_runtime: ^1.3.0
   # The annotation library the model is written against. The validator reads
   # `deferredCodeSpecParts` from it (invariant PART-ROUTED's exemption) rather than
   # restating which CodeSpecs parts have no generated surface.
-  tom_specs_core: ^0.1.0
+  tom_specs_core: ^0.2.0
 
 dev_dependencies:
   json_schema: ^5.2.2
@@ -48,4 +48,4 @@ dev_dependencies:
   test: ^1.25.6
   # Used only by the schema-generator test to scan a known-good markdown export
   # without going through DocSpecs' on-disk schema resolver.
-  tom_doc_scanner: ^0.1.0
+  tom_doc_scanner: ^0.2.0

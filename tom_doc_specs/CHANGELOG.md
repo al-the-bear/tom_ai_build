@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.3.0
+
+36 files, +4235/-2093 since 0.2.0. The schema model and the validator both
+moved.
+
+- **Generate and read agree.** Several constructs the schema generator emitted
+  were read back differently — or not at all — by the validator; each is fixed
+  in the model that both sides share (`doc_spec_schema.dart`,
+  `document_structure.dart`, `section_type_def.dart`, `form_type_def.dart`)
+  rather than in one side's parser.
+- **Skeleton shape is checked**, so a schema that is structurally impossible
+  fails when it is written rather than when a document is validated against it.
+- The validator suite was rewritten around the corrected model — the bulk of
+  the diff — and the `docspecs` CLI moved with it.
+- **Publish it with `tom_doc_scanner`.** This release depends on that package's
+  0.2.0 section-id and schema-header fixes; the two can no longer be published
+  independently without thought.
+
 ## 0.2.0
 
 - **A document's schema declaration is now read in both documented forms.**

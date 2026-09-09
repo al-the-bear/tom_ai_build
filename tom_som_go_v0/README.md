@@ -32,16 +32,16 @@ Everything generated here is derived from the `tom_specs_model` Dart model and r
 Fetch the facade at a version tag (it pulls in `tom_som_go_runtime`):
 
 ```bash
-go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@v1.3.0
+go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@v1.3.1
 ```
 
 or pin it in your `go.mod`:
 
 ```
-require github.com/al-the-bear/tom_ai_build/tom_som_go_v0 v1.3.0
+require github.com/al-the-bear/tom_ai_build/tom_som_go_v0 v1.3.1
 ```
 
-`tom_som_go_v0` and `tom_som_go_runtime` both carry version `1.3.0`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
+`tom_som_go_v0` and `tom_som_go_runtime` both carry version `1.3.1`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
 
 ## Features
 
@@ -68,7 +68,7 @@ Each root is a whole TomSpecs document, and the first segment of every path bene
 
 ## Quick start
 
-Add `tom_som_go_v0` to your module (`go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@v1.3.0`), then:
+Add `tom_som_go_v0` to your module (`go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@v1.3.1`), then:
 
 ```go
 import (
@@ -245,7 +245,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 
 ## Status
 
-Version **1.3.0**, tracking the TomSpecs model version and matching `tom_som_go_runtime`. Generated surface: 14 document roots, 1254 model classes. Verify the package with:
+Version **1.3.1**, tracking the TomSpecs model version and matching `tom_som_go_runtime`. Generated surface: 14 document roots, 1254 model classes. Verify the package with:
 
 ```bash
 go build ./...
