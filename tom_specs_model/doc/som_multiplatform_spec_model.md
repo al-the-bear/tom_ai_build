@@ -854,9 +854,9 @@ none of them inferable from the model's structure:
 |---|---|---|---|
 | `doc` | class, field | 1254/1254 classes, **5153/5153** fields | what the section *is* |
 | `help` (`@ContentHelp`) | class, field | 128 classes, 1147 fields | how to *fill it in* |
-| `label` (`@Form` `Field`) | form field | 10953/10953 | the field's display name |
-| `hint` (`@Form` `Field`) | form field | 10547/10953 | what a valid value looks like |
-| `enumValueDocs` | form field, enum field | 42/42 enum-typed form fields | what each **constant** means |
+| `label` (`@Form` `Field`) | form field | 10954/10954 | the field's display name |
+| `hint` (`@Form` `Field`) | form field | 10550/10954 | what a valid value looks like |
+| `enumValueDocs` | form field, enum field | 148/148 enum-typed form fields | what each **constant** means |
 
 `doc` reached 5153/5153 from **3904/5153** by being **resolved through the
 superclass chain**, as dartdoc resolves it. Every section class re-declares
@@ -897,18 +897,22 @@ needs the line, and one whose reference does not gains 14,000 lines of nothing.
 tokens; `enumValueDocs` — an object keyed by constant name — gives each
 constant's model doc comment. For a **closed** vocabulary that second half is
 the load-bearing one: an author's choice is between adjacent constants, and
-what separates them exists nowhere else. The model documents all 160 of its
-constants across 24 enums, and **every one of the 24 reaches the meta**, through
-the 42 enum-typed `@Form` fields that use them.
+what separates them exists nowhere else. The model documents all 164 of its
+constants across 25 enums, and **every one of the 25 reaches the meta**, through
+the 148 enum-typed `@Form` fields that use them.
 
-A value enum is bound where a field's documented band set **is** that enum's.
-The model also carries two qualitative scales that are none of its enums — the
-four-band `Critical / High / Medium / Low` importance scale used by some sixty
-priority / criticality / severity fields, and the three-band `Low / Medium /
-High` matrix some risk entries rate on — and those fields stay `String` until
-they have an enum of their own. Binding one of them to a five-band enum whose
-constants merely overlap would let an author write a band the field's partner
-axis cannot answer.
+A value enum is bound where a field's documented band set **is** that enum's,
+allowing a documented subset. `ImportanceBand` is where that clause does most of
+its work: the four-band `Critical / High / Medium / Low` scale is the model's
+most-repeated vocabulary, a hundred fields under a dozen labels, and about a
+third of them document only the lower three bands. Those are the same instrument
+with its top band unused, so they bind too.
+
+A field whose documented set contains a band **no** enum has — `Very High`,
+`None`, `Full`, `Untrusted`, `Blocking`, a numbered `P1`–`P5` — stays `String`,
+and so does one naming a *rating scheme* rather than a rating. Binding such a
+field to an enum whose constants merely overlap would let an author write a band
+the field's own scale does not contain.
 
 **All nine facades render them**, each in its own comment syntax, and the fix
 was one rule rather than nine ports. Eight emitters carried a private copy of

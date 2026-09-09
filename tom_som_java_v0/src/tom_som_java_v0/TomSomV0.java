@@ -500,6 +500,53 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `ImportanceBand` values.
+  public enum ImportanceBand {
+    /**
+     * The top band: whatever this rates cannot be traded away, deferred or
+     * absorbed. On a priority it blocks the release; on a severity it stops
+     * work; on a criticality its loss stops the business function. If
+     * everything on a list is critical, the list has not been rated.
+     */
+    critical("critical"),
+    /**
+     * Below [critical] but ahead of the ordinary queue: it is expected to be
+     * dealt with in the current cycle, and letting it slip is a decision
+     * somebody has to make rather than a routine outcome.
+     */
+    high("high"),
+    /**
+     * The ordinary band, and the default when nobody has actually assessed the
+     * item. A medium with no reasoning behind it is worth challenging — it is
+     * as often "not looked at" as it is "genuinely middling".
+     */
+    medium("medium"),
+    /**
+     * The bottom band: worth recording, not worth planning around. Items here
+     * are done when they are cheap, and their omission needs no explanation.
+     */
+    low("low");
+
+    public final String token;
+
+    ImportanceBand(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a ImportanceBand, or null.
+    public static ImportanceBand parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (ImportanceBand v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `Iso25010Characteristic` values.
   public enum Iso25010Characteristic {
     /**
@@ -10607,7 +10654,7 @@ public final class TomSomV0 {
   // per the public-standards order of the `@StandardReferences` below.
   public static final class D00SolutionBlueprint extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -10745,7 +10792,7 @@ public final class TomSomV0 {
   // and the inventory / migration plan for the systems being replaced.
   public static final class D01CurrentLandscapeAssessment extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -10858,7 +10905,7 @@ public final class TomSomV0 {
   // cross-process analysis, exception handling, and KPIs.
   public static final class D02TargetOperatingModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -10982,7 +11029,7 @@ public final class TomSomV0 {
   // integrity constraints.
   public static final class D03InformationModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11166,7 +11213,7 @@ public final class TomSomV0 {
   // and coverage analysis.
   public static final class D04RequirementsSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11283,7 +11330,7 @@ public final class TomSomV0 {
   // and traceability.
   public static final class D05InteractionScenarios extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11392,7 +11439,7 @@ public final class TomSomV0 {
   // and translation handling.
   public static final class D06ArchitectureTechnologySpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11525,7 +11572,7 @@ public final class TomSomV0 {
   // migration, operational concerns, and cross-boundary error handling.
   public static final class D07IntegrationInterfaceSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11649,7 +11696,7 @@ public final class TomSomV0 {
   // compliance framework.
   public static final class D08SecurityAccessSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11775,7 +11822,7 @@ public final class TomSomV0 {
   // mockups.
   public static final class D09ExperienceDesignSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11914,7 +11961,7 @@ public final class TomSomV0 {
   // Full quality plan combining quality goals and the acceptance plan.
   public static final class D10QualityAcceptancePlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12083,7 +12130,7 @@ public final class TomSomV0 {
   // framework.
   public static final class D11DeliveryRoadmap extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12202,7 +12249,7 @@ public final class TomSomV0 {
   // transfer, and warranty/support.
   public static final class D12TransitionRolloutPlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12346,7 +12393,7 @@ public final class TomSomV0 {
   // models, the process-step interactions, and the client-side experience seed.
   public static final class D13CodeSpecsProjection extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.2";
+    public static final String MODEL_VERSION = "1.3";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -48216,13 +48263,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "testType", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String status() {
@@ -51162,13 +51208,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "employeeCount", value == null ? "" : String.valueOf(value));
     }
 
-    public String impactLevel() {
-      String v = doc.formField(path, "impactLevel");
-      return v == null ? "" : v;
+    public ImportanceBand impactLevel() {
+      return ImportanceBand.parse(doc.formField(path, "impactLevel"));
     }
 
-    public void impactLevel(String value) {
-      doc.setFormField(path, "impactLevel", value);
+    public void setImpactLevel(ImportanceBand value) {
+      doc.setFormField(path, "impactLevel", value == null ? "" : value.token);
     }
 
     public String roleInProject() {
@@ -51189,13 +51234,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "currentSystems", value);
     }
 
-    public String changeReadiness() {
-      String v = doc.formField(path, "changeReadiness");
-      return v == null ? "" : v;
+    public ImportanceBand changeReadiness() {
+      return ImportanceBand.parse(doc.formField(path, "changeReadiness"));
     }
 
-    public void changeReadiness(String value) {
-      doc.setFormField(path, "changeReadiness", value);
+    public void setChangeReadiness(ImportanceBand value) {
+      doc.setFormField(path, "changeReadiness", value == null ? "" : value.token);
     }
 
     public String keyContacts() {
@@ -56073,13 +56117,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "fipsValidationLevel", value);
     }
 
-    public String securityLevel() {
-      String v = doc.formField(path, "securityLevel");
-      return v == null ? "" : v;
+    public ImportanceBand securityLevel() {
+      return ImportanceBand.parse(doc.formField(path, "securityLevel"));
     }
 
-    public void securityLevel(String value) {
-      doc.setFormField(path, "securityLevel", value);
+    public void setSecurityLevel(ImportanceBand value) {
+      doc.setFormField(path, "securityLevel", value == null ? "" : value.token);
     }
   }
 
@@ -56481,13 +56524,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String riskLevel() {
-      String v = doc.formField(path, "riskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand riskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "riskLevel"));
     }
 
-    public void riskLevel(String value) {
-      doc.setFormField(path, "riskLevel", value);
+    public void setRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "riskLevel", value == null ? "" : value.token);
     }
 
     public Integer maxHolders() {
@@ -57726,13 +57768,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "dataScope", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -58981,13 +59022,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "riskIfWrong", value);
     }
 
-    public String riskImpact() {
-      String v = doc.formField(path, "riskImpact");
-      return v == null ? "" : v;
+    public ImportanceBand riskImpact() {
+      return ImportanceBand.parse(doc.formField(path, "riskImpact"));
     }
 
-    public void riskImpact(String value) {
-      doc.setFormField(path, "riskImpact", value);
+    public void setRiskImpact(ImportanceBand value) {
+      doc.setFormField(path, "riskImpact", value == null ? "" : value.token);
     }
 
     public String contingencyPlan() {
@@ -59075,13 +59115,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "validationStatus", value);
     }
 
-    public String confidence() {
-      String v = doc.formField(path, "confidence");
-      return v == null ? "" : v;
+    public ImportanceBand confidence() {
+      return ImportanceBand.parse(doc.formField(path, "confidence"));
     }
 
-    public void confidence(String value) {
-      doc.setFormField(path, "confidence", value);
+    public void setConfidence(ImportanceBand value) {
+      doc.setFormField(path, "confidence", value == null ? "" : value.token);
     }
   }
 
@@ -61078,13 +61117,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "goalType", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -71458,13 +71496,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "lockInFactors", value);
     }
 
-    public String integrationComplexity() {
-      String v = doc.formField(path, "integrationComplexity");
-      return v == null ? "" : v;
+    public ImportanceBand integrationComplexity() {
+      return ImportanceBand.parse(doc.formField(path, "integrationComplexity"));
     }
 
-    public void integrationComplexity(String value) {
-      doc.setFormField(path, "integrationComplexity", value);
+    public void setIntegrationComplexity(ImportanceBand value) {
+      doc.setFormField(path, "integrationComplexity", value == null ? "" : value.token);
     }
   }
 
@@ -73956,13 +73993,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "mitigationCost", value);
     }
 
-    public String residualRisk() {
-      String v = doc.formField(path, "residualRisk");
-      return v == null ? "" : v;
+    public ImportanceBand residualRisk() {
+      return ImportanceBand.parse(doc.formField(path, "residualRisk"));
     }
 
-    public void residualRisk(String value) {
-      doc.setFormField(path, "residualRisk", value);
+    public void setResidualRisk(ImportanceBand value) {
+      doc.setFormField(path, "residualRisk", value == null ? "" : value.token);
     }
 
     public String contingencyTrigger() {
@@ -77658,13 +77694,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "complianceStatus", value);
     }
 
-    public String dataSecurityRiskLevel() {
-      String v = doc.formField(path, "dataSecurityRiskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand dataSecurityRiskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "dataSecurityRiskLevel"));
     }
 
-    public void dataSecurityRiskLevel(String value) {
-      doc.setFormField(path, "dataSecurityRiskLevel", value);
+    public void setDataSecurityRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "dataSecurityRiskLevel", value == null ? "" : value.token);
     }
 
     public String averageDataAge() {
@@ -77743,13 +77778,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "estimatedBenefit", value);
     }
 
-    public String implementationEffort() {
-      String v = doc.formField(path, "implementationEffort");
-      return v == null ? "" : v;
+    public ImportanceBand implementationEffort() {
+      return ImportanceBand.parse(doc.formField(path, "implementationEffort"));
     }
 
-    public void implementationEffort(String value) {
-      doc.setFormField(path, "implementationEffort", value);
+    public void setImplementationEffort(ImportanceBand value) {
+      doc.setFormField(path, "implementationEffort", value == null ? "" : value.token);
     }
 
     public String priority() {
@@ -80224,13 +80258,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "synchronizationChallenges", value == null ? "" : String.valueOf(value));
     }
 
-    public String dataInconsistencyRisk() {
-      String v = doc.formField(path, "dataInconsistencyRisk");
-      return v == null ? "" : v;
+    public ImportanceBand dataInconsistencyRisk() {
+      return ImportanceBand.parse(doc.formField(path, "dataInconsistencyRisk"));
     }
 
-    public void dataInconsistencyRisk(String value) {
-      doc.setFormField(path, "dataInconsistencyRisk", value);
+    public void setDataInconsistencyRisk(ImportanceBand value) {
+      doc.setFormField(path, "dataInconsistencyRisk", value == null ? "" : value.token);
     }
 
     public Integer consolidationOpportunities() {
@@ -81783,13 +81816,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "technicalOwner", value);
     }
 
-    public String criticality() {
-      String v = doc.formField(path, "criticality");
-      return v == null ? "" : v;
+    public ImportanceBand criticality() {
+      return ImportanceBand.parse(doc.formField(path, "criticality"));
     }
 
-    public void criticality(String value) {
-      doc.setFormField(path, "criticality", value);
+    public void setCriticality(ImportanceBand value) {
+      doc.setFormField(path, "criticality", value == null ? "" : value.token);
     }
 
     public String knownIssues() {
@@ -83720,13 +83752,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "qualityDimension", value);
     }
 
-    public String severity() {
-      String v = doc.formField(path, "severity");
-      return v == null ? "" : v;
+    public ImportanceBand severity() {
+      return ImportanceBand.parse(doc.formField(path, "severity"));
     }
 
-    public void severity(String value) {
-      doc.setFormField(path, "severity", value);
+    public void setSeverity(ImportanceBand value) {
+      doc.setFormField(path, "severity", value == null ? "" : value.token);
     }
   }
 
@@ -84349,13 +84380,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "dataStoreName", value);
     }
 
-    public String criticality() {
-      String v = doc.formField(path, "criticality");
-      return v == null ? "" : v;
+    public ImportanceBand criticality() {
+      return ImportanceBand.parse(doc.formField(path, "criticality"));
     }
 
-    public void criticality(String value) {
-      doc.setFormField(path, "criticality", value);
+    public void setCriticality(ImportanceBand value) {
+      doc.setFormField(path, "criticality", value == null ? "" : value.token);
     }
   }
 
@@ -86090,13 +86120,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "decisionDomains", value);
     }
 
-    public String influenceLevel() {
-      String v = doc.formField(path, "influenceLevel");
-      return v == null ? "" : v;
+    public ImportanceBand influenceLevel() {
+      return ImportanceBand.parse(doc.formField(path, "influenceLevel"));
     }
 
-    public void influenceLevel(String value) {
-      doc.setFormField(path, "influenceLevel", value);
+    public void setInfluenceLevel(ImportanceBand value) {
+      doc.setFormField(path, "influenceLevel", value == null ? "" : value.token);
     }
 
     public String approvalRequired() {
@@ -86197,22 +86226,20 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String technicalFeasibility() {
-      String v = doc.formField(path, "technicalFeasibility");
-      return v == null ? "" : v;
+    public ImportanceBand technicalFeasibility() {
+      return ImportanceBand.parse(doc.formField(path, "technicalFeasibility"));
     }
 
-    public void technicalFeasibility(String value) {
-      doc.setFormField(path, "technicalFeasibility", value);
+    public void setTechnicalFeasibility(ImportanceBand value) {
+      doc.setFormField(path, "technicalFeasibility", value == null ? "" : value.token);
     }
 
-    public String organizationalFeasibility() {
-      String v = doc.formField(path, "organizationalFeasibility");
-      return v == null ? "" : v;
+    public ImportanceBand organizationalFeasibility() {
+      return ImportanceBand.parse(doc.formField(path, "organizationalFeasibility"));
     }
 
-    public void organizationalFeasibility(String value) {
-      doc.setFormField(path, "organizationalFeasibility", value);
+    public void setOrganizationalFeasibility(ImportanceBand value) {
+      doc.setFormField(path, "organizationalFeasibility", value == null ? "" : value.token);
     }
 
     public String feasibilityNotes() {
@@ -87286,13 +87313,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -90588,13 +90614,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "description", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String category() {
@@ -100900,13 +100925,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String technicalDebtLevel() {
-      String v = doc.formField(path, "technicalDebtLevel");
-      return v == null ? "" : v;
+    public ImportanceBand technicalDebtLevel() {
+      return ImportanceBand.parse(doc.formField(path, "technicalDebtLevel"));
     }
 
-    public void technicalDebtLevel(String value) {
-      doc.setFormField(path, "technicalDebtLevel", value);
+    public void setTechnicalDebtLevel(ImportanceBand value) {
+      doc.setFormField(path, "technicalDebtLevel", value == null ? "" : value.token);
     }
 
     public String codeQuality() {
@@ -102859,13 +102883,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "integrationPattern", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String status() {
@@ -103660,13 +103683,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "dependentSystems", value);
     }
 
-    public String criticality() {
-      String v = doc.formField(path, "criticality");
-      return v == null ? "" : v;
+    public ImportanceBand criticality() {
+      return ImportanceBand.parse(doc.formField(path, "criticality"));
     }
 
-    public void criticality(String value) {
-      doc.setFormField(path, "criticality", value);
+    public void setCriticality(ImportanceBand value) {
+      doc.setFormField(path, "criticality", value == null ? "" : value.token);
     }
 
     public String contractStatus() {
@@ -104918,13 +104940,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "costOfDelayCategory", value);
     }
 
-    public String strategicAlignment() {
-      String v = doc.formField(path, "strategicAlignment");
-      return v == null ? "" : v;
+    public ImportanceBand strategicAlignment() {
+      return ImportanceBand.parse(doc.formField(path, "strategicAlignment"));
     }
 
-    public void strategicAlignment(String value) {
-      doc.setFormField(path, "strategicAlignment", value);
+    public void setStrategicAlignment(ImportanceBand value) {
+      doc.setFormField(path, "strategicAlignment", value == null ? "" : value.token);
     }
 
     public String strategicObjectiveLink() {
@@ -104936,13 +104957,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "strategicObjectiveLink", value);
     }
 
-    public String customerImpact() {
-      String v = doc.formField(path, "customerImpact");
-      return v == null ? "" : v;
+    public ImportanceBand customerImpact() {
+      return ImportanceBand.parse(doc.formField(path, "customerImpact"));
     }
 
-    public void customerImpact(String value) {
-      doc.setFormField(path, "customerImpact", value);
+    public void setCustomerImpact(ImportanceBand value) {
+      doc.setFormField(path, "customerImpact", value == null ? "" : value.token);
     }
 
     public String userBaseAffected() {
@@ -105119,13 +105139,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "complexityFactors", value);
     }
 
-    public String riskLevel() {
-      String v = doc.formField(path, "riskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand riskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "riskLevel"));
     }
 
-    public void riskLevel(String value) {
-      doc.setFormField(path, "riskLevel", value);
+    public void setRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "riskLevel", value == null ? "" : value.token);
     }
 
     public String riskFactors() {
@@ -105413,13 +105432,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "deliveryStatus", value);
     }
 
-    public String confidenceLevel() {
-      String v = doc.formField(path, "confidenceLevel");
-      return v == null ? "" : v;
+    public ImportanceBand confidenceLevel() {
+      return ImportanceBand.parse(doc.formField(path, "confidenceLevel"));
     }
 
-    public void confidenceLevel(String value) {
-      doc.setFormField(path, "confidenceLevel", value);
+    public void setConfidenceLevel(ImportanceBand value) {
+      doc.setFormField(path, "confidenceLevel", value == null ? "" : value.token);
     }
 
     public String lastReviewedDate() {
@@ -105765,13 +105783,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "readinessStatus", value);
     }
 
-    public String deliveryConfidence() {
-      String v = doc.formField(path, "deliveryConfidence");
-      return v == null ? "" : v;
+    public ImportanceBand deliveryConfidence() {
+      return ImportanceBand.parse(doc.formField(path, "deliveryConfidence"));
     }
 
-    public void deliveryConfidence(String value) {
-      doc.setFormField(path, "deliveryConfidence", value);
+    public void setDeliveryConfidence(ImportanceBand value) {
+      doc.setFormField(path, "deliveryConfidence", value == null ? "" : value.token);
     }
 
     public String confidenceRationale() {
@@ -107339,13 +107356,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "volumeEstimate", value);
     }
 
-    public String criticalityLevel() {
-      String v = doc.formField(path, "criticalityLevel");
-      return v == null ? "" : v;
+    public ImportanceBand criticalityLevel() {
+      return ImportanceBand.parse(doc.formField(path, "criticalityLevel"));
     }
 
-    public void criticalityLevel(String value) {
-      doc.setFormField(path, "criticalityLevel", value);
+    public void setCriticalityLevel(ImportanceBand value) {
+      doc.setFormField(path, "criticalityLevel", value == null ? "" : value.token);
     }
   }
 
@@ -107774,13 +107790,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
-    public String businessValue() {
-      String v = doc.formField(path, "businessValue");
-      return v == null ? "" : v;
+    public ImportanceBand businessValue() {
+      return ImportanceBand.parse(doc.formField(path, "businessValue"));
     }
 
-    public void businessValue(String value) {
-      doc.setFormField(path, "businessValue", value);
+    public void setBusinessValue(ImportanceBand value) {
+      doc.setFormField(path, "businessValue", value == null ? "" : value.token);
     }
 
     public String effort() {
@@ -107792,13 +107807,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "effort", value);
     }
 
-    public String riskLevel() {
-      String v = doc.formField(path, "riskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand riskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "riskLevel"));
     }
 
-    public void riskLevel(String value) {
-      doc.setFormField(path, "riskLevel", value);
+    public void setRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "riskLevel", value == null ? "" : value.token);
     }
   }
 
@@ -108132,13 +108146,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "gapCategory", value);
     }
 
-    public String severity() {
-      String v = doc.formField(path, "severity");
-      return v == null ? "" : v;
+    public ImportanceBand severity() {
+      return ImportanceBand.parse(doc.formField(path, "severity"));
     }
 
-    public void severity(String value) {
-      doc.setFormField(path, "severity", value);
+    public void setSeverity(ImportanceBand value) {
+      doc.setFormField(path, "severity", value == null ? "" : value.token);
     }
   }
 
@@ -109040,22 +109053,20 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String probability() {
-      String v = doc.formField(path, "probability");
-      return v == null ? "" : v;
+    public Probability probability() {
+      return Probability.parse(doc.formField(path, "probability"));
     }
 
-    public void probability(String value) {
-      doc.setFormField(path, "probability", value);
+    public void setProbability(Probability value) {
+      doc.setFormField(path, "probability", value == null ? "" : value.token);
     }
 
-    public String impact() {
-      String v = doc.formField(path, "impact");
-      return v == null ? "" : v;
+    public Impact impact() {
+      return Impact.parse(doc.formField(path, "impact"));
     }
 
-    public void impact(String value) {
-      doc.setFormField(path, "impact", value);
+    public void setImpact(Impact value) {
+      doc.setFormField(path, "impact", value == null ? "" : value.token);
     }
 
     public String riskScore() {
@@ -114550,13 +114561,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String impactLevel() {
-      String v = doc.formField(path, "impactLevel");
-      return v == null ? "" : v;
+    public ImportanceBand impactLevel() {
+      return ImportanceBand.parse(doc.formField(path, "impactLevel"));
     }
 
-    public void impactLevel(String value) {
-      doc.setFormField(path, "impactLevel", value);
+    public void setImpactLevel(ImportanceBand value) {
+      doc.setFormField(path, "impactLevel", value == null ? "" : value.token);
     }
 
     public String designImplications() {
@@ -116230,13 +116240,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -119466,13 +119475,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "complianceLevel", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -124078,13 +124086,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "dependencyType", value);
     }
 
-    public String criticality() {
-      String v = doc.formField(path, "criticality");
-      return v == null ? "" : v;
+    public ImportanceBand criticality() {
+      return ImportanceBand.parse(doc.formField(path, "criticality"));
     }
 
-    public void criticality(String value) {
-      doc.setFormField(path, "criticality", value);
+    public void setCriticality(ImportanceBand value) {
+      doc.setFormField(path, "criticality", value == null ? "" : value.token);
     }
 
     public String purpose() {
@@ -125936,13 +125943,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "measurementPeriod", value);
     }
 
-    public String dataQuality() {
-      String v = doc.formField(path, "dataQuality");
-      return v == null ? "" : v;
+    public ImportanceBand dataQuality() {
+      return ImportanceBand.parse(doc.formField(path, "dataQuality"));
     }
 
-    public void dataQuality(String value) {
-      doc.setFormField(path, "dataQuality", value);
+    public void setDataQuality(ImportanceBand value) {
+      doc.setFormField(path, "dataQuality", value == null ? "" : value.token);
     }
 
     public String keyThroughput() {
@@ -128167,13 +128173,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "riskScore", value == null ? "" : String.valueOf(value));
     }
 
-    public String riskPriority() {
-      String v = doc.formField(path, "riskPriority");
-      return v == null ? "" : v;
+    public ImportanceBand riskPriority() {
+      return ImportanceBand.parse(doc.formField(path, "riskPriority"));
     }
 
-    public void riskPriority(String value) {
-      doc.setFormField(path, "riskPriority", value);
+    public void setRiskPriority(ImportanceBand value) {
+      doc.setFormField(path, "riskPriority", value == null ? "" : value.token);
     }
 
     public String expectedMonetaryValue() {
@@ -130726,13 +130731,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "justification", value);
     }
 
-    public String reclassificationRisk() {
-      String v = doc.formField(path, "reclassificationRisk");
-      return v == null ? "" : v;
+    public ImportanceBand reclassificationRisk() {
+      return ImportanceBand.parse(doc.formField(path, "reclassificationRisk"));
     }
 
-    public void reclassificationRisk(String value) {
-      doc.setFormField(path, "reclassificationRisk", value);
+    public void setReclassificationRisk(ImportanceBand value) {
+      doc.setFormField(path, "reclassificationRisk", value == null ? "" : value.token);
     }
   }
 
@@ -134645,13 +134649,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "category", value);
     }
 
-    public String urgency() {
-      String v = doc.formField(path, "urgency");
-      return v == null ? "" : v;
+    public ImportanceBand urgency() {
+      return ImportanceBand.parse(doc.formField(path, "urgency"));
     }
 
-    public void urgency(String value) {
-      doc.setFormField(path, "urgency", value);
+    public void setUrgency(ImportanceBand value) {
+      doc.setFormField(path, "urgency", value == null ? "" : value.token);
     }
 
     public String defaultChannels() {
@@ -136796,13 +136799,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "changeCategory", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -136827,13 +136829,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String impactLevel() {
-      String v = doc.formField(path, "impactLevel");
-      return v == null ? "" : v;
+    public ImportanceBand impactLevel() {
+      return ImportanceBand.parse(doc.formField(path, "impactLevel"));
     }
 
-    public void impactLevel(String value) {
-      doc.setFormField(path, "impactLevel", value);
+    public void setImpactLevel(ImportanceBand value) {
+      doc.setFormField(path, "impactLevel", value == null ? "" : value.token);
     }
 
     public String affectedRoles() {
@@ -137268,13 +137269,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "digitalMaturityLevel", value);
     }
 
-    public String changeReadiness() {
-      String v = doc.formField(path, "changeReadiness");
-      return v == null ? "" : v;
+    public ImportanceBand changeReadiness() {
+      return ImportanceBand.parse(doc.formField(path, "changeReadiness"));
     }
 
-    public void changeReadiness(String value) {
-      doc.setFormField(path, "changeReadiness", value);
+    public void setChangeReadiness(ImportanceBand value) {
+      doc.setFormField(path, "changeReadiness", value == null ? "" : value.token);
     }
 
     public String projectManagementMaturity() {
@@ -137517,22 +137517,20 @@ public final class TomSomV0 {
       doc.setFormField(path, "changeType", value);
     }
 
-    public String changeComplexity() {
-      String v = doc.formField(path, "changeComplexity");
-      return v == null ? "" : v;
+    public ImportanceBand changeComplexity() {
+      return ImportanceBand.parse(doc.formField(path, "changeComplexity"));
     }
 
-    public void changeComplexity(String value) {
-      doc.setFormField(path, "changeComplexity", value);
+    public void setChangeComplexity(ImportanceBand value) {
+      doc.setFormField(path, "changeComplexity", value == null ? "" : value.token);
     }
 
-    public String resistance() {
-      String v = doc.formField(path, "resistance");
-      return v == null ? "" : v;
+    public ImportanceBand resistance() {
+      return ImportanceBand.parse(doc.formField(path, "resistance"));
     }
 
-    public void resistance(String value) {
-      doc.setFormField(path, "resistance", value);
+    public void setResistance(ImportanceBand value) {
+      doc.setFormField(path, "resistance", value == null ? "" : value.token);
     }
   }
 
@@ -138655,13 +138653,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "painPoint", value);
     }
 
-    public String severity() {
-      String v = doc.formField(path, "severity");
-      return v == null ? "" : v;
+    public ImportanceBand severity() {
+      return ImportanceBand.parse(doc.formField(path, "severity"));
     }
 
-    public void severity(String value) {
-      doc.setFormField(path, "severity", value);
+    public void setSeverity(ImportanceBand value) {
+      doc.setFormField(path, "severity", value == null ? "" : value.token);
     }
   }
 
@@ -140298,13 +140295,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "goal", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String frequency() {
@@ -140365,13 +140361,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "painPoint", value);
     }
 
-    public String severity() {
-      String v = doc.formField(path, "severity");
-      return v == null ? "" : v;
+    public ImportanceBand severity() {
+      return ImportanceBand.parse(doc.formField(path, "severity"));
     }
 
-    public void severity(String value) {
-      doc.setFormField(path, "severity", value);
+    public void setSeverity(ImportanceBand value) {
+      doc.setFormField(path, "severity", value == null ? "" : value.token);
     }
 
     public String frequency() {
@@ -143361,13 +143356,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "impactDescription", value);
     }
 
-    public String impactSeverity() {
-      String v = doc.formField(path, "impactSeverity");
-      return v == null ? "" : v;
+    public ImportanceBand impactSeverity() {
+      return ImportanceBand.parse(doc.formField(path, "impactSeverity"));
     }
 
-    public void impactSeverity(String value) {
-      doc.setFormField(path, "impactSeverity", value);
+    public void setImpactSeverity(ImportanceBand value) {
+      doc.setFormField(path, "impactSeverity", value == null ? "" : value.token);
     }
 
     public String impactMetrics() {
@@ -143767,13 +143761,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String riskLevel() {
-      String v = doc.formField(path, "riskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand riskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "riskLevel"));
     }
 
-    public void riskLevel(String value) {
-      doc.setFormField(path, "riskLevel", value);
+    public void setRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "riskLevel", value == null ? "" : value.token);
     }
 
     public String riskDescription() {
@@ -143921,13 +143914,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "parallelizedStepsCount", value == null ? "" : String.valueOf(value));
     }
 
-    public String processRiskLevel() {
-      String v = doc.formField(path, "processRiskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand processRiskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "processRiskLevel"));
     }
 
-    public void processRiskLevel(String value) {
-      doc.setFormField(path, "processRiskLevel", value);
+    public void setProcessRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "processRiskLevel", value == null ? "" : value.token);
     }
 
     public String processEfficiencyImpact() {
@@ -144722,13 +144714,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "tradeoffs", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String applicability() {
@@ -147903,13 +147894,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "totalProcessAdjustments", value == null ? "" : String.valueOf(value));
     }
 
-    public String deviationRiskLevel() {
-      String v = doc.formField(path, "deviationRiskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand deviationRiskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "deviationRiskLevel"));
     }
 
-    public void deviationRiskLevel(String value) {
-      doc.setFormField(path, "deviationRiskLevel", value);
+    public void setDeviationRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "deviationRiskLevel", value == null ? "" : value.token);
     }
 
     public String deviationApprovalAuthority() {
@@ -148278,13 +148268,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "inclusionReason", value);
     }
 
-    public String fidelityLevel() {
-      String v = doc.formField(path, "fidelityLevel");
-      return v == null ? "" : v;
+    public ImportanceBand fidelityLevel() {
+      return ImportanceBand.parse(doc.formField(path, "fidelityLevel"));
     }
 
-    public void fidelityLevel(String value) {
-      doc.setFormField(path, "fidelityLevel", value);
+    public void setFidelityLevel(ImportanceBand value) {
+      doc.setFormField(path, "fidelityLevel", value == null ? "" : value.token);
     }
 
     public String completenessLevel() {
@@ -148403,13 +148392,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String prototypeFidelity() {
-      String v = doc.formField(path, "prototypeFidelity");
-      return v == null ? "" : v;
+    public ImportanceBand prototypeFidelity() {
+      return ImportanceBand.parse(doc.formField(path, "prototypeFidelity"));
     }
 
-    public void prototypeFidelity(String value) {
-      doc.setFormField(path, "prototypeFidelity", value);
+    public void setPrototypeFidelity(ImportanceBand value) {
+      doc.setFormField(path, "prototypeFidelity", value == null ? "" : value.token);
     }
 
     public String interactiveFidelity() {
@@ -149354,13 +149342,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "categoryScope", value);
     }
 
-    public String categoryPriority() {
-      String v = doc.formField(path, "categoryPriority");
-      return v == null ? "" : v;
+    public ImportanceBand categoryPriority() {
+      return ImportanceBand.parse(doc.formField(path, "categoryPriority"));
     }
 
-    public void categoryPriority(String value) {
-      doc.setFormField(path, "categoryPriority", value);
+    public void setCategoryPriority(ImportanceBand value) {
+      doc.setFormField(path, "categoryPriority", value == null ? "" : value.token);
     }
 
     public String categoryRationale() {
@@ -149956,13 +149943,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "qualityImpact", value);
     }
 
-    public String riskLevel() {
-      String v = doc.formField(path, "riskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand riskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "riskLevel"));
     }
 
-    public void riskLevel(String value) {
-      doc.setFormField(path, "riskLevel", value);
+    public void setRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "riskLevel", value == null ? "" : value.token);
     }
 
     public String riskDescription() {
@@ -150122,13 +150108,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "modifiedCriteriaCount", value == null ? "" : String.valueOf(value));
     }
 
-    public String qualityRiskLevel() {
-      String v = doc.formField(path, "qualityRiskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand qualityRiskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "qualityRiskLevel"));
     }
 
-    public void qualityRiskLevel(String value) {
-      doc.setFormField(path, "qualityRiskLevel", value);
+    public void setQualityRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "qualityRiskLevel", value == null ? "" : value.token);
     }
 
     public String compensatingControls() {
@@ -150995,13 +150980,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "weight", value == null ? "" : String.valueOf(value));
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String rationale() {
@@ -157405,13 +157389,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "automationScript", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -158315,13 +158298,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "requiredBy", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String status() {
@@ -158391,13 +158373,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "reason", value);
     }
 
-    public String impactLevel() {
-      String v = doc.formField(path, "impactLevel");
-      return v == null ? "" : v;
+    public ImportanceBand impactLevel() {
+      return ImportanceBand.parse(doc.formField(path, "impactLevel"));
     }
 
-    public void impactLevel(String value) {
-      doc.setFormField(path, "impactLevel", value);
+    public void setImpactLevel(ImportanceBand value) {
+      doc.setFormField(path, "impactLevel", value == null ? "" : value.token);
     }
 
     public String trainingNeeded() {
@@ -158829,13 +158810,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "functionScope", value);
     }
 
-    public String businessCriticality() {
-      String v = doc.formField(path, "businessCriticality");
-      return v == null ? "" : v;
+    public ImportanceBand businessCriticality() {
+      return ImportanceBand.parse(doc.formField(path, "businessCriticality"));
     }
 
-    public void businessCriticality(String value) {
-      doc.setFormField(path, "businessCriticality", value);
+    public void setBusinessCriticality(ImportanceBand value) {
+      doc.setFormField(path, "businessCriticality", value == null ? "" : value.token);
     }
   }
 
@@ -158887,13 +158867,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "scope", value);
     }
 
-    public String criticalityLevel() {
-      String v = doc.formField(path, "criticalityLevel");
-      return v == null ? "" : v;
+    public ImportanceBand criticalityLevel() {
+      return ImportanceBand.parse(doc.formField(path, "criticalityLevel"));
     }
 
-    public void criticalityLevel(String value) {
-      doc.setFormField(path, "criticalityLevel", value);
+    public void setCriticalityLevel(ImportanceBand value) {
+      doc.setFormField(path, "criticalityLevel", value == null ? "" : value.token);
     }
   }
 
@@ -160548,13 +160527,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String targetDate() {
@@ -161109,13 +161087,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "riskScore", value == null ? "" : String.valueOf(value));
     }
 
-    public String riskLevel() {
-      String v = doc.formField(path, "riskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand riskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "riskLevel"));
     }
 
-    public void riskLevel(String value) {
-      doc.setFormField(path, "riskLevel", value);
+    public void setRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "riskLevel", value == null ? "" : value.token);
     }
 
     public Integer riskRanking() {
@@ -161736,13 +161713,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String responseEffectiveness() {
-      String v = doc.formField(path, "responseEffectiveness");
-      return v == null ? "" : v;
+    public ImportanceBand responseEffectiveness() {
+      return ImportanceBand.parse(doc.formField(path, "responseEffectiveness"));
     }
 
-    public void responseEffectiveness(String value) {
-      doc.setFormField(path, "responseEffectiveness", value);
+    public void setResponseEffectiveness(ImportanceBand value) {
+      doc.setFormField(path, "responseEffectiveness", value == null ? "" : value.token);
     }
 
     public String implementationCost() {
@@ -162216,13 +162192,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String riskLevel() {
-      String v = doc.formField(path, "riskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand riskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "riskLevel"));
     }
 
-    public void riskLevel(String value) {
-      doc.setFormField(path, "riskLevel", value);
+    public void setRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "riskLevel", value == null ? "" : value.token);
     }
 
     public String riskDescription() {
@@ -162334,13 +162309,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "raciMatrixCompliance", value);
     }
 
-    public String governanceImpact() {
-      String v = doc.formField(path, "governanceImpact");
-      return v == null ? "" : v;
+    public ImportanceBand governanceImpact() {
+      return ImportanceBand.parse(doc.formField(path, "governanceImpact"));
     }
 
-    public void governanceImpact(String value) {
-      doc.setFormField(path, "governanceImpact", value);
+    public void setGovernanceImpact(ImportanceBand value) {
+      doc.setFormField(path, "governanceImpact", value == null ? "" : value.token);
     }
   }
 
@@ -163471,13 +163445,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "versionConstraint", value);
     }
 
-    public String criticality() {
-      String v = doc.formField(path, "criticality");
-      return v == null ? "" : v;
+    public ImportanceBand criticality() {
+      return ImportanceBand.parse(doc.formField(path, "criticality"));
     }
 
-    public void criticality(String value) {
-      doc.setFormField(path, "criticality", value);
+    public void setCriticality(ImportanceBand value) {
+      doc.setFormField(path, "criticality", value == null ? "" : value.token);
     }
 
     public String purpose() {
@@ -165085,13 +165058,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "supportingActors", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String complexity() {
@@ -170491,13 +170463,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "subcategory", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String source() {
@@ -174356,13 +174327,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String criticality() {
-      String v = doc.formField(path, "criticality");
-      return v == null ? "" : v;
+    public ImportanceBand criticality() {
+      return ImportanceBand.parse(doc.formField(path, "criticality"));
     }
 
-    public void criticality(String value) {
-      doc.setFormField(path, "criticality", value);
+    public void setCriticality(ImportanceBand value) {
+      doc.setFormField(path, "criticality", value == null ? "" : value.token);
     }
 
     public Boolean singlePointOfFailure() {
@@ -176838,13 +176808,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "targetStartDate", value);
     }
 
-    public String urgency() {
-      String v = doc.formField(path, "urgency");
-      return v == null ? "" : v;
+    public ImportanceBand urgency() {
+      return ImportanceBand.parse(doc.formField(path, "urgency"));
     }
 
-    public void urgency(String value) {
-      doc.setFormField(path, "urgency", value);
+    public void setUrgency(ImportanceBand value) {
+      doc.setFormField(path, "urgency", value == null ? "" : value.token);
     }
   }
 
@@ -178682,13 +178651,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "lastRiskReviewDate", value);
     }
 
-    public String overallMigrationRiskRating() {
-      String v = doc.formField(path, "overallMigrationRiskRating");
-      return v == null ? "" : v;
+    public ImportanceBand overallMigrationRiskRating() {
+      return ImportanceBand.parse(doc.formField(path, "overallMigrationRiskRating"));
     }
 
-    public void overallMigrationRiskRating(String value) {
-      doc.setFormField(path, "overallMigrationRiskRating", value);
+    public void setOverallMigrationRiskRating(ImportanceBand value) {
+      doc.setFormField(path, "overallMigrationRiskRating", value == null ? "" : value.token);
     }
   }
 
@@ -179397,31 +179365,28 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String overallScheduleRisk() {
-      String v = doc.formField(path, "overallScheduleRisk");
-      return v == null ? "" : v;
+    public ImportanceBand overallScheduleRisk() {
+      return ImportanceBand.parse(doc.formField(path, "overallScheduleRisk"));
     }
 
-    public void overallScheduleRisk(String value) {
-      doc.setFormField(path, "overallScheduleRisk", value);
+    public void setOverallScheduleRisk(ImportanceBand value) {
+      doc.setFormField(path, "overallScheduleRisk", value == null ? "" : value.token);
     }
 
-    public String overallBudgetRisk() {
-      String v = doc.formField(path, "overallBudgetRisk");
-      return v == null ? "" : v;
+    public ImportanceBand overallBudgetRisk() {
+      return ImportanceBand.parse(doc.formField(path, "overallBudgetRisk"));
     }
 
-    public void overallBudgetRisk(String value) {
-      doc.setFormField(path, "overallBudgetRisk", value);
+    public void setOverallBudgetRisk(ImportanceBand value) {
+      doc.setFormField(path, "overallBudgetRisk", value == null ? "" : value.token);
     }
 
-    public String overallScopeRisk() {
-      String v = doc.formField(path, "overallScopeRisk");
-      return v == null ? "" : v;
+    public ImportanceBand overallScopeRisk() {
+      return ImportanceBand.parse(doc.formField(path, "overallScopeRisk"));
     }
 
-    public void overallScopeRisk(String value) {
-      doc.setFormField(path, "overallScopeRisk", value);
+    public void setOverallScopeRisk(ImportanceBand value) {
+      doc.setFormField(path, "overallScopeRisk", value == null ? "" : value.token);
     }
 
     public String stageWithHighestRisk() {
@@ -179612,13 +179577,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "earnedValueSPI", value);
     }
 
-    public String planConfidenceLevel() {
-      String v = doc.formField(path, "planConfidenceLevel");
-      return v == null ? "" : v;
+    public ImportanceBand planConfidenceLevel() {
+      return ImportanceBand.parse(doc.formField(path, "planConfidenceLevel"));
     }
 
-    public void planConfidenceLevel(String value) {
-      doc.setFormField(path, "planConfidenceLevel", value);
+    public void setPlanConfidenceLevel(ImportanceBand value) {
+      doc.setFormField(path, "planConfidenceLevel", value == null ? "" : value.token);
     }
 
     public String confidenceBasis() {
@@ -180063,13 +180027,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "primaryRisk", value);
     }
 
-    public String riskLevel() {
-      String v = doc.formField(path, "riskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand riskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "riskLevel"));
     }
 
-    public void riskLevel(String value) {
-      doc.setFormField(path, "riskLevel", value);
+    public void setRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "riskLevel", value == null ? "" : value.token);
     }
   }
 
@@ -180826,13 +180789,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "primaryRationale", value);
     }
 
-    public String overallRiskLevel() {
-      String v = doc.formField(path, "overallRiskLevel");
-      return v == null ? "" : v;
+    public ImportanceBand overallRiskLevel() {
+      return ImportanceBand.parse(doc.formField(path, "overallRiskLevel"));
     }
 
-    public void overallRiskLevel(String value) {
-      doc.setFormField(path, "overallRiskLevel", value);
+    public void setOverallRiskLevel(ImportanceBand value) {
+      doc.setFormField(path, "overallRiskLevel", value == null ? "" : value.token);
     }
   }
 
@@ -181152,13 +181114,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "organizationalReadinessFactors", value);
     }
 
-    public String organizationalReadinessLevel() {
-      String v = doc.formField(path, "organizationalReadinessLevel");
-      return v == null ? "" : v;
+    public ImportanceBand organizationalReadinessLevel() {
+      return ImportanceBand.parse(doc.formField(path, "organizationalReadinessLevel"));
     }
 
-    public void organizationalReadinessLevel(String value) {
-      doc.setFormField(path, "organizationalReadinessLevel", value);
+    public void setOrganizationalReadinessLevel(ImportanceBand value) {
+      doc.setFormField(path, "organizationalReadinessLevel", value == null ? "" : value.token);
     }
 
     public String resourceConstraints() {
@@ -181219,13 +181180,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String riskTolerance() {
-      String v = doc.formField(path, "riskTolerance");
-      return v == null ? "" : v;
+    public ImportanceBand riskTolerance() {
+      return ImportanceBand.parse(doc.formField(path, "riskTolerance"));
     }
 
-    public void riskTolerance(String value) {
-      doc.setFormField(path, "riskTolerance", value);
+    public void setRiskTolerance(ImportanceBand value) {
+      doc.setFormField(path, "riskTolerance", value == null ? "" : value.token);
     }
 
     public String deploymentRiskFactors() {
@@ -181411,13 +181371,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "interest", value);
     }
 
-    public String influence() {
-      String v = doc.formField(path, "influence");
-      return v == null ? "" : v;
+    public ImportanceBand influence() {
+      return ImportanceBand.parse(doc.formField(path, "influence"));
     }
 
-    public void influence(String value) {
-      doc.setFormField(path, "influence", value);
+    public void setInfluence(ImportanceBand value) {
+      doc.setFormField(path, "influence", value == null ? "" : value.token);
     }
 
     public String concerns() {
@@ -182507,13 +182466,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String weight() {
-      String v = doc.formField(path, "weight");
-      return v == null ? "" : v;
+    public ImportanceBand weight() {
+      return ImportanceBand.parse(doc.formField(path, "weight"));
     }
 
-    public void weight(String value) {
-      doc.setFormField(path, "weight", value);
+    public void setWeight(ImportanceBand value) {
+      doc.setFormField(path, "weight", value == null ? "" : value.token);
     }
 
     public String isMandatory() {
@@ -184355,13 +184313,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "couplingStrength", value);
     }
 
-    public String criticality() {
-      String v = doc.formField(path, "criticality");
-      return v == null ? "" : v;
+    public ImportanceBand criticality() {
+      return ImportanceBand.parse(doc.formField(path, "criticality"));
     }
 
-    public void criticality(String value) {
-      doc.setFormField(path, "criticality", value);
+    public void setCriticality(ImportanceBand value) {
+      doc.setFormField(path, "criticality", value == null ? "" : value.token);
     }
   }
 
@@ -186047,22 +186004,20 @@ public final class TomSomV0 {
       doc.setFormField(path, "riskDescription", value);
     }
 
-    public String probability() {
-      String v = doc.formField(path, "probability");
-      return v == null ? "" : v;
+    public Probability probability() {
+      return Probability.parse(doc.formField(path, "probability"));
     }
 
-    public void probability(String value) {
-      doc.setFormField(path, "probability", value);
+    public void setProbability(Probability value) {
+      doc.setFormField(path, "probability", value == null ? "" : value.token);
     }
 
-    public String impact() {
-      String v = doc.formField(path, "impact");
-      return v == null ? "" : v;
+    public Impact impact() {
+      return Impact.parse(doc.formField(path, "impact"));
     }
 
-    public void impact(String value) {
-      doc.setFormField(path, "impact", value);
+    public void setImpact(Impact value) {
+      doc.setFormField(path, "impact", value == null ? "" : value.token);
     }
 
     public String riskScore() {
@@ -186667,13 +186622,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String organizationalReadinessLevel() {
-      String v = doc.formField(path, "organizationalReadinessLevel");
-      return v == null ? "" : v;
+    public ImportanceBand organizationalReadinessLevel() {
+      return ImportanceBand.parse(doc.formField(path, "organizationalReadinessLevel"));
     }
 
-    public void organizationalReadinessLevel(String value) {
-      doc.setFormField(path, "organizationalReadinessLevel", value);
+    public void setOrganizationalReadinessLevel(ImportanceBand value) {
+      doc.setFormField(path, "organizationalReadinessLevel", value == null ? "" : value.token);
     }
 
     public String changeAbsorptionCapacity() {
@@ -186685,13 +186639,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "changeAbsorptionCapacity", value);
     }
 
-    public String confidenceLevel() {
-      String v = doc.formField(path, "confidenceLevel");
-      return v == null ? "" : v;
+    public ImportanceBand confidenceLevel() {
+      return ImportanceBand.parse(doc.formField(path, "confidenceLevel"));
     }
 
-    public void confidenceLevel(String value) {
-      doc.setFormField(path, "confidenceLevel", value);
+    public void setConfidenceLevel(ImportanceBand value) {
+      doc.setFormField(path, "confidenceLevel", value == null ? "" : value.token);
     }
 
     public String lastPlanReviewDate() {
@@ -187216,13 +187169,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "complexity", value);
     }
 
-    public String importance() {
-      String v = doc.formField(path, "importance");
-      return v == null ? "" : v;
+    public ImportanceBand importance() {
+      return ImportanceBand.parse(doc.formField(path, "importance"));
     }
 
-    public void importance(String value) {
-      doc.setFormField(path, "importance", value);
+    public void setImportance(ImportanceBand value) {
+      doc.setFormField(path, "importance", value == null ? "" : value.token);
     }
 
     public String trigger() {
@@ -187422,13 +187374,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String technicalDebtRating() {
-      String v = doc.formField(path, "technicalDebtRating");
-      return v == null ? "" : v;
+    public ImportanceBand technicalDebtRating() {
+      return ImportanceBand.parse(doc.formField(path, "technicalDebtRating"));
     }
 
-    public void technicalDebtRating(String value) {
-      doc.setFormField(path, "technicalDebtRating", value);
+    public void setTechnicalDebtRating(ImportanceBand value) {
+      doc.setFormField(path, "technicalDebtRating", value == null ? "" : value.token);
     }
 
     public String securityPosture() {
@@ -189628,13 +189579,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "goalCategory", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -190236,13 +190186,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "undocumentedSystems", value == null ? "" : String.valueOf(value));
     }
 
-    public String vendorLockInRisk() {
-      String v = doc.formField(path, "vendorLockInRisk");
-      return v == null ? "" : v;
+    public ImportanceBand vendorLockInRisk() {
+      return ImportanceBand.parse(doc.formField(path, "vendorLockInRisk"));
     }
 
-    public void vendorLockInRisk(String value) {
-      doc.setFormField(path, "vendorLockInRisk", value);
+    public void setVendorLockInRisk(ImportanceBand value) {
+      doc.setFormField(path, "vendorLockInRisk", value == null ? "" : value.token);
     }
 
     public String integrationComplexityScore() {
@@ -190373,13 +190322,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "subcategory", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String source() {
@@ -191168,13 +191116,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -194160,13 +194107,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "vendorRoadmapAlignment", value);
     }
 
-    public String endOfLifeRisk() {
-      String v = doc.formField(path, "endOfLifeRisk");
-      return v == null ? "" : v;
+    public ImportanceBand endOfLifeRisk() {
+      return ImportanceBand.parse(doc.formField(path, "endOfLifeRisk"));
     }
 
-    public void endOfLifeRisk(String value) {
-      doc.setFormField(path, "endOfLifeRisk", value);
+    public void setEndOfLifeRisk(ImportanceBand value) {
+      doc.setFormField(path, "endOfLifeRisk", value == null ? "" : value.token);
     }
   }
 
@@ -196852,13 +196798,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "dependsOnMilestones", value);
     }
 
-    public String criticality() {
-      String v = doc.formField(path, "criticality");
-      return v == null ? "" : v;
+    public ImportanceBand criticality() {
+      return ImportanceBand.parse(doc.formField(path, "criticality"));
     }
 
-    public void criticality(String value) {
-      doc.setFormField(path, "criticality", value);
+    public void setCriticality(ImportanceBand value) {
+      doc.setFormField(path, "criticality", value == null ? "" : value.token);
     }
   }
 
@@ -197513,22 +197458,20 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String probability() {
-      String v = doc.formField(path, "probability");
-      return v == null ? "" : v;
+    public Probability probability() {
+      return Probability.parse(doc.formField(path, "probability"));
     }
 
-    public void probability(String value) {
-      doc.setFormField(path, "probability", value);
+    public void setProbability(Probability value) {
+      doc.setFormField(path, "probability", value == null ? "" : value.token);
     }
 
-    public String impact() {
-      String v = doc.formField(path, "impact");
-      return v == null ? "" : v;
+    public Impact impact() {
+      return Impact.parse(doc.formField(path, "impact"));
     }
 
-    public void impact(String value) {
-      doc.setFormField(path, "impact", value);
+    public void setImpact(Impact value) {
+      doc.setFormField(path, "impact", value == null ? "" : value.token);
     }
 
     public String affectedPhases() {
@@ -202139,13 +202082,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "criticality", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -202531,13 +202473,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "userCount", value == null ? "" : String.valueOf(value));
     }
 
-    public String impactLevel() {
-      String v = doc.formField(path, "impactLevel");
-      return v == null ? "" : v;
+    public ImportanceBand impactLevel() {
+      return ImportanceBand.parse(doc.formField(path, "impactLevel"));
     }
 
-    public void impactLevel(String value) {
-      doc.setFormField(path, "impactLevel", value);
+    public void setImpactLevel(ImportanceBand value) {
+      doc.setFormField(path, "impactLevel", value == null ? "" : value.token);
     }
 
     public String specialConsiderations() {

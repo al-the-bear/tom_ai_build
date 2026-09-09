@@ -107,6 +107,16 @@ char *parse_impact(const char *token) {
   return som_strdup("");
 }
 
+char *parse_importance_band(const char *token) {
+  if (strcmp(token, IMPORTANCE_BAND_CRITICAL) == 0 ||
+      strcmp(token, IMPORTANCE_BAND_HIGH) == 0 ||
+      strcmp(token, IMPORTANCE_BAND_MEDIUM) == 0 ||
+      strcmp(token, IMPORTANCE_BAND_LOW) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 char *parse_iso25010_characteristic(const char *token) {
   if (strcmp(token, ISO25010_CHARACTERISTIC_FUNCTIONAL_SUITABILITY) == 0 ||
       strcmp(token, ISO25010_CHARACTERISTIC_PERFORMANCE_EFFICIENCY) == 0 ||

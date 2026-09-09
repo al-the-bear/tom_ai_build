@@ -681,9 +681,9 @@ class ProblemStatement extends DocSpecsSection {
     ),
     Field(
       'impactSeverity',
-      String,
-      'Impact Severity (Critical, High, Medium, Low)',
-      hint: 'Critical / High / Medium / Low',
+      ImportanceBand,
+      'Impact Severity',
+      hint: 'Qualitative impact severity band.',
     ),
     Field(
       'impactMetrics',
@@ -4007,9 +4007,9 @@ class InteractionPatternEntry extends DocSpecsSection {
   @Form([
     Field(
       'priority',
-      String,
+      ImportanceBand,
       'Priority',
-      hint: 'High, Medium, Low - for resource allocation',
+      hint: 'For resource allocation.',
     ),
   ])
   @SerializationOrder(4)
@@ -4528,9 +4528,9 @@ class NotificationTypeEntry extends DocSpecsSection {
     ),
     Field(
       'urgency',
-      String,
+      ImportanceBand,
       'Urgency Level',
-      hint: 'Critical, High, Medium, Low',
+      hint: 'Qualitative urgency band.',
     ),
     Field(
       'defaultChannels',
@@ -4829,9 +4829,9 @@ class UserCategoryEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority (High, Medium, Low - for design decisions)',
-      hint: 'High / Medium / Low — for design decisions',
+      ImportanceBand,
+      'Priority (for design decisions)',
+      hint: 'For design decisions.',
     ),
   ])
   @SerializationOrder(2)
@@ -5186,9 +5186,9 @@ class SystemTaskEntry extends DocSpecsSection {
     ),
     Field(
       'importance',
-      String,
-      'Importance (Critical, High, Medium, Low)',
-      hint: 'Critical / High / Medium / Low',
+      ImportanceBand,
+      'Importance',
+      hint: 'Qualitative importance band.',
     ),
     Field(
       'trigger',
@@ -6059,10 +6059,10 @@ class BusinessGoalEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority (Critical, High, Medium, Low)',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
       required: true,
-      hint: 'Critical, High, Medium, or Low',
     ),
   ])
   @SerializationOrder(1)
@@ -6594,15 +6594,15 @@ class GoalRiskEntry extends DocSpecsSection {
   @Form([
     Field(
       'probability',
-      String,
-      'Probability (Low, Medium, High)',
-      hint: 'Low, Medium, or High',
+      Probability,
+      'Probability',
+      hint: 'Qualitative likelihood band that this goal risk materializes.',
     ),
     Field(
       'impact',
-      String,
-      'Impact (Low, Medium, High, Critical)',
-      hint: 'Low, Medium, High, or Critical',
+      Impact,
+      'Impact',
+      hint: 'Qualitative consequence band if the goal risk materializes.',
     ),
     Field(
       'riskScore',
@@ -6875,10 +6875,10 @@ class TechnicalGoalEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority (Critical, High, Medium, Low)',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
       required: true,
-      hint: 'Critical / High / Medium / Low',
     ),
   ])
   @override
@@ -7963,9 +7963,9 @@ class SuccessCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
       'weight',
-      String,
+      ImportanceBand,
       'Weight',
-      hint: 'Importance: Critical, High, Medium, Low',
+      hint: 'Qualitative importance band for this success criterion.',
     ),
     Field(
       'isMandatory',
@@ -8434,9 +8434,9 @@ class FunctionalRequirementEntry extends DocSpecsSection {
     ),
     Field(
       'businessValue',
-      String,
-      'Business Value (High, Medium, Low) - benefit to business',
-      hint: 'High / Medium / Low benefit to the business',
+      ImportanceBand,
+      'Business Value — benefit to business',
+      hint: 'Qualitative band for the benefit to the business.',
     ),
     Field(
       'effort',
@@ -8446,9 +8446,9 @@ class FunctionalRequirementEntry extends DocSpecsSection {
     ),
     Field(
       'riskLevel',
-      String,
-      'Risk Level (High, Medium, Low) - risk of not meeting',
-      hint: 'High / Medium / Low risk of not meeting the requirement',
+      ImportanceBand,
+      'Risk Level — risk of not meeting',
+      hint: 'Qualitative band for the risk of not meeting the requirement.',
     ),
   ])
   @SerializationOrder(2)
@@ -8712,9 +8712,9 @@ class AcceptanceCriterionEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority (Critical, High, Medium, Low)',
-      hint: 'Critical, High, Medium, or Low',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
     ),
     Field(
       'status',
@@ -10213,9 +10213,9 @@ class RequirementTestCaseEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority (Critical, High, Medium, Low)',
-      hint: 'Critical, High, Medium, or Low',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
     ),
   ])
   @SerializationOrder(2)
@@ -10418,10 +10418,10 @@ class TechnicalRequirementEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority (Critical, High, Medium, Low)',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
       required: true,
-      hint: 'Critical, High, Medium, or Low',
     ),
     Field(
       'source',
@@ -10775,10 +10775,10 @@ class SecurityRequirementEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority (Critical, High, Medium, Low)',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
       required: true,
-      hint: 'Critical, High, Medium, or Low',
     ),
     Field(
       'source',
@@ -11332,15 +11332,15 @@ class OrganizationalRequirementEntry extends DocSpecsSection {
     ),
     Field(
       'changeComplexity',
-      String,
-      'Change Complexity (Low, Medium, High)',
-      hint: 'Low, Medium, or High',
+      ImportanceBand,
+      'Change Complexity',
+      hint: 'Qualitative change complexity band.',
     ),
     Field(
       'resistance',
-      String,
-      'Expected Resistance (Low, Medium, High)',
-      hint: 'Anticipated resistance: Low, Medium, or High',
+      ImportanceBand,
+      'Expected Resistance',
+      hint: 'Anticipated resistance.',
     ),
   ])
   @SerializationOrder(2)
@@ -12002,9 +12002,10 @@ class SystemTechnicalAssessment extends DocSpecsSection {
   @Form([
     Field(
       'technicalDebtRating',
-      String,
-      'Technical Debt (Low, Medium, High, Critical)',
-      hint: 'Overall accumulated technical debt of the system',
+      ImportanceBand,
+      'Technical Debt',
+      hint:
+          'Qualitative band for the accumulated technical debt of the system.',
     ),
     Field(
       'securityPosture',
@@ -12913,9 +12914,9 @@ class UserGroupImpactEntry extends DocSpecsSection {
     Field('userCount', int, 'User Count', hint: 'Number of users in the group'),
     Field(
       'impactLevel',
-      String,
-      'Impact Level (High, Medium, Low)',
-      hint: 'How strongly the group is impacted',
+      ImportanceBand,
+      'Impact Level',
+      hint: 'How strongly the group is impacted.',
     ),
     Field(
       'specialConsiderations',
@@ -13253,15 +13254,15 @@ class SystemMigrationRiskEntry extends DocSpecsSection {
     ),
     Field(
       'probability',
-      String,
-      'Probability (High, Medium, Low)',
-      hint: 'Likelihood the risk occurs',
+      Probability,
+      'Probability',
+      hint: 'Qualitative likelihood band that this migration risk occurs.',
     ),
     Field(
       'impact',
-      String,
-      'Impact (High, Medium, Low)',
-      hint: 'Severity if the risk occurs',
+      Impact,
+      'Impact',
+      hint: 'Qualitative consequence band if the migration risk occurs.',
     ),
     Field(
       'riskScore',
@@ -14268,9 +14269,9 @@ class MigrationRiskEntry extends DocSpecsSection {
     Field('riskScore', int, 'Risk Score', hint: 'Probability × Impact (1-25)'),
     Field(
       'riskPriority',
-      String,
+      ImportanceBand,
       'Risk Priority',
-      hint: 'Critical, High, Medium, Low',
+      hint: 'Qualitative risk priority band.',
     ),
     Field(
       'expectedMonetaryValue',
@@ -14940,9 +14941,9 @@ class ExternalInterfaceEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority (Critical, High, Medium, Low)',
-      hint: 'Relative importance of this interface',
+      ImportanceBand,
+      'Priority',
+      hint: 'Relative importance of this interface.',
     ),
     Field(
       'status',
@@ -16640,9 +16641,9 @@ class BoundaryAssumptionEntry extends DocSpecsSection {
     ),
     Field(
       'confidence',
-      String,
-      'Confidence Level (High, Medium, Low)',
-      hint: 'How confident the team is the assumption holds',
+      ImportanceBand,
+      'Confidence Level',
+      hint: 'How confident the team is the assumption holds.',
     ),
   ])
   @SerializationOrder(1)
@@ -16666,9 +16667,9 @@ class BoundaryAssumptionEntry extends DocSpecsSection {
     ),
     Field(
       'riskImpact',
-      String,
-      'Impact Level (High, Medium, Low)',
-      hint: 'Severity of the impact if the assumption fails',
+      ImportanceBand,
+      'Impact Level',
+      hint: 'Severity of the impact if the assumption fails.',
     ),
     Field(
       'contingencyPlan',
@@ -16862,9 +16863,9 @@ class OrganizationalEnvironment extends DocSpecsSection {
     ),
     Field(
       'changeReadiness',
-      String,
-      'Change Readiness (Low, Medium, High)',
-      hint: 'Organizational appetite and capacity for change',
+      ImportanceBand,
+      'Change Readiness',
+      hint: 'Organizational appetite and capacity for change.',
     ),
     Field(
       'projectManagementMaturity',
@@ -17079,9 +17080,9 @@ class AffectedDepartmentEntry extends DocSpecsSection {
     ),
     Field(
       'impactLevel',
-      String,
-      'Impact Level (High, Medium, Low)',
-      hint: 'Degree to which the project affects this department',
+      ImportanceBand,
+      'Impact Level',
+      hint: 'Degree to which the project affects this department.',
     ),
     Field(
       'roleInProject',
@@ -17097,9 +17098,9 @@ class AffectedDepartmentEntry extends DocSpecsSection {
     ),
     Field(
       'changeReadiness',
-      String,
-      'Change Readiness (High, Medium, Low)',
-      hint: 'Department capacity and appetite for change',
+      ImportanceBand,
+      'Change Readiness',
+      hint: 'Department capacity and appetite for change.',
     ),
     Field(
       'keyContacts',
@@ -17150,9 +17151,9 @@ class DecisionMakerEntry extends DocSpecsSection {
     ),
     Field(
       'influenceLevel',
-      String,
-      'Influence Level (High, Medium, Low)',
-      hint: 'Degree of influence over project outcomes',
+      ImportanceBand,
+      'Influence Level',
+      hint: 'Degree of influence over project outcomes.',
     ),
     Field(
       'approvalRequired',
@@ -17485,9 +17486,9 @@ class ResponsibilityFunctionDetails extends DocSpecsSection {
     ),
     Field(
       'businessCriticality',
-      String,
+      ImportanceBand,
       'Business Criticality',
-      hint: 'Critical, High, Medium, Low',
+      hint: 'Qualitative business criticality band.',
     ),
   ])
   @override
@@ -18233,9 +18234,9 @@ class IntegrationConstraintEntry extends DocSpecsSection {
   @Form([
     Field(
       'impactLevel',
-      String,
+      ImportanceBand,
       'Impact Level',
-      hint: 'High, Medium, Low — impact on integration design',
+      hint: 'Impact on integration design.',
     ),
     Field(
       'designImplications',
@@ -18476,9 +18477,9 @@ class RiskEntry extends DocSpecsSection {
     ),
     Field(
       'riskLevel',
-      String,
-      'Risk Level — Low, Medium, High, Critical',
-      hint: 'Overall risk level classification',
+      ImportanceBand,
+      'Risk Level',
+      hint: 'Overall risk level classification.',
     ),
     Field(
       'riskRanking',
@@ -18774,9 +18775,9 @@ class RiskResponse extends DocSpecsSection {
   @Form([
     Field(
       'responseEffectiveness',
-      String,
-      'Response Effectiveness — Low, Medium, High',
-      hint: 'How effective the response is expected to be',
+      ImportanceBand,
+      'Response Effectiveness',
+      hint: 'How effective the response is expected to be.',
     ),
     Field(
       'implementationCost',

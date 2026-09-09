@@ -1316,7 +1316,7 @@ ACT-01 Order Clerk
 - routing note: CE-AC — an end-to-end scenario is a goal-directed sequence of actions
 
 ``` text
-High
+high
 ```
 
 ### 117. `SCID` — `ScenarioEntry.identification.complexity`

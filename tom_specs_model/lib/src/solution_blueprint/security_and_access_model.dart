@@ -6,6 +6,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
+import '../common/enums.dart';
 
 /// 9. Security & Access Model. Seeds → SAS.
 @StandardReferences(
@@ -3963,9 +3964,9 @@ class AuthenticationMethodEntry extends DocSpecsSection {
     ),
     Field(
       'securityLevel',
-      String,
+      ImportanceBand,
       'Security Level',
-      hint: 'Low | Medium | High | Critical — overall security classification',
+      hint: 'Overall security classification.',
     ),
   ])
   @SerializationOrder(1)
@@ -11565,11 +11566,9 @@ class AuthorizationRoleEntry extends DocSpecsSection {
   @Form([
     Field(
       'riskLevel',
-      String,
+      ImportanceBand,
       'Risk Level',
-      hint:
-          'Critical | High | Medium | Low — privilege risk classification '
-          'for access review prioritization',
+      hint: 'Privilege risk classification for access review prioritization.',
     ),
     Field(
       'maxHolders',
@@ -11772,11 +11771,9 @@ class ResponsibilityReferenceEntry extends DocSpecsSection {
     ),
     Field(
       'criticalityLevel',
-      String,
+      ImportanceBand,
       'Criticality Level',
-      hint:
-          'Critical | High | Medium | Low — importance of this '
-          'responsibility for business operations',
+      hint: 'Importance of this responsibility for business operations.',
     ),
   ])
   @override

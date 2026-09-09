@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: integration-interface-specification/1.2
+# Schema: integration-interface-specification/1.3
 
 title-format: "# <!--[IIS]--> Integration & Interface Specification"
 section-types:
@@ -438,7 +438,7 @@ form-types:
       - fieldname: integrationPattern
         description: Primary integration pattern used
       - fieldname: priority
-        description: Relative importance of this interface
+        description: Relative importance of this interface.
       - fieldname: status
         description: Lifecycle status of the interface
   itsc-form:
@@ -628,13 +628,13 @@ form-types:
       - fieldname: validationStatus
         description: Current validation state of the assumption
       - fieldname: confidence
-        description: How confident the team is the assumption holds
+        description: How confident the team is the assumption holds.
   baer-form:
     fields:
       - fieldname: riskIfWrong
         description: What happens if the assumption proves false
       - fieldname: riskImpact
-        description: Severity of the impact if the assumption fails
+        description: Severity of the impact if the assumption fails.
       - fieldname: contingencyPlan
         description: Planned response if the assumption is invalidated
       - fieldname: relatedRiskId

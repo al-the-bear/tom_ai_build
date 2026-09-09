@@ -4,6 +4,7 @@
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
+import '../common/enums.dart';
 
 /// 5. Organizational Framework.
 ///
@@ -273,7 +274,12 @@ class OrganizationalChangeEntry extends DocSpecsSection {
       'Change Category',
       hint: 'Reporting Lines, Team Structure, Department, Division',
     ),
-    Field('priority', String, 'Priority', hint: 'Critical, High, Medium, Low'),
+    Field(
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
+    ),
   ])
   @SerializationOrder(1)
   DocSpecsSection? identification;
@@ -381,9 +387,9 @@ class OrganizationalChangeEntry extends DocSpecsSection {
   @Form([
     Field(
       'impactLevel',
-      String,
+      ImportanceBand,
       'Impact Level',
-      hint: 'High, Medium, Low — severity of disruption',
+      hint: 'Severity of disruption.',
     ),
     Field(
       'affectedRoles',
@@ -1221,11 +1227,9 @@ class TransitionMilestoneEntry extends DocSpecsSection {
     ),
     Field(
       'criticality',
-      String,
-      'Criticality — High, Medium, Low',
-      hint:
-          'How critical this milestone is to the transition: High, '
-          'Medium, or Low',
+      ImportanceBand,
+      'Criticality',
+      hint: 'How critical this milestone is to the transition.',
     ),
   ])
   @SerializationOrder(2)
@@ -2335,19 +2339,17 @@ class TransitionRiskEntry extends DocSpecsSection {
   @Form([
     Field(
       'probability',
-      String,
-      'Probability — Low, Medium, High',
+      Probability,
+      'Probability',
       hint:
-          'The likelihood that this risk materializes: Low, Medium, '
-          'or High',
+          'Qualitative likelihood band that this transition risk '
+          'materializes.',
     ),
     Field(
       'impact',
-      String,
-      'Impact — Low, Medium, High',
-      hint:
-          'The severity of the consequences if this risk occurs: Low, '
-          'Medium, or High',
+      Impact,
+      'Impact',
+      hint: 'Qualitative consequence band if the transition risk materializes.',
     ),
     Field(
       'affectedPhases',
@@ -2968,7 +2970,12 @@ class StaffingEntry extends DocSpecsSection {
       'Target Start Date',
       hint: 'When this position should be filled',
     ),
-    Field('urgency', String, 'Urgency', hint: 'Critical / High / Medium / Low'),
+    Field(
+      'urgency',
+      ImportanceBand,
+      'Urgency',
+      hint: 'Qualitative urgency band.',
+    ),
   ])
   @SerializationOrder(3)
   DocSpecsSection? recruitment;
@@ -4291,9 +4298,9 @@ class ResponsibilityChangeEntry extends DocSpecsSection {
     ),
     Field(
       'impactLevel',
-      String,
-      'Impact Level — high, medium, low',
-      hint: 'How significant the impact of this change is',
+      ImportanceBand,
+      'Impact Level',
+      hint: 'How significant the impact of this change is.',
     ),
     Field(
       'trainingNeeded',

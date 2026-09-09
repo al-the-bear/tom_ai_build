@@ -417,9 +417,9 @@ class ReuseGoalEntry extends DocSpecsSection {
   @Form([
     Field(
       'priority',
-      String,
+      ImportanceBand,
       'Priority',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative priority band.',
     ),
     Field(
       'targetDate',
@@ -914,9 +914,9 @@ class ComponentEntry extends DocSpecsSection {
     ),
     Field(
       'integrationComplexity',
-      String,
+      ImportanceBand,
       'Integration Complexity',
-      hint: 'Effort to integrate — Low / Medium / High',
+      hint: 'Effort to integrate.',
     ),
   ])
   @SerializationOrder(8)
@@ -1735,9 +1735,9 @@ class RuntimeDependencyEntry extends DocSpecsSection {
     ),
     Field(
       'criticality',
-      String,
+      ImportanceBand,
       'Criticality',
-      hint: 'Critical / High / Medium / Low — impact if unavailable',
+      hint: 'Impact if unavailable.',
     ),
     Field('purpose', String, 'Purpose', hint: 'Why this dependency exists'),
   ])
@@ -1917,9 +1917,9 @@ class MaintenanceDependencyEntry extends DocSpecsSection {
     ),
     Field(
       'criticality',
-      String,
+      ImportanceBand,
       'Criticality',
-      hint: 'Critical / High / Medium / Low — impact if update breaks',
+      hint: 'Impact if update breaks.',
     ),
     Field(
       'purpose',
@@ -2473,9 +2473,9 @@ class ComponentRiskEntry extends DocSpecsSection {
     ),
     Field(
       'residualRisk',
-      String,
+      ImportanceBand,
       'Residual Risk Level',
-      hint: 'Risk level remaining after mitigation — Low / Medium / High',
+      hint: 'Risk level remaining after mitigation.',
     ),
     Field(
       'contingencyTrigger',

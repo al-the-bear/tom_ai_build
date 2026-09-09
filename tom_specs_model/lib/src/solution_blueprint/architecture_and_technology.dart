@@ -6,6 +6,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
+import '../common/enums.dart';
 
 /// The closed set of things that can start a scheduled job
 /// ([ScheduledJobEntry]).
@@ -12726,7 +12727,12 @@ class ItStandardComplianceEntry extends DocSpecsSection {
       'Compliance Level',
       hint: 'Full, Partial, Target',
     ),
-    Field('priority', String, 'Priority', hint: 'Critical, High, Medium, Low'),
+    Field(
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
+    ),
   ])
   @SerializationOrder(1)
   DocSpecsSection? scope;
@@ -19989,7 +19995,12 @@ class BackupDataClassification extends DocSpecsSection {
 class BackupPolicyEntry extends DocSpecsSection {
   @Form([
     Field('dataScope', String, 'Data Scope', hint: 'What this policy covers'),
-    Field('priority', String, 'Priority', hint: 'Critical, High, Medium, Low'),
+    Field(
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
+    ),
   ])
   @override
   @SerializationOrder(0)

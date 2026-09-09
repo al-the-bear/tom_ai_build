@@ -6,6 +6,7 @@
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
+import '../common/enums.dart';
 
 /// 2. Project Organization and Process.
 ///
@@ -71,9 +72,9 @@ the overall impact on governance, and how deviations are tracked and approved.
     ),
     Field(
       'deviationRiskLevel',
-      String,
+      ImportanceBand,
       'Overall Deviation Risk Level',
-      hint: 'Low / Medium / High — aggregate risk from all deviations',
+      hint: 'Aggregate risk from all deviations.',
     ),
     Field(
       'deviationApprovalAuthority',
@@ -213,9 +214,9 @@ the changes, and how role clarity is maintained despite deviations.
     ),
     Field(
       'governanceImpact',
-      String,
+      ImportanceBand,
       'Governance Impact Assessment',
-      hint: 'Low / Medium / High — impact on project governance',
+      hint: 'Impact on project governance.',
     ),
   ])
   @SerializationOrder(1)
@@ -396,9 +397,9 @@ class RoleAdjustmentEntry extends DocSpecsSection {
   @Form([
     Field(
       'riskLevel',
-      String,
+      ImportanceBand,
       'Risk Level',
-      hint: 'Low / Medium / High — risk introduced by this deviation',
+      hint: 'Risk introduced by this deviation.',
     ),
     Field(
       'riskDescription',
@@ -525,9 +526,9 @@ how quality assurance is maintained despite deviations.
     ),
     Field(
       'qualityRiskLevel',
-      String,
+      ImportanceBand,
       'Quality Risk Level',
-      hint: 'Low / Medium / High — overall quality risk from deviations',
+      hint: 'Overall quality risk from deviations.',
     ),
     Field(
       'compensatingControls',
@@ -671,7 +672,12 @@ class QualityGateAdjustmentEntry extends DocSpecsSection {
       'Quality Impact',
       hint: 'How this adjustment affects delivered quality',
     ),
-    Field('riskLevel', String, 'Risk Level', hint: 'Low / Medium / High'),
+    Field(
+      'riskLevel',
+      ImportanceBand,
+      'Risk Level',
+      hint: 'Qualitative risk band.',
+    ),
     Field(
       'riskDescription',
       String,
@@ -876,9 +882,9 @@ and how process integrity is maintained despite deviations.
     ),
     Field(
       'processRiskLevel',
-      String,
+      ImportanceBand,
       'Process Risk Level',
-      hint: 'Low / Medium / High — overall process risk from deviations',
+      hint: 'Overall process risk from deviations.',
     ),
     Field(
       'processEfficiencyImpact',
@@ -1078,9 +1084,9 @@ class ProcessAdjustmentEntry extends DocSpecsSection {
   @Form([
     Field(
       'riskLevel',
-      String,
+      ImportanceBand,
       'Risk Level',
-      hint: 'Low / Medium / High — risk introduced by this deviation',
+      hint: 'Risk introduced by this deviation.',
     ),
     Field(
       'riskDescription',
@@ -2276,11 +2282,9 @@ class ToolEntry extends DocSpecsSection {
     ),
     Field(
       'endOfLifeRisk',
-      String,
+      ImportanceBand,
       'End-of-Life Risk',
-      hint:
-          'Low / Medium / High — risk of vendor discontinuing the '
-          'product',
+      hint: 'Risk of vendor discontinuing the product.',
     ),
   ])
   @SerializationOrder(10)

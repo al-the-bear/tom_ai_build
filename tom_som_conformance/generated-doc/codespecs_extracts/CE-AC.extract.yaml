@@ -1292,7 +1292,7 @@ extract:
       routedBy: "CodeSpecPart.action"
       routedAt: "ScenarioEntry"
       routingNote: "CE-AC — an end-to-end scenario is a goal-directed sequence of actions"
-      value: "High"
+      value: "high"
     - sectionId: "SCID"
       headline: "SCN-01 Happy-path wholesale order, capture to fulfilment"
       instanceId: "SCNRY-SCEN-1"

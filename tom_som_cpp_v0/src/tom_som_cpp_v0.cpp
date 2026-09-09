@@ -192,6 +192,22 @@ std::optional<std::string> Impact::parse(const std::string& token) {
   return std::nullopt;
 }
 
+std::optional<std::string> ImportanceBand::parse(const std::string& token) {
+  if (token == critical) {
+    return token;
+  }
+  if (token == high) {
+    return token;
+  }
+  if (token == medium) {
+    return token;
+  }
+  if (token == low) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> Iso25010Characteristic::parse(const std::string& token) {
   if (token == functionalSuitability) {
     return token;

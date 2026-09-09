@@ -473,14 +473,25 @@ document *is* `E`'s band set**, allowing a documented subset (nothing an author
 has written stops being expressible) and a band written under a synonym `E`'s
 own constant doc defines identically.
 
-The test is the *scale*, not the words. `Low / Medium / High` are all
-[`Probability`](../lib/src/common/enums.dart) constants, but a risk entry that
-rates on that three-band scale pairs it with a three-band impact axis, and
-binding one axis of a 3×3 matrix to the five-band enum would let an author write
-`veryHigh` opposite an impact that cannot answer it. Likewise `Critical / High /
-Medium / Low` — the model's most-repeated qualitative scale, some sixty fields —
-is not `Impact`, which has no `high`. Those fields stay `String` until the scale
-they use has an enum of its own.
+The test is the *scale*, not the words. `Critical / High / Medium / Low` — the
+model's most-repeated qualitative scale, a hundred form fields spelling it under
+a dozen labels — is not `Impact`, which has no `high`; it is
+[`ImportanceBand`](../lib/src/common/enums.dart), an enum of its own. About a
+third of those fields document only the lower three bands, and they bind there
+too: that is the subset clause, not a second scale.
+
+Where the subset clause does **not** reach is a band the enum does not have.
+`Very High`, `None`, `Full`, `Untrusted`, `Blocking`, a numbered `P1`–`P5`
+scheme — each of those is a different instrument, and a field documenting one
+stays `String` until that instrument has an enum. So does a field that names a
+*rating scheme* rather than a rating (`Finding Severity Scale`, `Defect Priority
+Scheme`): its value is the name of a scale, not a band on one.
+
+There is exactly **one** risk matrix in the model, `Probability` × `Impact`,
+rated on five bands. Three entry types once rated on a 3×3 matrix of their own;
+they were moved onto the five-band pair rather than given a second pair of
+enums, so two risks from different documents can be compared and an author never
+has to work out which instrument an entry uses.
 
 ### 5.5 Class style and naming
 

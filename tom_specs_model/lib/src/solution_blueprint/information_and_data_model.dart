@@ -7,6 +7,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../common/authorization_requirement.dart';
 import '../document_stubs.dart';
+import '../common/enums.dart';
 
 /// Lifecycle role of a business-object state (`ObjectStateEntry.stateType`).
 ///
@@ -3828,9 +3829,9 @@ class FunctionEntry extends DocSpecsSection {
     ),
     Field(
       'criticalityLevel',
-      String,
+      ImportanceBand,
       'Criticality Level',
-      hint: 'Business criticality: Critical | High | Medium | Low',
+      hint: 'Business criticality.',
     ),
   ])
   @SerializationOrder(2)

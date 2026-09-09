@@ -20,7 +20,7 @@ import (
 // Version is the semantic version of this generated facade module, matching the
 // object-model version it was generated against (vMAJOR.MINOR.PATCH). It is the
 // in-source counterpart of the VCS tag used to pin the module (SOM §4.2).
-const Version = "v1.2.0"
+const Version = "v1.3.0"
 
 // AuthorizationRequirementKind is the generated named type for `AuthorizationRequirementKind` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
@@ -382,6 +382,42 @@ func parseImpact(token string) Impact {
 	switch Impact(token) {
 	case ImpactNegligible, ImpactMinor, ImpactModerate, ImpactMajor, ImpactCritical:
 		return Impact(token)
+	}
+	return ""
+}
+
+// ImportanceBand is the generated named type for `ImportanceBand` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ImportanceBand string
+
+const (
+	// The top band: whatever this rates cannot be traded away, deferred or
+	// absorbed. On a priority it blocks the release; on a severity it stops
+	// work; on a criticality its loss stops the business function. If
+	// everything on a list is critical, the list has not been rated.
+	ImportanceBandCritical ImportanceBand = "critical"
+	// Below [critical] but ahead of the ordinary queue: it is expected to be
+	// dealt with in the current cycle, and letting it slip is a decision
+	// somebody has to make rather than a routine outcome.
+	ImportanceBandHigh ImportanceBand = "high"
+	// The ordinary band, and the default when nobody has actually assessed the
+	// item. A medium with no reasoning behind it is worth challenging — it is
+	// as often "not looked at" as it is "genuinely middling".
+	ImportanceBandMedium ImportanceBand = "medium"
+	// The bottom band: worth recording, not worth planning around. Items here
+	// are done when they are cheap, and their omission needs no explanation.
+	ImportanceBandLow ImportanceBand = "low"
+)
+
+// parseImportanceBand returns the ImportanceBand whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseImportanceBand(token string) ImportanceBand {
+	switch ImportanceBand(token) {
+	case ImportanceBandCritical, ImportanceBandHigh, ImportanceBandMedium, ImportanceBandLow:
+		return ImportanceBand(token)
 	}
 	return ""
 }
@@ -11171,7 +11207,7 @@ type D00SolutionBlueprint struct {
 
 // D00SolutionBlueprintModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D00SolutionBlueprintModelVersion = "1.2"
+const D00SolutionBlueprintModelVersion = "1.3"
 
 // NewD00SolutionBlueprint creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11321,7 +11357,7 @@ type D01CurrentLandscapeAssessment struct {
 
 // D01CurrentLandscapeAssessmentModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D01CurrentLandscapeAssessmentModelVersion = "1.2"
+const D01CurrentLandscapeAssessmentModelVersion = "1.3"
 
 // NewD01CurrentLandscapeAssessment creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11448,7 +11484,7 @@ type D02TargetOperatingModel struct {
 
 // D02TargetOperatingModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D02TargetOperatingModelModelVersion = "1.2"
+const D02TargetOperatingModelModelVersion = "1.3"
 
 // NewD02TargetOperatingModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11588,7 +11624,7 @@ type D03InformationModel struct {
 
 // D03InformationModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D03InformationModelModelVersion = "1.2"
+const D03InformationModelModelVersion = "1.3"
 
 // NewD03InformationModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11794,7 +11830,7 @@ type D04RequirementsSpecification struct {
 
 // D04RequirementsSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D04RequirementsSpecificationModelVersion = "1.2"
+const D04RequirementsSpecificationModelVersion = "1.3"
 
 // NewD04RequirementsSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11924,7 +11960,7 @@ type D05InteractionScenarios struct {
 
 // D05InteractionScenariosModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D05InteractionScenariosModelVersion = "1.2"
+const D05InteractionScenariosModelVersion = "1.3"
 
 // NewD05InteractionScenarios creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12047,7 +12083,7 @@ type D06ArchitectureTechnologySpecification struct {
 
 // D06ArchitectureTechnologySpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D06ArchitectureTechnologySpecificationModelVersion = "1.2"
+const D06ArchitectureTechnologySpecificationModelVersion = "1.3"
 
 // NewD06ArchitectureTechnologySpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12192,7 +12228,7 @@ type D07IntegrationInterfaceSpecification struct {
 
 // D07IntegrationInterfaceSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D07IntegrationInterfaceSpecificationModelVersion = "1.2"
+const D07IntegrationInterfaceSpecificationModelVersion = "1.3"
 
 // NewD07IntegrationInterfaceSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12334,7 +12370,7 @@ type D08SecurityAccessSpecification struct {
 
 // D08SecurityAccessSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D08SecurityAccessSpecificationModelVersion = "1.2"
+const D08SecurityAccessSpecificationModelVersion = "1.3"
 
 // NewD08SecurityAccessSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12472,7 +12508,7 @@ type D09ExperienceDesignSpecification struct {
 
 // D09ExperienceDesignSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D09ExperienceDesignSpecificationModelVersion = "1.2"
+const D09ExperienceDesignSpecificationModelVersion = "1.3"
 
 // NewD09ExperienceDesignSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12623,7 +12659,7 @@ type D10QualityAcceptancePlan struct {
 
 // D10QualityAcceptancePlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D10QualityAcceptancePlanModelVersion = "1.2"
+const D10QualityAcceptancePlanModelVersion = "1.3"
 
 // NewD10QualityAcceptancePlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12804,7 +12840,7 @@ type D11DeliveryRoadmap struct {
 
 // D11DeliveryRoadmapModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D11DeliveryRoadmapModelVersion = "1.2"
+const D11DeliveryRoadmapModelVersion = "1.3"
 
 // NewD11DeliveryRoadmap creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12937,7 +12973,7 @@ type D12TransitionRolloutPlan struct {
 
 // D12TransitionRolloutPlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D12TransitionRolloutPlanModelVersion = "1.2"
+const D12TransitionRolloutPlanModelVersion = "1.3"
 
 // NewD12TransitionRolloutPlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13093,7 +13129,7 @@ type D13CodeSpecsProjection struct {
 
 // D13CodeSpecsProjectionModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D13CodeSpecsProjectionModelVersion = "1.2"
+const D13CodeSpecsProjectionModelVersion = "1.3"
 
 // NewD13CodeSpecsProjection creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -52838,12 +52874,12 @@ func (x *AcceptanceCriterionEntryContentForm) SetTestType(value string) {
 	x.Doc().SetFormField(x.Path(), "testType", value)
 }
 
-func (x *AcceptanceCriterionEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *AcceptanceCriterionEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *AcceptanceCriterionEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *AcceptanceCriterionEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *AcceptanceCriterionEntryContentForm) Status() string {
@@ -55978,12 +56014,12 @@ func (x *AffectedDepartmentEntryContentForm) SetEmployeeCount(value *int) {
 	x.Doc().SetFormField(x.Path(), "employeeCount", strconv.Itoa(*value))
 }
 
-func (x *AffectedDepartmentEntryContentForm) ImpactLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactLevel")
+func (x *AffectedDepartmentEntryContentForm) ImpactLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "impactLevel"))
 }
 
-func (x *AffectedDepartmentEntryContentForm) SetImpactLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "impactLevel", value)
+func (x *AffectedDepartmentEntryContentForm) SetImpactLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "impactLevel", string(value))
 }
 
 func (x *AffectedDepartmentEntryContentForm) RoleInProject() string {
@@ -56002,12 +56038,12 @@ func (x *AffectedDepartmentEntryContentForm) SetCurrentSystems(value string) {
 	x.Doc().SetFormField(x.Path(), "currentSystems", value)
 }
 
-func (x *AffectedDepartmentEntryContentForm) ChangeReadiness() string {
-	return x.Doc().FormFieldOr(x.Path(), "changeReadiness")
+func (x *AffectedDepartmentEntryContentForm) ChangeReadiness() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "changeReadiness"))
 }
 
-func (x *AffectedDepartmentEntryContentForm) SetChangeReadiness(value string) {
-	x.Doc().SetFormField(x.Path(), "changeReadiness", value)
+func (x *AffectedDepartmentEntryContentForm) SetChangeReadiness(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "changeReadiness", string(value))
 }
 
 func (x *AffectedDepartmentEntryContentForm) KeyContacts() string {
@@ -61395,12 +61431,12 @@ func (x *AuthenticationMethodEntrySecurityForm) SetFipsValidationLevel(value str
 	x.Doc().SetFormField(x.Path(), "fipsValidationLevel", value)
 }
 
-func (x *AuthenticationMethodEntrySecurityForm) SecurityLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "securityLevel")
+func (x *AuthenticationMethodEntrySecurityForm) SecurityLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "securityLevel"))
 }
 
-func (x *AuthenticationMethodEntrySecurityForm) SetSecurityLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "securityLevel", value)
+func (x *AuthenticationMethodEntrySecurityForm) SetSecurityLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "securityLevel", string(value))
 }
 
 // AuthorizationEventPolicyContentForm is the generated section facade for the `content` @Form section: its own
@@ -61823,12 +61859,12 @@ func (x *AuthorizationRoleEntryGovernanceForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *AuthorizationRoleEntryGovernanceForm) RiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskLevel")
+func (x *AuthorizationRoleEntryGovernanceForm) RiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskLevel"))
 }
 
-func (x *AuthorizationRoleEntryGovernanceForm) SetRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "riskLevel", value)
+func (x *AuthorizationRoleEntryGovernanceForm) SetRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskLevel", string(value))
 }
 
 func (x *AuthorizationRoleEntryGovernanceForm) MaxHolders() *int {
@@ -63240,12 +63276,12 @@ func (x *BackupPolicyEntryContentForm) SetDataScope(value string) {
 	x.Doc().SetFormField(x.Path(), "dataScope", value)
 }
 
-func (x *BackupPolicyEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *BackupPolicyEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *BackupPolicyEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *BackupPolicyEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // BackupPolicyEntryRetentionForm is the generated section facade for the `retention` @Form section: its own
@@ -64637,12 +64673,12 @@ func (x *BoundaryAssumptionEntryRiskForm) SetRiskIfWrong(value string) {
 	x.Doc().SetFormField(x.Path(), "riskIfWrong", value)
 }
 
-func (x *BoundaryAssumptionEntryRiskForm) RiskImpact() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskImpact")
+func (x *BoundaryAssumptionEntryRiskForm) RiskImpact() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskImpact"))
 }
 
-func (x *BoundaryAssumptionEntryRiskForm) SetRiskImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "riskImpact", value)
+func (x *BoundaryAssumptionEntryRiskForm) SetRiskImpact(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskImpact", string(value))
 }
 
 func (x *BoundaryAssumptionEntryRiskForm) ContingencyPlan() string {
@@ -64727,12 +64763,12 @@ func (x *BoundaryAssumptionEntryValidationForm) SetValidationStatus(value string
 	x.Doc().SetFormField(x.Path(), "validationStatus", value)
 }
 
-func (x *BoundaryAssumptionEntryValidationForm) Confidence() string {
-	return x.Doc().FormFieldOr(x.Path(), "confidence")
+func (x *BoundaryAssumptionEntryValidationForm) Confidence() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "confidence"))
 }
 
-func (x *BoundaryAssumptionEntryValidationForm) SetConfidence(value string) {
-	x.Doc().SetFormField(x.Path(), "confidence", value)
+func (x *BoundaryAssumptionEntryValidationForm) SetConfidence(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "confidence", string(value))
 }
 
 // BoundedContextEntryBoundariesForm is the generated section facade for the `boundaries` @Form section: its own
@@ -66782,12 +66818,12 @@ func (x *BusinessGoalEntryDefinitionForm) SetGoalType(value string) {
 	x.Doc().SetFormField(x.Path(), "goalType", value)
 }
 
-func (x *BusinessGoalEntryDefinitionForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *BusinessGoalEntryDefinitionForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *BusinessGoalEntryDefinitionForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *BusinessGoalEntryDefinitionForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // BusinessGoalEntryGovernanceForm is the generated section facade for the `governance` @Form section: its own
@@ -77967,12 +78003,12 @@ func (x *ComponentEntryRiskForm) SetLockInFactors(value string) {
 	x.Doc().SetFormField(x.Path(), "lockInFactors", value)
 }
 
-func (x *ComponentEntryRiskForm) IntegrationComplexity() string {
-	return x.Doc().FormFieldOr(x.Path(), "integrationComplexity")
+func (x *ComponentEntryRiskForm) IntegrationComplexity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "integrationComplexity"))
 }
 
-func (x *ComponentEntryRiskForm) SetIntegrationComplexity(value string) {
-	x.Doc().SetFormField(x.Path(), "integrationComplexity", value)
+func (x *ComponentEntryRiskForm) SetIntegrationComplexity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "integrationComplexity", string(value))
 }
 
 // ComponentEntrySupportForm is the generated section facade for the `support` @Form section: its own
@@ -80585,12 +80621,12 @@ func (x *ComponentRiskEntryMitigationForm) SetMitigationCost(value string) {
 	x.Doc().SetFormField(x.Path(), "mitigationCost", value)
 }
 
-func (x *ComponentRiskEntryMitigationForm) ResidualRisk() string {
-	return x.Doc().FormFieldOr(x.Path(), "residualRisk")
+func (x *ComponentRiskEntryMitigationForm) ResidualRisk() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "residualRisk"))
 }
 
-func (x *ComponentRiskEntryMitigationForm) SetResidualRisk(value string) {
-	x.Doc().SetFormField(x.Path(), "residualRisk", value)
+func (x *ComponentRiskEntryMitigationForm) SetResidualRisk(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "residualRisk", string(value))
 }
 
 func (x *ComponentRiskEntryMitigationForm) ContingencyTrigger() string {
@@ -84578,12 +84614,12 @@ func (x *CurrentDataLandscapeDataLandscapeSummaryForm) SetComplianceStatus(value
 	x.Doc().SetFormField(x.Path(), "complianceStatus", value)
 }
 
-func (x *CurrentDataLandscapeDataLandscapeSummaryForm) DataSecurityRiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataSecurityRiskLevel")
+func (x *CurrentDataLandscapeDataLandscapeSummaryForm) DataSecurityRiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "dataSecurityRiskLevel"))
 }
 
-func (x *CurrentDataLandscapeDataLandscapeSummaryForm) SetDataSecurityRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "dataSecurityRiskLevel", value)
+func (x *CurrentDataLandscapeDataLandscapeSummaryForm) SetDataSecurityRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "dataSecurityRiskLevel", string(value))
 }
 
 func (x *CurrentDataLandscapeDataLandscapeSummaryForm) AverageDataAge() string {
@@ -84660,12 +84696,12 @@ func (x *CurrentProcessImprovementEntryContentForm) SetEstimatedBenefit(value st
 	x.Doc().SetFormField(x.Path(), "estimatedBenefit", value)
 }
 
-func (x *CurrentProcessImprovementEntryContentForm) ImplementationEffort() string {
-	return x.Doc().FormFieldOr(x.Path(), "implementationEffort")
+func (x *CurrentProcessImprovementEntryContentForm) ImplementationEffort() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "implementationEffort"))
 }
 
-func (x *CurrentProcessImprovementEntryContentForm) SetImplementationEffort(value string) {
-	x.Doc().SetFormField(x.Path(), "implementationEffort", value)
+func (x *CurrentProcessImprovementEntryContentForm) SetImplementationEffort(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "implementationEffort", string(value))
 }
 
 func (x *CurrentProcessImprovementEntryContentForm) Priority() string {
@@ -87297,12 +87333,12 @@ func (x *DataDuplicationAnalysisDuplicationSummaryForm) SetSynchronizationChalle
 	x.Doc().SetFormField(x.Path(), "synchronizationChallenges", strconv.Itoa(*value))
 }
 
-func (x *DataDuplicationAnalysisDuplicationSummaryForm) DataInconsistencyRisk() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataInconsistencyRisk")
+func (x *DataDuplicationAnalysisDuplicationSummaryForm) DataInconsistencyRisk() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "dataInconsistencyRisk"))
 }
 
-func (x *DataDuplicationAnalysisDuplicationSummaryForm) SetDataInconsistencyRisk(value string) {
-	x.Doc().SetFormField(x.Path(), "dataInconsistencyRisk", value)
+func (x *DataDuplicationAnalysisDuplicationSummaryForm) SetDataInconsistencyRisk(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "dataInconsistencyRisk", string(value))
 }
 
 func (x *DataDuplicationAnalysisDuplicationSummaryForm) ConsolidationOpportunities() *int {
@@ -88880,12 +88916,12 @@ func (x *DataIntegrationEntryOwnershipForm) SetTechnicalOwner(value string) {
 	x.Doc().SetFormField(x.Path(), "technicalOwner", value)
 }
 
-func (x *DataIntegrationEntryOwnershipForm) Criticality() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticality")
+func (x *DataIntegrationEntryOwnershipForm) Criticality() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "criticality"))
 }
 
-func (x *DataIntegrationEntryOwnershipForm) SetCriticality(value string) {
-	x.Doc().SetFormField(x.Path(), "criticality", value)
+func (x *DataIntegrationEntryOwnershipForm) SetCriticality(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "criticality", string(value))
 }
 
 func (x *DataIntegrationEntryOwnershipForm) KnownIssues() string {
@@ -90884,12 +90920,12 @@ func (x *DataQualityIssueEntryClassificationForm) SetQualityDimension(value stri
 	x.Doc().SetFormField(x.Path(), "qualityDimension", value)
 }
 
-func (x *DataQualityIssueEntryClassificationForm) Severity() string {
-	return x.Doc().FormFieldOr(x.Path(), "severity")
+func (x *DataQualityIssueEntryClassificationForm) Severity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "severity"))
 }
 
-func (x *DataQualityIssueEntryClassificationForm) SetSeverity(value string) {
-	x.Doc().SetFormField(x.Path(), "severity", value)
+func (x *DataQualityIssueEntryClassificationForm) SetSeverity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "severity", string(value))
 }
 
 // DataQualityIssueEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -91514,12 +91550,12 @@ func (x *DataSourceEntryContentForm) SetDataStoreName(value string) {
 	x.Doc().SetFormField(x.Path(), "dataStoreName", value)
 }
 
-func (x *DataSourceEntryContentForm) Criticality() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticality")
+func (x *DataSourceEntryContentForm) Criticality() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "criticality"))
 }
 
-func (x *DataSourceEntryContentForm) SetCriticality(value string) {
-	x.Doc().SetFormField(x.Path(), "criticality", value)
+func (x *DataSourceEntryContentForm) SetCriticality(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "criticality", string(value))
 }
 
 // DataSourceEntryIntegrationForm is the generated section facade for the `integration` @Form section: its own
@@ -93292,12 +93328,12 @@ func (x *DecisionMakerEntryContentForm) SetDecisionDomains(value string) {
 	x.Doc().SetFormField(x.Path(), "decisionDomains", value)
 }
 
-func (x *DecisionMakerEntryContentForm) InfluenceLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "influenceLevel")
+func (x *DecisionMakerEntryContentForm) InfluenceLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "influenceLevel"))
 }
 
-func (x *DecisionMakerEntryContentForm) SetInfluenceLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "influenceLevel", value)
+func (x *DecisionMakerEntryContentForm) SetInfluenceLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "influenceLevel", string(value))
 }
 
 func (x *DecisionMakerEntryContentForm) ApprovalRequired() string {
@@ -93400,20 +93436,20 @@ func (x *DecisionOptionEntryFeasibilityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DecisionOptionEntryFeasibilityForm) TechnicalFeasibility() string {
-	return x.Doc().FormFieldOr(x.Path(), "technicalFeasibility")
+func (x *DecisionOptionEntryFeasibilityForm) TechnicalFeasibility() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "technicalFeasibility"))
 }
 
-func (x *DecisionOptionEntryFeasibilityForm) SetTechnicalFeasibility(value string) {
-	x.Doc().SetFormField(x.Path(), "technicalFeasibility", value)
+func (x *DecisionOptionEntryFeasibilityForm) SetTechnicalFeasibility(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "technicalFeasibility", string(value))
 }
 
-func (x *DecisionOptionEntryFeasibilityForm) OrganizationalFeasibility() string {
-	return x.Doc().FormFieldOr(x.Path(), "organizationalFeasibility")
+func (x *DecisionOptionEntryFeasibilityForm) OrganizationalFeasibility() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "organizationalFeasibility"))
 }
 
-func (x *DecisionOptionEntryFeasibilityForm) SetOrganizationalFeasibility(value string) {
-	x.Doc().SetFormField(x.Path(), "organizationalFeasibility", value)
+func (x *DecisionOptionEntryFeasibilityForm) SetOrganizationalFeasibility(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "organizationalFeasibility", string(value))
 }
 
 func (x *DecisionOptionEntryFeasibilityForm) FeasibilityNotes() string {
@@ -94484,12 +94520,12 @@ func (x *DeliverableEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DeliverableEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *DeliverableEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *DeliverableEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *DeliverableEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // DeliverableEntryDocumentationForm is the generated section facade for the `documentation` @Form section: its own
@@ -97989,12 +98025,12 @@ func (x *DesignGoalEntryContentForm) SetDescription(value string) {
 	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
-func (x *DesignGoalEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *DesignGoalEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *DesignGoalEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *DesignGoalEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *DesignGoalEntryContentForm) Category() string {
@@ -109018,12 +109054,12 @@ func (x *ExistingSystemEntryQualityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ExistingSystemEntryQualityForm) TechnicalDebtLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "technicalDebtLevel")
+func (x *ExistingSystemEntryQualityForm) TechnicalDebtLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "technicalDebtLevel"))
 }
 
-func (x *ExistingSystemEntryQualityForm) SetTechnicalDebtLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "technicalDebtLevel", value)
+func (x *ExistingSystemEntryQualityForm) SetTechnicalDebtLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "technicalDebtLevel", string(value))
 }
 
 func (x *ExistingSystemEntryQualityForm) CodeQuality() string {
@@ -111058,12 +111094,12 @@ func (x *ExternalInterfaceEntryIdentificationContentForm) SetIntegrationPattern(
 	x.Doc().SetFormField(x.Path(), "integrationPattern", value)
 }
 
-func (x *ExternalInterfaceEntryIdentificationContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *ExternalInterfaceEntryIdentificationContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *ExternalInterfaceEntryIdentificationContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *ExternalInterfaceEntryIdentificationContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *ExternalInterfaceEntryIdentificationContentForm) Status() string {
@@ -111903,12 +111939,12 @@ func (x *ExternalServiceDependencyEntryRelationshipForm) SetDependentSystems(val
 	x.Doc().SetFormField(x.Path(), "dependentSystems", value)
 }
 
-func (x *ExternalServiceDependencyEntryRelationshipForm) Criticality() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticality")
+func (x *ExternalServiceDependencyEntryRelationshipForm) Criticality() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "criticality"))
 }
 
-func (x *ExternalServiceDependencyEntryRelationshipForm) SetCriticality(value string) {
-	x.Doc().SetFormField(x.Path(), "criticality", value)
+func (x *ExternalServiceDependencyEntryRelationshipForm) SetCriticality(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "criticality", string(value))
 }
 
 func (x *ExternalServiceDependencyEntryRelationshipForm) ContractStatus() string {
@@ -113163,12 +113199,12 @@ func (x *FeaturePriorityEntryBusinessValueForm) SetCostOfDelayCategory(value str
 	x.Doc().SetFormField(x.Path(), "costOfDelayCategory", value)
 }
 
-func (x *FeaturePriorityEntryBusinessValueForm) StrategicAlignment() string {
-	return x.Doc().FormFieldOr(x.Path(), "strategicAlignment")
+func (x *FeaturePriorityEntryBusinessValueForm) StrategicAlignment() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "strategicAlignment"))
 }
 
-func (x *FeaturePriorityEntryBusinessValueForm) SetStrategicAlignment(value string) {
-	x.Doc().SetFormField(x.Path(), "strategicAlignment", value)
+func (x *FeaturePriorityEntryBusinessValueForm) SetStrategicAlignment(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "strategicAlignment", string(value))
 }
 
 func (x *FeaturePriorityEntryBusinessValueForm) StrategicObjectiveLink() string {
@@ -113179,12 +113215,12 @@ func (x *FeaturePriorityEntryBusinessValueForm) SetStrategicObjectiveLink(value 
 	x.Doc().SetFormField(x.Path(), "strategicObjectiveLink", value)
 }
 
-func (x *FeaturePriorityEntryBusinessValueForm) CustomerImpact() string {
-	return x.Doc().FormFieldOr(x.Path(), "customerImpact")
+func (x *FeaturePriorityEntryBusinessValueForm) CustomerImpact() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "customerImpact"))
 }
 
-func (x *FeaturePriorityEntryBusinessValueForm) SetCustomerImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "customerImpact", value)
+func (x *FeaturePriorityEntryBusinessValueForm) SetCustomerImpact(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "customerImpact", string(value))
 }
 
 func (x *FeaturePriorityEntryBusinessValueForm) UserBaseAffected() string {
@@ -113361,12 +113397,12 @@ func (x *FeaturePriorityEntryEffortForm) SetComplexityFactors(value string) {
 	x.Doc().SetFormField(x.Path(), "complexityFactors", value)
 }
 
-func (x *FeaturePriorityEntryEffortForm) RiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskLevel")
+func (x *FeaturePriorityEntryEffortForm) RiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskLevel"))
 }
 
-func (x *FeaturePriorityEntryEffortForm) SetRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "riskLevel", value)
+func (x *FeaturePriorityEntryEffortForm) SetRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskLevel", string(value))
 }
 
 func (x *FeaturePriorityEntryEffortForm) RiskFactors() string {
@@ -113649,12 +113685,12 @@ func (x *FeaturePriorityEntryStatusForm) SetDeliveryStatus(value string) {
 	x.Doc().SetFormField(x.Path(), "deliveryStatus", value)
 }
 
-func (x *FeaturePriorityEntryStatusForm) ConfidenceLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "confidenceLevel")
+func (x *FeaturePriorityEntryStatusForm) ConfidenceLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "confidenceLevel"))
 }
 
-func (x *FeaturePriorityEntryStatusForm) SetConfidenceLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "confidenceLevel", value)
+func (x *FeaturePriorityEntryStatusForm) SetConfidenceLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "confidenceLevel", string(value))
 }
 
 func (x *FeaturePriorityEntryStatusForm) LastReviewedDate() string {
@@ -114007,12 +114043,12 @@ func (x *FeatureStageMappingReadinessForm) SetReadinessStatus(value string) {
 	x.Doc().SetFormField(x.Path(), "readinessStatus", value)
 }
 
-func (x *FeatureStageMappingReadinessForm) DeliveryConfidence() string {
-	return x.Doc().FormFieldOr(x.Path(), "deliveryConfidence")
+func (x *FeatureStageMappingReadinessForm) DeliveryConfidence() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "deliveryConfidence"))
 }
 
-func (x *FeatureStageMappingReadinessForm) SetDeliveryConfidence(value string) {
-	x.Doc().SetFormField(x.Path(), "deliveryConfidence", value)
+func (x *FeatureStageMappingReadinessForm) SetDeliveryConfidence(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "deliveryConfidence", string(value))
 }
 
 func (x *FeatureStageMappingReadinessForm) ConfidenceRationale() string {
@@ -115647,12 +115683,12 @@ func (x *FunctionEntryOperationsForm) SetVolumeEstimate(value string) {
 	x.Doc().SetFormField(x.Path(), "volumeEstimate", value)
 }
 
-func (x *FunctionEntryOperationsForm) CriticalityLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticalityLevel")
+func (x *FunctionEntryOperationsForm) CriticalityLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "criticalityLevel"))
 }
 
-func (x *FunctionEntryOperationsForm) SetCriticalityLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "criticalityLevel", value)
+func (x *FunctionEntryOperationsForm) SetCriticalityLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "criticalityLevel", string(value))
 }
 
 // FunctionModelDecompositionOverviewForm is the generated section facade for the `decompositionOverview` @Form section: its own
@@ -116087,12 +116123,12 @@ func (x *FunctionalRequirementEntryPriorityForm) SetPriority(value Priority) {
 	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
-func (x *FunctionalRequirementEntryPriorityForm) BusinessValue() string {
-	return x.Doc().FormFieldOr(x.Path(), "businessValue")
+func (x *FunctionalRequirementEntryPriorityForm) BusinessValue() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "businessValue"))
 }
 
-func (x *FunctionalRequirementEntryPriorityForm) SetBusinessValue(value string) {
-	x.Doc().SetFormField(x.Path(), "businessValue", value)
+func (x *FunctionalRequirementEntryPriorityForm) SetBusinessValue(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "businessValue", string(value))
 }
 
 func (x *FunctionalRequirementEntryPriorityForm) Effort() string {
@@ -116103,12 +116139,12 @@ func (x *FunctionalRequirementEntryPriorityForm) SetEffort(value string) {
 	x.Doc().SetFormField(x.Path(), "effort", value)
 }
 
-func (x *FunctionalRequirementEntryPriorityForm) RiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskLevel")
+func (x *FunctionalRequirementEntryPriorityForm) RiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskLevel"))
 }
 
-func (x *FunctionalRequirementEntryPriorityForm) SetRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "riskLevel", value)
+func (x *FunctionalRequirementEntryPriorityForm) SetRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskLevel", string(value))
 }
 
 // FunctionalRequirementEntrySourceForm is the generated section facade for the `source` @Form section: its own
@@ -116455,12 +116491,12 @@ func (x *GapEntryContentForm) SetGapCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "gapCategory", value)
 }
 
-func (x *GapEntryContentForm) Severity() string {
-	return x.Doc().FormFieldOr(x.Path(), "severity")
+func (x *GapEntryContentForm) Severity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "severity"))
 }
 
-func (x *GapEntryContentForm) SetSeverity(value string) {
-	x.Doc().SetFormField(x.Path(), "severity", value)
+func (x *GapEntryContentForm) SetSeverity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "severity", string(value))
 }
 
 // GapEntryDescriptionForm is the generated section facade for the `description` @Form section: its own
@@ -117383,20 +117419,20 @@ func (x *GoalRiskEntryAssessmentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *GoalRiskEntryAssessmentForm) Probability() string {
-	return x.Doc().FormFieldOr(x.Path(), "probability")
+func (x *GoalRiskEntryAssessmentForm) Probability() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "probability"))
 }
 
-func (x *GoalRiskEntryAssessmentForm) SetProbability(value string) {
-	x.Doc().SetFormField(x.Path(), "probability", value)
+func (x *GoalRiskEntryAssessmentForm) SetProbability(value Probability) {
+	x.Doc().SetFormField(x.Path(), "probability", string(value))
 }
 
-func (x *GoalRiskEntryAssessmentForm) Impact() string {
-	return x.Doc().FormFieldOr(x.Path(), "impact")
+func (x *GoalRiskEntryAssessmentForm) Impact() Impact {
+	return parseImpact(x.Doc().FormFieldOr(x.Path(), "impact"))
 }
 
-func (x *GoalRiskEntryAssessmentForm) SetImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "impact", value)
+func (x *GoalRiskEntryAssessmentForm) SetImpact(value Impact) {
+	x.Doc().SetFormField(x.Path(), "impact", string(value))
 }
 
 func (x *GoalRiskEntryAssessmentForm) RiskScore() string {
@@ -123405,12 +123441,12 @@ func (x *IntegrationConstraintEntryMitigationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *IntegrationConstraintEntryMitigationForm) ImpactLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactLevel")
+func (x *IntegrationConstraintEntryMitigationForm) ImpactLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "impactLevel"))
 }
 
-func (x *IntegrationConstraintEntryMitigationForm) SetImpactLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "impactLevel", value)
+func (x *IntegrationConstraintEntryMitigationForm) SetImpactLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "impactLevel", string(value))
 }
 
 func (x *IntegrationConstraintEntryMitigationForm) DesignImplications() string {
@@ -125153,12 +125189,12 @@ func (x *InteractionPatternEntryUsageForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *InteractionPatternEntryUsageForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *InteractionPatternEntryUsageForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *InteractionPatternEntryUsageForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *InteractionPatternEntryUsageForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // InterfaceBusinessContextContentForm is the generated section facade for the `content` @Form section: its own
@@ -128583,12 +128619,12 @@ func (x *ItStandardComplianceEntryScopeForm) SetComplianceLevel(value string) {
 	x.Doc().SetFormField(x.Path(), "complianceLevel", value)
 }
 
-func (x *ItStandardComplianceEntryScopeForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *ItStandardComplianceEntryScopeForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *ItStandardComplianceEntryScopeForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *ItStandardComplianceEntryScopeForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // ItStandardComplianceEntryTimelineForm is the generated section facade for the `timeline` @Form section: its own
@@ -133510,12 +133546,12 @@ func (x *MaintenanceDependencyEntryClassificationForm) SetDependencyType(value s
 	x.Doc().SetFormField(x.Path(), "dependencyType", value)
 }
 
-func (x *MaintenanceDependencyEntryClassificationForm) Criticality() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticality")
+func (x *MaintenanceDependencyEntryClassificationForm) Criticality() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "criticality"))
 }
 
-func (x *MaintenanceDependencyEntryClassificationForm) SetCriticality(value string) {
-	x.Doc().SetFormField(x.Path(), "criticality", value)
+func (x *MaintenanceDependencyEntryClassificationForm) SetCriticality(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "criticality", string(value))
 }
 
 func (x *MaintenanceDependencyEntryClassificationForm) Purpose() string {
@@ -135718,12 +135754,12 @@ func (x *MetricsDashboardSummaryContentForm) SetMeasurementPeriod(value string) 
 	x.Doc().SetFormField(x.Path(), "measurementPeriod", value)
 }
 
-func (x *MetricsDashboardSummaryContentForm) DataQuality() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataQuality")
+func (x *MetricsDashboardSummaryContentForm) DataQuality() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "dataQuality"))
 }
 
-func (x *MetricsDashboardSummaryContentForm) SetDataQuality(value string) {
-	x.Doc().SetFormField(x.Path(), "dataQuality", value)
+func (x *MetricsDashboardSummaryContentForm) SetDataQuality(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "dataQuality", string(value))
 }
 
 func (x *MetricsDashboardSummaryContentForm) KeyThroughput() string {
@@ -137974,12 +138010,12 @@ func (x *MigrationRiskEntryQuantificationForm) SetRiskScore(value *int) {
 	x.Doc().SetFormField(x.Path(), "riskScore", strconv.Itoa(*value))
 }
 
-func (x *MigrationRiskEntryQuantificationForm) RiskPriority() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskPriority")
+func (x *MigrationRiskEntryQuantificationForm) RiskPriority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskPriority"))
 }
 
-func (x *MigrationRiskEntryQuantificationForm) SetRiskPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "riskPriority", value)
+func (x *MigrationRiskEntryQuantificationForm) SetRiskPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskPriority", string(value))
 }
 
 func (x *MigrationRiskEntryQuantificationForm) ExpectedMonetaryValue() string {
@@ -140671,12 +140707,12 @@ func (x *MoscowEntryClassificationForm) SetJustification(value string) {
 	x.Doc().SetFormField(x.Path(), "justification", value)
 }
 
-func (x *MoscowEntryClassificationForm) ReclassificationRisk() string {
-	return x.Doc().FormFieldOr(x.Path(), "reclassificationRisk")
+func (x *MoscowEntryClassificationForm) ReclassificationRisk() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "reclassificationRisk"))
 }
 
-func (x *MoscowEntryClassificationForm) SetReclassificationRisk(value string) {
-	x.Doc().SetFormField(x.Path(), "reclassificationRisk", value)
+func (x *MoscowEntryClassificationForm) SetReclassificationRisk(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "reclassificationRisk", string(value))
 }
 
 // MoscowEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -144870,12 +144906,12 @@ func (x *NotificationTypeEntryContentForm) SetCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "category", value)
 }
 
-func (x *NotificationTypeEntryContentForm) Urgency() string {
-	return x.Doc().FormFieldOr(x.Path(), "urgency")
+func (x *NotificationTypeEntryContentForm) Urgency() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "urgency"))
 }
 
-func (x *NotificationTypeEntryContentForm) SetUrgency(value string) {
-	x.Doc().SetFormField(x.Path(), "urgency", value)
+func (x *NotificationTypeEntryContentForm) SetUrgency(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "urgency", string(value))
 }
 
 func (x *NotificationTypeEntryContentForm) DefaultChannels() string {
@@ -147134,12 +147170,12 @@ func (x *OrganizationalChangeEntryIdentificationForm) SetChangeCategory(value st
 	x.Doc().SetFormField(x.Path(), "changeCategory", value)
 }
 
-func (x *OrganizationalChangeEntryIdentificationForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *OrganizationalChangeEntryIdentificationForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *OrganizationalChangeEntryIdentificationForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *OrganizationalChangeEntryIdentificationForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // OrganizationalChangeEntryImpactForm is the generated section facade for the `impact` @Form section: its own
@@ -147168,12 +147204,12 @@ func (x *OrganizationalChangeEntryImpactForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *OrganizationalChangeEntryImpactForm) ImpactLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactLevel")
+func (x *OrganizationalChangeEntryImpactForm) ImpactLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "impactLevel"))
 }
 
-func (x *OrganizationalChangeEntryImpactForm) SetImpactLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "impactLevel", value)
+func (x *OrganizationalChangeEntryImpactForm) SetImpactLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "impactLevel", string(value))
 }
 
 func (x *OrganizationalChangeEntryImpactForm) AffectedRoles() string {
@@ -147632,12 +147668,12 @@ func (x *OrganizationalEnvironmentMaturityForm) SetDigitalMaturityLevel(value st
 	x.Doc().SetFormField(x.Path(), "digitalMaturityLevel", value)
 }
 
-func (x *OrganizationalEnvironmentMaturityForm) ChangeReadiness() string {
-	return x.Doc().FormFieldOr(x.Path(), "changeReadiness")
+func (x *OrganizationalEnvironmentMaturityForm) ChangeReadiness() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "changeReadiness"))
 }
 
-func (x *OrganizationalEnvironmentMaturityForm) SetChangeReadiness(value string) {
-	x.Doc().SetFormField(x.Path(), "changeReadiness", value)
+func (x *OrganizationalEnvironmentMaturityForm) SetChangeReadiness(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "changeReadiness", string(value))
 }
 
 func (x *OrganizationalEnvironmentMaturityForm) ProjectManagementMaturity() string {
@@ -147880,20 +147916,20 @@ func (x *OrganizationalRequirementEntryImpactForm) SetChangeType(value string) {
 	x.Doc().SetFormField(x.Path(), "changeType", value)
 }
 
-func (x *OrganizationalRequirementEntryImpactForm) ChangeComplexity() string {
-	return x.Doc().FormFieldOr(x.Path(), "changeComplexity")
+func (x *OrganizationalRequirementEntryImpactForm) ChangeComplexity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "changeComplexity"))
 }
 
-func (x *OrganizationalRequirementEntryImpactForm) SetChangeComplexity(value string) {
-	x.Doc().SetFormField(x.Path(), "changeComplexity", value)
+func (x *OrganizationalRequirementEntryImpactForm) SetChangeComplexity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "changeComplexity", string(value))
 }
 
-func (x *OrganizationalRequirementEntryImpactForm) Resistance() string {
-	return x.Doc().FormFieldOr(x.Path(), "resistance")
+func (x *OrganizationalRequirementEntryImpactForm) Resistance() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "resistance"))
 }
 
-func (x *OrganizationalRequirementEntryImpactForm) SetResistance(value string) {
-	x.Doc().SetFormField(x.Path(), "resistance", value)
+func (x *OrganizationalRequirementEntryImpactForm) SetResistance(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "resistance", string(value))
 }
 
 // OrganizationalRequirementEntryPlanningForm is the generated section facade for the `planning` @Form section: its own
@@ -149014,12 +149050,12 @@ func (x *PainPointEntryContentForm) SetPainPoint(value string) {
 	x.Doc().SetFormField(x.Path(), "painPoint", value)
 }
 
-func (x *PainPointEntryContentForm) Severity() string {
-	return x.Doc().FormFieldOr(x.Path(), "severity")
+func (x *PainPointEntryContentForm) Severity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "severity"))
 }
 
-func (x *PainPointEntryContentForm) SetSeverity(value string) {
-	x.Doc().SetFormField(x.Path(), "severity", value)
+func (x *PainPointEntryContentForm) SetSeverity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "severity", string(value))
 }
 
 // PainPointEntryEvidenceForm is the generated section facade for the `evidence` @Form section: its own
@@ -150742,12 +150778,12 @@ func (x *PersonaGoalEntryContentForm) SetGoal(value string) {
 	x.Doc().SetFormField(x.Path(), "goal", value)
 }
 
-func (x *PersonaGoalEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *PersonaGoalEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *PersonaGoalEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *PersonaGoalEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *PersonaGoalEntryContentForm) Frequency() string {
@@ -150808,12 +150844,12 @@ func (x *PersonaPainPointEntryContentForm) SetPainPoint(value string) {
 	x.Doc().SetFormField(x.Path(), "painPoint", value)
 }
 
-func (x *PersonaPainPointEntryContentForm) Severity() string {
-	return x.Doc().FormFieldOr(x.Path(), "severity")
+func (x *PersonaPainPointEntryContentForm) Severity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "severity"))
 }
 
-func (x *PersonaPainPointEntryContentForm) SetSeverity(value string) {
-	x.Doc().SetFormField(x.Path(), "severity", value)
+func (x *PersonaPainPointEntryContentForm) SetSeverity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "severity", string(value))
 }
 
 func (x *PersonaPainPointEntryContentForm) Frequency() string {
@@ -153931,12 +153967,12 @@ func (x *ProblemStatementProblemDetailsForm) SetImpactDescription(value string) 
 	x.Doc().SetFormField(x.Path(), "impactDescription", value)
 }
 
-func (x *ProblemStatementProblemDetailsForm) ImpactSeverity() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactSeverity")
+func (x *ProblemStatementProblemDetailsForm) ImpactSeverity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "impactSeverity"))
 }
 
-func (x *ProblemStatementProblemDetailsForm) SetImpactSeverity(value string) {
-	x.Doc().SetFormField(x.Path(), "impactSeverity", value)
+func (x *ProblemStatementProblemDetailsForm) SetImpactSeverity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "impactSeverity", string(value))
 }
 
 func (x *ProblemStatementProblemDetailsForm) ImpactMetrics() string {
@@ -154337,12 +154373,12 @@ func (x *ProcessAdjustmentEntryRiskForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ProcessAdjustmentEntryRiskForm) RiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskLevel")
+func (x *ProcessAdjustmentEntryRiskForm) RiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskLevel"))
 }
 
-func (x *ProcessAdjustmentEntryRiskForm) SetRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "riskLevel", value)
+func (x *ProcessAdjustmentEntryRiskForm) SetRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskLevel", string(value))
 }
 
 func (x *ProcessAdjustmentEntryRiskForm) RiskDescription() string {
@@ -154547,12 +154583,12 @@ func (x *ProcessAdjustmentsAdjustmentSummaryForm) SetParallelizedStepsCount(valu
 	x.Doc().SetFormField(x.Path(), "parallelizedStepsCount", strconv.Itoa(*value))
 }
 
-func (x *ProcessAdjustmentsAdjustmentSummaryForm) ProcessRiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "processRiskLevel")
+func (x *ProcessAdjustmentsAdjustmentSummaryForm) ProcessRiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "processRiskLevel"))
 }
 
-func (x *ProcessAdjustmentsAdjustmentSummaryForm) SetProcessRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "processRiskLevel", value)
+func (x *ProcessAdjustmentsAdjustmentSummaryForm) SetProcessRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "processRiskLevel", string(value))
 }
 
 func (x *ProcessAdjustmentsAdjustmentSummaryForm) ProcessEfficiencyImpact() string {
@@ -155341,12 +155377,12 @@ func (x *ProcessDesignPrincipleEntryContentForm) SetTradeoffs(value string) {
 	x.Doc().SetFormField(x.Path(), "tradeoffs", value)
 }
 
-func (x *ProcessDesignPrincipleEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *ProcessDesignPrincipleEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *ProcessDesignPrincipleEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *ProcessDesignPrincipleEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *ProcessDesignPrincipleEntryContentForm) Applicability() string {
@@ -158614,12 +158650,12 @@ func (x *ProjectOrganizationAndProcessDeviationSummaryForm) SetTotalProcessAdjus
 	x.Doc().SetFormField(x.Path(), "totalProcessAdjustments", strconv.Itoa(*value))
 }
 
-func (x *ProjectOrganizationAndProcessDeviationSummaryForm) DeviationRiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "deviationRiskLevel")
+func (x *ProjectOrganizationAndProcessDeviationSummaryForm) DeviationRiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "deviationRiskLevel"))
 }
 
-func (x *ProjectOrganizationAndProcessDeviationSummaryForm) SetDeviationRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "deviationRiskLevel", value)
+func (x *ProjectOrganizationAndProcessDeviationSummaryForm) SetDeviationRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "deviationRiskLevel", string(value))
 }
 
 func (x *ProjectOrganizationAndProcessDeviationSummaryForm) DeviationApprovalAuthority() string {
@@ -158986,12 +159022,12 @@ func (x *PrototypeFeatureEntryContentForm) SetInclusionReason(value string) {
 	x.Doc().SetFormField(x.Path(), "inclusionReason", value)
 }
 
-func (x *PrototypeFeatureEntryContentForm) FidelityLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "fidelityLevel")
+func (x *PrototypeFeatureEntryContentForm) FidelityLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "fidelityLevel"))
 }
 
-func (x *PrototypeFeatureEntryContentForm) SetFidelityLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "fidelityLevel", value)
+func (x *PrototypeFeatureEntryContentForm) SetFidelityLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "fidelityLevel", string(value))
 }
 
 func (x *PrototypeFeatureEntryContentForm) CompletenessLevel() string {
@@ -159110,12 +159146,12 @@ func (x *PrototypeFeatureSubsetFidelityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *PrototypeFeatureSubsetFidelityForm) PrototypeFidelity() string {
-	return x.Doc().FormFieldOr(x.Path(), "prototypeFidelity")
+func (x *PrototypeFeatureSubsetFidelityForm) PrototypeFidelity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "prototypeFidelity"))
 }
 
-func (x *PrototypeFeatureSubsetFidelityForm) SetPrototypeFidelity(value string) {
-	x.Doc().SetFormField(x.Path(), "prototypeFidelity", value)
+func (x *PrototypeFeatureSubsetFidelityForm) SetPrototypeFidelity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "prototypeFidelity", string(value))
 }
 
 func (x *PrototypeFeatureSubsetFidelityForm) InteractiveFidelity() string {
@@ -160185,12 +160221,12 @@ func (x *QualityCategoryEntryDefinitionForm) SetCategoryScope(value string) {
 	x.Doc().SetFormField(x.Path(), "categoryScope", value)
 }
 
-func (x *QualityCategoryEntryDefinitionForm) CategoryPriority() string {
-	return x.Doc().FormFieldOr(x.Path(), "categoryPriority")
+func (x *QualityCategoryEntryDefinitionForm) CategoryPriority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "categoryPriority"))
 }
 
-func (x *QualityCategoryEntryDefinitionForm) SetCategoryPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "categoryPriority", value)
+func (x *QualityCategoryEntryDefinitionForm) SetCategoryPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "categoryPriority", string(value))
 }
 
 func (x *QualityCategoryEntryDefinitionForm) CategoryRationale() string {
@@ -160791,12 +160827,12 @@ func (x *QualityGateAdjustmentEntryImpactForm) SetQualityImpact(value string) {
 	x.Doc().SetFormField(x.Path(), "qualityImpact", value)
 }
 
-func (x *QualityGateAdjustmentEntryImpactForm) RiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskLevel")
+func (x *QualityGateAdjustmentEntryImpactForm) RiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskLevel"))
 }
 
-func (x *QualityGateAdjustmentEntryImpactForm) SetRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "riskLevel", value)
+func (x *QualityGateAdjustmentEntryImpactForm) SetRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskLevel", string(value))
 }
 
 func (x *QualityGateAdjustmentEntryImpactForm) RiskDescription() string {
@@ -161007,12 +161043,12 @@ func (x *QualityGateAdjustmentsAdjustmentSummaryForm) SetModifiedCriteriaCount(v
 	x.Doc().SetFormField(x.Path(), "modifiedCriteriaCount", strconv.Itoa(*value))
 }
 
-func (x *QualityGateAdjustmentsAdjustmentSummaryForm) QualityRiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityRiskLevel")
+func (x *QualityGateAdjustmentsAdjustmentSummaryForm) QualityRiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "qualityRiskLevel"))
 }
 
-func (x *QualityGateAdjustmentsAdjustmentSummaryForm) SetQualityRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityRiskLevel", value)
+func (x *QualityGateAdjustmentsAdjustmentSummaryForm) SetQualityRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "qualityRiskLevel", string(value))
 }
 
 func (x *QualityGateAdjustmentsAdjustmentSummaryForm) CompensatingControls() string {
@@ -161915,12 +161951,12 @@ func (x *QualityWeightEntryContentForm) SetWeight(value *int) {
 	x.Doc().SetFormField(x.Path(), "weight", strconv.Itoa(*value))
 }
 
-func (x *QualityWeightEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *QualityWeightEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *QualityWeightEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *QualityWeightEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *QualityWeightEntryContentForm) Rationale() string {
@@ -168565,12 +168601,12 @@ func (x *RequirementTestCaseEntryAutomationForm) SetAutomationScript(value strin
 	x.Doc().SetFormField(x.Path(), "automationScript", value)
 }
 
-func (x *RequirementTestCaseEntryAutomationForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *RequirementTestCaseEntryAutomationForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *RequirementTestCaseEntryAutomationForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *RequirementTestCaseEntryAutomationForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // RequirementTestCaseEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -169477,12 +169513,12 @@ func (x *ResourceRequirementEntryContentForm) SetRequiredBy(value string) {
 	x.Doc().SetFormField(x.Path(), "requiredBy", value)
 }
 
-func (x *ResourceRequirementEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *ResourceRequirementEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *ResourceRequirementEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *ResourceRequirementEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *ResourceRequirementEntryContentForm) Status() string {
@@ -169551,12 +169587,12 @@ func (x *ResponsibilityChangeEntryContentForm) SetReason(value string) {
 	x.Doc().SetFormField(x.Path(), "reason", value)
 }
 
-func (x *ResponsibilityChangeEntryContentForm) ImpactLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactLevel")
+func (x *ResponsibilityChangeEntryContentForm) ImpactLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "impactLevel"))
 }
 
-func (x *ResponsibilityChangeEntryContentForm) SetImpactLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "impactLevel", value)
+func (x *ResponsibilityChangeEntryContentForm) SetImpactLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "impactLevel", string(value))
 }
 
 func (x *ResponsibilityChangeEntryContentForm) TrainingNeeded() string {
@@ -169979,12 +170015,12 @@ func (x *ResponsibilityFunctionDetailsContentForm) SetFunctionScope(value string
 	x.Doc().SetFormField(x.Path(), "functionScope", value)
 }
 
-func (x *ResponsibilityFunctionDetailsContentForm) BusinessCriticality() string {
-	return x.Doc().FormFieldOr(x.Path(), "businessCriticality")
+func (x *ResponsibilityFunctionDetailsContentForm) BusinessCriticality() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "businessCriticality"))
 }
 
-func (x *ResponsibilityFunctionDetailsContentForm) SetBusinessCriticality(value string) {
-	x.Doc().SetFormField(x.Path(), "businessCriticality", value)
+func (x *ResponsibilityFunctionDetailsContentForm) SetBusinessCriticality(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "businessCriticality", string(value))
 }
 
 // ResponsibilityReferenceEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -170037,12 +170073,12 @@ func (x *ResponsibilityReferenceEntryContentForm) SetScope(value string) {
 	x.Doc().SetFormField(x.Path(), "scope", value)
 }
 
-func (x *ResponsibilityReferenceEntryContentForm) CriticalityLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticalityLevel")
+func (x *ResponsibilityReferenceEntryContentForm) CriticalityLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "criticalityLevel"))
 }
 
-func (x *ResponsibilityReferenceEntryContentForm) SetCriticalityLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "criticalityLevel", value)
+func (x *ResponsibilityReferenceEntryContentForm) SetCriticalityLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "criticalityLevel", string(value))
 }
 
 // ResponsibilitySystemsContentForm is the generated section facade for the `content` @Form section: its own
@@ -171756,12 +171792,12 @@ func (x *ReuseGoalEntryGovernanceForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ReuseGoalEntryGovernanceForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *ReuseGoalEntryGovernanceForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *ReuseGoalEntryGovernanceForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *ReuseGoalEntryGovernanceForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *ReuseGoalEntryGovernanceForm) TargetDate() string {
@@ -172370,12 +172406,12 @@ func (x *RiskEntryAnalysisForm) SetRiskScore(value *float64) {
 	x.Doc().SetFormField(x.Path(), "riskScore", strconv.FormatFloat(*value, 'g', -1, 64))
 }
 
-func (x *RiskEntryAnalysisForm) RiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskLevel")
+func (x *RiskEntryAnalysisForm) RiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskLevel"))
 }
 
-func (x *RiskEntryAnalysisForm) SetRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "riskLevel", value)
+func (x *RiskEntryAnalysisForm) SetRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskLevel", string(value))
 }
 
 func (x *RiskEntryAnalysisForm) RiskRanking() *int {
@@ -173015,12 +173051,12 @@ func (x *RiskResponseImplementationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *RiskResponseImplementationForm) ResponseEffectiveness() string {
-	return x.Doc().FormFieldOr(x.Path(), "responseEffectiveness")
+func (x *RiskResponseImplementationForm) ResponseEffectiveness() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "responseEffectiveness"))
 }
 
-func (x *RiskResponseImplementationForm) SetResponseEffectiveness(value string) {
-	x.Doc().SetFormField(x.Path(), "responseEffectiveness", value)
+func (x *RiskResponseImplementationForm) SetResponseEffectiveness(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "responseEffectiveness", string(value))
 }
 
 func (x *RiskResponseImplementationForm) ImplementationCost() string {
@@ -173495,12 +173531,12 @@ func (x *RoleAdjustmentEntryRiskForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *RoleAdjustmentEntryRiskForm) RiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskLevel")
+func (x *RoleAdjustmentEntryRiskForm) RiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskLevel"))
 }
 
-func (x *RoleAdjustmentEntryRiskForm) SetRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "riskLevel", value)
+func (x *RoleAdjustmentEntryRiskForm) SetRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskLevel", string(value))
 }
 
 func (x *RoleAdjustmentEntryRiskForm) RiskDescription() string {
@@ -173673,12 +173709,12 @@ func (x *RoleAdjustmentsAdjustmentSummaryForm) SetRaciMatrixCompliance(value str
 	x.Doc().SetFormField(x.Path(), "raciMatrixCompliance", value)
 }
 
-func (x *RoleAdjustmentsAdjustmentSummaryForm) GovernanceImpact() string {
-	return x.Doc().FormFieldOr(x.Path(), "governanceImpact")
+func (x *RoleAdjustmentsAdjustmentSummaryForm) GovernanceImpact() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "governanceImpact"))
 }
 
-func (x *RoleAdjustmentsAdjustmentSummaryForm) SetGovernanceImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "governanceImpact", value)
+func (x *RoleAdjustmentsAdjustmentSummaryForm) SetGovernanceImpact(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "governanceImpact", string(value))
 }
 
 // RoleCombinationConstraintEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -174860,12 +174896,12 @@ func (x *RuntimeDependencyEntryClassificationForm) SetVersionConstraint(value st
 	x.Doc().SetFormField(x.Path(), "versionConstraint", value)
 }
 
-func (x *RuntimeDependencyEntryClassificationForm) Criticality() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticality")
+func (x *RuntimeDependencyEntryClassificationForm) Criticality() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "criticality"))
 }
 
-func (x *RuntimeDependencyEntryClassificationForm) SetCriticality(value string) {
-	x.Doc().SetFormField(x.Path(), "criticality", value)
+func (x *RuntimeDependencyEntryClassificationForm) SetCriticality(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "criticality", string(value))
 }
 
 func (x *RuntimeDependencyEntryClassificationForm) Purpose() string {
@@ -176615,12 +176651,12 @@ func (x *ScenarioEntryIdentificationForm) SetSupportingActors(value string) {
 	x.Doc().SetFormField(x.Path(), "supportingActors", value)
 }
 
-func (x *ScenarioEntryIdentificationForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *ScenarioEntryIdentificationForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *ScenarioEntryIdentificationForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *ScenarioEntryIdentificationForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *ScenarioEntryIdentificationForm) Complexity() string {
@@ -182256,12 +182292,12 @@ func (x *SecurityRequirementEntryClassificationForm) SetSubcategory(value string
 	x.Doc().SetFormField(x.Path(), "subcategory", value)
 }
 
-func (x *SecurityRequirementEntryClassificationForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *SecurityRequirementEntryClassificationForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *SecurityRequirementEntryClassificationForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *SecurityRequirementEntryClassificationForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *SecurityRequirementEntryClassificationForm) Source() string {
@@ -186332,12 +186368,12 @@ func (x *SharedInfrastructureEntryResilienceForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SharedInfrastructureEntryResilienceForm) Criticality() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticality")
+func (x *SharedInfrastructureEntryResilienceForm) Criticality() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "criticality"))
 }
 
-func (x *SharedInfrastructureEntryResilienceForm) SetCriticality(value string) {
-	x.Doc().SetFormField(x.Path(), "criticality", value)
+func (x *SharedInfrastructureEntryResilienceForm) SetCriticality(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "criticality", string(value))
 }
 
 func (x *SharedInfrastructureEntryResilienceForm) SinglePointOfFailure() *bool {
@@ -188910,12 +188946,12 @@ func (x *StaffingEntryRecruitmentForm) SetTargetStartDate(value string) {
 	x.Doc().SetFormField(x.Path(), "targetStartDate", value)
 }
 
-func (x *StaffingEntryRecruitmentForm) Urgency() string {
-	return x.Doc().FormFieldOr(x.Path(), "urgency")
+func (x *StaffingEntryRecruitmentForm) Urgency() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "urgency"))
 }
 
-func (x *StaffingEntryRecruitmentForm) SetUrgency(value string) {
-	x.Doc().SetFormField(x.Path(), "urgency", value)
+func (x *StaffingEntryRecruitmentForm) SetUrgency(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "urgency", string(value))
 }
 
 // StaffingPlanOverviewForm is the generated section facade for the `overview` @Form section: its own
@@ -190746,12 +190782,12 @@ func (x *StageMigrationRisksContentForm) SetLastRiskReviewDate(value string) {
 	x.Doc().SetFormField(x.Path(), "lastRiskReviewDate", value)
 }
 
-func (x *StageMigrationRisksContentForm) OverallMigrationRiskRating() string {
-	return x.Doc().FormFieldOr(x.Path(), "overallMigrationRiskRating")
+func (x *StageMigrationRisksContentForm) OverallMigrationRiskRating() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "overallMigrationRiskRating"))
 }
 
-func (x *StageMigrationRisksContentForm) SetOverallMigrationRiskRating(value string) {
-	x.Doc().SetFormField(x.Path(), "overallMigrationRiskRating", value)
+func (x *StageMigrationRisksContentForm) SetOverallMigrationRiskRating(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "overallMigrationRiskRating", string(value))
 }
 
 // StageOverviewBaselineForm is the generated section facade for the `baseline` @Form section: its own
@@ -191446,28 +191482,28 @@ func (x *StageOverviewRiskForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *StageOverviewRiskForm) OverallScheduleRisk() string {
-	return x.Doc().FormFieldOr(x.Path(), "overallScheduleRisk")
+func (x *StageOverviewRiskForm) OverallScheduleRisk() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "overallScheduleRisk"))
 }
 
-func (x *StageOverviewRiskForm) SetOverallScheduleRisk(value string) {
-	x.Doc().SetFormField(x.Path(), "overallScheduleRisk", value)
+func (x *StageOverviewRiskForm) SetOverallScheduleRisk(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "overallScheduleRisk", string(value))
 }
 
-func (x *StageOverviewRiskForm) OverallBudgetRisk() string {
-	return x.Doc().FormFieldOr(x.Path(), "overallBudgetRisk")
+func (x *StageOverviewRiskForm) OverallBudgetRisk() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "overallBudgetRisk"))
 }
 
-func (x *StageOverviewRiskForm) SetOverallBudgetRisk(value string) {
-	x.Doc().SetFormField(x.Path(), "overallBudgetRisk", value)
+func (x *StageOverviewRiskForm) SetOverallBudgetRisk(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "overallBudgetRisk", string(value))
 }
 
-func (x *StageOverviewRiskForm) OverallScopeRisk() string {
-	return x.Doc().FormFieldOr(x.Path(), "overallScopeRisk")
+func (x *StageOverviewRiskForm) OverallScopeRisk() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "overallScopeRisk"))
 }
 
-func (x *StageOverviewRiskForm) SetOverallScopeRisk(value string) {
-	x.Doc().SetFormField(x.Path(), "overallScopeRisk", value)
+func (x *StageOverviewRiskForm) SetOverallScopeRisk(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "overallScopeRisk", string(value))
 }
 
 func (x *StageOverviewRiskForm) StageWithHighestRisk() string {
@@ -191650,12 +191686,12 @@ func (x *StageOverviewStatusForm) SetEarnedValueSPI(value string) {
 	x.Doc().SetFormField(x.Path(), "earnedValueSPI", value)
 }
 
-func (x *StageOverviewStatusForm) PlanConfidenceLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "planConfidenceLevel")
+func (x *StageOverviewStatusForm) PlanConfidenceLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "planConfidenceLevel"))
 }
 
-func (x *StageOverviewStatusForm) SetPlanConfidenceLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "planConfidenceLevel", value)
+func (x *StageOverviewStatusForm) SetPlanConfidenceLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "planConfidenceLevel", string(value))
 }
 
 func (x *StageOverviewStatusForm) ConfidenceBasis() string {
@@ -192096,12 +192132,12 @@ func (x *StageSummaryDependenciesContentForm) SetPrimaryRisk(value string) {
 	x.Doc().SetFormField(x.Path(), "primaryRisk", value)
 }
 
-func (x *StageSummaryDependenciesContentForm) RiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskLevel")
+func (x *StageSummaryDependenciesContentForm) RiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskLevel"))
 }
 
-func (x *StageSummaryDependenciesContentForm) SetRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "riskLevel", value)
+func (x *StageSummaryDependenciesContentForm) SetRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskLevel", string(value))
 }
 
 // StageSummaryEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -192858,12 +192894,12 @@ func (x *StagingStrategyContentForm) SetPrimaryRationale(value string) {
 	x.Doc().SetFormField(x.Path(), "primaryRationale", value)
 }
 
-func (x *StagingStrategyContentForm) OverallRiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "overallRiskLevel")
+func (x *StagingStrategyContentForm) OverallRiskLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "overallRiskLevel"))
 }
 
-func (x *StagingStrategyContentForm) SetOverallRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "overallRiskLevel", value)
+func (x *StagingStrategyContentForm) SetOverallRiskLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "overallRiskLevel", string(value))
 }
 
 // StagingStrategyCutoverForm is the generated section facade for the `cutover` @Form section: its own
@@ -193180,12 +193216,12 @@ func (x *StagingStrategyReadinessForm) SetOrganizationalReadinessFactors(value s
 	x.Doc().SetFormField(x.Path(), "organizationalReadinessFactors", value)
 }
 
-func (x *StagingStrategyReadinessForm) OrganizationalReadinessLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "organizationalReadinessLevel")
+func (x *StagingStrategyReadinessForm) OrganizationalReadinessLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "organizationalReadinessLevel"))
 }
 
-func (x *StagingStrategyReadinessForm) SetOrganizationalReadinessLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "organizationalReadinessLevel", value)
+func (x *StagingStrategyReadinessForm) SetOrganizationalReadinessLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "organizationalReadinessLevel", string(value))
 }
 
 func (x *StagingStrategyReadinessForm) ResourceConstraints() string {
@@ -193246,12 +193282,12 @@ func (x *StagingStrategyRiskAssessmentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *StagingStrategyRiskAssessmentForm) RiskTolerance() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskTolerance")
+func (x *StagingStrategyRiskAssessmentForm) RiskTolerance() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "riskTolerance"))
 }
 
-func (x *StagingStrategyRiskAssessmentForm) SetRiskTolerance(value string) {
-	x.Doc().SetFormField(x.Path(), "riskTolerance", value)
+func (x *StagingStrategyRiskAssessmentForm) SetRiskTolerance(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "riskTolerance", string(value))
 }
 
 func (x *StagingStrategyRiskAssessmentForm) DeploymentRiskFactors() string {
@@ -193436,12 +193472,12 @@ func (x *StakeholderRegisterEntryContentForm) SetInterest(value string) {
 	x.Doc().SetFormField(x.Path(), "interest", value)
 }
 
-func (x *StakeholderRegisterEntryContentForm) Influence() string {
-	return x.Doc().FormFieldOr(x.Path(), "influence")
+func (x *StakeholderRegisterEntryContentForm) Influence() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "influence"))
 }
 
-func (x *StakeholderRegisterEntryContentForm) SetInfluence(value string) {
-	x.Doc().SetFormField(x.Path(), "influence", value)
+func (x *StakeholderRegisterEntryContentForm) SetInfluence(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "influence", string(value))
 }
 
 func (x *StakeholderRegisterEntryContentForm) Concerns() string {
@@ -194680,12 +194716,12 @@ func (x *SuccessCriterionEntryImportanceForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SuccessCriterionEntryImportanceForm) Weight() string {
-	return x.Doc().FormFieldOr(x.Path(), "weight")
+func (x *SuccessCriterionEntryImportanceForm) Weight() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "weight"))
 }
 
-func (x *SuccessCriterionEntryImportanceForm) SetWeight(value string) {
-	x.Doc().SetFormField(x.Path(), "weight", value)
+func (x *SuccessCriterionEntryImportanceForm) SetWeight(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "weight", string(value))
 }
 
 func (x *SuccessCriterionEntryImportanceForm) IsMandatory() string {
@@ -196864,12 +196900,12 @@ func (x *SystemDependencyEntryMechanismForm) SetCouplingStrength(value string) {
 	x.Doc().SetFormField(x.Path(), "couplingStrength", value)
 }
 
-func (x *SystemDependencyEntryMechanismForm) Criticality() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticality")
+func (x *SystemDependencyEntryMechanismForm) Criticality() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "criticality"))
 }
 
-func (x *SystemDependencyEntryMechanismForm) SetCriticality(value string) {
-	x.Doc().SetFormField(x.Path(), "criticality", value)
+func (x *SystemDependencyEntryMechanismForm) SetCriticality(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "criticality", string(value))
 }
 
 // SystemDependencyEntryOperationsForm is the generated section facade for the `operations` @Form section: its own
@@ -198757,20 +198793,20 @@ func (x *SystemMigrationRiskEntryContentForm) SetRiskDescription(value string) {
 	x.Doc().SetFormField(x.Path(), "riskDescription", value)
 }
 
-func (x *SystemMigrationRiskEntryContentForm) Probability() string {
-	return x.Doc().FormFieldOr(x.Path(), "probability")
+func (x *SystemMigrationRiskEntryContentForm) Probability() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "probability"))
 }
 
-func (x *SystemMigrationRiskEntryContentForm) SetProbability(value string) {
-	x.Doc().SetFormField(x.Path(), "probability", value)
+func (x *SystemMigrationRiskEntryContentForm) SetProbability(value Probability) {
+	x.Doc().SetFormField(x.Path(), "probability", string(value))
 }
 
-func (x *SystemMigrationRiskEntryContentForm) Impact() string {
-	return x.Doc().FormFieldOr(x.Path(), "impact")
+func (x *SystemMigrationRiskEntryContentForm) Impact() Impact {
+	return parseImpact(x.Doc().FormFieldOr(x.Path(), "impact"))
 }
 
-func (x *SystemMigrationRiskEntryContentForm) SetImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "impact", value)
+func (x *SystemMigrationRiskEntryContentForm) SetImpact(value Impact) {
+	x.Doc().SetFormField(x.Path(), "impact", string(value))
 }
 
 func (x *SystemMigrationRiskEntryContentForm) RiskScore() string {
@@ -199379,12 +199415,12 @@ func (x *SystemStagePlanReadinessForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SystemStagePlanReadinessForm) OrganizationalReadinessLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "organizationalReadinessLevel")
+func (x *SystemStagePlanReadinessForm) OrganizationalReadinessLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "organizationalReadinessLevel"))
 }
 
-func (x *SystemStagePlanReadinessForm) SetOrganizationalReadinessLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "organizationalReadinessLevel", value)
+func (x *SystemStagePlanReadinessForm) SetOrganizationalReadinessLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "organizationalReadinessLevel", string(value))
 }
 
 func (x *SystemStagePlanReadinessForm) ChangeAbsorptionCapacity() string {
@@ -199395,12 +199431,12 @@ func (x *SystemStagePlanReadinessForm) SetChangeAbsorptionCapacity(value string)
 	x.Doc().SetFormField(x.Path(), "changeAbsorptionCapacity", value)
 }
 
-func (x *SystemStagePlanReadinessForm) ConfidenceLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "confidenceLevel")
+func (x *SystemStagePlanReadinessForm) ConfidenceLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "confidenceLevel"))
 }
 
-func (x *SystemStagePlanReadinessForm) SetConfidenceLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "confidenceLevel", value)
+func (x *SystemStagePlanReadinessForm) SetConfidenceLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "confidenceLevel", string(value))
 }
 
 func (x *SystemStagePlanReadinessForm) LastPlanReviewDate() string {
@@ -199987,12 +200023,12 @@ func (x *SystemTaskEntryExecutionForm) SetComplexity(value string) {
 	x.Doc().SetFormField(x.Path(), "complexity", value)
 }
 
-func (x *SystemTaskEntryExecutionForm) Importance() string {
-	return x.Doc().FormFieldOr(x.Path(), "importance")
+func (x *SystemTaskEntryExecutionForm) Importance() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "importance"))
 }
 
-func (x *SystemTaskEntryExecutionForm) SetImportance(value string) {
-	x.Doc().SetFormField(x.Path(), "importance", value)
+func (x *SystemTaskEntryExecutionForm) SetImportance(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "importance", string(value))
 }
 
 func (x *SystemTaskEntryExecutionForm) Trigger() string {
@@ -200207,12 +200243,12 @@ func (x *SystemTechnicalAssessmentQualityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SystemTechnicalAssessmentQualityForm) TechnicalDebtRating() string {
-	return x.Doc().FormFieldOr(x.Path(), "technicalDebtRating")
+func (x *SystemTechnicalAssessmentQualityForm) TechnicalDebtRating() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "technicalDebtRating"))
 }
 
-func (x *SystemTechnicalAssessmentQualityForm) SetTechnicalDebtRating(value string) {
-	x.Doc().SetFormField(x.Path(), "technicalDebtRating", value)
+func (x *SystemTechnicalAssessmentQualityForm) SetTechnicalDebtRating(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "technicalDebtRating", string(value))
 }
 
 func (x *SystemTechnicalAssessmentQualityForm) SecurityPosture() string {
@@ -202535,12 +202571,12 @@ func (x *TechnicalGoalEntryContentForm) SetGoalCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "goalCategory", value)
 }
 
-func (x *TechnicalGoalEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *TechnicalGoalEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *TechnicalGoalEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *TechnicalGoalEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // TechnicalGoalEntryGovernanceForm is the generated section facade for the `governance` @Form section: its own
@@ -203165,12 +203201,12 @@ func (x *TechnicalPainPointsCategorySummaryForm) SetUndocumentedSystems(value *i
 	x.Doc().SetFormField(x.Path(), "undocumentedSystems", strconv.Itoa(*value))
 }
 
-func (x *TechnicalPainPointsCategorySummaryForm) VendorLockInRisk() string {
-	return x.Doc().FormFieldOr(x.Path(), "vendorLockInRisk")
+func (x *TechnicalPainPointsCategorySummaryForm) VendorLockInRisk() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "vendorLockInRisk"))
 }
 
-func (x *TechnicalPainPointsCategorySummaryForm) SetVendorLockInRisk(value string) {
-	x.Doc().SetFormField(x.Path(), "vendorLockInRisk", value)
+func (x *TechnicalPainPointsCategorySummaryForm) SetVendorLockInRisk(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "vendorLockInRisk", string(value))
 }
 
 func (x *TechnicalPainPointsCategorySummaryForm) IntegrationComplexityScore() string {
@@ -203307,12 +203343,12 @@ func (x *TechnicalRequirementEntryDetailsForm) SetSubcategory(value string) {
 	x.Doc().SetFormField(x.Path(), "subcategory", value)
 }
 
-func (x *TechnicalRequirementEntryDetailsForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *TechnicalRequirementEntryDetailsForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *TechnicalRequirementEntryDetailsForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *TechnicalRequirementEntryDetailsForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *TechnicalRequirementEntryDetailsForm) Source() string {
@@ -204158,12 +204194,12 @@ func (x *TestScenarioEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *TestScenarioEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *TestScenarioEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *TestScenarioEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *TestScenarioEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // TestScenarioEntryExecutionForm is the generated section facade for the `execution` @Form section: its own
@@ -207315,12 +207351,12 @@ func (x *ToolEntryLifecycleForm) SetVendorRoadmapAlignment(value string) {
 	x.Doc().SetFormField(x.Path(), "vendorRoadmapAlignment", value)
 }
 
-func (x *ToolEntryLifecycleForm) EndOfLifeRisk() string {
-	return x.Doc().FormFieldOr(x.Path(), "endOfLifeRisk")
+func (x *ToolEntryLifecycleForm) EndOfLifeRisk() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "endOfLifeRisk"))
 }
 
-func (x *ToolEntryLifecycleForm) SetEndOfLifeRisk(value string) {
-	x.Doc().SetFormField(x.Path(), "endOfLifeRisk", value)
+func (x *ToolEntryLifecycleForm) SetEndOfLifeRisk(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "endOfLifeRisk", string(value))
 }
 
 // ToolEntrySecurityForm is the generated section facade for the `security` @Form section: its own
@@ -210001,12 +210037,12 @@ func (x *TransitionMilestoneEntryDependenciesForm) SetDependsOnMilestones(value 
 	x.Doc().SetFormField(x.Path(), "dependsOnMilestones", value)
 }
 
-func (x *TransitionMilestoneEntryDependenciesForm) Criticality() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticality")
+func (x *TransitionMilestoneEntryDependenciesForm) Criticality() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "criticality"))
 }
 
-func (x *TransitionMilestoneEntryDependenciesForm) SetCriticality(value string) {
-	x.Doc().SetFormField(x.Path(), "criticality", value)
+func (x *TransitionMilestoneEntryDependenciesForm) SetCriticality(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "criticality", string(value))
 }
 
 // TransitionMilestoneEntryGovernanceForm is the generated section facade for the `governance` @Form section: its own
@@ -210677,20 +210713,20 @@ func (x *TransitionRiskEntryAssessmentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *TransitionRiskEntryAssessmentForm) Probability() string {
-	return x.Doc().FormFieldOr(x.Path(), "probability")
+func (x *TransitionRiskEntryAssessmentForm) Probability() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "probability"))
 }
 
-func (x *TransitionRiskEntryAssessmentForm) SetProbability(value string) {
-	x.Doc().SetFormField(x.Path(), "probability", value)
+func (x *TransitionRiskEntryAssessmentForm) SetProbability(value Probability) {
+	x.Doc().SetFormField(x.Path(), "probability", string(value))
 }
 
-func (x *TransitionRiskEntryAssessmentForm) Impact() string {
-	return x.Doc().FormFieldOr(x.Path(), "impact")
+func (x *TransitionRiskEntryAssessmentForm) Impact() Impact {
+	return parseImpact(x.Doc().FormFieldOr(x.Path(), "impact"))
 }
 
-func (x *TransitionRiskEntryAssessmentForm) SetImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "impact", value)
+func (x *TransitionRiskEntryAssessmentForm) SetImpact(value Impact) {
+	x.Doc().SetFormField(x.Path(), "impact", string(value))
 }
 
 func (x *TransitionRiskEntryAssessmentForm) AffectedPhases() string {
@@ -215382,12 +215418,12 @@ func (x *UserCategoryEntryImportanceForm) SetCriticality(value string) {
 	x.Doc().SetFormField(x.Path(), "criticality", value)
 }
 
-func (x *UserCategoryEntryImportanceForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *UserCategoryEntryImportanceForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *UserCategoryEntryImportanceForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *UserCategoryEntryImportanceForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // UserCategoryEntryRoleForm is the generated section facade for the `role` @Form section: its own
@@ -215865,12 +215901,12 @@ func (x *UserGroupImpactEntryContentForm) SetUserCount(value *int) {
 	x.Doc().SetFormField(x.Path(), "userCount", strconv.Itoa(*value))
 }
 
-func (x *UserGroupImpactEntryContentForm) ImpactLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactLevel")
+func (x *UserGroupImpactEntryContentForm) ImpactLevel() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "impactLevel"))
 }
 
-func (x *UserGroupImpactEntryContentForm) SetImpactLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "impactLevel", value)
+func (x *UserGroupImpactEntryContentForm) SetImpactLevel(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "impactLevel", string(value))
 }
 
 func (x *UserGroupImpactEntryContentForm) SpecialConsiderations() string {

@@ -7,6 +7,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
+import '../common/enums.dart';
 
 /// 1. Current Landscape. Seeds → CLA.
 ///
@@ -687,10 +688,9 @@ class ExistingSystemEntry extends DocSpecsSection {
   @Form([
     Field(
       'technicalDebtLevel',
-      String,
-      'Technical Debt Level '
-          '(Low, Medium, High, Critical)',
-      hint: 'Accumulated technical debt: Low, Medium, High, or Critical.',
+      ImportanceBand,
+      'Technical Debt Level',
+      hint: 'Qualitative band for the accumulated technical debt.',
     ),
     Field(
       'codeQuality',
@@ -959,9 +959,9 @@ class ExternalServiceDependencyEntry extends DocSpecsSection {
     ),
     Field(
       'criticality',
-      String,
+      ImportanceBand,
       'Criticality',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative criticality band.',
     ),
     Field(
       'contractStatus',
@@ -1182,9 +1182,9 @@ class SharedInfrastructureEntry extends DocSpecsSection {
   @Form([
     Field(
       'criticality',
-      String,
+      ImportanceBand,
       'Criticality',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative criticality band.',
     ),
     Field('singlePointOfFailure', bool, 'Is Single Point of Failure'),
     Field(
@@ -1417,9 +1417,9 @@ class SystemDependencyEntry extends DocSpecsSection {
     ),
     Field(
       'criticality',
-      String,
+      ImportanceBand,
       'Criticality',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative criticality band.',
     ),
   ])
   @SerializationOrder(1)
@@ -2303,8 +2303,9 @@ class CurrentProcessImprovementEntry extends DocSpecsSection {
     Field('estimatedBenefit', String, 'Estimated Benefit'),
     Field(
       'implementationEffort',
-      String,
-      'Implementation Effort (Low/Medium/High)',
+      ImportanceBand,
+      'Implementation Effort',
+      hint: 'Qualitative implementation effort band.',
     ),
     Field('priority', String, 'Priority (Must-have/Should-have/Nice-to-have)'),
   ])
@@ -3135,9 +3136,9 @@ class MetricsDashboardSummary extends DocSpecsSection {
     ),
     Field(
       'dataQuality',
-      String,
+      ImportanceBand,
       'Data Quality Assessment',
-      hint: 'High / Medium / Low - confidence in metric accuracy',
+      hint: 'Confidence in metric accuracy.',
     ),
     Field(
       'keyThroughput',
@@ -3783,9 +3784,9 @@ integration complexity, and team capability constraints.
     ),
     Field(
       'vendorLockInRisk',
-      String,
+      ImportanceBand,
       'Vendor Lock-in Risk Level',
-      hint: 'Low / Medium / High — based on proprietary dependencies',
+      hint: 'Based on proprietary dependencies.',
     ),
     Field(
       'integrationComplexityScore',
@@ -3835,9 +3836,9 @@ class PainPointEntry extends DocSpecsSection {
     ),
     Field(
       'severity',
-      String,
+      ImportanceBand,
       'Severity',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative severity band.',
     ),
   ])
   @override
@@ -4274,9 +4275,9 @@ class GapEntry extends DocSpecsSection {
     ),
     Field(
       'severity',
-      String,
+      ImportanceBand,
       'Severity',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative severity band.',
     ),
   ])
   @override
@@ -4552,9 +4553,9 @@ to the organization. Highlight critical data dependencies and risks.
     ),
     Field(
       'dataSecurityRiskLevel',
-      String,
+      ImportanceBand,
       'Data Security Risk Level',
-      hint: 'Low / Medium / High / Critical',
+      hint: 'Qualitative data security risk band.',
     ),
     Field(
       'averageDataAge',
@@ -4681,9 +4682,9 @@ class DataSourceEntry extends DocSpecsSection {
     ),
     Field(
       'criticality',
-      String,
+      ImportanceBand,
       'Business Criticality',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative business criticality band.',
     ),
   ])
   @override
@@ -5255,9 +5256,9 @@ class DataQualityIssueEntry extends DocSpecsSection {
     ),
     Field(
       'severity',
-      String,
+      ImportanceBand,
       'Severity',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative severity band.',
     ),
   ])
   @SerializationOrder(1)
@@ -5446,9 +5447,9 @@ of duplication, its causes, impacts, and any ongoing deduplication efforts.
     ),
     Field(
       'dataInconsistencyRisk',
-      String,
+      ImportanceBand,
       'Data Inconsistency Risk',
-      hint: 'Low / Medium / High / Critical',
+      hint: 'Qualitative data inconsistency risk band.',
     ),
     Field(
       'consolidationOpportunities',
@@ -7029,9 +7030,9 @@ class DataIntegrationEntry extends DocSpecsSection {
     ),
     Field(
       'criticality',
-      String,
+      ImportanceBand,
       'Business Criticality',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative business criticality band.',
     ),
     Field(
       'knownIssues',

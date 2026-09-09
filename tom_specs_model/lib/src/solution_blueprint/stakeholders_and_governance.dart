@@ -11,6 +11,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import 'governance_administration.dart';
 import 'project_process_adjustments.dart';
+import '../common/enums.dart';
 
 /// SBP.4 Stakeholders & Governance.
 @StandardReferences(
@@ -161,7 +162,12 @@ class StakeholderRegisterEntry extends DocSpecsSection {
   @Form([
     Field('role', String, 'Role', required: true),
     Field('interest', String, 'Interest (what they care about)'),
-    Field('influence', String, 'Influence (High, Medium, Low)'),
+    Field(
+      'influence',
+      ImportanceBand,
+      'Influence',
+      hint: 'Qualitative influence band.',
+    ),
     Field('concerns', String, 'Concerns'),
     Field('engagementStrategy', String, 'Engagement Strategy'),
   ])

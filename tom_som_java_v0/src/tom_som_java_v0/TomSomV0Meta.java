@@ -263,7 +263,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("and", "String", "And (additional outcomes)", false, "Any additional expected outcomes", 3),
             new SomFormFieldMeta("verificationMethod", "String", "Verification Method (Manual, Automated, Inspection, Demo)", false, "Manual, Automated, Inspection, or Demo", 4),
             new SomFormFieldMeta("testType", "String", "Test Type (Unit, Integration, System, Acceptance, UAT)", false, "Unit, Integration, System, Acceptance, or UAT", 5),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", false, "Critical, High, Medium, or Low", 6),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 6, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("status", "String", "Status (Draft, Ready, Passed, Failed, Blocked)", false, "Draft, Ready, Passed, Failed, or Blocked", 7)));
         out.add(n);
       }
@@ -2617,10 +2617,10 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("departmentHead", "String", "Department Head", false, "Person leading the department", 0),
             new SomFormFieldMeta("employeeCount", "int", "Employee Count", false, "Number of employees in the department", 1),
-            new SomFormFieldMeta("impactLevel", "String", "Impact Level (High, Medium, Low)", false, "Degree to which the project affects this department", 2),
+            new SomFormFieldMeta("impactLevel", "ImportanceBand", "Impact Level", false, "Degree to which the project affects this department.", 2, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("roleInProject", "String", "Role (Sponsor, User, Data Owner, Operations, Support)", false, "How this department participates in the project", 3),
             new SomFormFieldMeta("currentSystems", "String", "Current Systems Used", false, "Existing systems the department relies on", 4),
-            new SomFormFieldMeta("changeReadiness", "String", "Change Readiness (High, Medium, Low)", false, "Department capacity and appetite for change", 5),
+            new SomFormFieldMeta("changeReadiness", "ImportanceBand", "Change Readiness", false, "Department capacity and appetite for change.", 5, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("keyContacts", "String", "Key Contacts", false, "Primary contacts within the department", 6),
             new SomFormFieldMeta("specialConsiderations", "String", "Special Considerations", false, "Any constraints or special factors to note", 7)));
         out.add(n);
@@ -6108,7 +6108,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("replayResistant", "String", "Replay Resistant", false, "Yes | No — whether this method resists replay attacks", 2),
             new SomFormFieldMeta("hardwareRequirement", "String", "Hardware Requirement", false, "None | SecurityKey | SmartCard | TPM | HSM — required hardware", 3),
             new SomFormFieldMeta("fipsValidationLevel", "String", "FIPS Validation Level", false, "None | Level1 | Level2 | Level3 — FIPS 140 validation level if applicable", 4),
-            new SomFormFieldMeta("securityLevel", "String", "Security Level", false, "Low | Medium | High | Critical — overall security classification", 5)));
+            new SomFormFieldMeta("securityLevel", "ImportanceBand", "Security Level", false, "Overall security classification.", 5, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("NIST SP 800-63B — authentication and authenticator lifecycle", "ISO/IEC 29115 — entity authentication assurance framework", "OWASP ASVS V2 — authentication verification requirements"), "connotation", "Describes the security posture of an authentication method including assurance level and phishing resistance.")));
         out.add(n);
       }
@@ -6746,7 +6746,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Risk and activation controls.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("riskLevel", "String", "Risk Level", false, "Critical | High | Medium | Low — privilege risk classification for access review prioritization", 0),
+            new SomFormFieldMeta("riskLevel", "ImportanceBand", "Risk Level", false, "Privilege risk classification for access review prioritization.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("maxHolders", "int", "Maximum Holders", false, "Maximum number of users who can hold this role concurrently; 0 = unlimited", 1),
             new SomFormFieldMeta("activationType", "String", "Activation Type", false, "AlwaysActive | OnDemand | TimeLimited | Scheduled — whether the role is permanently active or requires activation", 2),
             new SomFormFieldMeta("activationDuration", "String", "Activation Duration", false, "Maximum duration for on-demand or time-limited activation (e.g. 8h, 24h, 7d)", 3),
@@ -7555,7 +7555,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataScope", "String", "Data Scope", false, "What this policy covers", 0),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, High, Medium, Low", 1)));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 1, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       {
@@ -8224,7 +8224,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("validationMethod", "String", "Validation Method", false, "How the assumption will be checked", 2),
             new SomFormFieldMeta("validationDate", "String", "Target Validation Date", false, "When validation is expected to be completed", 3),
             new SomFormFieldMeta("validationStatus", "String", "Status (Not Validated, Validated, Invalidated)", false, "Current validation state of the assumption", 4),
-            new SomFormFieldMeta("confidence", "String", "Confidence Level (High, Medium, Low)", false, "How confident the team is the assumption holds", 5)));
+            new SomFormFieldMeta("confidence", "ImportanceBand", "Confidence Level", false, "How confident the team is the assumption holds.", 5, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK — scope management & assumption log", "BABOK v3 — requirements scope & constraints"), "connotation", "Records who owns an assumption and how and when it will be validated to confirm it holds.")));
         out.add(n);
       }
@@ -8236,7 +8236,7 @@ public final class TomSomV0Meta {
         n.docComment = "Risk framing and contingency planning.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskIfWrong", "String", "Risk if Wrong", false, "What happens if the assumption proves false", 0),
-            new SomFormFieldMeta("riskImpact", "String", "Impact Level (High, Medium, Low)", false, "Severity of the impact if the assumption fails", 1),
+            new SomFormFieldMeta("riskImpact", "ImportanceBand", "Impact Level", false, "Severity of the impact if the assumption fails.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("contingencyPlan", "String", "Contingency Plan", false, "Planned response if the assumption is invalidated", 2),
             new SomFormFieldMeta("relatedRiskId", "String", "Related Risk ID", false, "The linked risk register entry — a risk section id (RISENT-KEYR-…)", 3, java.util.List.of(), java.util.List.of("RISENT.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000 — risk management (assumption risk)", "PMBOK — scope management & assumption log"), "connotation", "Captures the consequences if an assumption proves false and the contingency plan to address it.")));
@@ -9319,7 +9319,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description (detailed explanation of what this goal means)", false, "Detailed explanation of what this goal means", 0),
             new SomFormFieldMeta("goalType", "String", "Goal Type (Revenue, Cost Reduction, Efficiency, Quality, Compliance, Growth, Customer Satisfaction, Market Position, Innovation)", false, "e.g., Revenue, Cost Reduction, Quality, Compliance, Growth", 1),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", true, "Critical, High, Medium, or Low", 2)));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", true, "Qualitative priority band.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §6.1 — business goals & objectives", "ISO/IEC/IEEE 29148 §6 — business need"), "connotation", "Captures the detailed meaning, type, and priority of a single business goal.")));
         out.add(n);
       }
@@ -16401,7 +16401,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("replacementDifficulty", "String", "Replacement Difficulty", false, "Low / Medium / High / Extreme — with justification", 0),
             new SomFormFieldMeta("lockInFactors", "String", "Lock-In Factors", false, "Proprietary formats, data migration cost", 1),
-            new SomFormFieldMeta("integrationComplexity", "String", "Integration Complexity", false, "Effort to integrate — Low / Medium / High", 2)));
+            new SomFormFieldMeta("integrationComplexity", "ImportanceBand", "Integration Complexity", false, "Effort to integrate.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how a component fits into the system through its replacement difficulty, lock-in, and integration relationships"), "connotation", "Captures the replacement difficulty, lock-in factors, and integration complexity of a component within the system.")));
         out.add(n);
       }
@@ -17651,7 +17651,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("mitigationStrategy", "String", "Mitigation Strategy", false, "Actions to reduce probability or impact", 0),
             new SomFormFieldMeta("mitigationStatus", "String", "Mitigation Status", false, "NotStarted / InProgress / Implemented / Verified", 1),
             new SomFormFieldMeta("mitigationCost", "String", "Mitigation Cost", false, "Budget required to implement mitigation", 2),
-            new SomFormFieldMeta("residualRisk", "String", "Residual Risk Level", false, "Risk level remaining after mitigation — Low / Medium / High", 3),
+            new SomFormFieldMeta("residualRisk", "ImportanceBand", "Residual Risk Level", false, "Risk level remaining after mitigation.", 3, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("contingencyTrigger", "String", "Contingency Trigger", false, "Condition activating the contingency plan, e.g. No release for 12 months", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk", "ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities"), "connotation", "Holds the mitigation strategy for a component risk, including status, cost, residual risk level, and the contingency trigger.")));
         out.add(n);
@@ -20233,7 +20233,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("dataGovernanceMaturity", "String", "Data Governance Maturity Level", false, "Level 1-5 or Initial/Managed/Defined/Measured/Optimized", 4),
             new SomFormFieldMeta("knownDuplicationRate", "String", "Known Duplication Rate", false, "Estimated percentage of duplicated data, e.g. 15%", 5),
             new SomFormFieldMeta("complianceStatus", "String", "Regulatory Compliance Status", false, "Compliant / PartiallyCompliant / NonCompliant / Unknown", 6),
-            new SomFormFieldMeta("dataSecurityRiskLevel", "String", "Data Security Risk Level", false, "Low / Medium / High / Critical", 7),
+            new SomFormFieldMeta("dataSecurityRiskLevel", "ImportanceBand", "Data Security Risk Level", false, "Qualitative data security risk band.", 7, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("averageDataAge", "String", "Average Data Age", false, "Average age of data across sources, e.g. 18 months", 8),
             new SomFormFieldMeta("dataDocumentationCoverage", "String", "Documentation Coverage", false, "Percentage of data assets with adequate documentation", 9)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (data landscape baseline)"), "connotation", "Top-level baseline indicators of the data landscape: source counts, volume, quality, governance maturity, duplication, compliance, and security risk.")));
@@ -20597,7 +20597,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("currentState", "String", "Current State", false, null, 1),
             new SomFormFieldMeta("desiredState", "String", "Desired State", false, null, 2),
             new SomFormFieldMeta("estimatedBenefit", "String", "Estimated Benefit", false, null, 3),
-            new SomFormFieldMeta("implementationEffort", "String", "Implementation Effort (Low/Medium/High)", false, null, 4),
+            new SomFormFieldMeta("implementationEffort", "ImportanceBand", "Implementation Effort", false, "Qualitative implementation effort band.", 4, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("priority", "String", "Priority (Must-have/Should-have/Nice-to-have)", false, null, 5)));
         out.add(n);
       }
@@ -25421,7 +25421,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("numberOfDuplicationInstances", "int", "Number of Known Duplications", false, "Count of documented duplication cases", 2),
             new SomFormFieldMeta("storageWasteEstimate", "String", "Storage Waste Estimate", false, "Cost of storing duplicate data, e.g. €15k/year", 3),
             new SomFormFieldMeta("synchronizationChallenges", "int", "Synchronization Challenges", false, "Number of sync issues caused by duplication", 4),
-            new SomFormFieldMeta("dataInconsistencyRisk", "String", "Data Inconsistency Risk", false, "Low / Medium / High / Critical", 5),
+            new SomFormFieldMeta("dataInconsistencyRisk", "ImportanceBand", "Data Inconsistency Risk", false, "Qualitative data inconsistency risk band.", 5, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("consolidationOpportunities", "int", "Consolidation Opportunities", false, "Number of identified consolidation opportunities", 6),
             new SomFormFieldMeta("deduplicationPriority", "String", "Deduplication Priority", false, "Organizational priority for deduplication efforts", 7)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (data redundancy)"), "connotation", "The aggregate duplication picture: overall rate, duplicate volume, instance count, storage waste, sync challenges, and consolidation opportunities.")));
@@ -26278,7 +26278,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("businessOwner", "String", "Business Owner", false, "Who owns this integration", 0),
             new SomFormFieldMeta("technicalOwner", "String", "Technical Owner", false, "Who maintains this integration", 1),
-            new SomFormFieldMeta("criticality", "String", "Business Criticality", false, "Critical / High / Medium / Low", 2),
+            new SomFormFieldMeta("criticality", "ImportanceBand", "Business Criticality", false, "Qualitative business criticality band.", 2, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("knownIssues", "String", "Known Issues", false, "Current problems with this integration", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (data flows & integration)"), "connotation", "Who owns this integration and how critical it is: business and technical owners, criticality, and known issues.")));
         out.add(n);
@@ -27808,7 +27808,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("affectedEntities", "String", "Affected Entities", false, "Which data entities/tables are impacted", 0),
             new SomFormFieldMeta("qualityDimension", "String", "Quality Dimension", false, "Accuracy / Completeness / Consistency / Timeliness / Validity", 1),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical / High / Medium / Low", 2)));
+            new SomFormFieldMeta("severity", "ImportanceBand", "Severity", false, "Qualitative severity band.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (data quality assessment)", "ISO/IEC 25012 — data quality model"), "connotation", "How this quality issue is categorized: affected entities, the quality dimension it violates, and its severity.")));
         out.add(n);
       }
@@ -28077,7 +28077,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataStoreName", "String", "Data Store Name", true, "Name of the data store or source", 0),
-            new SomFormFieldMeta("criticality", "String", "Business Criticality", false, "Critical / High / Medium / Low", 1)));
+            new SomFormFieldMeta("criticality", "ImportanceBand", "Business Criticality", false, "Qualitative business criticality band.", 1, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       {
@@ -29021,7 +29021,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("department", "String", "Department", false, "Department the decision maker belongs to", 0),
             new SomFormFieldMeta("decisionAuthority", "String", "Authority (Executive Sponsor, Steering Committee, Budget Owner, etc.)", false, "Type of authority this person holds", 1),
             new SomFormFieldMeta("decisionDomains", "String", "Decision Domains (Scope, Budget, Timeline, Technology, Resources)", false, "Areas where this person makes decisions", 2),
-            new SomFormFieldMeta("influenceLevel", "String", "Influence Level (High, Medium, Low)", false, "Degree of influence over project outcomes", 3),
+            new SomFormFieldMeta("influenceLevel", "ImportanceBand", "Influence Level", false, "Degree of influence over project outcomes.", 3, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("approvalRequired", "String", "Approval Required For", false, "What requires this person to sign off", 4),
             new SomFormFieldMeta("availabilityConstraints", "String", "Availability/Constraints", false, "Limits on availability or engagement", 5),
             new SomFormFieldMeta("stakeholderAlignment", "String", "Stakeholder Alignment (Supportive, Neutral, Skeptical)", false, "Current stance toward the project", 6),
@@ -29094,8 +29094,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 3;
         n.docComment = "Feasibility assessment.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("technicalFeasibility", "String", "Technical Feasibility", false, "High / Medium / Low — assessed technical feasibility", 0),
-            new SomFormFieldMeta("organizationalFeasibility", "String", "Organizational Feasibility", false, "High / Medium / Low — organizational readiness for this option", 1),
+            new SomFormFieldMeta("technicalFeasibility", "ImportanceBand", "Technical Feasibility", false, "Assessed technical feasibility.", 0, java.util.List.of("critical", "high", "medium", "low")),
+            new SomFormFieldMeta("organizationalFeasibility", "ImportanceBand", "Organizational Feasibility", false, "Organizational readiness for this option.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("feasibilityNotes", "String", "Feasibility Notes", false, "Key factors — skill availability, technology maturity, vendor reliability", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions", "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"), "connotation", "Records the technical and organizational feasibility assessment of a decision option along with the key factors shaping that judgment.")));
         out.add(n);
@@ -29703,7 +29703,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical / High / Medium / Low", 0)));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 0, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       {
@@ -31570,7 +31570,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Goal Description", false, "What this goal means for the UI", 0),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical/High/Medium/Low", 1),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("category", "String", "Category", false, "Usability/Performance/Accessibility/Aesthetics/Engagement", 2),
             new SomFormFieldMeta("measurementCriteria", "String", "Measurement Criteria", false, "How we verify goal achievement", 3),
             new SomFormFieldMeta("targetMetric", "String", "Target Metric", false, "Quantifiable target if applicable", 4),
@@ -38619,7 +38619,7 @@ public final class TomSomV0Meta {
         n.comment = "Quality and risk";
         n.docComment = "Quality and risk assessment.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("technicalDebtLevel", "String", "Technical Debt Level (Low, Medium, High, Critical)", false, "Accumulated technical debt: Low, Medium, High, or Critical.", 0),
+            new SomFormFieldMeta("technicalDebtLevel", "ImportanceBand", "Technical Debt Level", false, "Qualitative band for the accumulated technical debt.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("codeQuality", "String", "Code Quality Assessment (Good, Acceptable, Poor, Unknown)", false, "Code quality judgement: Good, Acceptable, Poor, or Unknown.", 1),
             new SomFormFieldMeta("documentationStatus", "String", "Documentation Status (Current, Outdated, Minimal, None)", false, "State of docs: Current, Outdated, Minimal, or None.", 2),
             new SomFormFieldMeta("availabilitySla", "String", "Availability SLA (actual achieved)", false, "Actual availability achieved, e.g. \"99.5%\" — not the target.", 3),
@@ -40181,7 +40181,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("externalSystemVendor", "String", "Vendor/Provider", false, "Vendor or provider that owns the external system", 1),
             new SomFormFieldMeta("interfaceCategory", "String", "Category (Payment, Identity, Data, Messaging, etc.)", false, "Functional category of the interface", 2),
             new SomFormFieldMeta("integrationPattern", "String", "Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)", false, "Primary integration pattern used", 3),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", false, "Relative importance of this interface", 4),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Relative importance of this interface.", 4, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("status", "String", "Status (Existing, New, To be replaced)", false, "Lifecycle status of the interface", 5)));
         out.add(n);
       }
@@ -40774,7 +40774,7 @@ public final class TomSomV0Meta {
         n.docComment = "Internal dependency and contract details.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependentSystems", "String", "Dependent Internal Systems", false, "List of internal systems that use this external service", 0),
-            new SomFormFieldMeta("criticality", "String", "Criticality", false, "Critical / High / Medium / Low", 1),
+            new SomFormFieldMeta("criticality", "ImportanceBand", "Criticality", false, "Qualitative criticality band.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("contractStatus", "String", "Contract Status", false, "Active / Renewal Due / Negotiating / Month-to-Month", 2),
             new SomFormFieldMeta("contractExpiry", "String", "Contract Expiry Date", false, "Date the current contract expires (ISO 8601).", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (external dependency relationship)"), "connotation", "The relationship and contract facts for one external-service dependency: which systems depend on it, its criticality, and contract status.")));
@@ -41517,9 +41517,9 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("revenueEstimate", "String", "Revenue Estimate", false, "Estimated revenue or savings", 2),
             new SomFormFieldMeta("costOfDelay", "String", "Cost of Delay", false, "Cost of not delivering", 3),
             new SomFormFieldMeta("costOfDelayCategory", "String", "Cost of Delay Category", false, "StandardDecay / FixedDate / UrgentPenalty / None", 4),
-            new SomFormFieldMeta("strategicAlignment", "String", "Strategic Alignment", true, "Low / Medium / High / Critical", 5),
+            new SomFormFieldMeta("strategicAlignment", "ImportanceBand", "Strategic Alignment", true, "Qualitative strategic alignment band.", 5, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("strategicObjectiveLink", "String", "Strategic Objective Link", false, "Which business objective or OKR this supports", 6),
-            new SomFormFieldMeta("customerImpact", "String", "Customer Impact", false, "Low / Medium / High", 7),
+            new SomFormFieldMeta("customerImpact", "ImportanceBand", "Customer Impact", false, "Qualitative customer impact band.", 7, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("userBaseAffected", "String", "User Base Affected", false, "Percentage or count of users", 8),
             new SomFormFieldMeta("marketCompetitiveness", "String", "Market Competitiveness", false, "TableStakes / Differentiator / Innovative / CatchUp", 9),
             new SomFormFieldMeta("regulatoryRequirement", "String", "Regulatory Requirement", false, "None / Recommended / Mandatory", 10),
@@ -41537,7 +41537,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("estimatedEffort", "String", "Estimated Effort", true, "Story points, person-days, or T-shirt size", 0),
             new SomFormFieldMeta("complexityRating", "String", "Complexity Rating", false, "Low / Medium / High / VeryHigh", 1),
             new SomFormFieldMeta("complexityFactors", "String", "Complexity Factors", false, "Key sources of complexity", 2),
-            new SomFormFieldMeta("riskLevel", "String", "Risk Level", true, "Low / Medium / High", 3),
+            new SomFormFieldMeta("riskLevel", "ImportanceBand", "Risk Level", true, "Qualitative risk band.", 3, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("riskFactors", "String", "Risk Factors", false, "Specific risks", 4),
             new SomFormFieldMeta("technicalDebtImpact", "String", "Technical Debt Impact", false, "Creates / Reduces / Neutral", 5),
             new SomFormFieldMeta("dependencyCount", "String", "Dependency Count", false, "Number of features this depends on or blocks", 6),
@@ -41632,7 +41632,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("prioritizationStatus", "String", "Prioritization Status", true, "Draft / UnderReview / Prioritized / Deferred / Dropped", 0),
             new SomFormFieldMeta("deliveryStatus", "String", "Delivery Status", false, "Backlog / Planned / InDevelopment / InTest / Delivered", 1),
-            new SomFormFieldMeta("confidenceLevel", "String", "Confidence Level", false, "High / Medium / Low", 2),
+            new SomFormFieldMeta("confidenceLevel", "ImportanceBand", "Confidence Level", false, "Qualitative confidence band.", 2, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("lastReviewedDate", "String", "Last Reviewed Date", false, "When last reviewed in prioritization", 3),
             new SomFormFieldMeta("changeHistory", "String", "Change History", false, "Brief log of priority/stage changes", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management", "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"), "connotation", "Records the prioritization and delivery status, confidence, and change history for a feature priority entry.")));
@@ -41782,7 +41782,7 @@ public final class TomSomV0Meta {
         n.docComment = "Readiness and confidence.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("readinessStatus", "String", "Readiness Status", true, "NotReady / InProgress / DesignComplete / ReadyForDev / ReadyForTest / ReadyForRelease", 0),
-            new SomFormFieldMeta("deliveryConfidence", "String", "Delivery Confidence", false, "High / Medium / Low — confidence that this feature will be delivered in the target stage", 1),
+            new SomFormFieldMeta("deliveryConfidence", "ImportanceBand", "Delivery Confidence", false, "Confidence that this feature will be delivered in the target stage.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("confidenceRationale", "String", "Confidence Rationale", false, "Why confidence is at this level — blockers, unknowns, resource gaps", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing", "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"), "connotation", "Captures the readiness status and delivery confidence of a feature against its target stage.")));
         out.add(n);
@@ -42977,7 +42977,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("frequency", "String", "Frequency", false, "How often executed: Continuous | Daily | OnDemand | Periodic", 0),
             new SomFormFieldMeta("volumeEstimate", "String", "Volume Estimate", false, "Estimated execution frequency/volume", 1),
-            new SomFormFieldMeta("criticalityLevel", "String", "Criticality Level", false, "Business criticality: Critical | High | Medium | Low", 2)));
+            new SomFormFieldMeta("criticalityLevel", "ImportanceBand", "Criticality Level", false, "Business criticality.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"), "connotation", "The execution frequency, volume, and business criticality of a function.")));
         out.add(n);
       }
@@ -43267,9 +43267,9 @@ public final class TomSomV0Meta {
         n.docComment = "Priority and effort assessment.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("priority", "Priority", "Priority", true, "MoSCoW scoping band — what happens if this requirement does not ship.", 0, java.util.List.of("must", "should", "could", "wontThisTime")),
-            new SomFormFieldMeta("businessValue", "String", "Business Value (High, Medium, Low) - benefit to business", false, "High / Medium / Low benefit to the business", 1),
+            new SomFormFieldMeta("businessValue", "ImportanceBand", "Business Value — benefit to business", false, "Qualitative band for the benefit to the business.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("effort", "String", "Estimated Effort (Small, Medium, Large, XLarge)", false, "Estimated effort: Small, Medium, Large, or XLarge", 2),
-            new SomFormFieldMeta("riskLevel", "String", "Risk Level (High, Medium, Low) - risk of not meeting", false, "High / Medium / Low risk of not meeting the requirement", 3)));
+            new SomFormFieldMeta("riskLevel", "ImportanceBand", "Risk Level — risk of not meeting", false, "Qualitative band for the risk of not meeting the requirement.", 3, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §5.2 — requirement prioritization", "MoSCoW — prioritization"), "connotation", "The priority, business value, effort, and risk assessment for a functional requirement — how it is ranked and what it costs and risks.")));
         out.add(n);
       }
@@ -43717,7 +43717,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("gapCategory", "String", "Gap Category", false, "Functional / Process / Data / Integration / Compliance / Security / Performance / Usability", 0),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical / High / Medium / Low", 1)));
+            new SomFormFieldMeta("severity", "ImportanceBand", "Severity", false, "Qualitative severity band.", 1, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       {
@@ -44371,8 +44371,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Risk assessment details.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("probability", "String", "Probability (Low, Medium, High)", false, "Low, Medium, or High", 0),
-            new SomFormFieldMeta("impact", "String", "Impact (Low, Medium, High, Critical)", false, "Low, Medium, High, or Critical", 1),
+            new SomFormFieldMeta("probability", "Probability", "Probability", false, "Qualitative likelihood band that this goal risk materializes.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
+            new SomFormFieldMeta("impact", "Impact", "Impact", false, "Qualitative consequence band if the goal risk materializes.", 1, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("riskScore", "String", "Risk Score (probability × impact)", false, "Computed as probability multiplied by impact", 2),
             new SomFormFieldMeta("triggerConditions", "String", "Trigger Conditions (early warning signs)", false, "Early warning signs the risk is materializing", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — risk management", "BABOK v3 §6 — risks"), "connotation", "Captures the probability, impact, score, and trigger conditions assessed for a goal risk.")));
@@ -47624,7 +47624,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 3;
         n.docComment = "Impact and mitigation.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("impactLevel", "String", "Impact Level", false, "High, Medium, Low — impact on integration design", 0),
+            new SomFormFieldMeta("impactLevel", "ImportanceBand", "Impact Level", false, "Impact on integration design.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("designImplications", "String", "Design Implications", false, "How this constraint affects integration design", 1),
             new SomFormFieldMeta("workarounds", "String", "Workarounds", false, "Potential workarounds or alternatives", 2),
             new SomFormFieldMeta("mitigationApproach", "String", "Mitigation Approach", false, "How to work within this constraint", 3)));
@@ -48656,7 +48656,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 4;
         n.docComment = "Applicability and operational priority.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("priority", "String", "Priority", false, "High, Medium, Low - for resource allocation", 0)));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "For resource allocation.", 0, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110 — dialogue principles", "ISO 9241-210 — interaction patterns"), "connotation", "The applicability and operational priority of an interaction pattern.")));
         out.add(n);
       }
@@ -50630,7 +50630,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("applicabilityScope", "String", "Applicability Scope", false, "Which parts of the system this applies to", 0),
             new SomFormFieldMeta("complianceLevel", "String", "Compliance Level", false, "Full, Partial, Target", 1),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, High, Medium, Low", 2)));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010 — product quality model", "ISO/IEC/IEEE 42010 — architecture description"), "connotation", "Captures the applicability scope and priority of an IT standard.")));
         out.add(n);
       }
@@ -53896,7 +53896,7 @@ public final class TomSomV0Meta {
         n.docComment = "Classification and purpose.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependencyType", "String", "Dependency Type", false, "BuildTime / TestOnly / DevOnly / Tooling", 0),
-            new SomFormFieldMeta("criticality", "String", "Criticality", false, "Critical / High / Medium / Low — impact if update breaks", 1),
+            new SomFormFieldMeta("criticality", "ImportanceBand", "Criticality", false, "Impact if update breaks.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "Why this maintenance dependency exists", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics such as modularity, modifiability, and testability"), "connotation", "Captures the dependency type, criticality, and purpose that classify one maintenance dependency.")));
         out.add(n);
@@ -55046,7 +55046,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("measurementPeriod", "String", "Measurement Period", false, "Time period covered by these metrics, e.g., Q1 2024", 0),
-            new SomFormFieldMeta("dataQuality", "String", "Data Quality Assessment", false, "High / Medium / Low - confidence in metric accuracy", 1),
+            new SomFormFieldMeta("dataQuality", "ImportanceBand", "Data Quality Assessment", false, "Confidence in metric accuracy.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("keyThroughput", "String", "Key Throughput Metric", false, "Primary volume metric, e.g., 5000 orders/day", 2),
             new SomFormFieldMeta("averageCycleTime", "String", "Average Cycle Time", false, "End-to-end processing time, e.g., 4.2 hours", 3),
             new SomFormFieldMeta("overallErrorRate", "String", "Overall Error Rate", false, "Combined error rate, e.g., 3.2%", 4),
@@ -56097,7 +56097,7 @@ public final class TomSomV0Meta {
         n.docComment = "Risk quantification.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskScore", "int", "Risk Score", false, "Probability × Impact (1-25)", 0),
-            new SomFormFieldMeta("riskPriority", "String", "Risk Priority", false, "Critical, High, Medium, Low", 1),
+            new SomFormFieldMeta("riskPriority", "ImportanceBand", "Risk Priority", false, "Qualitative risk priority band.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("expectedMonetaryValue", "String", "Expected Monetary Value (EMV)", false, "P × Cost Impact", 2),
             new SomFormFieldMeta("worstCaseScenario", "String", "Worst Case Scenario", false, "Maximum potential impact", 3),
             new SomFormFieldMeta("bestCaseScenario", "String", "Best Case Scenario", false, "Minimum impact if mitigated", 4),
@@ -57815,7 +57815,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("moscowCategory", "Priority", "MoSCoW Category", true, "MoSCoW scoping band for this item.", 0, java.util.List.of("must", "should", "could", "wontThisTime")),
             new SomFormFieldMeta("justification", "String", "Justification", true, "Why this feature has this classification — business rationale, regulatory need, user demand", 1),
-            new SomFormFieldMeta("reclassificationRisk", "String", "Reclassification Risk", false, "Low / Medium / High — likelihood the category will change before delivery", 2)));
+            new SomFormFieldMeta("reclassificationRisk", "ImportanceBand", "Reclassification Risk", false, "Likelihood the category will change before delivery.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"), "connotation", "Captures the MoSCoW category, justification, and reclassification risk for a single feature.")));
         out.add(n);
       }
@@ -60356,7 +60356,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("notificationType", "String", "Notification Type", true, "e.g., Order Confirmation, Password Reset, System Alert", 0),
             new SomFormFieldMeta("typeId", "String", "Type ID", false, "The type id the built system carries — the TomNotificationType id, e.g. order.shipped", 1),
             new SomFormFieldMeta("category", "String", "Category", false, "Transactional, Marketing, System, Security", 2),
-            new SomFormFieldMeta("urgency", "String", "Urgency Level", false, "Critical, High, Medium, Low", 3),
+            new SomFormFieldMeta("urgency", "ImportanceBand", "Urgency Level", false, "Qualitative urgency band.", 3, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("defaultChannels", "String", "Default Channels", false, "Channels used by default", 4),
             new SomFormFieldMeta("userConfigurable", "String", "User Configurable", false, "Can user change notification preferences for this type", 5),
             new SomFormFieldMeta("mandatoryChannels", "String", "Mandatory Channels", false, "Channels that cannot be disabled", 6),
@@ -61679,7 +61679,7 @@ public final class TomSomV0Meta {
         n.docComment = "Change identification details.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("changeCategory", "String", "Change Category", false, "Reporting Lines, Team Structure, Department, Division", 0),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, High, Medium, Low", 1)));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 1, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 — future-state analysis"), "connotation", "Categorizes and prioritizes a structural change for tracking and sequencing within the transformation.")));
         out.add(n);
       }
@@ -61720,7 +61720,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 4;
         n.docComment = "Impact assessment.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("impactLevel", "String", "Impact Level", false, "High, Medium, Low — severity of disruption", 0),
+            new SomFormFieldMeta("impactLevel", "ImportanceBand", "Impact Level", false, "Severity of disruption.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("affectedRoles", "String", "Affected Roles", false, "Job titles impacted by this change", 1),
             new SomFormFieldMeta("affectedPeople", "String", "Affected People", false, "Key individuals or groups affected", 2),
             new SomFormFieldMeta("reportingLineImpact", "String", "Reporting Line Impact", false, "Changes to who reports to whom", 3),
@@ -61929,7 +61929,7 @@ public final class TomSomV0Meta {
         n.docComment = "Organizational maturity indicators.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("digitalMaturityLevel", "String", "Digital Maturity (Nascent, Developing, Defined, Optimizing, Leading)", false, "Overall digital capability stage of the organization", 0),
-            new SomFormFieldMeta("changeReadiness", "String", "Change Readiness (Low, Medium, High)", false, "Organizational appetite and capacity for change", 1),
+            new SomFormFieldMeta("changeReadiness", "ImportanceBand", "Change Readiness", false, "Organizational appetite and capacity for change.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("projectManagementMaturity", "String", "PM Maturity (Ad-hoc, Repeatable, Defined, Managed, Optimizing)", false, "Maturity of project management practices", 2),
             new SomFormFieldMeta("itGovernanceMaturity", "String", "IT Governance Maturity (Initial, Repeatable, Defined, Managed)", false, "Maturity of IT governance and oversight", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK — enterprise environmental factors (EEF)", "TOGAF — enterprise context & environment"), "connotation", "Captures organizational maturity indicators that signal readiness for change and the rigor of existing governance.")));
@@ -62246,8 +62246,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("impactedGroups", "String", "Impacted Groups (departments, roles, user categories)", false, "Departments, roles, or user categories affected", 0),
             new SomFormFieldMeta("impactedUserCount", "String", "Estimated Impacted Users", false, "Approximate number of people affected", 1),
             new SomFormFieldMeta("changeType", "String", "Change Type (Behavioral, Procedural, Structural, Cultural)", false, "Behavioral, Procedural, Structural, or Cultural", 2),
-            new SomFormFieldMeta("changeComplexity", "String", "Change Complexity (Low, Medium, High)", false, "Low, Medium, or High", 3),
-            new SomFormFieldMeta("resistance", "String", "Expected Resistance (Low, Medium, High)", false, "Anticipated resistance: Low, Medium, or High", 4)));
+            new SomFormFieldMeta("changeComplexity", "ImportanceBand", "Change Complexity", false, "Qualitative change complexity band.", 3, java.util.List.of("critical", "high", "medium", "low")),
+            new SomFormFieldMeta("resistance", "ImportanceBand", "Expected Resistance", false, "Anticipated resistance.", 4, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21500 — organizational project management", "BABOK v3 §10 — organizational readiness", "ISO/IEC/IEEE 29148 §9 — organizational requirements"), "connotation", "The impact profile of an organizational requirement — who is affected, the type and complexity of change, and expected resistance.")));
         out.add(n);
       }
@@ -63014,7 +63014,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("painPoint", "String", "Pain Point Name", true, "Concise name for the pain point", 0),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical / High / Medium / Low", 1)));
+            new SomFormFieldMeta("severity", "ImportanceBand", "Severity", false, "Qualitative severity band.", 1, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       {
@@ -64435,7 +64435,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("goal", "String", "Goal", true, "The concrete action or outcome the persona wants to achieve", 0),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical/High/Medium/Low", 1),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("frequency", "String", "Frequency", false, "How often this goal arises", 2),
             new SomFormFieldMeta("currentApproach", "String", "Current Approach", false, "How they achieve this today", 3),
             new SomFormFieldMeta("desiredOutcome", "String", "Desired Outcome", false, "What success looks like", 4)));
@@ -64523,7 +64523,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("painPoint", "String", "Pain Point", true, "The specific frustration or obstacle the persona encounters", 0),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical/High/Medium/Low", 1),
+            new SomFormFieldMeta("severity", "ImportanceBand", "Severity", false, "Qualitative severity band.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("frequency", "String", "Frequency", false, "How often this occurs", 2),
             new SomFormFieldMeta("impact", "String", "Impact", false, "Effect on productivity/satisfaction", 3),
             new SomFormFieldMeta("workaround", "String", "Current Workaround", false, "How they cope today", 4),
@@ -66179,7 +66179,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("currentState", "String", "Current State (describe the AS-IS situation that is problematic)", false, "Describe the current AS-IS situation that is problematic", 1),
             new SomFormFieldMeta("affectedParties", "String", "Affected Parties (who suffers from this problem)", false, "Who suffers from this problem and in what way", 2),
             new SomFormFieldMeta("impactDescription", "String", "Impact Description (business, financial, operational impacts)", false, "Business, financial, and operational impacts of the problem", 3),
-            new SomFormFieldMeta("impactSeverity", "String", "Impact Severity (Critical, High, Medium, Low)", false, "Critical / High / Medium / Low", 4),
+            new SomFormFieldMeta("impactSeverity", "ImportanceBand", "Impact Severity", false, "Qualitative impact severity band.", 4, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("impactMetrics", "String", "Impact Metrics (quantifiable measures of the problem's cost)", false, "Quantifiable measures of the problem's cost", 5),
             new SomFormFieldMeta("rootCauses", "String", "Root Causes (underlying reasons for problem)", false, "Underlying reasons that cause the problem", 6),
             new SomFormFieldMeta("urgency", "String", "Urgency (Immediate, Short-term, Medium-term, Long-term)", false, "Immediate / Short-term / Medium-term / Long-term", 7),
@@ -66339,7 +66339,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 5;
         n.docComment = "Risk and impact.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("riskLevel", "String", "Risk Level", false, "Low / Medium / High — risk introduced by this deviation", 0),
+            new SomFormFieldMeta("riskLevel", "ImportanceBand", "Risk Level", false, "Risk introduced by this deviation.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("riskDescription", "String", "Risk Description", false, "What could go wrong due to this adjustment", 1),
             new SomFormFieldMeta("mitigationMeasures", "String", "Mitigation Measures", false, "How risks from this adjustment are mitigated", 2),
             new SomFormFieldMeta("timelineImpact", "String", "Timeline Impact", false, "FasterByDays / NoChange / SlowerByDays", 3),
@@ -66431,7 +66431,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("addedStepsCount", "int", "Added Steps Count", false, "Number of project-specific steps added", 5),
             new SomFormFieldMeta("reorderedStepsCount", "int", "Reordered Steps Count", false, "Number of steps executed in different order", 6),
             new SomFormFieldMeta("parallelizedStepsCount", "int", "Parallelized Steps Count", false, "Number of steps run in parallel instead of sequential", 7),
-            new SomFormFieldMeta("processRiskLevel", "String", "Process Risk Level", false, "Low / Medium / High — overall process risk from deviations", 8),
+            new SomFormFieldMeta("processRiskLevel", "ImportanceBand", "Process Risk Level", false, "Overall process risk from deviations.", 8, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("processEfficiencyImpact", "String", "Efficiency Impact", false, "Faster / Same / Slower — impact on timeline", 9)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21500 — project management (process tailoring)"), "connotation", "Aggregate counts, process risk, and efficiency impact for this project's process-step deviations against the base process.")));
         out.add(n);
@@ -66858,7 +66858,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("implications", "String", "Implications — what this means for process design", false, "Design consequences of applying it", 3),
             new SomFormFieldMeta("examples", "String", "Examples — how this principle applies", false, "Concrete examples of the principle in use", 4),
             new SomFormFieldMeta("tradeoffs", "String", "Trade-offs — what is sacrificed", false, "What is given up to follow the principle", 5),
-            new SomFormFieldMeta("priority", "String", "Priority — high, medium, low", false, "Relative importance of the principle", 6),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Relative importance of the principle.", 6, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("applicability", "String", "Applicability — all processes or specific types", false, "Which processes the principle applies to", 7)));
         out.add(n);
       }
@@ -69475,7 +69475,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("totalRoleAdjustments", "int", "Total Role Adjustments", false, "Number of roles with deviations from standard", 0),
             new SomFormFieldMeta("totalQualityGateAdjustments", "int", "Total Quality Gate Adjustments", false, "Number of quality gates with deviations", 1),
             new SomFormFieldMeta("totalProcessAdjustments", "int", "Total Process Adjustments", false, "Number of process steps with deviations", 2),
-            new SomFormFieldMeta("deviationRiskLevel", "String", "Overall Deviation Risk Level", false, "Low / Medium / High — aggregate risk from all deviations", 3),
+            new SomFormFieldMeta("deviationRiskLevel", "ImportanceBand", "Overall Deviation Risk Level", false, "Aggregate risk from all deviations.", 3, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("deviationApprovalAuthority", "String", "Deviation Approval Authority", false, "Who approved these methodology deviations", 4),
             new SomFormFieldMeta("deviationApprovalDate", "String", "Deviation Approval Date", false, "When deviations were formally approved", 5),
             new SomFormFieldMeta("reviewSchedule", "String", "Deviation Review Schedule", false, "How often deviations are reviewed for continued relevance", 6),
@@ -70117,7 +70117,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry describes — a feature section id (FPE-ITEM-…)", 0, java.util.List.of(), java.util.List.of("FPE.@sectionId")),
             new SomFormFieldMeta("inclusionReason", "String", "Inclusion Reason", false, "Why this feature is included", 1),
-            new SomFormFieldMeta("fidelityLevel", "String", "Fidelity Level", false, "Low, medium, high", 2),
+            new SomFormFieldMeta("fidelityLevel", "ImportanceBand", "Fidelity Level", false, "Qualitative fidelity band.", 2, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("completenessLevel", "String", "Completeness Level", false, "Full, partial, stub", 3),
             new SomFormFieldMeta("relatedGoals", "String", "Related Goals", false, "Prototype goals this addresses", 4),
             new SomFormFieldMeta("implementationNotes", "String", "Implementation Notes", false, "Notes on how the feature is built in the prototype", 5),
@@ -70187,7 +70187,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 3;
         n.docComment = "Fidelity expectations for the prototype.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("prototypeFidelity", "String", "Prototype Fidelity", false, "Low, medium, high fidelity", 0),
+            new SomFormFieldMeta("prototypeFidelity", "ImportanceBand", "Prototype Fidelity", false, "Qualitative fidelity band of the prototype.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("interactiveFidelity", "String", "Interactive Fidelity", false, "Level of interactivity", 1),
             new SomFormFieldMeta("dataFidelity", "String", "Data Fidelity", false, "Real vs. mock data", 2),
             new SomFormFieldMeta("visualFidelity", "String", "Visual Fidelity", false, "Production visuals vs. wireframes", 3)));
@@ -70707,7 +70707,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("categoryDescription", "String", "Description", false, "Purpose and scope of this category", 0),
             new SomFormFieldMeta("categoryScope", "String", "Scope", false, "What aspects of quality this covers", 1),
-            new SomFormFieldMeta("categoryPriority", "String", "Priority", false, "Critical, high, medium, low", 2),
+            new SomFormFieldMeta("categoryPriority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 2, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("categoryRationale", "String", "Priority Rationale", false, "Why this priority level", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — each quality characteristic is defined so that the intended meaning is unambiguous and can be measured"), "connotation", "Captures the definition, scope, and priority context of this quality category.")));
         out.add(n);
@@ -71052,7 +71052,7 @@ public final class TomSomV0Meta {
         n.docComment = "Impact assessment.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("qualityImpact", "String", "Quality Impact", false, "How this adjustment affects delivered quality", 0),
-            new SomFormFieldMeta("riskLevel", "String", "Risk Level", false, "Low / Medium / High", 1),
+            new SomFormFieldMeta("riskLevel", "ImportanceBand", "Risk Level", false, "Qualitative risk band.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("riskDescription", "String", "Risk Description", false, "What quality issues could arise", 2),
             new SomFormFieldMeta("compensatingControls", "String", "Compensating Controls", false, "Alternative quality measures to offset the deviation", 3),
             new SomFormFieldMeta("monitoringMeasures", "String", "Monitoring Measures", false, "How quality is monitored despite the deviation", 4)));
@@ -71133,7 +71133,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("skippedGatesCount", "int", "Skipped Gates Count", false, "Number of standard gates bypassed", 2),
             new SomFormFieldMeta("addedGatesCount", "int", "Added Gates Count", false, "Number of project-specific gates added", 3),
             new SomFormFieldMeta("modifiedCriteriaCount", "int", "Modified Criteria Count", false, "Number of gates with modified pass criteria", 4),
-            new SomFormFieldMeta("qualityRiskLevel", "String", "Quality Risk Level", false, "Low / Medium / High — overall quality risk from deviations", 5),
+            new SomFormFieldMeta("qualityRiskLevel", "ImportanceBand", "Quality Risk Level", false, "Overall quality risk from deviations.", 5, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("compensatingControls", "String", "Compensating Controls", false, "Alternative quality measures in place", 6),
             new SomFormFieldMeta("auditImplications", "String", "Audit Implications", false, "Impact on quality audits and compliance", 7)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21500 — project management (quality & control processes)"), "connotation", "Aggregate counts, quality risk, and compensating controls for this project's quality-gate deviations.")));
@@ -71696,7 +71696,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("qualityAttribute", "String", "Quality Attribute", true, null, 0),
             new SomFormFieldMeta("qualityCategory", "String", "Category", false, "User, Technical, Operations, Documentation", 1),
             new SomFormFieldMeta("weight", "int", "Weight (1-100)", false, "Numeric weight from 1 to 100", 2),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, high, medium, low", 3),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 3, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this weight", 4),
             new SomFormFieldMeta("stakeholderAgreement", "String", "Stakeholder Agreement", false, "Who agreed to this weight", 5),
             new SomFormFieldMeta("tradeOffImplications", "String", "Trade-off Implications", false, "What this priority means for other attributes", 6)));
@@ -75227,7 +75227,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("automationStatus", "String", "Automation Status (Automated, Manual, To Be Automated)", false, "Automated, Manual, or To Be Automated", 0),
             new SomFormFieldMeta("automationScript", "String", "Automation Script Reference", false, "Reference to the automation script", 1),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", false, "Critical, High, Medium, or Low", 2)));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29119 — software testing", "ISO/IEC/IEEE 29148 §6.5 — verification"), "connotation", "The automation and prioritization of a test case — whether it is automated, the script that runs it, and its priority.")));
         out.add(n);
       }
@@ -76128,7 +76128,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("experience", "String", "Experience Level", false, "Seniority or years of experience needed", 2),
             new SomFormFieldMeta("allocation", "String", "Allocation", false, "Expected allocation for the role", 3),
             new SomFormFieldMeta("requiredBy", "String", "Required By Date", false, "When the position must be filled", 4),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical/High/Medium/Low)", false, "Critical / High / Medium / Low", 5),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 5, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("status", "String", "Recruitment Status", false, "Current recruitment progress for this position", 6)));
         out.add(n);
       }
@@ -76163,7 +76163,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("currentState", "String", "Current State — how done today", false, "How this responsibility is handled before the change", 1),
             new SomFormFieldMeta("futureState", "String", "Future State — how done after change", false, "How this responsibility will be handled after the change", 2),
             new SomFormFieldMeta("reason", "String", "Reason — why this change", false, "The reason this responsibility is changing", 3),
-            new SomFormFieldMeta("impactLevel", "String", "Impact Level — high, medium, low", false, "How significant the impact of this change is", 4),
+            new SomFormFieldMeta("impactLevel", "ImportanceBand", "Impact Level", false, "How significant the impact of this change is.", 4, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("trainingNeeded", "String", "Training Needed", false, "Training required to perform the changed responsibility", 5),
             new SomFormFieldMeta("toolsAffected", "String", "Tools Affected — systems involved", false, "Systems or tools impacted by this change", 6),
             new SomFormFieldMeta("transitionApproach", "String", "Transition Approach — how responsibility is handed over", false, "How the responsibility is transferred or phased in", 7)));
@@ -76413,7 +76413,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("functionDescription", "String", "Description", false, "Detailed description of the functional responsibility", 0),
             new SomFormFieldMeta("functionScope", "String", "Scope", false, "Boundaries of this functional responsibility", 1),
-            new SomFormFieldMeta("businessCriticality", "String", "Business Criticality", false, "Critical, High, Medium, Low", 2)));
+            new SomFormFieldMeta("businessCriticality", "ImportanceBand", "Business Criticality", false, "Qualitative business criticality band.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       return out;
@@ -76446,7 +76446,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("responsibility", "String", "Responsibility", true, "Name of the responsibility.", 0),
             new SomFormFieldMeta("description", "String", "Short description", false, "Brief description.", 1),
             new SomFormFieldMeta("scope", "String", "Scope", false, "Specific area or context where this responsibility applies (e.g. user management, data quality, incident response)", 2),
-            new SomFormFieldMeta("criticalityLevel", "String", "Criticality Level", false, "Critical | High | Medium | Low — importance of this responsibility for business operations", 3)));
+            new SomFormFieldMeta("criticalityLevel", "ImportanceBand", "Criticality Level", false, "Importance of this responsibility for business operations.", 3, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       return out;
@@ -77523,7 +77523,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Governance and ownership.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical / High / Medium / Low", 0),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("targetDate", "String", "Target Date", false, "When this goal should be achieved", 1),
             new SomFormFieldMeta("owner", "String", "Goal Owner", false, "Person or team responsible for driving this goal", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics including reusability that guide build-versus-buy strategy"), "connotation", "Holds the governance and ownership for a reuse goal including priority, target date, and owner.")));
@@ -77777,7 +77777,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("impact", "Impact", "Impact", false, "Qualitative consequence band — the consequence axis of the matrix.", 2, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("impactValue", "double", "Impact Value — numeric score (1-5 or monetary value)", false, "Numeric severity score or monetary value", 3),
             new SomFormFieldMeta("riskScore", "double", "Risk Score — calculated (probability × impact)", false, "Computed score from probability times impact", 4),
-            new SomFormFieldMeta("riskLevel", "String", "Risk Level — Low, Medium, High, Critical", false, "Overall risk level classification", 5),
+            new SomFormFieldMeta("riskLevel", "ImportanceBand", "Risk Level", false, "Overall risk level classification.", 5, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("riskRanking", "int", "Risk Ranking — priority relative to other risks", false, "Priority rank relative to other risks", 6),
             new SomFormFieldMeta("analysisMethod", "String", "Analysis Method — Qualitative, Semi-quantitative, Quantitative", false, "Method used to assess the risk", 7),
             new SomFormFieldMeta("confidenceLevel", "String", "Confidence Level — in probability/impact estimates", false, "Confidence in the probability and impact estimates", 8),
@@ -78109,7 +78109,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Implementation effort and effectiveness.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("responseEffectiveness", "String", "Response Effectiveness — Low, Medium, High", false, "How effective the response is expected to be", 0),
+            new SomFormFieldMeta("responseEffectiveness", "ImportanceBand", "Response Effectiveness", false, "How effective the response is expected to be.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("implementationCost", "String", "Implementation Cost — cost to implement response", false, "Cost to implement the response", 1),
             new SomFormFieldMeta("implementationTimeline", "String", "Implementation Timeline — for response actions", false, "Timeline for carrying out response actions", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — risk management", "PMBOK — project risk management"), "connotation", "This section captures the cost, timeline, and effectiveness of implementing the risk response so trade-offs can be weighed.")));
@@ -78279,7 +78279,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 4;
         n.docComment = "Risk assessment.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("riskLevel", "String", "Risk Level", false, "Low / Medium / High — risk introduced by this deviation", 0),
+            new SomFormFieldMeta("riskLevel", "ImportanceBand", "Risk Level", false, "Risk introduced by this deviation.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("riskDescription", "String", "Risk Description", false, "What could go wrong due to this adjustment", 1),
             new SomFormFieldMeta("mitigationMeasures", "String", "Mitigation Measures", false, "How risks from this adjustment are mitigated", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21500 — project management (risk & governance of role deviations)"), "connotation", "The risk introduced by this role deviation and how it is mitigated.")));
@@ -78364,7 +78364,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("omittedRolesCount", "int", "Omitted Roles Count", false, "Number of standard roles not used", 4),
             new SomFormFieldMeta("addedRolesCount", "int", "Added Roles Count", false, "Number of project-specific roles added", 5),
             new SomFormFieldMeta("raciMatrixCompliance", "String", "RACI Matrix Compliance", false, "Whether all activities still have clear RACI coverage", 6),
-            new SomFormFieldMeta("governanceImpact", "String", "Governance Impact Assessment", false, "Low / Medium / High — impact on project governance", 7)));
+            new SomFormFieldMeta("governanceImpact", "ImportanceBand", "Governance Impact Assessment", false, "Impact on project governance.", 7, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21500 — project management (organizational roles & responsibilities)"), "connotation", "Aggregate counts and governance impact of this project's role deviations.")));
         out.add(n);
       }
@@ -79368,7 +79368,7 @@ public final class TomSomV0Meta {
         n.docComment = "Versioning and business criticality.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("versionConstraint", "String", "Version Constraint", false, "Pinned / Range / Minimum, e.g. >=3.2 <4.0", 0),
-            new SomFormFieldMeta("criticality", "String", "Criticality", false, "Critical / High / Medium / Low — impact if unavailable", 1),
+            new SomFormFieldMeta("criticality", "ImportanceBand", "Criticality", false, "Impact if unavailable.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "Why this dependency exists", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — the product quality model defines reliability sub-characteristics such as availability, fault tolerance, and recoverability"), "connotation", "Captures the version constraint, criticality, and purpose that classify one runtime dependency.")));
         out.add(n);
@@ -79969,7 +79969,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("businessGoal", "String", "Business Goal — what is achieved", false, "The outcome the actor is trying to reach", 2),
             new SomFormFieldMeta("primaryActor", "String", "Primary Actor — who performs scenario", false, "The main actor driving the scenario", 3),
             new SomFormFieldMeta("supportingActors", "String", "Supporting Actors — who else", false, "Other actors or systems that participate", 4),
-            new SomFormFieldMeta("priority", "String", "Priority — critical, high, medium, low", false, "Business priority of this scenario", 5),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Business priority of this scenario.", 5, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("complexity", "String", "Complexity — simple, moderate, complex", false, "Relative implementation/test complexity", 6)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Cockburn — Writing Effective Use Cases: scenarios & scenario identity", "ISO/IEC/IEEE 29148 §6 — operational scenarios"), "connotation", "Captures the identifying attributes of a single key end-to-end scenario.")));
         out.add(n);
@@ -83922,7 +83922,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category (Authentication, Authorization, Data Protection, Encryption, Audit Logging, Input Validation, Session Management, Error Handling, Communication Security, Configuration, Cryptography, Data Retention, Privacy)", true, "Security domain the requirement falls under", 0),
             new SomFormFieldMeta("subcategory", "String", "Subcategory", false, "More specific aspect within the category", 1),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", true, "Critical, High, Medium, or Low", 2),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", true, "Qualitative priority band.", 2, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("source", "String", "Source", true, "Stakeholder, standard, or document that originated it", 3),
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this security requirement is needed", 4),
             new SomFormFieldMeta("threatMitigated", "String", "Threat Mitigated (what attack is prevented)", false, "Attack or risk this requirement prevents", 5),
@@ -86487,7 +86487,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Criticality and resilience.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("criticality", "String", "Criticality", false, "Critical / High / Medium / Low", 0),
+            new SomFormFieldMeta("criticality", "ImportanceBand", "Criticality", false, "Qualitative criticality band.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("singlePointOfFailure", "bool", "Is Single Point of Failure", false, null, 1),
             new SomFormFieldMeta("redundancyLevel", "String", "Redundancy Level", false, "None / Active-Passive / Active-Active / Multi-Region", 2),
             new SomFormFieldMeta("failoverTime", "String", "Failover Time (RTO)", false, "Time to recover if component fails", 3),
@@ -87835,7 +87835,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("sourcingMethod", "String", "Sourcing Method", false, "Internal / External / Agency / Mixed", 1),
             new SomFormFieldMeta("recruitmentStatus", "String", "Recruitment Status", false, "Approved / Posted / Interviewing / Offered / Filled", 2),
             new SomFormFieldMeta("targetStartDate", "String", "Target Start Date", false, "When this position should be filled", 3),
-            new SomFormFieldMeta("urgency", "String", "Urgency", false, "Critical / High / Medium / Low", 4)));
+            new SomFormFieldMeta("urgency", "ImportanceBand", "Urgency", false, "Qualitative urgency band.", 4, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("SHRM — talent acquisition / time-to-fill"), "connotation", "Tracks the recruitment workflow for the position — approval, sourcing method, current status, target start date, and urgency.")));
         out.add(n);
       }
@@ -88764,7 +88764,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("riskReviewFrequency", "String", "Risk Review Frequency", false, "How often risks are reviewed — weekly during active migration, biweekly during planning, daily during cutover", 5),
             new SomFormFieldMeta("riskRegisterOwner", "String", "Risk Register Owner", false, "Person maintaining the migration risk register — typically Migration Lead or Project Manager", 6),
             new SomFormFieldMeta("lastRiskReviewDate", "String", "Last Risk Review Date", false, "Date risks were last formally reviewed", 7),
-            new SomFormFieldMeta("overallMigrationRiskRating", "String", "Overall Migration Risk Rating", false, "Low / Medium / High / Critical — aggregate risk assessment for the entire migration", 8)));
+            new SomFormFieldMeta("overallMigrationRiskRating", "ImportanceBand", "Overall Migration Risk Rating", false, "Aggregate risk assessment for the entire migration.", 8, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       {
@@ -88962,9 +88962,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 8;
         n.docComment = "Risk profile summary.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("overallScheduleRisk", "String", "Overall Schedule Risk", false, "Low / Medium / High / Critical — aggregate schedule risk", 0),
-            new SomFormFieldMeta("overallBudgetRisk", "String", "Overall Budget Risk", false, "Low / Medium / High / Critical — aggregate budget overrun risk", 1),
-            new SomFormFieldMeta("overallScopeRisk", "String", "Overall Scope Risk", false, "Low / Medium / High / Critical — risk of scope creep", 2),
+            new SomFormFieldMeta("overallScheduleRisk", "ImportanceBand", "Overall Schedule Risk", false, "Aggregate schedule risk.", 0, java.util.List.of("critical", "high", "medium", "low")),
+            new SomFormFieldMeta("overallBudgetRisk", "ImportanceBand", "Overall Budget Risk", false, "Aggregate budget overrun risk.", 1, java.util.List.of("critical", "high", "medium", "low")),
+            new SomFormFieldMeta("overallScopeRisk", "ImportanceBand", "Overall Scope Risk", false, "Risk of scope creep.", 2, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("stageWithHighestRisk", "String", "Stage with Highest Risk", false, "Which stage carries the most risk and why", 3),
             new SomFormFieldMeta("riskMitigationInvestment", "String", "Risk Mitigation Investment", false, "Budget allocated to risk mitigation activities, e.g. EUR 200K", 4),
             new SomFormFieldMeta("topThreeRisks", "String", "Top Three Risks", false, "Three most significant risks to the overall staging plan", 5),
@@ -88985,7 +88985,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("scopeCompletionPercent", "String", "Scope Completion Percentage", false, "Overall scope completion across all stages, e.g. 35% complete", 3),
             new SomFormFieldMeta("earnedValueCPI", "String", "Earned Value CPI", false, "Cost Performance Index — ratio of earned value to actual cost", 4),
             new SomFormFieldMeta("earnedValueSPI", "String", "Earned Value SPI", false, "Schedule Performance Index — ratio of earned value to planned value", 5),
-            new SomFormFieldMeta("planConfidenceLevel", "String", "Plan Confidence Level", false, "High / Medium / Low — confidence in the overall timeline and budget", 6),
+            new SomFormFieldMeta("planConfidenceLevel", "ImportanceBand", "Plan Confidence Level", false, "Confidence in the overall timeline and budget.", 6, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("confidenceBasis", "String", "Confidence Basis", false, "Basis for confidence level — analogous / expert / parametric / Monte Carlo", 7)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates", "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"), "connotation", "Captures the overall plan status, schedule and budget variances, earned-value indices, and confidence level of the staging plan.")));
         out.add(n);
@@ -89337,7 +89337,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("successorStages", "String", "Successor Stages", false, "Stages that depend on this one", 1),
             new SomFormFieldMeta("externalDependencies", "String", "External Dependencies", false, "External factors this stage depends on", 2),
             new SomFormFieldMeta("primaryRisk", "String", "Primary Risk", false, "Single biggest risk for this stage", 3),
-            new SomFormFieldMeta("riskLevel", "String", "Risk Level", false, "Low / Medium / High / Critical", 4)));
+            new SomFormFieldMeta("riskLevel", "ImportanceBand", "Risk Level", false, "Qualitative risk band.", 4, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       return out;
@@ -89630,7 +89630,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stagingApproachType", "String", "Staging Approach Type", true, "BigBang / PhasedByFunction / PhasedByGeography / Hybrid / Pilot", 0),
             new SomFormFieldMeta("primaryRationale", "String", "Primary Rationale", true, "Main reason for choosing this staging approach", 1),
-            new SomFormFieldMeta("overallRiskLevel", "String", "Overall Risk Level", false, "Low / Medium / High / Critical", 2)));
+            new SomFormFieldMeta("overallRiskLevel", "ImportanceBand", "Overall Risk Level", false, "Qualitative overall risk band.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       {
@@ -89687,7 +89687,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 4;
         n.docComment = "Risk assessment.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("riskTolerance", "String", "Risk Tolerance", false, "Low / Medium / High — acceptable level of risk", 0),
+            new SomFormFieldMeta("riskTolerance", "ImportanceBand", "Risk Tolerance", false, "Acceptable level of risk.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("deploymentRiskFactors", "String", "Deployment Risk Factors", false, "Key risk factors specific to deployment", 1),
             new SomFormFieldMeta("mitigationStrategies", "String", "Mitigation Strategies", false, "Risk mitigation strategies", 2),
             new SomFormFieldMeta("contingencyPlans", "String", "Contingency Plans", false, "Backup plans if primary approach fails", 3),
@@ -89718,7 +89718,7 @@ public final class TomSomV0Meta {
         n.docComment = "Readiness and resources.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("organizationalReadinessFactors", "String", "Organizational Readiness Factors", false, "Key readiness factors", 0),
-            new SomFormFieldMeta("organizationalReadinessLevel", "String", "Organizational Readiness Level", false, "Low / Medium / High", 1),
+            new SomFormFieldMeta("organizationalReadinessLevel", "ImportanceBand", "Organizational Readiness Level", false, "Qualitative organizational readiness band.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("resourceConstraints", "String", "Resource Constraints", false, "Staffing, budget, or infrastructure limits", 2),
             new SomFormFieldMeta("skillAvailability", "String", "Skill Availability", false, "Critical skills needed and their availability", 3),
             new SomFormFieldMeta("trainingRequirements", "String", "Training Requirements", false, "Training needed per stage", 4),
@@ -89989,7 +89989,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("role", "String", "Role", true, null, 0),
             new SomFormFieldMeta("interest", "String", "Interest (what they care about)", false, null, 1),
-            new SomFormFieldMeta("influence", "String", "Influence (High, Medium, Low)", false, null, 2),
+            new SomFormFieldMeta("influence", "ImportanceBand", "Influence", false, "Qualitative influence band.", 2, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("concerns", "String", "Concerns", false, null, 3),
             new SomFormFieldMeta("engagementStrategy", "String", "Engagement Strategy", false, null, 4)));
         out.add(n);
@@ -91334,7 +91334,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 4;
         n.docComment = "Importance.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("weight", "String", "Weight", false, "Importance: Critical, High, Medium, Low", 0),
+            new SomFormFieldMeta("weight", "ImportanceBand", "Weight", false, "Qualitative importance band for this success criterion.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("isMandatory", "String", "Mandatory", false, "Yes/No - is this required for overall success", 1),
             new SomFormFieldMeta("consequenceIfNotMet", "String", "Consequence If Not Met", false, "Impact if this criterion is not met", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 — solution evaluation (success measures)"), "connotation", "The importance of the criterion: its weight, whether it is mandatory, and the consequence if it is not met.")));
@@ -92663,7 +92663,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("mechanism", "String", "Dependency Mechanism", false, "API / DatabaseLink / FileTransfer / MessageQueue / SharedStorage / Manual / ETL", 0),
             new SomFormFieldMeta("couplingStrength", "String", "Coupling Strength", false, "Tight / Moderate / Loose — degree of coupling between systems", 1),
-            new SomFormFieldMeta("criticality", "String", "Criticality", false, "Critical / High / Medium / Low", 2)));
+            new SomFormFieldMeta("criticality", "ImportanceBand", "Criticality", false, "Qualitative criticality band.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (dependency mechanism)"), "connotation", "The mechanism and coupling facts for one inter-system dependency: how the systems are linked and how tightly they are coupled.")));
         out.add(n);
       }
@@ -93699,8 +93699,8 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskDescription", "String", "Risk Description", true, "What the risk is", 0),
-            new SomFormFieldMeta("probability", "String", "Probability (High, Medium, Low)", false, "Likelihood the risk occurs", 1),
-            new SomFormFieldMeta("impact", "String", "Impact (High, Medium, Low)", false, "Severity if the risk occurs", 2),
+            new SomFormFieldMeta("probability", "Probability", "Probability", false, "Qualitative likelihood band that this migration risk occurs.", 1, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
+            new SomFormFieldMeta("impact", "Impact", "Impact", false, "Qualitative consequence band if the migration risk occurs.", 2, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("riskScore", "String", "Risk Score", false, "Combined probability/impact score", 3),
             new SomFormFieldMeta("mitigation", "String", "Mitigation Strategy", false, "How the risk will be reduced", 4),
             new SomFormFieldMeta("contingency", "String", "Contingency Plan", false, "Fallback if the risk materializes", 5),
@@ -94711,9 +94711,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 3;
         n.docComment = "Organizational capacity and plan confidence.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("organizationalReadinessLevel", "String", "Organizational Readiness Level", false, "High / Medium / Low — organization preparedness for staged rollout", 0),
+            new SomFormFieldMeta("organizationalReadinessLevel", "ImportanceBand", "Organizational Readiness Level", false, "Organization preparedness for staged rollout.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("changeAbsorptionCapacity", "String", "Change Absorption Capacity", false, "How much change the organization can absorb per period", 1),
-            new SomFormFieldMeta("confidenceLevel", "String", "Plan Confidence Level", false, "High / Medium / Low — overall confidence in staging plan feasibility", 2),
+            new SomFormFieldMeta("confidenceLevel", "ImportanceBand", "Plan Confidence Level", false, "Overall confidence in staging plan feasibility.", 2, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("lastPlanReviewDate", "String", "Last Plan Review Date", false, "When the staging plan was last formally reviewed", 3)));
         out.add(n);
       }
@@ -95004,7 +95004,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("frequency", "String", "Frequency (how often: Continuous, Daily, Weekly, Monthly, Ad-hoc)", false, "Continuous / Daily / Weekly / Monthly / Ad-hoc", 0),
             new SomFormFieldMeta("averageDuration", "String", "Average Duration (typical time to complete)", false, "Typical time to complete this task", 1),
             new SomFormFieldMeta("complexity", "String", "Complexity (Simple, Moderate, Complex)", false, "Simple / Moderate / Complex", 2),
-            new SomFormFieldMeta("importance", "String", "Importance (Critical, High, Medium, Low)", false, "Critical / High / Medium / Low", 3),
+            new SomFormFieldMeta("importance", "ImportanceBand", "Importance", false, "Qualitative importance band.", 3, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("trigger", "String", "Trigger (what initiates this task)", false, "Event or condition that initiates this task", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"), "connotation", "Captures the execution profile of a task — frequency, duration, complexity, importance, and trigger.")));
         out.add(n);
@@ -95157,7 +95157,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 3;
         n.docComment = "Technical quality indicators.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("technicalDebtRating", "String", "Technical Debt (Low, Medium, High, Critical)", false, "Overall accumulated technical debt of the system", 0),
+            new SomFormFieldMeta("technicalDebtRating", "ImportanceBand", "Technical Debt", false, "Qualitative band for the accumulated technical debt of the system.", 0, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("securityPosture", "String", "Security Posture", false, "Overall security health of the system", 1),
             new SomFormFieldMeta("performanceStatus", "String", "Performance (Acceptable, Degraded, Poor)", false, "Current runtime performance state", 2),
             new SomFormFieldMeta("scalabilityLimitations", "String", "Scalability Limitations", false, "Known limits on scaling the system", 3),
@@ -97036,7 +97036,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description (detailed explanation of the technical objective)", false, "Detailed explanation of the technical objective", 0),
             new SomFormFieldMeta("goalCategory", "String", "Goal Category (Performance, Scalability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance)", true, "Quality attribute category, e.g. Performance, Security", 1),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", true, "Critical / High / Medium / Low", 2)));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", true, "Qualitative priority band.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       {
@@ -97457,7 +97457,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("criticalSecurityIssues", "int", "Critical Security Issues", false, "Number of critical/high severity security vulnerabilities", 2),
             new SomFormFieldMeta("systemsAtEndOfLife", "int", "Systems at End of Life", false, "Number of systems using unsupported or EOL technology", 3),
             new SomFormFieldMeta("undocumentedSystems", "int", "Undocumented Systems", false, "Number of systems with inadequate documentation", 4),
-            new SomFormFieldMeta("vendorLockInRisk", "String", "Vendor Lock-in Risk Level", false, "Low / Medium / High — based on proprietary dependencies", 5),
+            new SomFormFieldMeta("vendorLockInRisk", "ImportanceBand", "Vendor Lock-in Risk Level", false, "Based on proprietary dependencies.", 5, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("integrationComplexityScore", "String", "Integration Complexity Score", false, "Overall integration complexity, e.g. High (47 point-to-point integrations)", 6)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (technical measures)"), "connotation", "Category roll-up quantifying the technical pain points — technical debt, security vulnerabilities, and end-of-life systems in the current state.")));
         out.add(n);
@@ -97530,7 +97530,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("description", "String", "Description (The system shall... detailed statement)", true, "Full requirement statement, e.g., The system shall respond within 100ms", 0),
             new SomFormFieldMeta("category", "String", "Category (Performance, Scalability, Availability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance, Capacity, Recoverability)", true, "ISO 25010 quality characteristic the requirement addresses", 1),
             new SomFormFieldMeta("subcategory", "String", "Subcategory (specific aspect within category)", false, "More specific aspect, e.g., response time within Performance", 2),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", true, "Critical, High, Medium, or Low", 3),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", true, "Qualitative priority band.", 3, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("source", "String", "Source (who requested)", true, "Stakeholder, document, or standard that originated it", 4),
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this requirement is needed", 5)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements", "ISO/IEC 25010 — product quality"), "connotation", "The descriptive core of a technical requirement — its statement, quality category, priority, and source.")));
@@ -98298,7 +98298,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical / High / Medium / Low", 0)));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 0, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       {
@@ -99497,7 +99497,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("migrationPath", "String", "Migration Path", false, "High-level migration plan — data export, re-training, parallel run", 5),
             new SomFormFieldMeta("migrationEffort", "String", "Migration Effort", false, "Estimated effort to migrate — person-days, complexity", 6),
             new SomFormFieldMeta("vendorRoadmapAlignment", "String", "Vendor Roadmap Alignment", false, "How well vendor roadmap aligns with project needs — Strong / Moderate / Weak", 7),
-            new SomFormFieldMeta("endOfLifeRisk", "String", "End-of-Life Risk", false, "Low / Medium / High — risk of vendor discontinuing the product", 8)));
+            new SomFormFieldMeta("endOfLifeRisk", "ImportanceBand", "End-of-Life Risk", false, "Risk of vendor discontinuing the product.", 8, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)"), "connotation", "Lifecycle management for a tool: introduction, evaluations, retirement, replacement, migration, and end-of-life risk.")));
         out.add(n);
       }
@@ -101053,7 +101053,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependsOnPhases", "String", "Depends on Phases — phases that must complete", false, "The phases that must complete before this milestone can be achieved", 0),
             new SomFormFieldMeta("dependsOnMilestones", "String", "Depends on Milestones — prior milestones required", false, "The prior milestones required before this milestone can be reached", 1),
-            new SomFormFieldMeta("criticality", "String", "Criticality — High, Medium, Low", false, "How critical this milestone is to the transition: High, Medium, or Low", 2)));
+            new SomFormFieldMeta("criticality", "ImportanceBand", "Criticality", false, "How critical this milestone is to the transition.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK — schedule management", "ISO 31000 — risk management"), "connotation", "Records the phases and prior milestones a milestone depends on and its criticality to the transition.")));
         out.add(n);
       }
@@ -101436,8 +101436,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Risk assessment and exposure details.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("probability", "String", "Probability — Low, Medium, High", false, "The likelihood that this risk materializes: Low, Medium, or High", 0),
-            new SomFormFieldMeta("impact", "String", "Impact — Low, Medium, High", false, "The severity of the consequences if this risk occurs: Low, Medium, or High", 1),
+            new SomFormFieldMeta("probability", "Probability", "Probability", false, "Qualitative likelihood band that this transition risk materializes.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
+            new SomFormFieldMeta("impact", "Impact", "Impact", false, "Qualitative consequence band if the transition risk materializes.", 1, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("affectedPhases", "String", "Affected Phases", false, "The transition phases that would be affected if this risk materializes", 2),
             new SomFormFieldMeta("earlyWarningIndicator", "String", "Early Warning Indicator", false, "The signals or indicators that would warn the team this risk is emerging", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000 — risk management", "PMBOK — risk management"), "connotation", "Captures the probability, impact, affected phases, and early-warning indicators that quantify a transition risk's exposure.")));
@@ -104260,7 +104260,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("growthExpectation", "String", "Growth Expectation (expected change in user count)", false, "Expected change in user count over time", 0),
             new SomFormFieldMeta("criticality", "String", "Criticality (how critical is this user group to the system)", false, "How critical this user group is to the system", 1),
-            new SomFormFieldMeta("priority", "String", "Priority (High, Medium, Low - for design decisions)", false, "High / Medium / Low — for design decisions", 2)));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority (for design decisions)", false, "For design decisions.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-210 — user characteristics & context of use", "BABOK v3 §10.43 — stakeholder/user analysis"), "connotation", "Captures the strategic weight of this user category — expected growth, criticality, and design priority.")));
         out.add(n);
       }
@@ -104519,7 +104519,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("userCount", "int", "User Count", false, "Number of users in the group", 0),
-            new SomFormFieldMeta("impactLevel", "String", "Impact Level (High, Medium, Low)", false, "How strongly the group is impacted", 1),
+            new SomFormFieldMeta("impactLevel", "ImportanceBand", "Impact Level", false, "How strongly the group is impacted.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("specialConsiderations", "String", "Special Considerations", false, "Any special handling the group needs", 2),
             new SomFormFieldMeta("trainingNeeds", "String", "Training Needs", false, "Training specific to this group", 3)));
         out.add(n);

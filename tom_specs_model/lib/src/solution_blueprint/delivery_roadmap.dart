@@ -118,11 +118,9 @@ class SystemStagePlan extends DocSpecsSection {
   @Form([
     Field(
       'organizationalReadinessLevel',
-      String,
+      ImportanceBand,
       'Organizational Readiness Level',
-      hint:
-          'High / Medium / Low — organization preparedness for '
-          'staged rollout',
+      hint: 'Organization preparedness for staged rollout.',
     ),
     Field(
       'changeAbsorptionCapacity',
@@ -134,11 +132,9 @@ class SystemStagePlan extends DocSpecsSection {
     ),
     Field(
       'confidenceLevel',
-      String,
+      ImportanceBand,
       'Plan Confidence Level',
-      hint:
-          'High / Medium / Low — overall confidence in staging '
-          'plan feasibility',
+      hint: 'Overall confidence in staging plan feasibility.',
     ),
     Field(
       'lastPlanReviewDate',
@@ -232,9 +228,9 @@ class StagingStrategy extends DocSpecsSection {
     ),
     Field(
       'overallRiskLevel',
-      String,
+      ImportanceBand,
       'Overall Risk Level',
-      hint: 'Low / Medium / High / Critical',
+      hint: 'Qualitative overall risk band.',
     ),
   ])
   @override
@@ -332,9 +328,9 @@ class StagingStrategy extends DocSpecsSection {
   @Form([
     Field(
       'riskTolerance',
-      String,
+      ImportanceBand,
       'Risk Tolerance',
-      hint: 'Low / Medium / High — acceptable level of risk',
+      hint: 'Acceptable level of risk.',
     ),
     Field(
       'deploymentRiskFactors',
@@ -425,9 +421,9 @@ class StagingStrategy extends DocSpecsSection {
     ),
     Field(
       'organizationalReadinessLevel',
-      String,
+      ImportanceBand,
       'Organizational Readiness Level',
-      hint: 'Low / Medium / High',
+      hint: 'Qualitative organizational readiness band.',
     ),
     Field(
       'resourceConstraints',
@@ -1315,21 +1311,21 @@ class StageOverview extends DocSpecsSection {
   @Form([
     Field(
       'overallScheduleRisk',
-      String,
+      ImportanceBand,
       'Overall Schedule Risk',
-      hint: 'Low / Medium / High / Critical — aggregate schedule risk',
+      hint: 'Aggregate schedule risk.',
     ),
     Field(
       'overallBudgetRisk',
-      String,
+      ImportanceBand,
       'Overall Budget Risk',
-      hint: 'Low / Medium / High / Critical — aggregate budget overrun risk',
+      hint: 'Aggregate budget overrun risk.',
     ),
     Field(
       'overallScopeRisk',
-      String,
+      ImportanceBand,
       'Overall Scope Risk',
-      hint: 'Low / Medium / High / Critical — risk of scope creep',
+      hint: 'Risk of scope creep.',
     ),
     Field(
       'stageWithHighestRisk',
@@ -1408,10 +1404,9 @@ class StageOverview extends DocSpecsSection {
     ),
     Field(
       'planConfidenceLevel',
-      String,
+      ImportanceBand,
       'Plan Confidence Level',
-      hint:
-          'High / Medium / Low — confidence in the overall timeline and budget',
+      hint: 'Confidence in the overall timeline and budget.',
     ),
     Field(
       'confidenceBasis',
@@ -1835,9 +1830,9 @@ class StageSummaryDependencies extends DocSpecsSection {
     ),
     Field(
       'riskLevel',
-      String,
+      ImportanceBand,
       'Risk Level',
-      hint: 'Low / Medium / High / Critical',
+      hint: 'Qualitative risk band.',
     ),
   ])
   @override
@@ -3108,10 +3103,9 @@ class MoscowEntry extends DocSpecsSection {
     ),
     Field(
       'reclassificationRisk',
-      String,
+      ImportanceBand,
       'Reclassification Risk',
-      hint:
-          'Low / Medium / High — likelihood the category will change before delivery',
+      hint: 'Likelihood the category will change before delivery.',
     ),
   ])
   @SerializationOrder(1)
@@ -3394,10 +3388,11 @@ class FeatureStageMapping extends DocSpecsSection {
     ),
     Field(
       'deliveryConfidence',
-      String,
+      ImportanceBand,
       'Delivery Confidence',
       hint:
-          'High / Medium / Low — confidence that this feature will be delivered in the target stage',
+          'Confidence that this feature will be delivered in the target '
+          'stage.',
     ),
     Field(
       'confidenceRationale',
@@ -3657,9 +3652,9 @@ class FeaturePriorityEntry extends DocSpecsSection {
     ),
     Field(
       'strategicAlignment',
-      String,
+      ImportanceBand,
       'Strategic Alignment',
-      hint: 'Low / Medium / High / Critical',
+      hint: 'Qualitative strategic alignment band.',
       required: true,
     ),
     Field(
@@ -3670,9 +3665,9 @@ class FeaturePriorityEntry extends DocSpecsSection {
     ),
     Field(
       'customerImpact',
-      String,
+      ImportanceBand,
       'Customer Impact',
-      hint: 'Low / Medium / High',
+      hint: 'Qualitative customer impact band.',
     ),
     Field(
       'userBaseAffected',
@@ -3733,9 +3728,9 @@ class FeaturePriorityEntry extends DocSpecsSection {
     ),
     Field(
       'riskLevel',
-      String,
+      ImportanceBand,
       'Risk Level',
-      hint: 'Low / Medium / High',
+      hint: 'Qualitative risk band.',
       required: true,
     ),
     Field('riskFactors', String, 'Risk Factors', hint: 'Specific risks'),
@@ -3995,9 +3990,9 @@ class FeaturePriorityEntry extends DocSpecsSection {
     ),
     Field(
       'confidenceLevel',
-      String,
+      ImportanceBand,
       'Confidence Level',
-      hint: 'High / Medium / Low',
+      hint: 'Qualitative confidence band.',
     ),
     Field(
       'lastReviewedDate',
@@ -5748,11 +5743,9 @@ class StageMigrationRisks extends DocSpecsSection {
     ),
     Field(
       'overallMigrationRiskRating',
-      String,
+      ImportanceBand,
       'Overall Migration Risk Rating',
-      hint:
-          'Low / Medium / High / Critical — aggregate risk '
-          'assessment for the entire migration',
+      hint: 'Aggregate risk assessment for the entire migration.',
     ),
   ])
   @override
@@ -7484,19 +7477,15 @@ class DecisionOptionEntry extends DocSpecsSection {
   @Form([
     Field(
       'technicalFeasibility',
-      String,
+      ImportanceBand,
       'Technical Feasibility',
-      hint:
-          'High / Medium / Low — assessed technical '
-          'feasibility',
+      hint: 'Assessed technical feasibility.',
     ),
     Field(
       'organizationalFeasibility',
-      String,
+      ImportanceBand,
       'Organizational Feasibility',
-      hint:
-          'High / Medium / Low — organizational readiness '
-          'for this option',
+      hint: 'Organizational readiness for this option.',
     ),
     Field(
       'feasibilityNotes',

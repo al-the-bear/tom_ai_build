@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: codespecs-generation-projection/1.2
+# Schema: codespecs-generation-projection/1.3
 
 title-format: "# <!--[CGP]--> CodeSpecs Generation Projection"
 section-types:
@@ -15626,7 +15626,7 @@ form-types:
       - fieldname: complianceLevel
         description: "Full, Partial, Target"
       - fieldname: priority
-        description: "Critical, High, Medium, Low"
+        description: Qualitative priority band.
   iscer-form:
     fields:
       - fieldname: controlsApplicable
@@ -20768,7 +20768,7 @@ form-types:
       - fieldname: fipsValidationLevel
         description: "None | Level1 | Level2 | Level3 — FIPS 140 validation level if applicable"
       - fieldname: securityLevel
-        description: "Low | Medium | High | Critical — overall security classification"
+        description: Overall security classification.
   amea-form:
     fields:
       - fieldname: applicableUserCategories
@@ -22064,7 +22064,7 @@ form-types:
   areg-form:
     fields:
       - fieldname: riskLevel
-        description: "Critical | High | Medium | Low — privilege risk classification for access review prioritization"
+        description: Privilege risk classification for access review prioritization.
       - fieldname: maxHolders
         description: Maximum number of users who can hold this role concurrently; 0 = unlimited
       - fieldname: activationType
@@ -23419,7 +23419,7 @@ form-types:
       - fieldname: supportingActors
         description: Other actors or systems that participate
       - fieldname: priority
-        description: Business priority of this scenario
+        description: Business priority of this scenario.
       - fieldname: complexity
         description: Relative implementation/test complexity
   scco-form:

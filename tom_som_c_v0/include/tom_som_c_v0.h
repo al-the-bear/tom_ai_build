@@ -252,6 +252,27 @@ char *parse_graded_access_level(const char *token);
 // parse_impact returns the token (owned) when it is a known Impact value, else "".
 char *parse_impact(const char *token);
 
+// Generated enum tokens for `ImportanceBand` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The top band: whatever this rates cannot be traded away, deferred or
+// absorbed. On a priority it blocks the release; on a severity it stops
+// work; on a criticality its loss stops the business function. If
+// everything on a list is critical, the list has not been rated.
+#define IMPORTANCE_BAND_CRITICAL "critical"
+// Below [critical] but ahead of the ordinary queue: it is expected to be
+// dealt with in the current cycle, and letting it slip is a decision
+// somebody has to make rather than a routine outcome.
+#define IMPORTANCE_BAND_HIGH "high"
+// The ordinary band, and the default when nobody has actually assessed the
+// item. A medium with no reasoning behind it is worth challenging — it is
+// as often "not looked at" as it is "genuinely middling".
+#define IMPORTANCE_BAND_MEDIUM "medium"
+// The bottom band: worth recording, not worth planning around. Items here
+// are done when they are cheap, and their omission needs no explanation.
+#define IMPORTANCE_BAND_LOW "low"
+// parse_importance_band returns the token (owned) when it is a known ImportanceBand value, else "".
+char *parse_importance_band(const char *token);
+
 // Generated enum tokens for `Iso25010Characteristic` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // ISO/IEC 25010:2023 *functional suitability* — the degree to which the
@@ -990,33 +1011,33 @@ char *parse_status(const char *token);
 char *parse_user_attribute_placement(const char *token);
 
 // D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (SOM §4.2).
-#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.2"
+#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.3"
 // D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (SOM §4.2).
-#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.2"
+#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.3"
 // D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the D02TargetOperatingModel object model was generated against (SOM §4.2).
-#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.2"
+#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.3"
 // D03_INFORMATION_MODEL_MODEL_VERSION is the model version the D03InformationModel object model was generated against (SOM §4.2).
-#define D03_INFORMATION_MODEL_MODEL_VERSION "1.2"
+#define D03_INFORMATION_MODEL_MODEL_VERSION "1.3"
 // D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the D04RequirementsSpecification object model was generated against (SOM §4.2).
-#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.2"
+#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.3"
 // D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version the D05InteractionScenarios object model was generated against (SOM §4.2).
-#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.2"
+#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.3"
 // D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the D06ArchitectureTechnologySpecification object model was generated against (SOM §4.2).
-#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.2"
+#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.3"
 // D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the D07IntegrationInterfaceSpecification object model was generated against (SOM §4.2).
-#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.2"
+#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.3"
 // D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the D08SecurityAccessSpecification object model was generated against (SOM §4.2).
-#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.2"
+#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.3"
 // D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the D09ExperienceDesignSpecification object model was generated against (SOM §4.2).
-#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.2"
+#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.3"
 // D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the D10QualityAcceptancePlan object model was generated against (SOM §4.2).
-#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.2"
+#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.3"
 // D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version the D11DeliveryRoadmap object model was generated against (SOM §4.2).
-#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.2"
+#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.3"
 // D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (SOM §4.2).
-#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.2"
+#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.3"
 // D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version the D13CodeSpecsProjection object model was generated against (SOM §4.2).
-#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.2"
+#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.3"
 
 // Typed facade structs — each binds a node (document + path).
 typedef struct { SomNode node; } AcceptanceCriteriaList;

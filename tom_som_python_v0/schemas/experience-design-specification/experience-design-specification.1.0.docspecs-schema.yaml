@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: experience-design-specification/1.2
+# Schema: experience-design-specification/1.3
 
 title-format: "# <!--[XDS]--> Experience Design Specification"
 section-types:
@@ -5213,7 +5213,7 @@ form-types:
   pfsf-form:
     fields:
       - fieldname: prototypeFidelity
-        description: "Low, medium, high fidelity"
+        description: Qualitative fidelity band of the prototype.
       - fieldname: interactiveFidelity
         description: Level of interactivity
       - fieldname: dataFidelity

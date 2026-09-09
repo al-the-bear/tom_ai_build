@@ -6,6 +6,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
+import '../common/enums.dart';
 
 /// 14. Delivery Scope and Acceptance.
 @StandardReferences(
@@ -244,9 +245,9 @@ class DeliverableEntry extends DocSpecsSection {
   @Form([
     Field(
       'priority',
-      String,
+      ImportanceBand,
       'Priority',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative priority band.',
     ),
   ])
   @override
@@ -1867,9 +1868,9 @@ class TestScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
       'priority',
-      String,
+      ImportanceBand,
       'Priority',
-      hint: 'Critical / High / Medium / Low',
+      hint: 'Qualitative priority band.',
     ),
   ])
   @override

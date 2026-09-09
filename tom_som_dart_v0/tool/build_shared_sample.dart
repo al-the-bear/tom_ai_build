@@ -441,9 +441,9 @@ so downstream processing is channel-agnostic.''')
     ..category = 'Order Capture';
   fr1.priority
     ..priority = Priority.must
-    ..businessValue = 'High'
+    ..businessValue = ImportanceBand.high
     ..effort = 'M'
-    ..riskLevel = 'Medium';
+    ..riskLevel = ImportanceBand.medium;
   fr1.source
     ..source = 'VP Operations'
     ..requestDate = '2026-04-02'
@@ -476,9 +476,9 @@ making historical orders reproducible.''')
     ..category = 'Pricing';
   fr2.priority
     ..priority = Priority.must
-    ..businessValue = 'High'
+    ..businessValue = ImportanceBand.high
     ..effort = 'M'
-    ..riskLevel = 'Medium';
+    ..riskLevel = ImportanceBand.medium;
   fr2.verification.fitCriterion =
       'Each confirmed line carries a unitPrice snapshot equal to the price list at pricing time.';
   _acceptance(fr2.acceptanceCriteria.criteria.add(), 'FR-02-AC-1',
@@ -500,9 +500,9 @@ whole order.''')
     ..category = 'Fulfilment';
   fr3.priority
     ..priority = Priority.must
-    ..businessValue = 'High'
+    ..businessValue = ImportanceBand.high
     ..effort = 'L'
-    ..riskLevel = 'High';
+    ..riskLevel = ImportanceBand.high;
   _acceptance(fr3.acceptanceCriteria.criteria.add(), 'FR-03-AC-1',
       'Stock reserved when available',
       given: 'an order whose lines all have sufficient stock on hand',
@@ -527,9 +527,9 @@ the operations work list and the public tracking page.''')
     ..category = 'Order Lifecycle';
   fr4.priority
     ..priority = Priority.must
-    ..businessValue = 'High'
+    ..businessValue = ImportanceBand.high
     ..effort = 'M'
-    ..riskLevel = 'Medium';
+    ..riskLevel = ImportanceBand.medium;
   _acceptance(fr4.acceptanceCriteria.criteria.add(), 'FR-04-AC-1',
       'Order confirmed within budget',
       given: 'a captured order that passes validation, pricing, and reservation',
@@ -554,9 +554,9 @@ for the affected lines and is fully audited.''')
     ..category = 'Order Amendment';
   fr5.priority
     ..priority = Priority.should
-    ..businessValue = 'Medium'
+    ..businessValue = ImportanceBand.medium
     ..effort = 'M'
-    ..riskLevel = 'Medium';
+    ..riskLevel = ImportanceBand.medium;
   _acceptance(fr5.acceptanceCriteria.criteria.add(), 'FR-05-AC-1',
       'Amendment re-runs pricing and reservation',
       given: 'a confirmed order that has not yet dispatched',
@@ -580,9 +580,9 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..category = 'Exception Handling';
   fr6.priority
     ..priority = Priority.must
-    ..businessValue = 'High'
+    ..businessValue = ImportanceBand.high
     ..effort = 'S'
-    ..riskLevel = 'Low';
+    ..riskLevel = ImportanceBand.low;
   _acceptance(fr6.acceptanceCriteria.criteria.add(), 'FR-06-AC-1',
       'Supervisor releases hold',
       given: 'an order in state Hold',
@@ -600,7 +600,7 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..description = 'The 95th-percentile order-confirmation latency must stay within budget under peak load.'
     ..category = 'Performance'
     ..subcategory = 'Latency'
-    ..priority = 'Must'
+    ..priority = ImportanceBand.critical
     ..source = 'Operations SLA'
     ..rationale = 'Sub-30s p95 keeps the five-minute business promise safe under 3x peak.';
   tr1.measurement
@@ -619,7 +619,7 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..description = 'The order-capture API must meet a 99.9% monthly availability target.'
     ..category = 'Reliability'
     ..subcategory = 'Availability'
-    ..priority = 'Must'
+    ..priority = ImportanceBand.critical
     ..source = 'Partner integration agreement'
     ..rationale = 'Marketplace partners depend on the capture API being continuously reachable.';
   tr2.measurement
@@ -638,7 +638,7 @@ The order service must be event-sourced: the append-only event log is the system
 of record and all read models are projections rebuildable from the log.''')
     ..category = 'Architecture'
     ..subcategory = 'Persistence'
-    ..priority = 'Must'
+    ..priority = ImportanceBand.critical
     ..source = 'Enterprise Architecture Board'
     ..rationale = 'Reproducible history and rebuildable projections are core to auditability.';
 
@@ -655,7 +655,7 @@ transition is attributed to an authenticated principal.''');
   sr1.classification
     ..category = 'Access Control'
     ..subcategory = 'Authorization'
-    ..priority = 'Must'
+    ..priority = ImportanceBand.critical
     ..source = 'Security chapter'
     ..rationale = 'Least privilege across human and machine actors.'
     ..threatMitigated = 'Unauthorized order manipulation'
@@ -673,7 +673,7 @@ transition is attributed to an authenticated principal.''');
   sr2.classification
     ..category = 'Data Protection'
     ..subcategory = 'Encryption'
-    ..priority = 'Must'
+    ..priority = ImportanceBand.critical
     ..source = 'Data Protection Officer'
     ..rationale = 'GDPR obligations on customer records with a 7-year retention.'
     ..threatMitigated = 'PII disclosure from storage compromise'
@@ -691,7 +691,7 @@ tokens and enforce per-partner rate limits at the gateway.''');
   sr3.classification
     ..category = 'API Security'
     ..subcategory = 'Authentication'
-    ..priority = 'Must'
+    ..priority = ImportanceBand.critical
     ..source = 'Security chapter'
     ..rationale = 'Machine-to-machine partner access without shared secrets in code.'
     ..threatMitigated = 'Credential replay and partner impersonation'
@@ -713,8 +713,8 @@ lifecycle on MOM alone, including hold release and amendments.''');
     ..impactedGroups = 'Order Operations desk'
     ..impactedUserCount = '25'
     ..changeType = 'Process + tooling'
-    ..changeComplexity = 'Medium'
-    ..resistance = 'Low';
+    ..changeComplexity = ImportanceBand.medium
+    ..resistance = ImportanceBand.low;
 
   final or2 = orq.add();
   or2.content.description = _p('''
@@ -726,8 +726,8 @@ systems daily until the < 0.1% variance gate passes.''');
     ..impactedGroups = 'Order Operations, Finance'
     ..impactedUserCount = '30'
     ..changeType = 'Temporary dual-running'
-    ..changeComplexity = 'Medium'
-    ..resistance = 'Medium';
+    ..changeComplexity = ImportanceBand.medium
+    ..resistance = ImportanceBand.medium;
 }
 
 // ---------------------------------------------------------------------------
@@ -774,7 +774,7 @@ void _acceptance(AcceptanceCriterionEntry ac, String id, String title,
     ..then = then
     ..verificationMethod = 'Automated test'
     ..testType = 'Integration'
-    ..priority = 'Must'
+    ..priority = ImportanceBand.critical
     ..status = 'Draft';
 }
 
@@ -984,7 +984,7 @@ audit trail.''')
     ..businessGoal = 'Confirm and fulfil a wholesale order without manual intervention.'
     ..primaryActor = 'ACT-04 EDI Integration Account'
     ..supportingActors = 'ACT-01 Order Clerk'
-    ..priority = 'High'
+    ..priority = ImportanceBand.high
     ..complexity = 'Medium';
   _scnStep(scn.steps.add(), '1', 'ACT-04 EDI Integration Account',
       'Submits a two-line wholesale order.',

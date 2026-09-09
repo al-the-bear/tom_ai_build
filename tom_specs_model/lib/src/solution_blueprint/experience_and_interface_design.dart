@@ -7,6 +7,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../common/authorization_requirement.dart';
 import '../document_stubs.dart';
+import '../common/enums.dart';
 
 /// The closed set of screen-element kinds (CE-EL).
 ///
@@ -1019,7 +1020,12 @@ class DesignGoalEntry extends DocSpecsSection {
       'Goal Description',
       hint: 'What this goal means for the UI',
     ),
-    Field('priority', String, 'Priority', hint: 'Critical/High/Medium/Low'),
+    Field(
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
+    ),
     Field(
       'category',
       String,
@@ -1424,7 +1430,12 @@ class PersonaGoalEntry extends DocSpecsSection {
       required: true,
       hint: 'The concrete action or outcome the persona wants to achieve',
     ),
-    Field('priority', String, 'Priority', hint: 'Critical/High/Medium/Low'),
+    Field(
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
+    ),
     Field('frequency', String, 'Frequency', hint: 'How often this goal arises'),
     Field(
       'currentApproach',
@@ -1507,7 +1518,12 @@ class PersonaPainPointEntry extends DocSpecsSection {
       required: true,
       hint: 'The specific frustration or obstacle the persona encounters',
     ),
-    Field('severity', String, 'Severity', hint: 'Critical/High/Medium/Low'),
+    Field(
+      'severity',
+      ImportanceBand,
+      'Severity',
+      hint: 'Qualitative severity band.',
+    ),
     Field('frequency', String, 'Frequency', hint: 'How often this occurs'),
     Field(
       'impact',
@@ -16485,9 +16501,9 @@ class PrototypeFeatureSubset extends DocSpecsSection {
   @Form([
     Field(
       'prototypeFidelity',
-      String,
+      ImportanceBand,
       'Prototype Fidelity',
-      hint: 'Low, medium, high fidelity',
+      hint: 'Qualitative fidelity band of the prototype.',
     ),
     Field(
       'interactiveFidelity',
@@ -16549,7 +16565,12 @@ class PrototypeFeatureEntry extends DocSpecsSection {
       'Inclusion Reason',
       hint: 'Why this feature is included',
     ),
-    Field('fidelityLevel', String, 'Fidelity Level', hint: 'Low, medium, high'),
+    Field(
+      'fidelityLevel',
+      ImportanceBand,
+      'Fidelity Level',
+      hint: 'Qualitative fidelity band.',
+    ),
     Field(
       'completenessLevel',
       String,

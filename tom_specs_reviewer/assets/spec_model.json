@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-08T20:09:08.426572Z",
+  "generatedAt": "2026-09-09T15:38:55.043403Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.2.0+6.2c330083",
+  "modelVersionLabel": "1.3.0+7.a618b7fc",
   "classCount": 1254,
   "rootCount": 14,
   "containerRoot": "DocSpecsProject",
@@ -573,10 +573,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority (Critical, High, Medium, Low)",
-              "hint": "Critical, High, Medium, or Low",
-              "type": "String",
-              "required": false
+              "label": "Priority",
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "status",
@@ -6719,10 +6731,22 @@
             },
             {
               "name": "impactLevel",
-              "label": "Impact Level (High, Medium, Low)",
-              "hint": "Degree to which the project affects this department",
-              "type": "String",
-              "required": false
+              "label": "Impact Level",
+              "hint": "Degree to which the project affects this department.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "roleInProject",
@@ -6740,10 +6764,22 @@
             },
             {
               "name": "changeReadiness",
-              "label": "Change Readiness (High, Medium, Low)",
-              "hint": "Department capacity and appetite for change",
-              "type": "String",
-              "required": false
+              "label": "Change Readiness",
+              "hint": "Department capacity and appetite for change.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "keyContacts",
@@ -15776,9 +15812,21 @@
             {
               "name": "securityLevel",
               "label": "Security Level",
-              "hint": "Low | Medium | High | Critical — overall security classification",
-              "type": "String",
-              "required": false
+              "hint": "Overall security classification.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -17251,9 +17299,21 @@
             {
               "name": "riskLevel",
               "label": "Risk Level",
-              "hint": "Critical | High | Medium | Low — privilege risk classification for access review prioritization",
-              "type": "String",
-              "required": false
+              "hint": "Privilege risk classification for access review prioritization.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "maxHolders",
@@ -19392,9 +19452,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "Critical, High, Medium, Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -21499,10 +21571,22 @@
             },
             {
               "name": "confidence",
-              "label": "Confidence Level (High, Medium, Low)",
-              "hint": "How confident the team is the assumption holds",
-              "type": "String",
-              "required": false
+              "label": "Confidence Level",
+              "hint": "How confident the team is the assumption holds.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -21559,10 +21643,22 @@
             },
             {
               "name": "riskImpact",
-              "label": "Impact Level (High, Medium, Low)",
-              "hint": "Severity of the impact if the assumption fails",
-              "type": "String",
-              "required": false
+              "label": "Impact Level",
+              "hint": "Severity of the impact if the assumption fails.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "contingencyPlan",
@@ -24796,10 +24892,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority (Critical, High, Medium, Low)",
-              "hint": "Critical, High, Medium, or Low",
-              "type": "String",
-              "required": true
+              "label": "Priority",
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": true,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -43978,9 +44086,21 @@
             {
               "name": "integrationComplexity",
               "label": "Integration Complexity",
-              "hint": "Effort to integrate — Low / Medium / High",
-              "type": "String",
-              "required": false
+              "hint": "Effort to integrate.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -47828,9 +47948,21 @@
             {
               "name": "residualRisk",
               "label": "Residual Risk Level",
-              "hint": "Risk level remaining after mitigation — Low / Medium / High",
-              "type": "String",
-              "required": false
+              "hint": "Risk level remaining after mitigation.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "contingencyTrigger",
@@ -54983,9 +55115,21 @@
             {
               "name": "dataSecurityRiskLevel",
               "label": "Data Security Risk Level",
-              "hint": "Low / Medium / High / Critical",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative data security risk band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "averageDataAge",
@@ -55491,9 +55635,22 @@
             },
             {
               "name": "implementationEffort",
-              "label": "Implementation Effort (Low/Medium/High)",
-              "type": "String",
-              "required": false
+              "label": "Implementation Effort",
+              "hint": "Qualitative implementation effort band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "priority",
@@ -63755,9 +63912,21 @@
             {
               "name": "dataInconsistencyRisk",
               "label": "Data Inconsistency Risk",
-              "hint": "Low / Medium / High / Critical",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative data inconsistency risk band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "consolidationOpportunities",
@@ -66428,9 +66597,21 @@
             {
               "name": "criticality",
               "label": "Business Criticality",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative business criticality band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "knownIssues",
@@ -70296,9 +70477,21 @@
             {
               "name": "severity",
               "label": "Severity",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative severity band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -71103,9 +71296,21 @@
             {
               "name": "criticality",
               "label": "Business Criticality",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative business criticality band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -74003,10 +74208,22 @@
             },
             {
               "name": "influenceLevel",
-              "label": "Influence Level (High, Medium, Low)",
-              "hint": "Degree of influence over project outcomes",
-              "type": "String",
-              "required": false
+              "label": "Influence Level",
+              "hint": "Degree of influence over project outcomes.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "approvalRequired",
@@ -74301,16 +74518,40 @@
             {
               "name": "technicalFeasibility",
               "label": "Technical Feasibility",
-              "hint": "High / Medium / Low — assessed technical feasibility",
-              "type": "String",
-              "required": false
+              "hint": "Assessed technical feasibility.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "organizationalFeasibility",
               "label": "Organizational Feasibility",
-              "hint": "High / Medium / Low — organizational readiness for this option",
-              "type": "String",
-              "required": false
+              "hint": "Organizational readiness for this option.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "feasibilityNotes",
@@ -75972,9 +76213,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -81306,9 +81559,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "Critical/High/Medium/Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "category",
@@ -100372,10 +100637,22 @@
           "formFields": [
             {
               "name": "technicalDebtLevel",
-              "label": "Technical Debt Level (Low, Medium, High, Critical)",
-              "hint": "Accumulated technical debt: Low, Medium, High, or Critical.",
-              "type": "String",
-              "required": false
+              "label": "Technical Debt Level",
+              "hint": "Qualitative band for the accumulated technical debt.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "codeQuality",
@@ -104219,10 +104496,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority (Critical, High, Medium, Low)",
-              "hint": "Relative importance of this interface",
-              "type": "String",
-              "required": false
+              "label": "Priority",
+              "hint": "Relative importance of this interface.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "status",
@@ -105693,9 +105982,21 @@
             {
               "name": "criticality",
               "label": "Criticality",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative criticality band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "contractStatus",
@@ -107958,9 +108259,21 @@
             {
               "name": "strategicAlignment",
               "label": "Strategic Alignment",
-              "hint": "Low / Medium / High / Critical",
-              "type": "String",
-              "required": true
+              "hint": "Qualitative strategic alignment band.",
+              "type": "ImportanceBand",
+              "required": true,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "strategicObjectiveLink",
@@ -107972,9 +108285,21 @@
             {
               "name": "customerImpact",
               "label": "Customer Impact",
-              "hint": "Low / Medium / High",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative customer impact band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "userBaseAffected",
@@ -108074,9 +108399,21 @@
             {
               "name": "riskLevel",
               "label": "Risk Level",
-              "hint": "Low / Medium / High",
-              "type": "String",
-              "required": true
+              "hint": "Qualitative risk band.",
+              "type": "ImportanceBand",
+              "required": true,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "riskFactors",
@@ -108566,9 +108903,21 @@
             {
               "name": "confidenceLevel",
               "label": "Confidence Level",
-              "hint": "High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative confidence band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "lastReviewedDate",
@@ -108907,9 +109256,21 @@
             {
               "name": "deliveryConfidence",
               "label": "Delivery Confidence",
-              "hint": "High / Medium / Low — confidence that this feature will be delivered in the target stage",
-              "type": "String",
-              "required": false
+              "hint": "Confidence that this feature will be delivered in the target stage.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "confidenceRationale",
@@ -112029,9 +112390,21 @@
             {
               "name": "criticalityLevel",
               "label": "Criticality Level",
-              "hint": "Business criticality: Critical | High | Medium | Low",
-              "type": "String",
-              "required": false
+              "hint": "Business criticality.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -112849,10 +113222,22 @@
             },
             {
               "name": "businessValue",
-              "label": "Business Value (High, Medium, Low) - benefit to business",
-              "hint": "High / Medium / Low benefit to the business",
-              "type": "String",
-              "required": false
+              "label": "Business Value — benefit to business",
+              "hint": "Qualitative band for the benefit to the business.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "effort",
@@ -112863,10 +113248,22 @@
             },
             {
               "name": "riskLevel",
-              "label": "Risk Level (High, Medium, Low) - risk of not meeting",
-              "hint": "High / Medium / Low risk of not meeting the requirement",
-              "type": "String",
-              "required": false
+              "label": "Risk Level — risk of not meeting",
+              "hint": "Qualitative band for the risk of not meeting the requirement.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -113850,9 +114247,21 @@
             {
               "name": "severity",
               "label": "Severity",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative severity band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -115666,17 +116075,45 @@
           "formFields": [
             {
               "name": "probability",
-              "label": "Probability (Low, Medium, High)",
-              "hint": "Low, Medium, or High",
-              "type": "String",
-              "required": false
+              "label": "Probability",
+              "hint": "Qualitative likelihood band that this goal risk materializes.",
+              "type": "Probability",
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "impact",
-              "label": "Impact (Low, Medium, High, Critical)",
-              "hint": "Low, Medium, High, or Critical",
-              "type": "String",
-              "required": false
+              "label": "Impact",
+              "hint": "Qualitative consequence band if the goal risk materializes.",
+              "type": "Impact",
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ],
+              "enumValueDocs": {
+                "negligible": "Absorbed inside normal working. No measurable change to schedule, budget\nor quality, and nobody outside the team doing the work has to know.",
+                "minor": "Felt within one workstream and covered by that workstream's own\ncontingency. Nothing outside it is replanned.",
+                "moderate": "Exceeds a single workstream's contingency and forces replanning across\nworkstreams. Project management decides; the sponsor is informed.",
+                "major": "Threatens a committed date, budget or quality commitment. Recovery\nrequires a sponsor decision — more money, less scope, or a later date.",
+                "critical": "The objective itself fails and no contingency inside the project recovers\nit. The decision at this level is whether the project continues at all."
+              }
             },
             {
               "name": "riskScore",
@@ -124836,9 +125273,21 @@
             {
               "name": "impactLevel",
               "label": "Impact Level",
-              "hint": "High, Medium, Low — impact on integration design",
-              "type": "String",
-              "required": false
+              "hint": "Impact on integration design.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "designImplications",
@@ -127893,9 +128342,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "High, Medium, Low - for resource allocation",
-              "type": "String",
-              "required": false
+              "hint": "For resource allocation.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         }
@@ -133356,9 +133817,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "Critical, High, Medium, Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -142126,9 +142599,21 @@
             {
               "name": "criticality",
               "label": "Criticality",
-              "hint": "Critical / High / Medium / Low — impact if update breaks",
-              "type": "String",
-              "required": false
+              "hint": "Impact if update breaks.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "purpose",
@@ -145269,9 +145754,21 @@
             {
               "name": "dataQuality",
               "label": "Data Quality Assessment",
-              "hint": "High / Medium / Low - confidence in metric accuracy",
-              "type": "String",
-              "required": false
+              "hint": "Confidence in metric accuracy.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "keyThroughput",
@@ -148459,9 +148956,21 @@
             {
               "name": "riskPriority",
               "label": "Risk Priority",
-              "hint": "Critical, High, Medium, Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative risk priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "expectedMonetaryValue",
@@ -153260,9 +153769,21 @@
             {
               "name": "reclassificationRisk",
               "label": "Reclassification Risk",
-              "hint": "Low / Medium / High — likelihood the category will change before delivery",
-              "type": "String",
-              "required": false
+              "hint": "Likelihood the category will change before delivery.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -160231,9 +160752,21 @@
             {
               "name": "urgency",
               "label": "Urgency Level",
-              "hint": "Critical, High, Medium, Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative urgency band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "defaultChannels",
@@ -163849,9 +164382,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "Critical, High, Medium, Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -164064,9 +164609,21 @@
             {
               "name": "impactLevel",
               "label": "Impact Level",
-              "hint": "High, Medium, Low — severity of disruption",
-              "type": "String",
-              "required": false
+              "hint": "Severity of disruption.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "affectedRoles",
@@ -164657,10 +165214,22 @@
             },
             {
               "name": "changeReadiness",
-              "label": "Change Readiness (Low, Medium, High)",
-              "hint": "Organizational appetite and capacity for change",
-              "type": "String",
-              "required": false
+              "label": "Change Readiness",
+              "hint": "Organizational appetite and capacity for change.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "projectManagementMaturity",
@@ -165465,17 +166034,41 @@
             },
             {
               "name": "changeComplexity",
-              "label": "Change Complexity (Low, Medium, High)",
-              "hint": "Low, Medium, or High",
-              "type": "String",
-              "required": false
+              "label": "Change Complexity",
+              "hint": "Qualitative change complexity band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "resistance",
-              "label": "Expected Resistance (Low, Medium, High)",
-              "hint": "Anticipated resistance: Low, Medium, or High",
-              "type": "String",
-              "required": false
+              "label": "Expected Resistance",
+              "hint": "Anticipated resistance.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -167468,9 +168061,21 @@
             {
               "name": "severity",
               "label": "Severity",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative severity band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -170957,9 +171562,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "Critical/High/Medium/Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "frequency",
@@ -171154,9 +171771,21 @@
             {
               "name": "severity",
               "label": "Severity",
-              "hint": "Critical/High/Medium/Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative severity band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "frequency",
@@ -176110,10 +176739,22 @@
             },
             {
               "name": "impactSeverity",
-              "label": "Impact Severity (Critical, High, Medium, Low)",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "label": "Impact Severity",
+              "hint": "Qualitative impact severity band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "impactMetrics",
@@ -176667,9 +177308,21 @@
             {
               "name": "riskLevel",
               "label": "Risk Level",
-              "hint": "Low / Medium / High — risk introduced by this deviation",
-              "type": "String",
-              "required": false
+              "hint": "Risk introduced by this deviation.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "riskDescription",
@@ -176935,9 +177588,21 @@
             {
               "name": "processRiskLevel",
               "label": "Process Risk Level",
-              "hint": "Low / Medium / High — overall process risk from deviations",
-              "type": "String",
-              "required": false
+              "hint": "Overall process risk from deviations.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "processEfficiencyImpact",
@@ -178210,10 +178875,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority — high, medium, low",
-              "hint": "Relative importance of the principle",
-              "type": "String",
-              "required": false
+              "label": "Priority",
+              "hint": "Relative importance of the principle.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "applicability",
@@ -185078,9 +185755,21 @@
             {
               "name": "deviationRiskLevel",
               "label": "Overall Deviation Risk Level",
-              "hint": "Low / Medium / High — aggregate risk from all deviations",
-              "type": "String",
-              "required": false
+              "hint": "Aggregate risk from all deviations.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "deviationApprovalAuthority",
@@ -186458,9 +187147,21 @@
             {
               "name": "fidelityLevel",
               "label": "Fidelity Level",
-              "hint": "Low, medium, high",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative fidelity band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "completenessLevel",
@@ -186711,9 +187412,21 @@
             {
               "name": "prototypeFidelity",
               "label": "Prototype Fidelity",
-              "hint": "Low, medium, high fidelity",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative fidelity band of the prototype.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "interactiveFidelity",
@@ -187968,9 +188681,21 @@
             {
               "name": "categoryPriority",
               "label": "Priority",
-              "hint": "Critical, high, medium, low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "categoryRationale",
@@ -189018,9 +189743,21 @@
             {
               "name": "riskLevel",
               "label": "Risk Level",
-              "hint": "Low / Medium / High",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative risk band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "riskDescription",
@@ -189265,9 +190002,21 @@
             {
               "name": "qualityRiskLevel",
               "label": "Quality Risk Level",
-              "hint": "Low / Medium / High — overall quality risk from deviations",
-              "type": "String",
-              "required": false
+              "hint": "Overall quality risk from deviations.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "compensatingControls",
@@ -190806,9 +191555,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "Critical, high, medium, low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "rationale",
@@ -201730,10 +202491,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority (Critical, High, Medium, Low)",
-              "hint": "Critical, High, Medium, or Low",
-              "type": "String",
-              "required": false
+              "label": "Priority",
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -203836,10 +204609,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority (Critical/High/Medium/Low)",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "label": "Priority",
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "status",
@@ -203932,10 +204717,22 @@
             },
             {
               "name": "impactLevel",
-              "label": "Impact Level — high, medium, low",
-              "hint": "How significant the impact of this change is",
-              "type": "String",
-              "required": false
+              "label": "Impact Level",
+              "hint": "How significant the impact of this change is.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "trainingNeeded",
@@ -204639,9 +205436,21 @@
             {
               "name": "businessCriticality",
               "label": "Business Criticality",
-              "hint": "Critical, High, Medium, Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative business criticality band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         }
@@ -204729,9 +205538,21 @@
             {
               "name": "criticalityLevel",
               "label": "Criticality Level",
-              "hint": "Critical | High | Medium | Low — importance of this responsibility for business operations",
-              "type": "String",
-              "required": false
+              "hint": "Importance of this responsibility for business operations.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         }
@@ -207787,9 +208608,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "targetDate",
@@ -208589,10 +209422,22 @@
             },
             {
               "name": "riskLevel",
-              "label": "Risk Level — Low, Medium, High, Critical",
-              "hint": "Overall risk level classification",
-              "type": "String",
-              "required": false
+              "label": "Risk Level",
+              "hint": "Overall risk level classification.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "riskRanking",
@@ -209599,10 +210444,22 @@
           "formFields": [
             {
               "name": "responseEffectiveness",
-              "label": "Response Effectiveness — Low, Medium, High",
-              "hint": "How effective the response is expected to be",
-              "type": "String",
-              "required": false
+              "label": "Response Effectiveness",
+              "hint": "How effective the response is expected to be.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "implementationCost",
@@ -210165,9 +211022,21 @@
             {
               "name": "riskLevel",
               "label": "Risk Level",
-              "hint": "Low / Medium / High — risk introduced by this deviation",
-              "type": "String",
-              "required": false
+              "hint": "Risk introduced by this deviation.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "riskDescription",
@@ -210412,9 +211281,21 @@
             {
               "name": "governanceImpact",
               "label": "Governance Impact Assessment",
-              "hint": "Low / Medium / High — impact on project governance",
-              "type": "String",
-              "required": false
+              "hint": "Impact on project governance.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -213007,9 +213888,21 @@
             {
               "name": "criticality",
               "label": "Criticality",
-              "hint": "Critical / High / Medium / Low — impact if unavailable",
-              "type": "String",
-              "required": false
+              "hint": "Impact if unavailable.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "purpose",
@@ -215098,10 +215991,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority — critical, high, medium, low",
-              "hint": "Business priority of this scenario",
-              "type": "String",
-              "required": false
+              "label": "Priority",
+              "hint": "Business priority of this scenario.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "complexity",
@@ -226598,10 +227503,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority (Critical, High, Medium, Low)",
-              "hint": "Critical, High, Medium, or Low",
-              "type": "String",
-              "required": true
+              "label": "Priority",
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": true,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "source",
@@ -233552,9 +234469,21 @@
             {
               "name": "criticality",
               "label": "Criticality",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative criticality band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "singlePointOfFailure",
@@ -237512,9 +238441,21 @@
             {
               "name": "urgency",
               "label": "Urgency",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative urgency band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -240241,9 +241182,21 @@
             {
               "name": "overallMigrationRiskRating",
               "label": "Overall Migration Risk Rating",
-              "hint": "Low / Medium / High / Critical — aggregate risk assessment for the entire migration",
-              "type": "String",
-              "required": false
+              "hint": "Aggregate risk assessment for the entire migration.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -241130,23 +242083,59 @@
             {
               "name": "overallScheduleRisk",
               "label": "Overall Schedule Risk",
-              "hint": "Low / Medium / High / Critical — aggregate schedule risk",
-              "type": "String",
-              "required": false
+              "hint": "Aggregate schedule risk.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "overallBudgetRisk",
               "label": "Overall Budget Risk",
-              "hint": "Low / Medium / High / Critical — aggregate budget overrun risk",
-              "type": "String",
-              "required": false
+              "hint": "Aggregate budget overrun risk.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "overallScopeRisk",
               "label": "Overall Scope Risk",
-              "hint": "Low / Medium / High / Critical — risk of scope creep",
-              "type": "String",
-              "required": false
+              "hint": "Risk of scope creep.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "stageWithHighestRisk",
@@ -241267,9 +242256,21 @@
             {
               "name": "planConfidenceLevel",
               "label": "Plan Confidence Level",
-              "hint": "High / Medium / Low — confidence in the overall timeline and budget",
-              "type": "String",
-              "required": false
+              "hint": "Confidence in the overall timeline and budget.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "confidenceBasis",
@@ -242064,9 +243065,21 @@
             {
               "name": "riskLevel",
               "label": "Risk Level",
-              "hint": "Low / Medium / High / Critical",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative risk band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         }
@@ -242797,9 +243810,21 @@
             {
               "name": "overallRiskLevel",
               "label": "Overall Risk Level",
-              "hint": "Low / Medium / High / Critical",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative overall risk band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -243041,9 +244066,21 @@
             {
               "name": "riskTolerance",
               "label": "Risk Tolerance",
-              "hint": "Low / Medium / High — acceptable level of risk",
-              "type": "String",
-              "required": false
+              "hint": "Acceptable level of risk.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "deploymentRiskFactors",
@@ -243208,9 +244245,21 @@
             {
               "name": "organizationalReadinessLevel",
               "label": "Organizational Readiness Level",
-              "hint": "Low / Medium / High",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative organizational readiness band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "resourceConstraints",
@@ -244007,9 +245056,22 @@
             },
             {
               "name": "influence",
-              "label": "Influence (High, Medium, Low)",
-              "type": "String",
-              "required": false
+              "label": "Influence",
+              "hint": "Qualitative influence band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "concerns",
@@ -247317,9 +248379,21 @@
             {
               "name": "weight",
               "label": "Weight",
-              "hint": "Importance: Critical, High, Medium, Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative importance band for this success criterion.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "isMandatory",
@@ -250663,9 +251737,21 @@
             {
               "name": "criticality",
               "label": "Criticality",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative criticality band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -253661,17 +254747,45 @@
             },
             {
               "name": "probability",
-              "label": "Probability (High, Medium, Low)",
-              "hint": "Likelihood the risk occurs",
-              "type": "String",
-              "required": false
+              "label": "Probability",
+              "hint": "Qualitative likelihood band that this migration risk occurs.",
+              "type": "Probability",
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "impact",
-              "label": "Impact (High, Medium, Low)",
-              "hint": "Severity if the risk occurs",
-              "type": "String",
-              "required": false
+              "label": "Impact",
+              "hint": "Qualitative consequence band if the migration risk occurs.",
+              "type": "Impact",
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ],
+              "enumValueDocs": {
+                "negligible": "Absorbed inside normal working. No measurable change to schedule, budget\nor quality, and nobody outside the team doing the work has to know.",
+                "minor": "Felt within one workstream and covered by that workstream's own\ncontingency. Nothing outside it is replanned.",
+                "moderate": "Exceeds a single workstream's contingency and forces replanning across\nworkstreams. Project management decides; the sponsor is informed.",
+                "major": "Threatens a committed date, budget or quality commitment. Recovery\nrequires a sponsor decision — more money, less scope, or a later date.",
+                "critical": "The objective itself fails and no contingency inside the project recovers\nit. The decision at this level is whether the project continues at all."
+              }
             },
             {
               "name": "riskScore",
@@ -255634,9 +256748,21 @@
             {
               "name": "organizationalReadinessLevel",
               "label": "Organizational Readiness Level",
-              "hint": "High / Medium / Low — organization preparedness for staged rollout",
-              "type": "String",
-              "required": false
+              "hint": "Organization preparedness for staged rollout.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "changeAbsorptionCapacity",
@@ -255648,9 +256774,21 @@
             {
               "name": "confidenceLevel",
               "label": "Plan Confidence Level",
-              "hint": "High / Medium / Low — overall confidence in staging plan feasibility",
-              "type": "String",
-              "required": false
+              "hint": "Overall confidence in staging plan feasibility.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "lastPlanReviewDate",
@@ -256217,10 +257355,22 @@
             },
             {
               "name": "importance",
-              "label": "Importance (Critical, High, Medium, Low)",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "label": "Importance",
+              "hint": "Qualitative importance band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "trigger",
@@ -256759,10 +257909,22 @@
           "formFields": [
             {
               "name": "technicalDebtRating",
-              "label": "Technical Debt (Low, Medium, High, Critical)",
-              "hint": "Overall accumulated technical debt of the system",
-              "type": "String",
-              "required": false
+              "label": "Technical Debt",
+              "hint": "Qualitative band for the accumulated technical debt of the system.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "securityPosture",
@@ -261322,10 +262484,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority (Critical, High, Medium, Low)",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": true
+              "label": "Priority",
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": true,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -262366,9 +263540,21 @@
             {
               "name": "vendorLockInRisk",
               "label": "Vendor Lock-in Risk Level",
-              "hint": "Low / Medium / High — based on proprietary dependencies",
-              "type": "String",
-              "required": false
+              "hint": "Based on proprietary dependencies.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "integrationComplexityScore",
@@ -262584,10 +263770,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority (Critical, High, Medium, Low)",
-              "hint": "Critical, High, Medium, or Low",
-              "type": "String",
-              "required": true
+              "label": "Priority",
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": true,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "source",
@@ -264418,9 +265616,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "Critical / High / Medium / Low",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative priority band.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -268775,9 +269985,21 @@
             {
               "name": "endOfLifeRisk",
               "label": "End-of-Life Risk",
-              "hint": "Low / Medium / High — risk of vendor discontinuing the product",
-              "type": "String",
-              "required": false
+              "hint": "Risk of vendor discontinuing the product.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -272816,10 +274038,22 @@
             },
             {
               "name": "criticality",
-              "label": "Criticality — High, Medium, Low",
-              "hint": "How critical this milestone is to the transition: High, Medium, or Low",
-              "type": "String",
-              "required": false
+              "label": "Criticality",
+              "hint": "How critical this milestone is to the transition.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -273888,17 +275122,45 @@
           "formFields": [
             {
               "name": "probability",
-              "label": "Probability — Low, Medium, High",
-              "hint": "The likelihood that this risk materializes: Low, Medium, or High",
-              "type": "String",
-              "required": false
+              "label": "Probability",
+              "hint": "Qualitative likelihood band that this transition risk materializes.",
+              "type": "Probability",
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "impact",
-              "label": "Impact — Low, Medium, High",
-              "hint": "The severity of the consequences if this risk occurs: Low, Medium, or High",
-              "type": "String",
-              "required": false
+              "label": "Impact",
+              "hint": "Qualitative consequence band if the transition risk materializes.",
+              "type": "Impact",
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ],
+              "enumValueDocs": {
+                "negligible": "Absorbed inside normal working. No measurable change to schedule, budget\nor quality, and nobody outside the team doing the work has to know.",
+                "minor": "Felt within one workstream and covered by that workstream's own\ncontingency. Nothing outside it is replanned.",
+                "moderate": "Exceeds a single workstream's contingency and forces replanning across\nworkstreams. Project management decides; the sponsor is informed.",
+                "major": "Threatens a committed date, budget or quality commitment. Recovery\nrequires a sponsor decision — more money, less scope, or a later date.",
+                "critical": "The objective itself fails and no contingency inside the project recovers\nit. The decision at this level is whether the project continues at all."
+              }
             },
             {
               "name": "affectedPhases",
@@ -282210,10 +283472,22 @@
             },
             {
               "name": "priority",
-              "label": "Priority (High, Medium, Low - for design decisions)",
-              "hint": "High / Medium / Low — for design decisions",
-              "type": "String",
-              "required": false
+              "label": "Priority (for design decisions)",
+              "hint": "For design decisions.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -282830,10 +284104,22 @@
             },
             {
               "name": "impactLevel",
-              "label": "Impact Level (High, Medium, Low)",
-              "hint": "How strongly the group is impacted",
-              "type": "String",
-              "required": false
+              "label": "Impact Level",
+              "hint": "How strongly the group is impacted.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "specialConsiderations",

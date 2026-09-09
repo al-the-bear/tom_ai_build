@@ -10,6 +10,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 import 'delivery_scope_and_acceptance.dart';
+import '../common/enums.dart';
 
 /// 11. System Quality Goals. Seeds → QAP.
 ///
@@ -577,9 +578,9 @@ class QualityCategoryEntry extends DocSpecsSection {
     ),
     Field(
       'categoryPriority',
-      String,
+      ImportanceBand,
       'Priority',
-      hint: 'Critical, high, medium, low',
+      hint: 'Qualitative priority band.',
     ),
     Field(
       'categoryRationale',
@@ -4136,7 +4137,12 @@ class QualityWeightEntry extends DocSpecsSection {
       'Weight (1-100)',
       hint: 'Numeric weight from 1 to 100',
     ),
-    Field('priority', String, 'Priority', hint: 'Critical, high, medium, low'),
+    Field(
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
+    ),
     Field('rationale', String, 'Rationale', hint: 'Why this weight'),
     Field(
       'stakeholderAgreement',

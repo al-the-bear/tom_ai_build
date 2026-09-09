@@ -2,25 +2,30 @@
 ///
 /// ## Which fields a value enum types
 ///
-/// [Priority], [Status], [Probability] and [Impact] are *value* vocabularies:
-/// unlike the kind enums, whose constants name a structural choice, theirs name
-/// a band an author picks. A form field takes one of them when the band set it
-/// documents **is** that enum's band set — a documented subset counts, since
-/// nothing an author has written stops being expressible.
+/// [Priority], [Status], [Probability], [Impact] and [ImportanceBand] are
+/// *value* vocabularies: unlike the kind enums, whose constants name a
+/// structural choice, theirs name a band an author picks. A form field takes
+/// one of them when the band set it documents **is** that enum's band set — a
+/// documented subset counts, since nothing an author has written stops being
+/// expressible.
 ///
-/// The model also carries two *other* qualitative scales, and they are
-/// deliberately still `String`:
+/// The subset clause is what [ImportanceBand] leans on hardest. It is the
+/// model's most-repeated vocabulary — a hundred form fields spelling
+/// `Critical / High / Medium / Low` a dozen ways — and about a third of them
+/// document only the lower three bands. Those are the same instrument with its
+/// top band unused, not a second scale, so they bind here too.
 ///
-/// * the four-band importance scale (`Critical / High / Medium / Low`), used by
-///   some sixty fields for priority, criticality, severity and urgency;
-/// * the three-band matrix (`Low / Medium / High`), used by the risk entries
-///   that rate on 3×3 rather than 5×5.
+/// There is exactly **one** risk matrix in the model, [Probability] ×
+/// [Impact], rated on five bands. The goal, system-migration and transition
+/// risk entries used to rate on a three-band matrix of their own; they were
+/// moved onto the five-band pair so that two risks from different documents
+/// can be compared, and so an author never has to work out which instrument a
+/// given entry uses.
 ///
-/// Neither is one of these four. `High` is not an [Impact] band, and a 3×3
-/// matrix is a different instrument from the 5×5 one — binding one axis of it
-/// to [Probability] would let an author write `veryHigh` on an axis whose
-/// partner cannot answer. They need enums of their own, which is a decision
-/// about the scales rather than about these four.
+/// A closed vocabulary the model still carries as `String` is one whose band
+/// set is *not* one of these — an extra band (`Very High`, `None`, `Full`,
+/// `Untrusted`, `Blocking`), a numbered scheme (`P1`–`P5`), or a field that
+/// names a *rating scheme* rather than a rating.
 library;
 
 /// Priority level for requirements.
@@ -51,6 +56,46 @@ enum Priority {
   /// reasoning) survives into the next planning round. Distinct from
   /// [Status.rejected], which means never; this means not now.
   wontThisTime,
+}
+
+/// The four-band qualitative scale — `critical` / `high` / `medium` / `low`.
+///
+/// The model's most-used vocabulary, and the one an author meets under a dozen
+/// different labels: priority, criticality, severity, urgency, risk level,
+/// importance, weight, confidence, readiness, feasibility. They are one
+/// instrument, not twelve — the words differ, the scale does not — so they are
+/// one type. Four ordered bands, **descending**: [critical] is the top.
+///
+/// Descending is deliberate and is the opposite of [Probability] and [Impact],
+/// which ascend. Both orders are the order the bands are *written* in: a risk
+/// matrix is read from its low corner upwards, and a priority list is read from
+/// its top down. Declaration order is the ordering in both cases; nothing
+/// compares a band of this enum with a band of those.
+///
+/// Not every field that rates something binds here. A field documenting a band
+/// this enum does not have — `Very High`, `None`, `Full`, `Untrusted`,
+/// `Blocking` — is a different scale and stays free text until it gets its own
+/// type.
+enum ImportanceBand {
+  /// The top band: whatever this rates cannot be traded away, deferred or
+  /// absorbed. On a priority it blocks the release; on a severity it stops
+  /// work; on a criticality its loss stops the business function. If
+  /// everything on a list is critical, the list has not been rated.
+  critical,
+
+  /// Below [critical] but ahead of the ordinary queue: it is expected to be
+  /// dealt with in the current cycle, and letting it slip is a decision
+  /// somebody has to make rather than a routine outcome.
+  high,
+
+  /// The ordinary band, and the default when nobody has actually assessed the
+  /// item. A medium with no reasoning behind it is worth challenging — it is
+  /// as often "not looked at" as it is "genuinely middling".
+  medium,
+
+  /// The bottom band: worth recording, not worth planning around. Items here
+  /// are done when they are cheap, and their omission needs no explanation.
+  low,
 }
 
 /// Status of a requirement or deliverable.

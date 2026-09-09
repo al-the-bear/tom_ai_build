@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: information-model/1.2
+# Schema: information-model/1.3
 
 title-format: "# <!--[IFM]--> Information Model"
 section-types:
@@ -1567,7 +1567,7 @@ form-types:
       - fieldname: volumeEstimate
         description: Estimated execution frequency/volume
       - fieldname: criticalityLevel
-        description: "Business criticality: Critical | High | Medium | Low"
+        description: Business criticality.
   fuenim-form:
     fields:
       - fieldname: automationLevel

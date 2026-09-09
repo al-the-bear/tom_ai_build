@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: solution-blueprint/1.2
+# Schema: solution-blueprint/1.3
 
 title-format: "# <!--[SBP]--> Solution Blueprint"
 section-types:
@@ -27332,7 +27332,7 @@ form-types:
       - fieldname: criticality
         description: How critical this user group is to the system
       - fieldname: priority
-        description: High / Medium / Low — for design decisions
+        description: For design decisions.
   upd-pers-form:
     fields:
       - fieldname: representativeName
@@ -27404,7 +27404,7 @@ form-types:
       - fieldname: complexity
         description: Simple / Moderate / Complex
       - fieldname: importance
-        description: Critical / High / Medium / Low
+        description: Qualitative importance band.
       - fieldname: trigger
         description: Event or condition that initiates this task
   sted-form:
@@ -27614,7 +27614,7 @@ form-types:
   ipeu-form:
     fields:
       - fieldname: priority
-        description: "High, Medium, Low - for resource allocation"
+        description: For resource allocation.
   ales-form:
     fields:
       - fieldname: description
@@ -27713,7 +27713,7 @@ form-types:
         description: "e.g., Revenue, Cost Reduction, Quality, Compliance, Growth"
       - fieldname: priority
         required: true
-        description: "Critical, High, Medium, or Low"
+        description: Qualitative priority band.
   bgem-form:
     fields:
       - fieldname: successMetric
@@ -27755,9 +27755,9 @@ form-types:
   grea-form:
     fields:
       - fieldname: probability
-        description: "Low, Medium, or High"
+        description: Qualitative likelihood band that this goal risk materializes.
       - fieldname: impact
-        description: "Low, Medium, High, or Critical"
+        description: Qualitative consequence band if the goal risk materializes.
       - fieldname: riskScore
         description: Computed as probability multiplied by impact
       - fieldname: triggerConditions
@@ -27917,7 +27917,7 @@ form-types:
   sucrim-form:
     fields:
       - fieldname: weight
-        description: "Importance: Critical, High, Medium, Low"
+        description: Qualitative importance band for this success criterion.
       - fieldname: isMandatory
         description: Yes/No - is this required for overall success
       - fieldname: consequenceIfNotMet
@@ -27997,11 +27997,11 @@ form-types:
         required: true
         description: MoSCoW scoping band — what happens if this requirement does not ship.
       - fieldname: businessValue
-        description: High / Medium / Low benefit to the business
+        description: Qualitative band for the benefit to the business.
       - fieldname: effort
         description: "Estimated effort: Small, Medium, Large, or XLarge"
       - fieldname: riskLevel
-        description: High / Medium / Low risk of not meeting the requirement
+        description: Qualitative band for the risk of not meeting the requirement.
   fres-form:
     fields:
       - fieldname: source
@@ -28161,7 +28161,7 @@ form-types:
       - fieldname: automationScript
         description: Reference to the automation script
       - fieldname: priority
-        description: "Critical, High, Medium, or Low"
+        description: Qualitative priority band.
   tr1-summ-form:
     fields:
       - fieldname: totalTechnicalRequirements
@@ -28188,7 +28188,7 @@ form-types:
         description: "More specific aspect, e.g., response time within Performance"
       - fieldname: priority
         required: true
-        description: "Critical, High, Medium, or Low"
+        description: Qualitative priority band.
       - fieldname: source
         required: true
         description: "Stakeholder, document, or standard that originated it"
@@ -28256,7 +28256,7 @@ form-types:
         description: More specific aspect within the category
       - fieldname: priority
         required: true
-        description: "Critical, High, Medium, or Low"
+        description: Qualitative priority band.
       - fieldname: source
         required: true
         description: "Stakeholder, standard, or document that originated it"
@@ -28353,9 +28353,9 @@ form-types:
       - fieldname: changeType
         description: "Behavioral, Procedural, Structural, or Cultural"
       - fieldname: changeComplexity
-        description: "Low, Medium, or High"
+        description: Qualitative change complexity band.
       - fieldname: resistance
-        description: "Anticipated resistance: Low, Medium, or High"
+        description: Anticipated resistance.
   orep-form:
     fields:
       - fieldname: timeline
@@ -28443,7 +28443,7 @@ form-types:
   staq-form:
     fields:
       - fieldname: technicalDebtRating
-        description: Overall accumulated technical debt of the system
+        description: Qualitative band for the accumulated technical debt of the system.
       - fieldname: securityPosture
         description: Overall security health of the system
       - fieldname: performanceStatus
@@ -28702,7 +28702,7 @@ form-types:
       - fieldname: riskScore
         description: Probability × Impact (1-25)
       - fieldname: riskPriority
-        description: "Critical, High, Medium, Low"
+        description: Qualitative risk priority band.
       - fieldname: expectedMonetaryValue
         description: P × Cost Impact
       - fieldname: worstCaseScenario
@@ -28797,7 +28797,7 @@ form-types:
       - fieldname: integrationPattern
         description: Primary integration pattern used
       - fieldname: priority
-        description: Relative importance of this interface
+        description: Relative importance of this interface.
       - fieldname: status
         description: Lifecycle status of the interface
   itsc-form:
@@ -28987,13 +28987,13 @@ form-types:
       - fieldname: validationStatus
         description: Current validation state of the assumption
       - fieldname: confidence
-        description: How confident the team is the assumption holds
+        description: How confident the team is the assumption holds.
   baer-form:
     fields:
       - fieldname: riskIfWrong
         description: What happens if the assumption proves false
       - fieldname: riskImpact
-        description: Severity of the impact if the assumption fails
+        description: Severity of the impact if the assumption fails.
       - fieldname: contingencyPlan
         description: Planned response if the assumption is invalidated
       - fieldname: relatedRiskId
@@ -29017,7 +29017,7 @@ form-types:
       - fieldname: digitalMaturityLevel
         description: Overall digital capability stage of the organization
       - fieldname: changeReadiness
-        description: Organizational appetite and capacity for change
+        description: Organizational appetite and capacity for change.
       - fieldname: projectManagementMaturity
         description: Maturity of project management practices
       - fieldname: itGovernanceMaturity
@@ -29158,7 +29158,7 @@ form-types:
   icem-form:
     fields:
       - fieldname: impactLevel
-        description: "High, Medium, Low — impact on integration design"
+        description: Impact on integration design.
       - fieldname: designImplications
         description: How this constraint affects integration design
       - fieldname: workarounds
@@ -29220,7 +29220,7 @@ form-types:
       - fieldname: riskScore
         description: Computed score from probability times impact
       - fieldname: riskLevel
-        description: Overall risk level classification
+        description: Overall risk level classification.
       - fieldname: riskRanking
         description: Priority rank relative to other risks
       - fieldname: analysisMethod
@@ -29242,7 +29242,7 @@ form-types:
   rireim-form:
     fields:
       - fieldname: responseEffectiveness
-        description: How effective the response is expected to be
+        description: How effective the response is expected to be.
       - fieldname: implementationCost
         description: Cost to implement the response
       - fieldname: implementationTimeline
@@ -29334,7 +29334,7 @@ form-types:
       - fieldname: totalProcessAdjustments
         description: Number of process steps with deviations
       - fieldname: deviationRiskLevel
-        description: Low / Medium / High — aggregate risk from all deviations
+        description: Aggregate risk from all deviations.
       - fieldname: deviationApprovalAuthority
         description: Who approved these methodology deviations
       - fieldname: deviationApprovalDate
@@ -29364,7 +29364,7 @@ form-types:
       - fieldname: raciMatrixCompliance
         description: Whether all activities still have clear RACI coverage
       - fieldname: governanceImpact
-        description: Low / Medium / High — impact on project governance
+        description: Impact on project governance.
   rlaed-form:
     fields:
       - fieldname: adjustedRoleName
@@ -29396,7 +29396,7 @@ form-types:
   rlaek-form:
     fields:
       - fieldname: riskLevel
-        description: Low / Medium / High — risk introduced by this deviation
+        description: Risk introduced by this deviation.
       - fieldname: riskDescription
         description: What could go wrong due to this adjustment
       - fieldname: mitigationMeasures
@@ -29426,7 +29426,7 @@ form-types:
       - fieldname: modifiedCriteriaCount
         description: Number of gates with modified pass criteria
       - fieldname: qualityRiskLevel
-        description: Low / Medium / High — overall quality risk from deviations
+        description: Overall quality risk from deviations.
       - fieldname: compensatingControls
         description: Alternative quality measures in place
       - fieldname: auditImplications
@@ -29446,7 +29446,7 @@ form-types:
       - fieldname: qualityImpact
         description: How this adjustment affects delivered quality
       - fieldname: riskLevel
-        description: Low / Medium / High
+        description: Qualitative risk band.
       - fieldname: riskDescription
         description: What quality issues could arise
       - fieldname: compensatingControls
@@ -29486,7 +29486,7 @@ form-types:
       - fieldname: parallelizedStepsCount
         description: Number of steps run in parallel instead of sequential
       - fieldname: processRiskLevel
-        description: Low / Medium / High — overall process risk from deviations
+        description: Overall process risk from deviations.
       - fieldname: processEfficiencyImpact
         description: Faster / Same / Slower — impact on timeline
   pcaid-form:
@@ -29520,7 +29520,7 @@ form-types:
   pcaek-form:
     fields:
       - fieldname: riskLevel
-        description: Low / Medium / High — risk introduced by this deviation
+        description: Risk introduced by this deviation.
       - fieldname: riskDescription
         description: What could go wrong due to this adjustment
       - fieldname: mitigationMeasures
@@ -29794,7 +29794,7 @@ form-types:
       - fieldname: vendorRoadmapAlignment
         description: How well vendor roadmap aligns with project needs — Strong / Moderate / Weak
       - fieldname: endOfLifeRisk
-        description: Low / Medium / High — risk of vendor discontinuing the product
+        description: Risk of vendor discontinuing the product.
   tolcst-form:
     fields:
       - fieldname: initialCost
@@ -30347,7 +30347,7 @@ form-types:
   esqua-form:
     fields:
       - fieldname: technicalDebtLevel
-        description: "Accumulated technical debt: Low, Medium, High, or Critical."
+        description: Qualitative band for the accumulated technical debt.
       - fieldname: codeQuality
         description: "Code quality judgement: Good, Acceptable, Poor, or Unknown."
       - fieldname: documentationStatus
@@ -30369,7 +30369,7 @@ form-types:
       - fieldname: couplingStrength
         description: Tight / Moderate / Loose — degree of coupling between systems
       - fieldname: criticality
-        description: Critical / High / Medium / Low
+        description: Qualitative criticality band.
   sdede-form:
     fields:
       - fieldname: dataExchanged
@@ -30411,7 +30411,7 @@ form-types:
       - fieldname: dependentSystems
         description: List of internal systems that use this external service
       - fieldname: criticality
-        description: Critical / High / Medium / Low
+        description: Qualitative criticality band.
       - fieldname: contractStatus
         description: Active / Renewal Due / Negotiating / Month-to-Month
       - fieldname: contractExpiry
@@ -30445,7 +30445,7 @@ form-types:
   sier-form:
     fields:
       - fieldname: criticality
-        description: Critical / High / Medium / Low
+        description: Qualitative criticality band.
       - fieldname: singlePointOfFailure
       - fieldname: redundancyLevel
         description: None / Active-Passive / Active-Active / Multi-Region
@@ -30685,7 +30685,7 @@ form-types:
       - fieldname: undocumentedSystems
         description: Number of systems with inadequate documentation
       - fieldname: vendorLockInRisk
-        description: Low / Medium / High — based on proprietary dependencies
+        description: Based on proprietary dependencies.
       - fieldname: integrationComplexityScore
         description: "Overall integration complexity, e.g. High (47 point-to-point integrations)"
   gaende-form:
@@ -30749,7 +30749,7 @@ form-types:
       - fieldname: complianceStatus
         description: Compliant / PartiallyCompliant / NonCompliant / Unknown
       - fieldname: dataSecurityRiskLevel
-        description: Low / Medium / High / Critical
+        description: Qualitative data security risk band.
       - fieldname: averageDataAge
         description: "Average age of data across sources, e.g. 18 months"
       - fieldname: dataDocumentationCoverage
@@ -30869,7 +30869,7 @@ form-types:
       - fieldname: qualityDimension
         description: Accuracy / Completeness / Consistency / Timeliness / Validity
       - fieldname: severity
-        description: Critical / High / Medium / Low
+        description: Qualitative severity band.
   dqiei-form:
     fields:
       - fieldname: impactDescription
@@ -30903,7 +30903,7 @@ form-types:
       - fieldname: synchronizationChallenges
         description: Number of sync issues caused by duplication
       - fieldname: dataInconsistencyRisk
-        description: Low / Medium / High / Critical
+        description: Qualitative data inconsistency risk band.
       - fieldname: consolidationOpportunities
         description: Number of identified consolidation opportunities
       - fieldname: deduplicationPriority
@@ -31159,7 +31159,7 @@ form-types:
       - fieldname: technicalOwner
         description: Who maintains this integration
       - fieldname: criticality
-        description: Critical / High / Medium / Low
+        description: Qualitative business criticality band.
       - fieldname: knownIssues
         description: Current problems with this integration
   mdsu-form:
@@ -31233,7 +31233,7 @@ form-types:
       - fieldname: changeCategory
         description: "Reporting Lines, Team Structure, Department, Division"
       - fieldname: priority
-        description: "Critical, High, Medium, Low"
+        description: Qualitative priority band.
   ocscp-form:
     fields:
       - fieldname: affectedArea
@@ -31261,7 +31261,7 @@ form-types:
   ocimp-form:
     fields:
       - fieldname: impactLevel
-        description: "High, Medium, Low — severity of disruption"
+        description: Severity of disruption.
       - fieldname: affectedRoles
         description: Job titles impacted by this change
       - fieldname: affectedPeople
@@ -31365,7 +31365,7 @@ form-types:
       - fieldname: dependsOnMilestones
         description: The prior milestones required before this milestone can be reached
       - fieldname: criticality
-        description: "How critical this milestone is to the transition: High, Medium, or Low"
+        description: How critical this milestone is to the transition.
   tmer-form:
     fields:
       - fieldname: celebrationActivities
@@ -31477,9 +31477,9 @@ form-types:
   trea-form:
     fields:
       - fieldname: probability
-        description: "The likelihood that this risk materializes: Low, Medium, or High"
+        description: Qualitative likelihood band that this transition risk materializes.
       - fieldname: impact
-        description: "The severity of the consequences if this risk occurs: Low, Medium, or High"
+        description: Qualitative consequence band if the transition risk materializes.
       - fieldname: affectedPhases
         description: The transition phases that would be affected if this risk materializes
       - fieldname: earlyWarningIndicator
@@ -31839,7 +31839,7 @@ form-types:
       - fieldname: targetStartDate
         description: When this position should be filled
       - fieldname: urgency
-        description: Critical / High / Medium / Low
+        description: Qualitative urgency band.
   stenow-form:
     fields:
       - fieldname: hiringManager
@@ -32779,7 +32779,7 @@ form-types:
       - fieldname: supportingActors
         description: Other actors or systems that participate
       - fieldname: priority
-        description: Business priority of this scenario
+        description: Business priority of this scenario.
       - fieldname: complexity
         description: Relative implementation/test complexity
   scco-form:
@@ -33318,7 +33318,7 @@ form-types:
       - fieldname: volumeEstimate
         description: Estimated execution frequency/volume
       - fieldname: criticalityLevel
-        description: "Business criticality: Critical | High | Medium | Low"
+        description: Business criticality.
   fuenim-form:
     fields:
       - fieldname: automationLevel
@@ -36065,7 +36065,7 @@ form-types:
       - fieldname: complianceLevel
         description: "Full, Partial, Target"
       - fieldname: priority
-        description: "Critical, High, Medium, Low"
+        description: Qualitative priority band.
   iscer-form:
     fields:
       - fieldname: controlsApplicable
@@ -40621,7 +40621,7 @@ form-types:
   rgugv-form:
     fields:
       - fieldname: priority
-        description: Critical / High / Medium / Low
+        description: Qualitative priority band.
       - fieldname: targetDate
         description: When this goal should be achieved
       - fieldname: owner
@@ -40721,7 +40721,7 @@ form-types:
       - fieldname: lockInFactors
         description: "Proprietary formats, data migration cost"
       - fieldname: integrationComplexity
-        description: Effort to integrate — Low / Medium / High
+        description: Effort to integrate.
   cien-form:
     fields:
       - fieldname: port
@@ -40851,7 +40851,7 @@ form-types:
       - fieldname: versionConstraint
         description: "Pinned / Range / Minimum, e.g. >=3.2 <4.0"
       - fieldname: criticality
-        description: Critical / High / Medium / Low — impact if unavailable
+        description: Impact if unavailable.
       - fieldname: purpose
         description: Why this dependency exists
   rdes-form:
@@ -40891,7 +40891,7 @@ form-types:
       - fieldname: dependencyType
         description: BuildTime / TestOnly / DevOnly / Tooling
       - fieldname: criticality
-        description: Critical / High / Medium / Low — impact if update breaks
+        description: Impact if update breaks.
       - fieldname: purpose
         description: Why this maintenance dependency exists
   mdeu-form:
@@ -40947,7 +40947,7 @@ form-types:
       - fieldname: mitigationCost
         description: Budget required to implement mitigation
       - fieldname: residualRisk
-        description: Risk level remaining after mitigation — Low / Medium / High
+        description: Risk level remaining after mitigation.
       - fieldname: contingencyTrigger
         description: "Condition activating the contingency plan, e.g. No release for 12 months"
   coriengo-form:
@@ -41653,7 +41653,7 @@ form-types:
       - fieldname: fipsValidationLevel
         description: "None | Level1 | Level2 | Level3 — FIPS 140 validation level if applicable"
       - fieldname: securityLevel
-        description: "Low | Medium | High | Critical — overall security classification"
+        description: Overall security classification.
   amea-form:
     fields:
       - fieldname: applicableUserCategories
@@ -42949,7 +42949,7 @@ form-types:
   areg-form:
     fields:
       - fieldname: riskLevel
-        description: "Critical | High | Medium | Low — privilege risk classification for access review prioritization"
+        description: Privilege risk classification for access review prioritization.
       - fieldname: maxHolders
         description: Maximum number of users who can hold this role concurrently; 0 = unlimited
       - fieldname: activationType
@@ -45419,7 +45419,7 @@ form-types:
   pfsf-form:
     fields:
       - fieldname: prototypeFidelity
-        description: "Low, medium, high fidelity"
+        description: Qualitative fidelity band of the prototype.
       - fieldname: interactiveFidelity
         description: Level of interactivity
       - fieldname: dataFidelity
@@ -45696,7 +45696,7 @@ form-types:
       - fieldname: categoryScope
         description: What aspects of quality this covers
       - fieldname: categoryPriority
-        description: "Critical, high, medium, low"
+        description: Qualitative priority band.
       - fieldname: categoryRationale
         description: Why this priority level
   qcarl-form:
@@ -46976,11 +46976,11 @@ form-types:
   ssprd-form:
     fields:
       - fieldname: organizationalReadinessLevel
-        description: High / Medium / Low — organization preparedness for staged rollout
+        description: Organization preparedness for staged rollout.
       - fieldname: changeAbsorptionCapacity
         description: How much change the organization can absorb per period
       - fieldname: confidenceLevel
-        description: High / Medium / Low — overall confidence in staging plan feasibility
+        description: Overall confidence in staging plan feasibility.
       - fieldname: lastPlanReviewDate
         description: When the staging plan was last formally reviewed
   stagas-form:
@@ -47004,7 +47004,7 @@ form-types:
   stagrk-form:
     fields:
       - fieldname: riskTolerance
-        description: Low / Medium / High — acceptable level of risk
+        description: Acceptable level of risk.
       - fieldname: deploymentRiskFactors
         description: Key risk factors specific to deployment
       - fieldname: mitigationStrategies
@@ -47030,7 +47030,7 @@ form-types:
       - fieldname: organizationalReadinessFactors
         description: Key readiness factors
       - fieldname: organizationalReadinessLevel
-        description: Low / Medium / High
+        description: Qualitative organizational readiness band.
       - fieldname: resourceConstraints
         description: "Staffing, budget, or infrastructure limits"
       - fieldname: skillAvailability
@@ -47220,11 +47220,11 @@ form-types:
   stovri-form:
     fields:
       - fieldname: overallScheduleRisk
-        description: Low / Medium / High / Critical — aggregate schedule risk
+        description: Aggregate schedule risk.
       - fieldname: overallBudgetRisk
-        description: Low / Medium / High / Critical — aggregate budget overrun risk
+        description: Aggregate budget overrun risk.
       - fieldname: overallScopeRisk
-        description: Low / Medium / High / Critical — risk of scope creep
+        description: Risk of scope creep.
       - fieldname: stageWithHighestRisk
         description: Which stage carries the most risk and why
       - fieldname: riskMitigationInvestment
@@ -47248,7 +47248,7 @@ form-types:
       - fieldname: earnedValueSPI
         description: Schedule Performance Index — ratio of earned value to planned value
       - fieldname: planConfidenceLevel
-        description: High / Medium / Low — confidence in the overall timeline and budget
+        description: Confidence in the overall timeline and budget.
       - fieldname: confidenceBasis
         description: Basis for confidence level — analogous / expert / parametric / Monte Carlo
   stovco-form:
@@ -47579,11 +47579,11 @@ form-types:
         description: StandardDecay / FixedDate / UrgentPenalty / None
       - fieldname: strategicAlignment
         required: true
-        description: Low / Medium / High / Critical
+        description: Qualitative strategic alignment band.
       - fieldname: strategicObjectiveLink
         description: Which business objective or OKR this supports
       - fieldname: customerImpact
-        description: Low / Medium / High
+        description: Qualitative customer impact band.
       - fieldname: userBaseAffected
         description: Percentage or count of users
       - fieldname: marketCompetitiveness
@@ -47603,7 +47603,7 @@ form-types:
         description: Key sources of complexity
       - fieldname: riskLevel
         required: true
-        description: Low / Medium / High
+        description: Qualitative risk band.
       - fieldname: riskFactors
         description: Specific risks
       - fieldname: technicalDebtImpact
@@ -47667,7 +47667,7 @@ form-types:
       - fieldname: deliveryStatus
         description: Backlog / Planned / InDevelopment / InTest / Delivered
       - fieldname: confidenceLevel
-        description: High / Medium / Low
+        description: Qualitative confidence band.
       - fieldname: lastReviewedDate
         description: When last reviewed in prioritization
       - fieldname: changeHistory
@@ -47681,7 +47681,7 @@ form-types:
         required: true
         description: "Why this feature has this classification — business rationale, regulatory need, user demand"
       - fieldname: reclassificationRisk
-        description: Low / Medium / High — likelihood the category will change before delivery
+        description: Likelihood the category will change before delivery.
   moenva-form:
     fields:
       - fieldname: businessValue
@@ -47722,7 +47722,7 @@ form-types:
         required: true
         description: NotReady / InProgress / DesignComplete / ReadyForDev / ReadyForTest / ReadyForRelease
       - fieldname: deliveryConfidence
-        description: High / Medium / Low — confidence that this feature will be delivered in the target stage
+        description: Confidence that this feature will be delivered in the target stage.
       - fieldname: confidenceRationale
         description: "Why confidence is at this level — blockers, unknowns, resource gaps"
   fsmd-form:
@@ -48289,9 +48289,9 @@ form-types:
   doef-form:
     fields:
       - fieldname: technicalFeasibility
-        description: High / Medium / Low — assessed technical feasibility
+        description: Assessed technical feasibility.
       - fieldname: organizationalFeasibility
-        description: High / Medium / Low — organizational readiness for this option
+        description: Organizational readiness for this option.
       - fieldname: feasibilityNotes
         description: "Key factors — skill availability, technology maturity, vendor reliability"
   doeto-form:

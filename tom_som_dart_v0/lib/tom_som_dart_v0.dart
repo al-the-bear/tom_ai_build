@@ -2,7 +2,7 @@
 // ignore_for_file: type=lint, unused_import, document_ignores
 
 /// The generated typed object model for the TomSpecs specification documents
-/// (`v0`), model version `1.2`.
+/// (`v0`), model version `1.3`.
 ///
 /// **Generated — do not edit.** Regenerate with `generate_som.dart`; a hand
 /// edit is overwritten by the next run. The generator is
@@ -371,6 +371,38 @@ enum Impact {
 Impact? _parseImpact(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in Impact.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ImportanceBand` values.
+enum ImportanceBand {
+  /// The top band: whatever this rates cannot be traded away, deferred or
+  /// absorbed. On a priority it blocks the release; on a severity it stops
+  /// work; on a criticality its loss stops the business function. If
+  /// everything on a list is critical, the list has not been rated.
+  critical,
+
+  /// Below [critical] but ahead of the ordinary queue: it is expected to be
+  /// dealt with in the current cycle, and letting it slip is a decision
+  /// somebody has to make rather than a routine outcome.
+  high,
+
+  /// The ordinary band, and the default when nobody has actually assessed the
+  /// item. A medium with no reasoning behind it is worth challenging — it is
+  /// as often "not looked at" as it is "genuinely middling".
+  medium,
+
+  /// The bottom band: worth recording, not worth planning around. Items here
+  /// are done when they are cheap, and their omission needs no explanation.
+  low;
+}
+
+/// Parses a stored token into a [ImportanceBand], or `null`.
+ImportanceBand? _parseImportanceBand(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ImportanceBand.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -9793,7 +9825,7 @@ class CutoverProcedure extends SomNode {
 /// per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -9886,7 +9918,7 @@ class D00SolutionBlueprint extends SomNode {
 /// and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -9966,7 +9998,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 /// cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10053,7 +10085,7 @@ class D02TargetOperatingModel extends SomNode {
 /// integrity constraints.
 class D03InformationModel extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10188,7 +10220,7 @@ class D03InformationModel extends SomNode {
 /// and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10270,7 +10302,7 @@ class D04RequirementsSpecification extends SomNode {
 /// and traceability.
 class D05InteractionScenarios extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10348,7 +10380,7 @@ class D05InteractionScenarios extends SomNode {
 /// and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10440,7 +10472,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 /// migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10527,7 +10559,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 /// compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10618,7 +10650,7 @@ class D08SecurityAccessSpecification extends SomNode {
 /// mockups.
 class D09ExperienceDesignSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10714,7 +10746,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 /// Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10828,7 +10860,7 @@ class D10QualityAcceptancePlan extends SomNode {
 /// framework.
 class D11DeliveryRoadmap extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10912,7 +10944,7 @@ class D11DeliveryRoadmap extends SomNode {
 /// transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -11015,7 +11047,7 @@ class D12TransitionRolloutPlan extends SomNode {
 /// models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.2';
+  static const String modelVersion = '1.3';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -44596,11 +44628,13 @@ class AcceptanceCriterionEntryContentForm extends SomNode {
   String get testType => doc.formField(path, 'testType') ?? '';
   set testType(String value) => doc.setFormField(path, 'testType', value);
 
-  /// Priority (Critical, High, Medium, Low).
+  /// Priority.
   ///
-  /// Critical, High, Medium, or Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Status (Draft, Ready, Passed, Failed, Blocked).
   ///
@@ -46530,11 +46564,13 @@ class AffectedDepartmentEntryContentForm extends SomNode {
   int? get employeeCount => somParseInt(doc.formField(path, 'employeeCount'));
   set employeeCount(int? value) => doc.setFormField(path, 'employeeCount', somFormatInt(value));
 
-  /// Impact Level (High, Medium, Low).
+  /// Impact Level.
   ///
-  /// Degree to which the project affects this department
-  String get impactLevel => doc.formField(path, 'impactLevel') ?? '';
-  set impactLevel(String value) => doc.setFormField(path, 'impactLevel', value);
+  /// Degree to which the project affects this department.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get impactLevel => _parseImportanceBand(doc.formField(path, 'impactLevel'));
+  set impactLevel(ImportanceBand? value) => doc.setFormField(path, 'impactLevel', value?.name ?? '');
 
   /// Role (Sponsor, User, Data Owner, Operations, Support).
   ///
@@ -46548,11 +46584,13 @@ class AffectedDepartmentEntryContentForm extends SomNode {
   String get currentSystems => doc.formField(path, 'currentSystems') ?? '';
   set currentSystems(String value) => doc.setFormField(path, 'currentSystems', value);
 
-  /// Change Readiness (High, Medium, Low).
+  /// Change Readiness.
   ///
-  /// Department capacity and appetite for change
-  String get changeReadiness => doc.formField(path, 'changeReadiness') ?? '';
-  set changeReadiness(String value) => doc.setFormField(path, 'changeReadiness', value);
+  /// Department capacity and appetite for change.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get changeReadiness => _parseImportanceBand(doc.formField(path, 'changeReadiness'));
+  set changeReadiness(ImportanceBand? value) => doc.setFormField(path, 'changeReadiness', value?.name ?? '');
 
   /// Key Contacts.
   ///
@@ -49756,9 +49794,11 @@ class AuthenticationMethodEntrySecurityForm extends SomNode {
 
   /// Security Level.
   ///
-  /// Low | Medium | High | Critical — overall security classification
-  String get securityLevel => doc.formField(path, 'securityLevel') ?? '';
-  set securityLevel(String value) => doc.setFormField(path, 'securityLevel', value);
+  /// Overall security classification.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get securityLevel => _parseImportanceBand(doc.formField(path, 'securityLevel'));
+  set securityLevel(ImportanceBand? value) => doc.setFormField(path, 'securityLevel', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -50040,9 +50080,11 @@ class AuthorizationRoleEntryGovernanceForm extends SomNode {
 
   /// Risk Level.
   ///
-  /// Critical | High | Medium | Low — privilege risk classification for access review prioritization
-  String get riskLevel => doc.formField(path, 'riskLevel') ?? '';
-  set riskLevel(String value) => doc.setFormField(path, 'riskLevel', value);
+  /// Privilege risk classification for access review prioritization.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskLevel => _parseImportanceBand(doc.formField(path, 'riskLevel'));
+  set riskLevel(ImportanceBand? value) => doc.setFormField(path, 'riskLevel', value?.name ?? '');
 
   /// Maximum Holders.
   ///
@@ -50846,9 +50888,11 @@ class BackupPolicyEntryContentForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical, High, Medium, Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `retention` `@Form` section:
@@ -51662,11 +51706,13 @@ class BoundaryAssumptionEntryRiskForm extends SomNode {
   String get riskIfWrong => doc.formField(path, 'riskIfWrong') ?? '';
   set riskIfWrong(String value) => doc.setFormField(path, 'riskIfWrong', value);
 
-  /// Impact Level (High, Medium, Low).
+  /// Impact Level.
   ///
-  /// Severity of the impact if the assumption fails
-  String get riskImpact => doc.formField(path, 'riskImpact') ?? '';
-  set riskImpact(String value) => doc.setFormField(path, 'riskImpact', value);
+  /// Severity of the impact if the assumption fails.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskImpact => _parseImportanceBand(doc.formField(path, 'riskImpact'));
+  set riskImpact(ImportanceBand? value) => doc.setFormField(path, 'riskImpact', value?.name ?? '');
 
   /// Contingency Plan.
   ///
@@ -51724,11 +51770,13 @@ class BoundaryAssumptionEntryValidationForm extends SomNode {
   String get validationStatus => doc.formField(path, 'validationStatus') ?? '';
   set validationStatus(String value) => doc.setFormField(path, 'validationStatus', value);
 
-  /// Confidence Level (High, Medium, Low).
+  /// Confidence Level.
   ///
-  /// How confident the team is the assumption holds
-  String get confidence => doc.formField(path, 'confidence') ?? '';
-  set confidence(String value) => doc.setFormField(path, 'confidence', value);
+  /// How confident the team is the assumption holds.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get confidence => _parseImportanceBand(doc.formField(path, 'confidence'));
+  set confidence(ImportanceBand? value) => doc.setFormField(path, 'confidence', value?.name ?? '');
 }
 
 /// Generated section facade for the `boundaries` `@Form` section:
@@ -53048,13 +53096,15 @@ class BusinessGoalEntryDefinitionForm extends SomNode {
   String get goalType => doc.formField(path, 'goalType') ?? '';
   set goalType(String value) => doc.setFormField(path, 'goalType', value);
 
-  /// Priority (Critical, High, Medium, Low).
+  /// Priority.
   ///
-  /// Critical, High, Medium, or Low
+  /// Qualitative priority band.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -59800,9 +59850,11 @@ class ComponentEntryRiskForm extends SomNode {
 
   /// Integration Complexity.
   ///
-  /// Effort to integrate — Low / Medium / High
-  String get integrationComplexity => doc.formField(path, 'integrationComplexity') ?? '';
-  set integrationComplexity(String value) => doc.setFormField(path, 'integrationComplexity', value);
+  /// Effort to integrate.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get integrationComplexity => _parseImportanceBand(doc.formField(path, 'integrationComplexity'));
+  set integrationComplexity(ImportanceBand? value) => doc.setFormField(path, 'integrationComplexity', value?.name ?? '');
 }
 
 /// Generated section facade for the `support` `@Form` section:
@@ -61436,9 +61488,11 @@ class ComponentRiskEntryMitigationForm extends SomNode {
 
   /// Residual Risk Level.
   ///
-  /// Risk level remaining after mitigation — Low / Medium / High
-  String get residualRisk => doc.formField(path, 'residualRisk') ?? '';
-  set residualRisk(String value) => doc.setFormField(path, 'residualRisk', value);
+  /// Risk level remaining after mitigation.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get residualRisk => _parseImportanceBand(doc.formField(path, 'residualRisk'));
+  set residualRisk(ImportanceBand? value) => doc.setFormField(path, 'residualRisk', value?.name ?? '');
 
   /// Contingency Trigger.
   ///
@@ -63804,9 +63858,11 @@ class CurrentDataLandscapeDataLandscapeSummaryForm extends SomNode {
 
   /// Data Security Risk Level.
   ///
-  /// Low / Medium / High / Critical
-  String get dataSecurityRiskLevel => doc.formField(path, 'dataSecurityRiskLevel') ?? '';
-  set dataSecurityRiskLevel(String value) => doc.setFormField(path, 'dataSecurityRiskLevel', value);
+  /// Qualitative data security risk band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get dataSecurityRiskLevel => _parseImportanceBand(doc.formField(path, 'dataSecurityRiskLevel'));
+  set dataSecurityRiskLevel(ImportanceBand? value) => doc.setFormField(path, 'dataSecurityRiskLevel', value?.name ?? '');
 
   /// Average Data Age.
   ///
@@ -63852,9 +63908,13 @@ class CurrentProcessImprovementEntryContentForm extends SomNode {
   String get estimatedBenefit => doc.formField(path, 'estimatedBenefit') ?? '';
   set estimatedBenefit(String value) => doc.setFormField(path, 'estimatedBenefit', value);
 
-  /// Implementation Effort (Low/Medium/High).
-  String get implementationEffort => doc.formField(path, 'implementationEffort') ?? '';
-  set implementationEffort(String value) => doc.setFormField(path, 'implementationEffort', value);
+  /// Implementation Effort.
+  ///
+  /// Qualitative implementation effort band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get implementationEffort => _parseImportanceBand(doc.formField(path, 'implementationEffort'));
+  set implementationEffort(ImportanceBand? value) => doc.setFormField(path, 'implementationEffort', value?.name ?? '');
 
   /// Priority (Must-have/Should-have/Nice-to-have).
   String get priority => doc.formField(path, 'priority') ?? '';
@@ -65454,9 +65514,11 @@ class DataDuplicationAnalysisDuplicationSummaryForm extends SomNode {
 
   /// Data Inconsistency Risk.
   ///
-  /// Low / Medium / High / Critical
-  String get dataInconsistencyRisk => doc.formField(path, 'dataInconsistencyRisk') ?? '';
-  set dataInconsistencyRisk(String value) => doc.setFormField(path, 'dataInconsistencyRisk', value);
+  /// Qualitative data inconsistency risk band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get dataInconsistencyRisk => _parseImportanceBand(doc.formField(path, 'dataInconsistencyRisk'));
+  set dataInconsistencyRisk(ImportanceBand? value) => doc.setFormField(path, 'dataInconsistencyRisk', value?.name ?? '');
 
   /// Consolidation Opportunities.
   ///
@@ -66484,9 +66546,11 @@ class DataIntegrationEntryOwnershipForm extends SomNode {
 
   /// Business Criticality.
   ///
-  /// Critical / High / Medium / Low
-  String get criticality => doc.formField(path, 'criticality') ?? '';
-  set criticality(String value) => doc.setFormField(path, 'criticality', value);
+  /// Qualitative business criticality band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get criticality => _parseImportanceBand(doc.formField(path, 'criticality'));
+  set criticality(ImportanceBand? value) => doc.setFormField(path, 'criticality', value?.name ?? '');
 
   /// Known Issues.
   ///
@@ -67794,9 +67858,11 @@ class DataQualityIssueEntryClassificationForm extends SomNode {
 
   /// Severity.
   ///
-  /// Critical / High / Medium / Low
-  String get severity => doc.formField(path, 'severity') ?? '';
-  set severity(String value) => doc.setFormField(path, 'severity', value);
+  /// Qualitative severity band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get severity => _parseImportanceBand(doc.formField(path, 'severity'));
+  set severity(ImportanceBand? value) => doc.setFormField(path, 'severity', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -68212,9 +68278,11 @@ class DataSourceEntryContentForm extends SomNode {
 
   /// Business Criticality.
   ///
-  /// Critical / High / Medium / Low
-  String get criticality => doc.formField(path, 'criticality') ?? '';
-  set criticality(String value) => doc.setFormField(path, 'criticality', value);
+  /// Qualitative business criticality band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get criticality => _parseImportanceBand(doc.formField(path, 'criticality'));
+  set criticality(ImportanceBand? value) => doc.setFormField(path, 'criticality', value?.name ?? '');
 }
 
 /// Generated section facade for the `integration` `@Form` section:
@@ -69364,11 +69432,13 @@ class DecisionMakerEntryContentForm extends SomNode {
   String get decisionDomains => doc.formField(path, 'decisionDomains') ?? '';
   set decisionDomains(String value) => doc.setFormField(path, 'decisionDomains', value);
 
-  /// Influence Level (High, Medium, Low).
+  /// Influence Level.
   ///
-  /// Degree of influence over project outcomes
-  String get influenceLevel => doc.formField(path, 'influenceLevel') ?? '';
-  set influenceLevel(String value) => doc.setFormField(path, 'influenceLevel', value);
+  /// Degree of influence over project outcomes.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get influenceLevel => _parseImportanceBand(doc.formField(path, 'influenceLevel'));
+  set influenceLevel(ImportanceBand? value) => doc.setFormField(path, 'influenceLevel', value?.name ?? '');
 
   /// Approval Required For.
   ///
@@ -69438,15 +69508,19 @@ class DecisionOptionEntryFeasibilityForm extends SomNode {
 
   /// Technical Feasibility.
   ///
-  /// High / Medium / Low — assessed technical feasibility
-  String get technicalFeasibility => doc.formField(path, 'technicalFeasibility') ?? '';
-  set technicalFeasibility(String value) => doc.setFormField(path, 'technicalFeasibility', value);
+  /// Assessed technical feasibility.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get technicalFeasibility => _parseImportanceBand(doc.formField(path, 'technicalFeasibility'));
+  set technicalFeasibility(ImportanceBand? value) => doc.setFormField(path, 'technicalFeasibility', value?.name ?? '');
 
   /// Organizational Feasibility.
   ///
-  /// High / Medium / Low — organizational readiness for this option
-  String get organizationalFeasibility => doc.formField(path, 'organizationalFeasibility') ?? '';
-  set organizationalFeasibility(String value) => doc.setFormField(path, 'organizationalFeasibility', value);
+  /// Organizational readiness for this option.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get organizationalFeasibility => _parseImportanceBand(doc.formField(path, 'organizationalFeasibility'));
+  set organizationalFeasibility(ImportanceBand? value) => doc.setFormField(path, 'organizationalFeasibility', value?.name ?? '');
 
   /// Feasibility Notes.
   ///
@@ -70168,9 +70242,11 @@ class DeliverableEntryContentForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical / High / Medium / Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `documentation` `@Form` section:
@@ -72318,9 +72394,11 @@ class DesignGoalEntryContentForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical/High/Medium/Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Category.
   ///
@@ -79038,11 +79116,13 @@ class ExistingSystemEntryQualityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Technical Debt Level (Low, Medium, High, Critical).
+  /// Technical Debt Level.
   ///
-  /// Accumulated technical debt: Low, Medium, High, or Critical.
-  String get technicalDebtLevel => doc.formField(path, 'technicalDebtLevel') ?? '';
-  set technicalDebtLevel(String value) => doc.setFormField(path, 'technicalDebtLevel', value);
+  /// Qualitative band for the accumulated technical debt.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get technicalDebtLevel => _parseImportanceBand(doc.formField(path, 'technicalDebtLevel'));
+  set technicalDebtLevel(ImportanceBand? value) => doc.setFormField(path, 'technicalDebtLevel', value?.name ?? '');
 
   /// Code Quality Assessment (Good, Acceptable, Poor, Unknown).
   ///
@@ -80338,11 +80418,13 @@ class ExternalInterfaceEntryIdentificationContentForm extends SomNode {
   String get integrationPattern => doc.formField(path, 'integrationPattern') ?? '';
   set integrationPattern(String value) => doc.setFormField(path, 'integrationPattern', value);
 
-  /// Priority (Critical, High, Medium, Low).
+  /// Priority.
   ///
-  /// Relative importance of this interface
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Relative importance of this interface.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Status (Existing, New, To be replaced).
   ///
@@ -80862,9 +80944,11 @@ class ExternalServiceDependencyEntryRelationshipForm extends SomNode {
 
   /// Criticality.
   ///
-  /// Critical / High / Medium / Low
-  String get criticality => doc.formField(path, 'criticality') ?? '';
-  set criticality(String value) => doc.setFormField(path, 'criticality', value);
+  /// Qualitative criticality band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get criticality => _parseImportanceBand(doc.formField(path, 'criticality'));
+  set criticality(ImportanceBand? value) => doc.setFormField(path, 'criticality', value?.name ?? '');
 
   /// Contract Status.
   ///
@@ -81706,11 +81790,13 @@ class FeaturePriorityEntryBusinessValueForm extends SomNode {
 
   /// Strategic Alignment.
   ///
-  /// Low / Medium / High / Critical
+  /// Qualitative strategic alignment band.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get strategicAlignment => doc.formField(path, 'strategicAlignment') ?? '';
-  set strategicAlignment(String value) => doc.setFormField(path, 'strategicAlignment', value);
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get strategicAlignment => _parseImportanceBand(doc.formField(path, 'strategicAlignment'));
+  set strategicAlignment(ImportanceBand? value) => doc.setFormField(path, 'strategicAlignment', value?.name ?? '');
 
   /// Strategic Objective Link.
   ///
@@ -81720,9 +81806,11 @@ class FeaturePriorityEntryBusinessValueForm extends SomNode {
 
   /// Customer Impact.
   ///
-  /// Low / Medium / High
-  String get customerImpact => doc.formField(path, 'customerImpact') ?? '';
-  set customerImpact(String value) => doc.setFormField(path, 'customerImpact', value);
+  /// Qualitative customer impact band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get customerImpact => _parseImportanceBand(doc.formField(path, 'customerImpact'));
+  set customerImpact(ImportanceBand? value) => doc.setFormField(path, 'customerImpact', value?.name ?? '');
 
   /// User Base Affected.
   ///
@@ -81844,11 +81932,13 @@ class FeaturePriorityEntryEffortForm extends SomNode {
 
   /// Risk Level.
   ///
-  /// Low / Medium / High
+  /// Qualitative risk band.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get riskLevel => doc.formField(path, 'riskLevel') ?? '';
-  set riskLevel(String value) => doc.setFormField(path, 'riskLevel', value);
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskLevel => _parseImportanceBand(doc.formField(path, 'riskLevel'));
+  set riskLevel(ImportanceBand? value) => doc.setFormField(path, 'riskLevel', value?.name ?? '');
 
   /// Risk Factors.
   ///
@@ -82052,9 +82142,11 @@ class FeaturePriorityEntryStatusForm extends SomNode {
 
   /// Confidence Level.
   ///
-  /// High / Medium / Low
-  String get confidenceLevel => doc.formField(path, 'confidenceLevel') ?? '';
-  set confidenceLevel(String value) => doc.setFormField(path, 'confidenceLevel', value);
+  /// Qualitative confidence band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get confidenceLevel => _parseImportanceBand(doc.formField(path, 'confidenceLevel'));
+  set confidenceLevel(ImportanceBand? value) => doc.setFormField(path, 'confidenceLevel', value?.name ?? '');
 
   /// Last Reviewed Date.
   ///
@@ -82288,9 +82380,11 @@ class FeatureStageMappingReadinessForm extends SomNode {
 
   /// Delivery Confidence.
   ///
-  /// High / Medium / Low — confidence that this feature will be delivered in the target stage
-  String get deliveryConfidence => doc.formField(path, 'deliveryConfidence') ?? '';
-  set deliveryConfidence(String value) => doc.setFormField(path, 'deliveryConfidence', value);
+  /// Confidence that this feature will be delivered in the target stage.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get deliveryConfidence => _parseImportanceBand(doc.formField(path, 'deliveryConfidence'));
+  set deliveryConfidence(ImportanceBand? value) => doc.setFormField(path, 'deliveryConfidence', value?.name ?? '');
 
   /// Confidence Rationale.
   ///
@@ -83340,9 +83434,11 @@ class FunctionEntryOperationsForm extends SomNode {
 
   /// Criticality Level.
   ///
-  /// Business criticality: Critical | High | Medium | Low
-  String get criticalityLevel => doc.formField(path, 'criticalityLevel') ?? '';
-  set criticalityLevel(String value) => doc.setFormField(path, 'criticalityLevel', value);
+  /// Business criticality.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get criticalityLevel => _parseImportanceBand(doc.formField(path, 'criticalityLevel'));
+  set criticalityLevel(ImportanceBand? value) => doc.setFormField(path, 'criticalityLevel', value?.name ?? '');
 }
 
 /// Generated section facade for the `decompositionOverview` `@Form` section:
@@ -83634,11 +83730,13 @@ class FunctionalRequirementEntryPriorityForm extends SomNode {
   Priority? get priority => _parsePriority(doc.formField(path, 'priority'));
   set priority(Priority? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
-  /// Business Value (High, Medium, Low) - benefit to business.
+  /// Business Value — benefit to business.
   ///
-  /// High / Medium / Low benefit to the business
-  String get businessValue => doc.formField(path, 'businessValue') ?? '';
-  set businessValue(String value) => doc.setFormField(path, 'businessValue', value);
+  /// Qualitative band for the benefit to the business.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get businessValue => _parseImportanceBand(doc.formField(path, 'businessValue'));
+  set businessValue(ImportanceBand? value) => doc.setFormField(path, 'businessValue', value?.name ?? '');
 
   /// Estimated Effort (Small, Medium, Large, XLarge).
   ///
@@ -83646,11 +83744,13 @@ class FunctionalRequirementEntryPriorityForm extends SomNode {
   String get effort => doc.formField(path, 'effort') ?? '';
   set effort(String value) => doc.setFormField(path, 'effort', value);
 
-  /// Risk Level (High, Medium, Low) - risk of not meeting.
+  /// Risk Level — risk of not meeting.
   ///
-  /// High / Medium / Low risk of not meeting the requirement
-  String get riskLevel => doc.formField(path, 'riskLevel') ?? '';
-  set riskLevel(String value) => doc.setFormField(path, 'riskLevel', value);
+  /// Qualitative band for the risk of not meeting the requirement.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskLevel => _parseImportanceBand(doc.formField(path, 'riskLevel'));
+  set riskLevel(ImportanceBand? value) => doc.setFormField(path, 'riskLevel', value?.name ?? '');
 }
 
 /// Generated section facade for the `source` `@Form` section:
@@ -83872,9 +83972,11 @@ class GapEntryContentForm extends SomNode {
 
   /// Severity.
   ///
-  /// Critical / High / Medium / Low
-  String get severity => doc.formField(path, 'severity') ?? '';
-  set severity(String value) => doc.setFormField(path, 'severity', value);
+  /// Qualitative severity band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get severity => _parseImportanceBand(doc.formField(path, 'severity'));
+  set severity(ImportanceBand? value) => doc.setFormField(path, 'severity', value?.name ?? '');
 }
 
 /// Generated section facade for the `description` `@Form` section:
@@ -84468,17 +84570,21 @@ class GoalRiskEntryAssessmentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Probability (Low, Medium, High).
+  /// Probability.
   ///
-  /// Low, Medium, or High
-  String get probability => doc.formField(path, 'probability') ?? '';
-  set probability(String value) => doc.setFormField(path, 'probability', value);
+  /// Qualitative likelihood band that this goal risk materializes.
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get probability => _parseProbability(doc.formField(path, 'probability'));
+  set probability(Probability? value) => doc.setFormField(path, 'probability', value?.name ?? '');
 
-  /// Impact (Low, Medium, High, Critical).
+  /// Impact.
   ///
-  /// Low, Medium, High, or Critical
-  String get impact => doc.formField(path, 'impact') ?? '';
-  set impact(String value) => doc.setFormField(path, 'impact', value);
+  /// Qualitative consequence band if the goal risk materializes.
+  ///
+  /// Stored as one of: `negligible`, `minor`, `moderate`, `major`, `critical`.
+  Impact? get impact => _parseImpact(doc.formField(path, 'impact'));
+  set impact(Impact? value) => doc.setFormField(path, 'impact', value?.name ?? '');
 
   /// Risk Score (probability × impact).
   ///
@@ -88034,9 +88140,11 @@ class IntegrationConstraintEntryMitigationForm extends SomNode {
 
   /// Impact Level.
   ///
-  /// High, Medium, Low — impact on integration design
-  String get impactLevel => doc.formField(path, 'impactLevel') ?? '';
-  set impactLevel(String value) => doc.setFormField(path, 'impactLevel', value);
+  /// Impact on integration design.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get impactLevel => _parseImportanceBand(doc.formField(path, 'impactLevel'));
+  set impactLevel(ImportanceBand? value) => doc.setFormField(path, 'impactLevel', value?.name ?? '');
 
   /// Design Implications.
   ///
@@ -89130,9 +89238,11 @@ class InteractionPatternEntryUsageForm extends SomNode {
 
   /// Priority.
   ///
-  /// High, Medium, Low - for resource allocation
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// For resource allocation.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -91244,9 +91354,11 @@ class ItStandardComplianceEntryScopeForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical, High, Medium, Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `timeline` `@Form` section:
@@ -94268,9 +94380,11 @@ class MaintenanceDependencyEntryClassificationForm extends SomNode {
 
   /// Criticality.
   ///
-  /// Critical / High / Medium / Low — impact if update breaks
-  String get criticality => doc.formField(path, 'criticality') ?? '';
-  set criticality(String value) => doc.setFormField(path, 'criticality', value);
+  /// Impact if update breaks.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get criticality => _parseImportanceBand(doc.formField(path, 'criticality'));
+  set criticality(ImportanceBand? value) => doc.setFormField(path, 'criticality', value?.name ?? '');
 
   /// Purpose.
   ///
@@ -95468,9 +95582,11 @@ class MetricsDashboardSummaryContentForm extends SomNode {
 
   /// Data Quality Assessment.
   ///
-  /// High / Medium / Low - confidence in metric accuracy
-  String get dataQuality => doc.formField(path, 'dataQuality') ?? '';
-  set dataQuality(String value) => doc.setFormField(path, 'dataQuality', value);
+  /// Confidence in metric accuracy.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get dataQuality => _parseImportanceBand(doc.formField(path, 'dataQuality'));
+  set dataQuality(ImportanceBand? value) => doc.setFormField(path, 'dataQuality', value?.name ?? '');
 
   /// Key Throughput Metric.
   ///
@@ -96976,9 +97092,11 @@ class MigrationRiskEntryQuantificationForm extends SomNode {
 
   /// Risk Priority.
   ///
-  /// Critical, High, Medium, Low
-  String get riskPriority => doc.formField(path, 'riskPriority') ?? '';
-  set riskPriority(String value) => doc.setFormField(path, 'riskPriority', value);
+  /// Qualitative risk priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskPriority => _parseImportanceBand(doc.formField(path, 'riskPriority'));
+  set riskPriority(ImportanceBand? value) => doc.setFormField(path, 'riskPriority', value?.name ?? '');
 
   /// Expected Monetary Value (EMV).
   ///
@@ -98648,9 +98766,11 @@ class MoscowEntryClassificationForm extends SomNode {
 
   /// Reclassification Risk.
   ///
-  /// Low / Medium / High — likelihood the category will change before delivery
-  String get reclassificationRisk => doc.formField(path, 'reclassificationRisk') ?? '';
-  set reclassificationRisk(String value) => doc.setFormField(path, 'reclassificationRisk', value);
+  /// Likelihood the category will change before delivery.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get reclassificationRisk => _parseImportanceBand(doc.formField(path, 'reclassificationRisk'));
+  set reclassificationRisk(ImportanceBand? value) => doc.setFormField(path, 'reclassificationRisk', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -101220,9 +101340,11 @@ class NotificationTypeEntryContentForm extends SomNode {
 
   /// Urgency Level.
   ///
-  /// Critical, High, Medium, Low
-  String get urgency => doc.formField(path, 'urgency') ?? '';
-  set urgency(String value) => doc.setFormField(path, 'urgency', value);
+  /// Qualitative urgency band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get urgency => _parseImportanceBand(doc.formField(path, 'urgency'));
+  set urgency(ImportanceBand? value) => doc.setFormField(path, 'urgency', value?.name ?? '');
 
   /// Default Channels.
   ///
@@ -102600,9 +102722,11 @@ class OrganizationalChangeEntryIdentificationForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical, High, Medium, Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `impact` `@Form` section:
@@ -102620,9 +102744,11 @@ class OrganizationalChangeEntryImpactForm extends SomNode {
 
   /// Impact Level.
   ///
-  /// High, Medium, Low — severity of disruption
-  String get impactLevel => doc.formField(path, 'impactLevel') ?? '';
-  set impactLevel(String value) => doc.setFormField(path, 'impactLevel', value);
+  /// Severity of disruption.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get impactLevel => _parseImportanceBand(doc.formField(path, 'impactLevel'));
+  set impactLevel(ImportanceBand? value) => doc.setFormField(path, 'impactLevel', value?.name ?? '');
 
   /// Affected Roles.
   ///
@@ -102906,11 +103032,13 @@ class OrganizationalEnvironmentMaturityForm extends SomNode {
   String get digitalMaturityLevel => doc.formField(path, 'digitalMaturityLevel') ?? '';
   set digitalMaturityLevel(String value) => doc.setFormField(path, 'digitalMaturityLevel', value);
 
-  /// Change Readiness (Low, Medium, High).
+  /// Change Readiness.
   ///
-  /// Organizational appetite and capacity for change
-  String get changeReadiness => doc.formField(path, 'changeReadiness') ?? '';
-  set changeReadiness(String value) => doc.setFormField(path, 'changeReadiness', value);
+  /// Organizational appetite and capacity for change.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get changeReadiness => _parseImportanceBand(doc.formField(path, 'changeReadiness'));
+  set changeReadiness(ImportanceBand? value) => doc.setFormField(path, 'changeReadiness', value?.name ?? '');
 
   /// PM Maturity (Ad-hoc, Repeatable, Defined, Managed, Optimizing).
   ///
@@ -103080,17 +103208,21 @@ class OrganizationalRequirementEntryImpactForm extends SomNode {
   String get changeType => doc.formField(path, 'changeType') ?? '';
   set changeType(String value) => doc.setFormField(path, 'changeType', value);
 
-  /// Change Complexity (Low, Medium, High).
+  /// Change Complexity.
   ///
-  /// Low, Medium, or High
-  String get changeComplexity => doc.formField(path, 'changeComplexity') ?? '';
-  set changeComplexity(String value) => doc.setFormField(path, 'changeComplexity', value);
+  /// Qualitative change complexity band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get changeComplexity => _parseImportanceBand(doc.formField(path, 'changeComplexity'));
+  set changeComplexity(ImportanceBand? value) => doc.setFormField(path, 'changeComplexity', value?.name ?? '');
 
-  /// Expected Resistance (Low, Medium, High).
+  /// Expected Resistance.
   ///
-  /// Anticipated resistance: Low, Medium, or High
-  String get resistance => doc.formField(path, 'resistance') ?? '';
-  set resistance(String value) => doc.setFormField(path, 'resistance', value);
+  /// Anticipated resistance.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get resistance => _parseImportanceBand(doc.formField(path, 'resistance'));
+  set resistance(ImportanceBand? value) => doc.setFormField(path, 'resistance', value?.name ?? '');
 }
 
 /// Generated section facade for the `planning` `@Form` section:
@@ -103836,9 +103968,11 @@ class PainPointEntryContentForm extends SomNode {
 
   /// Severity.
   ///
-  /// Critical / High / Medium / Low
-  String get severity => doc.formField(path, 'severity') ?? '';
-  set severity(String value) => doc.setFormField(path, 'severity', value);
+  /// Qualitative severity band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get severity => _parseImportanceBand(doc.formField(path, 'severity'));
+  set severity(ImportanceBand? value) => doc.setFormField(path, 'severity', value?.name ?? '');
 }
 
 /// Generated section facade for the `evidence` `@Form` section:
@@ -104910,9 +105044,11 @@ class PersonaGoalEntryContentForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical/High/Medium/Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Frequency.
   ///
@@ -104956,9 +105092,11 @@ class PersonaPainPointEntryContentForm extends SomNode {
 
   /// Severity.
   ///
-  /// Critical/High/Medium/Low
-  String get severity => doc.formField(path, 'severity') ?? '';
-  set severity(String value) => doc.setFormField(path, 'severity', value);
+  /// Qualitative severity band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get severity => _parseImportanceBand(doc.formField(path, 'severity'));
+  set severity(ImportanceBand? value) => doc.setFormField(path, 'severity', value?.name ?? '');
 
   /// Frequency.
   ///
@@ -106910,11 +107048,13 @@ class ProblemStatementProblemDetailsForm extends SomNode {
   String get impactDescription => doc.formField(path, 'impactDescription') ?? '';
   set impactDescription(String value) => doc.setFormField(path, 'impactDescription', value);
 
-  /// Impact Severity (Critical, High, Medium, Low).
+  /// Impact Severity.
   ///
-  /// Critical / High / Medium / Low
-  String get impactSeverity => doc.formField(path, 'impactSeverity') ?? '';
-  set impactSeverity(String value) => doc.setFormField(path, 'impactSeverity', value);
+  /// Qualitative impact severity band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get impactSeverity => _parseImportanceBand(doc.formField(path, 'impactSeverity'));
+  set impactSeverity(ImportanceBand? value) => doc.setFormField(path, 'impactSeverity', value?.name ?? '');
 
   /// Impact Metrics (quantifiable measures of the problem's cost).
   ///
@@ -107180,9 +107320,11 @@ class ProcessAdjustmentEntryRiskForm extends SomNode {
 
   /// Risk Level.
   ///
-  /// Low / Medium / High — risk introduced by this deviation
-  String get riskLevel => doc.formField(path, 'riskLevel') ?? '';
-  set riskLevel(String value) => doc.setFormField(path, 'riskLevel', value);
+  /// Risk introduced by this deviation.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskLevel => _parseImportanceBand(doc.formField(path, 'riskLevel'));
+  set riskLevel(ImportanceBand? value) => doc.setFormField(path, 'riskLevel', value?.name ?? '');
 
   /// Risk Description.
   ///
@@ -107278,9 +107420,11 @@ class ProcessAdjustmentsAdjustmentSummaryForm extends SomNode {
 
   /// Process Risk Level.
   ///
-  /// Low / Medium / High — overall process risk from deviations
-  String get processRiskLevel => doc.formField(path, 'processRiskLevel') ?? '';
-  set processRiskLevel(String value) => doc.setFormField(path, 'processRiskLevel', value);
+  /// Overall process risk from deviations.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get processRiskLevel => _parseImportanceBand(doc.formField(path, 'processRiskLevel'));
+  set processRiskLevel(ImportanceBand? value) => doc.setFormField(path, 'processRiskLevel', value?.name ?? '');
 
   /// Efficiency Impact.
   ///
@@ -107800,11 +107944,13 @@ class ProcessDesignPrincipleEntryContentForm extends SomNode {
   String get tradeoffs => doc.formField(path, 'tradeoffs') ?? '';
   set tradeoffs(String value) => doc.setFormField(path, 'tradeoffs', value);
 
-  /// Priority — high, medium, low.
+  /// Priority.
   ///
-  /// Relative importance of the principle
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Relative importance of the principle.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Applicability — all processes or specific types.
   ///
@@ -109852,9 +109998,11 @@ class ProjectOrganizationAndProcessDeviationSummaryForm extends SomNode {
 
   /// Overall Deviation Risk Level.
   ///
-  /// Low / Medium / High — aggregate risk from all deviations
-  String get deviationRiskLevel => doc.formField(path, 'deviationRiskLevel') ?? '';
-  set deviationRiskLevel(String value) => doc.setFormField(path, 'deviationRiskLevel', value);
+  /// Aggregate risk from all deviations.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get deviationRiskLevel => _parseImportanceBand(doc.formField(path, 'deviationRiskLevel'));
+  set deviationRiskLevel(ImportanceBand? value) => doc.setFormField(path, 'deviationRiskLevel', value?.name ?? '');
 
   /// Deviation Approval Authority.
   ///
@@ -110100,9 +110248,11 @@ class PrototypeFeatureEntryContentForm extends SomNode {
 
   /// Fidelity Level.
   ///
-  /// Low, medium, high
-  String get fidelityLevel => doc.formField(path, 'fidelityLevel') ?? '';
-  set fidelityLevel(String value) => doc.setFormField(path, 'fidelityLevel', value);
+  /// Qualitative fidelity band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get fidelityLevel => _parseImportanceBand(doc.formField(path, 'fidelityLevel'));
+  set fidelityLevel(ImportanceBand? value) => doc.setFormField(path, 'fidelityLevel', value?.name ?? '');
 
   /// Completeness Level.
   ///
@@ -110182,9 +110332,11 @@ class PrototypeFeatureSubsetFidelityForm extends SomNode {
 
   /// Prototype Fidelity.
   ///
-  /// Low, medium, high fidelity
-  String get prototypeFidelity => doc.formField(path, 'prototypeFidelity') ?? '';
-  set prototypeFidelity(String value) => doc.setFormField(path, 'prototypeFidelity', value);
+  /// Qualitative fidelity band of the prototype.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get prototypeFidelity => _parseImportanceBand(doc.formField(path, 'prototypeFidelity'));
+  set prototypeFidelity(ImportanceBand? value) => doc.setFormField(path, 'prototypeFidelity', value?.name ?? '');
 
   /// Interactive Fidelity.
   ///
@@ -110802,9 +110954,11 @@ class QualityCategoryEntryDefinitionForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical, high, medium, low
-  String get categoryPriority => doc.formField(path, 'categoryPriority') ?? '';
-  set categoryPriority(String value) => doc.setFormField(path, 'categoryPriority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get categoryPriority => _parseImportanceBand(doc.formField(path, 'categoryPriority'));
+  set categoryPriority(ImportanceBand? value) => doc.setFormField(path, 'categoryPriority', value?.name ?? '');
 
   /// Priority Rationale.
   ///
@@ -111198,9 +111352,11 @@ class QualityGateAdjustmentEntryImpactForm extends SomNode {
 
   /// Risk Level.
   ///
-  /// Low / Medium / High
-  String get riskLevel => doc.formField(path, 'riskLevel') ?? '';
-  set riskLevel(String value) => doc.setFormField(path, 'riskLevel', value);
+  /// Qualitative risk band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskLevel => _parseImportanceBand(doc.formField(path, 'riskLevel'));
+  set riskLevel(ImportanceBand? value) => doc.setFormField(path, 'riskLevel', value?.name ?? '');
 
   /// Risk Description.
   ///
@@ -111304,9 +111460,11 @@ class QualityGateAdjustmentsAdjustmentSummaryForm extends SomNode {
 
   /// Quality Risk Level.
   ///
-  /// Low / Medium / High — overall quality risk from deviations
-  String get qualityRiskLevel => doc.formField(path, 'qualityRiskLevel') ?? '';
-  set qualityRiskLevel(String value) => doc.setFormField(path, 'qualityRiskLevel', value);
+  /// Overall quality risk from deviations.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get qualityRiskLevel => _parseImportanceBand(doc.formField(path, 'qualityRiskLevel'));
+  set qualityRiskLevel(ImportanceBand? value) => doc.setFormField(path, 'qualityRiskLevel', value?.name ?? '');
 
   /// Compensating Controls.
   ///
@@ -111888,9 +112046,11 @@ class QualityWeightEntryContentForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical, high, medium, low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Rationale.
   ///
@@ -116124,11 +116284,13 @@ class RequirementTestCaseEntryAutomationForm extends SomNode {
   String get automationScript => doc.formField(path, 'automationScript') ?? '';
   set automationScript(String value) => doc.setFormField(path, 'automationScript', value);
 
-  /// Priority (Critical, High, Medium, Low).
+  /// Priority.
   ///
-  /// Critical, High, Medium, or Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -116732,11 +116894,13 @@ class ResourceRequirementEntryContentForm extends SomNode {
   String get requiredBy => doc.formField(path, 'requiredBy') ?? '';
   set requiredBy(String value) => doc.setFormField(path, 'requiredBy', value);
 
-  /// Priority (Critical/High/Medium/Low).
+  /// Priority.
   ///
-  /// Critical / High / Medium / Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Recruitment Status.
   ///
@@ -116784,11 +116948,13 @@ class ResponsibilityChangeEntryContentForm extends SomNode {
   String get reason => doc.formField(path, 'reason') ?? '';
   set reason(String value) => doc.setFormField(path, 'reason', value);
 
-  /// Impact Level — high, medium, low.
+  /// Impact Level.
   ///
-  /// How significant the impact of this change is
-  String get impactLevel => doc.formField(path, 'impactLevel') ?? '';
-  set impactLevel(String value) => doc.setFormField(path, 'impactLevel', value);
+  /// How significant the impact of this change is.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get impactLevel => _parseImportanceBand(doc.formField(path, 'impactLevel'));
+  set impactLevel(ImportanceBand? value) => doc.setFormField(path, 'impactLevel', value?.name ?? '');
 
   /// Training Needed.
   ///
@@ -117082,9 +117248,11 @@ class ResponsibilityFunctionDetailsContentForm extends SomNode {
 
   /// Business Criticality.
   ///
-  /// Critical, High, Medium, Low
-  String get businessCriticality => doc.formField(path, 'businessCriticality') ?? '';
-  set businessCriticality(String value) => doc.setFormField(path, 'businessCriticality', value);
+  /// Qualitative business criticality band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get businessCriticality => _parseImportanceBand(doc.formField(path, 'businessCriticality'));
+  set businessCriticality(ImportanceBand? value) => doc.setFormField(path, 'businessCriticality', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -117122,9 +117290,11 @@ class ResponsibilityReferenceEntryContentForm extends SomNode {
 
   /// Criticality Level.
   ///
-  /// Critical | High | Medium | Low — importance of this responsibility for business operations
-  String get criticalityLevel => doc.formField(path, 'criticalityLevel') ?? '';
-  set criticalityLevel(String value) => doc.setFormField(path, 'criticalityLevel', value);
+  /// Importance of this responsibility for business operations.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get criticalityLevel => _parseImportanceBand(doc.formField(path, 'criticalityLevel'));
+  set criticalityLevel(ImportanceBand? value) => doc.setFormField(path, 'criticalityLevel', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -118216,9 +118386,11 @@ class ReuseGoalEntryGovernanceForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical / High / Medium / Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Target Date.
   ///
@@ -118592,11 +118764,13 @@ class RiskEntryAnalysisForm extends SomNode {
   double? get riskScore => somParseDouble(doc.formField(path, 'riskScore'));
   set riskScore(double? value) => doc.setFormField(path, 'riskScore', somFormatDouble(value));
 
-  /// Risk Level — Low, Medium, High, Critical.
+  /// Risk Level.
   ///
-  /// Overall risk level classification
-  String get riskLevel => doc.formField(path, 'riskLevel') ?? '';
-  set riskLevel(String value) => doc.setFormField(path, 'riskLevel', value);
+  /// Overall risk level classification.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskLevel => _parseImportanceBand(doc.formField(path, 'riskLevel'));
+  set riskLevel(ImportanceBand? value) => doc.setFormField(path, 'riskLevel', value?.name ?? '');
 
   /// Risk Ranking — priority relative to other risks.
   ///
@@ -119002,11 +119176,13 @@ class RiskResponseImplementationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Response Effectiveness — Low, Medium, High.
+  /// Response Effectiveness.
   ///
-  /// How effective the response is expected to be
-  String get responseEffectiveness => doc.formField(path, 'responseEffectiveness') ?? '';
-  set responseEffectiveness(String value) => doc.setFormField(path, 'responseEffectiveness', value);
+  /// How effective the response is expected to be.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get responseEffectiveness => _parseImportanceBand(doc.formField(path, 'responseEffectiveness'));
+  set responseEffectiveness(ImportanceBand? value) => doc.setFormField(path, 'responseEffectiveness', value?.name ?? '');
 
   /// Implementation Cost — cost to implement response.
   ///
@@ -119326,9 +119502,11 @@ class RoleAdjustmentEntryRiskForm extends SomNode {
 
   /// Risk Level.
   ///
-  /// Low / Medium / High — risk introduced by this deviation
-  String get riskLevel => doc.formField(path, 'riskLevel') ?? '';
-  set riskLevel(String value) => doc.setFormField(path, 'riskLevel', value);
+  /// Risk introduced by this deviation.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskLevel => _parseImportanceBand(doc.formField(path, 'riskLevel'));
+  set riskLevel(ImportanceBand? value) => doc.setFormField(path, 'riskLevel', value?.name ?? '');
 
   /// Risk Description.
   ///
@@ -119400,9 +119578,11 @@ class RoleAdjustmentsAdjustmentSummaryForm extends SomNode {
 
   /// Governance Impact Assessment.
   ///
-  /// Low / Medium / High — impact on project governance
-  String get governanceImpact => doc.formField(path, 'governanceImpact') ?? '';
-  set governanceImpact(String value) => doc.setFormField(path, 'governanceImpact', value);
+  /// Impact on project governance.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get governanceImpact => _parseImportanceBand(doc.formField(path, 'governanceImpact'));
+  set governanceImpact(ImportanceBand? value) => doc.setFormField(path, 'governanceImpact', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -120162,9 +120342,11 @@ class RuntimeDependencyEntryClassificationForm extends SomNode {
 
   /// Criticality.
   ///
-  /// Critical / High / Medium / Low — impact if unavailable
-  String get criticality => doc.formField(path, 'criticality') ?? '';
-  set criticality(String value) => doc.setFormField(path, 'criticality', value);
+  /// Impact if unavailable.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get criticality => _parseImportanceBand(doc.formField(path, 'criticality'));
+  set criticality(ImportanceBand? value) => doc.setFormField(path, 'criticality', value?.name ?? '');
 
   /// Purpose.
   ///
@@ -121210,11 +121392,13 @@ class ScenarioEntryIdentificationForm extends SomNode {
   String get supportingActors => doc.formField(path, 'supportingActors') ?? '';
   set supportingActors(String value) => doc.setFormField(path, 'supportingActors', value);
 
-  /// Priority — critical, high, medium, low.
+  /// Priority.
   ///
-  /// Business priority of this scenario
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Business priority of this scenario.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Complexity — simple, moderate, complex.
   ///
@@ -124844,13 +125028,15 @@ class SecurityRequirementEntryClassificationForm extends SomNode {
   String get subcategory => doc.formField(path, 'subcategory') ?? '';
   set subcategory(String value) => doc.setFormField(path, 'subcategory', value);
 
-  /// Priority (Critical, High, Medium, Low).
+  /// Priority.
   ///
-  /// Critical, High, Medium, or Low
+  /// Qualitative priority band.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Source.
   ///
@@ -127400,9 +127586,11 @@ class SharedInfrastructureEntryResilienceForm extends SomNode {
 
   /// Criticality.
   ///
-  /// Critical / High / Medium / Low
-  String get criticality => doc.formField(path, 'criticality') ?? '';
-  set criticality(String value) => doc.setFormField(path, 'criticality', value);
+  /// Qualitative criticality band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get criticality => _parseImportanceBand(doc.formField(path, 'criticality'));
+  set criticality(ImportanceBand? value) => doc.setFormField(path, 'criticality', value?.name ?? '');
 
   /// Is Single Point of Failure.
   bool? get singlePointOfFailure => somParseBool(doc.formField(path, 'singlePointOfFailure'));
@@ -129008,9 +129196,11 @@ class StaffingEntryRecruitmentForm extends SomNode {
 
   /// Urgency.
   ///
-  /// Critical / High / Medium / Low
-  String get urgency => doc.formField(path, 'urgency') ?? '';
-  set urgency(String value) => doc.setFormField(path, 'urgency', value);
+  /// Qualitative urgency band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get urgency => _parseImportanceBand(doc.formField(path, 'urgency'));
+  set urgency(ImportanceBand? value) => doc.setFormField(path, 'urgency', value?.name ?? '');
 }
 
 /// Generated section facade for the `overview` `@Form` section:
@@ -130260,9 +130450,11 @@ class StageMigrationRisksContentForm extends SomNode {
 
   /// Overall Migration Risk Rating.
   ///
-  /// Low / Medium / High / Critical — aggregate risk assessment for the entire migration
-  String get overallMigrationRiskRating => doc.formField(path, 'overallMigrationRiskRating') ?? '';
-  set overallMigrationRiskRating(String value) => doc.setFormField(path, 'overallMigrationRiskRating', value);
+  /// Aggregate risk assessment for the entire migration.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get overallMigrationRiskRating => _parseImportanceBand(doc.formField(path, 'overallMigrationRiskRating'));
+  set overallMigrationRiskRating(ImportanceBand? value) => doc.setFormField(path, 'overallMigrationRiskRating', value?.name ?? '');
 }
 
 /// Generated section facade for the `baseline` `@Form` section:
@@ -130732,21 +130924,27 @@ class StageOverviewRiskForm extends SomNode {
 
   /// Overall Schedule Risk.
   ///
-  /// Low / Medium / High / Critical — aggregate schedule risk
-  String get overallScheduleRisk => doc.formField(path, 'overallScheduleRisk') ?? '';
-  set overallScheduleRisk(String value) => doc.setFormField(path, 'overallScheduleRisk', value);
+  /// Aggregate schedule risk.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get overallScheduleRisk => _parseImportanceBand(doc.formField(path, 'overallScheduleRisk'));
+  set overallScheduleRisk(ImportanceBand? value) => doc.setFormField(path, 'overallScheduleRisk', value?.name ?? '');
 
   /// Overall Budget Risk.
   ///
-  /// Low / Medium / High / Critical — aggregate budget overrun risk
-  String get overallBudgetRisk => doc.formField(path, 'overallBudgetRisk') ?? '';
-  set overallBudgetRisk(String value) => doc.setFormField(path, 'overallBudgetRisk', value);
+  /// Aggregate budget overrun risk.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get overallBudgetRisk => _parseImportanceBand(doc.formField(path, 'overallBudgetRisk'));
+  set overallBudgetRisk(ImportanceBand? value) => doc.setFormField(path, 'overallBudgetRisk', value?.name ?? '');
 
   /// Overall Scope Risk.
   ///
-  /// Low / Medium / High / Critical — risk of scope creep
-  String get overallScopeRisk => doc.formField(path, 'overallScopeRisk') ?? '';
-  set overallScopeRisk(String value) => doc.setFormField(path, 'overallScopeRisk', value);
+  /// Risk of scope creep.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get overallScopeRisk => _parseImportanceBand(doc.formField(path, 'overallScopeRisk'));
+  set overallScopeRisk(ImportanceBand? value) => doc.setFormField(path, 'overallScopeRisk', value?.name ?? '');
 
   /// Stage with Highest Risk.
   ///
@@ -130874,9 +131072,11 @@ class StageOverviewStatusForm extends SomNode {
 
   /// Plan Confidence Level.
   ///
-  /// High / Medium / Low — confidence in the overall timeline and budget
-  String get planConfidenceLevel => doc.formField(path, 'planConfidenceLevel') ?? '';
-  set planConfidenceLevel(String value) => doc.setFormField(path, 'planConfidenceLevel', value);
+  /// Confidence in the overall timeline and budget.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get planConfidenceLevel => _parseImportanceBand(doc.formField(path, 'planConfidenceLevel'));
+  set planConfidenceLevel(ImportanceBand? value) => doc.setFormField(path, 'planConfidenceLevel', value?.name ?? '');
 
   /// Confidence Basis.
   ///
@@ -131174,9 +131374,11 @@ class StageSummaryDependenciesContentForm extends SomNode {
 
   /// Risk Level.
   ///
-  /// Low / Medium / High / Critical
-  String get riskLevel => doc.formField(path, 'riskLevel') ?? '';
-  set riskLevel(String value) => doc.setFormField(path, 'riskLevel', value);
+  /// Qualitative risk band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskLevel => _parseImportanceBand(doc.formField(path, 'riskLevel'));
+  set riskLevel(ImportanceBand? value) => doc.setFormField(path, 'riskLevel', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -131686,9 +131888,11 @@ class StagingStrategyContentForm extends SomNode {
 
   /// Overall Risk Level.
   ///
-  /// Low / Medium / High / Critical
-  String get overallRiskLevel => doc.formField(path, 'overallRiskLevel') ?? '';
-  set overallRiskLevel(String value) => doc.setFormField(path, 'overallRiskLevel', value);
+  /// Qualitative overall risk band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get overallRiskLevel => _parseImportanceBand(doc.formField(path, 'overallRiskLevel'));
+  set overallRiskLevel(ImportanceBand? value) => doc.setFormField(path, 'overallRiskLevel', value?.name ?? '');
 }
 
 /// Generated section facade for the `cutover` `@Form` section:
@@ -131900,9 +132104,11 @@ class StagingStrategyReadinessForm extends SomNode {
 
   /// Organizational Readiness Level.
   ///
-  /// Low / Medium / High
-  String get organizationalReadinessLevel => doc.formField(path, 'organizationalReadinessLevel') ?? '';
-  set organizationalReadinessLevel(String value) => doc.setFormField(path, 'organizationalReadinessLevel', value);
+  /// Qualitative organizational readiness band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get organizationalReadinessLevel => _parseImportanceBand(doc.formField(path, 'organizationalReadinessLevel'));
+  set organizationalReadinessLevel(ImportanceBand? value) => doc.setFormField(path, 'organizationalReadinessLevel', value?.name ?? '');
 
   /// Resource Constraints.
   ///
@@ -131944,9 +132150,11 @@ class StagingStrategyRiskAssessmentForm extends SomNode {
 
   /// Risk Tolerance.
   ///
-  /// Low / Medium / High — acceptable level of risk
-  String get riskTolerance => doc.formField(path, 'riskTolerance') ?? '';
-  set riskTolerance(String value) => doc.setFormField(path, 'riskTolerance', value);
+  /// Acceptable level of risk.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get riskTolerance => _parseImportanceBand(doc.formField(path, 'riskTolerance'));
+  set riskTolerance(ImportanceBand? value) => doc.setFormField(path, 'riskTolerance', value?.name ?? '');
 
   /// Deployment Risk Factors.
   ///
@@ -132066,9 +132274,13 @@ class StakeholderRegisterEntryContentForm extends SomNode {
   String get interest => doc.formField(path, 'interest') ?? '';
   set interest(String value) => doc.setFormField(path, 'interest', value);
 
-  /// Influence (High, Medium, Low).
-  String get influence => doc.formField(path, 'influence') ?? '';
-  set influence(String value) => doc.setFormField(path, 'influence', value);
+  /// Influence.
+  ///
+  /// Qualitative influence band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get influence => _parseImportanceBand(doc.formField(path, 'influence'));
+  set influence(ImportanceBand? value) => doc.setFormField(path, 'influence', value?.name ?? '');
 
   /// Concerns.
   String get concerns => doc.formField(path, 'concerns') ?? '';
@@ -132766,9 +132978,11 @@ class SuccessCriterionEntryImportanceForm extends SomNode {
 
   /// Weight.
   ///
-  /// Importance: Critical, High, Medium, Low
-  String get weight => doc.formField(path, 'weight') ?? '';
-  set weight(String value) => doc.setFormField(path, 'weight', value);
+  /// Qualitative importance band for this success criterion.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get weight => _parseImportanceBand(doc.formField(path, 'weight'));
+  set weight(ImportanceBand? value) => doc.setFormField(path, 'weight', value?.name ?? '');
 
   /// Mandatory.
   ///
@@ -133970,9 +134184,11 @@ class SystemDependencyEntryMechanismForm extends SomNode {
 
   /// Criticality.
   ///
-  /// Critical / High / Medium / Low
-  String get criticality => doc.formField(path, 'criticality') ?? '';
-  set criticality(String value) => doc.setFormField(path, 'criticality', value);
+  /// Qualitative criticality band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get criticality => _parseImportanceBand(doc.formField(path, 'criticality'));
+  set criticality(ImportanceBand? value) => doc.setFormField(path, 'criticality', value?.name ?? '');
 }
 
 /// Generated section facade for the `operations` `@Form` section:
@@ -135072,17 +135288,21 @@ class SystemMigrationRiskEntryContentForm extends SomNode {
   String get riskDescription => doc.formField(path, 'riskDescription') ?? '';
   set riskDescription(String value) => doc.setFormField(path, 'riskDescription', value);
 
-  /// Probability (High, Medium, Low).
+  /// Probability.
   ///
-  /// Likelihood the risk occurs
-  String get probability => doc.formField(path, 'probability') ?? '';
-  set probability(String value) => doc.setFormField(path, 'probability', value);
+  /// Qualitative likelihood band that this migration risk occurs.
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get probability => _parseProbability(doc.formField(path, 'probability'));
+  set probability(Probability? value) => doc.setFormField(path, 'probability', value?.name ?? '');
 
-  /// Impact (High, Medium, Low).
+  /// Impact.
   ///
-  /// Severity if the risk occurs
-  String get impact => doc.formField(path, 'impact') ?? '';
-  set impact(String value) => doc.setFormField(path, 'impact', value);
+  /// Qualitative consequence band if the migration risk occurs.
+  ///
+  /// Stored as one of: `negligible`, `minor`, `moderate`, `major`, `critical`.
+  Impact? get impact => _parseImpact(doc.formField(path, 'impact'));
+  set impact(Impact? value) => doc.setFormField(path, 'impact', value?.name ?? '');
 
   /// Risk Score.
   ///
@@ -135484,9 +135704,11 @@ class SystemStagePlanReadinessForm extends SomNode {
 
   /// Organizational Readiness Level.
   ///
-  /// High / Medium / Low — organization preparedness for staged rollout
-  String get organizationalReadinessLevel => doc.formField(path, 'organizationalReadinessLevel') ?? '';
-  set organizationalReadinessLevel(String value) => doc.setFormField(path, 'organizationalReadinessLevel', value);
+  /// Organization preparedness for staged rollout.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get organizationalReadinessLevel => _parseImportanceBand(doc.formField(path, 'organizationalReadinessLevel'));
+  set organizationalReadinessLevel(ImportanceBand? value) => doc.setFormField(path, 'organizationalReadinessLevel', value?.name ?? '');
 
   /// Change Absorption Capacity.
   ///
@@ -135496,9 +135718,11 @@ class SystemStagePlanReadinessForm extends SomNode {
 
   /// Plan Confidence Level.
   ///
-  /// High / Medium / Low — overall confidence in staging plan feasibility
-  String get confidenceLevel => doc.formField(path, 'confidenceLevel') ?? '';
-  set confidenceLevel(String value) => doc.setFormField(path, 'confidenceLevel', value);
+  /// Overall confidence in staging plan feasibility.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get confidenceLevel => _parseImportanceBand(doc.formField(path, 'confidenceLevel'));
+  set confidenceLevel(ImportanceBand? value) => doc.setFormField(path, 'confidenceLevel', value?.name ?? '');
 
   /// Last Plan Review Date.
   ///
@@ -135840,11 +136064,13 @@ class SystemTaskEntryExecutionForm extends SomNode {
   String get complexity => doc.formField(path, 'complexity') ?? '';
   set complexity(String value) => doc.setFormField(path, 'complexity', value);
 
-  /// Importance (Critical, High, Medium, Low).
+  /// Importance.
   ///
-  /// Critical / High / Medium / Low
-  String get importance => doc.formField(path, 'importance') ?? '';
-  set importance(String value) => doc.setFormField(path, 'importance', value);
+  /// Qualitative importance band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get importance => _parseImportanceBand(doc.formField(path, 'importance'));
+  set importance(ImportanceBand? value) => doc.setFormField(path, 'importance', value?.name ?? '');
 
   /// Trigger (what initiates this task).
   ///
@@ -135974,11 +136200,13 @@ class SystemTechnicalAssessmentQualityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Technical Debt (Low, Medium, High, Critical).
+  /// Technical Debt.
   ///
-  /// Overall accumulated technical debt of the system
-  String get technicalDebtRating => doc.formField(path, 'technicalDebtRating') ?? '';
-  set technicalDebtRating(String value) => doc.setFormField(path, 'technicalDebtRating', value);
+  /// Qualitative band for the accumulated technical debt of the system.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get technicalDebtRating => _parseImportanceBand(doc.formField(path, 'technicalDebtRating'));
+  set technicalDebtRating(ImportanceBand? value) => doc.setFormField(path, 'technicalDebtRating', value?.name ?? '');
 
   /// Security Posture.
   ///
@@ -137402,13 +137630,15 @@ class TechnicalGoalEntryContentForm extends SomNode {
   String get goalCategory => doc.formField(path, 'goalCategory') ?? '';
   set goalCategory(String value) => doc.setFormField(path, 'goalCategory', value);
 
-  /// Priority (Critical, High, Medium, Low).
+  /// Priority.
   ///
-  /// Critical / High / Medium / Low
+  /// Qualitative priority band.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -137768,9 +137998,11 @@ class TechnicalPainPointsCategorySummaryForm extends SomNode {
 
   /// Vendor Lock-in Risk Level.
   ///
-  /// Low / Medium / High — based on proprietary dependencies
-  String get vendorLockInRisk => doc.formField(path, 'vendorLockInRisk') ?? '';
-  set vendorLockInRisk(String value) => doc.setFormField(path, 'vendorLockInRisk', value);
+  /// Based on proprietary dependencies.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get vendorLockInRisk => _parseImportanceBand(doc.formField(path, 'vendorLockInRisk'));
+  set vendorLockInRisk(ImportanceBand? value) => doc.setFormField(path, 'vendorLockInRisk', value?.name ?? '');
 
   /// Integration Complexity Score.
   ///
@@ -137864,13 +138096,15 @@ class TechnicalRequirementEntryDetailsForm extends SomNode {
   String get subcategory => doc.formField(path, 'subcategory') ?? '';
   set subcategory(String value) => doc.setFormField(path, 'subcategory', value);
 
-  /// Priority (Critical, High, Medium, Low).
+  /// Priority.
   ///
-  /// Critical, High, Medium, or Low
+  /// Qualitative priority band.
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Source (who requested).
   ///
@@ -138392,9 +138626,11 @@ class TestScenarioEntryContentForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical / High / Medium / Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// Qualitative priority band.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `execution` `@Form` section:
@@ -140352,9 +140588,11 @@ class ToolEntryLifecycleForm extends SomNode {
 
   /// End-of-Life Risk.
   ///
-  /// Low / Medium / High — risk of vendor discontinuing the product
-  String get endOfLifeRisk => doc.formField(path, 'endOfLifeRisk') ?? '';
-  set endOfLifeRisk(String value) => doc.setFormField(path, 'endOfLifeRisk', value);
+  /// Risk of vendor discontinuing the product.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get endOfLifeRisk => _parseImportanceBand(doc.formField(path, 'endOfLifeRisk'));
+  set endOfLifeRisk(ImportanceBand? value) => doc.setFormField(path, 'endOfLifeRisk', value?.name ?? '');
 }
 
 /// Generated section facade for the `security` `@Form` section:
@@ -142042,11 +142280,13 @@ class TransitionMilestoneEntryDependenciesForm extends SomNode {
   String get dependsOnMilestones => doc.formField(path, 'dependsOnMilestones') ?? '';
   set dependsOnMilestones(String value) => doc.setFormField(path, 'dependsOnMilestones', value);
 
-  /// Criticality — High, Medium, Low.
+  /// Criticality.
   ///
-  /// How critical this milestone is to the transition: High, Medium, or Low
-  String get criticality => doc.formField(path, 'criticality') ?? '';
-  set criticality(String value) => doc.setFormField(path, 'criticality', value);
+  /// How critical this milestone is to the transition.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get criticality => _parseImportanceBand(doc.formField(path, 'criticality'));
+  set criticality(ImportanceBand? value) => doc.setFormField(path, 'criticality', value?.name ?? '');
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -142474,17 +142714,21 @@ class TransitionRiskEntryAssessmentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Probability — Low, Medium, High.
+  /// Probability.
   ///
-  /// The likelihood that this risk materializes: Low, Medium, or High
-  String get probability => doc.formField(path, 'probability') ?? '';
-  set probability(String value) => doc.setFormField(path, 'probability', value);
+  /// Qualitative likelihood band that this transition risk materializes.
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get probability => _parseProbability(doc.formField(path, 'probability'));
+  set probability(Probability? value) => doc.setFormField(path, 'probability', value?.name ?? '');
 
-  /// Impact — Low, Medium, High.
+  /// Impact.
   ///
-  /// The severity of the consequences if this risk occurs: Low, Medium, or High
-  String get impact => doc.formField(path, 'impact') ?? '';
-  set impact(String value) => doc.setFormField(path, 'impact', value);
+  /// Qualitative consequence band if the transition risk materializes.
+  ///
+  /// Stored as one of: `negligible`, `minor`, `moderate`, `major`, `critical`.
+  Impact? get impact => _parseImpact(doc.formField(path, 'impact'));
+  set impact(Impact? value) => doc.setFormField(path, 'impact', value?.name ?? '');
 
   /// Affected Phases.
   ///
@@ -145518,11 +145762,13 @@ class UserCategoryEntryImportanceForm extends SomNode {
   String get criticality => doc.formField(path, 'criticality') ?? '';
   set criticality(String value) => doc.setFormField(path, 'criticality', value);
 
-  /// Priority (High, Medium, Low - for design decisions).
+  /// Priority (for design decisions).
   ///
-  /// High / Medium / Low — for design decisions
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// For design decisions.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `role` `@Form` section:
@@ -145774,11 +146020,13 @@ class UserGroupImpactEntryContentForm extends SomNode {
   int? get userCount => somParseInt(doc.formField(path, 'userCount'));
   set userCount(int? value) => doc.setFormField(path, 'userCount', somFormatInt(value));
 
-  /// Impact Level (High, Medium, Low).
+  /// Impact Level.
   ///
-  /// How strongly the group is impacted
-  String get impactLevel => doc.formField(path, 'impactLevel') ?? '';
-  set impactLevel(String value) => doc.setFormField(path, 'impactLevel', value);
+  /// How strongly the group is impacted.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get impactLevel => _parseImportanceBand(doc.formField(path, 'impactLevel'));
+  set impactLevel(ImportanceBand? value) => doc.setFormField(path, 'impactLevel', value?.name ?? '');
 
   /// Special Considerations.
   ///

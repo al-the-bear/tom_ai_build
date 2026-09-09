@@ -577,9 +577,9 @@ class ResourceRequirementEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority (Critical/High/Medium/Low)',
-      hint: 'Critical / High / Medium / Low',
+      ImportanceBand,
+      'Priority',
+      hint: 'Qualitative priority band.',
     ),
     Field(
       'status',

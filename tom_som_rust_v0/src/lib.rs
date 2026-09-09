@@ -837,6 +837,83 @@ pub fn parse_impact(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `ImportanceBand` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// The top band: whatever this rates cannot be traded away, deferred or
+/// absorbed. On a priority it blocks the release; on a severity it stops
+/// work; on a criticality its loss stops the business function. If
+/// everything on a list is critical, the list has not been rated.
+pub const IMPORTANCE_BAND_CRITICAL: &str = "critical";
+/// Below [critical] but ahead of the ordinary queue: it is expected to be
+/// dealt with in the current cycle, and letting it slip is a decision
+/// somebody has to make rather than a routine outcome.
+pub const IMPORTANCE_BAND_HIGH: &str = "high";
+/// The ordinary band, and the default when nobody has actually assessed the
+/// item. A medium with no reasoning behind it is worth challenging — it is
+/// as often "not looked at" as it is "genuinely middling".
+pub const IMPORTANCE_BAND_MEDIUM: &str = "medium";
+/// The bottom band: worth recording, not worth planning around. Items here
+/// are done when they are cheap, and their omission needs no explanation.
+pub const IMPORTANCE_BAND_LOW: &str = "low";
+
+/// ImportanceBand is the generated enum for `ImportanceBand` values.
+///
+/// The stored token is what [ImportanceBand::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ImportanceBand {
+    /// The top band: whatever this rates cannot be traded away, deferred or
+    /// absorbed. On a priority it blocks the release; on a severity it stops
+    /// work; on a criticality its loss stops the business function. If
+    /// everything on a list is critical, the list has not been rated.
+    Critical,
+    /// Below [critical] but ahead of the ordinary queue: it is expected to be
+    /// dealt with in the current cycle, and letting it slip is a decision
+    /// somebody has to make rather than a routine outcome.
+    High,
+    /// The ordinary band, and the default when nobody has actually assessed the
+    /// item. A medium with no reasoning behind it is worth challenging — it is
+    /// as often "not looked at" as it is "genuinely middling".
+    Medium,
+    /// The bottom band: worth recording, not worth planning around. Items here
+    /// are done when they are cheap, and their omission needs no explanation.
+    Low,
+}
+
+impl ImportanceBand {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ImportanceBand::Critical => "critical",
+            ImportanceBand::High => "high",
+            ImportanceBand::Medium => "medium",
+            ImportanceBand::Low => "low",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "critical" => Some(ImportanceBand::Critical),
+            "high" => Some(ImportanceBand::High),
+            "medium" => Some(ImportanceBand::Medium),
+            "low" => Some(ImportanceBand::Low),
+            _ => None,
+        }
+    }
+}
+
+/// parse_importance_band returns token when it is a known ImportanceBand value, else "".
+pub fn parse_importance_band(token: &str) -> String {
+    match token {
+        IMPORTANCE_BAND_CRITICAL | IMPORTANCE_BAND_HIGH | IMPORTANCE_BAND_MEDIUM | IMPORTANCE_BAND_LOW => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `Iso25010Characteristic` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// ISO/IEC 25010:2023 *functional suitability* — the degree to which the
@@ -14826,7 +14903,7 @@ pub struct D00SolutionBlueprint {
 }
 
 /// D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.2";
+pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.3";
 
 impl D00SolutionBlueprint {
     /// Creates the typed facade at the document root and verifies the
@@ -14971,7 +15048,7 @@ pub struct D01CurrentLandscapeAssessment {
 }
 
 /// D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.2";
+pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.3";
 
 impl D01CurrentLandscapeAssessment {
     /// Creates the typed facade at the document root and verifies the
@@ -15096,7 +15173,7 @@ pub struct D02TargetOperatingModel {
 }
 
 /// D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.2";
+pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.3";
 
 impl D02TargetOperatingModel {
     /// Creates the typed facade at the document root and verifies the
@@ -15237,7 +15314,7 @@ pub struct D03InformationModel {
 }
 
 /// D03_INFORMATION_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.2";
+pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.3";
 
 impl D03InformationModel {
     /// Creates the typed facade at the document root and verifies the
@@ -15453,7 +15530,7 @@ pub struct D04RequirementsSpecification {
 }
 
 /// D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.2";
+pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.3";
 
 impl D04RequirementsSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -15582,7 +15659,7 @@ pub struct D05InteractionScenarios {
 }
 
 /// D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.2";
+pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.3";
 
 impl D05InteractionScenarios {
     /// Creates the typed facade at the document root and verifies the
@@ -15703,7 +15780,7 @@ pub struct D06ArchitectureTechnologySpecification {
 }
 
 /// D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.2";
+pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.3";
 
 impl D06ArchitectureTechnologySpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -15843,7 +15920,7 @@ pub struct D07IntegrationInterfaceSpecification {
 }
 
 /// D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.2";
+pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.3";
 
 impl D07IntegrationInterfaceSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -15989,7 +16066,7 @@ pub struct D08SecurityAccessSpecification {
 }
 
 /// D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.2";
+pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.3";
 
 impl D08SecurityAccessSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16122,7 +16199,7 @@ pub struct D09ExperienceDesignSpecification {
 }
 
 /// D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.2";
+pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.3";
 
 impl D09ExperienceDesignSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16268,7 +16345,7 @@ pub struct D10QualityAcceptancePlan {
 }
 
 /// D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.2";
+pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.3";
 
 impl D10QualityAcceptancePlan {
     /// Creates the typed facade at the document root and verifies the
@@ -16444,7 +16521,7 @@ pub struct D11DeliveryRoadmap {
 }
 
 /// D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.2";
+pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.3";
 
 impl D11DeliveryRoadmap {
     /// Creates the typed facade at the document root and verifies the
@@ -16575,7 +16652,7 @@ pub struct D12TransitionRolloutPlan {
 }
 
 /// D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.2";
+pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.3";
 
 impl D12TransitionRolloutPlan {
     /// Creates the typed facade at the document root and verifies the
@@ -16726,7 +16803,7 @@ pub struct D13CodeSpecsProjection {
 }
 
 /// D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.2";
+pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.3";
 
 impl D13CodeSpecsProjection {
     /// Creates the typed facade at the document root and verifies the
@@ -64971,13 +65048,14 @@ impl AcceptanceCriterionEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "testType", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn status(&self) -> String {
@@ -68319,13 +68397,14 @@ impl AffectedDepartmentEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "employeeCount", &text);
     }
 
-    pub fn impact_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel")
+    pub fn impact_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel"))
     }
 
-    pub fn set_impact_level(&self, value: &str) {
+    pub fn set_impact_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", text);
     }
 
     pub fn role_in_project(&self) -> String {
@@ -68346,13 +68425,14 @@ impl AffectedDepartmentEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "currentSystems", value);
     }
 
-    pub fn change_readiness(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "changeReadiness")
+    pub fn change_readiness(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "changeReadiness"))
     }
 
-    pub fn set_change_readiness(&self, value: &str) {
+    pub fn set_change_readiness(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "changeReadiness", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "changeReadiness", text);
     }
 
     pub fn key_contacts(&self) -> String {
@@ -73961,13 +74041,14 @@ impl AuthenticationMethodEntrySecurityForm {
         self.node.doc().borrow_mut().set_form_field(&path, "fipsValidationLevel", value);
     }
 
-    pub fn security_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "securityLevel")
+    pub fn security_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "securityLevel"))
     }
 
-    pub fn set_security_level(&self, value: &str) {
+    pub fn set_security_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "securityLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "securityLevel", text);
     }
 }
 
@@ -74451,13 +74532,14 @@ impl AuthorizationRoleEntryGovernanceForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel")
+    pub fn risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel"))
     }
 
-    pub fn set_risk_level(&self, value: &str) {
+    pub fn set_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", text);
     }
 
     pub fn max_holders(&self) -> Option<i64> {
@@ -75886,13 +75968,14 @@ impl BackupPolicyEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "dataScope", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -77336,13 +77419,14 @@ impl BoundaryAssumptionEntryRiskForm {
         self.node.doc().borrow_mut().set_form_field(&path, "riskIfWrong", value);
     }
 
-    pub fn risk_impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskImpact")
+    pub fn risk_impact(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskImpact"))
     }
 
-    pub fn set_risk_impact(&self, value: &str) {
+    pub fn set_risk_impact(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskImpact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskImpact", text);
     }
 
     pub fn contingency_plan(&self) -> String {
@@ -77438,13 +77522,14 @@ impl BoundaryAssumptionEntryValidationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "validationStatus", value);
     }
 
-    pub fn confidence(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "confidence")
+    pub fn confidence(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "confidence"))
     }
 
-    pub fn set_confidence(&self, value: &str) {
+    pub fn set_confidence(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "confidence", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "confidence", text);
     }
 }
 
@@ -79755,13 +79840,14 @@ impl BusinessGoalEntryDefinitionForm {
         self.node.doc().borrow_mut().set_form_field(&path, "goalType", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -91668,13 +91754,14 @@ impl ComponentEntryRiskForm {
         self.node.doc().borrow_mut().set_form_field(&path, "lockInFactors", value);
     }
 
-    pub fn integration_complexity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "integrationComplexity")
+    pub fn integration_complexity(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "integrationComplexity"))
     }
 
-    pub fn set_integration_complexity(&self, value: &str) {
+    pub fn set_integration_complexity(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "integrationComplexity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "integrationComplexity", text);
     }
 }
 
@@ -94554,13 +94641,14 @@ impl ComponentRiskEntryMitigationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "mitigationCost", value);
     }
 
-    pub fn residual_risk(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "residualRisk")
+    pub fn residual_risk(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "residualRisk"))
     }
 
-    pub fn set_residual_risk(&self, value: &str) {
+    pub fn set_residual_risk(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "residualRisk", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "residualRisk", text);
     }
 
     pub fn contingency_trigger(&self) -> String {
@@ -98815,13 +98903,14 @@ impl CurrentDataLandscapeDataLandscapeSummaryForm {
         self.node.doc().borrow_mut().set_form_field(&path, "complianceStatus", value);
     }
 
-    pub fn data_security_risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dataSecurityRiskLevel")
+    pub fn data_security_risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "dataSecurityRiskLevel"))
     }
 
-    pub fn set_data_security_risk_level(&self, value: &str) {
+    pub fn set_data_security_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dataSecurityRiskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataSecurityRiskLevel", text);
     }
 
     pub fn average_data_age(&self) -> String {
@@ -98908,13 +98997,14 @@ impl CurrentProcessImprovementEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "estimatedBenefit", value);
     }
 
-    pub fn implementation_effort(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "implementationEffort")
+    pub fn implementation_effort(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "implementationEffort"))
     }
 
-    pub fn set_implementation_effort(&self, value: &str) {
+    pub fn set_implementation_effort(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "implementationEffort", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "implementationEffort", text);
     }
 
     pub fn priority(&self) -> String {
@@ -101733,13 +101823,14 @@ impl DataDuplicationAnalysisDuplicationSummaryForm {
         self.node.doc().borrow_mut().set_form_field(&path, "synchronizationChallenges", &text);
     }
 
-    pub fn data_inconsistency_risk(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dataInconsistencyRisk")
+    pub fn data_inconsistency_risk(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "dataInconsistencyRisk"))
     }
 
-    pub fn set_data_inconsistency_risk(&self, value: &str) {
+    pub fn set_data_inconsistency_risk(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dataInconsistencyRisk", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataInconsistencyRisk", text);
     }
 
     pub fn consolidation_opportunities(&self) -> Option<i64> {
@@ -103510,13 +103601,14 @@ impl DataIntegrationEntryOwnershipForm {
         self.node.doc().borrow_mut().set_form_field(&path, "technicalOwner", value);
     }
 
-    pub fn criticality(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticality")
+    pub fn criticality(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "criticality"))
     }
 
-    pub fn set_criticality(&self, value: &str) {
+    pub fn set_criticality(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "criticality", text);
     }
 
     pub fn known_issues(&self) -> String {
@@ -105695,13 +105787,14 @@ impl DataQualityIssueEntryClassificationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "qualityDimension", value);
     }
 
-    pub fn severity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "severity")
+    pub fn severity(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "severity"))
     }
 
-    pub fn set_severity(&self, value: &str) {
+    pub fn set_severity(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "severity", text);
     }
 }
 
@@ -106412,13 +106505,14 @@ impl DataSourceEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "dataStoreName", value);
     }
 
-    pub fn criticality(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticality")
+    pub fn criticality(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "criticality"))
     }
 
-    pub fn set_criticality(&self, value: &str) {
+    pub fn set_criticality(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "criticality", text);
     }
 }
 
@@ -108411,13 +108505,14 @@ impl DecisionMakerEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "decisionDomains", value);
     }
 
-    pub fn influence_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "influenceLevel")
+    pub fn influence_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "influenceLevel"))
     }
 
-    pub fn set_influence_level(&self, value: &str) {
+    pub fn set_influence_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "influenceLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "influenceLevel", text);
     }
 
     pub fn approval_required(&self) -> String {
@@ -108534,22 +108629,24 @@ impl DecisionOptionEntryFeasibilityForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn technical_feasibility(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "technicalFeasibility")
+    pub fn technical_feasibility(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "technicalFeasibility"))
     }
 
-    pub fn set_technical_feasibility(&self, value: &str) {
+    pub fn set_technical_feasibility(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "technicalFeasibility", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "technicalFeasibility", text);
     }
 
-    pub fn organizational_feasibility(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "organizationalFeasibility")
+    pub fn organizational_feasibility(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "organizationalFeasibility"))
     }
 
-    pub fn set_organizational_feasibility(&self, value: &str) {
+    pub fn set_organizational_feasibility(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "organizationalFeasibility", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "organizationalFeasibility", text);
     }
 
     pub fn feasibility_notes(&self) -> String {
@@ -109767,13 +109864,14 @@ impl DeliverableEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -113594,13 +113692,14 @@ impl DesignGoalEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "description", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn category(&self) -> String {
@@ -125390,13 +125489,14 @@ impl ExistingSystemEntryQualityForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn technical_debt_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "technicalDebtLevel")
+    pub fn technical_debt_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "technicalDebtLevel"))
     }
 
-    pub fn set_technical_debt_level(&self, value: &str) {
+    pub fn set_technical_debt_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "technicalDebtLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "technicalDebtLevel", text);
     }
 
     pub fn code_quality(&self) -> String {
@@ -127632,13 +127732,14 @@ impl ExternalInterfaceEntryIdentificationContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "integrationPattern", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn status(&self) -> String {
@@ -128556,13 +128657,14 @@ impl ExternalServiceDependencyEntryRelationshipForm {
         self.node.doc().borrow_mut().set_form_field(&path, "dependentSystems", value);
     }
 
-    pub fn criticality(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticality")
+    pub fn criticality(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "criticality"))
     }
 
-    pub fn set_criticality(&self, value: &str) {
+    pub fn set_criticality(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "criticality", text);
     }
 
     pub fn contract_status(&self) -> String {
@@ -129990,13 +130092,14 @@ impl FeaturePriorityEntryBusinessValueForm {
         self.node.doc().borrow_mut().set_form_field(&path, "costOfDelayCategory", value);
     }
 
-    pub fn strategic_alignment(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "strategicAlignment")
+    pub fn strategic_alignment(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "strategicAlignment"))
     }
 
-    pub fn set_strategic_alignment(&self, value: &str) {
+    pub fn set_strategic_alignment(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "strategicAlignment", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "strategicAlignment", text);
     }
 
     pub fn strategic_objective_link(&self) -> String {
@@ -130008,13 +130111,14 @@ impl FeaturePriorityEntryBusinessValueForm {
         self.node.doc().borrow_mut().set_form_field(&path, "strategicObjectiveLink", value);
     }
 
-    pub fn customer_impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "customerImpact")
+    pub fn customer_impact(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "customerImpact"))
     }
 
-    pub fn set_customer_impact(&self, value: &str) {
+    pub fn set_customer_impact(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "customerImpact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "customerImpact", text);
     }
 
     pub fn user_base_affected(&self) -> String {
@@ -130215,13 +130319,14 @@ impl FeaturePriorityEntryEffortForm {
         self.node.doc().borrow_mut().set_form_field(&path, "complexityFactors", value);
     }
 
-    pub fn risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel")
+    pub fn risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel"))
     }
 
-    pub fn set_risk_level(&self, value: &str) {
+    pub fn set_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", text);
     }
 
     pub fn risk_factors(&self) -> String {
@@ -130543,13 +130648,14 @@ impl FeaturePriorityEntryStatusForm {
         self.node.doc().borrow_mut().set_form_field(&path, "deliveryStatus", value);
     }
 
-    pub fn confidence_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "confidenceLevel")
+    pub fn confidence_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "confidenceLevel"))
     }
 
-    pub fn set_confidence_level(&self, value: &str) {
+    pub fn set_confidence_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "confidenceLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "confidenceLevel", text);
     }
 
     pub fn last_reviewed_date(&self) -> String {
@@ -130951,13 +131057,14 @@ impl FeatureStageMappingReadinessForm {
         self.node.doc().borrow_mut().set_form_field(&path, "readinessStatus", value);
     }
 
-    pub fn delivery_confidence(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "deliveryConfidence")
+    pub fn delivery_confidence(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "deliveryConfidence"))
     }
 
-    pub fn set_delivery_confidence(&self, value: &str) {
+    pub fn set_delivery_confidence(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "deliveryConfidence", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "deliveryConfidence", text);
     }
 
     pub fn confidence_rationale(&self) -> String {
@@ -132756,13 +132863,14 @@ impl FunctionEntryOperationsForm {
         self.node.doc().borrow_mut().set_form_field(&path, "volumeEstimate", value);
     }
 
-    pub fn criticality_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticalityLevel")
+    pub fn criticality_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "criticalityLevel"))
     }
 
-    pub fn set_criticality_level(&self, value: &str) {
+    pub fn set_criticality_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticalityLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "criticalityLevel", text);
     }
 }
 
@@ -133259,13 +133367,14 @@ impl FunctionalRequirementEntryPriorityForm {
         self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
-    pub fn business_value(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "businessValue")
+    pub fn business_value(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "businessValue"))
     }
 
-    pub fn set_business_value(&self, value: &str) {
+    pub fn set_business_value(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "businessValue", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "businessValue", text);
     }
 
     pub fn effort(&self) -> String {
@@ -133277,13 +133386,14 @@ impl FunctionalRequirementEntryPriorityForm {
         self.node.doc().borrow_mut().set_form_field(&path, "effort", value);
     }
 
-    pub fn risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel")
+    pub fn risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel"))
     }
 
-    pub fn set_risk_level(&self, value: &str) {
+    pub fn set_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", text);
     }
 }
 
@@ -133666,13 +133776,14 @@ impl GapEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "gapCategory", value);
     }
 
-    pub fn severity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "severity")
+    pub fn severity(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "severity"))
     }
 
-    pub fn set_severity(&self, value: &str) {
+    pub fn set_severity(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "severity", text);
     }
 }
 
@@ -134696,22 +134807,24 @@ impl GoalRiskEntryAssessmentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn probability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "probability")
+    pub fn probability(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "probability"))
     }
 
-    pub fn set_probability(&self, value: &str) {
+    pub fn set_probability(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "probability", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "probability", text);
     }
 
-    pub fn impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impact")
+    pub fn impact(&self) -> Option<Impact> {
+        Impact::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impact"))
     }
 
-    pub fn set_impact(&self, value: &str) {
+    pub fn set_impact(&self, value: Option<Impact>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impact", text);
     }
 
     pub fn risk_score(&self) -> String {
@@ -141080,13 +141193,14 @@ impl IntegrationConstraintEntryMitigationForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn impact_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel")
+    pub fn impact_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel"))
     }
 
-    pub fn set_impact_level(&self, value: &str) {
+    pub fn set_impact_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", text);
     }
 
     pub fn design_implications(&self) -> String {
@@ -142961,13 +143075,14 @@ impl InteractionPatternEntryUsageForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -146663,13 +146778,14 @@ impl ItStandardComplianceEntryScopeForm {
         self.node.doc().borrow_mut().set_form_field(&path, "complianceLevel", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -151941,13 +152057,14 @@ impl MaintenanceDependencyEntryClassificationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "dependencyType", value);
     }
 
-    pub fn criticality(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticality")
+    pub fn criticality(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "criticality"))
     }
 
-    pub fn set_criticality(&self, value: &str) {
+    pub fn set_criticality(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "criticality", text);
     }
 
     pub fn purpose(&self) -> String {
@@ -154084,13 +154201,14 @@ impl MetricsDashboardSummaryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "measurementPeriod", value);
     }
 
-    pub fn data_quality(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dataQuality")
+    pub fn data_quality(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "dataQuality"))
     }
 
-    pub fn set_data_quality(&self, value: &str) {
+    pub fn set_data_quality(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dataQuality", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataQuality", text);
     }
 
     pub fn key_throughput(&self) -> String {
@@ -156566,13 +156684,14 @@ impl MigrationRiskEntryQuantificationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "riskScore", &text);
     }
 
-    pub fn risk_priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskPriority")
+    pub fn risk_priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskPriority"))
     }
 
-    pub fn set_risk_priority(&self, value: &str) {
+    pub fn set_risk_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskPriority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskPriority", text);
     }
 
     pub fn expected_monetary_value(&self) -> String {
@@ -159483,13 +159602,14 @@ impl MoscowEntryClassificationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "justification", value);
     }
 
-    pub fn reclassification_risk(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "reclassificationRisk")
+    pub fn reclassification_risk(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "reclassificationRisk"))
     }
 
-    pub fn set_reclassification_risk(&self, value: &str) {
+    pub fn set_reclassification_risk(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "reclassificationRisk", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "reclassificationRisk", text);
     }
 }
 
@@ -163962,13 +164082,14 @@ impl NotificationTypeEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "category", value);
     }
 
-    pub fn urgency(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "urgency")
+    pub fn urgency(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "urgency"))
     }
 
-    pub fn set_urgency(&self, value: &str) {
+    pub fn set_urgency(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "urgency", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "urgency", text);
     }
 
     pub fn default_channels(&self) -> String {
@@ -166413,13 +166534,14 @@ impl OrganizationalChangeEntryIdentificationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "changeCategory", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -166452,13 +166574,14 @@ impl OrganizationalChangeEntryImpactForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn impact_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel")
+    pub fn impact_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel"))
     }
 
-    pub fn set_impact_level(&self, value: &str) {
+    pub fn set_impact_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", text);
     }
 
     pub fn affected_roles(&self) -> String {
@@ -166944,13 +167067,14 @@ impl OrganizationalEnvironmentMaturityForm {
         self.node.doc().borrow_mut().set_form_field(&path, "digitalMaturityLevel", value);
     }
 
-    pub fn change_readiness(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "changeReadiness")
+    pub fn change_readiness(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "changeReadiness"))
     }
 
-    pub fn set_change_readiness(&self, value: &str) {
+    pub fn set_change_readiness(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "changeReadiness", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "changeReadiness", text);
     }
 
     pub fn project_management_maturity(&self) -> String {
@@ -167227,22 +167351,24 @@ impl OrganizationalRequirementEntryImpactForm {
         self.node.doc().borrow_mut().set_form_field(&path, "changeType", value);
     }
 
-    pub fn change_complexity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "changeComplexity")
+    pub fn change_complexity(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "changeComplexity"))
     }
 
-    pub fn set_change_complexity(&self, value: &str) {
+    pub fn set_change_complexity(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "changeComplexity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "changeComplexity", text);
     }
 
-    pub fn resistance(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "resistance")
+    pub fn resistance(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "resistance"))
     }
 
-    pub fn set_resistance(&self, value: &str) {
+    pub fn set_resistance(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "resistance", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "resistance", text);
     }
 }
 
@@ -168517,13 +168643,14 @@ impl PainPointEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "painPoint", value);
     }
 
-    pub fn severity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "severity")
+    pub fn severity(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "severity"))
     }
 
-    pub fn set_severity(&self, value: &str) {
+    pub fn set_severity(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "severity", text);
     }
 }
 
@@ -170377,13 +170504,14 @@ impl PersonaGoalEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "goal", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn frequency(&self) -> String {
@@ -170452,13 +170580,14 @@ impl PersonaPainPointEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "painPoint", value);
     }
 
-    pub fn severity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "severity")
+    pub fn severity(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "severity"))
     }
 
-    pub fn set_severity(&self, value: &str) {
+    pub fn set_severity(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "severity", text);
     }
 
     pub fn frequency(&self) -> String {
@@ -173867,13 +173996,14 @@ impl ProblemStatementProblemDetailsForm {
         self.node.doc().borrow_mut().set_form_field(&path, "impactDescription", value);
     }
 
-    pub fn impact_severity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impactSeverity")
+    pub fn impact_severity(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impactSeverity"))
     }
 
-    pub fn set_impact_severity(&self, value: &str) {
+    pub fn set_impact_severity(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impactSeverity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impactSeverity", text);
     }
 
     pub fn impact_metrics(&self) -> String {
@@ -174329,13 +174459,14 @@ impl ProcessAdjustmentEntryRiskForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel")
+    pub fn risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel"))
     }
 
-    pub fn set_risk_level(&self, value: &str) {
+    pub fn set_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", text);
     }
 
     pub fn risk_description(&self) -> String {
@@ -174497,13 +174628,14 @@ impl ProcessAdjustmentsAdjustmentSummaryForm {
         self.node.doc().borrow_mut().set_form_field(&path, "parallelizedStepsCount", &text);
     }
 
-    pub fn process_risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "processRiskLevel")
+    pub fn process_risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "processRiskLevel"))
     }
 
-    pub fn set_process_risk_level(&self, value: &str) {
+    pub fn set_process_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "processRiskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "processRiskLevel", text);
     }
 
     pub fn process_efficiency_impact(&self) -> String {
@@ -175387,13 +175519,14 @@ impl ProcessDesignPrincipleEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "tradeoffs", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn applicability(&self) -> String {
@@ -178979,13 +179112,14 @@ impl ProjectOrganizationAndProcessDeviationSummaryForm {
         self.node.doc().borrow_mut().set_form_field(&path, "totalProcessAdjustments", &text);
     }
 
-    pub fn deviation_risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "deviationRiskLevel")
+    pub fn deviation_risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "deviationRiskLevel"))
     }
 
-    pub fn set_deviation_risk_level(&self, value: &str) {
+    pub fn set_deviation_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "deviationRiskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "deviationRiskLevel", text);
     }
 
     pub fn deviation_approval_authority(&self) -> String {
@@ -179402,13 +179536,14 @@ impl PrototypeFeatureEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "inclusionReason", value);
     }
 
-    pub fn fidelity_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "fidelityLevel")
+    pub fn fidelity_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "fidelityLevel"))
     }
 
-    pub fn set_fidelity_level(&self, value: &str) {
+    pub fn set_fidelity_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "fidelityLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "fidelityLevel", text);
     }
 
     pub fn completeness_level(&self) -> String {
@@ -179543,13 +179678,14 @@ impl PrototypeFeatureSubsetFidelityForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn prototype_fidelity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "prototypeFidelity")
+    pub fn prototype_fidelity(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "prototypeFidelity"))
     }
 
-    pub fn set_prototype_fidelity(&self, value: &str) {
+    pub fn set_prototype_fidelity(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "prototypeFidelity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "prototypeFidelity", text);
     }
 
     pub fn interactive_fidelity(&self) -> String {
@@ -180640,13 +180776,14 @@ impl QualityCategoryEntryDefinitionForm {
         self.node.doc().borrow_mut().set_form_field(&path, "categoryScope", value);
     }
 
-    pub fn category_priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "categoryPriority")
+    pub fn category_priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "categoryPriority"))
     }
 
-    pub fn set_category_priority(&self, value: &str) {
+    pub fn set_category_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "categoryPriority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "categoryPriority", text);
     }
 
     pub fn category_rationale(&self) -> String {
@@ -181330,13 +181467,14 @@ impl QualityGateAdjustmentEntryImpactForm {
         self.node.doc().borrow_mut().set_form_field(&path, "qualityImpact", value);
     }
 
-    pub fn risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel")
+    pub fn risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel"))
     }
 
-    pub fn set_risk_level(&self, value: &str) {
+    pub fn set_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", text);
     }
 
     pub fn risk_description(&self) -> String {
@@ -181517,13 +181655,14 @@ impl QualityGateAdjustmentsAdjustmentSummaryForm {
         self.node.doc().borrow_mut().set_form_field(&path, "modifiedCriteriaCount", &text);
     }
 
-    pub fn quality_risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityRiskLevel")
+    pub fn quality_risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "qualityRiskLevel"))
     }
 
-    pub fn set_quality_risk_level(&self, value: &str) {
+    pub fn set_quality_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityRiskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityRiskLevel", text);
     }
 
     pub fn compensating_controls(&self) -> String {
@@ -182513,13 +182652,14 @@ impl QualityWeightEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "weight", &text);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn rationale(&self) -> String {
@@ -189813,13 +189953,14 @@ impl RequirementTestCaseEntryAutomationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "automationScript", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -190851,13 +190992,14 @@ impl ResourceRequirementEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "requiredBy", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn status(&self) -> String {
@@ -190935,13 +191077,14 @@ impl ResponsibilityChangeEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "reason", value);
     }
 
-    pub fn impact_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel")
+    pub fn impact_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel"))
     }
 
-    pub fn set_impact_level(&self, value: &str) {
+    pub fn set_impact_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", text);
     }
 
     pub fn training_needed(&self) -> String {
@@ -191421,13 +191564,14 @@ impl ResponsibilityFunctionDetailsContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "functionScope", value);
     }
 
-    pub fn business_criticality(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "businessCriticality")
+    pub fn business_criticality(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "businessCriticality"))
     }
 
-    pub fn set_business_criticality(&self, value: &str) {
+    pub fn set_business_criticality(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "businessCriticality", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "businessCriticality", text);
     }
 }
 
@@ -191487,13 +191631,14 @@ impl ResponsibilityReferenceEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "scope", value);
     }
 
-    pub fn criticality_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticalityLevel")
+    pub fn criticality_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "criticalityLevel"))
     }
 
-    pub fn set_criticality_level(&self, value: &str) {
+    pub fn set_criticality_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticalityLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "criticalityLevel", text);
     }
 }
 
@@ -193407,13 +193552,14 @@ impl ReuseGoalEntryGovernanceForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn target_date(&self) -> String {
@@ -194049,13 +194195,14 @@ impl RiskEntryAnalysisForm {
         self.node.doc().borrow_mut().set_form_field(&path, "riskScore", &text);
     }
 
-    pub fn risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel")
+    pub fn risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel"))
     }
 
-    pub fn set_risk_level(&self, value: &str) {
+    pub fn set_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", text);
     }
 
     pub fn risk_ranking(&self) -> Option<i64> {
@@ -194758,13 +194905,14 @@ impl RiskResponseImplementationForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn response_effectiveness(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "responseEffectiveness")
+    pub fn response_effectiveness(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "responseEffectiveness"))
     }
 
-    pub fn set_response_effectiveness(&self, value: &str) {
+    pub fn set_response_effectiveness(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "responseEffectiveness", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "responseEffectiveness", text);
     }
 
     pub fn implementation_cost(&self) -> String {
@@ -195306,13 +195454,14 @@ impl RoleAdjustmentEntryRiskForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel")
+    pub fn risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel"))
     }
 
-    pub fn set_risk_level(&self, value: &str) {
+    pub fn set_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", text);
     }
 
     pub fn risk_description(&self) -> String {
@@ -195438,13 +195587,14 @@ impl RoleAdjustmentsAdjustmentSummaryForm {
         self.node.doc().borrow_mut().set_form_field(&path, "raciMatrixCompliance", value);
     }
 
-    pub fn governance_impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "governanceImpact")
+    pub fn governance_impact(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "governanceImpact"))
     }
 
-    pub fn set_governance_impact(&self, value: &str) {
+    pub fn set_governance_impact(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "governanceImpact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "governanceImpact", text);
     }
 }
 
@@ -196739,13 +196889,14 @@ impl RuntimeDependencyEntryClassificationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "versionConstraint", value);
     }
 
-    pub fn criticality(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticality")
+    pub fn criticality(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "criticality"))
     }
 
-    pub fn set_criticality(&self, value: &str) {
+    pub fn set_criticality(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "criticality", text);
     }
 
     pub fn purpose(&self) -> String {
@@ -198619,13 +198770,14 @@ impl ScenarioEntryIdentificationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "supportingActors", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn complexity(&self) -> String {
@@ -204840,13 +204992,14 @@ impl SecurityRequirementEntryClassificationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "subcategory", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn source(&self) -> String {
@@ -209300,13 +209453,14 @@ impl SharedInfrastructureEntryResilienceForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn criticality(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticality")
+    pub fn criticality(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "criticality"))
     }
 
-    pub fn set_criticality(&self, value: &str) {
+    pub fn set_criticality(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "criticality", text);
     }
 
     pub fn single_point_of_failure(&self) -> Option<bool> {
@@ -212149,13 +212303,14 @@ impl StaffingEntryRecruitmentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "targetStartDate", value);
     }
 
-    pub fn urgency(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "urgency")
+    pub fn urgency(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "urgency"))
     }
 
-    pub fn set_urgency(&self, value: &str) {
+    pub fn set_urgency(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "urgency", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "urgency", text);
     }
 }
 
@@ -214241,13 +214396,14 @@ impl StageMigrationRisksContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "lastRiskReviewDate", value);
     }
 
-    pub fn overall_migration_risk_rating(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overallMigrationRiskRating")
+    pub fn overall_migration_risk_rating(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "overallMigrationRiskRating"))
     }
 
-    pub fn set_overall_migration_risk_rating(&self, value: &str) {
+    pub fn set_overall_migration_risk_rating(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overallMigrationRiskRating", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "overallMigrationRiskRating", text);
     }
 }
 
@@ -215036,31 +215192,34 @@ impl StageOverviewRiskForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn overall_schedule_risk(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overallScheduleRisk")
+    pub fn overall_schedule_risk(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "overallScheduleRisk"))
     }
 
-    pub fn set_overall_schedule_risk(&self, value: &str) {
+    pub fn set_overall_schedule_risk(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overallScheduleRisk", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "overallScheduleRisk", text);
     }
 
-    pub fn overall_budget_risk(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overallBudgetRisk")
+    pub fn overall_budget_risk(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "overallBudgetRisk"))
     }
 
-    pub fn set_overall_budget_risk(&self, value: &str) {
+    pub fn set_overall_budget_risk(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overallBudgetRisk", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "overallBudgetRisk", text);
     }
 
-    pub fn overall_scope_risk(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overallScopeRisk")
+    pub fn overall_scope_risk(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "overallScopeRisk"))
     }
 
-    pub fn set_overall_scope_risk(&self, value: &str) {
+    pub fn set_overall_scope_risk(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overallScopeRisk", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "overallScopeRisk", text);
     }
 
     pub fn stage_with_highest_risk(&self) -> String {
@@ -215267,13 +215426,14 @@ impl StageOverviewStatusForm {
         self.node.doc().borrow_mut().set_form_field(&path, "earnedValueSPI", value);
     }
 
-    pub fn plan_confidence_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "planConfidenceLevel")
+    pub fn plan_confidence_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "planConfidenceLevel"))
     }
 
-    pub fn set_plan_confidence_level(&self, value: &str) {
+    pub fn set_plan_confidence_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "planConfidenceLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "planConfidenceLevel", text);
     }
 
     pub fn confidence_basis(&self) -> String {
@@ -215774,13 +215934,14 @@ impl StageSummaryDependenciesContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "primaryRisk", value);
     }
 
-    pub fn risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel")
+    pub fn risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskLevel"))
     }
 
-    pub fn set_risk_level(&self, value: &str) {
+    pub fn set_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskLevel", text);
     }
 }
 
@@ -216641,13 +216802,14 @@ impl StagingStrategyContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "primaryRationale", value);
     }
 
-    pub fn overall_risk_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overallRiskLevel")
+    pub fn overall_risk_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "overallRiskLevel"))
     }
 
-    pub fn set_overall_risk_level(&self, value: &str) {
+    pub fn set_overall_risk_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overallRiskLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "overallRiskLevel", text);
     }
 }
 
@@ -217007,13 +217169,14 @@ impl StagingStrategyReadinessForm {
         self.node.doc().borrow_mut().set_form_field(&path, "organizationalReadinessFactors", value);
     }
 
-    pub fn organizational_readiness_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "organizationalReadinessLevel")
+    pub fn organizational_readiness_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "organizationalReadinessLevel"))
     }
 
-    pub fn set_organizational_readiness_level(&self, value: &str) {
+    pub fn set_organizational_readiness_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "organizationalReadinessLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "organizationalReadinessLevel", text);
     }
 
     pub fn resource_constraints(&self) -> String {
@@ -217082,13 +217245,14 @@ impl StagingStrategyRiskAssessmentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn risk_tolerance(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskTolerance")
+    pub fn risk_tolerance(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "riskTolerance"))
     }
 
-    pub fn set_risk_tolerance(&self, value: &str) {
+    pub fn set_risk_tolerance(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskTolerance", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskTolerance", text);
     }
 
     pub fn deployment_risk_factors(&self) -> String {
@@ -217298,13 +217462,14 @@ impl StakeholderRegisterEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "interest", value);
     }
 
-    pub fn influence(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "influence")
+    pub fn influence(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "influence"))
     }
 
-    pub fn set_influence(&self, value: &str) {
+    pub fn set_influence(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "influence", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "influence", text);
     }
 
     pub fn concerns(&self) -> String {
@@ -218537,13 +218702,14 @@ impl SuccessCriterionEntryImportanceForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn weight(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "weight")
+    pub fn weight(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "weight"))
     }
 
-    pub fn set_weight(&self, value: &str) {
+    pub fn set_weight(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "weight", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "weight", text);
     }
 
     pub fn is_mandatory(&self) -> String {
@@ -220669,13 +220835,14 @@ impl SystemDependencyEntryMechanismForm {
         self.node.doc().borrow_mut().set_form_field(&path, "couplingStrength", value);
     }
 
-    pub fn criticality(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticality")
+    pub fn criticality(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "criticality"))
     }
 
-    pub fn set_criticality(&self, value: &str) {
+    pub fn set_criticality(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "criticality", text);
     }
 }
 
@@ -222595,22 +222762,24 @@ impl SystemMigrationRiskEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "riskDescription", value);
     }
 
-    pub fn probability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "probability")
+    pub fn probability(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "probability"))
     }
 
-    pub fn set_probability(&self, value: &str) {
+    pub fn set_probability(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "probability", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "probability", text);
     }
 
-    pub fn impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impact")
+    pub fn impact(&self) -> Option<Impact> {
+        Impact::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impact"))
     }
 
-    pub fn set_impact(&self, value: &str) {
+    pub fn set_impact(&self, value: Option<Impact>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impact", text);
     }
 
     pub fn risk_score(&self) -> String {
@@ -223303,13 +223472,14 @@ impl SystemStagePlanReadinessForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn organizational_readiness_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "organizationalReadinessLevel")
+    pub fn organizational_readiness_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "organizationalReadinessLevel"))
     }
 
-    pub fn set_organizational_readiness_level(&self, value: &str) {
+    pub fn set_organizational_readiness_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "organizationalReadinessLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "organizationalReadinessLevel", text);
     }
 
     pub fn change_absorption_capacity(&self) -> String {
@@ -223321,13 +223491,14 @@ impl SystemStagePlanReadinessForm {
         self.node.doc().borrow_mut().set_form_field(&path, "changeAbsorptionCapacity", value);
     }
 
-    pub fn confidence_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "confidenceLevel")
+    pub fn confidence_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "confidenceLevel"))
     }
 
-    pub fn set_confidence_level(&self, value: &str) {
+    pub fn set_confidence_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "confidenceLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "confidenceLevel", text);
     }
 
     pub fn last_plan_review_date(&self) -> String {
@@ -223937,13 +224108,14 @@ impl SystemTaskEntryExecutionForm {
         self.node.doc().borrow_mut().set_form_field(&path, "complexity", value);
     }
 
-    pub fn importance(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "importance")
+    pub fn importance(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "importance"))
     }
 
-    pub fn set_importance(&self, value: &str) {
+    pub fn set_importance(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "importance", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "importance", text);
     }
 
     pub fn trigger(&self) -> String {
@@ -224176,13 +224348,14 @@ impl SystemTechnicalAssessmentQualityForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn technical_debt_rating(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "technicalDebtRating")
+    pub fn technical_debt_rating(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "technicalDebtRating"))
     }
 
-    pub fn set_technical_debt_rating(&self, value: &str) {
+    pub fn set_technical_debt_rating(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "technicalDebtRating", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "technicalDebtRating", text);
     }
 
     pub fn security_posture(&self) -> String {
@@ -226697,13 +226870,14 @@ impl TechnicalGoalEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "goalCategory", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -227365,13 +227539,14 @@ impl TechnicalPainPointsCategorySummaryForm {
         self.node.doc().borrow_mut().set_form_field(&path, "undocumentedSystems", &text);
     }
 
-    pub fn vendor_lock_in_risk(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "vendorLockInRisk")
+    pub fn vendor_lock_in_risk(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "vendorLockInRisk"))
     }
 
-    pub fn set_vendor_lock_in_risk(&self, value: &str) {
+    pub fn set_vendor_lock_in_risk(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "vendorLockInRisk", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "vendorLockInRisk", text);
     }
 
     pub fn integration_complexity_score(&self) -> String {
@@ -227528,13 +227703,14 @@ impl TechnicalRequirementEntryDetailsForm {
         self.node.doc().borrow_mut().set_form_field(&path, "subcategory", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn source(&self) -> String {
@@ -228432,13 +228608,14 @@ impl TestScenarioEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -231831,13 +232008,14 @@ impl ToolEntryLifecycleForm {
         self.node.doc().borrow_mut().set_form_field(&path, "vendorRoadmapAlignment", value);
     }
 
-    pub fn end_of_life_risk(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "endOfLifeRisk")
+    pub fn end_of_life_risk(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "endOfLifeRisk"))
     }
 
-    pub fn set_end_of_life_risk(&self, value: &str) {
+    pub fn set_end_of_life_risk(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "endOfLifeRisk", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "endOfLifeRisk", text);
     }
 }
 
@@ -234846,13 +235024,14 @@ impl TransitionMilestoneEntryDependenciesForm {
         self.node.doc().borrow_mut().set_form_field(&path, "dependsOnMilestones", value);
     }
 
-    pub fn criticality(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticality")
+    pub fn criticality(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "criticality"))
     }
 
-    pub fn set_criticality(&self, value: &str) {
+    pub fn set_criticality(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "criticality", text);
     }
 }
 
@@ -235604,22 +235783,24 @@ impl TransitionRiskEntryAssessmentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn probability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "probability")
+    pub fn probability(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "probability"))
     }
 
-    pub fn set_probability(&self, value: &str) {
+    pub fn set_probability(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "probability", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "probability", text);
     }
 
-    pub fn impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impact")
+    pub fn impact(&self) -> Option<Impact> {
+        Impact::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impact"))
     }
 
-    pub fn set_impact(&self, value: &str) {
+    pub fn set_impact(&self, value: Option<Impact>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impact", text);
     }
 
     pub fn affected_phases(&self) -> String {
@@ -240856,13 +241037,14 @@ impl UserCategoryEntryImportanceForm {
         self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -241304,13 +241486,14 @@ impl UserGroupImpactEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "userCount", &text);
     }
 
-    pub fn impact_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel")
+    pub fn impact_level(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel"))
     }
 
-    pub fn set_impact_level(&self, value: &str) {
+    pub fn set_impact_level(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", text);
     }
 
     pub fn special_considerations(&self) -> String {

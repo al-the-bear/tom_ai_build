@@ -331,6 +331,36 @@ def _parse_Impact(token):
             return v
     return None
 
+class ImportanceBand(Enum):
+    """Generated enum for `ImportanceBand` values."""
+
+    # The top band: whatever this rates cannot be traded away, deferred or
+    # absorbed. On a priority it blocks the release; on a severity it stops
+    # work; on a criticality its loss stops the business function. If
+    # everything on a list is critical, the list has not been rated.
+    critical = "critical"
+    # Below [critical] but ahead of the ordinary queue: it is expected to be
+    # dealt with in the current cycle, and letting it slip is a decision
+    # somebody has to make rather than a routine outcome.
+    high = "high"
+    # The ordinary band, and the default when nobody has actually assessed the
+    # item. A medium with no reasoning behind it is worth challenging — it is
+    # as often "not looked at" as it is "genuinely middling".
+    medium = "medium"
+    # The bottom band: worth recording, not worth planning around. Items here
+    # are done when they are cheap, and their omission needs no explanation.
+    low = "low"
+
+
+def _parse_ImportanceBand(token):
+    """Parses a stored token into a ImportanceBand, or None."""
+    if not token:
+        return None
+    for v in ImportanceBand:
+        if v.value == token:
+            return v
+    return None
+
 class Iso25010Characteristic(Enum):
     """Generated enum for `Iso25010Characteristic` values."""
 
@@ -9645,7 +9675,7 @@ class D00SolutionBlueprint(SomNode):
     per the public-standards order of the `@StandardReferences` below.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SBP")
@@ -9772,7 +9802,7 @@ class D01CurrentLandscapeAssessment(SomNode):
     and the inventory / migration plan for the systems being replaced.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CLA")
@@ -9874,7 +9904,7 @@ class D02TargetOperatingModel(SomNode):
     cross-process analysis, exception handling, and KPIs.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TOM")
@@ -9987,7 +10017,7 @@ class D03InformationModel(SomNode):
     integrity constraints.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IFM")
@@ -10164,7 +10194,7 @@ class D04RequirementsSpecification(SomNode):
     and coverage analysis.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "RSP")
@@ -10269,7 +10299,7 @@ class D05InteractionScenarios(SomNode):
     and traceability.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ISC")
@@ -10367,7 +10397,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
     and translation handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ATS")
@@ -10489,7 +10519,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
     migration, operational concerns, and cross-boundary error handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IIS")
@@ -10602,7 +10632,7 @@ class D08SecurityAccessSpecification(SomNode):
     compliance framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SAS")
@@ -10717,7 +10747,7 @@ class D09ExperienceDesignSpecification(SomNode):
     mockups.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "XDS")
@@ -10845,7 +10875,7 @@ class D10QualityAcceptancePlan(SomNode):
     Full quality plan combining quality goals and the acceptance plan.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "QAP")
@@ -11003,7 +11033,7 @@ class D11DeliveryRoadmap(SomNode):
     framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "DRM")
@@ -11111,7 +11141,7 @@ class D12TransitionRolloutPlan(SomNode):
     transfer, and warranty/support.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TRP")
@@ -11244,7 +11274,7 @@ class D13CodeSpecsProjection(SomNode):
     models, the process-step interactions, and the client-side experience seed.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.2'
+    model_version = '1.3'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CGP")
@@ -45296,12 +45326,12 @@ class AcceptanceCriterionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "testType", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def status(self) -> str:
@@ -47824,12 +47854,12 @@ class AffectedDepartmentEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "employeeCount", "" if value is None else str(value))
 
     @property
-    def impactLevel(self) -> str:
-        return self.doc.form_field(self.path, "impactLevel") or ""
+    def impactLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "impactLevel"))
 
     @impactLevel.setter
     def impactLevel(self, value):
-        self.doc.set_form_field(self.path, "impactLevel", value)
+        self.doc.set_form_field(self.path, "impactLevel", "" if value is None else value.value)
 
     @property
     def roleInProject(self) -> str:
@@ -47848,12 +47878,12 @@ class AffectedDepartmentEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "currentSystems", value)
 
     @property
-    def changeReadiness(self) -> str:
-        return self.doc.form_field(self.path, "changeReadiness") or ""
+    def changeReadiness(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "changeReadiness"))
 
     @changeReadiness.setter
     def changeReadiness(self, value):
-        self.doc.set_form_field(self.path, "changeReadiness", value)
+        self.doc.set_form_field(self.path, "changeReadiness", "" if value is None else value.value)
 
     @property
     def keyContacts(self) -> str:
@@ -51975,12 +52005,12 @@ class AuthenticationMethodEntrySecurityForm(SomNode):
         self.doc.set_form_field(self.path, "fipsValidationLevel", value)
 
     @property
-    def securityLevel(self) -> str:
-        return self.doc.form_field(self.path, "securityLevel") or ""
+    def securityLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "securityLevel"))
 
     @securityLevel.setter
     def securityLevel(self, value):
-        self.doc.set_form_field(self.path, "securityLevel", value)
+        self.doc.set_form_field(self.path, "securityLevel", "" if value is None else value.value)
 
 class AuthorizationEventPolicyContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -52313,12 +52343,12 @@ class AuthorizationRoleEntryGovernanceForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def riskLevel(self) -> str:
-        return self.doc.form_field(self.path, "riskLevel") or ""
+    def riskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskLevel"))
 
     @riskLevel.setter
     def riskLevel(self, value):
-        self.doc.set_form_field(self.path, "riskLevel", value)
+        self.doc.set_form_field(self.path, "riskLevel", "" if value is None else value.value)
 
     @property
     def maxHolders(self) -> "int | None":
@@ -53370,12 +53400,12 @@ class BackupPolicyEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "dataScope", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class BackupPolicyEntryRetentionForm(SomNode):
     """Generated section facade for the `retention` @Form section: its own content text followed by one typed member per form field."""
@@ -54428,12 +54458,12 @@ class BoundaryAssumptionEntryRiskForm(SomNode):
         self.doc.set_form_field(self.path, "riskIfWrong", value)
 
     @property
-    def riskImpact(self) -> str:
-        return self.doc.form_field(self.path, "riskImpact") or ""
+    def riskImpact(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskImpact"))
 
     @riskImpact.setter
     def riskImpact(self, value):
-        self.doc.set_form_field(self.path, "riskImpact", value)
+        self.doc.set_form_field(self.path, "riskImpact", "" if value is None else value.value)
 
     @property
     def contingencyPlan(self) -> str:
@@ -54509,12 +54539,12 @@ class BoundaryAssumptionEntryValidationForm(SomNode):
         self.doc.set_form_field(self.path, "validationStatus", value)
 
     @property
-    def confidence(self) -> str:
-        return self.doc.form_field(self.path, "confidence") or ""
+    def confidence(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "confidence"))
 
     @confidence.setter
     def confidence(self, value):
-        self.doc.set_form_field(self.path, "confidence", value)
+        self.doc.set_form_field(self.path, "confidence", "" if value is None else value.value)
 
 class BoundedContextEntryBoundariesForm(SomNode):
     """Generated section facade for the `boundaries` @Form section: its own content text followed by one typed member per form field."""
@@ -56195,12 +56225,12 @@ class BusinessGoalEntryDefinitionForm(SomNode):
         self.doc.set_form_field(self.path, "goalType", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class BusinessGoalEntryGovernanceForm(SomNode):
     """Generated section facade for the `governance` @Form section: its own content text followed by one typed member per form field."""
@@ -65013,12 +65043,12 @@ class ComponentEntryRiskForm(SomNode):
         self.doc.set_form_field(self.path, "lockInFactors", value)
 
     @property
-    def integrationComplexity(self) -> str:
-        return self.doc.form_field(self.path, "integrationComplexity") or ""
+    def integrationComplexity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "integrationComplexity"))
 
     @integrationComplexity.setter
     def integrationComplexity(self, value):
-        self.doc.set_form_field(self.path, "integrationComplexity", value)
+        self.doc.set_form_field(self.path, "integrationComplexity", "" if value is None else value.value)
 
 class ComponentEntrySupportForm(SomNode):
     """Generated section facade for the `support` @Form section: its own content text followed by one typed member per form field."""
@@ -67136,12 +67166,12 @@ class ComponentRiskEntryMitigationForm(SomNode):
         self.doc.set_form_field(self.path, "mitigationCost", value)
 
     @property
-    def residualRisk(self) -> str:
-        return self.doc.form_field(self.path, "residualRisk") or ""
+    def residualRisk(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "residualRisk"))
 
     @residualRisk.setter
     def residualRisk(self, value):
-        self.doc.set_form_field(self.path, "residualRisk", value)
+        self.doc.set_form_field(self.path, "residualRisk", "" if value is None else value.value)
 
     @property
     def contingencyTrigger(self) -> str:
@@ -70298,12 +70328,12 @@ class CurrentDataLandscapeDataLandscapeSummaryForm(SomNode):
         self.doc.set_form_field(self.path, "complianceStatus", value)
 
     @property
-    def dataSecurityRiskLevel(self) -> str:
-        return self.doc.form_field(self.path, "dataSecurityRiskLevel") or ""
+    def dataSecurityRiskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "dataSecurityRiskLevel"))
 
     @dataSecurityRiskLevel.setter
     def dataSecurityRiskLevel(self, value):
-        self.doc.set_form_field(self.path, "dataSecurityRiskLevel", value)
+        self.doc.set_form_field(self.path, "dataSecurityRiskLevel", "" if value is None else value.value)
 
     @property
     def averageDataAge(self) -> str:
@@ -70371,12 +70401,12 @@ class CurrentProcessImprovementEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "estimatedBenefit", value)
 
     @property
-    def implementationEffort(self) -> str:
-        return self.doc.form_field(self.path, "implementationEffort") or ""
+    def implementationEffort(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "implementationEffort"))
 
     @implementationEffort.setter
     def implementationEffort(self, value):
-        self.doc.set_form_field(self.path, "implementationEffort", value)
+        self.doc.set_form_field(self.path, "implementationEffort", "" if value is None else value.value)
 
     @property
     def priority(self) -> str:
@@ -72489,12 +72519,12 @@ class DataDuplicationAnalysisDuplicationSummaryForm(SomNode):
         self.doc.set_form_field(self.path, "synchronizationChallenges", "" if value is None else str(value))
 
     @property
-    def dataInconsistencyRisk(self) -> str:
-        return self.doc.form_field(self.path, "dataInconsistencyRisk") or ""
+    def dataInconsistencyRisk(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "dataInconsistencyRisk"))
 
     @dataInconsistencyRisk.setter
     def dataInconsistencyRisk(self, value):
-        self.doc.set_form_field(self.path, "dataInconsistencyRisk", value)
+        self.doc.set_form_field(self.path, "dataInconsistencyRisk", "" if value is None else value.value)
 
     @property
     def consolidationOpportunities(self) -> "int | None":
@@ -73811,12 +73841,12 @@ class DataIntegrationEntryOwnershipForm(SomNode):
         self.doc.set_form_field(self.path, "technicalOwner", value)
 
     @property
-    def criticality(self) -> str:
-        return self.doc.form_field(self.path, "criticality") or ""
+    def criticality(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "criticality"))
 
     @criticality.setter
     def criticality(self, value):
-        self.doc.set_form_field(self.path, "criticality", value)
+        self.doc.set_form_field(self.path, "criticality", "" if value is None else value.value)
 
     @property
     def knownIssues(self) -> str:
@@ -75497,12 +75527,12 @@ class DataQualityIssueEntryClassificationForm(SomNode):
         self.doc.set_form_field(self.path, "qualityDimension", value)
 
     @property
-    def severity(self) -> str:
-        return self.doc.form_field(self.path, "severity") or ""
+    def severity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "severity"))
 
     @severity.setter
     def severity(self, value):
-        self.doc.set_form_field(self.path, "severity", value)
+        self.doc.set_form_field(self.path, "severity", "" if value is None else value.value)
 
 class DataQualityIssueEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -76028,12 +76058,12 @@ class DataSourceEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "dataStoreName", value)
 
     @property
-    def criticality(self) -> str:
-        return self.doc.form_field(self.path, "criticality") or ""
+    def criticality(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "criticality"))
 
     @criticality.setter
     def criticality(self, value):
-        self.doc.set_form_field(self.path, "criticality", value)
+        self.doc.set_form_field(self.path, "criticality", "" if value is None else value.value)
 
 class DataSourceEntryIntegrationForm(SomNode):
     """Generated section facade for the `integration` @Form section: its own content text followed by one typed member per form field."""
@@ -77494,12 +77524,12 @@ class DecisionMakerEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "decisionDomains", value)
 
     @property
-    def influenceLevel(self) -> str:
-        return self.doc.form_field(self.path, "influenceLevel") or ""
+    def influenceLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "influenceLevel"))
 
     @influenceLevel.setter
     def influenceLevel(self, value):
-        self.doc.set_form_field(self.path, "influenceLevel", value)
+        self.doc.set_form_field(self.path, "influenceLevel", "" if value is None else value.value)
 
     @property
     def approvalRequired(self) -> str:
@@ -77584,20 +77614,20 @@ class DecisionOptionEntryFeasibilityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def technicalFeasibility(self) -> str:
-        return self.doc.form_field(self.path, "technicalFeasibility") or ""
+    def technicalFeasibility(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "technicalFeasibility"))
 
     @technicalFeasibility.setter
     def technicalFeasibility(self, value):
-        self.doc.set_form_field(self.path, "technicalFeasibility", value)
+        self.doc.set_form_field(self.path, "technicalFeasibility", "" if value is None else value.value)
 
     @property
-    def organizationalFeasibility(self) -> str:
-        return self.doc.form_field(self.path, "organizationalFeasibility") or ""
+    def organizationalFeasibility(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "organizationalFeasibility"))
 
     @organizationalFeasibility.setter
     def organizationalFeasibility(self, value):
-        self.doc.set_form_field(self.path, "organizationalFeasibility", value)
+        self.doc.set_form_field(self.path, "organizationalFeasibility", "" if value is None else value.value)
 
     @property
     def feasibilityNotes(self) -> str:
@@ -78506,12 +78536,12 @@ class DeliverableEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class DeliverableEntryDocumentationForm(SomNode):
     """Generated section facade for the `documentation` @Form section: its own content text followed by one typed member per form field."""
@@ -81279,12 +81309,12 @@ class DesignGoalEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "description", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def category(self) -> str:
@@ -90052,12 +90082,12 @@ class ExistingSystemEntryQualityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def technicalDebtLevel(self) -> str:
-        return self.doc.form_field(self.path, "technicalDebtLevel") or ""
+    def technicalDebtLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "technicalDebtLevel"))
 
     @technicalDebtLevel.setter
     def technicalDebtLevel(self, value):
-        self.doc.set_form_field(self.path, "technicalDebtLevel", value)
+        self.doc.set_form_field(self.path, "technicalDebtLevel", "" if value is None else value.value)
 
     @property
     def codeQuality(self) -> str:
@@ -91744,12 +91774,12 @@ class ExternalInterfaceEntryIdentificationContentForm(SomNode):
         self.doc.set_form_field(self.path, "integrationPattern", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def status(self) -> str:
@@ -92418,12 +92448,12 @@ class ExternalServiceDependencyEntryRelationshipForm(SomNode):
         self.doc.set_form_field(self.path, "dependentSystems", value)
 
     @property
-    def criticality(self) -> str:
-        return self.doc.form_field(self.path, "criticality") or ""
+    def criticality(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "criticality"))
 
     @criticality.setter
     def criticality(self, value):
-        self.doc.set_form_field(self.path, "criticality", value)
+        self.doc.set_form_field(self.path, "criticality", "" if value is None else value.value)
 
     @property
     def contractStatus(self) -> str:
@@ -93480,12 +93510,12 @@ class FeaturePriorityEntryBusinessValueForm(SomNode):
         self.doc.set_form_field(self.path, "costOfDelayCategory", value)
 
     @property
-    def strategicAlignment(self) -> str:
-        return self.doc.form_field(self.path, "strategicAlignment") or ""
+    def strategicAlignment(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "strategicAlignment"))
 
     @strategicAlignment.setter
     def strategicAlignment(self, value):
-        self.doc.set_form_field(self.path, "strategicAlignment", value)
+        self.doc.set_form_field(self.path, "strategicAlignment", "" if value is None else value.value)
 
     @property
     def strategicObjectiveLink(self) -> str:
@@ -93496,12 +93526,12 @@ class FeaturePriorityEntryBusinessValueForm(SomNode):
         self.doc.set_form_field(self.path, "strategicObjectiveLink", value)
 
     @property
-    def customerImpact(self) -> str:
-        return self.doc.form_field(self.path, "customerImpact") or ""
+    def customerImpact(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "customerImpact"))
 
     @customerImpact.setter
     def customerImpact(self, value):
-        self.doc.set_form_field(self.path, "customerImpact", value)
+        self.doc.set_form_field(self.path, "customerImpact", "" if value is None else value.value)
 
     @property
     def userBaseAffected(self) -> str:
@@ -93651,12 +93681,12 @@ class FeaturePriorityEntryEffortForm(SomNode):
         self.doc.set_form_field(self.path, "complexityFactors", value)
 
     @property
-    def riskLevel(self) -> str:
-        return self.doc.form_field(self.path, "riskLevel") or ""
+    def riskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskLevel"))
 
     @riskLevel.setter
     def riskLevel(self, value):
-        self.doc.set_form_field(self.path, "riskLevel", value)
+        self.doc.set_form_field(self.path, "riskLevel", "" if value is None else value.value)
 
     @property
     def riskFactors(self) -> str:
@@ -93903,12 +93933,12 @@ class FeaturePriorityEntryStatusForm(SomNode):
         self.doc.set_form_field(self.path, "deliveryStatus", value)
 
     @property
-    def confidenceLevel(self) -> str:
-        return self.doc.form_field(self.path, "confidenceLevel") or ""
+    def confidenceLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "confidenceLevel"))
 
     @confidenceLevel.setter
     def confidenceLevel(self, value):
-        self.doc.set_form_field(self.path, "confidenceLevel", value)
+        self.doc.set_form_field(self.path, "confidenceLevel", "" if value is None else value.value)
 
     @property
     def lastReviewedDate(self) -> str:
@@ -94198,12 +94228,12 @@ class FeatureStageMappingReadinessForm(SomNode):
         self.doc.set_form_field(self.path, "readinessStatus", value)
 
     @property
-    def deliveryConfidence(self) -> str:
-        return self.doc.form_field(self.path, "deliveryConfidence") or ""
+    def deliveryConfidence(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "deliveryConfidence"))
 
     @deliveryConfidence.setter
     def deliveryConfidence(self, value):
-        self.doc.set_form_field(self.path, "deliveryConfidence", value)
+        self.doc.set_form_field(self.path, "deliveryConfidence", "" if value is None else value.value)
 
     @property
     def confidenceRationale(self) -> str:
@@ -95532,12 +95562,12 @@ class FunctionEntryOperationsForm(SomNode):
         self.doc.set_form_field(self.path, "volumeEstimate", value)
 
     @property
-    def criticalityLevel(self) -> str:
-        return self.doc.form_field(self.path, "criticalityLevel") or ""
+    def criticalityLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "criticalityLevel"))
 
     @criticalityLevel.setter
     def criticalityLevel(self, value):
-        self.doc.set_form_field(self.path, "criticalityLevel", value)
+        self.doc.set_form_field(self.path, "criticalityLevel", "" if value is None else value.value)
 
 class FunctionModelDecompositionOverviewForm(SomNode):
     """Generated section facade for the `decompositionOverview` @Form section: its own content text followed by one typed member per form field."""
@@ -95900,12 +95930,12 @@ class FunctionalRequirementEntryPriorityForm(SomNode):
         self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
-    def businessValue(self) -> str:
-        return self.doc.form_field(self.path, "businessValue") or ""
+    def businessValue(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "businessValue"))
 
     @businessValue.setter
     def businessValue(self, value):
-        self.doc.set_form_field(self.path, "businessValue", value)
+        self.doc.set_form_field(self.path, "businessValue", "" if value is None else value.value)
 
     @property
     def effort(self) -> str:
@@ -95916,12 +95946,12 @@ class FunctionalRequirementEntryPriorityForm(SomNode):
         self.doc.set_form_field(self.path, "effort", value)
 
     @property
-    def riskLevel(self) -> str:
-        return self.doc.form_field(self.path, "riskLevel") or ""
+    def riskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskLevel"))
 
     @riskLevel.setter
     def riskLevel(self, value):
-        self.doc.set_form_field(self.path, "riskLevel", value)
+        self.doc.set_form_field(self.path, "riskLevel", "" if value is None else value.value)
 
 class FunctionalRequirementEntrySourceForm(SomNode):
     """Generated section facade for the `source` @Form section: its own content text followed by one typed member per form field."""
@@ -96208,12 +96238,12 @@ class GapEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "gapCategory", value)
 
     @property
-    def severity(self) -> str:
-        return self.doc.form_field(self.path, "severity") or ""
+    def severity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "severity"))
 
     @severity.setter
     def severity(self, value):
-        self.doc.set_form_field(self.path, "severity", value)
+        self.doc.set_form_field(self.path, "severity", "" if value is None else value.value)
 
 class GapEntryDescriptionForm(SomNode):
     """Generated section facade for the `description` @Form section: its own content text followed by one typed member per form field."""
@@ -96977,20 +97007,20 @@ class GoalRiskEntryAssessmentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def probability(self) -> str:
-        return self.doc.form_field(self.path, "probability") or ""
+    def probability(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "probability"))
 
     @probability.setter
     def probability(self, value):
-        self.doc.set_form_field(self.path, "probability", value)
+        self.doc.set_form_field(self.path, "probability", "" if value is None else value.value)
 
     @property
-    def impact(self) -> str:
-        return self.doc.form_field(self.path, "impact") or ""
+    def impact(self) -> "Impact | None":
+        return _parse_Impact(self.doc.form_field(self.path, "impact"))
 
     @impact.setter
     def impact(self, value):
-        self.doc.set_form_field(self.path, "impact", value)
+        self.doc.set_form_field(self.path, "impact", "" if value is None else value.value)
 
     @property
     def riskScore(self) -> str:
@@ -101655,12 +101685,12 @@ class IntegrationConstraintEntryMitigationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def impactLevel(self) -> str:
-        return self.doc.form_field(self.path, "impactLevel") or ""
+    def impactLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "impactLevel"))
 
     @impactLevel.setter
     def impactLevel(self, value):
-        self.doc.set_form_field(self.path, "impactLevel", value)
+        self.doc.set_form_field(self.path, "impactLevel", "" if value is None else value.value)
 
     @property
     def designImplications(self) -> str:
@@ -103133,12 +103163,12 @@ class InteractionPatternEntryUsageForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class InterfaceBusinessContextContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -105879,12 +105909,12 @@ class ItStandardComplianceEntryScopeForm(SomNode):
         self.doc.set_form_field(self.path, "complianceLevel", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class ItStandardComplianceEntryTimelineForm(SomNode):
     """Generated section facade for the `timeline` @Form section: its own content text followed by one typed member per form field."""
@@ -109792,12 +109822,12 @@ class MaintenanceDependencyEntryClassificationForm(SomNode):
         self.doc.set_form_field(self.path, "dependencyType", value)
 
     @property
-    def criticality(self) -> str:
-        return self.doc.form_field(self.path, "criticality") or ""
+    def criticality(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "criticality"))
 
     @criticality.setter
     def criticality(self, value):
-        self.doc.set_form_field(self.path, "criticality", value)
+        self.doc.set_form_field(self.path, "criticality", "" if value is None else value.value)
 
     @property
     def purpose(self) -> str:
@@ -111370,12 +111400,12 @@ class MetricsDashboardSummaryContentForm(SomNode):
         self.doc.set_form_field(self.path, "measurementPeriod", value)
 
     @property
-    def dataQuality(self) -> str:
-        return self.doc.form_field(self.path, "dataQuality") or ""
+    def dataQuality(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "dataQuality"))
 
     @dataQuality.setter
     def dataQuality(self, value):
-        self.doc.set_form_field(self.path, "dataQuality", value)
+        self.doc.set_form_field(self.path, "dataQuality", "" if value is None else value.value)
 
     @property
     def keyThroughput(self) -> str:
@@ -113314,12 +113344,12 @@ class MigrationRiskEntryQuantificationForm(SomNode):
         self.doc.set_form_field(self.path, "riskScore", "" if value is None else str(value))
 
     @property
-    def riskPriority(self) -> str:
-        return self.doc.form_field(self.path, "riskPriority") or ""
+    def riskPriority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskPriority"))
 
     @riskPriority.setter
     def riskPriority(self, value):
-        self.doc.set_form_field(self.path, "riskPriority", value)
+        self.doc.set_form_field(self.path, "riskPriority", "" if value is None else value.value)
 
     @property
     def expectedMonetaryValue(self) -> str:
@@ -115486,12 +115516,12 @@ class MoscowEntryClassificationForm(SomNode):
         self.doc.set_form_field(self.path, "justification", value)
 
     @property
-    def reclassificationRisk(self) -> str:
-        return self.doc.form_field(self.path, "reclassificationRisk") or ""
+    def reclassificationRisk(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "reclassificationRisk"))
 
     @reclassificationRisk.setter
     def reclassificationRisk(self, value):
-        self.doc.set_form_field(self.path, "reclassificationRisk", value)
+        self.doc.set_form_field(self.path, "reclassificationRisk", "" if value is None else value.value)
 
 class MoscowEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -118836,12 +118866,12 @@ class NotificationTypeEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "category", value)
 
     @property
-    def urgency(self) -> str:
-        return self.doc.form_field(self.path, "urgency") or ""
+    def urgency(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "urgency"))
 
     @urgency.setter
     def urgency(self, value):
-        self.doc.set_form_field(self.path, "urgency", value)
+        self.doc.set_form_field(self.path, "urgency", "" if value is None else value.value)
 
     @property
     def defaultChannels(self) -> str:
@@ -120668,12 +120698,12 @@ class OrganizationalChangeEntryIdentificationForm(SomNode):
         self.doc.set_form_field(self.path, "changeCategory", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class OrganizationalChangeEntryImpactForm(SomNode):
     """Generated section facade for the `impact` @Form section: its own content text followed by one typed member per form field."""
@@ -120693,12 +120723,12 @@ class OrganizationalChangeEntryImpactForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def impactLevel(self) -> str:
-        return self.doc.form_field(self.path, "impactLevel") or ""
+    def impactLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "impactLevel"))
 
     @impactLevel.setter
     def impactLevel(self, value):
-        self.doc.set_form_field(self.path, "impactLevel", value)
+        self.doc.set_form_field(self.path, "impactLevel", "" if value is None else value.value)
 
     @property
     def affectedRoles(self) -> str:
@@ -121085,12 +121115,12 @@ class OrganizationalEnvironmentMaturityForm(SomNode):
         self.doc.set_form_field(self.path, "digitalMaturityLevel", value)
 
     @property
-    def changeReadiness(self) -> str:
-        return self.doc.form_field(self.path, "changeReadiness") or ""
+    def changeReadiness(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "changeReadiness"))
 
     @changeReadiness.setter
     def changeReadiness(self, value):
-        self.doc.set_form_field(self.path, "changeReadiness", value)
+        self.doc.set_form_field(self.path, "changeReadiness", "" if value is None else value.value)
 
     @property
     def projectManagementMaturity(self) -> str:
@@ -121297,20 +121327,20 @@ class OrganizationalRequirementEntryImpactForm(SomNode):
         self.doc.set_form_field(self.path, "changeType", value)
 
     @property
-    def changeComplexity(self) -> str:
-        return self.doc.form_field(self.path, "changeComplexity") or ""
+    def changeComplexity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "changeComplexity"))
 
     @changeComplexity.setter
     def changeComplexity(self, value):
-        self.doc.set_form_field(self.path, "changeComplexity", value)
+        self.doc.set_form_field(self.path, "changeComplexity", "" if value is None else value.value)
 
     @property
-    def resistance(self) -> str:
-        return self.doc.form_field(self.path, "resistance") or ""
+    def resistance(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "resistance"))
 
     @resistance.setter
     def resistance(self, value):
-        self.doc.set_form_field(self.path, "resistance", value)
+        self.doc.set_form_field(self.path, "resistance", "" if value is None else value.value)
 
 class OrganizationalRequirementEntryPlanningForm(SomNode):
     """Generated section facade for the `planning` @Form section: its own content text followed by one typed member per form field."""
@@ -122260,12 +122290,12 @@ class PainPointEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "painPoint", value)
 
     @property
-    def severity(self) -> str:
-        return self.doc.form_field(self.path, "severity") or ""
+    def severity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "severity"))
 
     @severity.setter
     def severity(self, value):
-        self.doc.set_form_field(self.path, "severity", value)
+        self.doc.set_form_field(self.path, "severity", "" if value is None else value.value)
 
 class PainPointEntryEvidenceForm(SomNode):
     """Generated section facade for the `evidence` @Form section: its own content text followed by one typed member per form field."""
@@ -123700,12 +123730,12 @@ class PersonaGoalEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "goal", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def frequency(self) -> str:
@@ -123757,12 +123787,12 @@ class PersonaPainPointEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "painPoint", value)
 
     @property
-    def severity(self) -> str:
-        return self.doc.form_field(self.path, "severity") or ""
+    def severity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "severity"))
 
     @severity.setter
     def severity(self, value):
-        self.doc.set_form_field(self.path, "severity", value)
+        self.doc.set_form_field(self.path, "severity", "" if value is None else value.value)
 
     @property
     def frequency(self) -> str:
@@ -126301,12 +126331,12 @@ class ProblemStatementProblemDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "impactDescription", value)
 
     @property
-    def impactSeverity(self) -> str:
-        return self.doc.form_field(self.path, "impactSeverity") or ""
+    def impactSeverity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "impactSeverity"))
 
     @impactSeverity.setter
     def impactSeverity(self, value):
-        self.doc.set_form_field(self.path, "impactSeverity", value)
+        self.doc.set_form_field(self.path, "impactSeverity", "" if value is None else value.value)
 
     @property
     def impactMetrics(self) -> str:
@@ -126644,12 +126674,12 @@ class ProcessAdjustmentEntryRiskForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def riskLevel(self) -> str:
-        return self.doc.form_field(self.path, "riskLevel") or ""
+    def riskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskLevel"))
 
     @riskLevel.setter
     def riskLevel(self, value):
-        self.doc.set_form_field(self.path, "riskLevel", value)
+        self.doc.set_form_field(self.path, "riskLevel", "" if value is None else value.value)
 
     @property
     def riskDescription(self) -> str:
@@ -126809,12 +126839,12 @@ class ProcessAdjustmentsAdjustmentSummaryForm(SomNode):
         self.doc.set_form_field(self.path, "parallelizedStepsCount", "" if value is None else str(value))
 
     @property
-    def processRiskLevel(self) -> str:
-        return self.doc.form_field(self.path, "processRiskLevel") or ""
+    def processRiskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "processRiskLevel"))
 
     @processRiskLevel.setter
     def processRiskLevel(self, value):
-        self.doc.set_form_field(self.path, "processRiskLevel", value)
+        self.doc.set_form_field(self.path, "processRiskLevel", "" if value is None else value.value)
 
     @property
     def processEfficiencyImpact(self) -> str:
@@ -127498,12 +127528,12 @@ class ProcessDesignPrincipleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "tradeoffs", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def applicability(self) -> str:
@@ -130249,12 +130279,12 @@ class ProjectOrganizationAndProcessDeviationSummaryForm(SomNode):
         self.doc.set_form_field(self.path, "totalProcessAdjustments", "" if value is None else str(value))
 
     @property
-    def deviationRiskLevel(self) -> str:
-        return self.doc.form_field(self.path, "deviationRiskLevel") or ""
+    def deviationRiskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "deviationRiskLevel"))
 
     @deviationRiskLevel.setter
     def deviationRiskLevel(self, value):
-        self.doc.set_form_field(self.path, "deviationRiskLevel", value)
+        self.doc.set_form_field(self.path, "deviationRiskLevel", "" if value is None else value.value)
 
     @property
     def deviationApprovalAuthority(self) -> str:
@@ -130567,12 +130597,12 @@ class PrototypeFeatureEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "inclusionReason", value)
 
     @property
-    def fidelityLevel(self) -> str:
-        return self.doc.form_field(self.path, "fidelityLevel") or ""
+    def fidelityLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "fidelityLevel"))
 
     @fidelityLevel.setter
     def fidelityLevel(self, value):
-        self.doc.set_form_field(self.path, "fidelityLevel", value)
+        self.doc.set_form_field(self.path, "fidelityLevel", "" if value is None else value.value)
 
     @property
     def completenessLevel(self) -> str:
@@ -130673,12 +130703,12 @@ class PrototypeFeatureSubsetFidelityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def prototypeFidelity(self) -> str:
-        return self.doc.form_field(self.path, "prototypeFidelity") or ""
+    def prototypeFidelity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "prototypeFidelity"))
 
     @prototypeFidelity.setter
     def prototypeFidelity(self, value):
-        self.doc.set_form_field(self.path, "prototypeFidelity", value)
+        self.doc.set_form_field(self.path, "prototypeFidelity", "" if value is None else value.value)
 
     @property
     def interactiveFidelity(self) -> str:
@@ -131481,12 +131511,12 @@ class QualityCategoryEntryDefinitionForm(SomNode):
         self.doc.set_form_field(self.path, "categoryScope", value)
 
     @property
-    def categoryPriority(self) -> str:
-        return self.doc.form_field(self.path, "categoryPriority") or ""
+    def categoryPriority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "categoryPriority"))
 
     @categoryPriority.setter
     def categoryPriority(self, value):
-        self.doc.set_form_field(self.path, "categoryPriority", value)
+        self.doc.set_form_field(self.path, "categoryPriority", "" if value is None else value.value)
 
     @property
     def categoryRationale(self) -> str:
@@ -131988,12 +132018,12 @@ class QualityGateAdjustmentEntryImpactForm(SomNode):
         self.doc.set_form_field(self.path, "qualityImpact", value)
 
     @property
-    def riskLevel(self) -> str:
-        return self.doc.form_field(self.path, "riskLevel") or ""
+    def riskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskLevel"))
 
     @riskLevel.setter
     def riskLevel(self, value):
-        self.doc.set_form_field(self.path, "riskLevel", value)
+        self.doc.set_form_field(self.path, "riskLevel", "" if value is None else value.value)
 
     @property
     def riskDescription(self) -> str:
@@ -132156,12 +132186,12 @@ class QualityGateAdjustmentsAdjustmentSummaryForm(SomNode):
         self.doc.set_form_field(self.path, "modifiedCriteriaCount", "" if value is None else str(value))
 
     @property
-    def qualityRiskLevel(self) -> str:
-        return self.doc.form_field(self.path, "qualityRiskLevel") or ""
+    def qualityRiskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "qualityRiskLevel"))
 
     @qualityRiskLevel.setter
     def qualityRiskLevel(self, value):
-        self.doc.set_form_field(self.path, "qualityRiskLevel", value)
+        self.doc.set_form_field(self.path, "qualityRiskLevel", "" if value is None else value.value)
 
     @property
     def compensatingControls(self) -> str:
@@ -132899,12 +132929,12 @@ class QualityWeightEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "weight", "" if value is None else str(value))
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def rationale(self) -> str:
@@ -138385,12 +138415,12 @@ class RequirementTestCaseEntryAutomationForm(SomNode):
         self.doc.set_form_field(self.path, "automationScript", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class RequirementTestCaseEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -139153,12 +139183,12 @@ class ResourceRequirementEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "requiredBy", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def status(self) -> str:
@@ -139218,12 +139248,12 @@ class ResponsibilityChangeEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "reason", value)
 
     @property
-    def impactLevel(self) -> str:
-        return self.doc.form_field(self.path, "impactLevel") or ""
+    def impactLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "impactLevel"))
 
     @impactLevel.setter
     def impactLevel(self, value):
-        self.doc.set_form_field(self.path, "impactLevel", value)
+        self.doc.set_form_field(self.path, "impactLevel", "" if value is None else value.value)
 
     @property
     def trainingNeeded(self) -> str:
@@ -139592,12 +139622,12 @@ class ResponsibilityFunctionDetailsContentForm(SomNode):
         self.doc.set_form_field(self.path, "functionScope", value)
 
     @property
-    def businessCriticality(self) -> str:
-        return self.doc.form_field(self.path, "businessCriticality") or ""
+    def businessCriticality(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "businessCriticality"))
 
     @businessCriticality.setter
     def businessCriticality(self, value):
-        self.doc.set_form_field(self.path, "businessCriticality", value)
+        self.doc.set_form_field(self.path, "businessCriticality", "" if value is None else value.value)
 
 class ResponsibilityReferenceEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -139641,12 +139671,12 @@ class ResponsibilityReferenceEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "scope", value)
 
     @property
-    def criticalityLevel(self) -> str:
-        return self.doc.form_field(self.path, "criticalityLevel") or ""
+    def criticalityLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "criticalityLevel"))
 
     @criticalityLevel.setter
     def criticalityLevel(self, value):
-        self.doc.set_form_field(self.path, "criticalityLevel", value)
+        self.doc.set_form_field(self.path, "criticalityLevel", "" if value is None else value.value)
 
 class ResponsibilitySystemsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -141036,12 +141066,12 @@ class ReuseGoalEntryGovernanceForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def targetDate(self) -> str:
@@ -141539,12 +141569,12 @@ class RiskEntryAnalysisForm(SomNode):
         self.doc.set_form_field(self.path, "riskScore", "" if value is None else str(value))
 
     @property
-    def riskLevel(self) -> str:
-        return self.doc.form_field(self.path, "riskLevel") or ""
+    def riskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskLevel"))
 
     @riskLevel.setter
     def riskLevel(self, value):
-        self.doc.set_form_field(self.path, "riskLevel", value)
+        self.doc.set_form_field(self.path, "riskLevel", "" if value is None else value.value)
 
     @property
     def riskRanking(self) -> "int | None":
@@ -142076,12 +142106,12 @@ class RiskResponseImplementationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def responseEffectiveness(self) -> str:
-        return self.doc.form_field(self.path, "responseEffectiveness") or ""
+    def responseEffectiveness(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "responseEffectiveness"))
 
     @responseEffectiveness.setter
     def responseEffectiveness(self, value):
-        self.doc.set_form_field(self.path, "responseEffectiveness", value)
+        self.doc.set_form_field(self.path, "responseEffectiveness", "" if value is None else value.value)
 
     @property
     def implementationCost(self) -> str:
@@ -142484,12 +142514,12 @@ class RoleAdjustmentEntryRiskForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def riskLevel(self) -> str:
-        return self.doc.form_field(self.path, "riskLevel") or ""
+    def riskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskLevel"))
 
     @riskLevel.setter
     def riskLevel(self, value):
-        self.doc.set_form_field(self.path, "riskLevel", value)
+        self.doc.set_form_field(self.path, "riskLevel", "" if value is None else value.value)
 
     @property
     def riskDescription(self) -> str:
@@ -142617,12 +142647,12 @@ class RoleAdjustmentsAdjustmentSummaryForm(SomNode):
         self.doc.set_form_field(self.path, "raciMatrixCompliance", value)
 
     @property
-    def governanceImpact(self) -> str:
-        return self.doc.form_field(self.path, "governanceImpact") or ""
+    def governanceImpact(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "governanceImpact"))
 
     @governanceImpact.setter
     def governanceImpact(self, value):
-        self.doc.set_form_field(self.path, "governanceImpact", value)
+        self.doc.set_form_field(self.path, "governanceImpact", "" if value is None else value.value)
 
 class RoleCombinationConstraintEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -143582,12 +143612,12 @@ class RuntimeDependencyEntryClassificationForm(SomNode):
         self.doc.set_form_field(self.path, "versionConstraint", value)
 
     @property
-    def criticality(self) -> str:
-        return self.doc.form_field(self.path, "criticality") or ""
+    def criticality(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "criticality"))
 
     @criticality.setter
     def criticality(self, value):
-        self.doc.set_form_field(self.path, "criticality", value)
+        self.doc.set_form_field(self.path, "criticality", "" if value is None else value.value)
 
     @property
     def purpose(self) -> str:
@@ -144971,12 +145001,12 @@ class ScenarioEntryIdentificationForm(SomNode):
         self.doc.set_form_field(self.path, "supportingActors", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def complexity(self) -> str:
@@ -149574,12 +149604,12 @@ class SecurityRequirementEntryClassificationForm(SomNode):
         self.doc.set_form_field(self.path, "subcategory", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def source(self) -> str:
@@ -152864,12 +152894,12 @@ class SharedInfrastructureEntryResilienceForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def criticality(self) -> str:
-        return self.doc.form_field(self.path, "criticality") or ""
+    def criticality(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "criticality"))
 
     @criticality.setter
     def criticality(self, value):
-        self.doc.set_form_field(self.path, "criticality", value)
+        self.doc.set_form_field(self.path, "criticality", "" if value is None else value.value)
 
     @property
     def singlePointOfFailure(self) -> "bool | None":
@@ -154971,12 +155001,12 @@ class StaffingEntryRecruitmentForm(SomNode):
         self.doc.set_form_field(self.path, "targetStartDate", value)
 
     @property
-    def urgency(self) -> str:
-        return self.doc.form_field(self.path, "urgency") or ""
+    def urgency(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "urgency"))
 
     @urgency.setter
     def urgency(self, value):
-        self.doc.set_form_field(self.path, "urgency", value)
+        self.doc.set_form_field(self.path, "urgency", "" if value is None else value.value)
 
 class StaffingPlanOverviewForm(SomNode):
     """Generated section facade for the `overview` @Form section: its own content text followed by one typed member per form field."""
@@ -156537,12 +156567,12 @@ class StageMigrationRisksContentForm(SomNode):
         self.doc.set_form_field(self.path, "lastRiskReviewDate", value)
 
     @property
-    def overallMigrationRiskRating(self) -> str:
-        return self.doc.form_field(self.path, "overallMigrationRiskRating") or ""
+    def overallMigrationRiskRating(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "overallMigrationRiskRating"))
 
     @overallMigrationRiskRating.setter
     def overallMigrationRiskRating(self, value):
-        self.doc.set_form_field(self.path, "overallMigrationRiskRating", value)
+        self.doc.set_form_field(self.path, "overallMigrationRiskRating", "" if value is None else value.value)
 
 class StageOverviewBaselineForm(SomNode):
     """Generated section facade for the `baseline` @Form section: its own content text followed by one typed member per form field."""
@@ -157147,28 +157177,28 @@ class StageOverviewRiskForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def overallScheduleRisk(self) -> str:
-        return self.doc.form_field(self.path, "overallScheduleRisk") or ""
+    def overallScheduleRisk(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "overallScheduleRisk"))
 
     @overallScheduleRisk.setter
     def overallScheduleRisk(self, value):
-        self.doc.set_form_field(self.path, "overallScheduleRisk", value)
+        self.doc.set_form_field(self.path, "overallScheduleRisk", "" if value is None else value.value)
 
     @property
-    def overallBudgetRisk(self) -> str:
-        return self.doc.form_field(self.path, "overallBudgetRisk") or ""
+    def overallBudgetRisk(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "overallBudgetRisk"))
 
     @overallBudgetRisk.setter
     def overallBudgetRisk(self, value):
-        self.doc.set_form_field(self.path, "overallBudgetRisk", value)
+        self.doc.set_form_field(self.path, "overallBudgetRisk", "" if value is None else value.value)
 
     @property
-    def overallScopeRisk(self) -> str:
-        return self.doc.form_field(self.path, "overallScopeRisk") or ""
+    def overallScopeRisk(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "overallScopeRisk"))
 
     @overallScopeRisk.setter
     def overallScopeRisk(self, value):
-        self.doc.set_form_field(self.path, "overallScopeRisk", value)
+        self.doc.set_form_field(self.path, "overallScopeRisk", "" if value is None else value.value)
 
     @property
     def stageWithHighestRisk(self) -> str:
@@ -157333,12 +157363,12 @@ class StageOverviewStatusForm(SomNode):
         self.doc.set_form_field(self.path, "earnedValueSPI", value)
 
     @property
-    def planConfidenceLevel(self) -> str:
-        return self.doc.form_field(self.path, "planConfidenceLevel") or ""
+    def planConfidenceLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "planConfidenceLevel"))
 
     @planConfidenceLevel.setter
     def planConfidenceLevel(self, value):
-        self.doc.set_form_field(self.path, "planConfidenceLevel", value)
+        self.doc.set_form_field(self.path, "planConfidenceLevel", "" if value is None else value.value)
 
     @property
     def confidenceBasis(self) -> str:
@@ -157716,12 +157746,12 @@ class StageSummaryDependenciesContentForm(SomNode):
         self.doc.set_form_field(self.path, "primaryRisk", value)
 
     @property
-    def riskLevel(self) -> str:
-        return self.doc.form_field(self.path, "riskLevel") or ""
+    def riskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskLevel"))
 
     @riskLevel.setter
     def riskLevel(self, value):
-        self.doc.set_form_field(self.path, "riskLevel", value)
+        self.doc.set_form_field(self.path, "riskLevel", "" if value is None else value.value)
 
 class StageSummaryEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -158361,12 +158391,12 @@ class StagingStrategyContentForm(SomNode):
         self.doc.set_form_field(self.path, "primaryRationale", value)
 
     @property
-    def overallRiskLevel(self) -> str:
-        return self.doc.form_field(self.path, "overallRiskLevel") or ""
+    def overallRiskLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "overallRiskLevel"))
 
     @overallRiskLevel.setter
     def overallRiskLevel(self, value):
-        self.doc.set_form_field(self.path, "overallRiskLevel", value)
+        self.doc.set_form_field(self.path, "overallRiskLevel", "" if value is None else value.value)
 
 class StagingStrategyCutoverForm(SomNode):
     """Generated section facade for the `cutover` @Form section: its own content text followed by one typed member per form field."""
@@ -158638,12 +158668,12 @@ class StagingStrategyReadinessForm(SomNode):
         self.doc.set_form_field(self.path, "organizationalReadinessFactors", value)
 
     @property
-    def organizationalReadinessLevel(self) -> str:
-        return self.doc.form_field(self.path, "organizationalReadinessLevel") or ""
+    def organizationalReadinessLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "organizationalReadinessLevel"))
 
     @organizationalReadinessLevel.setter
     def organizationalReadinessLevel(self, value):
-        self.doc.set_form_field(self.path, "organizationalReadinessLevel", value)
+        self.doc.set_form_field(self.path, "organizationalReadinessLevel", "" if value is None else value.value)
 
     @property
     def resourceConstraints(self) -> str:
@@ -158695,12 +158725,12 @@ class StagingStrategyRiskAssessmentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def riskTolerance(self) -> str:
-        return self.doc.form_field(self.path, "riskTolerance") or ""
+    def riskTolerance(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "riskTolerance"))
 
     @riskTolerance.setter
     def riskTolerance(self, value):
-        self.doc.set_form_field(self.path, "riskTolerance", value)
+        self.doc.set_form_field(self.path, "riskTolerance", "" if value is None else value.value)
 
     @property
     def deploymentRiskFactors(self) -> str:
@@ -158858,12 +158888,12 @@ class StakeholderRegisterEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "interest", value)
 
     @property
-    def influence(self) -> str:
-        return self.doc.form_field(self.path, "influence") or ""
+    def influence(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "influence"))
 
     @influence.setter
     def influence(self, value):
-        self.doc.set_form_field(self.path, "influence", value)
+        self.doc.set_form_field(self.path, "influence", "" if value is None else value.value)
 
     @property
     def concerns(self) -> str:
@@ -159868,12 +159898,12 @@ class SuccessCriterionEntryImportanceForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def weight(self) -> str:
-        return self.doc.form_field(self.path, "weight") or ""
+    def weight(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "weight"))
 
     @weight.setter
     def weight(self, value):
-        self.doc.set_form_field(self.path, "weight", value)
+        self.doc.set_form_field(self.path, "weight", "" if value is None else value.value)
 
     @property
     def isMandatory(self) -> str:
@@ -161452,12 +161482,12 @@ class SystemDependencyEntryMechanismForm(SomNode):
         self.doc.set_form_field(self.path, "couplingStrength", value)
 
     @property
-    def criticality(self) -> str:
-        return self.doc.form_field(self.path, "criticality") or ""
+    def criticality(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "criticality"))
 
     @criticality.setter
     def criticality(self, value):
-        self.doc.set_form_field(self.path, "criticality", value)
+        self.doc.set_form_field(self.path, "criticality", "" if value is None else value.value)
 
 class SystemDependencyEntryOperationsForm(SomNode):
     """Generated section facade for the `operations` @Form section: its own content text followed by one typed member per form field."""
@@ -162904,20 +162934,20 @@ class SystemMigrationRiskEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "riskDescription", value)
 
     @property
-    def probability(self) -> str:
-        return self.doc.form_field(self.path, "probability") or ""
+    def probability(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "probability"))
 
     @probability.setter
     def probability(self, value):
-        self.doc.set_form_field(self.path, "probability", value)
+        self.doc.set_form_field(self.path, "probability", "" if value is None else value.value)
 
     @property
-    def impact(self) -> str:
-        return self.doc.form_field(self.path, "impact") or ""
+    def impact(self) -> "Impact | None":
+        return _parse_Impact(self.doc.form_field(self.path, "impact"))
 
     @impact.setter
     def impact(self, value):
-        self.doc.set_form_field(self.path, "impact", value)
+        self.doc.set_form_field(self.path, "impact", "" if value is None else value.value)
 
     @property
     def riskScore(self) -> str:
@@ -163427,12 +163457,12 @@ class SystemStagePlanReadinessForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def organizationalReadinessLevel(self) -> str:
-        return self.doc.form_field(self.path, "organizationalReadinessLevel") or ""
+    def organizationalReadinessLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "organizationalReadinessLevel"))
 
     @organizationalReadinessLevel.setter
     def organizationalReadinessLevel(self, value):
-        self.doc.set_form_field(self.path, "organizationalReadinessLevel", value)
+        self.doc.set_form_field(self.path, "organizationalReadinessLevel", "" if value is None else value.value)
 
     @property
     def changeAbsorptionCapacity(self) -> str:
@@ -163443,12 +163473,12 @@ class SystemStagePlanReadinessForm(SomNode):
         self.doc.set_form_field(self.path, "changeAbsorptionCapacity", value)
 
     @property
-    def confidenceLevel(self) -> str:
-        return self.doc.form_field(self.path, "confidenceLevel") or ""
+    def confidenceLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "confidenceLevel"))
 
     @confidenceLevel.setter
     def confidenceLevel(self, value):
-        self.doc.set_form_field(self.path, "confidenceLevel", value)
+        self.doc.set_form_field(self.path, "confidenceLevel", "" if value is None else value.value)
 
     @property
     def lastPlanReviewDate(self) -> str:
@@ -163915,12 +163945,12 @@ class SystemTaskEntryExecutionForm(SomNode):
         self.doc.set_form_field(self.path, "complexity", value)
 
     @property
-    def importance(self) -> str:
-        return self.doc.form_field(self.path, "importance") or ""
+    def importance(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "importance"))
 
     @importance.setter
     def importance(self, value):
-        self.doc.set_form_field(self.path, "importance", value)
+        self.doc.set_form_field(self.path, "importance", "" if value is None else value.value)
 
     @property
     def trigger(self) -> str:
@@ -164093,12 +164123,12 @@ class SystemTechnicalAssessmentQualityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def technicalDebtRating(self) -> str:
-        return self.doc.form_field(self.path, "technicalDebtRating") or ""
+    def technicalDebtRating(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "technicalDebtRating"))
 
     @technicalDebtRating.setter
     def technicalDebtRating(self, value):
-        self.doc.set_form_field(self.path, "technicalDebtRating", value)
+        self.doc.set_form_field(self.path, "technicalDebtRating", "" if value is None else value.value)
 
     @property
     def securityPosture(self) -> str:
@@ -166013,12 +166043,12 @@ class TechnicalGoalEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "goalCategory", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class TechnicalGoalEntryGovernanceForm(SomNode):
     """Generated section facade for the `governance` @Form section: its own content text followed by one typed member per form field."""
@@ -166556,12 +166586,12 @@ class TechnicalPainPointsCategorySummaryForm(SomNode):
         self.doc.set_form_field(self.path, "undocumentedSystems", "" if value is None else str(value))
 
     @property
-    def vendorLockInRisk(self) -> str:
-        return self.doc.form_field(self.path, "vendorLockInRisk") or ""
+    def vendorLockInRisk(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "vendorLockInRisk"))
 
     @vendorLockInRisk.setter
     def vendorLockInRisk(self, value):
-        self.doc.set_form_field(self.path, "vendorLockInRisk", value)
+        self.doc.set_form_field(self.path, "vendorLockInRisk", "" if value is None else value.value)
 
     @property
     def integrationComplexityScore(self) -> str:
@@ -166671,12 +166701,12 @@ class TechnicalRequirementEntryDetailsForm(SomNode):
         self.doc.set_form_field(self.path, "subcategory", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def source(self) -> str:
@@ -167345,12 +167375,12 @@ class TestScenarioEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class TestScenarioEntryExecutionForm(SomNode):
     """Generated section facade for the `execution` @Form section: its own content text followed by one typed member per form field."""
@@ -169881,12 +169911,12 @@ class ToolEntryLifecycleForm(SomNode):
         self.doc.set_form_field(self.path, "vendorRoadmapAlignment", value)
 
     @property
-    def endOfLifeRisk(self) -> str:
-        return self.doc.form_field(self.path, "endOfLifeRisk") or ""
+    def endOfLifeRisk(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "endOfLifeRisk"))
 
     @endOfLifeRisk.setter
     def endOfLifeRisk(self, value):
-        self.doc.set_form_field(self.path, "endOfLifeRisk", value)
+        self.doc.set_form_field(self.path, "endOfLifeRisk", "" if value is None else value.value)
 
 class ToolEntrySecurityForm(SomNode):
     """Generated section facade for the `security` @Form section: its own content text followed by one typed member per form field."""
@@ -172177,12 +172207,12 @@ class TransitionMilestoneEntryDependenciesForm(SomNode):
         self.doc.set_form_field(self.path, "dependsOnMilestones", value)
 
     @property
-    def criticality(self) -> str:
-        return self.doc.form_field(self.path, "criticality") or ""
+    def criticality(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "criticality"))
 
     @criticality.setter
     def criticality(self, value):
-        self.doc.set_form_field(self.path, "criticality", value)
+        self.doc.set_form_field(self.path, "criticality", "" if value is None else value.value)
 
 class TransitionMilestoneEntryGovernanceForm(SomNode):
     """Generated section facade for the `governance` @Form section: its own content text followed by one typed member per form field."""
@@ -172739,20 +172769,20 @@ class TransitionRiskEntryAssessmentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def probability(self) -> str:
-        return self.doc.form_field(self.path, "probability") or ""
+    def probability(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "probability"))
 
     @probability.setter
     def probability(self, value):
-        self.doc.set_form_field(self.path, "probability", value)
+        self.doc.set_form_field(self.path, "probability", "" if value is None else value.value)
 
     @property
-    def impact(self) -> str:
-        return self.doc.form_field(self.path, "impact") or ""
+    def impact(self) -> "Impact | None":
+        return _parse_Impact(self.doc.form_field(self.path, "impact"))
 
     @impact.setter
     def impact(self, value):
-        self.doc.set_form_field(self.path, "impact", value)
+        self.doc.set_form_field(self.path, "impact", "" if value is None else value.value)
 
     @property
     def affectedPhases(self) -> str:
@@ -176661,12 +176691,12 @@ class UserCategoryEntryImportanceForm(SomNode):
         self.doc.set_form_field(self.path, "criticality", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class UserCategoryEntryRoleForm(SomNode):
     """Generated section facade for the `role` @Form section: its own content text followed by one typed member per form field."""
@@ -177000,12 +177030,12 @@ class UserGroupImpactEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "userCount", "" if value is None else str(value))
 
     @property
-    def impactLevel(self) -> str:
-        return self.doc.form_field(self.path, "impactLevel") or ""
+    def impactLevel(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "impactLevel"))
 
     @impactLevel.setter
     def impactLevel(self, value):
-        self.doc.set_form_field(self.path, "impactLevel", value)
+        self.doc.set_form_field(self.path, "impactLevel", "" if value is None else value.value)
 
     @property
     def specialConsiderations(self) -> str:

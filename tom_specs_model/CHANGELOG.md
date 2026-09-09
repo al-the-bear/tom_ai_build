@@ -1,3 +1,34 @@
+## 1.3.0
+
+- **`ImportanceBand` — the four-band qualitative scale gets a type.**
+  `critical` / `high` / `medium` / `low` was the model's most-repeated
+  vocabulary and had no type: a hundred form fields spelled it under a dozen
+  labels (priority, criticality, severity, urgency, risk level, importance,
+  weight, confidence, readiness, feasibility). They are one instrument, so they
+  are now one enum. About a third of them document only the lower three bands;
+  those bind too, under the existing subset rule — the same scale with its top
+  band unused is not a second scale.
+- **One risk matrix, not two.** `GoalRiskEntry`, `SystemMigrationRiskEntry` and
+  `TransitionRiskEntry` rated probability and impact on their own three-band
+  matrix while every other risk in the model rated on five bands. They now use
+  `Probability` × `Impact` like the rest, so two risks from different documents
+  are comparable and an author never has to work out which instrument an entry
+  uses.
+- Together: 106 more enum-typed form fields (42 → 148), and 25 enums now reach
+  the emitted metadata (was 24).
+- **Breaking for a Dart consumer of the generated facade, not for a document.**
+  106 accessors change from `String?` to an enum type in `tom_som_dart_v0`
+  1.3.0. The document format is unchanged — the same keys carry the same
+  tokens — so the model **major** does not move. Values are stored as the
+  constant name (`critical`, `high`), so a document that spelled a band
+  `Critical` or wrote MoSCoW `Must` into one of these fields should be
+  re-spelled; since 1.2.0 the instance validator reports the old spelling as
+  `enumValueUnknown` rather than dropping it.
+- Field labels and hints that merely listed the band names no longer do: the
+  legal set travels with the enum, in every language, with each constant's own
+  description.
+- Depends on `tom_som_dart_runtime` ^1.3.0.
+
 ## 1.2.0
 
 - **The four shared value enums are bound.** `Priority`, `Status`,

@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: architecture-technology-specification/1.2
+# Schema: architecture-technology-specification/1.3
 
 title-format: "# <!--[ATS]--> Architecture & Technology Specification"
 section-types:
@@ -11068,7 +11068,7 @@ form-types:
       - fieldname: complianceLevel
         description: "Full, Partial, Target"
       - fieldname: priority
-        description: "Critical, High, Medium, Low"
+        description: Qualitative priority band.
   iscer-form:
     fields:
       - fieldname: controlsApplicable
@@ -15624,7 +15624,7 @@ form-types:
   rgugv-form:
     fields:
       - fieldname: priority
-        description: Critical / High / Medium / Low
+        description: Qualitative priority band.
       - fieldname: targetDate
         description: When this goal should be achieved
       - fieldname: owner
@@ -15724,7 +15724,7 @@ form-types:
       - fieldname: lockInFactors
         description: "Proprietary formats, data migration cost"
       - fieldname: integrationComplexity
-        description: Effort to integrate — Low / Medium / High
+        description: Effort to integrate.
   cien-form:
     fields:
       - fieldname: port
@@ -15854,7 +15854,7 @@ form-types:
       - fieldname: versionConstraint
         description: "Pinned / Range / Minimum, e.g. >=3.2 <4.0"
       - fieldname: criticality
-        description: Critical / High / Medium / Low — impact if unavailable
+        description: Impact if unavailable.
       - fieldname: purpose
         description: Why this dependency exists
   rdes-form:
@@ -15894,7 +15894,7 @@ form-types:
       - fieldname: dependencyType
         description: BuildTime / TestOnly / DevOnly / Tooling
       - fieldname: criticality
-        description: Critical / High / Medium / Low — impact if update breaks
+        description: Impact if update breaks.
       - fieldname: purpose
         description: Why this maintenance dependency exists
   mdeu-form:
@@ -15950,7 +15950,7 @@ form-types:
       - fieldname: mitigationCost
         description: Budget required to implement mitigation
       - fieldname: residualRisk
-        description: Risk level remaining after mitigation — Low / Medium / High
+        description: Risk level remaining after mitigation.
       - fieldname: contingencyTrigger
         description: "Condition activating the contingency plan, e.g. No release for 12 months"
   coriengo-form:
@@ -16106,7 +16106,7 @@ form-types:
   icem-form:
     fields:
       - fieldname: impactLevel
-        description: "High, Medium, Low — impact on integration design"
+        description: Impact on integration design.
       - fieldname: designImplications
         description: How this constraint affects integration design
       - fieldname: workarounds

@@ -14,6 +14,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
+import '../common/enums.dart';
 
 /// Where control goes when a branch flow finishes ([ExtensionEntry],
 /// [AlternativeFlowEntry]).
@@ -555,9 +556,9 @@ class ProcessDesignPrincipleEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority — high, medium, low',
-      hint: 'Relative importance of the principle',
+      ImportanceBand,
+      'Priority',
+      hint: 'Relative importance of the principle.',
     ),
     Field(
       'applicability',
@@ -5541,9 +5542,9 @@ class ScenarioEntry extends DocSpecsSection {
     ),
     Field(
       'priority',
-      String,
-      'Priority — critical, high, medium, low',
-      hint: 'Business priority of this scenario',
+      ImportanceBand,
+      'Priority',
+      hint: 'Business priority of this scenario.',
     ),
     Field(
       'complexity',

@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: requirements-specification/1.2
+# Schema: requirements-specification/1.3
 
 title-format: "# <!--[RSP]--> Requirements Specification"
 section-types:
@@ -678,11 +678,11 @@ form-types:
         required: true
         description: MoSCoW scoping band — what happens if this requirement does not ship.
       - fieldname: businessValue
-        description: High / Medium / Low benefit to the business
+        description: Qualitative band for the benefit to the business.
       - fieldname: effort
         description: "Estimated effort: Small, Medium, Large, or XLarge"
       - fieldname: riskLevel
-        description: High / Medium / Low risk of not meeting the requirement
+        description: Qualitative band for the risk of not meeting the requirement.
   fres-form:
     fields:
       - fieldname: source
@@ -842,7 +842,7 @@ form-types:
       - fieldname: automationScript
         description: Reference to the automation script
       - fieldname: priority
-        description: "Critical, High, Medium, or Low"
+        description: Qualitative priority band.
   tr1-summ-form:
     fields:
       - fieldname: totalTechnicalRequirements
@@ -869,7 +869,7 @@ form-types:
         description: "More specific aspect, e.g., response time within Performance"
       - fieldname: priority
         required: true
-        description: "Critical, High, Medium, or Low"
+        description: Qualitative priority band.
       - fieldname: source
         required: true
         description: "Stakeholder, document, or standard that originated it"
@@ -937,7 +937,7 @@ form-types:
         description: More specific aspect within the category
       - fieldname: priority
         required: true
-        description: "Critical, High, Medium, or Low"
+        description: Qualitative priority band.
       - fieldname: source
         required: true
         description: "Stakeholder, standard, or document that originated it"
@@ -1034,9 +1034,9 @@ form-types:
       - fieldname: changeType
         description: "Behavioral, Procedural, Structural, or Cultural"
       - fieldname: changeComplexity
-        description: "Low, Medium, or High"
+        description: Qualitative change complexity band.
       - fieldname: resistance
-        description: "Anticipated resistance: Low, Medium, or High"
+        description: Anticipated resistance.
   orep-form:
     fields:
       - fieldname: timeline

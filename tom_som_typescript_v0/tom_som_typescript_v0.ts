@@ -385,6 +385,42 @@ function _parseImpact(token: string | null | undefined): ImpactValue | null {
   return null;
 }
 
+// Generated enum for `ImportanceBand` values.
+export const ImportanceBand = Object.freeze({
+  // The top band: whatever this rates cannot be traded away, deferred or
+  // absorbed. On a priority it blocks the release; on a severity it stops
+  // work; on a criticality its loss stops the business function. If
+  // everything on a list is critical, the list has not been rated.
+  "critical": "critical",
+  // Below [critical] but ahead of the ordinary queue: it is expected to be
+  // dealt with in the current cycle, and letting it slip is a decision
+  // somebody has to make rather than a routine outcome.
+  "high": "high",
+  // The ordinary band, and the default when nobody has actually assessed the
+  // item. A medium with no reasoning behind it is worth challenging — it is
+  // as often "not looked at" as it is "genuinely middling".
+  "medium": "medium",
+  // The bottom band: worth recording, not worth planning around. Items here
+  // are done when they are cheap, and their omission needs no explanation.
+  "low": "low",
+});
+
+export type ImportanceBandValue =
+  typeof ImportanceBand[keyof typeof ImportanceBand];
+
+// Parses a stored token into a ImportanceBand value, or null.
+function _parseImportanceBand(token: string | null | undefined): ImportanceBandValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ImportanceBand)) {
+    if (value === token) {
+      return value as ImportanceBandValue;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `Iso25010Characteristic` values.
 export const Iso25010Characteristic = Object.freeze({
   // ISO/IEC 25010:2023 *functional suitability* — the degree to which the
@@ -10010,7 +10046,7 @@ export class CutoverProcedure extends SomNode {
 // per the public-standards order of the `@StandardReferences` below.
 export class D00SolutionBlueprint extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10140,7 +10176,7 @@ export class D00SolutionBlueprint extends SomNode {
 // and the inventory / migration plan for the systems being replaced.
 export class D01CurrentLandscapeAssessment extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10245,7 +10281,7 @@ export class D01CurrentLandscapeAssessment extends SomNode {
 // cross-process analysis, exception handling, and KPIs.
 export class D02TargetOperatingModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10361,7 +10397,7 @@ export class D02TargetOperatingModel extends SomNode {
 // integrity constraints.
 export class D03InformationModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10537,7 +10573,7 @@ export class D03InformationModel extends SomNode {
 // and coverage analysis.
 export class D04RequirementsSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10645,7 +10681,7 @@ export class D04RequirementsSpecification extends SomNode {
 // and traceability.
 export class D05InteractionScenarios extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10746,7 +10782,7 @@ export class D05InteractionScenarios extends SomNode {
 // and translation handling.
 export class D06ArchitectureTechnologySpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10871,7 +10907,7 @@ export class D06ArchitectureTechnologySpecification extends SomNode {
 // migration, operational concerns, and cross-boundary error handling.
 export class D07IntegrationInterfaceSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10987,7 +11023,7 @@ export class D07IntegrationInterfaceSpecification extends SomNode {
 // compliance framework.
 export class D08SecurityAccessSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11105,7 +11141,7 @@ export class D08SecurityAccessSpecification extends SomNode {
 // mockups.
 export class D09ExperienceDesignSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11236,7 +11272,7 @@ export class D09ExperienceDesignSpecification extends SomNode {
 // Full quality plan combining quality goals and the acceptance plan.
 export class D10QualityAcceptancePlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11397,7 +11433,7 @@ export class D10QualityAcceptancePlan extends SomNode {
 // framework.
 export class D11DeliveryRoadmap extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11508,7 +11544,7 @@ export class D11DeliveryRoadmap extends SomNode {
 // transfer, and warranty/support.
 export class D12TransitionRolloutPlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11644,7 +11680,7 @@ export class D12TransitionRolloutPlan extends SomNode {
 // models, the process-step interactions, and the client-side experience seed.
 export class D13CodeSpecsProjection extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static readonly MODEL_VERSION: string = "1.2";
+  static readonly MODEL_VERSION: string = "1.3";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -46668,12 +46704,12 @@ export class AcceptanceCriterionEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "testType", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get status(): string {
@@ -49262,12 +49298,12 @@ export class AffectedDepartmentEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "employeeCount", value == null ? '' : String(value));
   }
 
-  get impactLevel(): string {
-    return this.doc.formField(this.path, "impactLevel") || '';
+  get impactLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "impactLevel"));
   }
 
-  set impactLevel(value: string) {
-    this.doc.setFormField(this.path, "impactLevel", value);
+  set impactLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "impactLevel", value ?? '');
   }
 
   get roleInProject(): string {
@@ -49286,12 +49322,12 @@ export class AffectedDepartmentEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "currentSystems", value);
   }
 
-  get changeReadiness(): string {
-    return this.doc.formField(this.path, "changeReadiness") || '';
+  get changeReadiness(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "changeReadiness"));
   }
 
-  set changeReadiness(value: string) {
-    this.doc.setFormField(this.path, "changeReadiness", value);
+  set changeReadiness(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "changeReadiness", value ?? '');
   }
 
   get keyContacts(): string {
@@ -53585,12 +53621,12 @@ export class AuthenticationMethodEntrySecurityForm extends SomNode {
     this.doc.setFormField(this.path, "fipsValidationLevel", value);
   }
 
-  get securityLevel(): string {
-    return this.doc.formField(this.path, "securityLevel") || '';
+  get securityLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "securityLevel"));
   }
 
-  set securityLevel(value: string) {
-    this.doc.setFormField(this.path, "securityLevel", value);
+  set securityLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "securityLevel", value ?? '');
   }
 }
 
@@ -53943,12 +53979,12 @@ export class AuthorizationRoleEntryGovernanceForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get riskLevel(): string {
-    return this.doc.formField(this.path, "riskLevel") || '';
+  get riskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskLevel"));
   }
 
-  set riskLevel(value: string) {
-    this.doc.setFormField(this.path, "riskLevel", value);
+  set riskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskLevel", value ?? '');
   }
 
   get maxHolders(): number | null {
@@ -55039,12 +55075,12 @@ export class BackupPolicyEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "dataScope", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -56143,12 +56179,12 @@ export class BoundaryAssumptionEntryRiskForm extends SomNode {
     this.doc.setFormField(this.path, "riskIfWrong", value);
   }
 
-  get riskImpact(): string {
-    return this.doc.formField(this.path, "riskImpact") || '';
+  get riskImpact(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskImpact"));
   }
 
-  set riskImpact(value: string) {
-    this.doc.setFormField(this.path, "riskImpact", value);
+  set riskImpact(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskImpact", value ?? '');
   }
 
   get contingencyPlan(): string {
@@ -56226,12 +56262,12 @@ export class BoundaryAssumptionEntryValidationForm extends SomNode {
     this.doc.setFormField(this.path, "validationStatus", value);
   }
 
-  get confidence(): string {
-    return this.doc.formField(this.path, "confidence") || '';
+  get confidence(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "confidence"));
   }
 
-  set confidence(value: string) {
-    this.doc.setFormField(this.path, "confidence", value);
+  set confidence(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "confidence", value ?? '');
   }
 }
 
@@ -57985,12 +58021,12 @@ export class BusinessGoalEntryDefinitionForm extends SomNode {
     this.doc.setFormField(this.path, "goalType", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -67119,12 +67155,12 @@ export class ComponentEntryRiskForm extends SomNode {
     this.doc.setFormField(this.path, "lockInFactors", value);
   }
 
-  get integrationComplexity(): string {
-    return this.doc.formField(this.path, "integrationComplexity") || '';
+  get integrationComplexity(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "integrationComplexity"));
   }
 
-  set integrationComplexity(value: string) {
-    this.doc.setFormField(this.path, "integrationComplexity", value);
+  set integrationComplexity(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "integrationComplexity", value ?? '');
   }
 }
 
@@ -69316,12 +69352,12 @@ export class ComponentRiskEntryMitigationForm extends SomNode {
     this.doc.setFormField(this.path, "mitigationCost", value);
   }
 
-  get residualRisk(): string {
-    return this.doc.formField(this.path, "residualRisk") || '';
+  get residualRisk(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "residualRisk"));
   }
 
-  set residualRisk(value: string) {
-    this.doc.setFormField(this.path, "residualRisk", value);
+  set residualRisk(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "residualRisk", value ?? '');
   }
 
   get contingencyTrigger(): string {
@@ -72572,12 +72608,12 @@ export class CurrentDataLandscapeDataLandscapeSummaryForm extends SomNode {
     this.doc.setFormField(this.path, "complianceStatus", value);
   }
 
-  get dataSecurityRiskLevel(): string {
-    return this.doc.formField(this.path, "dataSecurityRiskLevel") || '';
+  get dataSecurityRiskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "dataSecurityRiskLevel"));
   }
 
-  set dataSecurityRiskLevel(value: string) {
-    this.doc.setFormField(this.path, "dataSecurityRiskLevel", value);
+  set dataSecurityRiskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "dataSecurityRiskLevel", value ?? '');
   }
 
   get averageDataAge(): string {
@@ -72647,12 +72683,12 @@ export class CurrentProcessImprovementEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "estimatedBenefit", value);
   }
 
-  get implementationEffort(): string {
-    return this.doc.formField(this.path, "implementationEffort") || '';
+  get implementationEffort(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "implementationEffort"));
   }
 
-  set implementationEffort(value: string) {
-    this.doc.setFormField(this.path, "implementationEffort", value);
+  set implementationEffort(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "implementationEffort", value ?? '');
   }
 
   get priority(): string {
@@ -74832,12 +74868,12 @@ export class DataDuplicationAnalysisDuplicationSummaryForm extends SomNode {
     this.doc.setFormField(this.path, "synchronizationChallenges", value == null ? '' : String(value));
   }
 
-  get dataInconsistencyRisk(): string {
-    return this.doc.formField(this.path, "dataInconsistencyRisk") || '';
+  get dataInconsistencyRisk(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "dataInconsistencyRisk"));
   }
 
-  set dataInconsistencyRisk(value: string) {
-    this.doc.setFormField(this.path, "dataInconsistencyRisk", value);
+  set dataInconsistencyRisk(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "dataInconsistencyRisk", value ?? '');
   }
 
   get consolidationOpportunities(): number | null {
@@ -76203,12 +76239,12 @@ export class DataIntegrationEntryOwnershipForm extends SomNode {
     this.doc.setFormField(this.path, "technicalOwner", value);
   }
 
-  get criticality(): string {
-    return this.doc.formField(this.path, "criticality") || '';
+  get criticality(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "criticality"));
   }
 
-  set criticality(value: string) {
-    this.doc.setFormField(this.path, "criticality", value);
+  set criticality(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "criticality", value ?? '');
   }
 
   get knownIssues(): string {
@@ -77909,12 +77945,12 @@ export class DataQualityIssueEntryClassificationForm extends SomNode {
     this.doc.setFormField(this.path, "qualityDimension", value);
   }
 
-  get severity(): string {
-    return this.doc.formField(this.path, "severity") || '';
+  get severity(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "severity"));
   }
 
-  set severity(value: string) {
-    this.doc.setFormField(this.path, "severity", value);
+  set severity(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "severity", value ?? '');
   }
 }
 
@@ -78462,12 +78498,12 @@ export class DataSourceEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "dataStoreName", value);
   }
 
-  get criticality(): string {
-    return this.doc.formField(this.path, "criticality") || '';
+  get criticality(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "criticality"));
   }
 
-  set criticality(value: string) {
-    this.doc.setFormField(this.path, "criticality", value);
+  set criticality(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "criticality", value ?? '');
   }
 }
 
@@ -79992,12 +80028,12 @@ export class DecisionMakerEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "decisionDomains", value);
   }
 
-  get influenceLevel(): string {
-    return this.doc.formField(this.path, "influenceLevel") || '';
+  get influenceLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "influenceLevel"));
   }
 
-  set influenceLevel(value: string) {
-    this.doc.setFormField(this.path, "influenceLevel", value);
+  set influenceLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "influenceLevel", value ?? '');
   }
 
   get approvalRequired(): string {
@@ -80086,20 +80122,20 @@ export class DecisionOptionEntryFeasibilityForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get technicalFeasibility(): string {
-    return this.doc.formField(this.path, "technicalFeasibility") || '';
+  get technicalFeasibility(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "technicalFeasibility"));
   }
 
-  set technicalFeasibility(value: string) {
-    this.doc.setFormField(this.path, "technicalFeasibility", value);
+  set technicalFeasibility(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "technicalFeasibility", value ?? '');
   }
 
-  get organizationalFeasibility(): string {
-    return this.doc.formField(this.path, "organizationalFeasibility") || '';
+  get organizationalFeasibility(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "organizationalFeasibility"));
   }
 
-  set organizationalFeasibility(value: string) {
-    this.doc.setFormField(this.path, "organizationalFeasibility", value);
+  set organizationalFeasibility(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "organizationalFeasibility", value ?? '');
   }
 
   get feasibilityNotes(): string {
@@ -81044,12 +81080,12 @@ export class DeliverableEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -83945,12 +83981,12 @@ export class DesignGoalEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "description", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get category(): string {
@@ -93019,12 +93055,12 @@ export class ExistingSystemEntryQualityForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get technicalDebtLevel(): string {
-    return this.doc.formField(this.path, "technicalDebtLevel") || '';
+  get technicalDebtLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "technicalDebtLevel"));
   }
 
-  set technicalDebtLevel(value: string) {
-    this.doc.setFormField(this.path, "technicalDebtLevel", value);
+  set technicalDebtLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "technicalDebtLevel", value ?? '');
   }
 
   get codeQuality(): string {
@@ -94744,12 +94780,12 @@ export class ExternalInterfaceEntryIdentificationContentForm extends SomNode {
     this.doc.setFormField(this.path, "integrationPattern", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get status(): string {
@@ -95448,12 +95484,12 @@ export class ExternalServiceDependencyEntryRelationshipForm extends SomNode {
     this.doc.setFormField(this.path, "dependentSystems", value);
   }
 
-  get criticality(): string {
-    return this.doc.formField(this.path, "criticality") || '';
+  get criticality(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "criticality"));
   }
 
-  set criticality(value: string) {
-    this.doc.setFormField(this.path, "criticality", value);
+  set criticality(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "criticality", value ?? '');
   }
 
   get contractStatus(): string {
@@ -96554,12 +96590,12 @@ export class FeaturePriorityEntryBusinessValueForm extends SomNode {
     this.doc.setFormField(this.path, "costOfDelayCategory", value);
   }
 
-  get strategicAlignment(): string {
-    return this.doc.formField(this.path, "strategicAlignment") || '';
+  get strategicAlignment(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "strategicAlignment"));
   }
 
-  set strategicAlignment(value: string) {
-    this.doc.setFormField(this.path, "strategicAlignment", value);
+  set strategicAlignment(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "strategicAlignment", value ?? '');
   }
 
   get strategicObjectiveLink(): string {
@@ -96570,12 +96606,12 @@ export class FeaturePriorityEntryBusinessValueForm extends SomNode {
     this.doc.setFormField(this.path, "strategicObjectiveLink", value);
   }
 
-  get customerImpact(): string {
-    return this.doc.formField(this.path, "customerImpact") || '';
+  get customerImpact(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "customerImpact"));
   }
 
-  set customerImpact(value: string) {
-    this.doc.setFormField(this.path, "customerImpact", value);
+  set customerImpact(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "customerImpact", value ?? '');
   }
 
   get userBaseAffected(): string {
@@ -96731,12 +96767,12 @@ export class FeaturePriorityEntryEffortForm extends SomNode {
     this.doc.setFormField(this.path, "complexityFactors", value);
   }
 
-  get riskLevel(): string {
-    return this.doc.formField(this.path, "riskLevel") || '';
+  get riskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskLevel"));
   }
 
-  set riskLevel(value: string) {
-    this.doc.setFormField(this.path, "riskLevel", value);
+  set riskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskLevel", value ?? '');
   }
 
   get riskFactors(): string {
@@ -96991,12 +97027,12 @@ export class FeaturePriorityEntryStatusForm extends SomNode {
     this.doc.setFormField(this.path, "deliveryStatus", value);
   }
 
-  get confidenceLevel(): string {
-    return this.doc.formField(this.path, "confidenceLevel") || '';
+  get confidenceLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "confidenceLevel"));
   }
 
-  set confidenceLevel(value: string) {
-    this.doc.setFormField(this.path, "confidenceLevel", value);
+  set confidenceLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "confidenceLevel", value ?? '');
   }
 
   get lastReviewedDate(): string {
@@ -97300,12 +97336,12 @@ export class FeatureStageMappingReadinessForm extends SomNode {
     this.doc.setFormField(this.path, "readinessStatus", value);
   }
 
-  get deliveryConfidence(): string {
-    return this.doc.formField(this.path, "deliveryConfidence") || '';
+  get deliveryConfidence(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "deliveryConfidence"));
   }
 
-  set deliveryConfidence(value: string) {
-    this.doc.setFormField(this.path, "deliveryConfidence", value);
+  set deliveryConfidence(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "deliveryConfidence", value ?? '');
   }
 
   get confidenceRationale(): string {
@@ -98685,12 +98721,12 @@ export class FunctionEntryOperationsForm extends SomNode {
     this.doc.setFormField(this.path, "volumeEstimate", value);
   }
 
-  get criticalityLevel(): string {
-    return this.doc.formField(this.path, "criticalityLevel") || '';
+  get criticalityLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "criticalityLevel"));
   }
 
-  set criticalityLevel(value: string) {
-    this.doc.setFormField(this.path, "criticalityLevel", value);
+  set criticalityLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "criticalityLevel", value ?? '');
   }
 }
 
@@ -99069,12 +99105,12 @@ export class FunctionalRequirementEntryPriorityForm extends SomNode {
     this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
-  get businessValue(): string {
-    return this.doc.formField(this.path, "businessValue") || '';
+  get businessValue(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "businessValue"));
   }
 
-  set businessValue(value: string) {
-    this.doc.setFormField(this.path, "businessValue", value);
+  set businessValue(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "businessValue", value ?? '');
   }
 
   get effort(): string {
@@ -99085,12 +99121,12 @@ export class FunctionalRequirementEntryPriorityForm extends SomNode {
     this.doc.setFormField(this.path, "effort", value);
   }
 
-  get riskLevel(): string {
-    return this.doc.formField(this.path, "riskLevel") || '';
+  get riskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskLevel"));
   }
 
-  set riskLevel(value: string) {
-    this.doc.setFormField(this.path, "riskLevel", value);
+  set riskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskLevel", value ?? '');
   }
 }
 
@@ -99384,12 +99420,12 @@ export class GapEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "gapCategory", value);
   }
 
-  get severity(): string {
-    return this.doc.formField(this.path, "severity") || '';
+  get severity(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "severity"));
   }
 
-  set severity(value: string) {
-    this.doc.setFormField(this.path, "severity", value);
+  set severity(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "severity", value ?? '');
   }
 }
 
@@ -100183,20 +100219,20 @@ export class GoalRiskEntryAssessmentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get probability(): string {
-    return this.doc.formField(this.path, "probability") || '';
+  get probability(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "probability"));
   }
 
-  set probability(value: string) {
-    this.doc.setFormField(this.path, "probability", value);
+  set probability(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "probability", value ?? '');
   }
 
-  get impact(): string {
-    return this.doc.formField(this.path, "impact") || '';
+  get impact(): ImpactValue | null {
+    return _parseImpact(this.doc.formField(this.path, "impact"));
   }
 
-  set impact(value: string) {
-    this.doc.setFormField(this.path, "impact", value);
+  set impact(value: ImpactValue | null) {
+    this.doc.setFormField(this.path, "impact", value ?? '');
   }
 
   get riskScore(): string {
@@ -105029,12 +105065,12 @@ export class IntegrationConstraintEntryMitigationForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get impactLevel(): string {
-    return this.doc.formField(this.path, "impactLevel") || '';
+  get impactLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "impactLevel"));
   }
 
-  set impactLevel(value: string) {
-    this.doc.setFormField(this.path, "impactLevel", value);
+  set impactLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "impactLevel", value ?? '');
   }
 
   get designImplications(): string {
@@ -106510,12 +106546,12 @@ export class InteractionPatternEntryUsageForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -109358,12 +109394,12 @@ export class ItStandardComplianceEntryScopeForm extends SomNode {
     this.doc.setFormField(this.path, "complianceLevel", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -113416,12 +113452,12 @@ export class MaintenanceDependencyEntryClassificationForm extends SomNode {
     this.doc.setFormField(this.path, "dependencyType", value);
   }
 
-  get criticality(): string {
-    return this.doc.formField(this.path, "criticality") || '';
+  get criticality(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "criticality"));
   }
 
-  set criticality(value: string) {
-    this.doc.setFormField(this.path, "criticality", value);
+  set criticality(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "criticality", value ?? '');
   }
 
   get purpose(): string {
@@ -115053,12 +115089,12 @@ export class MetricsDashboardSummaryContentForm extends SomNode {
     this.doc.setFormField(this.path, "measurementPeriod", value);
   }
 
-  get dataQuality(): string {
-    return this.doc.formField(this.path, "dataQuality") || '';
+  get dataQuality(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "dataQuality"));
   }
 
-  set dataQuality(value: string) {
-    this.doc.setFormField(this.path, "dataQuality", value);
+  set dataQuality(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "dataQuality", value ?? '');
   }
 
   get keyThroughput(): string {
@@ -117022,12 +117058,12 @@ export class MigrationRiskEntryQuantificationForm extends SomNode {
     this.doc.setFormField(this.path, "riskScore", value == null ? '' : String(value));
   }
 
-  get riskPriority(): string {
-    return this.doc.formField(this.path, "riskPriority") || '';
+  get riskPriority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskPriority"));
   }
 
-  set riskPriority(value: string) {
-    this.doc.setFormField(this.path, "riskPriority", value);
+  set riskPriority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskPriority", value ?? '');
   }
 
   get expectedMonetaryValue(): string {
@@ -119275,12 +119311,12 @@ export class MoscowEntryClassificationForm extends SomNode {
     this.doc.setFormField(this.path, "justification", value);
   }
 
-  get reclassificationRisk(): string {
-    return this.doc.formField(this.path, "reclassificationRisk") || '';
+  get reclassificationRisk(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "reclassificationRisk"));
   }
 
-  set reclassificationRisk(value: string) {
-    this.doc.setFormField(this.path, "reclassificationRisk", value);
+  set reclassificationRisk(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "reclassificationRisk", value ?? '');
   }
 }
 
@@ -122724,12 +122760,12 @@ export class NotificationTypeEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "category", value);
   }
 
-  get urgency(): string {
-    return this.doc.formField(this.path, "urgency") || '';
+  get urgency(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "urgency"));
   }
 
-  set urgency(value: string) {
-    this.doc.setFormField(this.path, "urgency", value);
+  set urgency(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "urgency", value ?? '');
   }
 
   get defaultChannels(): string {
@@ -124618,12 +124654,12 @@ export class OrganizationalChangeEntryIdentificationForm extends SomNode {
     this.doc.setFormField(this.path, "changeCategory", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -124645,12 +124681,12 @@ export class OrganizationalChangeEntryImpactForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get impactLevel(): string {
-    return this.doc.formField(this.path, "impactLevel") || '';
+  get impactLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "impactLevel"));
   }
 
-  set impactLevel(value: string) {
-    this.doc.setFormField(this.path, "impactLevel", value);
+  set impactLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "impactLevel", value ?? '');
   }
 
   get affectedRoles(): string {
@@ -125034,12 +125070,12 @@ export class OrganizationalEnvironmentMaturityForm extends SomNode {
     this.doc.setFormField(this.path, "digitalMaturityLevel", value);
   }
 
-  get changeReadiness(): string {
-    return this.doc.formField(this.path, "changeReadiness") || '';
+  get changeReadiness(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "changeReadiness"));
   }
 
-  set changeReadiness(value: string) {
-    this.doc.setFormField(this.path, "changeReadiness", value);
+  set changeReadiness(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "changeReadiness", value ?? '');
   }
 
   get projectManagementMaturity(): string {
@@ -125254,20 +125290,20 @@ export class OrganizationalRequirementEntryImpactForm extends SomNode {
     this.doc.setFormField(this.path, "changeType", value);
   }
 
-  get changeComplexity(): string {
-    return this.doc.formField(this.path, "changeComplexity") || '';
+  get changeComplexity(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "changeComplexity"));
   }
 
-  set changeComplexity(value: string) {
-    this.doc.setFormField(this.path, "changeComplexity", value);
+  set changeComplexity(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "changeComplexity", value ?? '');
   }
 
-  get resistance(): string {
-    return this.doc.formField(this.path, "resistance") || '';
+  get resistance(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "resistance"));
   }
 
-  set resistance(value: string) {
-    this.doc.setFormField(this.path, "resistance", value);
+  set resistance(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "resistance", value ?? '');
   }
 }
 
@@ -126255,12 +126291,12 @@ export class PainPointEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "painPoint", value);
   }
 
-  get severity(): string {
-    return this.doc.formField(this.path, "severity") || '';
+  get severity(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "severity"));
   }
 
-  set severity(value: string) {
-    this.doc.setFormField(this.path, "severity", value);
+  set severity(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "severity", value ?? '');
   }
 }
 
@@ -127702,12 +127738,12 @@ export class PersonaGoalEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "goal", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get frequency(): string {
@@ -127761,12 +127797,12 @@ export class PersonaPainPointEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "painPoint", value);
   }
 
-  get severity(): string {
-    return this.doc.formField(this.path, "severity") || '';
+  get severity(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "severity"));
   }
 
-  set severity(value: string) {
-    this.doc.setFormField(this.path, "severity", value);
+  set severity(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "severity", value ?? '');
   }
 
   get frequency(): string {
@@ -130397,12 +130433,12 @@ export class ProblemStatementProblemDetailsForm extends SomNode {
     this.doc.setFormField(this.path, "impactDescription", value);
   }
 
-  get impactSeverity(): string {
-    return this.doc.formField(this.path, "impactSeverity") || '';
+  get impactSeverity(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "impactSeverity"));
   }
 
-  set impactSeverity(value: string) {
-    this.doc.setFormField(this.path, "impactSeverity", value);
+  set impactSeverity(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "impactSeverity", value ?? '');
   }
 
   get impactMetrics(): string {
@@ -130754,12 +130790,12 @@ export class ProcessAdjustmentEntryRiskForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get riskLevel(): string {
-    return this.doc.formField(this.path, "riskLevel") || '';
+  get riskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskLevel"));
   }
 
-  set riskLevel(value: string) {
-    this.doc.setFormField(this.path, "riskLevel", value);
+  set riskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskLevel", value ?? '');
   }
 
   get riskDescription(): string {
@@ -130891,12 +130927,12 @@ export class ProcessAdjustmentsAdjustmentSummaryForm extends SomNode {
     this.doc.setFormField(this.path, "parallelizedStepsCount", value == null ? '' : String(value));
   }
 
-  get processRiskLevel(): string {
-    return this.doc.formField(this.path, "processRiskLevel") || '';
+  get processRiskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "processRiskLevel"));
   }
 
-  set processRiskLevel(value: string) {
-    this.doc.setFormField(this.path, "processRiskLevel", value);
+  set processRiskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "processRiskLevel", value ?? '');
   }
 
   get processEfficiencyImpact(): string {
@@ -131597,12 +131633,12 @@ export class ProcessDesignPrincipleEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "tradeoffs", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get applicability(): string {
@@ -134398,12 +134434,12 @@ export class ProjectOrganizationAndProcessDeviationSummaryForm extends SomNode {
     this.doc.setFormField(this.path, "totalProcessAdjustments", value == null ? '' : String(value));
   }
 
-  get deviationRiskLevel(): string {
-    return this.doc.formField(this.path, "deviationRiskLevel") || '';
+  get deviationRiskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "deviationRiskLevel"));
   }
 
-  set deviationRiskLevel(value: string) {
-    this.doc.setFormField(this.path, "deviationRiskLevel", value);
+  set deviationRiskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "deviationRiskLevel", value ?? '');
   }
 
   get deviationApprovalAuthority(): string {
@@ -134728,12 +134764,12 @@ export class PrototypeFeatureEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "inclusionReason", value);
   }
 
-  get fidelityLevel(): string {
-    return this.doc.formField(this.path, "fidelityLevel") || '';
+  get fidelityLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "fidelityLevel"));
   }
 
-  set fidelityLevel(value: string) {
-    this.doc.setFormField(this.path, "fidelityLevel", value);
+  set fidelityLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "fidelityLevel", value ?? '');
   }
 
   get completenessLevel(): string {
@@ -134838,12 +134874,12 @@ export class PrototypeFeatureSubsetFidelityForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get prototypeFidelity(): string {
-    return this.doc.formField(this.path, "prototypeFidelity") || '';
+  get prototypeFidelity(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "prototypeFidelity"));
   }
 
-  set prototypeFidelity(value: string) {
-    this.doc.setFormField(this.path, "prototypeFidelity", value);
+  set prototypeFidelity(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "prototypeFidelity", value ?? '');
   }
 
   get interactiveFidelity(): string {
@@ -135675,12 +135711,12 @@ export class QualityCategoryEntryDefinitionForm extends SomNode {
     this.doc.setFormField(this.path, "categoryScope", value);
   }
 
-  get categoryPriority(): string {
-    return this.doc.formField(this.path, "categoryPriority") || '';
+  get categoryPriority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "categoryPriority"));
   }
 
-  set categoryPriority(value: string) {
-    this.doc.setFormField(this.path, "categoryPriority", value);
+  set categoryPriority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "categoryPriority", value ?? '');
   }
 
   get categoryRationale(): string {
@@ -136204,12 +136240,12 @@ export class QualityGateAdjustmentEntryImpactForm extends SomNode {
     this.doc.setFormField(this.path, "qualityImpact", value);
   }
 
-  get riskLevel(): string {
-    return this.doc.formField(this.path, "riskLevel") || '';
+  get riskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskLevel"));
   }
 
-  set riskLevel(value: string) {
-    this.doc.setFormField(this.path, "riskLevel", value);
+  set riskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskLevel", value ?? '');
   }
 
   get riskDescription(): string {
@@ -136351,12 +136387,12 @@ export class QualityGateAdjustmentsAdjustmentSummaryForm extends SomNode {
     this.doc.setFormField(this.path, "modifiedCriteriaCount", value == null ? '' : String(value));
   }
 
-  get qualityRiskLevel(): string {
-    return this.doc.formField(this.path, "qualityRiskLevel") || '';
+  get qualityRiskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "qualityRiskLevel"));
   }
 
-  set qualityRiskLevel(value: string) {
-    this.doc.setFormField(this.path, "qualityRiskLevel", value);
+  set qualityRiskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "qualityRiskLevel", value ?? '');
   }
 
   get compensatingControls(): string {
@@ -137119,12 +137155,12 @@ export class QualityWeightEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "weight", value == null ? '' : String(value));
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get rationale(): string {
@@ -142761,12 +142797,12 @@ export class RequirementTestCaseEntryAutomationForm extends SomNode {
     this.doc.setFormField(this.path, "automationScript", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -143561,12 +143597,12 @@ export class ResourceRequirementEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "requiredBy", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get status(): string {
@@ -143628,12 +143664,12 @@ export class ResponsibilityChangeEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "reason", value);
   }
 
-  get impactLevel(): string {
-    return this.doc.formField(this.path, "impactLevel") || '';
+  get impactLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "impactLevel"));
   }
 
-  set impactLevel(value: string) {
-    this.doc.setFormField(this.path, "impactLevel", value);
+  set impactLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "impactLevel", value ?? '');
   }
 
   get trainingNeeded(): string {
@@ -144014,12 +144050,12 @@ export class ResponsibilityFunctionDetailsContentForm extends SomNode {
     this.doc.setFormField(this.path, "functionScope", value);
   }
 
-  get businessCriticality(): string {
-    return this.doc.formField(this.path, "businessCriticality") || '';
+  get businessCriticality(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "businessCriticality"));
   }
 
-  set businessCriticality(value: string) {
-    this.doc.setFormField(this.path, "businessCriticality", value);
+  set businessCriticality(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "businessCriticality", value ?? '');
   }
 }
 
@@ -144065,12 +144101,12 @@ export class ResponsibilityReferenceEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "scope", value);
   }
 
-  get criticalityLevel(): string {
-    return this.doc.formField(this.path, "criticalityLevel") || '';
+  get criticalityLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "criticalityLevel"));
   }
 
-  set criticalityLevel(value: string) {
-    this.doc.setFormField(this.path, "criticalityLevel", value);
+  set criticalityLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "criticalityLevel", value ?? '');
   }
 }
 
@@ -145524,12 +145560,12 @@ export class ReuseGoalEntryGovernanceForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get targetDate(): string {
@@ -146020,12 +146056,12 @@ export class RiskEntryAnalysisForm extends SomNode {
     this.doc.setFormField(this.path, "riskScore", value == null ? '' : String(value));
   }
 
-  get riskLevel(): string {
-    return this.doc.formField(this.path, "riskLevel") || '';
+  get riskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskLevel"));
   }
 
-  set riskLevel(value: string) {
-    this.doc.setFormField(this.path, "riskLevel", value);
+  set riskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskLevel", value ?? '');
   }
 
   get riskRanking(): number | null {
@@ -146572,12 +146608,12 @@ export class RiskResponseImplementationForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get responseEffectiveness(): string {
-    return this.doc.formField(this.path, "responseEffectiveness") || '';
+  get responseEffectiveness(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "responseEffectiveness"));
   }
 
-  set responseEffectiveness(value: string) {
-    this.doc.setFormField(this.path, "responseEffectiveness", value);
+  set responseEffectiveness(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "responseEffectiveness", value ?? '');
   }
 
   get implementationCost(): string {
@@ -146996,12 +147032,12 @@ export class RoleAdjustmentEntryRiskForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get riskLevel(): string {
-    return this.doc.formField(this.path, "riskLevel") || '';
+  get riskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskLevel"));
   }
 
-  set riskLevel(value: string) {
-    this.doc.setFormField(this.path, "riskLevel", value);
+  set riskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskLevel", value ?? '');
   }
 
   get riskDescription(): string {
@@ -147101,12 +147137,12 @@ export class RoleAdjustmentsAdjustmentSummaryForm extends SomNode {
     this.doc.setFormField(this.path, "raciMatrixCompliance", value);
   }
 
-  get governanceImpact(): string {
-    return this.doc.formField(this.path, "governanceImpact") || '';
+  get governanceImpact(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "governanceImpact"));
   }
 
-  set governanceImpact(value: string) {
-    this.doc.setFormField(this.path, "governanceImpact", value);
+  set governanceImpact(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "governanceImpact", value ?? '');
   }
 }
 
@@ -148101,12 +148137,12 @@ export class RuntimeDependencyEntryClassificationForm extends SomNode {
     this.doc.setFormField(this.path, "versionConstraint", value);
   }
 
-  get criticality(): string {
-    return this.doc.formField(this.path, "criticality") || '';
+  get criticality(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "criticality"));
   }
 
-  set criticality(value: string) {
-    this.doc.setFormField(this.path, "criticality", value);
+  set criticality(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "criticality", value ?? '');
   }
 
   get purpose(): string {
@@ -149519,12 +149555,12 @@ export class ScenarioEntryIdentificationForm extends SomNode {
     this.doc.setFormField(this.path, "supportingActors", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get complexity(): string {
@@ -154278,12 +154314,12 @@ export class SecurityRequirementEntryClassificationForm extends SomNode {
     this.doc.setFormField(this.path, "subcategory", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get source(): string {
@@ -157677,12 +157713,12 @@ export class SharedInfrastructureEntryResilienceForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get criticality(): string {
-    return this.doc.formField(this.path, "criticality") || '';
+  get criticality(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "criticality"));
   }
 
-  set criticality(value: string) {
-    this.doc.setFormField(this.path, "criticality", value);
+  set criticality(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "criticality", value ?? '');
   }
 
   get singlePointOfFailure(): boolean | null {
@@ -159859,12 +159895,12 @@ export class StaffingEntryRecruitmentForm extends SomNode {
     this.doc.setFormField(this.path, "targetStartDate", value);
   }
 
-  get urgency(): string {
-    return this.doc.formField(this.path, "urgency") || '';
+  get urgency(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "urgency"));
   }
 
-  set urgency(value: string) {
-    this.doc.setFormField(this.path, "urgency", value);
+  set urgency(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "urgency", value ?? '');
   }
 }
 
@@ -161485,12 +161521,12 @@ export class StageMigrationRisksContentForm extends SomNode {
     this.doc.setFormField(this.path, "lastRiskReviewDate", value);
   }
 
-  get overallMigrationRiskRating(): string {
-    return this.doc.formField(this.path, "overallMigrationRiskRating") || '';
+  get overallMigrationRiskRating(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "overallMigrationRiskRating"));
   }
 
-  set overallMigrationRiskRating(value: string) {
-    this.doc.setFormField(this.path, "overallMigrationRiskRating", value);
+  set overallMigrationRiskRating(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "overallMigrationRiskRating", value ?? '');
   }
 }
 
@@ -162115,28 +162151,28 @@ export class StageOverviewRiskForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get overallScheduleRisk(): string {
-    return this.doc.formField(this.path, "overallScheduleRisk") || '';
+  get overallScheduleRisk(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "overallScheduleRisk"));
   }
 
-  set overallScheduleRisk(value: string) {
-    this.doc.setFormField(this.path, "overallScheduleRisk", value);
+  set overallScheduleRisk(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "overallScheduleRisk", value ?? '');
   }
 
-  get overallBudgetRisk(): string {
-    return this.doc.formField(this.path, "overallBudgetRisk") || '';
+  get overallBudgetRisk(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "overallBudgetRisk"));
   }
 
-  set overallBudgetRisk(value: string) {
-    this.doc.setFormField(this.path, "overallBudgetRisk", value);
+  set overallBudgetRisk(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "overallBudgetRisk", value ?? '');
   }
 
-  get overallScopeRisk(): string {
-    return this.doc.formField(this.path, "overallScopeRisk") || '';
+  get overallScopeRisk(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "overallScopeRisk"));
   }
 
-  set overallScopeRisk(value: string) {
-    this.doc.setFormField(this.path, "overallScopeRisk", value);
+  set overallScopeRisk(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "overallScopeRisk", value ?? '');
   }
 
   get stageWithHighestRisk(): string {
@@ -162305,12 +162341,12 @@ export class StageOverviewStatusForm extends SomNode {
     this.doc.setFormField(this.path, "earnedValueSPI", value);
   }
 
-  get planConfidenceLevel(): string {
-    return this.doc.formField(this.path, "planConfidenceLevel") || '';
+  get planConfidenceLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "planConfidenceLevel"));
   }
 
-  set planConfidenceLevel(value: string) {
-    this.doc.setFormField(this.path, "planConfidenceLevel", value);
+  set planConfidenceLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "planConfidenceLevel", value ?? '');
   }
 
   get confidenceBasis(): string {
@@ -162702,12 +162738,12 @@ export class StageSummaryDependenciesContentForm extends SomNode {
     this.doc.setFormField(this.path, "primaryRisk", value);
   }
 
-  get riskLevel(): string {
-    return this.doc.formField(this.path, "riskLevel") || '';
+  get riskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskLevel"));
   }
 
-  set riskLevel(value: string) {
-    this.doc.setFormField(this.path, "riskLevel", value);
+  set riskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskLevel", value ?? '');
   }
 }
 
@@ -163373,12 +163409,12 @@ export class StagingStrategyContentForm extends SomNode {
     this.doc.setFormField(this.path, "primaryRationale", value);
   }
 
-  get overallRiskLevel(): string {
-    return this.doc.formField(this.path, "overallRiskLevel") || '';
+  get overallRiskLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "overallRiskLevel"));
   }
 
-  set overallRiskLevel(value: string) {
-    this.doc.setFormField(this.path, "overallRiskLevel", value);
+  set overallRiskLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "overallRiskLevel", value ?? '');
   }
 }
 
@@ -163660,12 +163696,12 @@ export class StagingStrategyReadinessForm extends SomNode {
     this.doc.setFormField(this.path, "organizationalReadinessFactors", value);
   }
 
-  get organizationalReadinessLevel(): string {
-    return this.doc.formField(this.path, "organizationalReadinessLevel") || '';
+  get organizationalReadinessLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "organizationalReadinessLevel"));
   }
 
-  set organizationalReadinessLevel(value: string) {
-    this.doc.setFormField(this.path, "organizationalReadinessLevel", value);
+  set organizationalReadinessLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "organizationalReadinessLevel", value ?? '');
   }
 
   get resourceConstraints(): string {
@@ -163719,12 +163755,12 @@ export class StagingStrategyRiskAssessmentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get riskTolerance(): string {
-    return this.doc.formField(this.path, "riskTolerance") || '';
+  get riskTolerance(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "riskTolerance"));
   }
 
-  set riskTolerance(value: string) {
-    this.doc.setFormField(this.path, "riskTolerance", value);
+  set riskTolerance(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "riskTolerance", value ?? '');
   }
 
   get deploymentRiskFactors(): string {
@@ -163888,12 +163924,12 @@ export class StakeholderRegisterEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "interest", value);
   }
 
-  get influence(): string {
-    return this.doc.formField(this.path, "influence") || '';
+  get influence(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "influence"));
   }
 
-  set influence(value: string) {
-    this.doc.setFormField(this.path, "influence", value);
+  set influence(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "influence", value ?? '');
   }
 
   get concerns(): string {
@@ -164855,12 +164891,12 @@ export class SuccessCriterionEntryImportanceForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get weight(): string {
-    return this.doc.formField(this.path, "weight") || '';
+  get weight(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "weight"));
   }
 
-  set weight(value: string) {
-    this.doc.setFormField(this.path, "weight", value);
+  set weight(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "weight", value ?? '');
   }
 
   get isMandatory(): string {
@@ -166483,12 +166519,12 @@ export class SystemDependencyEntryMechanismForm extends SomNode {
     this.doc.setFormField(this.path, "couplingStrength", value);
   }
 
-  get criticality(): string {
-    return this.doc.formField(this.path, "criticality") || '';
+  get criticality(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "criticality"));
   }
 
-  set criticality(value: string) {
-    this.doc.setFormField(this.path, "criticality", value);
+  set criticality(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "criticality", value ?? '');
   }
 }
 
@@ -167974,20 +168010,20 @@ export class SystemMigrationRiskEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "riskDescription", value);
   }
 
-  get probability(): string {
-    return this.doc.formField(this.path, "probability") || '';
+  get probability(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "probability"));
   }
 
-  set probability(value: string) {
-    this.doc.setFormField(this.path, "probability", value);
+  set probability(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "probability", value ?? '');
   }
 
-  get impact(): string {
-    return this.doc.formField(this.path, "impact") || '';
+  get impact(): ImpactValue | null {
+    return _parseImpact(this.doc.formField(this.path, "impact"));
   }
 
-  set impact(value: string) {
-    this.doc.setFormField(this.path, "impact", value);
+  set impact(value: ImpactValue | null) {
+    this.doc.setFormField(this.path, "impact", value ?? '');
   }
 
   get riskScore(): string {
@@ -168519,12 +168555,12 @@ export class SystemStagePlanReadinessForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get organizationalReadinessLevel(): string {
-    return this.doc.formField(this.path, "organizationalReadinessLevel") || '';
+  get organizationalReadinessLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "organizationalReadinessLevel"));
   }
 
-  set organizationalReadinessLevel(value: string) {
-    this.doc.setFormField(this.path, "organizationalReadinessLevel", value);
+  set organizationalReadinessLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "organizationalReadinessLevel", value ?? '');
   }
 
   get changeAbsorptionCapacity(): string {
@@ -168535,12 +168571,12 @@ export class SystemStagePlanReadinessForm extends SomNode {
     this.doc.setFormField(this.path, "changeAbsorptionCapacity", value);
   }
 
-  get confidenceLevel(): string {
-    return this.doc.formField(this.path, "confidenceLevel") || '';
+  get confidenceLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "confidenceLevel"));
   }
 
-  set confidenceLevel(value: string) {
-    this.doc.setFormField(this.path, "confidenceLevel", value);
+  set confidenceLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "confidenceLevel", value ?? '');
   }
 
   get lastPlanReviewDate(): string {
@@ -169002,12 +169038,12 @@ export class SystemTaskEntryExecutionForm extends SomNode {
     this.doc.setFormField(this.path, "complexity", value);
   }
 
-  get importance(): string {
-    return this.doc.formField(this.path, "importance") || '';
+  get importance(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "importance"));
   }
 
-  set importance(value: string) {
-    this.doc.setFormField(this.path, "importance", value);
+  set importance(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "importance", value ?? '');
   }
 
   get trigger(): string {
@@ -169183,12 +169219,12 @@ export class SystemTechnicalAssessmentQualityForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get technicalDebtRating(): string {
-    return this.doc.formField(this.path, "technicalDebtRating") || '';
+  get technicalDebtRating(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "technicalDebtRating"));
   }
 
-  set technicalDebtRating(value: string) {
-    this.doc.setFormField(this.path, "technicalDebtRating", value);
+  set technicalDebtRating(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "technicalDebtRating", value ?? '');
   }
 
   get securityPosture(): string {
@@ -171124,12 +171160,12 @@ export class TechnicalGoalEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "goalCategory", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -171661,12 +171697,12 @@ export class TechnicalPainPointsCategorySummaryForm extends SomNode {
     this.doc.setFormField(this.path, "undocumentedSystems", value == null ? '' : String(value));
   }
 
-  get vendorLockInRisk(): string {
-    return this.doc.formField(this.path, "vendorLockInRisk") || '';
+  get vendorLockInRisk(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "vendorLockInRisk"));
   }
 
-  set vendorLockInRisk(value: string) {
-    this.doc.setFormField(this.path, "vendorLockInRisk", value);
+  set vendorLockInRisk(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "vendorLockInRisk", value ?? '');
   }
 
   get integrationComplexityScore(): string {
@@ -171782,12 +171818,12 @@ export class TechnicalRequirementEntryDetailsForm extends SomNode {
     this.doc.setFormField(this.path, "subcategory", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get source(): string {
@@ -172482,12 +172518,12 @@ export class TestScenarioEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -175116,12 +175152,12 @@ export class ToolEntryLifecycleForm extends SomNode {
     this.doc.setFormField(this.path, "vendorRoadmapAlignment", value);
   }
 
-  get endOfLifeRisk(): string {
-    return this.doc.formField(this.path, "endOfLifeRisk") || '';
+  get endOfLifeRisk(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "endOfLifeRisk"));
   }
 
-  set endOfLifeRisk(value: string) {
-    this.doc.setFormField(this.path, "endOfLifeRisk", value);
+  set endOfLifeRisk(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "endOfLifeRisk", value ?? '');
   }
 }
 
@@ -177487,12 +177523,12 @@ export class TransitionMilestoneEntryDependenciesForm extends SomNode {
     this.doc.setFormField(this.path, "dependsOnMilestones", value);
   }
 
-  get criticality(): string {
-    return this.doc.formField(this.path, "criticality") || '';
+  get criticality(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "criticality"));
   }
 
-  set criticality(value: string) {
-    this.doc.setFormField(this.path, "criticality", value);
+  set criticality(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "criticality", value ?? '');
   }
 }
 
@@ -178068,20 +178104,20 @@ export class TransitionRiskEntryAssessmentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get probability(): string {
-    return this.doc.formField(this.path, "probability") || '';
+  get probability(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "probability"));
   }
 
-  set probability(value: string) {
-    this.doc.setFormField(this.path, "probability", value);
+  set probability(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "probability", value ?? '');
   }
 
-  get impact(): string {
-    return this.doc.formField(this.path, "impact") || '';
+  get impact(): ImpactValue | null {
+    return _parseImpact(this.doc.formField(this.path, "impact"));
   }
 
-  set impact(value: string) {
-    this.doc.setFormField(this.path, "impact", value);
+  set impact(value: ImpactValue | null) {
+    this.doc.setFormField(this.path, "impact", value ?? '');
   }
 
   get affectedPhases(): string {
@@ -182139,12 +182175,12 @@ export class UserCategoryEntryImportanceForm extends SomNode {
     this.doc.setFormField(this.path, "criticality", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -182485,12 +182521,12 @@ export class UserGroupImpactEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "userCount", value == null ? '' : String(value));
   }
 
-  get impactLevel(): string {
-    return this.doc.formField(this.path, "impactLevel") || '';
+  get impactLevel(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "impactLevel"));
   }
 
-  set impactLevel(value: string) {
-    this.doc.setFormField(this.path, "impactLevel", value);
+  set impactLevel(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "impactLevel", value ?? '');
   }
 
   get specialConsiderations(): string {

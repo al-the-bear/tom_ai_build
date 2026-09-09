@@ -1,4 +1,4 @@
-<!-- docspec: solution-blueprint/1.2 -->
+<!-- docspec: solution-blueprint/1.3 -->
 # <!--[SBP]--> Solution Blueprint
 
 Solution Blueprint for the **Meridian Order Management (MOM)** programme.
@@ -102,9 +102,9 @@ Category: Order Capture
 ####### <!--[FREP]--> Priority
 
 Priority: must
-BusinessValue: High
+BusinessValue: high
 Effort: M
-RiskLevel: Medium
+RiskLevel: medium
 
 ####### <!--[FRES]--> Source
 
@@ -129,7 +129,7 @@ When: the EDI adapter submits it to the capture API
 Then: an Order is created in state Captured and a domain event is emitted
 VerificationMethod: Automated test
 TestType: Integration
-Priority: Must
+Priority: critical
 Status: Draft
 
 ######### <!--[ACE-CRIT-2]--> FR-01-AC-2 — REST order accepted
@@ -139,7 +139,7 @@ When: POST /orders is called
 Then: an Order is created in state Captured with the same shape as EDI
 VerificationMethod: Automated test
 TestType: Integration
-Priority: Must
+Priority: critical
 Status: Draft
 
 ###### <!--[FRE-REQU-SYNC-PRICING]--> FR-02 — Price orders synchronously at capture time
@@ -155,9 +155,9 @@ Category: Pricing
 ####### <!--[FREP]--> Priority
 
 Priority: must
-BusinessValue: High
+BusinessValue: high
 Effort: M
-RiskLevel: Medium
+RiskLevel: medium
 
 ####### <!--[FREV]--> Verification
 
@@ -174,7 +174,7 @@ When: the order is priced
 Then: each line stores the resolved unit price as of the pricing timestamp
 VerificationMethod: Automated test
 TestType: Integration
-Priority: Must
+Priority: critical
 Status: Draft
 
 ###### <!--[FRE-REQU-STOCK-RESERVATION]--> FR-03 — Reserve stock before confirmation
@@ -190,9 +190,9 @@ Category: Fulfilment
 ####### <!--[FREP]--> Priority
 
 Priority: must
-BusinessValue: High
+BusinessValue: high
 Effort: L
-RiskLevel: High
+RiskLevel: high
 
 ####### <!--[RAC]--> Acceptance Criteria
 
@@ -205,7 +205,7 @@ When: the order is submitted for confirmation
 Then: every line reserves its quantity and the order is eligible to confirm
 VerificationMethod: Automated test
 TestType: Integration
-Priority: Must
+Priority: critical
 Status: Draft
 
 ######### <!--[ACE-CRIT-2]--> FR-03-AC-2 — Short line placed on Hold
@@ -215,7 +215,7 @@ When: reservation runs before confirmation
 Then: only the short line is placed on Hold while the remaining lines reserve normally
 VerificationMethod: Automated test
 TestType: Integration
-Priority: Must
+Priority: critical
 Status: Draft
 
 ###### <!--[FRE-REQU-CONFIRM-SLA]--> FR-04 — Confirm orders within five minutes
@@ -231,9 +231,9 @@ Category: Order Lifecycle
 ####### <!--[FREP]--> Priority
 
 Priority: must
-BusinessValue: High
+BusinessValue: high
 Effort: M
-RiskLevel: Medium
+RiskLevel: medium
 
 ####### <!--[RAC]--> Acceptance Criteria
 
@@ -246,7 +246,7 @@ When: the lifecycle processes it under normal load
 Then: the order reaches state Confirmed within five minutes of capture
 VerificationMethod: Automated test
 TestType: Integration
-Priority: Must
+Priority: critical
 Status: Draft
 
 ######### <!--[ACE-CRIT-2]--> FR-04-AC-2 — Confirmation surfaced to operations and tracking
@@ -256,7 +256,7 @@ When: the confirmation event is published
 Then: the order appears as Confirmed on the operations work list and the public tracking page
 VerificationMethod: Automated test
 TestType: Integration
-Priority: Must
+Priority: critical
 Status: Draft
 
 ###### <!--[FRE-REQU-AMEND-CANCEL]--> FR-05 — Amend or cancel an order before dispatch
@@ -272,9 +272,9 @@ Category: Order Amendment
 ####### <!--[FREP]--> Priority
 
 Priority: should
-BusinessValue: Medium
+BusinessValue: medium
 Effort: M
-RiskLevel: Medium
+RiskLevel: medium
 
 ####### <!--[RAC]--> Acceptance Criteria
 
@@ -287,7 +287,7 @@ When: a clerk changes a line quantity
 Then: pricing and reservation re-run for the affected line and the change is written to the audit trail
 VerificationMethod: Automated test
 TestType: Integration
-Priority: Must
+Priority: critical
 Status: Draft
 
 ######### <!--[ACE-CRIT-2]--> FR-05-AC-2 — Cancellation blocked after dispatch
@@ -297,7 +297,7 @@ When: a clerk attempts to cancel it
 Then: the cancellation is rejected and the rejection is recorded in the audit trail
 VerificationMethod: Automated test
 TestType: Integration
-Priority: Must
+Priority: critical
 Status: Draft
 
 ###### <!--[FRE-REQU-HOLD-RELEASE]--> FR-06 — Release a manual hold
@@ -313,9 +313,9 @@ Category: Exception Handling
 ####### <!--[FREP]--> Priority
 
 Priority: must
-BusinessValue: High
+BusinessValue: high
 Effort: S
-RiskLevel: Low
+RiskLevel: low
 
 ####### <!--[RAC]--> Acceptance Criteria
 
@@ -328,7 +328,7 @@ When: a supervisor releases it with a reason
 Then: the order resumes at the transition that placed it on Hold and the reason is audited
 VerificationMethod: Automated test
 TestType: Integration
-Priority: Must
+Priority: critical
 Status: Draft
 
 #### <!--[TR1]--> Technical Requirements
@@ -344,7 +344,7 @@ Status: approved
 Description: The 95th-percentile order-confirmation latency must stay within budget under peak load.
 Category: Performance
 Subcategory: Latency
-Priority: Must
+Priority: critical
 Source: Operations SLA
 Rationale: Sub-30s p95 keeps the five-minute business promise safe under 3x peak.
 
@@ -366,7 +366,7 @@ Status: approved
 Description: The order-capture API must meet a 99.9% monthly availability target.
 Category: Reliability
 Subcategory: Availability
-Priority: Must
+Priority: critical
 Source: Partner integration agreement
 Rationale: Marketplace partners depend on the capture API being continuously reachable.
 
@@ -386,7 +386,7 @@ Status: approved
 Description: The order service must be event-sourced: the append-only event log is the system of record and all read models are projections rebuildable from the log.
 Category: Architecture
 Subcategory: Persistence
-Priority: Must
+Priority: critical
 Source: Enterprise Architecture Board
 Rationale: Reproducible history and rebuildable projections are core to auditability.
 
@@ -402,7 +402,7 @@ Description: Access is governed by the roles Order Clerk, Order Supervisor, Pric
 
 Category: Access Control
 Subcategory: Authorization
-Priority: Must
+Priority: critical
 Source: Security chapter
 Rationale: Least privilege across human and machine actors.
 ThreatMitigated: Unauthorized order manipulation
@@ -422,7 +422,7 @@ Description: All customer personally identifiable information must be encrypted 
 
 Category: Data Protection
 Subcategory: Encryption
-Priority: Must
+Priority: critical
 Source: Data Protection Officer
 Rationale: GDPR obligations on customer records with a 7-year retention.
 ThreatMitigated: PII disclosure from storage compromise
@@ -441,7 +441,7 @@ Description: The public order API must authenticate partners with OAuth2 client-
 
 Category: API Security
 Subcategory: Authentication
-Priority: Must
+Priority: critical
 Source: Security chapter
 Rationale: Machine-to-machine partner access without shared secrets in code.
 ThreatMitigated: Credential replay and partner impersonation
@@ -465,8 +465,8 @@ Description: Before cutover the order-operations desk must be trained to run the
 ImpactedGroups: Order Operations desk
 ImpactedUserCount: 25
 ChangeType: Process + tooling
-ChangeComplexity: Medium
-Resistance: Low
+ChangeComplexity: medium
+Resistance: low
 
 ###### <!--[ORRQ-REQU-PARALLEL-RUN-STAFFING]--> OR-02 — Staff the parallel run
 
@@ -477,8 +477,8 @@ Description: The two-week parallel run against OrderDesk requires staffing to re
 ImpactedGroups: Order Operations, Finance
 ImpactedUserCount: 30
 ChangeType: Temporary dual-running
-ChangeComplexity: Medium
-Resistance: Medium
+ChangeComplexity: medium
+Resistance: medium
 
 ## <!--[GLAB]--> Glossary And Abbreviations
 
@@ -864,7 +864,7 @@ Description: A clean wholesale order flows from EDI capture through to fulfilmen
 BusinessGoal: Confirm and fulfil a wholesale order without manual intervention.
 PrimaryActor: ACT-04 EDI Integration Account
 SupportingActors: ACT-01 Order Clerk
-Priority: High
+Priority: high
 Complexity: Medium
 
 ####### <!--[SCNST-STEP-LST]--> Steps
