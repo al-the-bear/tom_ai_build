@@ -163,5 +163,5 @@ void main() {
         isFalse,
       );
     });
-  });
+  }, skip: hasRealModel ? null : realModelAbsentReason);
 }

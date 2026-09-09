@@ -110,5 +110,5 @@ void main() {
         );
       },
     );
-  });
+  }, skip: hasRealModel ? null : realModelAbsentReason);
 }

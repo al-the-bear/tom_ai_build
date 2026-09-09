@@ -172,7 +172,7 @@ void main() {
       );
       expect(rewritten, written);
     });
-  });
+  }, skip: hasRealModel ? null : realModelAbsentReason);
 }
 
 const String _sbp = 'D00SolutionBlueprint';

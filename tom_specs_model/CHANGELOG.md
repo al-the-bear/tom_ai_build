@@ -1,3 +1,17 @@
+## 1.3.2
+
+- **The shipped tests run from the published archive.** Three test groups read
+  the generated `tom_som_dart_v0/meta/spec_model.meta.json`, which is a
+  *workspace sibling*: present in a checkout, absent in a hosted install of this
+  package. They threw `PathNotFoundException` there, so a consumer running
+  `dart test` on what pub.dev carries saw seven crashes and no explanation.
+  They now skip with the reason stated.
+- The path was assembled from `Directory.current` rather than written as a
+  literal, which is why the lexical shipped-path gate could not see it. Found by
+  `tom_specs_clitool/tool/verify_published_tests.sh`, which downloads the
+  published archive and runs its tests against hosted dependencies.
+- Tests only; no library change.
+
 ## 1.3.1
 
 - **Dependency constraints corrected, and this is a real fix rather than
