@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.1
+
+- `bin/check_release_drift.dart` gains the option surface every entrypoint in
+  this package carries (`--manifest`, `--container-root`, `--verbose`,
+  `--help`), and the README row documents it. Caught by this package's own
+  `entrypoint_options_test`, which requires every entrypoint to declare
+  `--help` and every README row to cite only options the entrypoint really
+  has — 0.3.0 shipped the tool with no `ArgParser` at all.
+- The first thing the new gate reported was this package: 0.3.0 was published
+  and then two files changed. That is the loop it exists to close.
+
 ## 0.3.0
 
 240 files, +34,604 lines since 0.2.0 — the largest drift in the release set,
