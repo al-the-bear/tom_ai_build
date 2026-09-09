@@ -76,6 +76,13 @@ Future<void> main(List<String> arguments) async {
     ),
   );
 
+  // The Dart accessor that ships beside the JSON. Same content, second form:
+  // the JSON is what the eight non-Dart runtimes read, the library is what a
+  // Dart consumer imports without walking a package URI.
+  final accessorPath = p.normalize(
+    p.join(modelRoot, 'lib', 'codespecs_areas.dart'),
+  );
+
   final String text;
   try {
     if (results.flag('check')) {
@@ -97,10 +104,33 @@ Future<void> main(List<String> arguments) async {
         );
         exit(1);
       }
+      // The accessor is checked too, and separately: the two are written in
+      // one pass but committed as two files, so a partial commit is exactly
+      // the state that leaves a Dart consumer reading a catalogue the JSON no
+      // longer agrees with.
+      final accessor = File(accessorPath);
+      if (!accessor.existsSync()) {
+        stderr.writeln(
+          'codespecs_areas --check: $accessorPath does not exist.',
+        );
+        exit(1);
+      }
+      if (accessor.readAsStringSync() !=
+          await _formatted(areasAccessorLibrary(text), accessorPath)) {
+        stderr.writeln(
+          'codespecs_areas --check: '
+          '${p.relative(accessorPath, from: clitoolRoot)} is stale — '
+          'run `dart run bin/codespecs_areas.dart` and commit the diff.',
+        );
+        exit(1);
+      }
     } else {
       text = writeAreasCatalog(
         mappingPath: mappingPath,
         outputPath: outputPath,
+      );
+      File(accessorPath).writeAsStringSync(
+        await _formatted(areasAccessorLibrary(text), accessorPath),
       );
     }
   } on AreasCatalogException catch (e) {
@@ -118,5 +148,37 @@ Future<void> main(List<String> arguments) async {
     '${catalog.slices.length} slice(s), '
     '${text.length} byte(s).',
   );
+  stdout.writeln('  accessor: ${p.relative(accessorPath, from: clitoolRoot)}');
   exit(0);
+}
+
+/// [source] run through `dart format`, or unchanged if the formatter is absent.
+///
+/// `tom_specs_model` is inside the formatting gate (`tool/format_set.yaml`), so
+/// a generator writing into it is obliged to emit formatted output — otherwise
+/// the tree is clean until the next regeneration and red after it, for
+/// something nobody did. Shelling out to the installed `dart` rather than
+/// linking `package:dart_style` is the same choice `check_format.dart` made: a
+/// pinned formatter and the SDK binary drift apart at every SDK bump.
+Future<String> _formatted(String source, String path) async {
+  final tmp = File(
+    '${Directory.systemTemp.path}/'
+    '${p.basename(path)}.$pid.tmp.dart',
+  )..writeAsStringSync(source);
+  try {
+    final r = await Process.run('dart', [
+      'format',
+      '--output=show',
+      '--summary=none',
+      tmp.path,
+    ]);
+    if (r.exitCode == 0 && (r.stdout as String).isNotEmpty) {
+      return r.stdout as String;
+    }
+    return source;
+  } on ProcessException {
+    return source;
+  } finally {
+    if (tmp.existsSync()) tmp.deleteSync();
+  }
 }

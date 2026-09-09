@@ -316,6 +316,7 @@ export 'src/codespecs/areas_catalog.dart'
     show
         AreasCatalog,
         AreasCatalogException,
+        areasAccessorLibrary,
         buildAreasCatalog,
         writeAreasCatalog,
         kSliceCites,

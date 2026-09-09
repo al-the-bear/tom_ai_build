@@ -24,6 +24,7 @@ import 'packaging.dart' show packageVersionFromModel;
 import 'som_dart_emitter.dart';
 import 'som_dart_meta_emitter.dart';
 import 'som_dart_model_emitter.dart';
+import 'som_dart_schemas_emitter.dart';
 import 'som_emitted_surface.dart';
 import 'spec_model_meta_validator.dart';
 
@@ -40,6 +41,7 @@ class SomGenerationResult {
     required this.libPath,
     required this.metaModulePath,
     required this.modelModulePath,
+    required this.schemasModulePath,
     required this.metaJsonPath,
     required this.schemaPaths,
     required this.emittedClassCount,
@@ -79,6 +81,16 @@ class SomGenerationResult {
   /// reason as the metadata library — a caller checking the committed tree from
   /// this result alone would otherwise have no name for the file.
   final String modelModulePath;
+
+  /// The generated DocSpecs schema accessor library,
+  /// `lib/<package>_schemas.dart` (SOM §10.3) — `somDocSpecsSchema(id)` plus
+  /// the embedded `somDocSpecsSchemaYaml`.
+  ///
+  /// Not exported by the facade either, and for the same reason as
+  /// [modelModulePath]: the fourteen schemas are 3.7 MB of YAML together, so a
+  /// consumer opts in. [schemaPaths] still lists the shipped `schemas/` tree,
+  /// which stays the interchange artifact the other eight planes read.
+  final String schemasModulePath;
 
   /// The lossless object-model graph, `meta/spec_model.meta.json` (SOM §5.3).
   /// It is validated by `validateSpecModelMeta` *before* it is written, so a
@@ -280,6 +292,24 @@ SomGenerationResult writeSomDartProject({
     schemas,
   );
 
+  // ── schema accessor (SOM §10.3) ───────────────────────────────────────────
+  // The same argument as the model accessor, three files further on: the
+  // schemas ship as data, so reaching one from a consuming project meant a
+  // package-URI walk that returns null in an AOT binary. Embedded from the
+  // very objects just written, so the library and the tree cannot disagree.
+  final schemasModulePath = p.join(
+    outputRoot,
+    'lib',
+    '${packageName}_schemas.dart',
+  );
+  File(schemasModulePath).writeAsStringSync(
+    SomDartSchemasEmitter(
+      schemas,
+      packageName: packageName,
+      versionLabel: versionLabel,
+    ).generateLibrary(),
+  );
+
   // ── project pubspec (publishable: hosted runtime dep pinned to the model
   //    version) + a pubspec_overrides.yaml so the co-developed runtime resolves
   //    by path locally without breaking publishability ─────────────────────────
@@ -307,6 +337,7 @@ SomGenerationResult writeSomDartProject({
     libPath: libPath,
     metaModulePath: metaModulePath,
     modelModulePath: modelModulePath,
+    schemasModulePath: schemasModulePath,
     metaJsonPath: metaJsonPath,
     schemaPaths: schemaPaths,
     emittedClassCount: emitted.classCount,

@@ -10,8 +10,11 @@ environment:
 
 # Hosted versions only (tom_specs_documentation_standard.md §7.1). Two packages
 # is the whole dependency list a tooling author needs: the runtime carries the
-# model, the document, reflection and both validators; the facade carries the
-# generated metadata tree, the shipped schemas and the typed accessors.
+# document, reflection and both validators; the facade carries the generated
+# metadata tree, the typed accessors, and — each in its own opt-in library —
+# the whole model (`somSpecModel`) and the fourteen DocSpecs schemas
+# (`somDocSpecsSchema`), so neither is reached through the file system
+# (SOM §10.3).
 dependencies:
-  tom_som_dart_v0: ^1.2.0
-  tom_som_dart_runtime: ^1.2.0
+  tom_som_dart_v0: ^1.3.0
+  tom_som_dart_runtime: ^1.3.0

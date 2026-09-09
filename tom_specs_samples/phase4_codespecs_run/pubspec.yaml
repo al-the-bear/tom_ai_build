@@ -8,10 +8,12 @@ environment:
   sdk: ^3.11.4
 
 # Hosted versions only (tom_specs_documentation_standard.md §7.1).
-# tom_specs_model is here for its shipped data, not its Dart: the area
-# catalogue the extractor reads is generated-doc/codespecs/codespecs_areas.json
-# inside that package.
+# tom_specs_model is here for `somCodeSpecsAreas`, the accessor over the area
+# catalogue the extractor reads. The catalogue also ships as
+# generated-doc/codespecs/codespecs_areas.json; the accessor is the form a Dart
+# consumer imports, and the file is what the other eight runtimes read
+# (SOM §10.3).
 dependencies:
-  tom_som_dart_v0: ^1.2.0
-  tom_som_dart_runtime: ^1.2.0
-  tom_specs_model: ^1.2.0
+  tom_som_dart_v0: ^1.3.0
+  tom_som_dart_runtime: ^1.3.0
+  tom_specs_model: ^1.3.0

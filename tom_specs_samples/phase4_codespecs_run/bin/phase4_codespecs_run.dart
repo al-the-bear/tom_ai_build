@@ -22,16 +22,16 @@
 // held to and what stage 4 checks.
 library;
 
-import 'dart:convert';
 import 'dart:io';
-import 'dart:isolate';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_schemas.dart';
+import 'package:tom_specs_model/codespecs_areas.dart';
 
 Future<void> main() async {
-  final inputs = await _Inputs.load();
+  final inputs = _Inputs.load();
 
   _rule('A Phase 4 CodeSpecs run, stage by stage');
   print('Every step is marked [MECHANICAL] or [JUDGMENT].');
@@ -445,48 +445,14 @@ class _Inputs {
 
   /// Loads all three out of the published packages.
   ///
-  /// All three ship as data rather than as Dart, so each is reached through its
-  /// package URI.
-  static Future<_Inputs> load() async {
-    final v0 = await _packageDir('tom_som_dart_v0');
-    final specsModel = await _packageDir('tom_specs_model');
-
-    // The whole model, as one expression (SOM §10.3). The schema and the area
-    // catalogue below still go through the package URI: both ship as data with
-    // no accessor.
-    final model = somSpecModel;
-
-    final schema = DocSpecsSchema.fromYamlText(
-      File.fromUri(
-        v0.resolve(
-          'schemas/solution-blueprint/'
-          'solution-blueprint.1.0.docspecs-schema.yaml',
-        ),
-      ).readAsStringSync(),
-    );
-
-    final catalog = CodeSpecsAreaCatalog.fromJson(
-      jsonDecode(
-            File.fromUri(
-              specsModel.resolve(
-                'generated-doc/codespecs/codespecs_areas.json',
-              ),
-            ).readAsStringSync(),
-          )
-          as Map<String, dynamic>,
-    );
-
-    return _Inputs(model, schema, catalog);
-  }
-
-  /// The root directory of [package], wherever pub put it.
-  static Future<Uri> _packageDir(String package) async {
-    final lib = await Isolate.resolvePackageUri(
-      Uri.parse('package:$package/$package.dart'),
-    );
-    if (lib == null) {
-      throw StateError('cannot resolve package:$package — run dart pub get');
-    }
-    return lib.resolve('../');
-  }
+  /// Three expressions and no file system. Each artifact ships with an
+  /// accessor beside it (SOM §10.3) — the model, the schema and the area
+  /// catalogue. All three used to be reached through a package URI, which is a
+  /// walk that returns null in an AOT binary and reads nothing without saying
+  /// so.
+  static _Inputs load() => _Inputs(
+    somSpecModel,
+    somDocSpecsSchema('solution-blueprint'),
+    somCodeSpecsAreas,
+  );
 }

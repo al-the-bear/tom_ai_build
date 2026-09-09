@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.2.0+6.2c330083
-  generatedAt       = 2026-09-08T19:48:05.612280Z
+  modelVersionLabel = 1.3.0+7.a618b7fc
+  generatedAt       = 2026-09-09T15:35:21.017566Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -188,7 +188,7 @@ form slot the form does not declare:
 
 THE CLOSED VERDICT SETS. Both are enums, so a tool switches over
 them exhaustively rather than matching on message text:
-  SpecValidationCode  (6): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference
+  SpecValidationCode  (7): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown
   DocSpecsViolationRule (11):
     unknownSection, missingRequiredSection, idPatternMismatch, tooFewItems
     tooManyItems, missingRequiredField, fieldPatternMismatch, textRequired

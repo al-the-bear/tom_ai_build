@@ -23,16 +23,16 @@
 // says so rather than pretending otherwise.
 library;
 
-import 'dart:convert';
 import 'dart:io';
-import 'dart:isolate';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_schemas.dart';
+import 'package:tom_specs_model/codespecs_areas.dart';
 
 Future<void> main() async {
-  final env = await _Environment.load();
+  final env = _Environment.load();
   final out = Directory('build')..createSync(recursive: true);
 
   _title();
@@ -857,9 +857,11 @@ void _authorRequirements(D04RequirementsSpecification rsp) {
     ..category = 'Booking';
   fr001.priority
     ..priority = Priority.must
-    ..businessValue =
-        'The reason the system exists: double bookings cost the '
-        'sales team a client meeting room.';
+    // `businessValue` rates on the four-band scale, so it is an
+    // `ImportanceBand` and not free text — the constant carries the meaning the
+    // sentence below used to carry, and the sentence moved to `rationale`
+    // where a reason belongs.
+    ..businessValue = ImportanceBand.critical;
   fr001.source
     ..source = 'Project Idea, "The problem"'
     ..rationale = 'Double bookings cost the sales team a client meeting room.';
@@ -933,44 +935,18 @@ class _Environment {
   final CodeSpecsAreaCatalog catalog;
 
   /// Loads everything out of the published packages.
-  static Future<_Environment> load() async {
-    final v0 = await _packageRoot('tom_som_dart_v0');
-    final specsModel = await _packageRoot('tom_specs_model');
-
-    DocSpecsSchema schema(String name) => DocSpecsSchema.fromYamlText(
-      File.fromUri(
-        v0.resolve('schemas/$name/$name.1.0.docspecs-schema.yaml'),
-      ).readAsStringSync(),
-    );
-
-    return _Environment(
-      // The whole model, as one expression (SOM §10.3). The schemas and the
-      // area catalogue below still go through the package URI: both ship as
-      // data with no accessor.
-      somSpecModel,
-      schema('solution-blueprint'),
-      schema('information-model'),
-      schema('requirements-specification'),
-      CodeSpecsAreaCatalog.fromJson(
-        jsonDecode(
-              File.fromUri(
-                specsModel.resolve(
-                  'generated-doc/codespecs/codespecs_areas.json',
-                ),
-              ).readAsStringSync(),
-            )
-            as Map<String, dynamic>,
-      ),
-    );
-  }
-
-  static Future<Uri> _packageRoot(String package) async {
-    final lib = await Isolate.resolvePackageUri(
-      Uri.parse('package:$package/$package.dart'),
-    );
-    if (lib == null) {
-      throw StateError('cannot resolve package:$package — run dart pub get');
-    }
-    return lib.resolve('../');
-  }
+  ///
+  /// Five expressions and no file system. Each of the three artifacts ships
+  /// with an accessor beside it (SOM §10.3): the model, the schemas, and the
+  /// CodeSpecs area catalogue. This used to resolve two packages' own
+  /// directories through `Isolate.resolvePackageUri` and read the data files
+  /// out of them — a walk that returns null in an AOT binary and then reads
+  /// nothing without saying so.
+  static _Environment load() => _Environment(
+    somSpecModel,
+    somDocSpecsSchema('solution-blueprint'),
+    somDocSpecsSchema('information-model'),
+    somDocSpecsSchema('requirements-specification'),
+    somCodeSpecsAreas,
+  );
 }

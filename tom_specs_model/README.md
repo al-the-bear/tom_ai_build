@@ -128,6 +128,7 @@ decided by
 | DocSpecs schemas | `docspecs_schema_generator.dart` | document validation |
 | Class-tree outlines (`generated-doc/outlines/`) | `tom_specs_clitool/tool/regenerate_outlines.sh` | review and documentation |
 | The CodeSpecs area catalogue (`generated-doc/codespecs/`) | `tom_specs_clitool/bin/codespecs_areas.dart` | Phase-4 extract generation |
+| `lib/codespecs_areas.dart` — the same catalogue as Dart | the same command, in the same pass | a Dart consumer that must not read a file |
 
 Because all of it is generated, **a model edit is not finished until the
 generator has been re-run**. That is enforced rather than remembered: the
@@ -209,6 +210,7 @@ tom_specs_model
 ├── lib/src/codespecs_projection/   D13 — the flat CodeSpecs projection
 ├── lib/src/docspecs_project.dart   DocSpecsProject — the container root
 ├── lib/src/generated/spec_ops.g.dart   the generated SpecClassOps registry
+├── lib/codespecs_areas.dart        somCodeSpecsAreas — generated, opt-in import
 ├── doc/                            the fourteen authority documents
 └── generated-doc/                  outlines + CodeSpecs areas (never hand-edited)
 

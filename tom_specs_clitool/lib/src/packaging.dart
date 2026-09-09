@@ -1206,6 +1206,24 @@ final res = reflection.resolve('SBP/currentLandscape/content')!;
 print('kind=\${res.kind.name}  valueLeaf=\${res.isValueLeaf}');
 ''',
     ),
+    PackagingUsage(
+      heading: 'The generated DocSpecs schemas',
+      intro:
+          'One schema per document root, embedded beside the model and reached by id — no file read, so it works from an AOT binary where a package-relative read returns nothing (`SOM §10.3`). The same schemas also ship as YAML under `schemas/`, which is what the other language runtimes read.',
+      snippet: '''
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_schemas.dart';
+
+// A second opt-in import, for the same reason as the model: the fourteen
+// schemas are embedded, so only consumers that ask for one compile them.
+final schema = somDocSpecsSchema('solution-blueprint');
+
+final violations = DocSpecsValidator(schema).validateMarkdown(markdown);
+print('\${violations.length} violation(s)');
+
+print(somDocSpecsSchemaIds.join(', '));
+''',
+    ),
   ],
   verifyCommand: '''
 dart pub get

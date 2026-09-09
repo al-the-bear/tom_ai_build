@@ -30,18 +30,16 @@
 // author has to get right before writing any of it — see the README, and step 4.
 library;
 
-import 'dart:io';
-import 'dart:isolate';
-
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0_schemas.dart';
 
 Future<void> main() async {
   // The whole model, as one expression (SOM §10.3). The schema below still
   // goes through the package URI: schemas ship as data with no accessor.
   final model = somSpecModel;
-  final schema = await _loadSchema();
+  final schema = _loadSchema();
 
   final doc = SpecDocument();
   _authorFixture(D00SolutionBlueprint(doc));
@@ -633,29 +631,13 @@ void _authorFixture(D00SolutionBlueprint sbp) {
 // Loading, and small helpers
 // ===========================================================================
 
-/// Loads the generated DocSpecs schema for the Solution Blueprint root.
-Future<DocSpecsSchema> _loadSchema() async {
-  final root = await _packageRoot('tom_som_dart_v0');
-  return DocSpecsSchema.fromYamlText(
-    File.fromUri(
-      root.resolve(
-        'schemas/solution-blueprint/'
-        'solution-blueprint.1.0.docspecs-schema.yaml',
-      ),
-    ).readAsStringSync(),
-  );
-}
-
-/// The root directory of [package], wherever pub put it.
-Future<Uri> _packageRoot(String package) async {
-  final lib = await Isolate.resolvePackageUri(
-    Uri.parse('package:$package/$package.dart'),
-  );
-  if (lib == null) {
-    throw StateError('cannot resolve package:$package — run dart pub get');
-  }
-  return lib.resolve('../');
-}
+/// The generated DocSpecs schema for the Solution Blueprint root.
+///
+/// One expression, because the schemas ship with an accessor beside the model's
+/// (SOM §10.3). This used to resolve `tom_som_dart_v0`'s own directory through
+/// `Isolate.resolvePackageUri` and read the YAML out of `schemas/` — which
+/// returns null in an AOT binary and reads nothing without saying so.
+DocSpecsSchema _loadSchema() => somDocSpecsSchema('solution-blueprint');
 
 void _section(int n, String title) {
   print('');
