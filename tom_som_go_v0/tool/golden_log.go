@@ -258,7 +258,9 @@ func main() {
 	out = append(out, fmt.Sprintf("TL\t%s\t%d", coverage.ListPath(), coverage.Length()))
 	for i := 0; i < coverage.Length(); i++ {
 		cform := coverage.At(i).Content()
-		typedForm(cform.Path(), "characteristic", cform.Characteristic())
+		// The accessor is typed now; the log records the STORED TOKEN, which is
+		// what makes this file byte-identical to the other eight.
+		typedForm(cform.Path(), "characteristic", string(cform.Characteristic()))
 	}
 
 	// --- Meta (FORMAT 2): the generated metadata tree read three ways. Every

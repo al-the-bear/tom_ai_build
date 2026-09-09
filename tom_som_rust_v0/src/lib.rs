@@ -56,6 +56,72 @@ pub const AUTHORIZATION_REQUIREMENT_KIND_AUTHENTICATED: &str = "authenticated";
 /// Allow the guest caller.
 pub const AUTHORIZATION_REQUIREMENT_KIND_GUEST: &str = "guest";
 
+/// AuthorizationRequirementKind is the generated enum for `AuthorizationRequirementKind` values.
+///
+/// The stored token is what [AuthorizationRequirementKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum AuthorizationRequirementKind {
+    /// The caller must hold one of a named set of roles.
+    Role,
+    /// The caller must belong to one of a named set of groups.
+    Group,
+    /// The caller's entitlements must match one of a set of patterns.
+    Entitlement,
+    /// The caller must hold a grant on a named resource key.
+    ResourceKey,
+    /// A registered handler decides, against a named resource id.
+    Custom,
+    /// A graded requirement resolving to one of the four access states.
+    Graded,
+    /// Deny unconditionally.
+    Denied,
+    /// Allow unconditionally, signed in or not.
+    Public,
+    /// Allow any signed-in caller.
+    Authenticated,
+    /// Allow the guest caller.
+    Guest,
+}
+
+impl AuthorizationRequirementKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            AuthorizationRequirementKind::Role => "role",
+            AuthorizationRequirementKind::Group => "group",
+            AuthorizationRequirementKind::Entitlement => "entitlement",
+            AuthorizationRequirementKind::ResourceKey => "resourceKey",
+            AuthorizationRequirementKind::Custom => "custom",
+            AuthorizationRequirementKind::Graded => "graded",
+            AuthorizationRequirementKind::Denied => "denied",
+            AuthorizationRequirementKind::Public => "public",
+            AuthorizationRequirementKind::Authenticated => "authenticated",
+            AuthorizationRequirementKind::Guest => "guest",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "role" => Some(AuthorizationRequirementKind::Role),
+            "group" => Some(AuthorizationRequirementKind::Group),
+            "entitlement" => Some(AuthorizationRequirementKind::Entitlement),
+            "resourceKey" => Some(AuthorizationRequirementKind::ResourceKey),
+            "custom" => Some(AuthorizationRequirementKind::Custom),
+            "graded" => Some(AuthorizationRequirementKind::Graded),
+            "denied" => Some(AuthorizationRequirementKind::Denied),
+            "public" => Some(AuthorizationRequirementKind::Public),
+            "authenticated" => Some(AuthorizationRequirementKind::Authenticated),
+            "guest" => Some(AuthorizationRequirementKind::Guest),
+            _ => None,
+        }
+    }
+}
+
 /// parse_authorization_requirement_kind returns token when it is a known AuthorizationRequirementKind value, else "".
 pub fn parse_authorization_requirement_kind(token: &str) -> String {
     match token {
@@ -85,6 +151,68 @@ pub const BASIC_AUTHORIZATION_REQUIREMENT_KIND_AUTHENTICATED: &str = "authentica
 /// Allow the guest caller.
 pub const BASIC_AUTHORIZATION_REQUIREMENT_KIND_GUEST: &str = "guest";
 
+/// BasicAuthorizationRequirementKind is the generated enum for `BasicAuthorizationRequirementKind` values.
+///
+/// The stored token is what [BasicAuthorizationRequirementKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum BasicAuthorizationRequirementKind {
+    /// The caller must hold one of a named set of roles.
+    Role,
+    /// The caller must belong to one of a named set of groups.
+    Group,
+    /// The caller's entitlements must match one of a set of patterns.
+    Entitlement,
+    /// The caller must hold a grant on a named resource key.
+    ResourceKey,
+    /// A registered handler decides, against a named resource id.
+    Custom,
+    /// Deny unconditionally.
+    Denied,
+    /// Allow unconditionally, signed in or not.
+    Public,
+    /// Allow any signed-in caller.
+    Authenticated,
+    /// Allow the guest caller.
+    Guest,
+}
+
+impl BasicAuthorizationRequirementKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            BasicAuthorizationRequirementKind::Role => "role",
+            BasicAuthorizationRequirementKind::Group => "group",
+            BasicAuthorizationRequirementKind::Entitlement => "entitlement",
+            BasicAuthorizationRequirementKind::ResourceKey => "resourceKey",
+            BasicAuthorizationRequirementKind::Custom => "custom",
+            BasicAuthorizationRequirementKind::Denied => "denied",
+            BasicAuthorizationRequirementKind::Public => "public",
+            BasicAuthorizationRequirementKind::Authenticated => "authenticated",
+            BasicAuthorizationRequirementKind::Guest => "guest",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "role" => Some(BasicAuthorizationRequirementKind::Role),
+            "group" => Some(BasicAuthorizationRequirementKind::Group),
+            "entitlement" => Some(BasicAuthorizationRequirementKind::Entitlement),
+            "resourceKey" => Some(BasicAuthorizationRequirementKind::ResourceKey),
+            "custom" => Some(BasicAuthorizationRequirementKind::Custom),
+            "denied" => Some(BasicAuthorizationRequirementKind::Denied),
+            "public" => Some(BasicAuthorizationRequirementKind::Public),
+            "authenticated" => Some(BasicAuthorizationRequirementKind::Authenticated),
+            "guest" => Some(BasicAuthorizationRequirementKind::Guest),
+            _ => None,
+        }
+    }
+}
+
 /// parse_basic_authorization_requirement_kind returns token when it is a known BasicAuthorizationRequirementKind value, else "".
 pub fn parse_basic_authorization_requirement_kind(token: &str) -> String {
     match token {
@@ -101,6 +229,44 @@ pub const CLIENT_APPLICATION_KIND_GRAPHICAL_APPLICATION: &str = "graphicalApplic
 pub const CLIENT_APPLICATION_KIND_COMMAND_LINE: &str = "commandLine";
 /// Another server calling this system as a client.
 pub const CLIENT_APPLICATION_KIND_SERVER: &str = "server";
+
+/// ClientApplicationKind is the generated enum for `ClientApplicationKind` values.
+///
+/// The stored token is what [ClientApplicationKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ClientApplicationKind {
+    /// A graphical application with screens, forms and navigation.
+    GraphicalApplication,
+    /// A command-line client driven by arguments and standard streams.
+    CommandLine,
+    /// Another server calling this system as a client.
+    Server,
+}
+
+impl ClientApplicationKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ClientApplicationKind::GraphicalApplication => "graphicalApplication",
+            ClientApplicationKind::CommandLine => "commandLine",
+            ClientApplicationKind::Server => "server",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "graphicalApplication" => Some(ClientApplicationKind::GraphicalApplication),
+            "commandLine" => Some(ClientApplicationKind::CommandLine),
+            "server" => Some(ClientApplicationKind::Server),
+            _ => None,
+        }
+    }
+}
 
 /// parse_client_application_kind returns token when it is a known ClientApplicationKind value, else "".
 pub fn parse_client_application_kind(token: &str) -> String {
@@ -199,6 +365,140 @@ pub const DATA_ATTRIBUTE_KIND_JSON: &str = "json";
 /// (`DATAA.allowedValues`) where every other per-attribute restriction lives.
 pub const DATA_ATTRIBUTE_KIND_ENUMERATION: &str = "enumeration";
 
+/// DataAttributeKind is the generated enum for `DataAttributeKind` values.
+///
+/// The stored token is what [DataAttributeKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum DataAttributeKind {
+    /// Character data of bounded length. Binds
+    /// [DataAttributeEntry.textTypeOptions], whose two attributes are what a text
+    /// column cannot be emitted without: the length fixes the physical
+    /// `VARCHAR(n)`, and the collation fixes how comparison and sorting behave
+    /// (`codespecs_mapping.md` §5.13).
+    String,
+    /// An exact whole number. Shares [DataAttributeEntry.numericTypeOptions] with
+    /// [decimal], which carries precision and scale; an integer attribute leaves
+    /// the scale at zero. It stays a constant of its own rather than a decimal
+    /// with scale zero because the emitted column type differs, and because
+    /// "whole number" is a statement about the domain that a zero scale only
+    /// implies.
+    Integer,
+    /// An exact fixed-point number. The distinction from [integer] is the scale:
+    /// only a decimal may set a non-zero one, and the scale is a business fact —
+    /// a monetary amount rounded to two places and one rounded to four are
+    /// different specifications, and the difference is invisible in the physical
+    /// type alone.
+    Decimal,
+    /// A calendar date with no time of day. Shares
+    /// [DataAttributeEntry.temporalTypeOptions] with [dateTime], but the timezone
+    /// attribute that option set carries is inert here: a date names a day, not
+    /// an instant, so it must not shift when read in another zone. Storing a date
+    /// as an instant to reuse one type is the classic way to make a birthday
+    /// move.
+    Date,
+    /// An instant — a date together with a time of day. The kind for which the
+    /// shared temporal timezone attribute is load-bearing: one instant renders as
+    /// two different wall-clock readings in two zones, so the specification has
+    /// to say which reading is stored (`ISO 8601-1:2019` is the representation
+    /// authority named on that option set).
+    DateTime,
+    /// Raw bytes held in the record itself, so what a specification constrains is
+    /// their stored size — see [DataAttributeEntry.binaryTypeOptions]. Bytes held
+    /// *outside* the record are [fileReference], which is a separate kind rather
+    /// than a storage mode of this one.
+    Binary,
+    /// An attribute whose stored value is the **address of a stored file**, not
+    /// the file's content (csra10).
+    ///
+    /// Separate from [binary] on the axis of *what the record holds*: a binary
+    /// attribute holds the bytes, so its options constrain their stored size; a
+    /// file reference holds an address, so its options say where the file is
+    /// filed, which store holds it, whether it dies with the record and what may
+    /// be uploaded into it. Nothing in the binary option set answers any of
+    /// those, which is why this is a kind of its own rather than a mode of
+    /// [binary].
+    FileReference,
+    /// A two-valued attribute. It binds no case because a truth value has nothing
+    /// to constrain: no length, no precision, no range, no value set. The whole
+    /// of its CE-DB surface is its value type (`codespecs_mapping.md` §5.13),
+    /// which the discriminator itself already states.
+    Boolean,
+    /// An attribute holding a generated unique identifier. It binds no case
+    /// because a specification chooses nothing about one: the value is machine-
+    /// generated rather than authored, in the same way a file reference's stored
+    /// address is derived and never authored (`codespecs_mapping.md` §5.13.1).
+    /// Whether the identifier is the entity's key is the entity's identity
+    /// attribute, not this attribute's type option.
+    Uuid,
+    /// An attribute whose stored value is a structured document rather than a
+    /// scalar. It binds no case because `codespecs_mapping.md` §5.13's attribute
+    /// surface carries the kind as a single flag — the substrate's
+    /// `TomDbColumn.isJson` — with no payload beside it, and the flag follows
+    /// from this constant. It deliberately carries **no schema reference**: a
+    /// JSON payload whose shape is known is modelled as nested data entities, and
+    /// one whose shape is only *checked* is checked by a constraint
+    /// (`DataAttributeConstraintEntry`, CE-VA), so a schema attribute here would
+    /// be a second home for one of those two answers.
+    Json,
+    /// An attribute drawn from a declared value set — a domain enum.
+    ///
+    /// It binds [DataAttributeEntry.enumerationTypeOptions], which names
+    /// **which** domain enum the attribute is typed by. That is not optional
+    /// detail: the emitted column's value type *is* the generated enum type
+    /// (`TomDbColumn<DART_TYPE, …>`), so without the name the column cannot be
+    /// emitted at all. Naming the registry entry rather than restating its values
+    /// keeps the single source `DomainEnumRegistry` declares, and matches how
+    /// every other enumerated value in the model is typed — an operation member
+    /// (`SVOPM.domainEnum`) and a report parameter (`codespecs_mapping.md`
+    /// §5.13's sibling surface) both name the enum rather than listing it.
+    ///
+    /// Narrowing — this attribute permitting only *some* of the enum's values —
+    /// is a constraint, so it stays in the `constraints` list
+    /// (`DATAA.allowedValues`) where every other per-attribute restriction lives.
+    Enumeration,
+}
+
+impl DataAttributeKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            DataAttributeKind::String => "string",
+            DataAttributeKind::Integer => "integer",
+            DataAttributeKind::Decimal => "decimal",
+            DataAttributeKind::Date => "date",
+            DataAttributeKind::DateTime => "dateTime",
+            DataAttributeKind::Binary => "binary",
+            DataAttributeKind::FileReference => "fileReference",
+            DataAttributeKind::Boolean => "boolean",
+            DataAttributeKind::Uuid => "uuid",
+            DataAttributeKind::Json => "json",
+            DataAttributeKind::Enumeration => "enumeration",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "string" => Some(DataAttributeKind::String),
+            "integer" => Some(DataAttributeKind::Integer),
+            "decimal" => Some(DataAttributeKind::Decimal),
+            "date" => Some(DataAttributeKind::Date),
+            "dateTime" => Some(DataAttributeKind::DateTime),
+            "binary" => Some(DataAttributeKind::Binary),
+            "fileReference" => Some(DataAttributeKind::FileReference),
+            "boolean" => Some(DataAttributeKind::Boolean),
+            "uuid" => Some(DataAttributeKind::Uuid),
+            "json" => Some(DataAttributeKind::Json),
+            "enumeration" => Some(DataAttributeKind::Enumeration),
+            _ => None,
+        }
+    }
+}
+
 /// parse_data_attribute_kind returns token when it is a known DataAttributeKind value, else "".
 pub fn parse_data_attribute_kind(token: &str) -> String {
     match token {
@@ -253,6 +553,89 @@ pub const EXPORT_FIELD_KIND_BOOLEAN: &str = "boolean";
 /// screen happened to show.
 pub const EXPORT_FIELD_KIND_ENUMERATION: &str = "enumeration";
 
+/// ExportFieldKind is the generated enum for `ExportFieldKind` values.
+///
+/// The stored token is what [ExportFieldKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ExportFieldKind {
+    /// A textual export field.
+    ///
+    /// Selects the `textOutput` subsection, and the only kind that has to
+    /// settle quoting and escaping — text is what can contain the delimiter the
+    /// export file is built around.
+    String,
+    /// A whole-number export field.
+    ///
+    /// Selects the `numericOutput` subsection together with
+    /// [ExportFieldKind.decimal].
+    Integer,
+    /// A fractional-number export field.
+    ///
+    /// Selects the `numericOutput` subsection, where the decimal separator and
+    /// digit grouping are fixed. Unlike a displayed number these serve a
+    /// consuming system, so the choice answers to the receiver's parser and not
+    /// to any reader's locale.
+    Decimal,
+    /// A calendar-date export field.
+    ///
+    /// Selects the `temporalOutput` subsection with [ExportFieldKind.dateTime].
+    /// The two are separate kinds so a date-only value is not given a spurious
+    /// time component on the way out.
+    Date,
+    /// An instant export field carrying both date and time.
+    ///
+    /// Selects the `temporalOutput` subsection, which has to settle the time
+    /// zone and the offset representation — the most common source of silently
+    /// shifted values in an interchange file.
+    DateTime,
+    /// A two-state export field.
+    ///
+    /// Selects the `booleanOutput` subsection, which fixes the pair of tokens
+    /// the two states are written as; a receiving system rarely accepts more
+    /// than one such pair.
+    Boolean,
+    /// An export field whose value comes from a bounded set.
+    ///
+    /// Selects the `enumerationOutput` subsection. An export writes the stable
+    /// code rather than the label a user reads, and this kind exists so that
+    /// choice is made deliberately instead of falling out of whatever the
+    /// screen happened to show.
+    Enumeration,
+}
+
+impl ExportFieldKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ExportFieldKind::String => "string",
+            ExportFieldKind::Integer => "integer",
+            ExportFieldKind::Decimal => "decimal",
+            ExportFieldKind::Date => "date",
+            ExportFieldKind::DateTime => "dateTime",
+            ExportFieldKind::Boolean => "boolean",
+            ExportFieldKind::Enumeration => "enumeration",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "string" => Some(ExportFieldKind::String),
+            "integer" => Some(ExportFieldKind::Integer),
+            "decimal" => Some(ExportFieldKind::Decimal),
+            "date" => Some(ExportFieldKind::Date),
+            "dateTime" => Some(ExportFieldKind::DateTime),
+            "boolean" => Some(ExportFieldKind::Boolean),
+            "enumeration" => Some(ExportFieldKind::Enumeration),
+            _ => None,
+        }
+    }
+}
+
 /// parse_export_field_kind returns token when it is a known ExportFieldKind value, else "".
 pub fn parse_export_field_kind(token: &str) -> String {
     match token {
@@ -274,6 +657,46 @@ pub const FLOW_RETURN_POINT_RESUME_AT_STEP: &str = "resumeAtStep";
 /// case subsection here would have nothing in it.
 pub const FLOW_RETURN_POINT_END_FLOW: &str = "endFlow";
 
+/// FlowReturnPoint is the generated enum for `FlowReturnPoint` values.
+///
+/// The stored token is what [FlowReturnPoint::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum FlowReturnPoint {
+    /// The branch hands control back to a named step of the flow it left.
+    ///
+    /// Binds a case subsection, because the generated body cannot rejoin
+    /// anywhere until the step it rejoins at has been named.
+    ResumeAtStep,
+    /// The branch is the end of the scenario — control goes back to nobody.
+    ///
+    /// The `noCase` arm: there is no step to name and no payload to carry, so a
+    /// case subsection here would have nothing in it.
+    EndFlow,
+}
+
+impl FlowReturnPoint {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            FlowReturnPoint::ResumeAtStep => "resumeAtStep",
+            FlowReturnPoint::EndFlow => "endFlow",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "resumeAtStep" => Some(FlowReturnPoint::ResumeAtStep),
+            "endFlow" => Some(FlowReturnPoint::EndFlow),
+            _ => None,
+        }
+    }
+}
+
 /// parse_flow_return_point returns token when it is a known FlowReturnPoint value, else "".
 pub fn parse_flow_return_point(token: &str) -> String {
     match token {
@@ -290,6 +713,44 @@ pub const GRADED_ACCESS_LEVEL_FULL: &str = "full";
 pub const GRADED_ACCESS_LEVEL_READ: &str = "read";
 /// The thing is visible but locked.
 pub const GRADED_ACCESS_LEVEL_DISABLED: &str = "disabled";
+
+/// GradedAccessLevel is the generated enum for `GradedAccessLevel` values.
+///
+/// The stored token is what [GradedAccessLevel::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum GradedAccessLevel {
+    /// Full, interactive access.
+    Full,
+    /// The value is shown but cannot be changed.
+    Read,
+    /// The thing is visible but locked.
+    Disabled,
+}
+
+impl GradedAccessLevel {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            GradedAccessLevel::Full => "full",
+            GradedAccessLevel::Read => "read",
+            GradedAccessLevel::Disabled => "disabled",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "full" => Some(GradedAccessLevel::Full),
+            "read" => Some(GradedAccessLevel::Read),
+            "disabled" => Some(GradedAccessLevel::Disabled),
+            _ => None,
+        }
+    }
+}
 
 /// parse_graded_access_level returns token when it is a known GradedAccessLevel value, else "".
 pub fn parse_graded_access_level(token: &str) -> String {
@@ -316,6 +777,57 @@ pub const IMPACT_MAJOR: &str = "major";
 /// The objective itself fails and no contingency inside the project recovers
 /// it. The decision at this level is whether the project continues at all.
 pub const IMPACT_CRITICAL: &str = "critical";
+
+/// Impact is the generated enum for `Impact` values.
+///
+/// The stored token is what [Impact::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum Impact {
+    /// Absorbed inside normal working. No measurable change to schedule, budget
+    /// or quality, and nobody outside the team doing the work has to know.
+    Negligible,
+    /// Felt within one workstream and covered by that workstream's own
+    /// contingency. Nothing outside it is replanned.
+    Minor,
+    /// Exceeds a single workstream's contingency and forces replanning across
+    /// workstreams. Project management decides; the sponsor is informed.
+    Moderate,
+    /// Threatens a committed date, budget or quality commitment. Recovery
+    /// requires a sponsor decision — more money, less scope, or a later date.
+    Major,
+    /// The objective itself fails and no contingency inside the project recovers
+    /// it. The decision at this level is whether the project continues at all.
+    Critical,
+}
+
+impl Impact {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Impact::Negligible => "negligible",
+            Impact::Minor => "minor",
+            Impact::Moderate => "moderate",
+            Impact::Major => "major",
+            Impact::Critical => "critical",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "negligible" => Some(Impact::Negligible),
+            "minor" => Some(Impact::Minor),
+            "moderate" => Some(Impact::Moderate),
+            "major" => Some(Impact::Major),
+            "critical" => Some(Impact::Critical),
+            _ => None,
+        }
+    }
+}
 
 /// parse_impact returns token when it is a known Impact value, else "".
 pub fn parse_impact(token: &str) -> String {
@@ -398,6 +910,118 @@ pub const ISO25010_CHARACTERISTIC_MAINTAINABILITY: &str = "maintainability";
 /// `FlexibilityCharacteristic`.
 pub const ISO25010_CHARACTERISTIC_FLEXIBILITY: &str = "flexibility";
 
+/// Iso25010Characteristic is the generated enum for `Iso25010Characteristic` values.
+///
+/// The stored token is what [Iso25010Characteristic::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum Iso25010Characteristic {
+    /// ISO/IEC 25010:2023 *functional suitability* — the degree to which the
+    /// product provides functions that meet stated **and implied** needs under
+    /// specified conditions. The implied half is the reason this is a quality
+    /// characteristic and not just "the requirements are done": correctness and
+    /// completeness of what was asked for are judged here, not merely presence.
+    /// Modelled by `FunctionalSuitabilityCharacteristic`.
+    FunctionalSuitability,
+    /// ISO/IEC 25010:2023 *performance efficiency* — performing the functions
+    /// within specified time and throughput parameters while being efficient in
+    /// its use of resources. Both halves are required: hitting a latency target
+    /// by consuming unbounded resources does not satisfy it. Targets under this
+    /// characteristic are meaningless without the load profile they are stated
+    /// against. Modelled by `PerformanceEfficiencyCharacteristic`.
+    PerformanceEfficiency,
+    /// ISO/IEC 25010:2023 *compatibility* — exchanging information with other
+    /// products or systems, and performing its required functions while sharing
+    /// a common environment and resources. Its two concerns are interoperability
+    /// (the exchange) and co-existence (the sharing); the second is the one
+    /// routinely forgotten, because nothing in a system's own requirements
+    /// mentions the neighbours it must not disturb. Modelled by
+    /// `CompatibilityCharacteristic`.
+    Compatibility,
+    /// ISO/IEC 25010:2023 *interaction capability* — the degree to which
+    /// specified users can interact with the product to exchange information
+    /// through the user interface and complete specified tasks.
+    ///
+    /// **This is the 2023 renaming of *usability*.** A reader working from the
+    /// 2011 edition looking for a `usability` constant lands here. The rename
+    /// carries a widening, not just a new label: the characteristic covers the
+    /// whole user–system exchange — including user assistance and
+    /// self-descriptiveness — rather than ease of use alone, so a 2011 usability
+    /// assessment mapped onto it is an under-assessment until those are added.
+    /// Modelled by `InteractionCapabilityCharacteristic`.
+    InteractionCapability,
+    /// ISO/IEC 25010:2023 *reliability* — performing specified functions under
+    /// specified conditions for a specified period of time. All three
+    /// qualifiers are part of the claim: a reliability target without the
+    /// conditions and the period states nothing measurable. Modelled by
+    /// `ReliabilityCharacteristic`.
+    Reliability,
+    /// ISO/IEC 25010:2023 *security* — protecting information and data so that
+    /// persons and other products have the degree of data access appropriate to
+    /// their types and levels of authorization.
+    ///
+    /// This is the *quality target* — what "secure enough" means and how it is
+    /// evidenced. The control design that meets it is a separate document,
+    /// `D08SecurityAccessSpecification`, anchored to ISO 27001
+    /// (`tom_specs_model_rules.md` §2.2); recording controls here instead of
+    /// targets produces a coverage entry that cannot be tested. Modelled by
+    /// `SecurityCharacteristic`.
+    Security,
+    /// ISO/IEC 25010:2023 *maintainability* — the effectiveness and efficiency
+    /// with which the product can be modified by its maintainers, whether to
+    /// correct, improve or adapt it. The assessment is meaningless without
+    /// naming *who* maintains it and over what horizon. Modelled by
+    /// `MaintainabilityCharacteristic`.
+    Maintainability,
+    /// ISO/IEC 25010:2023 *flexibility* — the degree to which the product can be
+    /// adapted to changes in its requirements, contexts of use or system
+    /// environment.
+    ///
+    /// **New in the 2023 edition, and where *portability* went.** A reader
+    /// working from the 2011 edition looking for a `portability` constant lands
+    /// here: the older characteristic's adaptability, installability and
+    /// replaceability concerns are carried under flexibility, alongside
+    /// scalability. The localization & translation concern cross-maps to exactly
+    /// this portability/adaptability content
+    /// (`tom_specs_model_rules.md` §2.3). Modelled by
+    /// `FlexibilityCharacteristic`.
+    Flexibility,
+}
+
+impl Iso25010Characteristic {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Iso25010Characteristic::FunctionalSuitability => "functionalSuitability",
+            Iso25010Characteristic::PerformanceEfficiency => "performanceEfficiency",
+            Iso25010Characteristic::Compatibility => "compatibility",
+            Iso25010Characteristic::InteractionCapability => "interactionCapability",
+            Iso25010Characteristic::Reliability => "reliability",
+            Iso25010Characteristic::Security => "security",
+            Iso25010Characteristic::Maintainability => "maintainability",
+            Iso25010Characteristic::Flexibility => "flexibility",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "functionalSuitability" => Some(Iso25010Characteristic::FunctionalSuitability),
+            "performanceEfficiency" => Some(Iso25010Characteristic::PerformanceEfficiency),
+            "compatibility" => Some(Iso25010Characteristic::Compatibility),
+            "interactionCapability" => Some(Iso25010Characteristic::InteractionCapability),
+            "reliability" => Some(Iso25010Characteristic::Reliability),
+            "security" => Some(Iso25010Characteristic::Security),
+            "maintainability" => Some(Iso25010Characteristic::Maintainability),
+            "flexibility" => Some(Iso25010Characteristic::Flexibility),
+            _ => None,
+        }
+    }
+}
+
 /// parse_iso25010_characteristic returns token when it is a known Iso25010Characteristic value, else "".
 pub fn parse_iso25010_characteristic(token: &str) -> String {
     match token {
@@ -417,6 +1041,47 @@ pub const MIGRATION_ARTIFACT_KIND_INITIAL_DDL: &str = "initialDdl";
 pub const MIGRATION_ARTIFACT_KIND_REFERENCE_DATA: &str = "referenceData";
 /// An append-only schema-evolution step applied on top of the baseline.
 pub const MIGRATION_ARTIFACT_KIND_SCHEMA_CHANGE: &str = "schemaChange";
+
+/// MigrationArtifactKind is the generated enum for `MigrationArtifactKind` values.
+///
+/// The stored token is what [MigrationArtifactKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum MigrationArtifactKind {
+    /// The baseline schema definition — the tables, indexes and constraints the
+    /// system starts from.
+    InitialDdl,
+    /// The new system's own initial reference data — lookup values, defaults and
+    /// built-in roles. Not business-data migration from a legacy system, which
+    /// stays in the migration-mapping sections (`MIGME`).
+    ReferenceData,
+    /// An append-only schema-evolution step applied on top of the baseline.
+    SchemaChange,
+}
+
+impl MigrationArtifactKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            MigrationArtifactKind::InitialDdl => "initialDdl",
+            MigrationArtifactKind::ReferenceData => "referenceData",
+            MigrationArtifactKind::SchemaChange => "schemaChange",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "initialDdl" => Some(MigrationArtifactKind::InitialDdl),
+            "referenceData" => Some(MigrationArtifactKind::ReferenceData),
+            "schemaChange" => Some(MigrationArtifactKind::SchemaChange),
+            _ => None,
+        }
+    }
+}
 
 /// parse_migration_artifact_kind returns token when it is a known MigrationArtifactKind value, else "".
 pub fn parse_migration_artifact_kind(token: &str) -> String {
@@ -450,6 +1115,61 @@ pub const OBJECT_LIFECYCLE_KIND_TERMINAL: &str = "terminal";
 /// two cannot be collapsed into one "final" flag.
 pub const OBJECT_LIFECYCLE_KIND_ERROR: &str = "error";
 
+/// ObjectLifecycleKind is the generated enum for `ObjectLifecycleKind` values.
+///
+/// The stored token is what [ObjectLifecycleKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ObjectLifecycleKind {
+    /// The state an instance is created in. Exactly one per lifecycle, and the
+    /// one `BJOEN-LIFE.initialState` names; nothing may transition *into* it,
+    /// because arriving there a second time would mean the instance had been
+    /// re-created rather than moved.
+    Initial,
+    /// A state the instance passes through — entered and left again. The only
+    /// role for which both an inbound and an outbound transition are expected,
+    /// which is what makes "this state can never be left" a detectable defect
+    /// rather than a design choice.
+    Intermediate,
+    /// A state in which the lifecycle ends by design: the order was closed, the
+    /// claim was settled. It has no outbound transition, so marking a state
+    /// terminal is also the assertion that no further business event can move
+    /// the instance.
+    Terminal,
+    /// A state reached because something failed rather than because the intended
+    /// path completed. Kept apart from [terminal] because it is not necessarily
+    /// an end: an instance may be repaired and resume. What distinguishes it is
+    /// the reason for arrival, not whether anything leads out — which is why the
+    /// two cannot be collapsed into one "final" flag.
+    Error,
+}
+
+impl ObjectLifecycleKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ObjectLifecycleKind::Initial => "initial",
+            ObjectLifecycleKind::Intermediate => "intermediate",
+            ObjectLifecycleKind::Terminal => "terminal",
+            ObjectLifecycleKind::Error => "error",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "initial" => Some(ObjectLifecycleKind::Initial),
+            "intermediate" => Some(ObjectLifecycleKind::Intermediate),
+            "terminal" => Some(ObjectLifecycleKind::Terminal),
+            "error" => Some(ObjectLifecycleKind::Error),
+            _ => None,
+        }
+    }
+}
+
 /// parse_object_lifecycle_kind returns token when it is a known ObjectLifecycleKind value, else "".
 pub fn parse_object_lifecycle_kind(token: &str) -> String {
     match token {
@@ -480,6 +1200,59 @@ pub const PRIORITY_COULD: &str = "could";
 /// [Status.rejected], which means never; this means not now.
 pub const PRIORITY_WONT_THIS_TIME: &str = "wontThisTime";
 
+/// Priority is the generated enum for `Priority` values.
+///
+/// The stored token is what [Priority::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum Priority {
+    /// MoSCoW *must have*: the release is not shippable without it. A failed
+    /// must-have is a release blocker — the date moves, the requirement does
+    /// not. Anything that can be traded away under schedule pressure was never
+    /// a must.
+    Must,
+    /// MoSCoW *should have*: painful to omit, but the release still ships
+    /// without it. This is the first band traded away when the timebox is
+    /// threatened, and dropping one is expected to come with a stated
+    /// workaround rather than silence.
+    Should,
+    /// MoSCoW *could have*: included only while it costs nothing that a
+    /// [must] or [should] item needs. Dropping it is a routine timebox decision
+    /// and requires no re-approval.
+    Could,
+    /// MoSCoW *won't have — this time*: deliberately excluded from **this**
+    /// delivery and recorded rather than deleted, so the decision (and its
+    /// reasoning) survives into the next planning round. Distinct from
+    /// [Status.rejected], which means never; this means not now.
+    WontThisTime,
+}
+
+impl Priority {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Priority::Must => "must",
+            Priority::Should => "should",
+            Priority::Could => "could",
+            Priority::WontThisTime => "wontThisTime",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "must" => Some(Priority::Must),
+            "should" => Some(Priority::Should),
+            "could" => Some(Priority::Could),
+            "wontThisTime" => Some(Priority::WontThisTime),
+            _ => None,
+        }
+    }
+}
+
 /// parse_priority returns token when it is a known Priority value, else "".
 pub fn parse_priority(token: &str) -> String {
     match token {
@@ -508,6 +1281,60 @@ pub const PROBABILITY_HIGH: &str = "high";
 /// event, not a risk: it belongs in the plan with an owner and a date, and
 /// leaving it on the risk register hides work rather than tracking it.
 pub const PROBABILITY_VERY_HIGH: &str = "veryHigh";
+
+/// Probability is the generated enum for `Probability` values.
+///
+/// The stored token is what [Probability::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum Probability {
+    /// Would be surprising: no trigger for it is visible in the current plan.
+    /// Carried on the register to be watched, not to be mitigated.
+    VeryLow,
+    /// Plausible but not expected — a known trigger exists and is not currently
+    /// active. Cheap mitigations are worth taking; expensive ones are not.
+    Low,
+    /// As likely as not. The band where the decision to mitigate turns on cost
+    /// rather than on likelihood, and the one most often used as a default when
+    /// nobody has actually estimated — a medium with no reasoning behind it is
+    /// worth challenging.
+    Medium,
+    /// Expected unless something about the plan changes. Mitigation is assumed;
+    /// its absence needs an explicit reason.
+    High,
+    /// Effectively certain on the current plan. At this point it is a planned
+    /// event, not a risk: it belongs in the plan with an owner and a date, and
+    /// leaving it on the risk register hides work rather than tracking it.
+    VeryHigh,
+}
+
+impl Probability {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Probability::VeryLow => "veryLow",
+            Probability::Low => "low",
+            Probability::Medium => "medium",
+            Probability::High => "high",
+            Probability::VeryHigh => "veryHigh",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "veryLow" => Some(Probability::VeryLow),
+            "low" => Some(Probability::Low),
+            "medium" => Some(Probability::Medium),
+            "high" => Some(Probability::High),
+            "veryHigh" => Some(Probability::VeryHigh),
+            _ => None,
+        }
+    }
+}
 
 /// parse_probability returns token when it is a known Probability value, else "".
 pub fn parse_probability(token: &str) -> String {
@@ -558,6 +1385,83 @@ pub const REPORT_COLUMN_KIND_DATE: &str = "date";
 /// the two states are printed as — a report says "Yes"/"No" or
 /// "Active"/"Closed", never `true`/`false`.
 pub const REPORT_COLUMN_KIND_BOOLEAN: &str = "boolean";
+
+/// ReportColumnKind is the generated enum for `ReportColumnKind` values.
+///
+/// The stored token is what [ReportColumnKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ReportColumnKind {
+    /// A textual column.
+    ///
+    /// Selects the `textFormat` subsection. The fallback kind: a value with no
+    /// numeric, temporal or boolean reading is formatted, aligned and sorted as
+    /// text.
+    String,
+    /// A whole-number column.
+    ///
+    /// Selects the `numericFormat` subsection alongside
+    /// [ReportColumnKind.decimal]; keeping the two apart lets a report state
+    /// that no fractional digits are to appear even when the underlying value
+    /// carries them.
+    Integer,
+    /// A fractional-number column.
+    ///
+    /// Selects the `numericFormat` subsection, where displayed precision,
+    /// digit grouping and the presentation of negative values are fixed. A
+    /// report that leaves them unstated is only reproducible by accident.
+    Decimal,
+    /// A monetary column.
+    ///
+    /// Chosen over [ReportColumnKind.decimal] when the figure carries a
+    /// currency. It selects `currencyFormat` rather than the numeric
+    /// subsection because the symbol, its position and the currency's own
+    /// minor-unit precision all have to be settled together.
+    Currency,
+    /// A temporal column.
+    ///
+    /// Selects the `dateFormat` subsection. A report is often read in a
+    /// different locale and time zone from the one that produced it, so the
+    /// format is authored here rather than inherited from the reader's
+    /// environment.
+    Date,
+    /// A two-state column.
+    ///
+    /// Selects the `booleanFormat` subsection, which fixes the words or marks
+    /// the two states are printed as — a report says "Yes"/"No" or
+    /// "Active"/"Closed", never `true`/`false`.
+    Boolean,
+}
+
+impl ReportColumnKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ReportColumnKind::String => "string",
+            ReportColumnKind::Integer => "integer",
+            ReportColumnKind::Decimal => "decimal",
+            ReportColumnKind::Currency => "currency",
+            ReportColumnKind::Date => "date",
+            ReportColumnKind::Boolean => "boolean",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "string" => Some(ReportColumnKind::String),
+            "integer" => Some(ReportColumnKind::Integer),
+            "decimal" => Some(ReportColumnKind::Decimal),
+            "currency" => Some(ReportColumnKind::Currency),
+            "date" => Some(ReportColumnKind::Date),
+            "boolean" => Some(ReportColumnKind::Boolean),
+            _ => None,
+        }
+    }
+}
 
 /// parse_report_column_kind returns token when it is a known ReportColumnKind value, else "".
 pub fn parse_report_column_kind(token: &str) -> String {
@@ -618,6 +1522,96 @@ pub const REPORT_FILTER_VALUE_KIND_ENUMERATION: &str = "enumeration";
 /// and resolve instead of listing.
 pub const REPORT_FILTER_VALUE_KIND_ENTITY_REF: &str = "entityRef";
 
+/// ReportFilterValueKind is the generated enum for `ReportFilterValueKind` values.
+///
+/// The stored token is what [ReportFilterValueKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ReportFilterValueKind {
+    /// A text-valued filter.
+    ///
+    /// Selects `textFilterOptions`, where the match is settled — exact,
+    /// prefix, contains. A text filter with no stated match rule is the one
+    /// whose results readers most often dispute.
+    String,
+    /// A whole-number filter.
+    ///
+    /// Selects `numericFilterOptions` together with
+    /// [ReportFilterValueKind.decimal].
+    Integer,
+    /// A fractional-number filter.
+    ///
+    /// Selects `numericFilterOptions`, where the bounds and whether they are
+    /// inclusive are stated. An unstated bound convention makes two runs of the
+    /// same report disagree at the edges.
+    Decimal,
+    /// A calendar-date filter.
+    ///
+    /// Selects `dateFilterOptions` with [ReportFilterValueKind.dateTime]. A
+    /// range is not a separate kind — it is a choice of input control recorded
+    /// inside those options.
+    Date,
+    /// An instant filter carrying both date and time.
+    ///
+    /// Selects `dateFilterOptions`. Chosen over [ReportFilterValueKind.date]
+    /// when a boundary has to fall inside a day rather than at its edge.
+    DateTime,
+    /// A two-state filter.
+    ///
+    /// Selects `booleanFilterOptions`. A boolean filter usually has three
+    /// user-visible positions rather than two — true, false, and not filtered
+    /// at all — and it is those options that have to say so.
+    Boolean,
+    /// A filter over a bounded set of option values.
+    ///
+    /// Selects `selectFilterOptions`, which names the option source and
+    /// whether several values may be selected at once. Pick it when the
+    /// candidates are a fixed vocabulary rather than records the user has to
+    /// look up.
+    Enumeration,
+    /// A filter whose value refers to a record in the domain model.
+    ///
+    /// Selects `entityFilterOptions`. Chosen over
+    /// [ReportFilterValueKind.enumeration] when the candidates are data rather
+    /// than vocabulary — a customer, an account — so the control has to search
+    /// and resolve instead of listing.
+    EntityRef,
+}
+
+impl ReportFilterValueKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ReportFilterValueKind::String => "string",
+            ReportFilterValueKind::Integer => "integer",
+            ReportFilterValueKind::Decimal => "decimal",
+            ReportFilterValueKind::Date => "date",
+            ReportFilterValueKind::DateTime => "dateTime",
+            ReportFilterValueKind::Boolean => "boolean",
+            ReportFilterValueKind::Enumeration => "enumeration",
+            ReportFilterValueKind::EntityRef => "entityRef",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "string" => Some(ReportFilterValueKind::String),
+            "integer" => Some(ReportFilterValueKind::Integer),
+            "decimal" => Some(ReportFilterValueKind::Decimal),
+            "date" => Some(ReportFilterValueKind::Date),
+            "dateTime" => Some(ReportFilterValueKind::DateTime),
+            "boolean" => Some(ReportFilterValueKind::Boolean),
+            "enumeration" => Some(ReportFilterValueKind::Enumeration),
+            "entityRef" => Some(ReportFilterValueKind::EntityRef),
+            _ => None,
+        }
+    }
+}
+
 /// parse_report_filter_value_kind returns token when it is a known ReportFilterValueKind value, else "".
 pub fn parse_report_filter_value_kind(token: &str) -> String {
     match token {
@@ -646,6 +1640,56 @@ pub const SCHEDULED_JOB_TRIGGER_CALENDAR: &str = "calendar";
 /// The arm with no schedule, so nothing about it can be answered by looking
 /// at a clock — including when it will next run, or whether it ever will.
 pub const SCHEDULED_JOB_TRIGGER_EVENT: &str = "event";
+
+/// ScheduledJobTrigger is the generated enum for `ScheduledJobTrigger` values.
+///
+/// The stored token is what [ScheduledJobTrigger::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ScheduledJobTrigger {
+    /// The job fires on a recurring clock expression.
+    ///
+    /// Binds the cron case, whose payload is the recurrence expression itself,
+    /// verbatim — a job whose schedule can be written as one expression needs
+    /// nothing else said about when it runs.
+    Cron,
+    /// The job fires on a date rule no clock expression can state — month-end,
+    /// the third Monday of a quarter, the last working day before a holiday.
+    ///
+    /// A separate arm rather than a harder cron string, because the rule depends
+    /// on a calendar that a recurrence expression cannot see.
+    Calendar,
+    /// The job does not run on a clock at all: it runs when something in the
+    /// system happens, and what that occurrence carries is what the work reads.
+    ///
+    /// The arm with no schedule, so nothing about it can be answered by looking
+    /// at a clock — including when it will next run, or whether it ever will.
+    Event,
+}
+
+impl ScheduledJobTrigger {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ScheduledJobTrigger::Cron => "cron",
+            ScheduledJobTrigger::Calendar => "calendar",
+            ScheduledJobTrigger::Event => "event",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "cron" => Some(ScheduledJobTrigger::Cron),
+            "calendar" => Some(ScheduledJobTrigger::Calendar),
+            "event" => Some(ScheduledJobTrigger::Event),
+            _ => None,
+        }
+    }
+}
 
 /// parse_scheduled_job_trigger returns token when it is a known ScheduledJobTrigger value, else "".
 pub fn parse_scheduled_job_trigger(token: &str) -> String {
@@ -764,6 +1808,171 @@ pub const SCREEN_ELEMENT_FIELD_KIND_COLOR: &str = "color";
 /// which is why it has its own `fileOptions` subsection: which content
 /// kinds are accepted, and how the chosen file is presented back.
 pub const SCREEN_ELEMENT_FIELD_KIND_FILE: &str = "file";
+
+/// ScreenElementFieldKind is the generated enum for `ScreenElementFieldKind` values.
+///
+/// The stored token is what [ScreenElementFieldKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ScreenElementFieldKind {
+    /// Free-form text with no narrower interpretation.
+    ///
+    /// The default text kind, and the one to pick when nothing about the value
+    /// constrains it beyond length and pattern. Selects the `textOptions`
+    /// subsection.
+    String,
+    /// A whole number.
+    ///
+    /// Chosen over [ScreenElementFieldKind.decimal] when fractional input must
+    /// be rejected outright rather than rounded — counts, quantities, ordinals.
+    /// Selects the `numberOptions` subsection.
+    Integer,
+    /// A number with a fractional part.
+    ///
+    /// Selects the `numberOptions` subsection, where the precision the value is
+    /// captured and shown at is fixed. Leaving it unstated is what produces the
+    /// familiar mismatch between the figure a user entered and the figure the
+    /// system stored.
+    Decimal,
+    /// A monetary amount.
+    ///
+    /// Chosen over [ScreenElementFieldKind.decimal] when the figure carries a
+    /// currency: the amount alone is not the value, so the field must also
+    /// settle which currency applies and how the pair is presented. Selects the
+    /// `numberOptions` subsection.
+    Currency,
+    /// A calendar date with no time of day.
+    ///
+    /// Chosen over [ScreenElementFieldKind.dateTime] when the time of day is
+    /// not merely unknown but meaningless — a birth date, an invoice date — so
+    /// that no time-zone conversion can shift the value into a neighbouring
+    /// day. Selects the `dateOptions` subsection.
+    Date,
+    /// A calendar date together with a time of day.
+    ///
+    /// The kind for an instant that must be located exactly, and therefore the
+    /// one whose `dateOptions` have to settle the time zone the value is
+    /// recorded and displayed in.
+    DateTime,
+    /// A time of day with no calendar date.
+    ///
+    /// Chosen for a recurring wall-clock value — an opening hour, a daily
+    /// reminder — that is not tied to one particular day. Selects the
+    /// `dateOptions` subsection.
+    Time,
+    /// A two-state true/false value.
+    ///
+    /// The one field kind that selects no promoted options subsection: a
+    /// boolean has no format, no bounds and no option source, so it carries the
+    /// field base alone. How it is drawn — tick box or switch — is the
+    /// enclosing element's [ScreenElementKind], not this kind.
+    Boolean,
+    /// A value chosen from a bounded set of options.
+    ///
+    /// Selects the `selectOptions` subsection, which names where the options
+    /// come from and whether one or several may be chosen. Pick it whenever the
+    /// valid values are enumerable, even when the interface renders them as
+    /// free text with completion.
+    Enumeration,
+    /// An email address.
+    ///
+    /// A text kind — it selects `textOptions` — named separately so the
+    /// generator can supply the address-shaped validation and the right
+    /// keyboard without the specification restating either.
+    Email,
+    /// A telephone number.
+    ///
+    /// A text kind, named separately so the generator can supply
+    /// dialling-friendly input and formatting. It is text rather than a number
+    /// because leading zeros, country prefixes and separators are part of the
+    /// value.
+    Phone,
+    /// A web address.
+    ///
+    /// A text kind, named separately so the generator can supply scheme
+    /// validation and an open affordance instead of treating the value as
+    /// opaque text.
+    Url,
+    /// A secret the user types and that must not be shown back.
+    ///
+    /// A text kind whose distinguishing property is display rather than shape:
+    /// the value is masked, kept out of ordinary autofill history, and never
+    /// echoed back in messages or logs.
+    Password,
+    /// Formatted text carrying its own markup.
+    ///
+    /// Chosen over [ScreenElementFieldKind.string] when the formatting is part
+    /// of the value rather than of the presentation. That makes the stored
+    /// value a document, and moves sanitising the markup into the field's
+    /// concern rather than the renderer's.
+    RichText,
+    /// A colour value.
+    ///
+    /// **Realised by desugaring, not by a colour control**
+    /// (`codespecs_mapping.md` §5.18): free colour entry lowers onto a text field
+    /// whose value is the colour's textual form plus a pattern validation rule,
+    /// and a palette/design-token colour lowers onto a single-choice field whose
+    /// option source is the token catalogue. Naming this kind is what lets the
+    /// generator supply the pattern rule and the swatch preview without the
+    /// specification restating them — it does not promise a picker.
+    Color,
+    /// A file the user supplies rather than types.
+    ///
+    /// The one field kind whose value is a reference to content held elsewhere,
+    /// which is why it has its own `fileOptions` subsection: which content
+    /// kinds are accepted, and how the chosen file is presented back.
+    File,
+}
+
+impl ScreenElementFieldKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ScreenElementFieldKind::String => "string",
+            ScreenElementFieldKind::Integer => "integer",
+            ScreenElementFieldKind::Decimal => "decimal",
+            ScreenElementFieldKind::Currency => "currency",
+            ScreenElementFieldKind::Date => "date",
+            ScreenElementFieldKind::DateTime => "dateTime",
+            ScreenElementFieldKind::Time => "time",
+            ScreenElementFieldKind::Boolean => "boolean",
+            ScreenElementFieldKind::Enumeration => "enumeration",
+            ScreenElementFieldKind::Email => "email",
+            ScreenElementFieldKind::Phone => "phone",
+            ScreenElementFieldKind::Url => "url",
+            ScreenElementFieldKind::Password => "password",
+            ScreenElementFieldKind::RichText => "richText",
+            ScreenElementFieldKind::Color => "color",
+            ScreenElementFieldKind::File => "file",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "string" => Some(ScreenElementFieldKind::String),
+            "integer" => Some(ScreenElementFieldKind::Integer),
+            "decimal" => Some(ScreenElementFieldKind::Decimal),
+            "currency" => Some(ScreenElementFieldKind::Currency),
+            "date" => Some(ScreenElementFieldKind::Date),
+            "dateTime" => Some(ScreenElementFieldKind::DateTime),
+            "time" => Some(ScreenElementFieldKind::Time),
+            "boolean" => Some(ScreenElementFieldKind::Boolean),
+            "enumeration" => Some(ScreenElementFieldKind::Enumeration),
+            "email" => Some(ScreenElementFieldKind::Email),
+            "phone" => Some(ScreenElementFieldKind::Phone),
+            "url" => Some(ScreenElementFieldKind::Url),
+            "password" => Some(ScreenElementFieldKind::Password),
+            "richText" => Some(ScreenElementFieldKind::RichText),
+            "color" => Some(ScreenElementFieldKind::Color),
+            "file" => Some(ScreenElementFieldKind::File),
+            _ => None,
+        }
+    }
+}
 
 /// parse_screen_element_field_kind returns token when it is a known ScreenElementFieldKind value, else "".
 pub fn parse_screen_element_field_kind(token: &str) -> String {
@@ -913,6 +2122,209 @@ pub const SCREEN_ELEMENT_KIND_SPACER: &str = "spacer";
 /// places the strip within a screen section.
 pub const SCREEN_ELEMENT_KIND_TAB_BAR: &str = "tabBar";
 
+/// ScreenElementKind is the generated enum for `ScreenElementKind` values.
+///
+/// The stored token is what [ScreenElementKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ScreenElementKind {
+    /// A standalone command control: activating it runs an action.
+    ///
+    /// The kind to pick when the element *is* the command — a separately
+    /// hit-testable target with its own label, weight and position in the
+    /// section. Selects the [ScreenElementAction] facet.
+    ActionButton,
+    /// An inline navigational control that reads as part of the surrounding
+    /// text.
+    ///
+    /// Selects the same [ScreenElementAction] facet as
+    /// [ScreenElementKind.actionButton]; choosing between the two records
+    /// prominence and reading flow, not capability — a link sits inside the
+    /// content and usually takes the user elsewhere, a button stands apart and
+    /// usually performs work on the screen the user is on.
+    Link,
+    /// A free-text input.
+    ///
+    /// The general-purpose input kind: pick it when the value has no narrower
+    /// structure the runtime could exploit. Selects the
+    /// [ScreenElementFieldSpec] facet, whose own [ScreenElementFieldKind] then
+    /// fixes the value type — so a text field still declares an email, phone or
+    /// password field kind when that is what it holds.
+    TextField,
+    /// A numeric input.
+    ///
+    /// Chosen over [ScreenElementKind.textField] when the value is a quantity,
+    /// so the runtime may supply a numeric keyboard, step controls and range
+    /// checks instead of the specification validating digits after the fact.
+    NumberField,
+    /// A date or time input.
+    ///
+    /// Chosen over [ScreenElementKind.textField] when the value is a point in
+    /// time, which lets the runtime offer a calendar or clock affordance and
+    /// parse in the user's locale rather than asking them to type a format.
+    DateField,
+    /// An input that picks from a bounded set of options.
+    ///
+    /// Chosen when the valid values are enumerable at design time or come from
+    /// a named option source; the field spec's `selectOptions` then carries
+    /// where those options come from and whether one or several may be chosen.
+    SelectField,
+    /// A two-state input drawn as a tickable box with an adjacent label.
+    ///
+    /// Chosen over [ScreenElementKind.toggle] for a value the user is
+    /// *asserting* — consent, membership of a set, an option that only takes
+    /// effect when the surrounding form is submitted.
+    Checkbox,
+    /// A two-state input drawn as a switch.
+    ///
+    /// Chosen over [ScreenElementKind.checkbox] for a setting that takes effect
+    /// the moment it is flipped, so the control reads as turning something on
+    /// rather than as answering a question on a form.
+    Toggle,
+    /// A read-only rendering of a single bound value.
+    ///
+    /// The general display kind, and the fallback when no narrower one fits.
+    /// The value comes from the data binding rather than from authored copy,
+    /// which is what separates it from [ScreenElementKind.label]. Selects the
+    /// [ScreenElementDataDisplay] facet.
+    DataDisplay,
+    /// A read-only rendering of a collection as rows and columns.
+    ///
+    /// Chosen over [ScreenElementKind.dataDisplay] when the bound value is a
+    /// collection whose members share a shape, so column identity, sorting and
+    /// paging become properties of the element rather than of the screen around
+    /// it.
+    DataTable,
+    /// A bounded surface grouping several bound values as one visual unit.
+    ///
+    /// Chosen when the grouping itself carries meaning — the values belong to
+    /// one record and are read together — rather than merely sitting near each
+    /// other, which is a layout concern of the enclosing section.
+    Card,
+    /// A graphical rendering of a collection as a series, distribution or
+    /// proportion.
+    ///
+    /// Chosen over [ScreenElementKind.dataTable] when the shape of the data is
+    /// the message and individual values need not be read exactly. A chart is
+    /// declared here and rendered by whichever platform can
+    /// (`codespecs_mapping.md` §5.28).
+    Chart,
+    /// A compact rendering of a value as a condition — a health light, a
+    /// lifecycle or progress marker.
+    ///
+    /// Chosen over [ScreenElementKind.dataDisplay] when the user is meant to
+    /// read the state at a glance rather than read the underlying value.
+    /// Because the reading is usually carried by colour, it needs a second cue
+    /// as well: colour alone is not a usable channel for everyone (WCAG 2.2,
+    /// success criterion 1.4.1).
+    StatusIndicator,
+    /// A pictogram carrying no bound value.
+    ///
+    /// Chosen when the graphic is meaning rather than decoration but is not
+    /// itself interactive; an icon the user activates is an
+    /// [ScreenElementKind.actionButton] that happens to be drawn as one. It
+    /// still needs a text alternative, since a pictogram on its own is not
+    /// perceivable to assistive technology (WCAG 2.2, success criterion 1.1.1).
+    Icon,
+    /// Authored static text.
+    ///
+    /// Distinguished from [ScreenElementKind.dataDisplay] by where the text
+    /// comes from: a label's copy is authored, and therefore translatable
+    /// through the CE-TX message-key catalogue (`codespecs_mapping.md` §5.21),
+    /// while a data display renders whatever the binding produces.
+    Label,
+    /// A raster or vector graphic presented as content.
+    ///
+    /// Chosen over [ScreenElementKind.icon] when the graphic is content in its
+    /// own right — a photograph, a diagram, a supplied asset — rather than a
+    /// small symbol drawn from the interface's pictogram set.
+    Image,
+    /// A small count or marker attached to another element.
+    ///
+    /// Chosen over [ScreenElementKind.statusIndicator] when the value qualifies
+    /// a neighbouring element — an unread count on a navigation item, a "new"
+    /// marker on a tab — rather than standing on its own.
+    Badge,
+    /// A structural separator drawn between groups of elements.
+    ///
+    /// One of the three structural kinds that select no facet subsection: a
+    /// separator has no action, no value and no binding, so it carries only the
+    /// common element subsections. Pick it when the break between groups is
+    /// meant to be seen; if only distance is wanted, use
+    /// [ScreenElementKind.spacer].
+    Divider,
+    /// A structural gap that reserves space without drawing anything.
+    ///
+    /// Selects no facet subsection. Distinguished from
+    /// [ScreenElementKind.divider] by visibility: a spacer separates by
+    /// distance alone, so it adds no visual rule the reader has to account for.
+    Spacer,
+    /// A structural strip of tabs that switches which content is shown.
+    ///
+    /// Selects no facet subsection because the tabs themselves are specified
+    /// separately as a [TabBarDefinitionEntry]; naming the kind here only
+    /// places the strip within a screen section.
+    TabBar,
+}
+
+impl ScreenElementKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ScreenElementKind::ActionButton => "actionButton",
+            ScreenElementKind::Link => "link",
+            ScreenElementKind::TextField => "textField",
+            ScreenElementKind::NumberField => "numberField",
+            ScreenElementKind::DateField => "dateField",
+            ScreenElementKind::SelectField => "selectField",
+            ScreenElementKind::Checkbox => "checkbox",
+            ScreenElementKind::Toggle => "toggle",
+            ScreenElementKind::DataDisplay => "dataDisplay",
+            ScreenElementKind::DataTable => "dataTable",
+            ScreenElementKind::Card => "card",
+            ScreenElementKind::Chart => "chart",
+            ScreenElementKind::StatusIndicator => "statusIndicator",
+            ScreenElementKind::Icon => "icon",
+            ScreenElementKind::Label => "label",
+            ScreenElementKind::Image => "image",
+            ScreenElementKind::Badge => "badge",
+            ScreenElementKind::Divider => "divider",
+            ScreenElementKind::Spacer => "spacer",
+            ScreenElementKind::TabBar => "tabBar",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "actionButton" => Some(ScreenElementKind::ActionButton),
+            "link" => Some(ScreenElementKind::Link),
+            "textField" => Some(ScreenElementKind::TextField),
+            "numberField" => Some(ScreenElementKind::NumberField),
+            "dateField" => Some(ScreenElementKind::DateField),
+            "selectField" => Some(ScreenElementKind::SelectField),
+            "checkbox" => Some(ScreenElementKind::Checkbox),
+            "toggle" => Some(ScreenElementKind::Toggle),
+            "dataDisplay" => Some(ScreenElementKind::DataDisplay),
+            "dataTable" => Some(ScreenElementKind::DataTable),
+            "card" => Some(ScreenElementKind::Card),
+            "chart" => Some(ScreenElementKind::Chart),
+            "statusIndicator" => Some(ScreenElementKind::StatusIndicator),
+            "icon" => Some(ScreenElementKind::Icon),
+            "label" => Some(ScreenElementKind::Label),
+            "image" => Some(ScreenElementKind::Image),
+            "badge" => Some(ScreenElementKind::Badge),
+            "divider" => Some(ScreenElementKind::Divider),
+            "spacer" => Some(ScreenElementKind::Spacer),
+            "tabBar" => Some(ScreenElementKind::TabBar),
+            _ => None,
+        }
+    }
+}
+
 /// parse_screen_element_kind returns token when it is a known ScreenElementKind value, else "".
 pub fn parse_screen_element_kind(token: &str) -> String {
     match token {
@@ -1013,6 +2425,153 @@ pub const SCREEN_FIELD_KIND_FILE: &str = "file";
 /// honest one.
 pub const SCREEN_FIELD_KIND_BOOLEAN: &str = "boolean";
 
+/// ScreenFieldKind is the generated enum for `ScreenFieldKind` values.
+///
+/// The stored token is what [ScreenFieldKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ScreenFieldKind {
+    /// A single-line free-text value.
+    ///
+    /// Binds the text constraints case (`SCFIVT`): length bounds plus a match
+    /// pattern. Any narrower grammar is stated as that pattern, so the kind
+    /// itself stays a statement about shape rather than about validation.
+    Text,
+    /// Free text the author expects to run to several lines.
+    ///
+    /// Carries the same constraints as [text]; what it records that [text] does
+    /// not is how much room the value needs, which the D09 design pass turns
+    /// into a concrete control.
+    MultilineText,
+    /// A text value that must be a routable e-mail address.
+    ///
+    /// The address grammar is stated as the text case's pattern rather than
+    /// implied by the kind, so a requirement that accepts only corporate
+    /// addresses can say so.
+    Email,
+    /// A text value that must be a dialable telephone number.
+    ///
+    /// Format and length live in the text case's pattern: no single grammar is
+    /// correct across locales, so the kind does not pretend to fix one.
+    Phone,
+    /// A text value that must be a resolvable URL.
+    ///
+    /// The accepted schemes belong in the text case's pattern — a requirement
+    /// that refuses anything but `https` says so there.
+    Url,
+    /// A secret text value.
+    ///
+    /// The kind is what tells the design pass to mask the input and keep it out
+    /// of logs; composition rules ride on the text case. How the value is stored
+    /// or hashed is the security model's decision, not this field's.
+    Password,
+    /// A whole number.
+    ///
+    /// Binds the numeric constraints case (`SCFIVN`): the permitted value range.
+    Integer,
+    /// A fractional number.
+    ///
+    /// Shares the numeric case with [integer]. The precision the value must keep
+    /// is a constraint on it, not a kind of its own.
+    Decimal,
+    /// A monetary amount.
+    ///
+    /// Shares the numeric case but is a distinct kind, because an amount is
+    /// incomplete without the currency it is denominated in and is not rounded
+    /// the way a plain [decimal] is.
+    Currency,
+    /// A calendar date with no time of day.
+    ///
+    /// Binds the temporal constraints case (`SCFIVD`), whose bounds are dates or
+    /// relative expressions rather than numbers.
+    Date,
+    /// An instant — a date together with a time of day.
+    ///
+    /// Kept apart from [date] because it is only unambiguous with a time zone,
+    /// which a date neither has nor needs.
+    DateTime,
+    /// A time of day with no date.
+    ///
+    /// For recurring wall-clock values — an opening hour, a cut-off — where
+    /// pinning the value to one day would be wrong.
+    Time,
+    /// A choice of exactly one option from a stated set.
+    ///
+    /// Binds the choice options case (`SCFICH`), which says where the option set
+    /// comes from — static values, an API, or an entity.
+    SingleSelect,
+    /// A choice of any number of options from a stated set.
+    ///
+    /// Shares the choice case with [singleSelect]; what differs is the
+    /// cardinality of the answer, which is what the design pass needs in order to
+    /// pick a control and what storage needs in order to shape the column.
+    MultiSelect,
+    /// An uploaded file.
+    ///
+    /// Binds the file constraints case (`SCFIFI`) — what content kinds are
+    /// accepted and how large a file may be. Where the bytes end up is neither
+    /// this kind's business nor the design pass's: it is authored on the CE-DB
+    /// file-reference column (`codespecs_mapping.md` §5.13.1).
+    File,
+    /// A truth value.
+    ///
+    /// The one kind that binds no case — it is the `noCase` arm of the group.
+    /// Once the question has been asked there is nothing left about a yes/no
+    /// answer to constrain, so an empty case subsection would be the only
+    /// honest one.
+    Boolean,
+}
+
+impl ScreenFieldKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ScreenFieldKind::Text => "text",
+            ScreenFieldKind::MultilineText => "multilineText",
+            ScreenFieldKind::Email => "email",
+            ScreenFieldKind::Phone => "phone",
+            ScreenFieldKind::Url => "url",
+            ScreenFieldKind::Password => "password",
+            ScreenFieldKind::Integer => "integer",
+            ScreenFieldKind::Decimal => "decimal",
+            ScreenFieldKind::Currency => "currency",
+            ScreenFieldKind::Date => "date",
+            ScreenFieldKind::DateTime => "dateTime",
+            ScreenFieldKind::Time => "time",
+            ScreenFieldKind::SingleSelect => "singleSelect",
+            ScreenFieldKind::MultiSelect => "multiSelect",
+            ScreenFieldKind::File => "file",
+            ScreenFieldKind::Boolean => "boolean",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "text" => Some(ScreenFieldKind::Text),
+            "multilineText" => Some(ScreenFieldKind::MultilineText),
+            "email" => Some(ScreenFieldKind::Email),
+            "phone" => Some(ScreenFieldKind::Phone),
+            "url" => Some(ScreenFieldKind::Url),
+            "password" => Some(ScreenFieldKind::Password),
+            "integer" => Some(ScreenFieldKind::Integer),
+            "decimal" => Some(ScreenFieldKind::Decimal),
+            "currency" => Some(ScreenFieldKind::Currency),
+            "date" => Some(ScreenFieldKind::Date),
+            "dateTime" => Some(ScreenFieldKind::DateTime),
+            "time" => Some(ScreenFieldKind::Time),
+            "singleSelect" => Some(ScreenFieldKind::SingleSelect),
+            "multiSelect" => Some(ScreenFieldKind::MultiSelect),
+            "file" => Some(ScreenFieldKind::File),
+            "boolean" => Some(ScreenFieldKind::Boolean),
+            _ => None,
+        }
+    }
+}
+
 /// parse_screen_field_kind returns token when it is a known ScreenFieldKind value, else "".
 pub fn parse_screen_field_kind(token: &str) -> String {
     match token {
@@ -1043,6 +2602,57 @@ pub const SCREEN_FLOW_OUTCOME_ERROR: &str = "error";
 /// navigating away.
 pub const SCREEN_FLOW_OUTCOME_VALIDATION_ERROR: &str = "validationError";
 
+/// ScreenFlowOutcome is the generated enum for `ScreenFlowOutcome` values.
+///
+/// The stored token is what [ScreenFlowOutcome::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ScreenFlowOutcome {
+    /// The transition taken when the action completed as intended.
+    ///
+    /// The path a flow diagram usually shows. A screen that specifies only this
+    /// outcome has left its failure paths undecided, not impossible.
+    Success,
+    /// The transition taken when the action failed while being processed.
+    ///
+    /// The CE-ER path: the input was accepted but the work did not complete, so
+    /// the destination is normally somewhere the user can retry or ask for
+    /// help, rather than back at the input.
+    Error,
+    /// The transition taken when the action's input was rejected before any
+    /// processing.
+    ///
+    /// The CE-VA path. Distinguished from [ScreenFlowOutcome.error] by who can
+    /// fix it: the user can, and only where the offending input is — which is
+    /// why this outcome typically keeps them on the source screen instead of
+    /// navigating away.
+    ValidationError,
+}
+
+impl ScreenFlowOutcome {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ScreenFlowOutcome::Success => "success",
+            ScreenFlowOutcome::Error => "error",
+            ScreenFlowOutcome::ValidationError => "validationError",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "success" => Some(ScreenFlowOutcome::Success),
+            "error" => Some(ScreenFlowOutcome::Error),
+            "validationError" => Some(ScreenFlowOutcome::ValidationError),
+            _ => None,
+        }
+    }
+}
+
 /// parse_screen_flow_outcome returns token when it is a known ScreenFlowOutcome value, else "".
 pub fn parse_screen_flow_outcome(token: &str) -> String {
     match token {
@@ -1066,6 +2676,49 @@ pub const SCREEN_PRESENTATION_MODE_REPLACE: &str = "replace";
 /// back to exactly the state they left — the overlay interrupts a task
 /// rather than being a step in one.
 pub const SCREEN_PRESENTATION_MODE_POPUP_OVERLAY: &str = "popupOverlay";
+
+/// ScreenPresentationMode is the generated enum for `ScreenPresentationMode` values.
+///
+/// The stored token is what [ScreenPresentationMode::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ScreenPresentationMode {
+    /// The target screen takes the place of the current one in the navigation
+    /// stack.
+    ///
+    /// The ordinary reading of a transition: the source screen is left, so
+    /// nothing about its transient state is guaranteed to survive the move.
+    Replace,
+    /// The target screen is shown over the screen the user came from, which
+    /// stays alive underneath and is revealed again when the overlay closes.
+    ///
+    /// Chosen over [ScreenPresentationMode.replace] when the user must come
+    /// back to exactly the state they left — the overlay interrupts a task
+    /// rather than being a step in one.
+    PopupOverlay,
+}
+
+impl ScreenPresentationMode {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ScreenPresentationMode::Replace => "replace",
+            ScreenPresentationMode::PopupOverlay => "popupOverlay",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "replace" => Some(ScreenPresentationMode::Replace),
+            "popupOverlay" => Some(ScreenPresentationMode::PopupOverlay),
+            _ => None,
+        }
+    }
+}
 
 /// parse_screen_presentation_mode returns token when it is a known ScreenPresentationMode value, else "".
 pub fn parse_screen_presentation_mode(token: &str) -> String {
@@ -1094,6 +2747,55 @@ pub const SERVER_CALL_ROLE_HANDLE_RESPONSE: &str = "handleResponse";
 /// `handleResponse` rather than a branch inside it: the two are separate
 /// bodies and exactly one of them runs.
 pub const SERVER_CALL_ROLE_HANDLE_ERROR: &str = "handleError";
+
+/// ServerCallRole is the generated enum for `ServerCallRole` values.
+///
+/// The stored token is what [ServerCallRole::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ServerCallRole {
+    /// Steps that run before the call leaves — the ones that build the request.
+    ///
+    /// Emitted into the `assembleRequest` method. A step here may read view
+    /// state and validate, but it can say nothing about a response, because none
+    /// exists yet.
+    AssembleRequest,
+    /// Steps that run after a successful response — the ones that apply it.
+    ///
+    /// Emitted into the `handleResponse` method. It is reached only on success,
+    /// so a step here never has to ask whether the call worked.
+    HandleResponse,
+    /// Steps that run after a failed call — the ones that surface the failure.
+    ///
+    /// Emitted into the `handleError` method, which is the sibling of
+    /// `handleResponse` rather than a branch inside it: the two are separate
+    /// bodies and exactly one of them runs.
+    HandleError,
+}
+
+impl ServerCallRole {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ServerCallRole::AssembleRequest => "assembleRequest",
+            ServerCallRole::HandleResponse => "handleResponse",
+            ServerCallRole::HandleError => "handleError",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "assembleRequest" => Some(ServerCallRole::AssembleRequest),
+            "handleResponse" => Some(ServerCallRole::HandleResponse),
+            "handleError" => Some(ServerCallRole::HandleError),
+            _ => None,
+        }
+    }
+}
 
 /// parse_server_call_role returns token when it is a known ServerCallRole value, else "".
 pub fn parse_server_call_role(token: &str) -> String {
@@ -1133,6 +2835,73 @@ pub const STATUS_DEFERRED: &str = "deferred";
 /// re-proposing it.
 pub const STATUS_REJECTED: &str = "rejected";
 
+/// Status is the generated enum for `Status` values.
+///
+/// The stored token is what [Status::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum Status {
+    /// Being authored. The wording may change without notice and nothing
+    /// downstream may be planned, estimated or built against it.
+    Draft,
+    /// Complete enough to be reviewed and awaiting a decision. Review may still
+    /// send it back or reject it outright, so it is not yet a commitment.
+    Proposed,
+    /// Signed off as the agreed intent, and the baseline that downstream work is
+    /// planned and estimated against. From here on a change is a change request
+    /// with its own approval, not a quiet edit.
+    Approved,
+    /// A realising artifact exists, but nothing has yet confirmed it does what
+    /// [approved] committed to. The gap between this and [verified] is exactly
+    /// the evidence, which is why the two are separate states rather than one
+    /// "done".
+    Implemented,
+    /// Implemented *and* shown to meet its acceptance criteria by test or review
+    /// evidence. The only terminal state that means the item is finished.
+    Verified,
+    /// Approved in substance but not scheduled for this delivery, and kept in the
+    /// document so it returns to the backlog instead of being lost. This is the
+    /// lifecycle position; [Priority.wontThisTime] is the scoping decision that
+    /// puts an item here.
+    Deferred,
+    /// Decided against, permanently. Retained rather than deleted so a later
+    /// reader can see the option was considered and why it lost, instead of
+    /// re-proposing it.
+    Rejected,
+}
+
+impl Status {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Status::Draft => "draft",
+            Status::Proposed => "proposed",
+            Status::Approved => "approved",
+            Status::Implemented => "implemented",
+            Status::Verified => "verified",
+            Status::Deferred => "deferred",
+            Status::Rejected => "rejected",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "draft" => Some(Status::Draft),
+            "proposed" => Some(Status::Proposed),
+            "approved" => Some(Status::Approved),
+            "implemented" => Some(Status::Implemented),
+            "verified" => Some(Status::Verified),
+            "deferred" => Some(Status::Deferred),
+            "rejected" => Some(Status::Rejected),
+            _ => None,
+        }
+    }
+}
+
 /// parse_status returns token when it is a known Status value, else "".
 pub fn parse_status(token: &str) -> String {
     match token {
@@ -1149,6 +2918,42 @@ pub const USER_ATTRIBUTE_PLACEMENT_PUBLIC: &str = "public";
 /// Rides the encrypted token payload; readable only by token-decrypting
 /// layers.
 pub const USER_ATTRIBUTE_PLACEMENT_ENCRYPTED: &str = "encrypted";
+
+/// UserAttributePlacement is the generated enum for `UserAttributePlacement` values.
+///
+/// The stored token is what [UserAttributePlacement::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum UserAttributePlacement {
+    /// Rides the public token payload; read access may be guarded by a
+    /// resource key.
+    Public,
+    /// Rides the encrypted token payload; readable only by token-decrypting
+    /// layers.
+    Encrypted,
+}
+
+impl UserAttributePlacement {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            UserAttributePlacement::Public => "public",
+            UserAttributePlacement::Encrypted => "encrypted",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "public" => Some(UserAttributePlacement::Public),
+            "encrypted" => Some(UserAttributePlacement::Encrypted),
+            _ => None,
+        }
+    }
+}
 
 /// parse_user_attribute_placement returns token when it is a known UserAttributePlacement value, else "".
 pub fn parse_user_attribute_placement(token: &str) -> String {
@@ -68306,13 +70111,14 @@ impl AlternativeFlowEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "outcome", value);
     }
 
-    pub fn return_kind(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "returnKind")
+    pub fn return_kind(&self) -> Option<FlowReturnPoint> {
+        FlowReturnPoint::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "returnKind"))
     }
 
-    pub fn set_return_kind(&self, value: &str) {
+    pub fn set_return_kind(&self, value: Option<FlowReturnPoint>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "returnKind", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "returnKind", text);
     }
 
     pub fn frequency(&self) -> String {
@@ -72326,13 +74132,14 @@ impl AuthorizationRequirementSpecContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn requirement_kind(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requirementKind")
+    pub fn requirement_kind(&self) -> Option<AuthorizationRequirementKind> {
+        AuthorizationRequirementKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "requirementKind"))
     }
 
-    pub fn set_requirement_kind(&self, value: &str) {
+    pub fn set_requirement_kind(&self, value: Option<AuthorizationRequirementKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requirementKind", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "requirementKind", text);
     }
 
     pub fn rationale(&self) -> String {
@@ -80956,13 +82763,14 @@ impl ChangeCategoryEntryHandlingForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn default_impact_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "defaultImpactLevel")
+    pub fn default_impact_level(&self) -> Option<Impact> {
+        Impact::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "defaultImpactLevel"))
     }
 
-    pub fn set_default_impact_level(&self, value: &str) {
+    pub fn set_default_impact_level(&self, value: Option<Impact>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "defaultImpactLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultImpactLevel", text);
     }
 
     pub fn approval_path(&self) -> String {
@@ -84019,13 +85827,14 @@ impl ClientApplicationEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "clientId", value);
     }
 
-    pub fn client_kind(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "clientKind")
+    pub fn client_kind(&self) -> Option<ClientApplicationKind> {
+        ClientApplicationKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "clientKind"))
     }
 
-    pub fn set_client_kind(&self, value: &str) {
+    pub fn set_client_kind(&self, value: Option<ClientApplicationKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "clientKind", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "clientKind", text);
     }
 
     pub fn purpose(&self) -> String {
@@ -92438,22 +94247,24 @@ impl ComponentRiskEntryAssessmentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn probability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "probability")
+    pub fn probability(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "probability"))
     }
 
-    pub fn set_probability(&self, value: &str) {
+    pub fn set_probability(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "probability", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "probability", text);
     }
 
-    pub fn impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impact")
+    pub fn impact(&self) -> Option<Impact> {
+        Impact::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impact"))
     }
 
-    pub fn set_impact(&self, value: &str) {
+    pub fn set_impact(&self, value: Option<Impact>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impact", text);
     }
 
     pub fn risk_score(&self) -> Option<i64> {
@@ -98655,13 +100466,14 @@ impl DataAttributeEntryDataTypeSpecForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn data_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dataType")
+    pub fn data_type(&self) -> Option<DataAttributeKind> {
+        DataAttributeKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "dataType"))
     }
 
-    pub fn set_data_type(&self, value: &str) {
+    pub fn set_data_type(&self, value: Option<DataAttributeKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dataType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataType", text);
     }
 
     pub fn physical_type(&self) -> String {
@@ -124147,13 +125959,14 @@ impl ExportFieldMappingEntryFormattingForm {
         self.node.doc().borrow_mut().set_form_field(&path, "displayOrder", &text);
     }
 
-    pub fn data_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dataType")
+    pub fn data_type(&self) -> Option<ExportFieldKind> {
+        ExportFieldKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "dataType"))
     }
 
-    pub fn set_data_type(&self, value: &str) {
+    pub fn set_data_type(&self, value: Option<ExportFieldKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dataType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataType", text);
     }
 }
 
@@ -125440,13 +127253,14 @@ impl ExtensionEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "outcome", value);
     }
 
-    pub fn return_kind(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "returnKind")
+    pub fn return_kind(&self) -> Option<FlowReturnPoint> {
+        FlowReturnPoint::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "returnKind"))
     }
 
-    pub fn set_return_kind(&self, value: &str) {
+    pub fn set_return_kind(&self, value: Option<FlowReturnPoint>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "returnKind", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "returnKind", text);
     }
 
     pub fn frequency(&self) -> String {
@@ -128578,13 +130392,14 @@ impl FeaturePriorityEntryPriorityScoringForm {
         self.node.doc().borrow_mut().set_form_field(&path, "weightedPriorityScore", value);
     }
 
-    pub fn moscow_tier(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "moscowTier")
+    pub fn moscow_tier(&self) -> Option<Priority> {
+        Priority::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "moscowTier"))
     }
 
-    pub fn set_moscow_tier(&self, value: &str) {
+    pub fn set_moscow_tier(&self, value: Option<Priority>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "moscowTier", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "moscowTier", text);
     }
 
     pub fn wsjf_score(&self) -> String {
@@ -130238,13 +132053,14 @@ impl FormScreenAssignmentEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "routeId", value);
     }
 
-    pub fn presentation_mode(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "presentationMode")
+    pub fn presentation_mode(&self) -> Option<ScreenPresentationMode> {
+        ScreenPresentationMode::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "presentationMode"))
     }
 
-    pub fn set_presentation_mode(&self, value: &str) {
+    pub fn set_presentation_mode(&self, value: Option<ScreenPresentationMode>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "presentationMode", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "presentationMode", text);
     }
 }
 
@@ -131279,13 +133095,14 @@ impl FunctionalRequirementEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn status(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "status")
+    pub fn status(&self) -> Option<Status> {
+        Status::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "status"))
     }
 
-    pub fn set_status(&self, value: &str) {
+    pub fn set_status(&self, value: Option<Status>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "status", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "status", text);
     }
 }
 
@@ -131432,13 +133249,14 @@ impl FunctionalRequirementEntryPriorityForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<Priority> {
+        Priority::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<Priority>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn business_value(&self) -> String {
@@ -133124,22 +134942,24 @@ impl GradedAccessLevelEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn access_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "accessLevel")
+    pub fn access_level(&self) -> Option<GradedAccessLevel> {
+        GradedAccessLevel::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "accessLevel"))
     }
 
-    pub fn set_access_level(&self, value: &str) {
+    pub fn set_access_level(&self, value: Option<GradedAccessLevel>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "accessLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "accessLevel", text);
     }
 
-    pub fn requirement_kind(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requirementKind")
+    pub fn requirement_kind(&self) -> Option<BasicAuthorizationRequirementKind> {
+        BasicAuthorizationRequirementKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "requirementKind"))
     }
 
-    pub fn set_requirement_kind(&self, value: &str) {
+    pub fn set_requirement_kind(&self, value: Option<BasicAuthorizationRequirementKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requirementKind", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "requirementKind", text);
     }
 }
 
@@ -144130,13 +145950,14 @@ impl Iso25010CoverageEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn characteristic(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "characteristic")
+    pub fn characteristic(&self) -> Option<Iso25010Characteristic> {
+        Iso25010Characteristic::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "characteristic"))
     }
 
-    pub fn set_characteristic(&self, value: &str) {
+    pub fn set_characteristic(&self, value: Option<Iso25010Characteristic>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "characteristic", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "characteristic", text);
     }
 
     pub fn addressed_by(&self) -> String {
@@ -154605,13 +156426,14 @@ impl MigrationRiskEntryMitigationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "mitigationStatus", value);
     }
 
-    pub fn residual_probability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "residualProbability")
+    pub fn residual_probability(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "residualProbability"))
     }
 
-    pub fn set_residual_probability(&self, value: &str) {
+    pub fn set_residual_probability(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "residualProbability", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "residualProbability", text);
     }
 
     pub fn residual_impact(&self) -> String {
@@ -154664,13 +156486,14 @@ impl MigrationRiskEntryProbabilityForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn probability_rating(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "probabilityRating")
+    pub fn probability_rating(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "probabilityRating"))
     }
 
-    pub fn set_probability_rating(&self, value: &str) {
+    pub fn set_probability_rating(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "probabilityRating", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "probabilityRating", text);
     }
 
     pub fn probability_score(&self) -> Option<i64> {
@@ -157641,13 +159464,14 @@ impl MoscowEntryClassificationForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn moscow_category(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "moscowCategory")
+    pub fn moscow_category(&self) -> Option<Priority> {
+        Priority::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "moscowCategory"))
     }
 
-    pub fn set_moscow_category(&self, value: &str) {
+    pub fn set_moscow_category(&self, value: Option<Priority>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "moscowCategory", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "moscowCategory", text);
     }
 
     pub fn justification(&self) -> String {
@@ -162561,13 +164385,14 @@ impl ObjectStateEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "description", value);
     }
 
-    pub fn state_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "stateType")
+    pub fn state_type(&self) -> Option<ObjectLifecycleKind> {
+        ObjectLifecycleKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "stateType"))
     }
 
-    pub fn set_state_type(&self, value: &str) {
+    pub fn set_state_type(&self, value: Option<ObjectLifecycleKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "stateType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "stateType", text);
     }
 
     pub fn entry_conditions(&self) -> String {
@@ -165278,13 +167103,14 @@ impl OrganizationalRequirementEntryClassificationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "subcategory", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<Priority> {
+        Priority::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<Priority>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn source(&self) -> String {
@@ -184602,13 +186428,14 @@ impl ReportColumnEntryDataSourceForm {
         self.node.doc().borrow_mut().set_form_field(&path, "dataSourceField", value);
     }
 
-    pub fn data_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dataType")
+    pub fn data_type(&self) -> Option<ReportColumnKind> {
+        ReportColumnKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "dataType"))
     }
 
-    pub fn set_data_type(&self, value: &str) {
+    pub fn set_data_type(&self, value: Option<ReportColumnKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dataType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataType", text);
     }
 }
 
@@ -186354,13 +188181,14 @@ impl ReportFilterEntryInputForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn data_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dataType")
+    pub fn data_type(&self) -> Option<ReportFilterValueKind> {
+        ReportFilterValueKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "dataType"))
     }
 
-    pub fn set_data_type(&self, value: &str) {
+    pub fn set_data_type(&self, value: Option<ReportFilterValueKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dataType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataType", text);
     }
 
     pub fn default_value(&self) -> String {
@@ -192168,13 +193996,14 @@ impl RiskEntryAnalysisForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn probability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "probability")
+    pub fn probability(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "probability"))
     }
 
-    pub fn set_probability(&self, value: &str) {
+    pub fn set_probability(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "probability", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "probability", text);
     }
 
     pub fn probability_value(&self) -> Option<f64> {
@@ -192188,13 +194017,14 @@ impl RiskEntryAnalysisForm {
         self.node.doc().borrow_mut().set_form_field(&path, "probabilityValue", &text);
     }
 
-    pub fn impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impact")
+    pub fn impact(&self) -> Option<Impact> {
+        Impact::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impact"))
     }
 
-    pub fn set_impact(&self, value: &str) {
+    pub fn set_impact(&self, value: Option<Impact>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impact", text);
     }
 
     pub fn impact_value(&self) -> Option<f64> {
@@ -192994,22 +194824,24 @@ impl RiskResponseResidualForm {
         self.node.doc().borrow_mut().set_form_field(&path, "residualRisk", value);
     }
 
-    pub fn residual_probability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "residualProbability")
+    pub fn residual_probability(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "residualProbability"))
     }
 
-    pub fn set_residual_probability(&self, value: &str) {
+    pub fn set_residual_probability(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "residualProbability", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "residualProbability", text);
     }
 
-    pub fn residual_impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "residualImpact")
+    pub fn residual_impact(&self) -> Option<Impact> {
+        Impact::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "residualImpact"))
     }
 
-    pub fn set_residual_impact(&self, value: &str) {
+    pub fn set_residual_impact(&self, value: Option<Impact>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "residualImpact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "residualImpact", text);
     }
 
     pub fn secondary_risks(&self) -> String {
@@ -197326,13 +199158,14 @@ impl ScheduledJobEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "purpose", value);
     }
 
-    pub fn trigger_kind(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "triggerKind")
+    pub fn trigger_kind(&self) -> Option<ScheduledJobTrigger> {
+        ScheduledJobTrigger::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "triggerKind"))
     }
 
-    pub fn set_trigger_kind(&self, value: &str) {
+    pub fn set_trigger_kind(&self, value: Option<ScheduledJobTrigger>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "triggerKind", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "triggerKind", text);
     }
 
     pub fn primary_data_entity(&self) -> String {
@@ -198045,13 +199878,14 @@ impl SchemaMigrationStepEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "description", value);
     }
 
-    pub fn artifact_kind(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "artifactKind")
+    pub fn artifact_kind(&self) -> Option<MigrationArtifactKind> {
+        MigrationArtifactKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "artifactKind"))
     }
 
-    pub fn set_artifact_kind(&self, value: &str) {
+    pub fn set_artifact_kind(&self, value: Option<MigrationArtifactKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "artifactKind", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "artifactKind", text);
     }
 
     pub fn migration_target(&self) -> String {
@@ -199218,13 +201052,14 @@ impl ScreenElementEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "elementId", value);
     }
 
-    pub fn element_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "elementType")
+    pub fn element_type(&self) -> Option<ScreenElementKind> {
+        ScreenElementKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "elementType"))
     }
 
-    pub fn set_element_type(&self, value: &str) {
+    pub fn set_element_type(&self, value: Option<ScreenElementKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "elementType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "elementType", text);
     }
 }
 
@@ -199475,13 +201310,14 @@ impl ScreenElementFieldSpecContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "fieldName", value);
     }
 
-    pub fn data_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dataType")
+    pub fn data_type(&self) -> Option<ScreenElementFieldKind> {
+        ScreenElementFieldKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "dataType"))
     }
 
-    pub fn set_data_type(&self, value: &str) {
+    pub fn set_data_type(&self, value: Option<ScreenElementFieldKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dataType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataType", text);
     }
 
     pub fn placeholder_resource(&self) -> String {
@@ -200342,13 +202178,14 @@ impl ScreenFieldEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "fieldId", value);
     }
 
-    pub fn field_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "fieldType")
+    pub fn field_type(&self) -> Option<ScreenFieldKind> {
+        ScreenFieldKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "fieldType"))
     }
 
-    pub fn set_field_type(&self, value: &str) {
+    pub fn set_field_type(&self, value: Option<ScreenFieldKind>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "fieldType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "fieldType", text);
     }
 }
 
@@ -201196,13 +203033,14 @@ impl ScreenTransitionEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "actionId", value);
     }
 
-    pub fn outcome(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "outcome")
+    pub fn outcome(&self) -> Option<ScreenFlowOutcome> {
+        ScreenFlowOutcome::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "outcome"))
     }
 
-    pub fn set_outcome(&self, value: &str) {
+    pub fn set_outcome(&self, value: Option<ScreenFlowOutcome>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "outcome", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "outcome", text);
     }
 
     pub fn target_route_id(&self) -> String {
@@ -201214,13 +203052,14 @@ impl ScreenTransitionEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "targetRouteId", value);
     }
 
-    pub fn presentation_mode(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "presentationMode")
+    pub fn presentation_mode(&self) -> Option<ScreenPresentationMode> {
+        ScreenPresentationMode::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "presentationMode"))
     }
 
-    pub fn set_presentation_mode(&self, value: &str) {
+    pub fn set_presentation_mode(&self, value: Option<ScreenPresentationMode>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "presentationMode", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "presentationMode", text);
     }
 
     pub fn outcome_reference(&self) -> String {
@@ -203208,13 +205047,14 @@ impl SecurityRequirementEntryStatusInfoForm {
         self.node.doc().borrow_mut().set_form_field(&path, "riskOwner", value);
     }
 
-    pub fn status(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "status")
+    pub fn status(&self) -> Option<Status> {
+        Status::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "status"))
     }
 
-    pub fn set_status(&self, value: &str) {
+    pub fn set_status(&self, value: Option<Status>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "status", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "status", text);
     }
 }
 
@@ -204707,13 +206547,14 @@ impl ServerCallStepEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn role(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "role")
+    pub fn role(&self) -> Option<ServerCallRole> {
+        ServerCallRole::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "role"))
     }
 
-    pub fn set_role(&self, value: &str) {
+    pub fn set_role(&self, value: Option<ServerCallRole>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "role", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "role", text);
     }
 
     pub fn system_action(&self) -> String {
@@ -212135,22 +213976,24 @@ impl StageMigrationRiskEntryProbabilityImpactForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn probability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "probability")
+    pub fn probability(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "probability"))
     }
 
-    pub fn set_probability(&self, value: &str) {
+    pub fn set_probability(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "probability", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "probability", text);
     }
 
-    pub fn impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impact")
+    pub fn impact(&self) -> Option<Impact> {
+        Impact::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impact"))
     }
 
-    pub fn set_impact(&self, value: &str) {
+    pub fn set_impact(&self, value: Option<Impact>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impact", text);
     }
 
     pub fn risk_score(&self) -> String {
@@ -212210,22 +214053,24 @@ impl StageMigrationRiskEntryResidualForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn residual_probability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "residualProbability")
+    pub fn residual_probability(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "residualProbability"))
     }
 
-    pub fn set_residual_probability(&self, value: &str) {
+    pub fn set_residual_probability(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "residualProbability", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "residualProbability", text);
     }
 
-    pub fn residual_impact(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "residualImpact")
+    pub fn residual_impact(&self) -> Option<Impact> {
+        Impact::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "residualImpact"))
     }
 
-    pub fn set_residual_impact(&self, value: &str) {
+    pub fn set_residual_impact(&self, value: Option<Impact>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "residualImpact", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "residualImpact", text);
     }
 
     pub fn residual_risk_acceptable(&self) -> String {
@@ -225616,13 +227461,14 @@ impl TechnicalRequirementEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn status(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "status")
+    pub fn status(&self) -> Option<Status> {
+        Status::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "status"))
     }
 
-    pub fn set_status(&self, value: &str) {
+    pub fn set_status(&self, value: Option<Status>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "status", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "status", text);
     }
 }
 
@@ -238820,13 +240666,14 @@ impl UserAttributeEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "dataType", value);
     }
 
-    pub fn placement(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "placement")
+    pub fn placement(&self) -> Option<UserAttributePlacement> {
+        UserAttributePlacement::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "placement"))
     }
 
-    pub fn set_placement(&self, value: &str) {
+    pub fn set_placement(&self, value: Option<UserAttributePlacement>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "placement", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "placement", text);
     }
 
     pub fn access_guard(&self) -> String {

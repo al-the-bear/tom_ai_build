@@ -570,14 +570,22 @@ void main() {
       expect(source, contains('x.Path() + "/mf2"'));
     });
 
-    test('enum tokens are preserved as exported constants', () {
+    test('an enum becomes a defined type over string, and the tokens are '
+        'preserved as typed constants', () {
       final source = SomGoEmitter(_fixtureModel()).generateLibrary();
+      // Go's nearest thing to an enum: a defined type whose underlying type is
+      // `string`, so the VALUE is the stored token and an accessor can still
+      // name what it returns.
+      expect(source, contains('type Probability string'));
       // Token stays byte-identical; only the constant identifier is derived.
       // Names are padded so the `=` column-aligns (gofmt const-group style).
-      expect(source, contains('ProbabilityLow    = "low"'));
-      expect(source, contains('ProbabilityMedium = "medium"'));
-      expect(source, contains('ProbabilityHigh   = "high"'));
-      expect(source, contains('func parseProbability(token string) string'));
+      expect(source, contains('ProbabilityLow    Probability = "low"'));
+      expect(source, contains('ProbabilityMedium Probability = "medium"'));
+      expect(source, contains('ProbabilityHigh   Probability = "high"'));
+      expect(
+        source,
+        contains('func parseProbability(token string) Probability'),
+      );
     });
 
     test('a pattern-bearing list emits its @SectionIdPattern; a scalar list '

@@ -18,19 +18,25 @@ import som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 // in-source counterpart of the VCS tag used to pin the module (SOM §4.2).
 const Version = "v0.0.0"
 
-// Generated enum constants for `Probability` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// Probability is the generated named type for `Probability` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type Probability string
+
 const (
-	ProbabilityLow    = "low"
-	ProbabilityMedium = "medium"
-	ProbabilityHigh   = "high"
+	ProbabilityLow    Probability = "low"
+	ProbabilityMedium Probability = "medium"
+	ProbabilityHigh   Probability = "high"
 )
 
-// parseProbability returns token when it is a known Probability value, else "".
-func parseProbability(token string) string {
-	switch token {
+// parseProbability returns the Probability whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseProbability(token string) Probability {
+	switch Probability(token) {
 	case ProbabilityLow, ProbabilityMedium, ProbabilityHigh:
-		return token
+		return Probability(token)
 	}
 	return ""
 }
@@ -69,12 +75,12 @@ func (x *Risk) SetTitle(value string) {
 	x.Doc().SetContent(x.Path()+"/title", value)
 }
 
-func (x *Risk) Probability() string {
+func (x *Risk) Probability() Probability {
 	return parseProbability(x.Doc().ContentOr(x.Path() + "/prob"))
 }
 
-func (x *Risk) SetProbability(value string) {
-	x.Doc().SetContent(x.Path()+"/prob", value)
+func (x *Risk) SetProbability(value Probability) {
+	x.Doc().SetContent(x.Path()+"/prob", string(value))
 }
 
 // Root of a project definition document.

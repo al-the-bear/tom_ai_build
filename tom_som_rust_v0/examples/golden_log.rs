@@ -252,7 +252,15 @@ fn main() {
     for i in 0..coverage.length() {
         let cform = coverage.at(i).content();
         let cpath = cform.node.path().to_string();
-        out.push(typed_form(&cpath, "characteristic", &cform.characteristic()));
+        // The accessor is typed now; the log records the STORED TOKEN, which is
+        // what makes this file byte-identical to the other eight. `None` — a
+        // token this model does not declare — logs as the empty string, the
+        // same as every other port's absent value.
+        out.push(typed_form(
+            &cpath,
+            "characteristic",
+            cform.characteristic().map_or("", |v| v.as_str()),
+        ));
     }
 
     // --- Meta (FORMAT 2): the generated metadata tree read three ways. Every

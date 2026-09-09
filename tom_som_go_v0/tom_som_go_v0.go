@@ -22,132 +22,154 @@ import (
 // in-source counterpart of the VCS tag used to pin the module (SOM §4.2).
 const Version = "v1.2.0"
 
-// Generated enum constants for `AuthorizationRequirementKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// AuthorizationRequirementKind is the generated named type for `AuthorizationRequirementKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type AuthorizationRequirementKind string
+
 const (
 	// The caller must hold one of a named set of roles.
-	AuthorizationRequirementKindRole = "role"
+	AuthorizationRequirementKindRole AuthorizationRequirementKind = "role"
 	// The caller must belong to one of a named set of groups.
-	AuthorizationRequirementKindGroup = "group"
+	AuthorizationRequirementKindGroup AuthorizationRequirementKind = "group"
 	// The caller's entitlements must match one of a set of patterns.
-	AuthorizationRequirementKindEntitlement = "entitlement"
+	AuthorizationRequirementKindEntitlement AuthorizationRequirementKind = "entitlement"
 	// The caller must hold a grant on a named resource key.
-	AuthorizationRequirementKindResourceKey = "resourceKey"
+	AuthorizationRequirementKindResourceKey AuthorizationRequirementKind = "resourceKey"
 	// A registered handler decides, against a named resource id.
-	AuthorizationRequirementKindCustom = "custom"
+	AuthorizationRequirementKindCustom AuthorizationRequirementKind = "custom"
 	// A graded requirement resolving to one of the four access states.
-	AuthorizationRequirementKindGraded = "graded"
+	AuthorizationRequirementKindGraded AuthorizationRequirementKind = "graded"
 	// Deny unconditionally.
-	AuthorizationRequirementKindDenied = "denied"
+	AuthorizationRequirementKindDenied AuthorizationRequirementKind = "denied"
 	// Allow unconditionally, signed in or not.
-	AuthorizationRequirementKindPublic = "public"
+	AuthorizationRequirementKindPublic AuthorizationRequirementKind = "public"
 	// Allow any signed-in caller.
-	AuthorizationRequirementKindAuthenticated = "authenticated"
+	AuthorizationRequirementKindAuthenticated AuthorizationRequirementKind = "authenticated"
 	// Allow the guest caller.
-	AuthorizationRequirementKindGuest = "guest"
+	AuthorizationRequirementKindGuest AuthorizationRequirementKind = "guest"
 )
 
-// parseAuthorizationRequirementKind returns token when it is a known AuthorizationRequirementKind value, else "".
-func parseAuthorizationRequirementKind(token string) string {
-	switch token {
+// parseAuthorizationRequirementKind returns the AuthorizationRequirementKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseAuthorizationRequirementKind(token string) AuthorizationRequirementKind {
+	switch AuthorizationRequirementKind(token) {
 	case AuthorizationRequirementKindRole, AuthorizationRequirementKindGroup, AuthorizationRequirementKindEntitlement, AuthorizationRequirementKindResourceKey, AuthorizationRequirementKindCustom, AuthorizationRequirementKindGraded, AuthorizationRequirementKindDenied, AuthorizationRequirementKindPublic, AuthorizationRequirementKindAuthenticated, AuthorizationRequirementKindGuest:
-		return token
+		return AuthorizationRequirementKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `BasicAuthorizationRequirementKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// BasicAuthorizationRequirementKind is the generated named type for `BasicAuthorizationRequirementKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type BasicAuthorizationRequirementKind string
+
 const (
 	// The caller must hold one of a named set of roles.
-	BasicAuthorizationRequirementKindRole = "role"
+	BasicAuthorizationRequirementKindRole BasicAuthorizationRequirementKind = "role"
 	// The caller must belong to one of a named set of groups.
-	BasicAuthorizationRequirementKindGroup = "group"
+	BasicAuthorizationRequirementKindGroup BasicAuthorizationRequirementKind = "group"
 	// The caller's entitlements must match one of a set of patterns.
-	BasicAuthorizationRequirementKindEntitlement = "entitlement"
+	BasicAuthorizationRequirementKindEntitlement BasicAuthorizationRequirementKind = "entitlement"
 	// The caller must hold a grant on a named resource key.
-	BasicAuthorizationRequirementKindResourceKey = "resourceKey"
+	BasicAuthorizationRequirementKindResourceKey BasicAuthorizationRequirementKind = "resourceKey"
 	// A registered handler decides, against a named resource id.
-	BasicAuthorizationRequirementKindCustom = "custom"
+	BasicAuthorizationRequirementKindCustom BasicAuthorizationRequirementKind = "custom"
 	// Deny unconditionally.
-	BasicAuthorizationRequirementKindDenied = "denied"
+	BasicAuthorizationRequirementKindDenied BasicAuthorizationRequirementKind = "denied"
 	// Allow unconditionally, signed in or not.
-	BasicAuthorizationRequirementKindPublic = "public"
+	BasicAuthorizationRequirementKindPublic BasicAuthorizationRequirementKind = "public"
 	// Allow any signed-in caller.
-	BasicAuthorizationRequirementKindAuthenticated = "authenticated"
+	BasicAuthorizationRequirementKindAuthenticated BasicAuthorizationRequirementKind = "authenticated"
 	// Allow the guest caller.
-	BasicAuthorizationRequirementKindGuest = "guest"
+	BasicAuthorizationRequirementKindGuest BasicAuthorizationRequirementKind = "guest"
 )
 
-// parseBasicAuthorizationRequirementKind returns token when it is a known BasicAuthorizationRequirementKind value, else "".
-func parseBasicAuthorizationRequirementKind(token string) string {
-	switch token {
+// parseBasicAuthorizationRequirementKind returns the BasicAuthorizationRequirementKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseBasicAuthorizationRequirementKind(token string) BasicAuthorizationRequirementKind {
+	switch BasicAuthorizationRequirementKind(token) {
 	case BasicAuthorizationRequirementKindRole, BasicAuthorizationRequirementKindGroup, BasicAuthorizationRequirementKindEntitlement, BasicAuthorizationRequirementKindResourceKey, BasicAuthorizationRequirementKindCustom, BasicAuthorizationRequirementKindDenied, BasicAuthorizationRequirementKindPublic, BasicAuthorizationRequirementKindAuthenticated, BasicAuthorizationRequirementKindGuest:
-		return token
+		return BasicAuthorizationRequirementKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ClientApplicationKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ClientApplicationKind is the generated named type for `ClientApplicationKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ClientApplicationKind string
+
 const (
 	// A graphical application with screens, forms and navigation.
-	ClientApplicationKindGraphicalApplication = "graphicalApplication"
+	ClientApplicationKindGraphicalApplication ClientApplicationKind = "graphicalApplication"
 	// A command-line client driven by arguments and standard streams.
-	ClientApplicationKindCommandLine = "commandLine"
+	ClientApplicationKindCommandLine ClientApplicationKind = "commandLine"
 	// Another server calling this system as a client.
-	ClientApplicationKindServer = "server"
+	ClientApplicationKindServer ClientApplicationKind = "server"
 )
 
-// parseClientApplicationKind returns token when it is a known ClientApplicationKind value, else "".
-func parseClientApplicationKind(token string) string {
-	switch token {
+// parseClientApplicationKind returns the ClientApplicationKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseClientApplicationKind(token string) ClientApplicationKind {
+	switch ClientApplicationKind(token) {
 	case ClientApplicationKindGraphicalApplication, ClientApplicationKindCommandLine, ClientApplicationKindServer:
-		return token
+		return ClientApplicationKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `DataAttributeKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// DataAttributeKind is the generated named type for `DataAttributeKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type DataAttributeKind string
+
 const (
 	// Character data of bounded length. Binds
 	// [DataAttributeEntry.textTypeOptions], whose two attributes are what a text
 	// column cannot be emitted without: the length fixes the physical
 	// `VARCHAR(n)`, and the collation fixes how comparison and sorting behave
 	// (`codespecs_mapping.md` §5.13).
-	DataAttributeKindString = "string"
+	DataAttributeKindString DataAttributeKind = "string"
 	// An exact whole number. Shares [DataAttributeEntry.numericTypeOptions] with
 	// [decimal], which carries precision and scale; an integer attribute leaves
 	// the scale at zero. It stays a constant of its own rather than a decimal
 	// with scale zero because the emitted column type differs, and because
 	// "whole number" is a statement about the domain that a zero scale only
 	// implies.
-	DataAttributeKindInteger = "integer"
+	DataAttributeKindInteger DataAttributeKind = "integer"
 	// An exact fixed-point number. The distinction from [integer] is the scale:
 	// only a decimal may set a non-zero one, and the scale is a business fact —
 	// a monetary amount rounded to two places and one rounded to four are
 	// different specifications, and the difference is invisible in the physical
 	// type alone.
-	DataAttributeKindDecimal = "decimal"
+	DataAttributeKindDecimal DataAttributeKind = "decimal"
 	// A calendar date with no time of day. Shares
 	// [DataAttributeEntry.temporalTypeOptions] with [dateTime], but the timezone
 	// attribute that option set carries is inert here: a date names a day, not
 	// an instant, so it must not shift when read in another zone. Storing a date
 	// as an instant to reuse one type is the classic way to make a birthday
 	// move.
-	DataAttributeKindDate = "date"
+	DataAttributeKindDate DataAttributeKind = "date"
 	// An instant — a date together with a time of day. The kind for which the
 	// shared temporal timezone attribute is load-bearing: one instant renders as
 	// two different wall-clock readings in two zones, so the specification has
 	// to say which reading is stored (`ISO 8601-1:2019` is the representation
 	// authority named on that option set).
-	DataAttributeKindDateTime = "dateTime"
+	DataAttributeKindDateTime DataAttributeKind = "dateTime"
 	// Raw bytes held in the record itself, so what a specification constrains is
 	// their stored size — see [DataAttributeEntry.binaryTypeOptions]. Bytes held
 	// *outside* the record are [fileReference], which is a separate kind rather
 	// than a storage mode of this one.
-	DataAttributeKindBinary = "binary"
+	DataAttributeKindBinary DataAttributeKind = "binary"
 	// An attribute whose stored value is the **address of a stored file**, not
 	// the file's content (csra10).
 	//
@@ -158,19 +180,19 @@ const (
 	// be uploaded into it. Nothing in the binary option set answers any of
 	// those, which is why this is a kind of its own rather than a mode of
 	// [binary].
-	DataAttributeKindFileReference = "fileReference"
+	DataAttributeKindFileReference DataAttributeKind = "fileReference"
 	// A two-valued attribute. It binds no case because a truth value has nothing
 	// to constrain: no length, no precision, no range, no value set. The whole
 	// of its CE-DB surface is its value type (`codespecs_mapping.md` §5.13),
 	// which the discriminator itself already states.
-	DataAttributeKindBoolean = "boolean"
+	DataAttributeKindBoolean DataAttributeKind = "boolean"
 	// An attribute holding a generated unique identifier. It binds no case
 	// because a specification chooses nothing about one: the value is machine-
 	// generated rather than authored, in the same way a file reference's stored
 	// address is derived and never authored (`codespecs_mapping.md` §5.13.1).
 	// Whether the identifier is the entity's key is the entity's identity
 	// attribute, not this attribute's type option.
-	DataAttributeKindUuid = "uuid"
+	DataAttributeKindUuid DataAttributeKind = "uuid"
 	// An attribute whose stored value is a structured document rather than a
 	// scalar. It binds no case because `codespecs_mapping.md` §5.13's attribute
 	// surface carries the kind as a single flag — the substrate's
@@ -180,7 +202,7 @@ const (
 	// one whose shape is only *checked* is checked by a constraint
 	// (`DataAttributeConstraintEntry`, CE-VA), so a schema attribute here would
 	// be a second home for one of those two answers.
-	DataAttributeKindJson = "json"
+	DataAttributeKindJson DataAttributeKind = "json"
 	// An attribute drawn from a declared value set — a domain enum.
 	//
 	// It binds [DataAttributeEntry.enumerationTypeOptions], which names
@@ -196,150 +218,180 @@ const (
 	// Narrowing — this attribute permitting only *some* of the enum's values —
 	// is a constraint, so it stays in the `constraints` list
 	// (`DATAA.allowedValues`) where every other per-attribute restriction lives.
-	DataAttributeKindEnumeration = "enumeration"
+	DataAttributeKindEnumeration DataAttributeKind = "enumeration"
 )
 
-// parseDataAttributeKind returns token when it is a known DataAttributeKind value, else "".
-func parseDataAttributeKind(token string) string {
-	switch token {
+// parseDataAttributeKind returns the DataAttributeKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseDataAttributeKind(token string) DataAttributeKind {
+	switch DataAttributeKind(token) {
 	case DataAttributeKindString, DataAttributeKindInteger, DataAttributeKindDecimal, DataAttributeKindDate, DataAttributeKindDateTime, DataAttributeKindBinary, DataAttributeKindFileReference, DataAttributeKindBoolean, DataAttributeKindUuid, DataAttributeKindJson, DataAttributeKindEnumeration:
-		return token
+		return DataAttributeKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ExportFieldKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ExportFieldKind is the generated named type for `ExportFieldKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ExportFieldKind string
+
 const (
 	// A textual export field.
 	//
 	// Selects the `textOutput` subsection, and the only kind that has to
 	// settle quoting and escaping — text is what can contain the delimiter the
 	// export file is built around.
-	ExportFieldKindString = "string"
+	ExportFieldKindString ExportFieldKind = "string"
 	// A whole-number export field.
 	//
 	// Selects the `numericOutput` subsection together with
 	// [ExportFieldKind.decimal].
-	ExportFieldKindInteger = "integer"
+	ExportFieldKindInteger ExportFieldKind = "integer"
 	// A fractional-number export field.
 	//
 	// Selects the `numericOutput` subsection, where the decimal separator and
 	// digit grouping are fixed. Unlike a displayed number these serve a
 	// consuming system, so the choice answers to the receiver's parser and not
 	// to any reader's locale.
-	ExportFieldKindDecimal = "decimal"
+	ExportFieldKindDecimal ExportFieldKind = "decimal"
 	// A calendar-date export field.
 	//
 	// Selects the `temporalOutput` subsection with [ExportFieldKind.dateTime].
 	// The two are separate kinds so a date-only value is not given a spurious
 	// time component on the way out.
-	ExportFieldKindDate = "date"
+	ExportFieldKindDate ExportFieldKind = "date"
 	// An instant export field carrying both date and time.
 	//
 	// Selects the `temporalOutput` subsection, which has to settle the time
 	// zone and the offset representation — the most common source of silently
 	// shifted values in an interchange file.
-	ExportFieldKindDateTime = "dateTime"
+	ExportFieldKindDateTime ExportFieldKind = "dateTime"
 	// A two-state export field.
 	//
 	// Selects the `booleanOutput` subsection, which fixes the pair of tokens
 	// the two states are written as; a receiving system rarely accepts more
 	// than one such pair.
-	ExportFieldKindBoolean = "boolean"
+	ExportFieldKindBoolean ExportFieldKind = "boolean"
 	// An export field whose value comes from a bounded set.
 	//
 	// Selects the `enumerationOutput` subsection. An export writes the stable
 	// code rather than the label a user reads, and this kind exists so that
 	// choice is made deliberately instead of falling out of whatever the
 	// screen happened to show.
-	ExportFieldKindEnumeration = "enumeration"
+	ExportFieldKindEnumeration ExportFieldKind = "enumeration"
 )
 
-// parseExportFieldKind returns token when it is a known ExportFieldKind value, else "".
-func parseExportFieldKind(token string) string {
-	switch token {
+// parseExportFieldKind returns the ExportFieldKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseExportFieldKind(token string) ExportFieldKind {
+	switch ExportFieldKind(token) {
 	case ExportFieldKindString, ExportFieldKindInteger, ExportFieldKindDecimal, ExportFieldKindDate, ExportFieldKindDateTime, ExportFieldKindBoolean, ExportFieldKindEnumeration:
-		return token
+		return ExportFieldKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `FlowReturnPoint` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// FlowReturnPoint is the generated named type for `FlowReturnPoint` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type FlowReturnPoint string
+
 const (
 	// The branch hands control back to a named step of the flow it left.
 	//
 	// Binds a case subsection, because the generated body cannot rejoin
 	// anywhere until the step it rejoins at has been named.
-	FlowReturnPointResumeAtStep = "resumeAtStep"
+	FlowReturnPointResumeAtStep FlowReturnPoint = "resumeAtStep"
 	// The branch is the end of the scenario — control goes back to nobody.
 	//
 	// The `noCase` arm: there is no step to name and no payload to carry, so a
 	// case subsection here would have nothing in it.
-	FlowReturnPointEndFlow = "endFlow"
+	FlowReturnPointEndFlow FlowReturnPoint = "endFlow"
 )
 
-// parseFlowReturnPoint returns token when it is a known FlowReturnPoint value, else "".
-func parseFlowReturnPoint(token string) string {
-	switch token {
+// parseFlowReturnPoint returns the FlowReturnPoint whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseFlowReturnPoint(token string) FlowReturnPoint {
+	switch FlowReturnPoint(token) {
 	case FlowReturnPointResumeAtStep, FlowReturnPointEndFlow:
-		return token
+		return FlowReturnPoint(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `GradedAccessLevel` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// GradedAccessLevel is the generated named type for `GradedAccessLevel` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type GradedAccessLevel string
+
 const (
 	// Full, interactive access.
-	GradedAccessLevelFull = "full"
+	GradedAccessLevelFull GradedAccessLevel = "full"
 	// The value is shown but cannot be changed.
-	GradedAccessLevelRead = "read"
+	GradedAccessLevelRead GradedAccessLevel = "read"
 	// The thing is visible but locked.
-	GradedAccessLevelDisabled = "disabled"
+	GradedAccessLevelDisabled GradedAccessLevel = "disabled"
 )
 
-// parseGradedAccessLevel returns token when it is a known GradedAccessLevel value, else "".
-func parseGradedAccessLevel(token string) string {
-	switch token {
+// parseGradedAccessLevel returns the GradedAccessLevel whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseGradedAccessLevel(token string) GradedAccessLevel {
+	switch GradedAccessLevel(token) {
 	case GradedAccessLevelFull, GradedAccessLevelRead, GradedAccessLevelDisabled:
-		return token
+		return GradedAccessLevel(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `Impact` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// Impact is the generated named type for `Impact` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type Impact string
+
 const (
 	// Absorbed inside normal working. No measurable change to schedule, budget
 	// or quality, and nobody outside the team doing the work has to know.
-	ImpactNegligible = "negligible"
+	ImpactNegligible Impact = "negligible"
 	// Felt within one workstream and covered by that workstream's own
 	// contingency. Nothing outside it is replanned.
-	ImpactMinor = "minor"
+	ImpactMinor Impact = "minor"
 	// Exceeds a single workstream's contingency and forces replanning across
 	// workstreams. Project management decides; the sponsor is informed.
-	ImpactModerate = "moderate"
+	ImpactModerate Impact = "moderate"
 	// Threatens a committed date, budget or quality commitment. Recovery
 	// requires a sponsor decision — more money, less scope, or a later date.
-	ImpactMajor = "major"
+	ImpactMajor Impact = "major"
 	// The objective itself fails and no contingency inside the project recovers
 	// it. The decision at this level is whether the project continues at all.
-	ImpactCritical = "critical"
+	ImpactCritical Impact = "critical"
 )
 
-// parseImpact returns token when it is a known Impact value, else "".
-func parseImpact(token string) string {
-	switch token {
+// parseImpact returns the Impact whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseImpact(token string) Impact {
+	switch Impact(token) {
 	case ImpactNegligible, ImpactMinor, ImpactModerate, ImpactMajor, ImpactCritical:
-		return token
+		return Impact(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `Iso25010Characteristic` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// Iso25010Characteristic is the generated named type for `Iso25010Characteristic` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type Iso25010Characteristic string
+
 const (
 	// ISO/IEC 25010:2023 *functional suitability* — the degree to which the
 	// product provides functions that meet stated **and implied** needs under
@@ -347,14 +399,14 @@ const (
 	// characteristic and not just "the requirements are done": correctness and
 	// completeness of what was asked for are judged here, not merely presence.
 	// Modelled by `FunctionalSuitabilityCharacteristic`.
-	Iso25010CharacteristicFunctionalSuitability = "functionalSuitability"
+	Iso25010CharacteristicFunctionalSuitability Iso25010Characteristic = "functionalSuitability"
 	// ISO/IEC 25010:2023 *performance efficiency* — performing the functions
 	// within specified time and throughput parameters while being efficient in
 	// its use of resources. Both halves are required: hitting a latency target
 	// by consuming unbounded resources does not satisfy it. Targets under this
 	// characteristic are meaningless without the load profile they are stated
 	// against. Modelled by `PerformanceEfficiencyCharacteristic`.
-	Iso25010CharacteristicPerformanceEfficiency = "performanceEfficiency"
+	Iso25010CharacteristicPerformanceEfficiency Iso25010Characteristic = "performanceEfficiency"
 	// ISO/IEC 25010:2023 *compatibility* — exchanging information with other
 	// products or systems, and performing its required functions while sharing
 	// a common environment and resources. Its two concerns are interoperability
@@ -362,7 +414,7 @@ const (
 	// routinely forgotten, because nothing in a system's own requirements
 	// mentions the neighbours it must not disturb. Modelled by
 	// `CompatibilityCharacteristic`.
-	Iso25010CharacteristicCompatibility = "compatibility"
+	Iso25010CharacteristicCompatibility Iso25010Characteristic = "compatibility"
 	// ISO/IEC 25010:2023 *interaction capability* — the degree to which
 	// specified users can interact with the product to exchange information
 	// through the user interface and complete specified tasks.
@@ -374,13 +426,13 @@ const (
 	// self-descriptiveness — rather than ease of use alone, so a 2011 usability
 	// assessment mapped onto it is an under-assessment until those are added.
 	// Modelled by `InteractionCapabilityCharacteristic`.
-	Iso25010CharacteristicInteractionCapability = "interactionCapability"
+	Iso25010CharacteristicInteractionCapability Iso25010Characteristic = "interactionCapability"
 	// ISO/IEC 25010:2023 *reliability* — performing specified functions under
 	// specified conditions for a specified period of time. All three
 	// qualifiers are part of the claim: a reliability target without the
 	// conditions and the period states nothing measurable. Modelled by
 	// `ReliabilityCharacteristic`.
-	Iso25010CharacteristicReliability = "reliability"
+	Iso25010CharacteristicReliability Iso25010Characteristic = "reliability"
 	// ISO/IEC 25010:2023 *security* — protecting information and data so that
 	// persons and other products have the degree of data access appropriate to
 	// their types and levels of authorization.
@@ -391,13 +443,13 @@ const (
 	// (`tom_specs_model_rules.md` §2.2); recording controls here instead of
 	// targets produces a coverage entry that cannot be tested. Modelled by
 	// `SecurityCharacteristic`.
-	Iso25010CharacteristicSecurity = "security"
+	Iso25010CharacteristicSecurity Iso25010Characteristic = "security"
 	// ISO/IEC 25010:2023 *maintainability* — the effectiveness and efficiency
 	// with which the product can be modified by its maintainers, whether to
 	// correct, improve or adapt it. The assessment is meaningless without
 	// naming *who* maintains it and over what horizon. Modelled by
 	// `MaintainabilityCharacteristic`.
-	Iso25010CharacteristicMaintainability = "maintainability"
+	Iso25010CharacteristicMaintainability Iso25010Characteristic = "maintainability"
 	// ISO/IEC 25010:2023 *flexibility* — the degree to which the product can be
 	// adapted to changes in its requirements, contexts of use or system
 	// environment.
@@ -410,382 +462,430 @@ const (
 	// this portability/adaptability content
 	// (`tom_specs_model_rules.md` §2.3). Modelled by
 	// `FlexibilityCharacteristic`.
-	Iso25010CharacteristicFlexibility = "flexibility"
+	Iso25010CharacteristicFlexibility Iso25010Characteristic = "flexibility"
 )
 
-// parseIso25010Characteristic returns token when it is a known Iso25010Characteristic value, else "".
-func parseIso25010Characteristic(token string) string {
-	switch token {
+// parseIso25010Characteristic returns the Iso25010Characteristic whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseIso25010Characteristic(token string) Iso25010Characteristic {
+	switch Iso25010Characteristic(token) {
 	case Iso25010CharacteristicFunctionalSuitability, Iso25010CharacteristicPerformanceEfficiency, Iso25010CharacteristicCompatibility, Iso25010CharacteristicInteractionCapability, Iso25010CharacteristicReliability, Iso25010CharacteristicSecurity, Iso25010CharacteristicMaintainability, Iso25010CharacteristicFlexibility:
-		return token
+		return Iso25010Characteristic(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `MigrationArtifactKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// MigrationArtifactKind is the generated named type for `MigrationArtifactKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type MigrationArtifactKind string
+
 const (
 	// The baseline schema definition — the tables, indexes and constraints the
 	// system starts from.
-	MigrationArtifactKindInitialDdl = "initialDdl"
+	MigrationArtifactKindInitialDdl MigrationArtifactKind = "initialDdl"
 	// The new system's own initial reference data — lookup values, defaults and
 	// built-in roles. Not business-data migration from a legacy system, which
 	// stays in the migration-mapping sections (`MIGME`).
-	MigrationArtifactKindReferenceData = "referenceData"
+	MigrationArtifactKindReferenceData MigrationArtifactKind = "referenceData"
 	// An append-only schema-evolution step applied on top of the baseline.
-	MigrationArtifactKindSchemaChange = "schemaChange"
+	MigrationArtifactKindSchemaChange MigrationArtifactKind = "schemaChange"
 )
 
-// parseMigrationArtifactKind returns token when it is a known MigrationArtifactKind value, else "".
-func parseMigrationArtifactKind(token string) string {
-	switch token {
+// parseMigrationArtifactKind returns the MigrationArtifactKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseMigrationArtifactKind(token string) MigrationArtifactKind {
+	switch MigrationArtifactKind(token) {
 	case MigrationArtifactKindInitialDdl, MigrationArtifactKindReferenceData, MigrationArtifactKindSchemaChange:
-		return token
+		return MigrationArtifactKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ObjectLifecycleKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ObjectLifecycleKind is the generated named type for `ObjectLifecycleKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ObjectLifecycleKind string
+
 const (
 	// The state an instance is created in. Exactly one per lifecycle, and the
 	// one `BJOEN-LIFE.initialState` names; nothing may transition *into* it,
 	// because arriving there a second time would mean the instance had been
 	// re-created rather than moved.
-	ObjectLifecycleKindInitial = "initial"
+	ObjectLifecycleKindInitial ObjectLifecycleKind = "initial"
 	// A state the instance passes through — entered and left again. The only
 	// role for which both an inbound and an outbound transition are expected,
 	// which is what makes "this state can never be left" a detectable defect
 	// rather than a design choice.
-	ObjectLifecycleKindIntermediate = "intermediate"
+	ObjectLifecycleKindIntermediate ObjectLifecycleKind = "intermediate"
 	// A state in which the lifecycle ends by design: the order was closed, the
 	// claim was settled. It has no outbound transition, so marking a state
 	// terminal is also the assertion that no further business event can move
 	// the instance.
-	ObjectLifecycleKindTerminal = "terminal"
+	ObjectLifecycleKindTerminal ObjectLifecycleKind = "terminal"
 	// A state reached because something failed rather than because the intended
 	// path completed. Kept apart from [terminal] because it is not necessarily
 	// an end: an instance may be repaired and resume. What distinguishes it is
 	// the reason for arrival, not whether anything leads out — which is why the
 	// two cannot be collapsed into one "final" flag.
-	ObjectLifecycleKindError = "error"
+	ObjectLifecycleKindError ObjectLifecycleKind = "error"
 )
 
-// parseObjectLifecycleKind returns token when it is a known ObjectLifecycleKind value, else "".
-func parseObjectLifecycleKind(token string) string {
-	switch token {
+// parseObjectLifecycleKind returns the ObjectLifecycleKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseObjectLifecycleKind(token string) ObjectLifecycleKind {
+	switch ObjectLifecycleKind(token) {
 	case ObjectLifecycleKindInitial, ObjectLifecycleKindIntermediate, ObjectLifecycleKindTerminal, ObjectLifecycleKindError:
-		return token
+		return ObjectLifecycleKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `Priority` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// Priority is the generated named type for `Priority` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type Priority string
+
 const (
 	// MoSCoW *must have*: the release is not shippable without it. A failed
 	// must-have is a release blocker — the date moves, the requirement does
 	// not. Anything that can be traded away under schedule pressure was never
 	// a must.
-	PriorityMust = "must"
+	PriorityMust Priority = "must"
 	// MoSCoW *should have*: painful to omit, but the release still ships
 	// without it. This is the first band traded away when the timebox is
 	// threatened, and dropping one is expected to come with a stated
 	// workaround rather than silence.
-	PriorityShould = "should"
+	PriorityShould Priority = "should"
 	// MoSCoW *could have*: included only while it costs nothing that a
 	// [must] or [should] item needs. Dropping it is a routine timebox decision
 	// and requires no re-approval.
-	PriorityCould = "could"
+	PriorityCould Priority = "could"
 	// MoSCoW *won't have — this time*: deliberately excluded from **this**
 	// delivery and recorded rather than deleted, so the decision (and its
 	// reasoning) survives into the next planning round. Distinct from
 	// [Status.rejected], which means never; this means not now.
-	PriorityWontThisTime = "wontThisTime"
+	PriorityWontThisTime Priority = "wontThisTime"
 )
 
-// parsePriority returns token when it is a known Priority value, else "".
-func parsePriority(token string) string {
-	switch token {
+// parsePriority returns the Priority whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parsePriority(token string) Priority {
+	switch Priority(token) {
 	case PriorityMust, PriorityShould, PriorityCould, PriorityWontThisTime:
-		return token
+		return Priority(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `Probability` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// Probability is the generated named type for `Probability` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type Probability string
+
 const (
 	// Would be surprising: no trigger for it is visible in the current plan.
 	// Carried on the register to be watched, not to be mitigated.
-	ProbabilityVeryLow = "veryLow"
+	ProbabilityVeryLow Probability = "veryLow"
 	// Plausible but not expected — a known trigger exists and is not currently
 	// active. Cheap mitigations are worth taking; expensive ones are not.
-	ProbabilityLow = "low"
+	ProbabilityLow Probability = "low"
 	// As likely as not. The band where the decision to mitigate turns on cost
 	// rather than on likelihood, and the one most often used as a default when
 	// nobody has actually estimated — a medium with no reasoning behind it is
 	// worth challenging.
-	ProbabilityMedium = "medium"
+	ProbabilityMedium Probability = "medium"
 	// Expected unless something about the plan changes. Mitigation is assumed;
 	// its absence needs an explicit reason.
-	ProbabilityHigh = "high"
+	ProbabilityHigh Probability = "high"
 	// Effectively certain on the current plan. At this point it is a planned
 	// event, not a risk: it belongs in the plan with an owner and a date, and
 	// leaving it on the risk register hides work rather than tracking it.
-	ProbabilityVeryHigh = "veryHigh"
+	ProbabilityVeryHigh Probability = "veryHigh"
 )
 
-// parseProbability returns token when it is a known Probability value, else "".
-func parseProbability(token string) string {
-	switch token {
+// parseProbability returns the Probability whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseProbability(token string) Probability {
+	switch Probability(token) {
 	case ProbabilityVeryLow, ProbabilityLow, ProbabilityMedium, ProbabilityHigh, ProbabilityVeryHigh:
-		return token
+		return Probability(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ReportColumnKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ReportColumnKind is the generated named type for `ReportColumnKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ReportColumnKind string
+
 const (
 	// A textual column.
 	//
 	// Selects the `textFormat` subsection. The fallback kind: a value with no
 	// numeric, temporal or boolean reading is formatted, aligned and sorted as
 	// text.
-	ReportColumnKindString = "string"
+	ReportColumnKindString ReportColumnKind = "string"
 	// A whole-number column.
 	//
 	// Selects the `numericFormat` subsection alongside
 	// [ReportColumnKind.decimal]; keeping the two apart lets a report state
 	// that no fractional digits are to appear even when the underlying value
 	// carries them.
-	ReportColumnKindInteger = "integer"
+	ReportColumnKindInteger ReportColumnKind = "integer"
 	// A fractional-number column.
 	//
 	// Selects the `numericFormat` subsection, where displayed precision,
 	// digit grouping and the presentation of negative values are fixed. A
 	// report that leaves them unstated is only reproducible by accident.
-	ReportColumnKindDecimal = "decimal"
+	ReportColumnKindDecimal ReportColumnKind = "decimal"
 	// A monetary column.
 	//
 	// Chosen over [ReportColumnKind.decimal] when the figure carries a
 	// currency. It selects `currencyFormat` rather than the numeric
 	// subsection because the symbol, its position and the currency's own
 	// minor-unit precision all have to be settled together.
-	ReportColumnKindCurrency = "currency"
+	ReportColumnKindCurrency ReportColumnKind = "currency"
 	// A temporal column.
 	//
 	// Selects the `dateFormat` subsection. A report is often read in a
 	// different locale and time zone from the one that produced it, so the
 	// format is authored here rather than inherited from the reader's
 	// environment.
-	ReportColumnKindDate = "date"
+	ReportColumnKindDate ReportColumnKind = "date"
 	// A two-state column.
 	//
 	// Selects the `booleanFormat` subsection, which fixes the words or marks
 	// the two states are printed as — a report says "Yes"/"No" or
 	// "Active"/"Closed", never `true`/`false`.
-	ReportColumnKindBoolean = "boolean"
+	ReportColumnKindBoolean ReportColumnKind = "boolean"
 )
 
-// parseReportColumnKind returns token when it is a known ReportColumnKind value, else "".
-func parseReportColumnKind(token string) string {
-	switch token {
+// parseReportColumnKind returns the ReportColumnKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseReportColumnKind(token string) ReportColumnKind {
+	switch ReportColumnKind(token) {
 	case ReportColumnKindString, ReportColumnKindInteger, ReportColumnKindDecimal, ReportColumnKindCurrency, ReportColumnKindDate, ReportColumnKindBoolean:
-		return token
+		return ReportColumnKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ReportFilterValueKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ReportFilterValueKind is the generated named type for `ReportFilterValueKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ReportFilterValueKind string
+
 const (
 	// A text-valued filter.
 	//
 	// Selects `textFilterOptions`, where the match is settled — exact,
 	// prefix, contains. A text filter with no stated match rule is the one
 	// whose results readers most often dispute.
-	ReportFilterValueKindString = "string"
+	ReportFilterValueKindString ReportFilterValueKind = "string"
 	// A whole-number filter.
 	//
 	// Selects `numericFilterOptions` together with
 	// [ReportFilterValueKind.decimal].
-	ReportFilterValueKindInteger = "integer"
+	ReportFilterValueKindInteger ReportFilterValueKind = "integer"
 	// A fractional-number filter.
 	//
 	// Selects `numericFilterOptions`, where the bounds and whether they are
 	// inclusive are stated. An unstated bound convention makes two runs of the
 	// same report disagree at the edges.
-	ReportFilterValueKindDecimal = "decimal"
+	ReportFilterValueKindDecimal ReportFilterValueKind = "decimal"
 	// A calendar-date filter.
 	//
 	// Selects `dateFilterOptions` with [ReportFilterValueKind.dateTime]. A
 	// range is not a separate kind — it is a choice of input control recorded
 	// inside those options.
-	ReportFilterValueKindDate = "date"
+	ReportFilterValueKindDate ReportFilterValueKind = "date"
 	// An instant filter carrying both date and time.
 	//
 	// Selects `dateFilterOptions`. Chosen over [ReportFilterValueKind.date]
 	// when a boundary has to fall inside a day rather than at its edge.
-	ReportFilterValueKindDateTime = "dateTime"
+	ReportFilterValueKindDateTime ReportFilterValueKind = "dateTime"
 	// A two-state filter.
 	//
 	// Selects `booleanFilterOptions`. A boolean filter usually has three
 	// user-visible positions rather than two — true, false, and not filtered
 	// at all — and it is those options that have to say so.
-	ReportFilterValueKindBoolean = "boolean"
+	ReportFilterValueKindBoolean ReportFilterValueKind = "boolean"
 	// A filter over a bounded set of option values.
 	//
 	// Selects `selectFilterOptions`, which names the option source and
 	// whether several values may be selected at once. Pick it when the
 	// candidates are a fixed vocabulary rather than records the user has to
 	// look up.
-	ReportFilterValueKindEnumeration = "enumeration"
+	ReportFilterValueKindEnumeration ReportFilterValueKind = "enumeration"
 	// A filter whose value refers to a record in the domain model.
 	//
 	// Selects `entityFilterOptions`. Chosen over
 	// [ReportFilterValueKind.enumeration] when the candidates are data rather
 	// than vocabulary — a customer, an account — so the control has to search
 	// and resolve instead of listing.
-	ReportFilterValueKindEntityRef = "entityRef"
+	ReportFilterValueKindEntityRef ReportFilterValueKind = "entityRef"
 )
 
-// parseReportFilterValueKind returns token when it is a known ReportFilterValueKind value, else "".
-func parseReportFilterValueKind(token string) string {
-	switch token {
+// parseReportFilterValueKind returns the ReportFilterValueKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseReportFilterValueKind(token string) ReportFilterValueKind {
+	switch ReportFilterValueKind(token) {
 	case ReportFilterValueKindString, ReportFilterValueKindInteger, ReportFilterValueKindDecimal, ReportFilterValueKindDate, ReportFilterValueKindDateTime, ReportFilterValueKindBoolean, ReportFilterValueKindEnumeration, ReportFilterValueKindEntityRef:
-		return token
+		return ReportFilterValueKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ScheduledJobTrigger` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ScheduledJobTrigger is the generated named type for `ScheduledJobTrigger` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ScheduledJobTrigger string
+
 const (
 	// The job fires on a recurring clock expression.
 	//
 	// Binds the cron case, whose payload is the recurrence expression itself,
 	// verbatim — a job whose schedule can be written as one expression needs
 	// nothing else said about when it runs.
-	ScheduledJobTriggerCron = "cron"
+	ScheduledJobTriggerCron ScheduledJobTrigger = "cron"
 	// The job fires on a date rule no clock expression can state — month-end,
 	// the third Monday of a quarter, the last working day before a holiday.
 	//
 	// A separate arm rather than a harder cron string, because the rule depends
 	// on a calendar that a recurrence expression cannot see.
-	ScheduledJobTriggerCalendar = "calendar"
+	ScheduledJobTriggerCalendar ScheduledJobTrigger = "calendar"
 	// The job does not run on a clock at all: it runs when something in the
 	// system happens, and what that occurrence carries is what the work reads.
 	//
 	// The arm with no schedule, so nothing about it can be answered by looking
 	// at a clock — including when it will next run, or whether it ever will.
-	ScheduledJobTriggerEvent = "event"
+	ScheduledJobTriggerEvent ScheduledJobTrigger = "event"
 )
 
-// parseScheduledJobTrigger returns token when it is a known ScheduledJobTrigger value, else "".
-func parseScheduledJobTrigger(token string) string {
-	switch token {
+// parseScheduledJobTrigger returns the ScheduledJobTrigger whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseScheduledJobTrigger(token string) ScheduledJobTrigger {
+	switch ScheduledJobTrigger(token) {
 	case ScheduledJobTriggerCron, ScheduledJobTriggerCalendar, ScheduledJobTriggerEvent:
-		return token
+		return ScheduledJobTrigger(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ScreenElementFieldKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ScreenElementFieldKind is the generated named type for `ScreenElementFieldKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ScreenElementFieldKind string
+
 const (
 	// Free-form text with no narrower interpretation.
 	//
 	// The default text kind, and the one to pick when nothing about the value
 	// constrains it beyond length and pattern. Selects the `textOptions`
 	// subsection.
-	ScreenElementFieldKindString = "string"
+	ScreenElementFieldKindString ScreenElementFieldKind = "string"
 	// A whole number.
 	//
 	// Chosen over [ScreenElementFieldKind.decimal] when fractional input must
 	// be rejected outright rather than rounded — counts, quantities, ordinals.
 	// Selects the `numberOptions` subsection.
-	ScreenElementFieldKindInteger = "integer"
+	ScreenElementFieldKindInteger ScreenElementFieldKind = "integer"
 	// A number with a fractional part.
 	//
 	// Selects the `numberOptions` subsection, where the precision the value is
 	// captured and shown at is fixed. Leaving it unstated is what produces the
 	// familiar mismatch between the figure a user entered and the figure the
 	// system stored.
-	ScreenElementFieldKindDecimal = "decimal"
+	ScreenElementFieldKindDecimal ScreenElementFieldKind = "decimal"
 	// A monetary amount.
 	//
 	// Chosen over [ScreenElementFieldKind.decimal] when the figure carries a
 	// currency: the amount alone is not the value, so the field must also
 	// settle which currency applies and how the pair is presented. Selects the
 	// `numberOptions` subsection.
-	ScreenElementFieldKindCurrency = "currency"
+	ScreenElementFieldKindCurrency ScreenElementFieldKind = "currency"
 	// A calendar date with no time of day.
 	//
 	// Chosen over [ScreenElementFieldKind.dateTime] when the time of day is
 	// not merely unknown but meaningless — a birth date, an invoice date — so
 	// that no time-zone conversion can shift the value into a neighbouring
 	// day. Selects the `dateOptions` subsection.
-	ScreenElementFieldKindDate = "date"
+	ScreenElementFieldKindDate ScreenElementFieldKind = "date"
 	// A calendar date together with a time of day.
 	//
 	// The kind for an instant that must be located exactly, and therefore the
 	// one whose `dateOptions` have to settle the time zone the value is
 	// recorded and displayed in.
-	ScreenElementFieldKindDateTime = "dateTime"
+	ScreenElementFieldKindDateTime ScreenElementFieldKind = "dateTime"
 	// A time of day with no calendar date.
 	//
 	// Chosen for a recurring wall-clock value — an opening hour, a daily
 	// reminder — that is not tied to one particular day. Selects the
 	// `dateOptions` subsection.
-	ScreenElementFieldKindTime = "time"
+	ScreenElementFieldKindTime ScreenElementFieldKind = "time"
 	// A two-state true/false value.
 	//
 	// The one field kind that selects no promoted options subsection: a
 	// boolean has no format, no bounds and no option source, so it carries the
 	// field base alone. How it is drawn — tick box or switch — is the
 	// enclosing element's [ScreenElementKind], not this kind.
-	ScreenElementFieldKindBoolean = "boolean"
+	ScreenElementFieldKindBoolean ScreenElementFieldKind = "boolean"
 	// A value chosen from a bounded set of options.
 	//
 	// Selects the `selectOptions` subsection, which names where the options
 	// come from and whether one or several may be chosen. Pick it whenever the
 	// valid values are enumerable, even when the interface renders them as
 	// free text with completion.
-	ScreenElementFieldKindEnumeration = "enumeration"
+	ScreenElementFieldKindEnumeration ScreenElementFieldKind = "enumeration"
 	// An email address.
 	//
 	// A text kind — it selects `textOptions` — named separately so the
 	// generator can supply the address-shaped validation and the right
 	// keyboard without the specification restating either.
-	ScreenElementFieldKindEmail = "email"
+	ScreenElementFieldKindEmail ScreenElementFieldKind = "email"
 	// A telephone number.
 	//
 	// A text kind, named separately so the generator can supply
 	// dialling-friendly input and formatting. It is text rather than a number
 	// because leading zeros, country prefixes and separators are part of the
 	// value.
-	ScreenElementFieldKindPhone = "phone"
+	ScreenElementFieldKindPhone ScreenElementFieldKind = "phone"
 	// A web address.
 	//
 	// A text kind, named separately so the generator can supply scheme
 	// validation and an open affordance instead of treating the value as
 	// opaque text.
-	ScreenElementFieldKindUrl = "url"
+	ScreenElementFieldKindUrl ScreenElementFieldKind = "url"
 	// A secret the user types and that must not be shown back.
 	//
 	// A text kind whose distinguishing property is display rather than shape:
 	// the value is masked, kept out of ordinary autofill history, and never
 	// echoed back in messages or logs.
-	ScreenElementFieldKindPassword = "password"
+	ScreenElementFieldKindPassword ScreenElementFieldKind = "password"
 	// Formatted text carrying its own markup.
 	//
 	// Chosen over [ScreenElementFieldKind.string] when the formatting is part
 	// of the value rather than of the presentation. That makes the stored
 	// value a document, and moves sanitising the markup into the field's
 	// concern rather than the renderer's.
-	ScreenElementFieldKindRichText = "richText"
+	ScreenElementFieldKindRichText ScreenElementFieldKind = "richText"
 	// A colour value.
 	//
 	// **Realised by desugaring, not by a colour control**
@@ -795,33 +895,39 @@ const (
 	// option source is the token catalogue. Naming this kind is what lets the
 	// generator supply the pattern rule and the swatch preview without the
 	// specification restating them — it does not promise a picker.
-	ScreenElementFieldKindColor = "color"
+	ScreenElementFieldKindColor ScreenElementFieldKind = "color"
 	// A file the user supplies rather than types.
 	//
 	// The one field kind whose value is a reference to content held elsewhere,
 	// which is why it has its own `fileOptions` subsection: which content
 	// kinds are accepted, and how the chosen file is presented back.
-	ScreenElementFieldKindFile = "file"
+	ScreenElementFieldKindFile ScreenElementFieldKind = "file"
 )
 
-// parseScreenElementFieldKind returns token when it is a known ScreenElementFieldKind value, else "".
-func parseScreenElementFieldKind(token string) string {
-	switch token {
+// parseScreenElementFieldKind returns the ScreenElementFieldKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseScreenElementFieldKind(token string) ScreenElementFieldKind {
+	switch ScreenElementFieldKind(token) {
 	case ScreenElementFieldKindString, ScreenElementFieldKindInteger, ScreenElementFieldKindDecimal, ScreenElementFieldKindCurrency, ScreenElementFieldKindDate, ScreenElementFieldKindDateTime, ScreenElementFieldKindTime, ScreenElementFieldKindBoolean, ScreenElementFieldKindEnumeration, ScreenElementFieldKindEmail, ScreenElementFieldKindPhone, ScreenElementFieldKindUrl, ScreenElementFieldKindPassword, ScreenElementFieldKindRichText, ScreenElementFieldKindColor, ScreenElementFieldKindFile:
-		return token
+		return ScreenElementFieldKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ScreenElementKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ScreenElementKind is the generated named type for `ScreenElementKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ScreenElementKind string
+
 const (
 	// A standalone command control: activating it runs an action.
 	//
 	// The kind to pick when the element *is* the command — a separately
 	// hit-testable target with its own label, weight and position in the
 	// section. Selects the [ScreenElementAction] facet.
-	ScreenElementKindActionButton = "actionButton"
+	ScreenElementKindActionButton ScreenElementKind = "actionButton"
 	// An inline navigational control that reads as part of the surrounding
 	// text.
 	//
@@ -830,7 +936,7 @@ const (
 	// prominence and reading flow, not capability — a link sits inside the
 	// content and usually takes the user elsewhere, a button stands apart and
 	// usually performs work on the screen the user is on.
-	ScreenElementKindLink = "link"
+	ScreenElementKindLink ScreenElementKind = "link"
 	// A free-text input.
 	//
 	// The general-purpose input kind: pick it when the value has no narrower
@@ -838,57 +944,57 @@ const (
 	// [ScreenElementFieldSpec] facet, whose own [ScreenElementFieldKind] then
 	// fixes the value type — so a text field still declares an email, phone or
 	// password field kind when that is what it holds.
-	ScreenElementKindTextField = "textField"
+	ScreenElementKindTextField ScreenElementKind = "textField"
 	// A numeric input.
 	//
 	// Chosen over [ScreenElementKind.textField] when the value is a quantity,
 	// so the runtime may supply a numeric keyboard, step controls and range
 	// checks instead of the specification validating digits after the fact.
-	ScreenElementKindNumberField = "numberField"
+	ScreenElementKindNumberField ScreenElementKind = "numberField"
 	// A date or time input.
 	//
 	// Chosen over [ScreenElementKind.textField] when the value is a point in
 	// time, which lets the runtime offer a calendar or clock affordance and
 	// parse in the user's locale rather than asking them to type a format.
-	ScreenElementKindDateField = "dateField"
+	ScreenElementKindDateField ScreenElementKind = "dateField"
 	// An input that picks from a bounded set of options.
 	//
 	// Chosen when the valid values are enumerable at design time or come from
 	// a named option source; the field spec's `selectOptions` then carries
 	// where those options come from and whether one or several may be chosen.
-	ScreenElementKindSelectField = "selectField"
+	ScreenElementKindSelectField ScreenElementKind = "selectField"
 	// A two-state input drawn as a tickable box with an adjacent label.
 	//
 	// Chosen over [ScreenElementKind.toggle] for a value the user is
 	// *asserting* — consent, membership of a set, an option that only takes
 	// effect when the surrounding form is submitted.
-	ScreenElementKindCheckbox = "checkbox"
+	ScreenElementKindCheckbox ScreenElementKind = "checkbox"
 	// A two-state input drawn as a switch.
 	//
 	// Chosen over [ScreenElementKind.checkbox] for a setting that takes effect
 	// the moment it is flipped, so the control reads as turning something on
 	// rather than as answering a question on a form.
-	ScreenElementKindToggle = "toggle"
+	ScreenElementKindToggle ScreenElementKind = "toggle"
 	// A read-only rendering of a single bound value.
 	//
 	// The general display kind, and the fallback when no narrower one fits.
 	// The value comes from the data binding rather than from authored copy,
 	// which is what separates it from [ScreenElementKind.label]. Selects the
 	// [ScreenElementDataDisplay] facet.
-	ScreenElementKindDataDisplay = "dataDisplay"
+	ScreenElementKindDataDisplay ScreenElementKind = "dataDisplay"
 	// A read-only rendering of a collection as rows and columns.
 	//
 	// Chosen over [ScreenElementKind.dataDisplay] when the bound value is a
 	// collection whose members share a shape, so column identity, sorting and
 	// paging become properties of the element rather than of the screen around
 	// it.
-	ScreenElementKindDataTable = "dataTable"
+	ScreenElementKindDataTable ScreenElementKind = "dataTable"
 	// A bounded surface grouping several bound values as one visual unit.
 	//
 	// Chosen when the grouping itself carries meaning — the values belong to
 	// one record and are read together — rather than merely sitting near each
 	// other, which is a layout concern of the enclosing section.
-	ScreenElementKindCard = "card"
+	ScreenElementKindCard ScreenElementKind = "card"
 	// A graphical rendering of a collection as a series, distribution or
 	// proportion.
 	//
@@ -896,7 +1002,7 @@ const (
 	// the message and individual values need not be read exactly. A chart is
 	// declared here and rendered by whichever platform can
 	// (`codespecs_mapping.md` §5.28).
-	ScreenElementKindChart = "chart"
+	ScreenElementKindChart ScreenElementKind = "chart"
 	// A compact rendering of a value as a condition — a health light, a
 	// lifecycle or progress marker.
 	//
@@ -905,7 +1011,7 @@ const (
 	// Because the reading is usually carried by colour, it needs a second cue
 	// as well: colour alone is not a usable channel for everyone (WCAG 2.2,
 	// success criterion 1.4.1).
-	ScreenElementKindStatusIndicator = "statusIndicator"
+	ScreenElementKindStatusIndicator ScreenElementKind = "statusIndicator"
 	// A pictogram carrying no bound value.
 	//
 	// Chosen when the graphic is meaning rather than decoration but is not
@@ -913,26 +1019,26 @@ const (
 	// [ScreenElementKind.actionButton] that happens to be drawn as one. It
 	// still needs a text alternative, since a pictogram on its own is not
 	// perceivable to assistive technology (WCAG 2.2, success criterion 1.1.1).
-	ScreenElementKindIcon = "icon"
+	ScreenElementKindIcon ScreenElementKind = "icon"
 	// Authored static text.
 	//
 	// Distinguished from [ScreenElementKind.dataDisplay] by where the text
 	// comes from: a label's copy is authored, and therefore translatable
 	// through the CE-TX message-key catalogue (`codespecs_mapping.md` §5.21),
 	// while a data display renders whatever the binding produces.
-	ScreenElementKindLabel = "label"
+	ScreenElementKindLabel ScreenElementKind = "label"
 	// A raster or vector graphic presented as content.
 	//
 	// Chosen over [ScreenElementKind.icon] when the graphic is content in its
 	// own right — a photograph, a diagram, a supplied asset — rather than a
 	// small symbol drawn from the interface's pictogram set.
-	ScreenElementKindImage = "image"
+	ScreenElementKindImage ScreenElementKind = "image"
 	// A small count or marker attached to another element.
 	//
 	// Chosen over [ScreenElementKind.statusIndicator] when the value qualifies
 	// a neighbouring element — an unread count on a navigation item, a "new"
 	// marker on a tab — rather than standing on its own.
-	ScreenElementKindBadge = "badge"
+	ScreenElementKindBadge ScreenElementKind = "badge"
 	// A structural separator drawn between groups of elements.
 	//
 	// One of the three structural kinds that select no facet subsection: a
@@ -940,147 +1046,159 @@ const (
 	// common element subsections. Pick it when the break between groups is
 	// meant to be seen; if only distance is wanted, use
 	// [ScreenElementKind.spacer].
-	ScreenElementKindDivider = "divider"
+	ScreenElementKindDivider ScreenElementKind = "divider"
 	// A structural gap that reserves space without drawing anything.
 	//
 	// Selects no facet subsection. Distinguished from
 	// [ScreenElementKind.divider] by visibility: a spacer separates by
 	// distance alone, so it adds no visual rule the reader has to account for.
-	ScreenElementKindSpacer = "spacer"
+	ScreenElementKindSpacer ScreenElementKind = "spacer"
 	// A structural strip of tabs that switches which content is shown.
 	//
 	// Selects no facet subsection because the tabs themselves are specified
 	// separately as a [TabBarDefinitionEntry]; naming the kind here only
 	// places the strip within a screen section.
-	ScreenElementKindTabBar = "tabBar"
+	ScreenElementKindTabBar ScreenElementKind = "tabBar"
 )
 
-// parseScreenElementKind returns token when it is a known ScreenElementKind value, else "".
-func parseScreenElementKind(token string) string {
-	switch token {
+// parseScreenElementKind returns the ScreenElementKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseScreenElementKind(token string) ScreenElementKind {
+	switch ScreenElementKind(token) {
 	case ScreenElementKindActionButton, ScreenElementKindLink, ScreenElementKindTextField, ScreenElementKindNumberField, ScreenElementKindDateField, ScreenElementKindSelectField, ScreenElementKindCheckbox, ScreenElementKindToggle, ScreenElementKindDataDisplay, ScreenElementKindDataTable, ScreenElementKindCard, ScreenElementKindChart, ScreenElementKindStatusIndicator, ScreenElementKindIcon, ScreenElementKindLabel, ScreenElementKindImage, ScreenElementKindBadge, ScreenElementKindDivider, ScreenElementKindSpacer, ScreenElementKindTabBar:
-		return token
+		return ScreenElementKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ScreenFieldKind` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ScreenFieldKind is the generated named type for `ScreenFieldKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ScreenFieldKind string
+
 const (
 	// A single-line free-text value.
 	//
 	// Binds the text constraints case (`SCFIVT`): length bounds plus a match
 	// pattern. Any narrower grammar is stated as that pattern, so the kind
 	// itself stays a statement about shape rather than about validation.
-	ScreenFieldKindText = "text"
+	ScreenFieldKindText ScreenFieldKind = "text"
 	// Free text the author expects to run to several lines.
 	//
 	// Carries the same constraints as [text]; what it records that [text] does
 	// not is how much room the value needs, which the D09 design pass turns
 	// into a concrete control.
-	ScreenFieldKindMultilineText = "multilineText"
+	ScreenFieldKindMultilineText ScreenFieldKind = "multilineText"
 	// A text value that must be a routable e-mail address.
 	//
 	// The address grammar is stated as the text case's pattern rather than
 	// implied by the kind, so a requirement that accepts only corporate
 	// addresses can say so.
-	ScreenFieldKindEmail = "email"
+	ScreenFieldKindEmail ScreenFieldKind = "email"
 	// A text value that must be a dialable telephone number.
 	//
 	// Format and length live in the text case's pattern: no single grammar is
 	// correct across locales, so the kind does not pretend to fix one.
-	ScreenFieldKindPhone = "phone"
+	ScreenFieldKindPhone ScreenFieldKind = "phone"
 	// A text value that must be a resolvable URL.
 	//
 	// The accepted schemes belong in the text case's pattern — a requirement
 	// that refuses anything but `https` says so there.
-	ScreenFieldKindUrl = "url"
+	ScreenFieldKindUrl ScreenFieldKind = "url"
 	// A secret text value.
 	//
 	// The kind is what tells the design pass to mask the input and keep it out
 	// of logs; composition rules ride on the text case. How the value is stored
 	// or hashed is the security model's decision, not this field's.
-	ScreenFieldKindPassword = "password"
+	ScreenFieldKindPassword ScreenFieldKind = "password"
 	// A whole number.
 	//
 	// Binds the numeric constraints case (`SCFIVN`): the permitted value range.
-	ScreenFieldKindInteger = "integer"
+	ScreenFieldKindInteger ScreenFieldKind = "integer"
 	// A fractional number.
 	//
 	// Shares the numeric case with [integer]. The precision the value must keep
 	// is a constraint on it, not a kind of its own.
-	ScreenFieldKindDecimal = "decimal"
+	ScreenFieldKindDecimal ScreenFieldKind = "decimal"
 	// A monetary amount.
 	//
 	// Shares the numeric case but is a distinct kind, because an amount is
 	// incomplete without the currency it is denominated in and is not rounded
 	// the way a plain [decimal] is.
-	ScreenFieldKindCurrency = "currency"
+	ScreenFieldKindCurrency ScreenFieldKind = "currency"
 	// A calendar date with no time of day.
 	//
 	// Binds the temporal constraints case (`SCFIVD`), whose bounds are dates or
 	// relative expressions rather than numbers.
-	ScreenFieldKindDate = "date"
+	ScreenFieldKindDate ScreenFieldKind = "date"
 	// An instant — a date together with a time of day.
 	//
 	// Kept apart from [date] because it is only unambiguous with a time zone,
 	// which a date neither has nor needs.
-	ScreenFieldKindDateTime = "dateTime"
+	ScreenFieldKindDateTime ScreenFieldKind = "dateTime"
 	// A time of day with no date.
 	//
 	// For recurring wall-clock values — an opening hour, a cut-off — where
 	// pinning the value to one day would be wrong.
-	ScreenFieldKindTime = "time"
+	ScreenFieldKindTime ScreenFieldKind = "time"
 	// A choice of exactly one option from a stated set.
 	//
 	// Binds the choice options case (`SCFICH`), which says where the option set
 	// comes from — static values, an API, or an entity.
-	ScreenFieldKindSingleSelect = "singleSelect"
+	ScreenFieldKindSingleSelect ScreenFieldKind = "singleSelect"
 	// A choice of any number of options from a stated set.
 	//
 	// Shares the choice case with [singleSelect]; what differs is the
 	// cardinality of the answer, which is what the design pass needs in order to
 	// pick a control and what storage needs in order to shape the column.
-	ScreenFieldKindMultiSelect = "multiSelect"
+	ScreenFieldKindMultiSelect ScreenFieldKind = "multiSelect"
 	// An uploaded file.
 	//
 	// Binds the file constraints case (`SCFIFI`) — what content kinds are
 	// accepted and how large a file may be. Where the bytes end up is neither
 	// this kind's business nor the design pass's: it is authored on the CE-DB
 	// file-reference column (`codespecs_mapping.md` §5.13.1).
-	ScreenFieldKindFile = "file"
+	ScreenFieldKindFile ScreenFieldKind = "file"
 	// A truth value.
 	//
 	// The one kind that binds no case — it is the `noCase` arm of the group.
 	// Once the question has been asked there is nothing left about a yes/no
 	// answer to constrain, so an empty case subsection would be the only
 	// honest one.
-	ScreenFieldKindBoolean = "boolean"
+	ScreenFieldKindBoolean ScreenFieldKind = "boolean"
 )
 
-// parseScreenFieldKind returns token when it is a known ScreenFieldKind value, else "".
-func parseScreenFieldKind(token string) string {
-	switch token {
+// parseScreenFieldKind returns the ScreenFieldKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseScreenFieldKind(token string) ScreenFieldKind {
+	switch ScreenFieldKind(token) {
 	case ScreenFieldKindText, ScreenFieldKindMultilineText, ScreenFieldKindEmail, ScreenFieldKindPhone, ScreenFieldKindUrl, ScreenFieldKindPassword, ScreenFieldKindInteger, ScreenFieldKindDecimal, ScreenFieldKindCurrency, ScreenFieldKindDate, ScreenFieldKindDateTime, ScreenFieldKindTime, ScreenFieldKindSingleSelect, ScreenFieldKindMultiSelect, ScreenFieldKindFile, ScreenFieldKindBoolean:
-		return token
+		return ScreenFieldKind(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ScreenFlowOutcome` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ScreenFlowOutcome is the generated named type for `ScreenFlowOutcome` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ScreenFlowOutcome string
+
 const (
 	// The transition taken when the action completed as intended.
 	//
 	// The path a flow diagram usually shows. A screen that specifies only this
 	// outcome has left its failure paths undecided, not impossible.
-	ScreenFlowOutcomeSuccess = "success"
+	ScreenFlowOutcomeSuccess ScreenFlowOutcome = "success"
 	// The transition taken when the action failed while being processed.
 	//
 	// The CE-ER path: the input was accepted but the work did not complete, so
 	// the destination is normally somewhere the user can retry or ask for
 	// help, rather than back at the input.
-	ScreenFlowOutcomeError = "error"
+	ScreenFlowOutcomeError ScreenFlowOutcome = "error"
 	// The transition taken when the action's input was rejected before any
 	// processing.
 	//
@@ -1088,133 +1206,159 @@ const (
 	// fix it: the user can, and only where the offending input is — which is
 	// why this outcome typically keeps them on the source screen instead of
 	// navigating away.
-	ScreenFlowOutcomeValidationError = "validationError"
+	ScreenFlowOutcomeValidationError ScreenFlowOutcome = "validationError"
 )
 
-// parseScreenFlowOutcome returns token when it is a known ScreenFlowOutcome value, else "".
-func parseScreenFlowOutcome(token string) string {
-	switch token {
+// parseScreenFlowOutcome returns the ScreenFlowOutcome whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseScreenFlowOutcome(token string) ScreenFlowOutcome {
+	switch ScreenFlowOutcome(token) {
 	case ScreenFlowOutcomeSuccess, ScreenFlowOutcomeError, ScreenFlowOutcomeValidationError:
-		return token
+		return ScreenFlowOutcome(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ScreenPresentationMode` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ScreenPresentationMode is the generated named type for `ScreenPresentationMode` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ScreenPresentationMode string
+
 const (
 	// The target screen takes the place of the current one in the navigation
 	// stack.
 	//
 	// The ordinary reading of a transition: the source screen is left, so
 	// nothing about its transient state is guaranteed to survive the move.
-	ScreenPresentationModeReplace = "replace"
+	ScreenPresentationModeReplace ScreenPresentationMode = "replace"
 	// The target screen is shown over the screen the user came from, which
 	// stays alive underneath and is revealed again when the overlay closes.
 	//
 	// Chosen over [ScreenPresentationMode.replace] when the user must come
 	// back to exactly the state they left — the overlay interrupts a task
 	// rather than being a step in one.
-	ScreenPresentationModePopupOverlay = "popupOverlay"
+	ScreenPresentationModePopupOverlay ScreenPresentationMode = "popupOverlay"
 )
 
-// parseScreenPresentationMode returns token when it is a known ScreenPresentationMode value, else "".
-func parseScreenPresentationMode(token string) string {
-	switch token {
+// parseScreenPresentationMode returns the ScreenPresentationMode whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseScreenPresentationMode(token string) ScreenPresentationMode {
+	switch ScreenPresentationMode(token) {
 	case ScreenPresentationModeReplace, ScreenPresentationModePopupOverlay:
-		return token
+		return ScreenPresentationMode(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `ServerCallRole` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// ServerCallRole is the generated named type for `ServerCallRole` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ServerCallRole string
+
 const (
 	// Steps that run before the call leaves — the ones that build the request.
 	//
 	// Emitted into the `assembleRequest` method. A step here may read view
 	// state and validate, but it can say nothing about a response, because none
 	// exists yet.
-	ServerCallRoleAssembleRequest = "assembleRequest"
+	ServerCallRoleAssembleRequest ServerCallRole = "assembleRequest"
 	// Steps that run after a successful response — the ones that apply it.
 	//
 	// Emitted into the `handleResponse` method. It is reached only on success,
 	// so a step here never has to ask whether the call worked.
-	ServerCallRoleHandleResponse = "handleResponse"
+	ServerCallRoleHandleResponse ServerCallRole = "handleResponse"
 	// Steps that run after a failed call — the ones that surface the failure.
 	//
 	// Emitted into the `handleError` method, which is the sibling of
 	// `handleResponse` rather than a branch inside it: the two are separate
 	// bodies and exactly one of them runs.
-	ServerCallRoleHandleError = "handleError"
+	ServerCallRoleHandleError ServerCallRole = "handleError"
 )
 
-// parseServerCallRole returns token when it is a known ServerCallRole value, else "".
-func parseServerCallRole(token string) string {
-	switch token {
+// parseServerCallRole returns the ServerCallRole whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseServerCallRole(token string) ServerCallRole {
+	switch ServerCallRole(token) {
 	case ServerCallRoleAssembleRequest, ServerCallRoleHandleResponse, ServerCallRoleHandleError:
-		return token
+		return ServerCallRole(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `Status` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// Status is the generated named type for `Status` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type Status string
+
 const (
 	// Being authored. The wording may change without notice and nothing
 	// downstream may be planned, estimated or built against it.
-	StatusDraft = "draft"
+	StatusDraft Status = "draft"
 	// Complete enough to be reviewed and awaiting a decision. Review may still
 	// send it back or reject it outright, so it is not yet a commitment.
-	StatusProposed = "proposed"
+	StatusProposed Status = "proposed"
 	// Signed off as the agreed intent, and the baseline that downstream work is
 	// planned and estimated against. From here on a change is a change request
 	// with its own approval, not a quiet edit.
-	StatusApproved = "approved"
+	StatusApproved Status = "approved"
 	// A realising artifact exists, but nothing has yet confirmed it does what
 	// [approved] committed to. The gap between this and [verified] is exactly
 	// the evidence, which is why the two are separate states rather than one
 	// "done".
-	StatusImplemented = "implemented"
+	StatusImplemented Status = "implemented"
 	// Implemented *and* shown to meet its acceptance criteria by test or review
 	// evidence. The only terminal state that means the item is finished.
-	StatusVerified = "verified"
+	StatusVerified Status = "verified"
 	// Approved in substance but not scheduled for this delivery, and kept in the
 	// document so it returns to the backlog instead of being lost. This is the
 	// lifecycle position; [Priority.wontThisTime] is the scoping decision that
 	// puts an item here.
-	StatusDeferred = "deferred"
+	StatusDeferred Status = "deferred"
 	// Decided against, permanently. Retained rather than deleted so a later
 	// reader can see the option was considered and why it lost, instead of
 	// re-proposing it.
-	StatusRejected = "rejected"
+	StatusRejected Status = "rejected"
 )
 
-// parseStatus returns token when it is a known Status value, else "".
-func parseStatus(token string) string {
-	switch token {
+// parseStatus returns the Status whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseStatus(token string) Status {
+	switch Status(token) {
 	case StatusDraft, StatusProposed, StatusApproved, StatusImplemented, StatusVerified, StatusDeferred, StatusRejected:
-		return token
+		return Status(token)
 	}
 	return ""
 }
 
-// Generated enum constants for `UserAttributePlacement` values. The stored token is byte-
-// identical across every language port, so documents stay cross-compatible.
+// UserAttributePlacement is the generated named type for `UserAttributePlacement` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type UserAttributePlacement string
+
 const (
 	// Rides the public token payload; read access may be guarded by a
 	// resource key.
-	UserAttributePlacementPublic = "public"
+	UserAttributePlacementPublic UserAttributePlacement = "public"
 	// Rides the encrypted token payload; readable only by token-decrypting
 	// layers.
-	UserAttributePlacementEncrypted = "encrypted"
+	UserAttributePlacementEncrypted UserAttributePlacement = "encrypted"
 )
 
-// parseUserAttributePlacement returns token when it is a known UserAttributePlacement value, else "".
-func parseUserAttributePlacement(token string) string {
-	switch token {
+// parseUserAttributePlacement returns the UserAttributePlacement whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseUserAttributePlacement(token string) UserAttributePlacement {
+	switch UserAttributePlacement(token) {
 	case UserAttributePlacementPublic, UserAttributePlacementEncrypted:
-		return token
+		return UserAttributePlacement(token)
 	}
 	return ""
 }
@@ -57533,12 +57677,12 @@ func (x *AlternativeFlowEntryContentForm) SetOutcome(value string) {
 	x.Doc().SetFormField(x.Path(), "outcome", value)
 }
 
-func (x *AlternativeFlowEntryContentForm) ReturnKind() string {
-	return x.Doc().FormFieldOr(x.Path(), "returnKind")
+func (x *AlternativeFlowEntryContentForm) ReturnKind() FlowReturnPoint {
+	return parseFlowReturnPoint(x.Doc().FormFieldOr(x.Path(), "returnKind"))
 }
 
-func (x *AlternativeFlowEntryContentForm) SetReturnKind(value string) {
-	x.Doc().SetFormField(x.Path(), "returnKind", value)
+func (x *AlternativeFlowEntryContentForm) SetReturnKind(value FlowReturnPoint) {
+	x.Doc().SetFormField(x.Path(), "returnKind", string(value))
 }
 
 func (x *AlternativeFlowEntryContentForm) Frequency() string {
@@ -61401,12 +61545,12 @@ func (x *AuthorizationRequirementSpecContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *AuthorizationRequirementSpecContentForm) RequirementKind() string {
-	return x.Doc().FormFieldOr(x.Path(), "requirementKind")
+func (x *AuthorizationRequirementSpecContentForm) RequirementKind() AuthorizationRequirementKind {
+	return parseAuthorizationRequirementKind(x.Doc().FormFieldOr(x.Path(), "requirementKind"))
 }
 
-func (x *AuthorizationRequirementSpecContentForm) SetRequirementKind(value string) {
-	x.Doc().SetFormField(x.Path(), "requirementKind", value)
+func (x *AuthorizationRequirementSpecContentForm) SetRequirementKind(value AuthorizationRequirementKind) {
+	x.Doc().SetFormField(x.Path(), "requirementKind", string(value))
 }
 
 func (x *AuthorizationRequirementSpecContentForm) Rationale() string {
@@ -69493,12 +69637,12 @@ func (x *ChangeCategoryEntryHandlingForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ChangeCategoryEntryHandlingForm) DefaultImpactLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "defaultImpactLevel")
+func (x *ChangeCategoryEntryHandlingForm) DefaultImpactLevel() Impact {
+	return parseImpact(x.Doc().FormFieldOr(x.Path(), "defaultImpactLevel"))
 }
 
-func (x *ChangeCategoryEntryHandlingForm) SetDefaultImpactLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "defaultImpactLevel", value)
+func (x *ChangeCategoryEntryHandlingForm) SetDefaultImpactLevel(value Impact) {
+	x.Doc().SetFormField(x.Path(), "defaultImpactLevel", string(value))
 }
 
 func (x *ChangeCategoryEntryHandlingForm) ApprovalPath() string {
@@ -72413,12 +72557,12 @@ func (x *ClientApplicationEntryContentForm) SetClientId(value string) {
 	x.Doc().SetFormField(x.Path(), "clientId", value)
 }
 
-func (x *ClientApplicationEntryContentForm) ClientKind() string {
-	return x.Doc().FormFieldOr(x.Path(), "clientKind")
+func (x *ClientApplicationEntryContentForm) ClientKind() ClientApplicationKind {
+	return parseClientApplicationKind(x.Doc().FormFieldOr(x.Path(), "clientKind"))
 }
 
-func (x *ClientApplicationEntryContentForm) SetClientKind(value string) {
-	x.Doc().SetFormField(x.Path(), "clientKind", value)
+func (x *ClientApplicationEntryContentForm) SetClientKind(value ClientApplicationKind) {
+	x.Doc().SetFormField(x.Path(), "clientKind", string(value))
 }
 
 func (x *ClientApplicationEntryContentForm) Purpose() string {
@@ -80163,20 +80307,20 @@ func (x *ComponentRiskEntryAssessmentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ComponentRiskEntryAssessmentForm) Probability() string {
-	return x.Doc().FormFieldOr(x.Path(), "probability")
+func (x *ComponentRiskEntryAssessmentForm) Probability() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "probability"))
 }
 
-func (x *ComponentRiskEntryAssessmentForm) SetProbability(value string) {
-	x.Doc().SetFormField(x.Path(), "probability", value)
+func (x *ComponentRiskEntryAssessmentForm) SetProbability(value Probability) {
+	x.Doc().SetFormField(x.Path(), "probability", string(value))
 }
 
-func (x *ComponentRiskEntryAssessmentForm) Impact() string {
-	return x.Doc().FormFieldOr(x.Path(), "impact")
+func (x *ComponentRiskEntryAssessmentForm) Impact() Impact {
+	return parseImpact(x.Doc().FormFieldOr(x.Path(), "impact"))
 }
 
-func (x *ComponentRiskEntryAssessmentForm) SetImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "impact", value)
+func (x *ComponentRiskEntryAssessmentForm) SetImpact(value Impact) {
+	x.Doc().SetFormField(x.Path(), "impact", string(value))
 }
 
 func (x *ComponentRiskEntryAssessmentForm) RiskScore() *int {
@@ -86009,12 +86153,12 @@ func (x *DataAttributeEntryDataTypeSpecForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DataAttributeEntryDataTypeSpecForm) DataType() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataType")
+func (x *DataAttributeEntryDataTypeSpecForm) DataType() DataAttributeKind {
+	return parseDataAttributeKind(x.Doc().FormFieldOr(x.Path(), "dataType"))
 }
 
-func (x *DataAttributeEntryDataTypeSpecForm) SetDataType(value string) {
-	x.Doc().SetFormField(x.Path(), "dataType", value)
+func (x *DataAttributeEntryDataTypeSpecForm) SetDataType(value DataAttributeKind) {
+	x.Doc().SetFormField(x.Path(), "dataType", string(value))
 }
 
 func (x *DataAttributeEntryDataTypeSpecForm) PhysicalType() string {
@@ -109416,12 +109560,12 @@ func (x *ExportFieldMappingEntryFormattingForm) SetDisplayOrder(value *int) {
 	x.Doc().SetFormField(x.Path(), "displayOrder", strconv.Itoa(*value))
 }
 
-func (x *ExportFieldMappingEntryFormattingForm) DataType() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataType")
+func (x *ExportFieldMappingEntryFormattingForm) DataType() ExportFieldKind {
+	return parseExportFieldKind(x.Doc().FormFieldOr(x.Path(), "dataType"))
 }
 
-func (x *ExportFieldMappingEntryFormattingForm) SetDataType(value string) {
-	x.Doc().SetFormField(x.Path(), "dataType", value)
+func (x *ExportFieldMappingEntryFormattingForm) SetDataType(value ExportFieldKind) {
+	x.Doc().SetFormField(x.Path(), "dataType", string(value))
 }
 
 // ExportFieldMappingEntryInclusionForm is the generated section facade for the `inclusion` @Form section: its own
@@ -110582,12 +110726,12 @@ func (x *ExtensionEntryContentForm) SetOutcome(value string) {
 	x.Doc().SetFormField(x.Path(), "outcome", value)
 }
 
-func (x *ExtensionEntryContentForm) ReturnKind() string {
-	return x.Doc().FormFieldOr(x.Path(), "returnKind")
+func (x *ExtensionEntryContentForm) ReturnKind() FlowReturnPoint {
+	return parseFlowReturnPoint(x.Doc().FormFieldOr(x.Path(), "returnKind"))
 }
 
-func (x *ExtensionEntryContentForm) SetReturnKind(value string) {
-	x.Doc().SetFormField(x.Path(), "returnKind", value)
+func (x *ExtensionEntryContentForm) SetReturnKind(value FlowReturnPoint) {
+	x.Doc().SetFormField(x.Path(), "returnKind", string(value))
 }
 
 func (x *ExtensionEntryContentForm) Frequency() string {
@@ -113373,12 +113517,12 @@ func (x *FeaturePriorityEntryPriorityScoringForm) SetWeightedPriorityScore(value
 	x.Doc().SetFormField(x.Path(), "weightedPriorityScore", value)
 }
 
-func (x *FeaturePriorityEntryPriorityScoringForm) MoscowTier() string {
-	return x.Doc().FormFieldOr(x.Path(), "moscowTier")
+func (x *FeaturePriorityEntryPriorityScoringForm) MoscowTier() Priority {
+	return parsePriority(x.Doc().FormFieldOr(x.Path(), "moscowTier"))
 }
 
-func (x *FeaturePriorityEntryPriorityScoringForm) SetMoscowTier(value string) {
-	x.Doc().SetFormField(x.Path(), "moscowTier", value)
+func (x *FeaturePriorityEntryPriorityScoringForm) SetMoscowTier(value Priority) {
+	x.Doc().SetFormField(x.Path(), "moscowTier", string(value))
 }
 
 func (x *FeaturePriorityEntryPriorityScoringForm) WsjfScore() string {
@@ -114887,12 +115031,12 @@ func (x *FormScreenAssignmentEntryContentForm) SetRouteId(value string) {
 	x.Doc().SetFormField(x.Path(), "routeId", value)
 }
 
-func (x *FormScreenAssignmentEntryContentForm) PresentationMode() string {
-	return x.Doc().FormFieldOr(x.Path(), "presentationMode")
+func (x *FormScreenAssignmentEntryContentForm) PresentationMode() ScreenPresentationMode {
+	return parseScreenPresentationMode(x.Doc().FormFieldOr(x.Path(), "presentationMode"))
 }
 
-func (x *FormScreenAssignmentEntryContentForm) SetPresentationMode(value string) {
-	x.Doc().SetFormField(x.Path(), "presentationMode", value)
+func (x *FormScreenAssignmentEntryContentForm) SetPresentationMode(value ScreenPresentationMode) {
+	x.Doc().SetFormField(x.Path(), "presentationMode", string(value))
 }
 
 // FrameworkRequirementEntryCompatibilityForm is the generated section facade for the `compatibility` @Form section: its own
@@ -115801,12 +115945,12 @@ func (x *FunctionalRequirementEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *FunctionalRequirementEntryContentForm) Status() string {
-	return x.Doc().FormFieldOr(x.Path(), "status")
+func (x *FunctionalRequirementEntryContentForm) Status() Status {
+	return parseStatus(x.Doc().FormFieldOr(x.Path(), "status"))
 }
 
-func (x *FunctionalRequirementEntryContentForm) SetStatus(value string) {
-	x.Doc().SetFormField(x.Path(), "status", value)
+func (x *FunctionalRequirementEntryContentForm) SetStatus(value Status) {
+	x.Doc().SetFormField(x.Path(), "status", string(value))
 }
 
 // FunctionalRequirementEntryDetailsForm is the generated section facade for the `details` @Form section: its own
@@ -115935,12 +116079,12 @@ func (x *FunctionalRequirementEntryPriorityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *FunctionalRequirementEntryPriorityForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *FunctionalRequirementEntryPriorityForm) Priority() Priority {
+	return parsePriority(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *FunctionalRequirementEntryPriorityForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *FunctionalRequirementEntryPriorityForm) SetPriority(value Priority) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *FunctionalRequirementEntryPriorityForm) BusinessValue() string {
@@ -117455,20 +117599,20 @@ func (x *GradedAccessLevelEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *GradedAccessLevelEntryContentForm) AccessLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "accessLevel")
+func (x *GradedAccessLevelEntryContentForm) AccessLevel() GradedAccessLevel {
+	return parseGradedAccessLevel(x.Doc().FormFieldOr(x.Path(), "accessLevel"))
 }
 
-func (x *GradedAccessLevelEntryContentForm) SetAccessLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "accessLevel", value)
+func (x *GradedAccessLevelEntryContentForm) SetAccessLevel(value GradedAccessLevel) {
+	x.Doc().SetFormField(x.Path(), "accessLevel", string(value))
 }
 
-func (x *GradedAccessLevelEntryContentForm) RequirementKind() string {
-	return x.Doc().FormFieldOr(x.Path(), "requirementKind")
+func (x *GradedAccessLevelEntryContentForm) RequirementKind() BasicAuthorizationRequirementKind {
+	return parseBasicAuthorizationRequirementKind(x.Doc().FormFieldOr(x.Path(), "requirementKind"))
 }
 
-func (x *GradedAccessLevelEntryContentForm) SetRequirementKind(value string) {
-	x.Doc().SetFormField(x.Path(), "requirementKind", value)
+func (x *GradedAccessLevelEntryContentForm) SetRequirementKind(value BasicAuthorizationRequirementKind) {
+	x.Doc().SetFormField(x.Path(), "requirementKind", string(value))
 }
 
 // GradedAccessLevelEntryCustomRequirementForm is the generated section facade for the `customRequirement` @Form section: its own
@@ -127791,12 +127935,12 @@ func (x *Iso25010CoverageEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *Iso25010CoverageEntryContentForm) Characteristic() string {
-	return x.Doc().FormFieldOr(x.Path(), "characteristic")
+func (x *Iso25010CoverageEntryContentForm) Characteristic() Iso25010Characteristic {
+	return parseIso25010Characteristic(x.Doc().FormFieldOr(x.Path(), "characteristic"))
 }
 
-func (x *Iso25010CoverageEntryContentForm) SetCharacteristic(value string) {
-	x.Doc().SetFormField(x.Path(), "characteristic", value)
+func (x *Iso25010CoverageEntryContentForm) SetCharacteristic(value Iso25010Characteristic) {
+	x.Doc().SetFormField(x.Path(), "characteristic", string(value))
 }
 
 func (x *Iso25010CoverageEntryContentForm) AddressedBy() string {
@@ -137678,12 +137822,12 @@ func (x *MigrationRiskEntryMitigationForm) SetMitigationStatus(value string) {
 	x.Doc().SetFormField(x.Path(), "mitigationStatus", value)
 }
 
-func (x *MigrationRiskEntryMitigationForm) ResidualProbability() string {
-	return x.Doc().FormFieldOr(x.Path(), "residualProbability")
+func (x *MigrationRiskEntryMitigationForm) ResidualProbability() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "residualProbability"))
 }
 
-func (x *MigrationRiskEntryMitigationForm) SetResidualProbability(value string) {
-	x.Doc().SetFormField(x.Path(), "residualProbability", value)
+func (x *MigrationRiskEntryMitigationForm) SetResidualProbability(value Probability) {
+	x.Doc().SetFormField(x.Path(), "residualProbability", string(value))
 }
 
 func (x *MigrationRiskEntryMitigationForm) ResidualImpact() string {
@@ -137740,12 +137884,12 @@ func (x *MigrationRiskEntryProbabilityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *MigrationRiskEntryProbabilityForm) ProbabilityRating() string {
-	return x.Doc().FormFieldOr(x.Path(), "probabilityRating")
+func (x *MigrationRiskEntryProbabilityForm) ProbabilityRating() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "probabilityRating"))
 }
 
-func (x *MigrationRiskEntryProbabilityForm) SetProbabilityRating(value string) {
-	x.Doc().SetFormField(x.Path(), "probabilityRating", value)
+func (x *MigrationRiskEntryProbabilityForm) SetProbabilityRating(value Probability) {
+	x.Doc().SetFormField(x.Path(), "probabilityRating", string(value))
 }
 
 func (x *MigrationRiskEntryProbabilityForm) ProbabilityScore() *int {
@@ -140511,12 +140655,12 @@ func (x *MoscowEntryClassificationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *MoscowEntryClassificationForm) MoscowCategory() string {
-	return x.Doc().FormFieldOr(x.Path(), "moscowCategory")
+func (x *MoscowEntryClassificationForm) MoscowCategory() Priority {
+	return parsePriority(x.Doc().FormFieldOr(x.Path(), "moscowCategory"))
 }
 
-func (x *MoscowEntryClassificationForm) SetMoscowCategory(value string) {
-	x.Doc().SetFormField(x.Path(), "moscowCategory", value)
+func (x *MoscowEntryClassificationForm) SetMoscowCategory(value Priority) {
+	x.Doc().SetFormField(x.Path(), "moscowCategory", string(value))
 }
 
 func (x *MoscowEntryClassificationForm) Justification() string {
@@ -145098,12 +145242,12 @@ func (x *ObjectStateEntryContentForm) SetDescription(value string) {
 	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
-func (x *ObjectStateEntryContentForm) StateType() string {
-	return x.Doc().FormFieldOr(x.Path(), "stateType")
+func (x *ObjectStateEntryContentForm) StateType() ObjectLifecycleKind {
+	return parseObjectLifecycleKind(x.Doc().FormFieldOr(x.Path(), "stateType"))
 }
 
-func (x *ObjectStateEntryContentForm) SetStateType(value string) {
-	x.Doc().SetFormField(x.Path(), "stateType", value)
+func (x *ObjectStateEntryContentForm) SetStateType(value ObjectLifecycleKind) {
+	x.Doc().SetFormField(x.Path(), "stateType", string(value))
 }
 
 func (x *ObjectStateEntryContentForm) EntryConditions() string {
@@ -147628,12 +147772,12 @@ func (x *OrganizationalRequirementEntryClassificationForm) SetSubcategory(value 
 	x.Doc().SetFormField(x.Path(), "subcategory", value)
 }
 
-func (x *OrganizationalRequirementEntryClassificationForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *OrganizationalRequirementEntryClassificationForm) Priority() Priority {
+	return parsePriority(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *OrganizationalRequirementEntryClassificationForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *OrganizationalRequirementEntryClassificationForm) SetPriority(value Priority) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *OrganizationalRequirementEntryClassificationForm) Source() string {
@@ -165345,12 +165489,12 @@ func (x *ReportColumnEntryDataSourceForm) SetDataSourceField(value string) {
 	x.Doc().SetFormField(x.Path(), "dataSourceField", value)
 }
 
-func (x *ReportColumnEntryDataSourceForm) DataType() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataType")
+func (x *ReportColumnEntryDataSourceForm) DataType() ReportColumnKind {
+	return parseReportColumnKind(x.Doc().FormFieldOr(x.Path(), "dataType"))
 }
 
-func (x *ReportColumnEntryDataSourceForm) SetDataType(value string) {
-	x.Doc().SetFormField(x.Path(), "dataType", value)
+func (x *ReportColumnEntryDataSourceForm) SetDataType(value ReportColumnKind) {
+	x.Doc().SetFormField(x.Path(), "dataType", string(value))
 }
 
 // ReportColumnEntryDateFormatForm is the generated section facade for the `dateFormat` @Form section: its own
@@ -166945,12 +167089,12 @@ func (x *ReportFilterEntryInputForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ReportFilterEntryInputForm) DataType() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataType")
+func (x *ReportFilterEntryInputForm) DataType() ReportFilterValueKind {
+	return parseReportFilterValueKind(x.Doc().FormFieldOr(x.Path(), "dataType"))
 }
 
-func (x *ReportFilterEntryInputForm) SetDataType(value string) {
-	x.Doc().SetFormField(x.Path(), "dataType", value)
+func (x *ReportFilterEntryInputForm) SetDataType(value ReportFilterValueKind) {
+	x.Doc().SetFormField(x.Path(), "dataType", string(value))
 }
 
 func (x *ReportFilterEntryInputForm) DefaultValue() string {
@@ -172150,12 +172294,12 @@ func (x *RiskEntryAnalysisForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *RiskEntryAnalysisForm) Probability() string {
-	return x.Doc().FormFieldOr(x.Path(), "probability")
+func (x *RiskEntryAnalysisForm) Probability() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "probability"))
 }
 
-func (x *RiskEntryAnalysisForm) SetProbability(value string) {
-	x.Doc().SetFormField(x.Path(), "probability", value)
+func (x *RiskEntryAnalysisForm) SetProbability(value Probability) {
+	x.Doc().SetFormField(x.Path(), "probability", string(value))
 }
 
 func (x *RiskEntryAnalysisForm) ProbabilityValue() *float64 {
@@ -172178,12 +172322,12 @@ func (x *RiskEntryAnalysisForm) SetProbabilityValue(value *float64) {
 	x.Doc().SetFormField(x.Path(), "probabilityValue", strconv.FormatFloat(*value, 'g', -1, 64))
 }
 
-func (x *RiskEntryAnalysisForm) Impact() string {
-	return x.Doc().FormFieldOr(x.Path(), "impact")
+func (x *RiskEntryAnalysisForm) Impact() Impact {
+	return parseImpact(x.Doc().FormFieldOr(x.Path(), "impact"))
 }
 
-func (x *RiskEntryAnalysisForm) SetImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "impact", value)
+func (x *RiskEntryAnalysisForm) SetImpact(value Impact) {
+	x.Doc().SetFormField(x.Path(), "impact", string(value))
 }
 
 func (x *RiskEntryAnalysisForm) ImpactValue() *float64 {
@@ -172929,20 +173073,20 @@ func (x *RiskResponseResidualForm) SetResidualRisk(value string) {
 	x.Doc().SetFormField(x.Path(), "residualRisk", value)
 }
 
-func (x *RiskResponseResidualForm) ResidualProbability() string {
-	return x.Doc().FormFieldOr(x.Path(), "residualProbability")
+func (x *RiskResponseResidualForm) ResidualProbability() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "residualProbability"))
 }
 
-func (x *RiskResponseResidualForm) SetResidualProbability(value string) {
-	x.Doc().SetFormField(x.Path(), "residualProbability", value)
+func (x *RiskResponseResidualForm) SetResidualProbability(value Probability) {
+	x.Doc().SetFormField(x.Path(), "residualProbability", string(value))
 }
 
-func (x *RiskResponseResidualForm) ResidualImpact() string {
-	return x.Doc().FormFieldOr(x.Path(), "residualImpact")
+func (x *RiskResponseResidualForm) ResidualImpact() Impact {
+	return parseImpact(x.Doc().FormFieldOr(x.Path(), "residualImpact"))
 }
 
-func (x *RiskResponseResidualForm) SetResidualImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "residualImpact", value)
+func (x *RiskResponseResidualForm) SetResidualImpact(value Impact) {
+	x.Doc().SetFormField(x.Path(), "residualImpact", string(value))
 }
 
 func (x *RiskResponseResidualForm) SecondaryRisks() string {
@@ -176955,12 +177099,12 @@ func (x *ScheduledJobEntryContentForm) SetPurpose(value string) {
 	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
-func (x *ScheduledJobEntryContentForm) TriggerKind() string {
-	return x.Doc().FormFieldOr(x.Path(), "triggerKind")
+func (x *ScheduledJobEntryContentForm) TriggerKind() ScheduledJobTrigger {
+	return parseScheduledJobTrigger(x.Doc().FormFieldOr(x.Path(), "triggerKind"))
 }
 
-func (x *ScheduledJobEntryContentForm) SetTriggerKind(value string) {
-	x.Doc().SetFormField(x.Path(), "triggerKind", value)
+func (x *ScheduledJobEntryContentForm) SetTriggerKind(value ScheduledJobTrigger) {
+	x.Doc().SetFormField(x.Path(), "triggerKind", string(value))
 }
 
 func (x *ScheduledJobEntryContentForm) PrimaryDataEntity() string {
@@ -177630,12 +177774,12 @@ func (x *SchemaMigrationStepEntryContentForm) SetDescription(value string) {
 	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
-func (x *SchemaMigrationStepEntryContentForm) ArtifactKind() string {
-	return x.Doc().FormFieldOr(x.Path(), "artifactKind")
+func (x *SchemaMigrationStepEntryContentForm) ArtifactKind() MigrationArtifactKind {
+	return parseMigrationArtifactKind(x.Doc().FormFieldOr(x.Path(), "artifactKind"))
 }
 
-func (x *SchemaMigrationStepEntryContentForm) SetArtifactKind(value string) {
-	x.Doc().SetFormField(x.Path(), "artifactKind", value)
+func (x *SchemaMigrationStepEntryContentForm) SetArtifactKind(value MigrationArtifactKind) {
+	x.Doc().SetFormField(x.Path(), "artifactKind", string(value))
 }
 
 func (x *SchemaMigrationStepEntryContentForm) MigrationTarget() string {
@@ -178694,12 +178838,12 @@ func (x *ScreenElementEntryContentForm) SetElementId(value string) {
 	x.Doc().SetFormField(x.Path(), "elementId", value)
 }
 
-func (x *ScreenElementEntryContentForm) ElementType() string {
-	return x.Doc().FormFieldOr(x.Path(), "elementType")
+func (x *ScreenElementEntryContentForm) ElementType() ScreenElementKind {
+	return parseScreenElementKind(x.Doc().FormFieldOr(x.Path(), "elementType"))
 }
 
-func (x *ScreenElementEntryContentForm) SetElementType(value string) {
-	x.Doc().SetFormField(x.Path(), "elementType", value)
+func (x *ScreenElementEntryContentForm) SetElementType(value ScreenElementKind) {
+	x.Doc().SetFormField(x.Path(), "elementType", string(value))
 }
 
 // ScreenElementEntryLayoutForm is the generated section facade for the `layout` @Form section: its own
@@ -178930,12 +179074,12 @@ func (x *ScreenElementFieldSpecContentForm) SetFieldName(value string) {
 	x.Doc().SetFormField(x.Path(), "fieldName", value)
 }
 
-func (x *ScreenElementFieldSpecContentForm) DataType() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataType")
+func (x *ScreenElementFieldSpecContentForm) DataType() ScreenElementFieldKind {
+	return parseScreenElementFieldKind(x.Doc().FormFieldOr(x.Path(), "dataType"))
 }
 
-func (x *ScreenElementFieldSpecContentForm) SetDataType(value string) {
-	x.Doc().SetFormField(x.Path(), "dataType", value)
+func (x *ScreenElementFieldSpecContentForm) SetDataType(value ScreenElementFieldKind) {
+	x.Doc().SetFormField(x.Path(), "dataType", string(value))
 }
 
 func (x *ScreenElementFieldSpecContentForm) PlaceholderResource() string {
@@ -179722,12 +179866,12 @@ func (x *ScreenFieldEntryContentForm) SetFieldId(value string) {
 	x.Doc().SetFormField(x.Path(), "fieldId", value)
 }
 
-func (x *ScreenFieldEntryContentForm) FieldType() string {
-	return x.Doc().FormFieldOr(x.Path(), "fieldType")
+func (x *ScreenFieldEntryContentForm) FieldType() ScreenFieldKind {
+	return parseScreenFieldKind(x.Doc().FormFieldOr(x.Path(), "fieldType"))
 }
 
-func (x *ScreenFieldEntryContentForm) SetFieldType(value string) {
-	x.Doc().SetFormField(x.Path(), "fieldType", value)
+func (x *ScreenFieldEntryContentForm) SetFieldType(value ScreenFieldKind) {
+	x.Doc().SetFormField(x.Path(), "fieldType", string(value))
 }
 
 // ScreenFieldEntryDataBindingForm is the generated section facade for the `dataBinding` @Form section: its own
@@ -180482,12 +180626,12 @@ func (x *ScreenTransitionEntryContentForm) SetActionId(value string) {
 	x.Doc().SetFormField(x.Path(), "actionId", value)
 }
 
-func (x *ScreenTransitionEntryContentForm) Outcome() string {
-	return x.Doc().FormFieldOr(x.Path(), "outcome")
+func (x *ScreenTransitionEntryContentForm) Outcome() ScreenFlowOutcome {
+	return parseScreenFlowOutcome(x.Doc().FormFieldOr(x.Path(), "outcome"))
 }
 
-func (x *ScreenTransitionEntryContentForm) SetOutcome(value string) {
-	x.Doc().SetFormField(x.Path(), "outcome", value)
+func (x *ScreenTransitionEntryContentForm) SetOutcome(value ScreenFlowOutcome) {
+	x.Doc().SetFormField(x.Path(), "outcome", string(value))
 }
 
 func (x *ScreenTransitionEntryContentForm) TargetRouteId() string {
@@ -180498,12 +180642,12 @@ func (x *ScreenTransitionEntryContentForm) SetTargetRouteId(value string) {
 	x.Doc().SetFormField(x.Path(), "targetRouteId", value)
 }
 
-func (x *ScreenTransitionEntryContentForm) PresentationMode() string {
-	return x.Doc().FormFieldOr(x.Path(), "presentationMode")
+func (x *ScreenTransitionEntryContentForm) PresentationMode() ScreenPresentationMode {
+	return parseScreenPresentationMode(x.Doc().FormFieldOr(x.Path(), "presentationMode"))
 }
 
-func (x *ScreenTransitionEntryContentForm) SetPresentationMode(value string) {
-	x.Doc().SetFormField(x.Path(), "presentationMode", value)
+func (x *ScreenTransitionEntryContentForm) SetPresentationMode(value ScreenPresentationMode) {
+	x.Doc().SetFormField(x.Path(), "presentationMode", string(value))
 }
 
 func (x *ScreenTransitionEntryContentForm) OutcomeReference() string {
@@ -182294,12 +182438,12 @@ func (x *SecurityRequirementEntryStatusInfoForm) SetRiskOwner(value string) {
 	x.Doc().SetFormField(x.Path(), "riskOwner", value)
 }
 
-func (x *SecurityRequirementEntryStatusInfoForm) Status() string {
-	return x.Doc().FormFieldOr(x.Path(), "status")
+func (x *SecurityRequirementEntryStatusInfoForm) Status() Status {
+	return parseStatus(x.Doc().FormFieldOr(x.Path(), "status"))
 }
 
-func (x *SecurityRequirementEntryStatusInfoForm) SetStatus(value string) {
-	x.Doc().SetFormField(x.Path(), "status", value)
+func (x *SecurityRequirementEntryStatusInfoForm) SetStatus(value Status) {
+	x.Doc().SetFormField(x.Path(), "status", string(value))
 }
 
 // SecurityRequirementEntryVerificationForm is the generated section facade for the `verification` @Form section: its own
@@ -183621,12 +183765,12 @@ func (x *ServerCallStepEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ServerCallStepEntryContentForm) Role() string {
-	return x.Doc().FormFieldOr(x.Path(), "role")
+func (x *ServerCallStepEntryContentForm) Role() ServerCallRole {
+	return parseServerCallRole(x.Doc().FormFieldOr(x.Path(), "role"))
 }
 
-func (x *ServerCallStepEntryContentForm) SetRole(value string) {
-	x.Doc().SetFormField(x.Path(), "role", value)
+func (x *ServerCallStepEntryContentForm) SetRole(value ServerCallRole) {
+	x.Doc().SetFormField(x.Path(), "role", string(value))
 }
 
 func (x *ServerCallStepEntryContentForm) SystemAction() string {
@@ -190372,20 +190516,20 @@ func (x *StageMigrationRiskEntryProbabilityImpactForm) SetContent(value string) 
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *StageMigrationRiskEntryProbabilityImpactForm) Probability() string {
-	return x.Doc().FormFieldOr(x.Path(), "probability")
+func (x *StageMigrationRiskEntryProbabilityImpactForm) Probability() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "probability"))
 }
 
-func (x *StageMigrationRiskEntryProbabilityImpactForm) SetProbability(value string) {
-	x.Doc().SetFormField(x.Path(), "probability", value)
+func (x *StageMigrationRiskEntryProbabilityImpactForm) SetProbability(value Probability) {
+	x.Doc().SetFormField(x.Path(), "probability", string(value))
 }
 
-func (x *StageMigrationRiskEntryProbabilityImpactForm) Impact() string {
-	return x.Doc().FormFieldOr(x.Path(), "impact")
+func (x *StageMigrationRiskEntryProbabilityImpactForm) Impact() Impact {
+	return parseImpact(x.Doc().FormFieldOr(x.Path(), "impact"))
 }
 
-func (x *StageMigrationRiskEntryProbabilityImpactForm) SetImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "impact", value)
+func (x *StageMigrationRiskEntryProbabilityImpactForm) SetImpact(value Impact) {
+	x.Doc().SetFormField(x.Path(), "impact", string(value))
 }
 
 func (x *StageMigrationRiskEntryProbabilityImpactForm) RiskScore() string {
@@ -190438,20 +190582,20 @@ func (x *StageMigrationRiskEntryResidualForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *StageMigrationRiskEntryResidualForm) ResidualProbability() string {
-	return x.Doc().FormFieldOr(x.Path(), "residualProbability")
+func (x *StageMigrationRiskEntryResidualForm) ResidualProbability() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "residualProbability"))
 }
 
-func (x *StageMigrationRiskEntryResidualForm) SetResidualProbability(value string) {
-	x.Doc().SetFormField(x.Path(), "residualProbability", value)
+func (x *StageMigrationRiskEntryResidualForm) SetResidualProbability(value Probability) {
+	x.Doc().SetFormField(x.Path(), "residualProbability", string(value))
 }
 
-func (x *StageMigrationRiskEntryResidualForm) ResidualImpact() string {
-	return x.Doc().FormFieldOr(x.Path(), "residualImpact")
+func (x *StageMigrationRiskEntryResidualForm) ResidualImpact() Impact {
+	return parseImpact(x.Doc().FormFieldOr(x.Path(), "residualImpact"))
 }
 
-func (x *StageMigrationRiskEntryResidualForm) SetResidualImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "residualImpact", value)
+func (x *StageMigrationRiskEntryResidualForm) SetResidualImpact(value Impact) {
+	x.Doc().SetFormField(x.Path(), "residualImpact", string(value))
 }
 
 func (x *StageMigrationRiskEntryResidualForm) ResidualRiskAcceptable() string {
@@ -203105,12 +203249,12 @@ func (x *TechnicalRequirementEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *TechnicalRequirementEntryContentForm) Status() string {
-	return x.Doc().FormFieldOr(x.Path(), "status")
+func (x *TechnicalRequirementEntryContentForm) Status() Status {
+	return parseStatus(x.Doc().FormFieldOr(x.Path(), "status"))
 }
 
-func (x *TechnicalRequirementEntryContentForm) SetStatus(value string) {
-	x.Doc().SetFormField(x.Path(), "status", value)
+func (x *TechnicalRequirementEntryContentForm) SetStatus(value Status) {
+	x.Doc().SetFormField(x.Path(), "status", string(value))
 }
 
 // TechnicalRequirementEntryDetailsForm is the generated section facade for the `details` @Form section: its own
@@ -215072,12 +215216,12 @@ func (x *UserAttributeEntryContentForm) SetDataType(value string) {
 	x.Doc().SetFormField(x.Path(), "dataType", value)
 }
 
-func (x *UserAttributeEntryContentForm) Placement() string {
-	return x.Doc().FormFieldOr(x.Path(), "placement")
+func (x *UserAttributeEntryContentForm) Placement() UserAttributePlacement {
+	return parseUserAttributePlacement(x.Doc().FormFieldOr(x.Path(), "placement"))
 }
 
-func (x *UserAttributeEntryContentForm) SetPlacement(value string) {
-	x.Doc().SetFormField(x.Path(), "placement", value)
+func (x *UserAttributeEntryContentForm) SetPlacement(value UserAttributePlacement) {
+	x.Doc().SetFormField(x.Path(), "placement", string(value))
 }
 
 func (x *UserAttributeEntryContentForm) AccessGuard() string {

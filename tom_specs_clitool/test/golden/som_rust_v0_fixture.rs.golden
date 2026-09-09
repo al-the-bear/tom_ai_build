@@ -39,6 +39,41 @@ pub const PROBABILITY_LOW: &str = "low";
 pub const PROBABILITY_MEDIUM: &str = "medium";
 pub const PROBABILITY_HIGH: &str = "high";
 
+/// Probability is the generated enum for `Probability` values.
+///
+/// The stored token is what [Probability::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum Probability {
+    Low,
+    Medium,
+    High,
+}
+
+impl Probability {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Probability::Low => "low",
+            Probability::Medium => "medium",
+            Probability::High => "high",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "low" => Some(Probability::Low),
+            "medium" => Some(Probability::Medium),
+            "high" => Some(Probability::High),
+            _ => None,
+        }
+    }
+}
+
 /// parse_probability returns token when it is a known Probability value, else "".
 pub fn parse_probability(token: &str) -> String {
     match token {

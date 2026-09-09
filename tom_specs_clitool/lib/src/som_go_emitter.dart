@@ -12,7 +12,8 @@
 /// This is the Go counterpart of [SomDartEmitter] / `SomPythonEmitter` /
 /// `SomJavaEmitter` / `SomJavaScriptEmitter` / `SomTypeScriptEmitter` — the same
 /// reachability walk, the same deterministic ordering, the same field-kind
-/// mapping. Go has no classes, exceptions, or enums, so the surface is idiomatic:
+/// mapping. Go has no classes and no exceptions, and its nearest thing to an
+/// enum is a defined type over `string`, so the surface is idiomatic:
 ///
 ///   * each model class becomes a `struct` embedding `som.SomNode`, with
 ///     **exported (Pascal-cased) method accessors** (`Vision()` /
@@ -23,8 +24,11 @@
 ///     them would *shadow* the promoted method silently. The whole structural
 ///     surface is reserved, from the one table in
 ///     `som_structural_accessors.dart` that all nine emitters share;
-///   * enums become exported string constants + an unexported `parse<Enum>`
-///     helper (the stored token stays byte-identical across languages);
+///   * enums become a **defined type over `string`** (`type Priority string`)
+///     plus typed constants and a `parse<Enum>` helper. The type's value IS the
+///     stored token, so an accessor can name what it returns while the token
+///     stays byte-identical across languages; an undeclared token parses to
+///     `""` rather than to a guess;
 ///   * the version check returns `*som.SomVersionError`, so root constructors
 ///     return `(*T, error)`.
 ///
@@ -112,6 +116,14 @@ class SomGoEmitter {
   final Map<String, List<_EnumConst>> _enumConsts = {};
   final Map<String, String> _parseName = {};
 
+  /// The Go **named type** emitted for each model enum, keyed by enum name.
+  ///
+  /// Go has no enum, but it does have a defined type over `string`, which is
+  /// the idiom: the constants carry the type, an accessor can declare it, and
+  /// the underlying value is still the stored token — so a document written
+  /// here stays byte-identical to one written by any other port.
+  final Map<String, String> _enumTypeName = {};
+
   /// Reserves [base] as a package-level identifier, appending the smallest
   /// numeric suffix that keeps it unique across the whole module.
   String _alloc(String base) {
@@ -131,6 +143,7 @@ class SomGoEmitter {
     _modelVersionConst.clear();
     _enumConsts.clear();
     _parseName.clear();
+    _enumTypeName.clear();
 
     final rootTypes = _selectedRoots.map((r) => r.type).toSet();
     final reachable = _reachableClasses(rootTypes);
@@ -263,6 +276,7 @@ class SomGoEmitter {
     }
     // 3. Enum `parse` helpers and value constants.
     for (final e in enums) {
+      _enumTypeName[e.name] = _alloc(e.name);
       _parseName[e.name] = _alloc('parse${e.name}');
       final consts = <_EnumConst>[];
       var idx = 0;
@@ -322,15 +336,23 @@ class SomGoEmitter {
   String _emitEnum(_EnumType e) {
     final consts = _enumConsts[e.name] ?? const <_EnumConst>[];
     final parse = _parseName[e.name] ?? 'parse${e.name}';
+    final type = _enumTypeName[e.name] ?? e.name;
     final b = StringBuffer()
       ..writeln(
-        '// Generated enum constants for `${e.name}` values. The stored '
-        'token is byte-',
+        '// $type is the generated named type for `${e.name}` values. Its '
+        'underlying type is',
       )
       ..writeln(
-        '// identical across every language port, so documents stay '
-        'cross-compatible.',
-      );
+        '// `string` and its value IS the stored token, byte-identical across '
+        'every',
+      )
+      ..writeln(
+        '// language port, so documents stay cross-compatible while an '
+        'accessor can still',
+      )
+      ..writeln('// name what it returns.')
+      ..writeln('type $type string')
+      ..writeln();
     if (consts.isNotEmpty) {
       // gofmt column-aligns the `=` of a const group, and a comment line
       // ENDS one group and starts another — so the padding width is per RUN of
@@ -343,7 +365,9 @@ class SomGoEmitter {
         final doc = e.docs[consts[i].token];
         if (doc != null && doc.trim().isNotEmpty) {
           _writeConstDoc(b, doc, '\t');
-          b.writeln('\t${consts[i].ident} = "${_goStr(consts[i].token)}"');
+          b.writeln(
+            '\t${consts[i].ident} $type = "${_goStr(consts[i].token)}"',
+          );
           i++;
           continue;
         }
@@ -360,7 +384,8 @@ class SomGoEmitter {
             .reduce((a, b) => a > b ? a : b);
         for (var k = i; k < end; k++) {
           b.writeln(
-            '\t${consts[k].ident.padRight(width)} = "${_goStr(consts[k].token)}"',
+            '\t${consts[k].ident.padRight(width)} $type = '
+            '"${_goStr(consts[k].token)}"',
           );
         }
         i = end;
@@ -370,16 +395,21 @@ class SomGoEmitter {
     }
     b
       ..writeln(
-        '// $parse returns token when it is a known ${e.name} '
-        'value, else "".',
+        '// $parse returns the $type whose token is [token], or "" when the '
+        'token is not',
       )
-      ..writeln('func $parse(token string) string {');
+      ..writeln(
+        '// one this model declares — the same answer the ports with a real '
+        'enum give as',
+      )
+      ..writeln('// null, and never a guess.')
+      ..writeln('func $parse(token string) $type {');
     if (consts.isEmpty) {
       b.writeln('\treturn ""');
     } else {
-      b.writeln('\tswitch token {');
+      b.writeln('\tswitch $type(token) {');
       b.writeln('\tcase ${consts.map((c) => c.ident).join(', ')}:');
-      b.writeln('\t\treturn token');
+      b.writeln('\t\treturn $type(token)');
       b.writeln('\t}');
       b.writeln('\treturn ""');
     }
@@ -612,14 +642,15 @@ class SomGoEmitter {
         } else {
           final et = f.enumType!;
           final parse = _parseName[et] ?? 'parse$et';
+          final etype = _enumTypeName[et] ?? et;
           _writeComment(b, f.doc, '');
           b
-            ..writeln('func (x *${cls.name}) $acc() string {')
+            ..writeln('func (x *${cls.name}) $acc() $etype {')
             ..writeln('\treturn $parse(x.Doc().ContentOr($childPath))')
             ..writeln('}')
             ..writeln()
-            ..writeln('func (x *${cls.name}) Set$acc(value string) {')
-            ..writeln('\tx.Doc().SetContent($childPathTight, value)')
+            ..writeln('func (x *${cls.name}) Set$acc(value $etype) {')
+            ..writeln('\tx.Doc().SetContent($childPathTight, string(value))')
             ..writeln('}');
         }
         break;
@@ -775,6 +806,26 @@ class SomGoEmitter {
     final field = '"${_goStr(ff.name)}"';
     final acc = _allocAccessor(usedAcc, ff.name);
     b.writeln();
+    // An enum-valued form member returns the generated named type rather than
+    // its raw token. The STORED value is unchanged — the named type's
+    // underlying type is `string` and its value IS the token — so typing the
+    // accessor cannot make a document written here unreadable elsewhere.
+    if (ff.enumValues.isNotEmpty) {
+      final base = somScalarBaseName(ff.type);
+      final etype = _enumTypeName[base];
+      if (etype != null) {
+        final parse = _parseName[base] ?? 'parse$base';
+        b
+          ..writeln('func (x *$name) $acc() $etype {')
+          ..writeln('\treturn $parse(x.Doc().FormFieldOr(x.Path(), $field))')
+          ..writeln('}')
+          ..writeln()
+          ..writeln('func (x *$name) Set$acc(value $etype) {')
+          ..writeln('\tx.Doc().SetFormField(x.Path(), $field, string(value))')
+          ..writeln('}');
+        return;
+      }
+    }
     switch (_scalarType(ff.type)) {
       case 'int':
         b

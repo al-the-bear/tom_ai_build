@@ -909,19 +909,34 @@ and unused. The rule now lives once, in
 reachability walk that were consolidated there for the same reason.
 
 **The vocabulary's *representation* is idiomatic per language, and its accessor
-is typed wherever the language has a name for the type.** Dart, Python and Java
-emit a real enum; TypeScript emits a frozen object plus the value-union alias
-that gives an accessor something to return; JavaScript emits the frozen object
-alone, having no static types to carry; Go, Rust, C and C++ emit constants.
-Where a nominal type exists the enum-valued `@Form` accessor returns it —
-`Iso25010Characteristic` in Dart, Python and Java, `Iso25010CharacteristicValue`
-in TypeScript — and where it does not, the accessor returns the token. **The
-stored value is the same string in all nine either way**, which is what keeps a
-document written by one port readable by the rest; the golden logs canonicalise
-a typed value back to its token for exactly that reason.
+is typed wherever the language has a name for the type.** Eight of the nine now
+name it, each in the shape its own language calls one:
 
-Giving Go, Rust, C++ and C a nominal type is a change to what those ports emit
-rather than to how an accessor is declared, and is tracked separately.
+| Plane | The nominal type | What the accessor returns |
+|---|---|---|
+| Dart, Python, Java | a real `enum` | the enum, `null` for an undeclared token |
+| TypeScript | a frozen object + the value-union alias | the union |
+| **Rust** | a real `enum` with `as_str` / `from_token` | `Option<T>`, `None` for an undeclared token |
+| **Go** | a defined type over `string` (`type X string`) | the type; `""` for an undeclared token |
+| C, C++ | constants only | the token |
+| JavaScript | the frozen object alone | the token |
+
+Two of those rows are deliberate refusals rather than gaps. **JavaScript** has
+no static types, so there is nothing an accessor could be declared to return.
+**C and C++ keep constants** because constants *are* the idiom there: C has no
+sum type over strings, so a nominal type means an integer `enum` plus a parallel
+token table — a second artefact to keep in step with the first, bought for
+uniformity the wire format already guarantees.
+
+**The stored value is the same string in all nine, whatever the accessor's
+type**, which is what keeps a document written by one port readable by the rest.
+Go's defined type *is* the token (its underlying type is `string`); Rust's enum
+hands it back through `as_str`; and each `tool/golden_log.*` canonicalises a
+typed value to its token, which is why the nine logs stay byte-identical.
+
+The two answers for an undeclared token — `None`/`null` where the language has
+an option type, `""` where the value is the token — are the same answer: never a
+guess. A port cannot invent a variant the model does not declare.
 
 **What the meta still cannot supply.** The `@ContentType` *description* is
 dropped; only the type token reaches the meta. That is a model-side gap rather

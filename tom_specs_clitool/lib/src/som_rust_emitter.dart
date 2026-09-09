@@ -24,8 +24,11 @@
 ///     needed** (unlike the Go/TypeScript ports);
 ///   * Rust **keyword collisions** (`type`, `match`, `move`, `ref`, `self`, …)
 ///     are resolved with a trailing underscore (`type_`, `match_`, …);
-///   * enums become module-level `&str` constants + a `parse_<enum>` helper (the
-///     stored token stays byte-identical across languages);
+///   * enums become a real `enum` with `as_str` / `from_token`, alongside the
+///     module-level `&str` constants and the `parse_<enum>` helper. The stored
+///     token is what `as_str` returns, byte-identical across languages;
+///     `from_token` answers `None` for a token this model does not declare,
+///     which is the same answer the ports with a nullable accessor give;
 ///   * the version check returns `Result<_, som::SomVersionError>`, so root
 ///     constructors return `Result<Self, som::SomVersionError>`.
 ///
@@ -162,6 +165,16 @@ class SomRustEmitter {
   /// Generated enum constants keyed by enum type name (allocation order = value
   /// order), and the `parse_<enum>` helper name keyed by enum type name.
   final Map<String, List<_EnumConst>> _enumConsts = {};
+
+  /// The Rust `enum` type emitted for each model enum, keyed by enum name, and
+  /// its variant identifiers in value order.
+  ///
+  /// Rust HAS a sum type, so the vocabulary can be a real one: the accessor
+  /// returns `Option<T>` — `None` for a token this model does not declare,
+  /// which is the same answer Dart, Python and Java give as null — and
+  /// `as_str` hands back the stored token unchanged.
+  final Map<String, String> _enumTypeName = {};
+  final Map<String, List<String>> _enumVariants = {};
   final Map<String, String> _parseName = {};
 
   String _allocType(String base) {
@@ -189,6 +202,8 @@ class SomRustEmitter {
     _formNameFor.clear();
     _modelVersionConst.clear();
     _enumConsts.clear();
+    _enumTypeName.clear();
+    _enumVariants.clear();
     _parseName.clear();
 
     final rootTypes = _selectedRoots.map((r) => r.type).toSet();
@@ -296,8 +311,28 @@ class SomRustEmitter {
         }
       }
     }
-    // 3. Enum `parse_` helpers and value constants (value namespace).
+    // 3. Enum types (type namespace), then `parse_` helpers and value
+    //    constants (value namespace).
     for (final e in enums) {
+      _enumTypeName[e.name] = _allocType(e.name);
+      final variants = <String>[];
+      final used = <String>{};
+      var vIdx = 0;
+      for (final v in e.values) {
+        var ident = _pascal(v);
+        if (ident.isEmpty) ident = 'Value$vIdx';
+        // Variants live in their enum's own namespace, so they need dedup only
+        // against each other.
+        var candidate = ident;
+        var n = 2;
+        while (!used.add(candidate)) {
+          candidate = '$ident$n';
+          n++;
+        }
+        variants.add(candidate);
+        vIdx++;
+      }
+      _enumVariants[e.name] = variants;
       _parseName[e.name] = _allocValue('parse_${_snake(e.name)}');
       final consts = <_EnumConst>[];
       final prefix = _screamingSnake(e.name);
@@ -341,10 +376,10 @@ class SomRustEmitter {
 
   /// Renders a constant's model documentation above it as a `///` doc comment,
   /// so `cargo doc` carries it the way the Dart reference carries it.
-  void _writeConstDoc(StringBuffer b, String? doc) {
+  void _writeConstDoc(StringBuffer b, String? doc, {String indent = ''}) {
     if (doc == null || doc.trim().isEmpty) return;
     for (final line in doc.trimRight().split('\n')) {
-      b.writeln(line.isEmpty ? '///' : '/// $line');
+      b.writeln(line.isEmpty ? '$indent///' : '$indent/// $line');
     }
   }
 
@@ -365,6 +400,69 @@ class SomRustEmitter {
       b.writeln('pub const ${c.ident}: &str = "${_rustStr(c.token)}";');
     }
     if (consts.isNotEmpty) b.writeln();
+
+    // The nominal type. The constants above stay: they are the tokens as data,
+    // which is what a caller comparing raw strings still wants, and removing
+    // them would be a breaking change for no gain here.
+    final type = _enumTypeName[e.name] ?? e.name;
+    final variants = _enumVariants[e.name] ?? const <String>[];
+    if (variants.isNotEmpty) {
+      b
+        ..writeln('/// $type is the generated enum for `${e.name}` values.')
+        ..writeln('///')
+        ..writeln(
+          '/// The stored token is what [$type::as_str] returns, byte-identical '
+          'across every',
+        )
+        ..writeln(
+          '/// language port, so typing an accessor cannot make a document '
+          'written here',
+        )
+        ..writeln('/// unreadable elsewhere.')
+        ..writeln('#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]')
+        ..writeln('pub enum $type {');
+      for (var i = 0; i < variants.length; i++) {
+        _writeConstDoc(b, e.docs[e.values[i]], indent: '\t');
+        b.writeln('\t${variants[i]},');
+      }
+      b
+        ..writeln('}')
+        ..writeln()
+        ..writeln('impl $type {')
+        ..writeln('\t/// The stored token for this value.')
+        ..writeln("\tpub fn as_str(&self) -> &'static str {")
+        ..writeln('\t\tmatch self {');
+      for (var i = 0; i < variants.length; i++) {
+        b.writeln('\t\t\t$type::${variants[i]} => "${_rustStr(e.values[i])}",');
+      }
+      b
+        ..writeln('\t\t}')
+        ..writeln('\t}')
+        ..writeln()
+        ..writeln(
+          '\t/// The value whose stored token is `token`, or `None` when the '
+          'token is not',
+        )
+        ..writeln(
+          '\t/// one this model declares — never a guess, and the same answer '
+          'the ports',
+        )
+        ..writeln('\t/// with a nullable accessor give as null.')
+        ..writeln('\tpub fn from_token(token: &str) -> Option<Self> {')
+        ..writeln('\t\tmatch token {');
+      for (var i = 0; i < variants.length; i++) {
+        b.writeln(
+          '\t\t\t"${_rustStr(e.values[i])}" => Some($type::${variants[i]}),',
+        );
+      }
+      b
+        ..writeln('\t\t\t_ => None,')
+        ..writeln('\t\t}')
+        ..writeln('\t}')
+        ..writeln('}')
+        ..writeln();
+    }
+
     b
       ..writeln(
         '/// $parse returns token when it is a known ${e.name} '
@@ -763,6 +861,35 @@ class SomRustEmitter {
     final field = '"${_rustStr(ff.name)}"';
     final acc = _allocAccessor(usedAcc, ff.name);
     b.writeln();
+    // An enum-valued form member returns the generated enum rather than its
+    // token. The STORED value is unchanged — the setter writes `as_str()` —
+    // so typing the accessor cannot make a document written here unreadable
+    // elsewhere; `None` means the stored token is not one this model declares.
+    if (ff.enumValues.isNotEmpty) {
+      final etype = _enumTypeName[somScalarBaseName(ff.type)];
+      if (etype != null) {
+        b
+          ..writeln('\tpub fn $acc(&self) -> Option<$etype> {')
+          ..writeln(
+            '\t\t$etype::from_token(&self.node.doc().borrow()'
+            '.form_field_or(self.node.path(), $field))',
+          )
+          ..writeln('\t}')
+          ..writeln()
+          ..writeln('\tpub fn set_$acc(&self, value: Option<$etype>) {')
+          ..writeln('\t\tlet path = self.node.path().to_string();')
+          ..writeln(
+            '\t\tlet text = match value { Some(v) => v.as_str(), '
+            'None => "" };',
+          )
+          ..writeln(
+            '\t\tself.node.doc().borrow_mut().set_form_field'
+            '(&path, $field, text);',
+          )
+          ..writeln('\t}');
+        return;
+      }
+    }
     switch (_scalarType(ff.type)) {
       case 'int':
         b
