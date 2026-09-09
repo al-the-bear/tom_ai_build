@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.2
+
+- Version realigned to TomSpecs model 1.3.2 (lockstep with `tom_som_dart_v0`).
+- No behavioural change to the runtime itself: 1.3.2 carries a test-only fix in
+  `tom_specs_model`, whose shipped tests read a workspace sibling and crashed in
+  a hosted install.
+
 ## 1.3.1
 
 - Version realigned to TomSpecs model 1.3.1 (lockstep with `tom_som_dart_v0`).

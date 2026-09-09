@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.3.2
+
+- **`tool/verify_published_tests.sh` — run every release member's shipped tests
+  from its pub.dev archive**, against hosted dependencies, in a directory with
+  no workspace siblings. It downloads the archive rather than rebuilding one
+  from `git ls-files` minus `.pubignore`: a reconstruction re-implements pub's
+  packaging rules and would hide the case that motivated it — fixtures
+  untracked in git, so absent from the archive while present in the workspace.
+- A **release step**, not a standing gate, and it refuses to start while
+  `check_release_drift.dart` is red. The archive's tests are only meaningful
+  against the archive's dependencies; a local tree run against published
+  siblings reports stale-publish drift as a test failure, which teaches a reader
+  to ignore the check.
+- Its first run found `tom_specs_model` shipping three test groups that read a
+  workspace sibling and crashed for a consumer.
+
 ## 0.3.1
 
 - `bin/check_release_drift.dart` gains the option surface every entrypoint in

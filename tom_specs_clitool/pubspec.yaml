@@ -1,6 +1,6 @@
 name: tom_specs_clitool
 description: CLI tools for TomSpecs model analysis, validation, and SOM code generation.
-version: 0.3.1
+version: 0.3.2
 
 repository: https://github.com/al-the-bear/tom_ai_build
 homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_specs_clitool
