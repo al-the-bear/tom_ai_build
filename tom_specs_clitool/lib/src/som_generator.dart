@@ -161,6 +161,7 @@ Future<SomGenerationResult> generateSomDartProject({
 
   return writeSomDartProject(
     classes: reader.classes,
+    enums: reader.enums,
     runtimePackagePath: runtimePackagePath,
     outputRoot: outputRoot,
     modelVersion: modelVersion,
@@ -178,6 +179,16 @@ Future<SomGenerationResult> generateSomDartProject({
 /// write step without re-analysing.
 SomGenerationResult writeSomDartProject({
   required Map<String, ModelClass> classes,
+
+  /// The model's enums, keyed by type name.
+  ///
+  /// Forwarded to [DocSpecsSchemaGenerator], which needs them to type a
+  /// `List<SomeEnum>` element node: without them such an element degrades to an
+  /// untyped scalar in every emitted schema, silently. The model declares no
+  /// such member today, so this is a latent trap rather than a live defect —
+  /// which is exactly why it is wired now rather than when the first one
+  /// appears.
+  Map<String, ModelEnum> enums = const {},
   required String runtimePackagePath,
   required String outputRoot,
   required int modelVersion,
@@ -262,6 +273,7 @@ SomGenerationResult writeSomDartProject({
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   final schemas = DocSpecsSchemaGenerator(
     classes,
+    enums: enums,
   ).generateAll(modelVersion: modelVersion, modelLabel: modelLabel);
   final schemaPaths = DocSpecsSchemaGenerator.writeSchemaTree(
     outputRoot,

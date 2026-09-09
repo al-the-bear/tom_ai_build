@@ -23,6 +23,12 @@ const (
 	SpecValidationCodeMinItems          = "minItems"
 	SpecValidationCodeOneOfCaseMismatch = "oneOfCaseMismatch"
 	SpecValidationCodeDanglingReference = "danglingReference"
+	// A form field whose model type is an enum holds a token the enum does not
+	// declare. The typed read is forgiving (an unknown token answers the zero
+	// value), and a document is loaded far more often than it is written through
+	// a setter, so without this the value is simply dropped. An EMPTY value is
+	// absence, not a bad value, and is not reported.
+	SpecValidationCodeEnumValueUnknown = "enumValueUnknown"
 )
 
 // SpecValidationError is one problem found while validating a document.
@@ -93,16 +99,42 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 			})
 			continue
 		}
-		declared := map[string]bool{}
+		declared := map[string]*FormFieldSpec{}
 		for _, ff := range res.Field.FormFields {
-			declared[ff.Name] = true
+			declared[ff.Name] = ff
 		}
 		for _, name := range sortedCopy(doc.FormFieldNames(path)) {
-			if !declared[name] {
+			spec, ok := declared[name]
+			if !ok {
 				errors = append(errors, SpecValidationError{
 					Path:    path,
 					Code:    SpecValidationCodeUnknownFormField,
 					Message: "form field \"" + name + "\" is not declared on " + res.Field.Name,
+				})
+				continue
+			}
+			if len(spec.EnumValues) == 0 {
+				continue
+			}
+			value := doc.FormFieldOr(path, name)
+			// Absence is not a bad value.
+			if value == "" {
+				continue
+			}
+			known := false
+			for _, v := range spec.EnumValues {
+				if v == value {
+					known = true
+					break
+				}
+			}
+			if !known {
+				errors = append(errors, SpecValidationError{
+					Path: path,
+					Code: SpecValidationCodeEnumValueUnknown,
+					Message: "form field \"" + name + "\" holds \"" + value +
+						"\", which " + spec.Type + " does not declare (" +
+						strings.Join(spec.EnumValues, ", ") + ")",
 				})
 			}
 		}

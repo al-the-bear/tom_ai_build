@@ -678,7 +678,7 @@ errors in another — precisely the divergence §19 exists to prevent, and a
 direct contradiction of the "read, write, **validate**, load, save" completeness
 promised per language in §1/§6.
 
-Concretely, all nine emit the same six codes, in the same five phases, in this
+Concretely, all nine emit the same seven codes, in the same five phases, in this
 order — content leaves, form sections, lists, `@OneOf` cases, `refersTo`
 references, each group sorted by path:
 
@@ -687,6 +687,7 @@ references, each group sorted by path:
 | `danglingPath` | 1 | a set path that resolves to no model node |
 | `kindMismatch` | 1 | a value stored at a node whose kind cannot hold one |
 | `unknownFormField` | 2 | a form sub-key naming no field of that form |
+| `enumValueUnknown` | 2 | a form field whose model type is an enum holding a token the enum does not declare |
 | `minItems` | 3 | a populated list below its `@Min` item count |
 | `oneOfCaseMismatch` | 4 | a populated `@Case` subsection the chosen `@OneOf` discriminator does not select, or two selected-and-populated subsections in one container |
 | `danglingReference` | 5 | a `refersTo` value naming an id no entry of its target registries declares in this document |
@@ -697,9 +698,21 @@ slot a plain section's body uses, so a phase-1 check written as "content only on
 a value leaf" reports a legal document as invalid. Every other non-leaf kind —
 section, list, container — still fires.
 
-Adding a seventh code means adding it in all nine, in the same phase, with the
+Adding an eighth code means adding it in all nine, in the same phase, with the
 same message text. The corpus obligation in §19 is what makes that mechanical
-rather than remembered.
+rather than remembered — the seventh, `enumValueUnknown`, was added exactly that
+way, and the parity gate showed all nine going red on a mutated expectation
+before the change was believed.
+
+`enumValueUnknown` is the one code whose **absence** was itself the defect. A
+closed vocabulary that nothing closes is a documentation convention, not a type:
+the typed accessor's read is deliberately forgiving (an unknown token answers
+null / `None` / the empty value), and since a document is *loaded* far more often
+than it is written through a setter, the forgiving half is the one that runs.
+Thirteen out-of-vocabulary values sat in a committed sample from the day they
+were written, each silently absent to every typed reader. Note what it does
+**not** report: an **empty** value is absence, not a bad value, and every other
+tier reads it that way — a half-filled document is incomplete, not invalid.
 
 ### The generation stamp
 

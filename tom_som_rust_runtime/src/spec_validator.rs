@@ -20,6 +20,12 @@ pub const SPEC_VALIDATION_CODE_UNKNOWN_FORM_FIELD: &str = "unknownFormField";
 pub const SPEC_VALIDATION_CODE_MIN_ITEMS: &str = "minItems";
 pub const SPEC_VALIDATION_CODE_ONE_OF_CASE_MISMATCH: &str = "oneOfCaseMismatch";
 pub const SPEC_VALIDATION_CODE_DANGLING_REFERENCE: &str = "danglingReference";
+/// A form field whose model type is an enum holds a token the enum does not
+/// declare. The typed read is forgiving (an unknown token answers `None`), and a
+/// document is loaded far more often than it is written through a setter, so
+/// without this the value is simply dropped. An EMPTY value is absence, not a
+/// bad value, and is not reported.
+pub const SPEC_VALIDATION_CODE_ENUM_VALUE_UNKNOWN: &str = "enumValueUnknown";
 
 /// One problem found while validating a document.
 #[derive(Debug, Clone, PartialEq)]
@@ -97,16 +103,44 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
                 continue;
             }
         };
-        let declared: std::collections::HashSet<&str> =
-            field.form_fields.iter().map(|ff| ff.name.as_str()).collect();
+        let declared: std::collections::HashMap<&str, _> = field
+            .form_fields
+            .iter()
+            .map(|ff| (ff.name.as_str(), ff))
+            .collect();
         for name in doc.form_field_names(&path) {
-            if !declared.contains(name.as_str()) {
+            let spec = match declared.get(name.as_str()) {
+                Some(spec) => *spec,
+                None => {
+                    errors.push(SpecValidationError {
+                        path: path.clone(),
+                        code: SPEC_VALIDATION_CODE_UNKNOWN_FORM_FIELD.to_string(),
+                        message: format!(
+                            "form field \"{}\" is not declared on {}",
+                            name, field.name
+                        ),
+                    });
+                    continue;
+                }
+            };
+            if spec.enum_values.is_empty() {
+                continue;
+            }
+            let value = doc.form_field_or(&path, &name);
+            // Absence is not a bad value.
+            if value.is_empty() {
+                continue;
+            }
+            if !spec.enum_values.iter().any(|v| v == &value) {
                 errors.push(SpecValidationError {
                     path: path.clone(),
-                    code: SPEC_VALIDATION_CODE_UNKNOWN_FORM_FIELD.to_string(),
+                    code: SPEC_VALIDATION_CODE_ENUM_VALUE_UNKNOWN.to_string(),
                     message: format!(
-                        "form field \"{}\" is not declared on {}",
-                        name, field.name
+                        "form field \"{}\" holds \"{}\", which {} does not declare ({})",
+                        name,
+                        value,
+                        spec.type_,
+                        spec.enum_values.join(", ")
                     ),
                 });
             }

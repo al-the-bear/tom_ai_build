@@ -70,17 +70,42 @@ public final class SpecValidator {
                 "expected a form section but path resolves to " + res.kind.value));
         continue;
       }
-      Set<String> declared = new HashSet<>();
+      Map<String, FormFieldSpec> declared = new HashMap<>();
       for (FormFieldSpec ff : res.field.formFields) {
-        declared.add(ff.name);
+        declared.put(ff.name, ff);
       }
       for (String name : new TreeSet<>(doc.formFieldNames(path))) {
-        if (!declared.contains(name)) {
+        FormFieldSpec spec = declared.get(name);
+        if (spec == null) {
           errors.add(
               new SpecValidationError(
                   path,
                   SpecValidationCode.UNKNOWN_FORM_FIELD,
                   "form field \"" + name + "\" is not declared on " + res.field.name));
+          continue;
+        }
+        if (spec.enumValues.isEmpty()) {
+          continue;
+        }
+        String value = doc.formField(path, name);
+        // Absence is not a bad value.
+        if (value == null || value.isEmpty()) {
+          continue;
+        }
+        if (!spec.enumValues.contains(value)) {
+          errors.add(
+              new SpecValidationError(
+                  path,
+                  SpecValidationCode.ENUM_VALUE_UNKNOWN,
+                  "form field \""
+                      + name
+                      + "\" holds \""
+                      + value
+                      + "\", which "
+                      + spec.type
+                      + " does not declare ("
+                      + String.join(", ", spec.enumValues)
+                      + ")"));
         }
       }
     }

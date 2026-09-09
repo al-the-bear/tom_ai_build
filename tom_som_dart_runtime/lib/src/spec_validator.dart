@@ -35,6 +35,20 @@ enum SpecValidationCode {
   /// A reference form field (`Field.refersTo`) holds an id that no entry of any
   /// of its target registries declares (csrb3).
   danglingReference,
+
+  /// A form field whose model type is an enum holds a token the enum does not
+  /// declare.
+  ///
+  /// A closed vocabulary that nothing closes is a documentation convention
+  /// rather than a type: the typed accessor's read is deliberately forgiving
+  /// (an unknown token answers null), and since a document is *loaded* far more
+  /// often than it is written through a setter, the forgiving half is the one
+  /// that runs. Seven such values sat in a committed sample from the day they
+  /// were written, each silently absent to every typed reader.
+  ///
+  /// The **empty** value is not reported: an absent field is absence, not a bad
+  /// value, and every other tier treats it that way.
+  enumValueUnknown,
 }
 
 /// One problem found while validating a document.
@@ -112,14 +126,33 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
       );
       continue;
     }
-    final declared = {for (final ff in res.field!.formFields) ff.name};
+    final declared = {for (final ff in res.field!.formFields) ff.name: ff};
     for (final name in sorted(doc.formFieldNames(path))) {
-      if (!declared.contains(name)) {
+      final spec = declared[name];
+      if (spec == null) {
         errors.add(
           SpecValidationError(
             path: path,
             code: SpecValidationCode.unknownFormField,
             message: 'form field "$name" is not declared on ${res.field!.name}',
+          ),
+        );
+        continue;
+      }
+      if (spec.enumValues.isEmpty) continue;
+      final value = doc.formField(path, name);
+      // Absence is not a bad value: an empty field is what every other tier
+      // reads as "not set", and reporting it here would make a half-filled
+      // document unloadable rather than incomplete.
+      if (value == null || value.isEmpty) continue;
+      if (!spec.enumValues.contains(value)) {
+        errors.add(
+          SpecValidationError(
+            path: path,
+            code: SpecValidationCode.enumValueUnknown,
+            message:
+                'form field "$name" holds "$value", which ${spec.type} does '
+                'not declare (${spec.enumValues.join(', ')})',
           ),
         );
       }

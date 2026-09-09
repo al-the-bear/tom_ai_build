@@ -34,6 +34,12 @@ class SpecValidationCode(Enum):
     #: A reference form field (``FormFieldSpec.refers_to``) holds an id that no
     #: entry of any of its target registries declares.
     DANGLING_REFERENCE = "danglingReference"
+    #: A form field whose model type is an enum holds a token the enum does not
+    #: declare. The typed read is forgiving (an unknown token answers ``None``),
+    #: and a document is loaded far more often than it is written through a
+    #: setter, so without this the value is simply dropped. An **empty** value
+    #: is absence, not a bad value, and is not reported.
+    ENUM_VALUE_UNKNOWN = "enumValueUnknown"
 
 
 @dataclass(frozen=True)
@@ -102,9 +108,10 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
                 )
             )
             continue
-        declared = {ff.name for ff in res.field.form_fields}
+        declared = {ff.name: ff for ff in res.field.form_fields}
         for name in sorted(doc.form_field_names(path)):
-            if name not in declared:
+            spec = declared.get(name)
+            if spec is None:
                 errors.append(
                     SpecValidationError(
                         path=path,
@@ -112,6 +119,25 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
                         message=(
                             f'form field "{name}" is not declared on '
                             f"{res.field.name}"
+                        ),
+                    )
+                )
+                continue
+            if not spec.enum_values:
+                continue
+            value = doc.form_field(path, name)
+            # Absence is not a bad value.
+            if not value:
+                continue
+            if value not in spec.enum_values:
+                errors.append(
+                    SpecValidationError(
+                        path=path,
+                        code=SpecValidationCode.ENUM_VALUE_UNKNOWN,
+                        message=(
+                            f'form field "{name}" holds "{value}", which '
+                            f"{spec.type} does not declare "
+                            f"({', '.join(spec.enum_values)})"
                         ),
                     )
                 )

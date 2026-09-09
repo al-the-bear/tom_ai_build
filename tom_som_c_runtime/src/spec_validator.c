@@ -657,14 +657,14 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
     SomStrList names;
     spec_document_form_field_names(doc, path, &names);
     for (size_t j = 0; j < names.len; j++) {
-      int declared = 0;
+      const FormFieldSpec *spec = NULL;
       for (size_t k = 0; k < field->form_fields_len; k++) {
         if (strcmp(field->form_fields[k].name, names.items[j]) == 0) {
-          declared = 1;
+          spec = &field->form_fields[k];
           break;
         }
       }
-      if (!declared) {
+      if (spec == NULL) {
         SomBuf b;
         som_buf_init(&b);
         som_buf_puts(&b, "form field \"");
@@ -672,6 +672,42 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
         som_buf_puts(&b, "\" is not declared on ");
         som_buf_puts(&b, field->name);
         errors_push(out, path, SPEC_VALIDATION_CODE_UNKNOWN_FORM_FIELD,
+                    som_buf_take(&b));
+        continue;
+      }
+      if (spec->enum_values.len == 0) {
+        continue;
+      }
+      const char *value = spec_document_form_field(doc, path, names.items[j]);
+      /* Absence is not a bad value. */
+      if (value == NULL || value[0] == '\0') {
+        continue;
+      }
+      int known = 0;
+      for (size_t k = 0; k < spec->enum_values.len; k++) {
+        if (strcmp(spec->enum_values.items[k], value) == 0) {
+          known = 1;
+          break;
+        }
+      }
+      if (!known) {
+        SomBuf b;
+        som_buf_init(&b);
+        som_buf_puts(&b, "form field \"");
+        som_buf_puts(&b, names.items[j]);
+        som_buf_puts(&b, "\" holds \"");
+        som_buf_puts(&b, value);
+        som_buf_puts(&b, "\", which ");
+        som_buf_puts(&b, spec->type);
+        som_buf_puts(&b, " does not declare (");
+        for (size_t k = 0; k < spec->enum_values.len; k++) {
+          if (k > 0) {
+            som_buf_puts(&b, ", ");
+          }
+          som_buf_puts(&b, spec->enum_values.items[k]);
+        }
+        som_buf_puts(&b, ")");
+        errors_push(out, path, SPEC_VALIDATION_CODE_ENUM_VALUE_UNKNOWN,
                     som_buf_take(&b));
       }
     }

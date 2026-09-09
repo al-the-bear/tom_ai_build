@@ -31,6 +31,13 @@ inline constexpr const char* kSpecValidationCodeOneOfCaseMismatch =
  * declares in this document. */
 inline constexpr const char* kSpecValidationCodeDanglingReference =
     "danglingReference";
+/* A form field whose model type is an enum holding a token the enum does not
+ * declare. The typed read is forgiving (an unknown token reads as absent), and
+ * a document is loaded far more often than it is written through a setter, so
+ * without this the value is simply dropped. An EMPTY value is absence, not a
+ * bad value, and is not reported. */
+inline constexpr const char* kSpecValidationCodeEnumValueUnknown =
+    "enumValueUnknown";
 
 struct SpecValidationError {
   std::string path;

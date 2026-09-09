@@ -25,6 +25,12 @@
 /* A `refersTo` form field naming an id no entry of its target registries
  * declares in this document. */
 #define SPEC_VALIDATION_CODE_DANGLING_REFERENCE "danglingReference"
+/* A form field whose model type is an enum holding a token the enum does not
+ * declare. The typed read is forgiving (an unknown token reads as absent), and
+ * a document is loaded far more often than it is written through a setter, so
+ * without this the value is simply dropped. An EMPTY value is absence, not a
+ * bad value, and is not reported. */
+#define SPEC_VALIDATION_CODE_ENUM_VALUE_UNKNOWN "enumValueUnknown"
 
 typedef struct {
   char *path;    /* owned */

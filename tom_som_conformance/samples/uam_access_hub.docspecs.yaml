@@ -116,7 +116,7 @@ document:
                 Four-state graded resource grants
               content:
                 status: |2-
-                  Approved
+                  approved
               FRED details:
                 description: |2-
                   A tenant administrator can grade a (role, resource-key
@@ -131,7 +131,7 @@ document:
                   Authorization
               FREP priority:
                 priority: |2-
-                  Must
+                  must
                 businessValue: |2-
                   High
                 effort: |2-
@@ -191,7 +191,7 @@ document:
                 Time-boxed delegation with revocation
               content:
                 status: |2-
-                  Approved
+                  approved
               FRED details:
                 description: |2-
                   A principal may delegate a role on a resource to another
@@ -205,7 +205,7 @@ document:
                   Delegation
               FREP priority:
                 priority: |2-
-                  Must
+                  must
                 businessValue: |2-
                   High
                 effort: |2-
@@ -238,7 +238,7 @@ document:
                 Periodic access-review campaigns
               content:
                 status: |2-
-                  Draft
+                  draft
               FRED details:
                 description: |2-
                   A tenant administrator can open an access-review campaign
@@ -254,7 +254,7 @@ document:
                   Governance
               FREP priority:
                 priority: |2-
-                  Should
+                  should
                 businessValue: |2-
                   High
                 effort: |2-
@@ -555,7 +555,7 @@ document:
                           Validate and write
                         content:
                           role: |2-
-                            validation
+                            assembleRequest
                           systemAction: |2-
                             Verify tenant scope, role existence and pattern
                             syntax; reject duplicates.
@@ -564,7 +564,7 @@ document:
                           Persist and invalidate
                         content:
                           role: |2-
-                            persistence
+                            handleResponse
                           systemAction: |2-
                             Write the grant row and invalidate the resolution
                             cache for principals holding the role.
@@ -600,7 +600,7 @@ document:
                       outcome: |2-
                         No data change
                       returnKind: |2-
-                        Return to step
+                        resumeAtStep
                       severity: |2-
                         Warning
                     EXTEN-RESU resumePoint:
@@ -669,7 +669,7 @@ document:
                         Apply the decision
                       content:
                         role: |2-
-                          persistence
+                          handleResponse
                         systemAction: |2-
                           Write the decision, and for a revocation delete the
                           grant row in the same transaction.
@@ -1705,7 +1705,7 @@ document:
                             elementId: |2-
                               access-level
                             elementType: |2-
-                              Radio group
+                              selectField
                           SEFS fieldSpec:
                             content:
                               fieldName: |2-
@@ -1786,7 +1786,7 @@ document:
           I25CE-CHAR-1:
             content:
               characteristic: |2-
-                Security
+                security
               addressedBy: |2-
                 Closed-by-default resolution, tenant isolation suite, journal
                 of every grant mutation
@@ -1796,7 +1796,7 @@ document:
           I25CE-CHAR-2:
             content:
               characteristic: |2-
-                Performance efficiency
+                performanceEfficiency
               addressedBy: |2-
                 Grant-resolution cache with invalidation on mutation
               targetMetric: |2-

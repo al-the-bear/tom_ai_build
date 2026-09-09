@@ -141,6 +141,33 @@
     ]
   },
   {
+    "name": "enumValueUnknown",
+    "state": {
+      "forms": {
+        "DEMO/DET": {
+          "priority": "urgent"
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/DET",
+        "code": "enumValueUnknown"
+      }
+    ]
+  },
+  {
+    "name": "enumValueEmptyIsAbsence",
+    "state": {
+      "forms": {
+        "DEMO/DET": {
+          "priority": ""
+        }
+      }
+    },
+    "errors": []
+  },
+  {
     "name": "minItems",
     "state": {
       "lists": {

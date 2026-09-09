@@ -409,16 +409,44 @@ std::vector<SpecValidationError> validateDocument(const SpecModel& model,
     }
     const SpecField* field = res->field;
     for (const std::string& name : doc.formFieldNames(path)) {
-      bool declared = false;
+      const FormFieldSpec* spec = nullptr;
       for (const FormFieldSpec& ff : field->formFields) {
         if (ff.name == name) {
-          declared = true;
+          spec = &ff;
           break;
         }
       }
-      if (!declared) {
+      if (spec == nullptr) {
         push(path, kSpecValidationCodeUnknownFormField,
              "form field \"" + name + "\" is not declared on " + field->name);
+        continue;
+      }
+      if (spec->enumValues.empty()) {
+        continue;
+      }
+      const std::string value = doc.formField(path, name);
+      // Absence is not a bad value.
+      if (value.empty()) {
+        continue;
+      }
+      bool known = false;
+      for (const std::string& v : spec->enumValues) {
+        if (v == value) {
+          known = true;
+          break;
+        }
+      }
+      if (!known) {
+        std::string allowed;
+        for (std::size_t k = 0; k < spec->enumValues.size(); ++k) {
+          if (k > 0) {
+            allowed += ", ";
+          }
+          allowed += spec->enumValues[k];
+        }
+        push(path, kSpecValidationCodeEnumValueUnknown,
+             "form field \"" + name + "\" holds \"" + value + "\", which " +
+                 spec->type + " does not declare (" + allowed + ")");
       }
     }
   }

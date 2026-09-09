@@ -35,6 +35,14 @@ export const SpecValidationCode = {
    * of any of its target registries declares.
    */
   DANGLING_REFERENCE: 'danglingReference',
+  /**
+   * A form field whose model type is an enum holds a token the enum does not
+   * declare. The typed read is forgiving (an unknown token answers null), and a
+   * document is loaded far more often than it is written through a setter, so
+   * without this the value is simply dropped. An **empty** value is absence,
+   * not a bad value, and is not reported.
+   */
+  ENUM_VALUE_UNKNOWN: 'enumValueUnknown',
 } as const;
 
 export type SpecValidationCodeValue =
@@ -119,14 +127,30 @@ export function validateDocument(
       );
       continue;
     }
-    const declared = new Set(res.field.formFields.map((ff) => ff.name));
+    const declared = new Map(res.field.formFields.map((ff) => [ff.name, ff]));
     for (const name of _sorted(doc.formFieldNames(path))) {
-      if (!declared.has(name)) {
+      const spec = declared.get(name);
+      if (spec === undefined) {
         errors.push(
           new SpecValidationError(
             path,
             SpecValidationCode.UNKNOWN_FORM_FIELD,
             `form field "${name}" is not declared on ${res.field.name}`,
+          ),
+        );
+        continue;
+      }
+      if (spec.enumValues.length === 0) continue;
+      const value = doc.formField(path, name);
+      // Absence is not a bad value.
+      if (value === null || value === '') continue;
+      if (!spec.enumValues.includes(value)) {
+        errors.push(
+          new SpecValidationError(
+            path,
+            SpecValidationCode.ENUM_VALUE_UNKNOWN,
+            `form field "${name}" holds "${value}", which ${spec.type} does ` +
+              `not declare (${spec.enumValues.join(', ')})`,
           ),
         );
       }

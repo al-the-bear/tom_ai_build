@@ -173,6 +173,7 @@ Future<SomCGenerationResult> generateSomCProject({
 
   return writeSomCProject(
     classes: reader.classes,
+    enums: reader.enums,
     runtimePackagePath: runtimePackagePath,
     outputRoot: outputRoot,
     modelVersion: modelVersion,
@@ -190,6 +191,16 @@ Future<SomCGenerationResult> generateSomCProject({
 /// step without re-analysing.
 SomCGenerationResult writeSomCProject({
   required Map<String, ModelClass> classes,
+
+  /// The model's enums, keyed by type name.
+  ///
+  /// Forwarded to [DocSpecsSchemaGenerator], which needs them to type a
+  /// `List<SomeEnum>` element node: without them such an element degrades to an
+  /// untyped scalar in every emitted schema, silently. The model declares no
+  /// such member today, so this is a latent trap rather than a live defect —
+  /// which is exactly why it is wired now rather than when the first one
+  /// appears.
+  Map<String, ModelEnum> enums = const {},
   required String runtimePackagePath,
   required String outputRoot,
   required int modelVersion,
@@ -271,6 +282,7 @@ SomCGenerationResult writeSomCProject({
   // Identical to every other language path — schemas are language-agnostic.
   final schemas = DocSpecsSchemaGenerator(
     classes,
+    enums: enums,
   ).generateAll(modelVersion: modelVersion, modelLabel: modelLabel);
   final schemaPaths = DocSpecsSchemaGenerator.writeSchemaTree(
     outputRoot,
