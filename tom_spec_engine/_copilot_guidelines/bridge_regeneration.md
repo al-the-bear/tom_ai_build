@@ -37,25 +37,40 @@ is reachable from those barrels means the bridges are stale until regenerated.
 ## How staleness is caught
 
 The rule above is enforced, not merely stated. `dart test` fails when the SOM
-public surface has moved since the bridges were last generated:
+public surface has moved since the bridges were last generated, and when the
+generator would now produce different bridges:
 
 | Piece | Role |
 |-------|------|
 | [`tool/som_surface.dart`](../tool/som_surface.dart) | Fingerprints the two SOM packages' public surface |
 | `tool/som_surface.stamp.json` | The fingerprint the committed bridges were generated from — written by the regenerator, committed alongside the bridges |
 | [`test/som_bridge_freshness_test.dart`](../test/som_bridge_freshness_test.dart) | Recomputes the fingerprint and fails when it no longer matches the stamp |
+| [`test/bridges_fresh_test.dart`](../test/bridges_fresh_test.dart) | Regenerates into a scratch tree with `checkBridgeFreshness` and fails when the committed bridges differ |
 
-The failure names which package moved and by how many declarations, and tells
-you to regenerate. The check is part of the **default** suite — it costs about a
-second, so it needs no tag and cannot be skipped by habit.
+The fingerprint failure names which package moved and by how many
+declarations, and tells you to regenerate; the regenerate-and-diff failure lists
+the files that differ. Both are part of the **default** suite, untagged, so
+neither can be skipped by habit.
 
-### Why a fingerprint rather than a re-generate-and-diff
+### Why both a fingerprint and a re-generate-and-diff
 
-Regeneration is content-deterministic (see below), so a freshness check could
-regenerate into a temp directory and diff. That was rejected: it costs a full
-regen on every test run, which forces the check behind a tag, and a tagged check
-is exactly the one nobody runs. Fingerprinting the *input* instead gets the same
-answer for the same reason — if the input has not moved, the output cannot have.
+The bridges have two inputs, and each check covers one of them.
+
+- **The SOM surface** is what the fingerprint watches. It costs about a second
+  and its failure names the package that moved and by how much, so it is the
+  check that tells you *why* the bridges are stale.
+- **The generator** is the input the fingerprint cannot see: this package takes
+  `tom_d4rt_generator` by path, so a generator change alters the output with
+  the SOM surface untouched. `test/bridges_fresh_test.dart` regenerates into a
+  scratch tree under `.dart_tool/` — the package is not written to — and
+  compares with the committed files, ignoring the `// Generated:` line. It
+  catches every kind of staleness, including the SOM kind, but its message is
+  only a list of files.
+
+The regenerate-and-diff costs about twenty seconds with a warm analyzer
+summary cache and about a minute cold. That is affordable in the default suite,
+which runs test files concurrently, and it stays there untagged: a tagged check
+is the one nobody runs.
 
 ### Why this is needed at all
 
@@ -86,7 +101,7 @@ discard it with `git checkout -- lib` and commit the refreshed stamp alone.
 
 ### The gap this does not close
 
-The check runs in **this** package's suite. An edit made in a SOM package and
+Both checks run in **this** package's suite. An edit made in a SOM package and
 committed without anyone running the engine's tests is still not caught at the
 moment it happens — the guard turns a silent breakage into a loud one, it does
 not move detection earlier in wall-clock time. `tom_som_dart_runtime` and
