@@ -165,7 +165,12 @@ ReleaseDriftReport computeReleaseDrift({
     if (repoRoot != null && version != null) {
       commit = _versionCommit(repoRoot, dir, version);
       if (commit != null) {
-        changed = _changedSince(repoRoot, dir, commit);
+        changed = _changedSince(
+          repoRoot,
+          dir,
+          commit,
+          pubIgnored: readPubIgnore(dir),
+        );
       }
     }
     out.add(
@@ -234,7 +239,48 @@ String? _versionCommit(String repoRoot, String dir, String version) {
   return lines.isEmpty ? null : lines.first;
 }
 
-List<String> _changedSince(String repoRoot, String dir, String commit) {
+/// The entries of [packageDir]'s `.pubignore`, or none when it has no such file.
+///
+/// **Drift is about what pub.dev carries**, and a path `.pubignore` names never
+/// reaches pub.dev — so its changes are not unpublished changes, however many
+/// there are. Without this, adding a workspace-only script under a package's
+/// ignored `tool/` reported the package as behind its published version, which
+/// is a false finding the gate would have taught a reader to wave through.
+///
+/// Deliberately a subset of gitignore syntax: comment and blank lines are
+/// dropped, an entry ending in `/` names a directory, and any other entry names
+/// a file or directory by exact package-relative path. That is every form a
+/// release member uses today; a glob would be read as a literal path and match
+/// nothing, which fails SAFE — the file is then still counted as drift rather
+/// than silently excused.
+List<String> readPubIgnore(String packageDir) {
+  final f = File(p.join(packageDir, '.pubignore'));
+  if (!f.existsSync()) return const [];
+  return [
+    for (final raw in f.readAsLinesSync())
+      if (raw.trim().isNotEmpty && !raw.trim().startsWith('#')) raw.trim(),
+  ];
+}
+
+/// Whether the package-relative [path] is covered by one of [entries].
+bool isPubIgnored(String path, List<String> entries) {
+  for (final e in entries) {
+    final entry = e.startsWith('/') ? e.substring(1) : e;
+    if (entry.endsWith('/')) {
+      if (path.startsWith(entry)) return true;
+    } else if (path == entry || path.startsWith('$entry/')) {
+      return true;
+    }
+  }
+  return false;
+}
+
+List<String> _changedSince(
+  String repoRoot,
+  String dir,
+  String commit, {
+  List<String> pubIgnored = const [],
+}) {
   final rel = p.relative(dir, from: repoRoot);
   final r = Process.runSync('git', [
     '-C',
@@ -253,6 +299,7 @@ List<String> _changedSince(String repoRoot, String dir, String commit) {
           .where((l) => l.isNotEmpty)
           .where((f) {
             final inPackage = p.relative(f, from: rel);
+            if (isPubIgnored(inPackage, pubIgnored)) return false;
             return !releaseDriftIgnoredPaths.any(
               (ignored) => ignored.endsWith('/')
                   ? inPackage.startsWith(ignored)

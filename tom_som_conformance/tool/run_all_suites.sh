@@ -27,10 +27,12 @@
 #         suite names are package names without the `tom_som_` prefix,
 #         e.g. `go_v0 rust_runtime`, plus `sample_coverage` for the SOM §19
 #         instantiation-coverage gate (check_sample_coverage.dart),
-#         `corpus_copies` for the copied-fixture drift gate, and
+#         `corpus_copies` for the copied-fixture drift gate,
 #         `sample_decode` for the shared-sample decode gate
-#         (tom_som_dart_v0/tool/verify_samples.dart). With none given, all
-#         eighteen suites run and the two sample gates run first.
+#         (tom_som_dart_v0/tool/verify_samples.dart), and `sample_validate`
+#         for the instance-tier gate over the same samples
+#         (tom_som_dart_v0/tool/validate_samples.dart). With none given, all
+#         eighteen suites run and the sample gates run first.
 set -uo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"   # tom_som_conformance/tool
@@ -182,6 +184,38 @@ if [ "$run_decode" -eq 1 ]; then
       echo "---- sample_decode failed; last 30 lines of $log ----"
       tail -30 "$log"
       echo "---- end sample_decode ----"
+    fi
+  fi
+fi
+
+# The shared-sample INSTANCE-TIER gate: every sample must also satisfy
+# `validateDocument` (SOM §9) — decoding is not validity. A document can decode
+# cleanly and still name a route, message key, error code or step that nothing
+# declares; `uam_access_hub` carried eleven such findings from a check that had
+# existed for weeks, because nothing ran it against that file. Exemptions are
+# written in the tool itself (`coverageOnly`), never implied here.
+run_validate=1
+if [ ${#SELECTED[@]} -gt 0 ]; then
+  run_validate=0
+  for s in "${SELECTED[@]}"; do [ "$s" = "sample_validate" ] && run_validate=1; done
+fi
+if [ "$run_validate" -eq 1 ]; then
+  echo "== sample_validate =="
+  if ! command -v dart > /dev/null 2>&1; then
+    echo "== sample_validate: SKIP (dart not on PATH) =="
+    RESULTS+=("SKIP sample_validate  (dart not on PATH)")
+    skipped=$((skipped + 1))
+  else
+    log="$LOG_DIR/sample_validate.log"
+    if (cd "$ROOT/tom_som_dart_v0" && dart run tool/validate_samples.dart) > "$log" 2>&1; then
+      RESULTS+=("PASS sample_validate")
+      passed=$((passed + 1))
+    else
+      RESULTS+=("FAIL sample_validate  (log: $log)")
+      failed=$((failed + 1))
+      echo "---- sample_validate failed; last 30 lines of $log ----"
+      tail -30 "$log"
+      echo "---- end sample_validate ----"
     fi
   fi
 fi

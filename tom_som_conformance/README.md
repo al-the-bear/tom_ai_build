@@ -227,8 +227,13 @@ the harness's diet:
   which is **empty**: full instantiation coverage, ratcheted — a structure
   added to the model without a sample instantiating it goes red. Every sample
   also decodes through the typed Dart loader (the `sample_decode` gate,
-  [`tom_som_dart_v0/tool/verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart)).
-  That is a *single-language* guarantee: the structure round-trips in Dart, and
+  [`tom_som_dart_v0/tool/verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart))
+  **and validates at the instance tier** (the `sample_validate` gate,
+  [`tom_som_dart_v0/tool/validate_samples.dart`](../tom_som_dart_v0/tool/validate_samples.dart)):
+  decoding is not validity, and a sample can decode cleanly while naming a
+  route, message key, error code or step that nothing declares. A sample
+  excused from the instance tier is named in that tool's `coverageOnly` map
+  with its reason — none is, today. That is a *single-language* guarantee: the structure round-trips in Dart, and
   exists in all nine ports — the generators compile against it — but is not
   proven to behave identically in the other eight.
 * **Loaded by the golden harness, byte-compared nine ways.** Only what the
@@ -754,13 +759,21 @@ so a suite could stay red without anyone noticing.
 [`tool/run_all_suites.sh`](tool/run_all_suites.sh) closes that: every SOM package
 now carries a uniform `run_tests.sh` that runs everything hand-authored in it,
 whatever the ecosystem underneath, and this driver is the aggregate over all
-eighteen. Before the suites it runs three gates — `sample_coverage`
+eighteen. Before the suites it runs four gates — `sample_coverage`
 ([`tool/check_sample_coverage.dart`](tool/check_sample_coverage.dart)),
 `sample_decode`
-([`tom_som_dart_v0/tool/verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart))
+([`tom_som_dart_v0/tool/verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart)),
+`sample_validate`
+([`tom_som_dart_v0/tool/validate_samples.dart`](../tom_som_dart_v0/tool/validate_samples.dart))
 and `corpus_copies`
 ([`tool/check_corpus_copies.dart`](tool/check_corpus_copies.dart)) — so a run
-reports twenty-one results in total.
+reports twenty-two results in total.
+
+`sample_validate` exists because `uam_access_hub` carried eleven
+`danglingReference` findings from a check that had existed for weeks: a
+`refersTo` field is checked by the instance tier and by nothing else, and
+nothing had run the instance tier against that file. A check that runs only on
+request is a check that drifts.
 
 `corpus_copies` is here rather than in the package it checks, and the reason is
 the point of it. `dart pub publish` ships `test/`, so a shipped test that reads
@@ -861,7 +874,7 @@ tom_som_conformance/
 | [`corpus/`](corpus/) | Language-agnostic case tables plus their expected outputs, consumed by each runtime's conformance runner. **Every tier has a `##### …and so does the <tier>` subsection above, and each one names its own tables** — the tiers are not listed here, because a list in two places is a list that goes stale in one of them (it did: the scripting tier and the version check were both added without this row noticing). What keeps the tables *complete* is the enum-coverage guard — see "Corpus completeness" above before adding a check to any runtime. |
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand by [`tool/regenerate_golden.sh`](tool/regenerate_golden.sh). |
 | [`generated-doc/`](generated-doc/) | Generator output, kept out of the hand-written tree so a stray ad-hoc run cannot leave a stale copy among authored files. One type so far: `codespecs_extracts/`, the 27 per-area Phase-4 extracts emitted by `spec_codespecs_extract` over the Meridian sample, as `.extract.yaml` (the artifact of record) / `.extract.md` (the rendered view) pairs plus `gate.verdicts.yaml`. |
-| [`tool/`](tool/) | Seven files, four concerns. The golden harness — [`regenerate_golden.sh`](tool/regenerate_golden.sh) + [`compare_golden.dart`](tool/compare_golden.dart). The aggregate driver — [`run_all_suites.sh`](tool/run_all_suites.sh), the two sample gates plus eighteen test suites. The `sample_coverage` gate — [`check_sample_coverage.dart`](tool/check_sample_coverage.dart) with its committed remaining set [`sample_coverage_manifest.yaml`](tool/sample_coverage_manifest.yaml) (now empty — see "The parity claim's bound") and the exercise-sample generator [`build_exercise_sample.dart`](tool/build_exercise_sample.dart). And the corpus load-bearing gate — [`parity_gate.sh`](tool/parity_gate.sh). The `sample_decode` gate's tool lives with the Dart facade ([`tom_som_dart_v0/tool/verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart)). |
+| [`tool/`](tool/) | Seven files, four concerns. The golden harness — [`regenerate_golden.sh`](tool/regenerate_golden.sh) + [`compare_golden.dart`](tool/compare_golden.dart). The aggregate driver — [`run_all_suites.sh`](tool/run_all_suites.sh), the three sample gates plus eighteen test suites. The `sample_coverage` gate — [`check_sample_coverage.dart`](tool/check_sample_coverage.dart) with its committed remaining set [`sample_coverage_manifest.yaml`](tool/sample_coverage_manifest.yaml) (now empty — see "The parity claim's bound") and the exercise-sample generator [`build_exercise_sample.dart`](tool/build_exercise_sample.dart). And the corpus load-bearing gate — [`parity_gate.sh`](tool/parity_gate.sh). The `sample_decode` and `sample_validate` gates' tools live with the Dart facade ([`verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart), [`validate_samples.dart`](../tom_som_dart_v0/tool/validate_samples.dart)). |
 
 ## Ecosystem
 

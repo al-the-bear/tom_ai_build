@@ -97,6 +97,42 @@ void main() {
     });
   });
 
+  group('RDR5: a path .pubignore names is not published, so not drift', () {
+    test('directory entries cover everything beneath them', () {
+      expect(isPubIgnored('tool/validate_samples.dart', ['tool/']), isTrue);
+      expect(isPubIgnored('tools/x.dart', ['tool/']), isFalse);
+    });
+
+    test('file entries match exactly, and as a directory prefix', () {
+      const entries = ['test/conformance_test.dart', 'doc/api'];
+      expect(isPubIgnored('test/conformance_test.dart', entries), isTrue);
+      expect(isPubIgnored('test/other_test.dart', entries), isFalse);
+      expect(isPubIgnored('doc/api/index.html', entries), isTrue);
+    });
+
+    test('a glob is read literally, so it fails safe', () {
+      // Unsupported syntax must leave a file COUNTED as drift rather than
+      // silently excuse it: an over-excusing gate hides exactly what it exists
+      // to report.
+      expect(isPubIgnored('lib/a.g.dart', ['*.g.dart']), isFalse);
+    });
+
+    test('comments and blank lines are not entries', () {
+      final dir = Directory.systemTemp.createTempSync('pubignore');
+      addTearDown(() => dir.deleteSync(recursive: true));
+      File(
+        p.join(dir.path, '.pubignore'),
+      ).writeAsStringSync('# why\n\ntool/\n  test/x.dart  \n');
+      expect(readPubIgnore(dir.path), ['tool/', 'test/x.dart']);
+    });
+
+    test('no .pubignore means nothing is excused', () {
+      final dir = Directory.systemTemp.createTempSync('pubignore_none');
+      addTearDown(() => dir.deleteSync(recursive: true));
+      expect(readPubIgnore(dir.path), isEmpty);
+    });
+  });
+
   group('RDR4: the verdict', () {
     test('drift is a violation only when it is not acknowledged', () {
       const drifted = PackageDrift(

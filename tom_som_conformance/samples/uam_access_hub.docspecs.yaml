@@ -587,7 +587,7 @@ document:
                       Duplicate grant
                     content:
                       branchPoint: |2-
-                        2
+                        MNSST-STEP-2
                       condition: |2-
                         A grant row already exists for the (client,
                         application, role, pattern) key.
@@ -605,7 +605,7 @@ document:
                         Warning
                     EXTEN-RESU resumePoint:
                       resumeStep: |2-
-                        2
+                        MNSST-STEP-2
                     EXTST-STEP-LST steps:
                       EXTST-STEP-1:
                         content:
@@ -718,7 +718,7 @@ document:
               boundedContext: |2-
                 Identity
               aggregateRoot: |2-
-                Yes
+                Tenant
               owningDomain: |2-
                 Tenant management
               dataOwner: |2-
@@ -828,7 +828,7 @@ document:
               boundedContext: |2-
                 Identity
               aggregateRoot: |2-
-                Yes
+                User
               owningDomain: |2-
                 User management
               dataOwner: |2-
@@ -971,7 +971,7 @@ document:
               boundedContext: |2-
                 Authorization
               aggregateRoot: |2-
-                Yes
+                Role
               owningDomain: |2-
                 Authorization
               dataOwner: |2-
@@ -1068,7 +1068,7 @@ document:
               boundedContext: |2-
                 Authorization
               aggregateRoot: |2-
-                No
+                Role
               owningDomain: |2-
                 Authorization
               dataOwner: |2-
@@ -1317,6 +1317,49 @@ document:
                     scoped
                   description: |2-
                     A single role on a single resource key.
+          DMENE-ENUM-3:
+            headline: |2-
+              TwoFactorType
+            content:
+              enumName: |2-
+                TwoFactorType
+              description: |2-
+                The second-factor mechanism a user has enrolled.
+              backingType: |2-
+                string
+              defaultValue: |2-
+                none
+            DMEVA-VALU-LST values:
+              DMEVA-VALU-1:
+                headline: |2-
+                  none
+                content:
+                  valueId: |2-
+                    none
+                  backingValue: |2-
+                    none
+                  description: |2-
+                    No second factor enrolled.
+              DMEVA-VALU-2:
+                headline: |2-
+                  totp
+                content:
+                  valueId: |2-
+                    totp
+                  backingValue: |2-
+                    totp
+                  description: |2-
+                    Time-based one-time password from an authenticator app.
+              DMEVA-VALU-3:
+                headline: |2-
+                  webauthn
+                content:
+                  valueId: |2-
+                    webauthn
+                  backingValue: |2-
+                    webauthn
+                  description: |2-
+                    A platform or roaming WebAuthn authenticator.
       ERCRG errorCodeRegistry:
         content: |2-
           Error codes are stable strings surfaced in the result envelope and
@@ -1377,7 +1420,7 @@ document:
               fieldPath: |2-
                 error.code
               errorCodeRef: |2-
-                ERCEN-CODE-1
+                UAM-403-GRADE-DENIED
               message: |2-
                 Stable error code from the registry above.
       MSGKR messageKeyRegistry:
@@ -1435,6 +1478,28 @@ document:
                 deadline
               description: |2-
                 Campaign banner shown to reviewers.
+          MSGKE-MKEY-6:
+            headline: |2-
+              uam.grantEditor.editExistingAction
+            content:
+              key: |2-
+                uam.grantEditor.editExistingAction
+              defaultCopy: |2-
+                Edit existing
+              description: |2-
+                Recovery action on the grant editor's conflict state: open the
+                grant row that already holds this key.
+          MSGKE-MKEY-7:
+            headline: |2-
+              uam.review.resolveItem
+            content:
+              key: |2-
+                uam.review.resolveItem
+              defaultCopy: |2-
+                Confirm or revoke access under review
+              description: |2-
+                User-facing description of the campaign-item resolution
+                operation.
       SVOPR serverOperationRegistry:
         content: |2-
           Operations follow the POST-only contract with the standard result
@@ -1516,6 +1581,60 @@ document:
                   required: true
                   description: |2-
                     Reference of the journal entry recording the mutation.
+          SVOPE-OPER-2:
+            headline: |2-
+              resolveCampaignItem
+            content:
+              operationName: |2-
+                resolveCampaignItem
+              purpose: |2-
+                Record a reviewer's decision on one access-review campaign item:
+                confirm the grant, or revoke it. Either way the decision is
+                journaled against the campaign.
+              primaryDataEntity: |2-
+                RoleResourceGrant
+              descriptionKey: |2-
+                uam.review.resolveItem
+              errorCodes: |2-
+                UAM-403-GRADE-DENIED
+            AZREQ authorization:
+              content:
+                requirementKind: |2-
+                  role
+                rationale: |2-
+                  Reviewers resolve the items of campaigns they were assigned.
+              AZREQ-ROLE roleRequirement:
+                roles: |2-
+                  tenant-admin
+            SVOPM-REQM-LST requestMembers:
+              SVOPM-REQM-1:
+                headline: |2-
+                  campaignItemId
+                content:
+                  memberType: |2-
+                    string
+                  required: true
+                  description: |2-
+                    The campaign item being resolved.
+              SVOPM-REQM-2:
+                headline: |2-
+                  decision
+                content:
+                  memberType: |2-
+                    string
+                  required: true
+                  description: |2-
+                    `confirm` or `revoke`.
+            SVOPM-RESM-LST responseMembers:
+              SVOPM-RESM-1:
+                headline: |2-
+                  journalRef
+                content:
+                  memberType: |2-
+                    string
+                  required: true
+                  description: |2-
+                    Reference of the journal entry recording the decision.
     REQS requirements:
       content: |2-
         The consolidated requirement register lives in the RO section of the
@@ -1656,7 +1775,7 @@ document:
                   screenCategory: |2-
                     Form
                   routePattern: |2-
-                    /tenant/:tenantId/apps/:appId/roles/:roleId/grants
+                    grant-editor
                 AZREQ access:
                   content:
                     requirementKind: |2-
@@ -1750,7 +1869,7 @@ document:
                         messageResource: |2-
                           uam.error.duplicateGrant
                         primaryActionLabel: |2-
-                          Edit existing
+                          uam.grantEditor.editExistingAction
                         primaryActionTarget: |2-
                           load-existing-grant
         SCFLST screenFlow:

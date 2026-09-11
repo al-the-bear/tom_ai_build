@@ -319,7 +319,9 @@ export 'src/release_drift.dart'
         PackageDrift,
         ReleaseDriftReport,
         computeReleaseDrift,
+        isPubIgnored,
         loadAcknowledgedDrift,
+        readPubIgnore,
         releaseDriftIgnoredPaths,
         renderReleaseDrift;
 export 'src/codespecs/areas_catalog.dart'
