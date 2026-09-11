@@ -300,6 +300,10 @@ cd tom_ai/ai_build/tom_som_conformance
 `--strict` turns a *skipped* suite into a failure, which is what you want on a
 host that claims full coverage: without it a missing toolchain is reported as a
 skip with its reason, so the driver stays usable on partially-provisioned hosts.
+Full coverage for `run_all_suites.sh` also means Flutter and a `tom_forge`
+checkout, because its last step runs the spec-authoring app's Flutter suite;
+Flutter is found through `FLUTTER_ROOT`, else the SDK the resolved `dart`
+belongs to.
 Both drivers add `~/.cargo/bin` to `PATH` when needed, because rustup wires
 cargo into the interactive profile only.
 

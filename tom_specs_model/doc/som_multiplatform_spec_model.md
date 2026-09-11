@@ -1803,7 +1803,7 @@ driver in `tom_som_conformance/tool/`:
 | Driver | What it proves |
 | --- | --- |
 | `regenerate_golden.sh` | Rebuilds all nine golden logs and asserts they are byte-identical — the nine APIs read the same specification identically. |
-| `run_all_suites.sh` | Runs the **eighteen** hand-authored suites (nine runtime + nine `v0` packages), so a red suite surfaces the same way a golden mismatch does. Runs the `sample_coverage` instantiation gate (`check_sample_coverage.dart`) first — language-agnostic, so once rather than nine times. |
+| `run_all_suites.sh` | Runs the **eighteen** hand-authored suites (nine runtime + nine `v0` packages), so a red suite surfaces the same way a golden mismatch does. Runs four language-agnostic gates first — the `sample_coverage` instantiation gate (`check_sample_coverage.dart`), `corpus_copies`, `sample_decode` and `sample_validate` — once rather than nine times, and the spec-authoring app's Flutter suite (`editor`) last, since no Dart-only driver can run it. |
 
 Every SOM package carries a uniform `run_tests.sh` that runs everything
 hand-authored in it, whatever the ecosystem underneath (`dart test`, `python3`,

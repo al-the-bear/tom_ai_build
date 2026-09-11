@@ -76,7 +76,7 @@ other gates cannot: whether a table is actually *read* by all nine runners.
 | Corpus load-bearing | [`tool/parity_gate.sh`](tool/parity_gate.sh) | a deliberately broken expectation leaves any suite green |
 | Corpus copies | [`tool/check_corpus_copies.dart`](tool/check_corpus_copies.dart) | a fixture copied into a published package has drifted from the corpus it came from |
 | Enum coverage | [`tom_som_dart_runtime/test/enum_coverage_test.dart`](../tom_som_dart_runtime/test/enum_coverage_test.dart) | a contract enum carries a constant no corpus table exercises |
-| Aggregate suites | [`tool/run_all_suites.sh`](tool/run_all_suites.sh) | any of the twenty-one reported results is a failure |
+| Aggregate suites | [`tool/run_all_suites.sh`](tool/run_all_suites.sh) | any of the twenty-three reported results is a failure |
 | Packaging sweep | the nine `buildFromSource` commands (SOM §17) | a facade regenerates with churn, or a language fails to build or pack |
 
 Every gate is *ratcheted* rather than advisory: each has a committed expectation
@@ -86,10 +86,11 @@ un-reopenable.
 ## Quick start
 
 ```bash
-# Everything hand-authored, plus the two sample gates. Absent toolchains skip
-# with the reason stated; --strict turns a skip into a failure.
+# Everything hand-authored, the four sample/corpus gates and the editor's
+# Flutter suite. Absent toolchains skip with the reason stated; --strict turns
+# a skip into a failure.
 ./tool/run_all_suites.sh
-# → a PASS / FAIL / SKIP table over twenty-one results, non-zero exit on any failure
+# → a PASS / FAIL / SKIP table over twenty-three results, non-zero exit on any failure
 
 # The nine-way byte-identity proof (needs all nine toolchains installed).
 ./tool/regenerate_golden.sh
@@ -766,8 +767,20 @@ eighteen. Before the suites it runs four gates — `sample_coverage`
 `sample_validate`
 ([`tom_som_dart_v0/tool/validate_samples.dart`](../tom_som_dart_v0/tool/validate_samples.dart))
 and `corpus_copies`
-([`tool/check_corpus_copies.dart`](tool/check_corpus_copies.dart)) — so a run
-reports twenty-two results in total.
+([`tool/check_corpus_copies.dart`](tool/check_corpus_copies.dart)) — and after
+them one step that is not a SOM package, `editor`, so a run reports
+twenty-three results in total.
+
+`editor` runs `flutter test` in the spec-authoring app,
+`tom_forge/tom_specs_editor`. It rides here because nothing else can run it:
+the editor is a Flutter app outside the release scope, so neither a Dart-only
+driver nor a release step reaches it, and this is the driver run after every
+model change, which is when the editor breaks. The step runs
+`_bin/check_pub_cache.sh` first, because pub-cache damage presents as undefined
+classes in a dependency — the editor's suite once read as broken for two days
+for exactly that reason. A damaged cache is named on the row, ahead of the test
+log, so the cache is suspected before the code is. Without a `tom_forge`
+checkout the step skips with that reason stated.
 
 `sample_validate` exists because `uam_access_hub` carried eleven
 `danglingReference` findings from a check that had existed for weeks: a
@@ -801,7 +814,9 @@ The driver adds `~/.cargo/bin` to `PATH` when `cargo` is not already resolvable:
 rustup wires cargo up in the *interactive* shell profile only, so a
 non-interactive run would otherwise skip the two Rust suites on a host that can
 perfectly well run them. A skip that reflects a `PATH` quirk is nearly as bad as
-no gate at all. `regenerate_golden.sh` carries the same prepend.
+no gate at all. `regenerate_golden.sh` carries the same prepend. For the
+`editor` step the same reasoning finds Flutter: `FLUTTER_ROOT` when set, else
+the Flutter SDK that the resolved `dart` belongs to (following a symlink).
 
 #### The suites read their root set from the generated registry
 
@@ -874,7 +889,7 @@ tom_som_conformance/
 | [`corpus/`](corpus/) | Language-agnostic case tables plus their expected outputs, consumed by each runtime's conformance runner. **Every tier has a `##### …and so does the <tier>` subsection above, and each one names its own tables** — the tiers are not listed here, because a list in two places is a list that goes stale in one of them (it did: the scripting tier and the version check were both added without this row noticing). What keeps the tables *complete* is the enum-coverage guard — see "Corpus completeness" above before adding a check to any runtime. |
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand by [`tool/regenerate_golden.sh`](tool/regenerate_golden.sh). |
 | [`generated-doc/`](generated-doc/) | Generator output, kept out of the hand-written tree so a stray ad-hoc run cannot leave a stale copy among authored files. One type so far: `codespecs_extracts/`, the 27 per-area Phase-4 extracts emitted by `spec_codespecs_extract` over the Meridian sample, as `.extract.yaml` (the artifact of record) / `.extract.md` (the rendered view) pairs plus `gate.verdicts.yaml`. |
-| [`tool/`](tool/) | Seven files, four concerns. The golden harness — [`regenerate_golden.sh`](tool/regenerate_golden.sh) + [`compare_golden.dart`](tool/compare_golden.dart). The aggregate driver — [`run_all_suites.sh`](tool/run_all_suites.sh), the three sample gates plus eighteen test suites. The `sample_coverage` gate — [`check_sample_coverage.dart`](tool/check_sample_coverage.dart) with its committed remaining set [`sample_coverage_manifest.yaml`](tool/sample_coverage_manifest.yaml) (now empty — see "The parity claim's bound") and the exercise-sample generator [`build_exercise_sample.dart`](tool/build_exercise_sample.dart). And the corpus load-bearing gate — [`parity_gate.sh`](tool/parity_gate.sh). The `sample_decode` and `sample_validate` gates' tools live with the Dart facade ([`verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart), [`validate_samples.dart`](../tom_som_dart_v0/tool/validate_samples.dart)). |
+| [`tool/`](tool/) | Seven files, four concerns. The golden harness — [`regenerate_golden.sh`](tool/regenerate_golden.sh) + [`compare_golden.dart`](tool/compare_golden.dart). The aggregate driver — [`run_all_suites.sh`](tool/run_all_suites.sh), four sample/corpus gates, eighteen test suites and the editor's Flutter suite. The `sample_coverage` gate — [`check_sample_coverage.dart`](tool/check_sample_coverage.dart) with its committed remaining set [`sample_coverage_manifest.yaml`](tool/sample_coverage_manifest.yaml) (now empty — see "The parity claim's bound") and the exercise-sample generator [`build_exercise_sample.dart`](tool/build_exercise_sample.dart). And the corpus load-bearing gate — [`parity_gate.sh`](tool/parity_gate.sh). The `sample_decode` and `sample_validate` gates' tools live with the Dart facade ([`verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart), [`validate_samples.dart`](../tom_som_dart_v0/tool/validate_samples.dart)). |
 
 ## Ecosystem
 
@@ -939,8 +954,8 @@ harness enforces:
 place by the eighteen SOM packages' own test runners and by the drivers in
 [`tool/`](tool/), so there is nothing to publish and nothing to pin.
 
-**Twenty results** from `./tool/run_all_suites.sh` — the two sample gates plus
-the eighteen hand-authored suites — all passing on a host with the nine
-toolchains present, and skipped with the reason stated where a toolchain is
-absent. The **nine golden logs are at `FORMAT 10` and byte-identical**, and the
+**Twenty-three results** from `./tool/run_all_suites.sh` — the four
+sample/corpus gates, the eighteen hand-authored suites and the editor's Flutter
+suite — all passing on a host with the nine toolchains and Flutter present, and
+skipped with the reason stated where a toolchain is absent. The **nine golden logs are at `FORMAT 10` and byte-identical**, and the
 instantiation-coverage manifest is **empty**.

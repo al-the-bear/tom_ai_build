@@ -30,7 +30,7 @@ Two different claims, proved by two different drivers:
 | Claim | Driver | Shape of the proof |
 |-------|--------|--------------------|
 | All nine languages *read* the same specification identically | `regenerate_golden.sh` → `compare_golden.dart` | Nine logs, byte-identical |
-| Every hand-authored suite in all eighteen SOM packages passes | `run_all_suites.sh` | A PASS/FAIL/SKIP table over twenty results |
+| Every hand-authored suite in all eighteen SOM packages passes | `run_all_suites.sh` | A PASS/FAIL/SKIP table over twenty-three results |
 
 The distinction is worth holding on to. A green golden run says the nine *APIs
 agree*; it says nothing about whether each port's own tests pass. A green suite
@@ -43,7 +43,8 @@ themselves, so they can be invoked from anywhere.
 ## Quick Start
 
 ```bash
-# 1. Every hand-authored suite, plus the two sample gates (20 results).
+# 1. Every hand-authored suite, the four sample/corpus gates and the editor's
+#    Flutter suite (23 results).
 ./tool/run_all_suites.sh
 
 # 2. The nine-way byte-identity proof. Needs all nine toolchains.
@@ -73,11 +74,11 @@ Exit `0`. A mismatch exits `1`.
 
 ## Core Components
 
-### The four drivers
+### The drivers
 
 | Driver | Runs | Exit |
 |--------|------|------|
-| `tool/run_all_suites.sh` | The eighteen suites plus the two sample gates | Non-zero on any failure |
+| `tool/run_all_suites.sh` | The four sample/corpus gates, the eighteen suites, then the editor's Flutter suite | Non-zero on any failure |
 | `tool/regenerate_golden.sh` | Every `tom_som_<lang>_v0` golden generator, then the comparison | Non-zero on any mismatch |
 | `tool/compare_golden.dart` | The comparison alone, over existing logs | `0` identical, `1` on a mismatch |
 | `tool/check_sample_coverage.dart` | The instantiation-coverage gate over the shared samples | `0` when the manifest is exactly the remaining set |
@@ -209,7 +210,9 @@ One `PATH` quirk is handled for you and worth knowing about: rustup wires
 would otherwise skip both Rust suites on a host that can perfectly well build
 them. `run_all_suites.sh` and `regenerate_golden.sh` both prepend
 `~/.cargo/bin` when `cargo` is not already resolvable. A skip that reflects a
-`PATH` quirk is nearly as bad as no gate at all.
+`PATH` quirk is nearly as bad as no gate at all. For its `editor` step,
+`run_all_suites.sh` finds Flutter the same way: `FLUTTER_ROOT` when set, else
+the Flutter SDK the resolved `dart` belongs to.
 
 ## Proving a corpus table is load-bearing
 

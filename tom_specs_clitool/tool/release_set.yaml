@@ -109,12 +109,15 @@ unpublished_drift:
     reaches pub.dev is not unpublished change). Both go out at the next release
     step; publishing now would restore the invariant only until the next entry.
   tom_specs_model: >-
-    FORMATTING ONLY, in three test files. 1.3.2 was published carrying the
-    tsdocd10 fix that makes its real-model groups skip in a hosted install; the
-    files were then run through `dart format`, which the published archive does
-    not have. No behaviour differs, the shipped tests still pass from the
-    archive (verified by tool/verify_published_tests.sh), and a 1.3.3 to carry
-    whitespace would move the whole nine-package lockstep — the model version is
+    NO CODE: formatting in three test files, and prose in two doc/ files.
+    1.3.2 was published carrying the tsdocd10 fix that makes its real-model
+    groups skip in a hosted install; the files were then run through `dart
+    format`, which the published archive does not have. The doc/ change is
+    som_multiplatform_spec_model.md §19.1 and som_toolchains.md describing the
+    conformance driver's `editor` step. No behaviour differs, the shipped
+    tests still pass from the archive (verified by
+    tool/verify_published_tests.sh), and a 1.3.3 to carry prose and whitespace
+    would move the whole nine-package lockstep — the model version is
     in the SOM freshness fingerprint, so a bump forces a full regeneration and
     two more publishes. This is what an acknowledgement is for.
   tom_core_codespecs: >-
