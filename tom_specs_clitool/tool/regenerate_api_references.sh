@@ -32,17 +32,11 @@ HERE="$(cd "$(dirname "$0")" && pwd)"      # tom_specs_clitool/tool
 CLITOOL="$(dirname "$HERE")"                # tom_specs_clitool
 ROOT="$(dirname "$CLITOOL")"                # ai_build (holds every SOM project)
 
-# rustup and the Go tarball wire themselves into the *interactive* shell profile
-# only, so a non-interactive run would skip languages this host can perfectly
-# well document. Same prepend as run_all_suites.sh and regenerate_golden.sh.
-for extra in "$HOME/.cargo/bin" "/usr/local/go/bin" "$HOME/.local/go/bin" "/opt/homebrew/bin"; do
-  case ":$PATH:" in *":$extra:"*) ;; *) [ -d "$extra" ] && PATH="$PATH:$extra" ;; esac
-done
-if ! command -v javadoc > /dev/null 2>&1 && [ -x /usr/libexec/java_home ]; then
-  JH="$(/usr/libexec/java_home 2>/dev/null || true)"
-  [ -n "$JH" ] && [ -x "$JH/bin/javadoc" ] && PATH="$JH/bin:$PATH"
-fi
-export PATH
+# The toolchain PATH rules are shared with provision_doc_generators.sh, which
+# reports on and installs the same eight generators: a provisioner that decided
+# "installed" differently from this driver would certify a host the driver then
+# skips.
+. "$HERE/lib/doc_toolchain_path.sh"
 
 # The typedoc version is pinned so every host renders the same reference; an
 # unpinned `npx typedoc` would silently follow the registry's latest.

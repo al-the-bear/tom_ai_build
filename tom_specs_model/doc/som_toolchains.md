@@ -107,12 +107,12 @@ All eighteen packages generate here under `--strict`.
 
 | Generator | On `mbp` | How obtained |
 | --- | --- | --- |
-| `dart doc` | ships with Dart `3.12.2` | fleet-managed SDK |
+| `dart doc` | ships with Dart `3.12.2` | the SDK bundled with the Flutter checkout; not on `PATH` outside an interactive shell, so the driver finds it (see "Documentation generation") |
 | `pdoc` | `16.0.0` on **CPython 3.14.5** | `python3 -m pip install --break-system-packages pdoc` against Homebrew's default `python3` |
 | `typedoc` | pinned `0.28.15`, **no host install** | `npx --yes typedoc@0.28.15`, the same never-install-globally rule the TypeScript build toolchain follows |
 | `go doc` | ships with Go `1.26.5` | Homebrew `go` |
 | `cargo doc` | ships with `1.96.0` | rustup |
-| `javadoc` | JDK `21.0.11` | Homebrew `openjdk@21`; the driver resolves it via `/usr/libexec/java_home` when it is not on `PATH` |
+| `javadoc` | JDK `21.0.11` | Homebrew `openjdk@21`. It is **keg-only**, so it is never on `PATH`, and `/usr/bin/javadoc` resolves to Corretto 17 instead — the driver prepends the `openjdk@21` bin explicitly |
 | `doxygen` | `1.18.0` | `brew install doxygen` |
 
 **The documentation interpreter is not the harness interpreter**, and on this
@@ -331,10 +331,62 @@ already — the conformance package's subject is the corpus. Its shape is
 deliberately `run_all_suites.sh`'s: one entry point, per-target selection, and a
 **skip with the reason stated** when a toolchain is missing, never a silent
 pass. `--strict` turns a skip into a failure, which is what a host claiming full
-coverage should use. The driver prepends `~/.cargo/bin`, the Go tarball
-locations and `JAVA_HOME/bin` when those are not already resolvable, for the
-same reason the conformance drivers do: rustup and the Go tarball wire
-themselves into the *interactive* profile only.
+coverage should use.
+
+The driver resolves toolchains that a non-interactive run cannot see, for the
+same reason the conformance drivers do — a toolchain the host HAS but the shell
+cannot see reads as a missing generator rather than as the `PATH` quirk it is.
+The rules live in
+[`tool/lib/doc_toolchain_path.sh`](../../tom_specs_clitool/tool/lib/doc_toolchain_path.sh),
+shared with the provisioner below so the two cannot disagree about what counts
+as installed:
+
+- `~/.cargo/bin` and the Go tarball locations — rustup and the Go tarball wire
+  themselves into the *interactive* profile only.
+- **Dart**, when it is the SDK bundled with a Flutter checkout: `DART_SDK`,
+  `FLUTTER_ROOT`, the directory of a `flutter` on `PATH`, then the usual
+  checkout locations.
+- **`javadoc` from JDK 21 by preference**, because 21 is what the build matrix
+  pins and a reference rendered by another major is a reference for a different
+  language level. This cannot be written as "prepend a JDK when `javadoc` is
+  absent": Homebrew's `openjdk@21` is keg-only and so never on `PATH`, while
+  macOS ships a `/usr/bin/javadoc` shim for whatever JDK is registered — on
+  `mbp` that shim is Corretto **17**, which silently rendered the Java
+  references until the preference was made explicit.
+
+### Provisioning a host
+
+Six of the eight generators ship with a toolchain the host needs anyway
+(`dart doc`, `go doc`, `cargo doc`, `javadoc`) or are never installed at all
+(`typedoc`, run through `npx --yes typedoc@<pinned>`). So bringing a host up is
+two installs — `pdoc` and `doxygen` — and one command reports which of the eight
+are present and performs those two:
+
+```bash
+cd tom_ai/ai_build/tom_specs_clitool
+./tool/provision_doc_generators.sh                     # report; non-zero if any missing
+./tool/provision_doc_generators.sh --install           # install pdoc and doxygen
+./tool/provision_doc_generators.sh --install --dry-run # print the commands only
+./tool/provision_doc_generators.sh --markdown          # this section's host table
+```
+
+It reports by default and installs only when asked: a script that changes a host
+as a side effect of being asked a question is one nobody dares run on a server.
+It installs only the two that are ever a documentation-only install — a missing
+`go`, `cargo`, `javadoc` or Dart SDK is a *toolchain* gap, which belongs to the
+status matrix at the top of this document, not here.
+
+For `pdoc` it reports **the interpreter behind the tool**, not just the version,
+and checks that interpreter for `PyYAML` and for Python ≥ 3.10. The version
+alone cannot tell a working install from one that dies at import: pdoc imports
+the module rather than parsing it, and the runtime's sources use PEP 604
+`X | Y` annotations that pdoc evaluates.
+
+**Host state.** `mbp` carries all eight (table above). The reference host
+`bomber` carries the build toolchains but not the two documentation-only
+installs; run `./tool/provision_doc_generators.sh --install` there and record
+its `--markdown` table beside `mbp`'s. Hosts provisioned only for the build —
+`bigbeast` is one — report `pdoc`, `doxygen` and whichever toolchains they lack.
 
 ### The generated reference is **gitignored**, deliberately
 
