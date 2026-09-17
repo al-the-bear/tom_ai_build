@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_spec_engine
-// Generated: 2026-09-09T21:00:25.471978
+// Generated: 2026-09-18T00:27:50.963577 by tom_d4rt_generator 1.26.2
 
 /// D4rt Bridge Registration for tom_spec_engine
 library;
