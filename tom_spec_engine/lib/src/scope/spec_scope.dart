@@ -8,6 +8,9 @@
 ///   2. injects a single controller-bound [SpecApi] instance as the `spec`
 ///      global under [specApiLibrary].
 ///
+/// doc-ref: ok — `spec_api.dart` is a BRIDGED library URI (`specApiLibrary`
+/// in `src/scope/spec_api.dart`), registered for d4rt scripts. No such file
+/// ships, and a script importing it is nonetheless correct.
 /// A script that imports `package:tom_spec_engine/spec_api.dart` then drives
 /// the document through `spec` (`spec.setContent(...)`, `spec.addChild(...)`,
 /// …) — every call mediated by the controller, so the change log and undo stack
