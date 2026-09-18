@@ -206,6 +206,19 @@ reading of the same specification — within the bound stated next.
 
 ##### The parity claim's bound
 
+**The proof is about agreement, never about coverage of the ports.** Everything
+in this section bounds how far the nine planes are shown to *agree*; none of it
+can see a capability only one plane has, because there is nothing shared for the
+others to disagree with. That complementary question — does every capability the
+contract names reach all nine runtimes? — is asked by
+[`tom_specs_clitool/bin/check_som_parity.dart`](../tom_specs_clitool/bin/check_som_parity.dart),
+which reads the corpus for the contract vocabulary and each runtime's own
+sources for what it carries, with accepted asymmetries committed in
+`tool/som_parity_exceptions.yaml`. Its first run found one: `discriminatorField`
+is in the meta and therefore in all nine *generated* facades, and in the Dart
+runtime, and in none of the other eight **hand-written** runtimes. Generated code
+cannot go out of step; hand-written runtime code can.
+
 The nine-way byte-identity proof extends exactly as far as what the golden
 generators load — **the Meridian sample** — plus the shared corpus, and no
 further. Within that slice the proof is exact: every value the Meridian sample

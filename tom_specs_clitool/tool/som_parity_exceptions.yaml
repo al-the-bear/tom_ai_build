@@ -1,0 +1,36 @@
+# Acknowledged nine-plane asymmetries, for bin/check_som_parity.dart.
+#
+# The check asks one question: does every language runtime carry the
+# capabilities the shared contract names? An entry here says a measured absence
+# is known, and why. Two kinds live here and they are NOT the same thing:
+#
+#   * an ACCEPTED asymmetry — the planes are legitimately not identical, and the
+#     absence is a naming or type-system difference rather than a missing
+#     capability.
+#   * a KNOWN GAP — a capability that really has not been ported. It is written
+#     down so that it stops masking the NEXT one, not to bless it. A gap entry
+#     names the todo that owns the port.
+#
+# `planes:` is required and is matched exactly: an acknowledgement covers the
+# absence that was measured, so the same token spreading to one more plane is
+# new information and goes red rather than being absorbed by an old entry.
+exceptions:
+  - token: dateTime
+    planes: [rust, java, c, cpp]
+    reason: >-
+      Not a capability: every plane needs a moment in time and each spells it in
+      its own type system — `chrono` in Rust, `java.time` in Java, `time_t` in C
+      and `std::chrono` in C++ — none of which contains the token. The four that
+      DO carry it are the four whose date type is spelled `DateTime`. A check
+      that demanded one spelling would be demanding one type system.
+
+  - token: discriminatorField
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      A REAL GAP, found by this check's first run and owned by `qrb1_airf`. The
+      Dart runtime carries `FormFieldSpec? discriminatorField` on a field group
+      (`spec_model.dart`) and reads it in `spec_annotation_display.dart`; the
+      meta carries it and the nine generated `v0` facades therefore carry it too.
+      The other eight hand-written runtimes do not mention it in any spelling.
+      That is exactly the shape this check exists to find: generated code cannot
+      go out of step, hand-written runtime code can, and nothing asked until now.
