@@ -24,9 +24,14 @@
 /// than in a commit message.
 ///
 /// * A **regex scanner** over the source. Rejected: the campaign's own scanner
-///   (`tool/doccov.py`) needed twelve corrections before it agreed with the
-///   analyzer, and a gate that is approximately right is a gate nobody can
-///   act on. It survives as a reporting aid, not as an authority.
+///   needed twelve corrections before it agreed with the analyzer, and a gate
+///   that is approximately right is a gate nobody can act on. It was kept for a
+///   while as a reporting aid and has since been **deleted**, on the evidence
+///   that settles the question: measured at retirement it counted 773 public
+///   declarations in `tom_som_dart_runtime` where this walk counts 780, and
+///   both printed 100 %. A second counter that disagrees in the denominator
+///   while agreeing in the verdict cannot be a cross-check — it is a number
+///   that looks like confirmation, which is worse than no second number.
 /// * The **`public_member_api_docs` lint's diagnostics**. This is the standard's
 ///   definition exactly, and every measured package enables it — but it reports
 ///   only the *misses*. It has no denominator, so a percentage threshold cannot
