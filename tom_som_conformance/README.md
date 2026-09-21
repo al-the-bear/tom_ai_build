@@ -214,10 +214,18 @@ contract names reach all nine runtimes? — is asked by
 [`tom_specs_clitool/bin/check_som_parity.dart`](../tom_specs_clitool/bin/check_som_parity.dart),
 which reads the corpus for the contract vocabulary and each runtime's own
 sources for what it carries, with accepted asymmetries committed in
-`tool/som_parity_exceptions.yaml`. Its first run found one: `discriminatorField`
-is in the meta and therefore in all nine *generated* facades, and in the Dart
-runtime, and in none of the other eight **hand-written** runtimes. Generated code
-cannot go out of step; hand-written runtime code can.
+`tool/som_parity_exceptions.yaml`.
+
+Its first run reported one token, `discriminatorField`, and running that to
+ground is worth recording because the answer was **not** a missing capability.
+All nine planes implement the `@OneOf`/`@Case` closed choice and each resolves
+the annotation's `discriminator` argument where it validates; Dart additionally
+caches the *resolved* field on a review class for the two Flutter apps to
+display, which a read/validate plane has no caller for. The token had entered
+the vocabulary as document content — a sample document has a form field *named*
+`discriminatorField` — and matched Dart's same-named member by coincidence. That
+is the shape of false positive this check can produce, and the manifest entry
+records it.
 
 The nine-way byte-identity proof extends exactly as far as what the golden
 generators load — **the Meridian sample** — plus the shared corpus, and no

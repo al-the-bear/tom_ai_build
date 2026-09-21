@@ -11,6 +11,14 @@
 #     down so that it stops masking the NEXT one, not to bless it. A gap entry
 #     names the todo that owns the port.
 #
+# A NOTE ON SELF-REFERENCE, learned here: the check reads the conformance corpus
+# for its vocabulary, and the corpus includes the README that documents the
+# check. So writing prose ABOUT a finding can keep that finding's token in the
+# vocabulary after the thing itself is gone. `discriminatorField` below is alive
+# in the vocabulary through three sources now — a sample document's field name,
+# the CodeSpecs extract built from it, and the paragraph describing it. An entry
+# here is the right answer to that; deleting the prose would not be.
+#
 # `planes:` is required and is matched exactly: an acknowledgement covers the
 # absence that was measured, so the same token spreading to one more plane is
 # new information and goes red rather than being absorbed by an old entry.
@@ -27,10 +35,19 @@ exceptions:
   - token: discriminatorField
     planes: [python, javascript, typescript, java, go, rust, c, cpp]
     reason: >-
-      A REAL GAP, found by this check's first run and owned by `qrb1_airf`. The
-      Dart runtime carries `FormFieldSpec? discriminatorField` on a field group
-      (`spec_model.dart`) and reads it in `spec_annotation_display.dart`; the
-      meta carries it and the nine generated `v0` facades therefore carry it too.
-      The other eight hand-written runtimes do not mention it in any spelling.
-      That is exactly the shape this check exists to find: generated code cannot
-      go out of step, hand-written runtime code can, and nothing asked until now.
+      NOT a capability gap, settled by `qrb1_airf` after this check reported it
+      as one. All nine planes implement the `@OneOf`/`@Case` closed choice and
+      every one of them resolves the annotation's `discriminator` argument where
+      it validates — `spec_validator.py:237`, `spec_validator.c:197` and their
+      six siblings. What Dart has in addition is `OneOfGroup.discriminatorField`,
+      the *resolved* `FormFieldSpec` cached on a review class and read by
+      `spec_annotation_display.dart`, which is a DISPLAY concern: it exists so
+      the two Flutter apps can show a discriminator's full value set beside the
+      values the cases cover. The eight are read/validate planes with no display
+      layer to serve, so the resolved member would have no caller.
+
+      The token reached the vocabulary as DOCUMENT CONTENT, which is the part
+      worth knowing: `samples/uam_access_hub.docspecs.yaml` has a form field
+      *named* `discriminatorField` ("Is-Success Discriminator"), and a sample's
+      field names are indistinguishable by shape from contract tokens. It
+      matched Dart's same-named member by coincidence, not by meaning.

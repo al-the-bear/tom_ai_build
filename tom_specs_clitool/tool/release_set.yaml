@@ -123,6 +123,18 @@ unpublished_drift:
     would move the whole nine-package lockstep — the model version is
     in the SOM freshness fingerprint, so a bump forces a full regeneration and
     two more publishes. This is what an acknowledgement is for.
+  tom_doc_specs: >-
+    One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
+    `cc339d42` ("sce54: untrack artifacts that name the machine which produced
+    them") untracked `schema-test-document.json`, a 408-line generated test
+    artifact carrying absolute paths from the machine that produced it. Removing
+    such a file from the archive is strictly an improvement for a consumer — it
+    never resolved anywhere but on one host — and it changes no code, so a 0.3.1
+    to carry a deletion can wait for the next release step. Acknowledged rather
+    than published because the package that owns it decides its own cadence, and
+    the todo that made the change (`sce54`, d4rt quest) is not the one that would
+    publish it.
+
   tom_core_codespecs: >-
     One README line, from another quest's commit (`tom_ai/core` 8ca49dda, "the
     Status block names the published version") landing after 0.12.0 was
