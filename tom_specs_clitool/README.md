@@ -121,6 +121,7 @@ Each fails a build step rather than reporting a warning.
 | Todo citations | Every cited quest-todo id resolves to exactly one open todo | `bin/check_todo_citations.dart`, `test/todo_citations_test.dart` |
 | Section citations | Every `§` citation resolves to a real heading under `index.md`'s convention | `bin/check_section_citations.dart`, `test/section_citations_test.dart` |
 | `OE-` citations | Every cited open-ends id has a register row | `bin/check_oe_citations.dart`, `test/oe_citations_test.dart` |
+| Frozen locks (SCC45) | No package in `tom_ai/ai_build` — samples and nested fixtures included — resolves a `tom_*` version behind one already in the pub cache, and no sample declares a chain floor below it. The repo's own copy of the d4rt model guard, run here because this is the suite the repo runs routinely and `test/` is not shipped | `test/scc45_resolution_guard_test.dart` |
 | Nine-plane parity | Every capability the contract names is carried by all nine language runtimes | `bin/check_som_parity.dart`, `test/som_parity_test.dart` |
 | Release closure | The release-1 package set is dependency-closed | `bin/check_release_closure.dart`, `test/release_closure_test.dart` |
 | Release drift | Every release member is at its published tree, or says why not | `bin/check_release_drift.dart`, `test/release_drift_test.dart` |
