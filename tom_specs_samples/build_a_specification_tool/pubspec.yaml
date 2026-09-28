@@ -16,5 +16,5 @@ environment:
 # (`somDocSpecsSchema`), so neither is reached through the file system
 # (SOM §10.3).
 dependencies:
-  tom_som_dart_v0: ^1.3.0
-  tom_som_dart_runtime: ^1.3.0
+  tom_som_dart_v0: ^1.3.2
+  tom_som_dart_runtime: ^1.3.2
