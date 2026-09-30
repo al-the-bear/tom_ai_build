@@ -1,33 +1,54 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 21 files
-// Generated: 2026-09-18T00:27:38.510876 by tom_d4rt_generator 1.26.2
+// Generated: 2026-09-30T20:10:56.089317 by tom_d4rt_generator 1.51.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'package:tom_som_dart_runtime/src/docspecs_validator.dart' as $tom_som_dart_runtime_1;
-import 'package:tom_som_dart_runtime/src/som_facade.dart' as $tom_som_dart_runtime_2;
-import 'package:tom_som_dart_runtime/src/spec_annotation_display.dart' as $tom_som_dart_runtime_3;
-import 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart' as $tom_som_dart_runtime_4;
-import 'package:tom_som_dart_runtime/src/spec_document.dart' as $tom_som_dart_runtime_5;
-import 'package:tom_som_dart_runtime/src/spec_document_markdown.dart' as $tom_som_dart_runtime_6;
-import 'package:tom_som_dart_runtime/src/spec_document_yaml.dart' as $tom_som_dart_runtime_7;
-import 'package:tom_som_dart_runtime/src/spec_editor.dart' as $tom_som_dart_runtime_8;
-import 'package:tom_som_dart_runtime/src/spec_meta.dart' as $tom_som_dart_runtime_9;
-import 'package:tom_som_dart_runtime/src/spec_meta_bridge.dart' as $tom_som_dart_runtime_10;
-import 'package:tom_som_dart_runtime/src/spec_meta_diff.dart' as $tom_som_dart_runtime_11;
-import 'package:tom_som_dart_runtime/src/spec_model.dart' as $tom_som_dart_runtime_12;
-import 'package:tom_som_dart_runtime/src/spec_node_creation.dart' as $tom_som_dart_runtime_13;
-import 'package:tom_som_dart_runtime/src/spec_paths.dart' as $tom_som_dart_runtime_14;
-import 'package:tom_som_dart_runtime/src/spec_query.dart' as $tom_som_dart_runtime_15;
-import 'package:tom_som_dart_runtime/src/spec_reflection.dart' as $tom_som_dart_runtime_16;
-import 'package:tom_som_dart_runtime/src/spec_section_id.dart' as $tom_som_dart_runtime_17;
-import 'package:tom_som_dart_runtime/src/spec_serialization_order.dart' as $tom_som_dart_runtime_18;
-import 'package:tom_som_dart_runtime/src/spec_text_pattern.dart' as $tom_som_dart_runtime_19;
-import 'package:tom_som_dart_runtime/src/spec_typed_values.dart' as $tom_som_dart_runtime_20;
-import 'package:tom_som_dart_runtime/src/spec_validator.dart' as $tom_som_dart_runtime_21;
+import 'package:tom_som_dart_runtime/src/docspecs_validator.dart'
+    as $tom_som_dart_runtime_1;
+import 'package:tom_som_dart_runtime/src/som_facade.dart'
+    as $tom_som_dart_runtime_2;
+import 'package:tom_som_dart_runtime/src/spec_annotation_display.dart'
+    as $tom_som_dart_runtime_3;
+import 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart'
+    as $tom_som_dart_runtime_4;
+import 'package:tom_som_dart_runtime/src/spec_document.dart'
+    as $tom_som_dart_runtime_5;
+import 'package:tom_som_dart_runtime/src/spec_document_markdown.dart'
+    as $tom_som_dart_runtime_6;
+import 'package:tom_som_dart_runtime/src/spec_document_yaml.dart'
+    as $tom_som_dart_runtime_7;
+import 'package:tom_som_dart_runtime/src/spec_editor.dart'
+    as $tom_som_dart_runtime_8;
+import 'package:tom_som_dart_runtime/src/spec_meta.dart'
+    as $tom_som_dart_runtime_9;
+import 'package:tom_som_dart_runtime/src/spec_meta_bridge.dart'
+    as $tom_som_dart_runtime_10;
+import 'package:tom_som_dart_runtime/src/spec_meta_diff.dart'
+    as $tom_som_dart_runtime_11;
+import 'package:tom_som_dart_runtime/src/spec_model.dart'
+    as $tom_som_dart_runtime_12;
+import 'package:tom_som_dart_runtime/src/spec_node_creation.dart'
+    as $tom_som_dart_runtime_13;
+import 'package:tom_som_dart_runtime/src/spec_paths.dart'
+    as $tom_som_dart_runtime_14;
+import 'package:tom_som_dart_runtime/src/spec_query.dart'
+    as $tom_som_dart_runtime_15;
+import 'package:tom_som_dart_runtime/src/spec_reflection.dart'
+    as $tom_som_dart_runtime_16;
+import 'package:tom_som_dart_runtime/src/spec_section_id.dart'
+    as $tom_som_dart_runtime_17;
+import 'package:tom_som_dart_runtime/src/spec_serialization_order.dart'
+    as $tom_som_dart_runtime_18;
+import 'package:tom_som_dart_runtime/src/spec_text_pattern.dart'
+    as $tom_som_dart_runtime_19;
+import 'package:tom_som_dart_runtime/src/spec_typed_values.dart'
+    as $tom_som_dart_runtime_20;
+import 'package:tom_som_dart_runtime/src/spec_validator.dart'
+    as $tom_som_dart_runtime_21;
 
 /// Bridge class for som_runtime module.
 class SomRuntimeBridge {
@@ -205,7 +226,8 @@ class SomRuntimeBridge {
       'DocSpecsSectionType': $tom_som_dart_runtime_1.DocSpecsSectionType,
       'DocSpecsFormField': $tom_som_dart_runtime_1.DocSpecsFormField,
       'DocSpecsFormType': $tom_som_dart_runtime_1.DocSpecsFormType,
-      'DocSpecsDocumentSection': $tom_som_dart_runtime_1.DocSpecsDocumentSection,
+      'DocSpecsDocumentSection':
+          $tom_som_dart_runtime_1.DocSpecsDocumentSection,
       'DocSpecsSchema': $tom_som_dart_runtime_1.DocSpecsSchema,
       'DocSpecsValidator': $tom_som_dart_runtime_1.DocSpecsValidator,
       'SpecChip': $tom_som_dart_runtime_3.SpecChip,
@@ -228,7 +250,8 @@ class SomRuntimeBridge {
       'SpecMarkdownResult': $tom_som_dart_runtime_6.SpecMarkdownResult,
       'SpecDocumentMarkdown': $tom_som_dart_runtime_6.SpecDocumentMarkdown,
       'MarkdownFenceTracker': $tom_som_dart_runtime_6.MarkdownFenceTracker,
-      'SpecYamlFormatException': $tom_som_dart_runtime_7.SpecYamlFormatException,
+      'SpecYamlFormatException':
+          $tom_som_dart_runtime_7.SpecYamlFormatException,
       'SpecYamlContents': $tom_som_dart_runtime_7.SpecYamlContents,
       'SpecDocumentYaml': $tom_som_dart_runtime_7.SpecDocumentYaml,
       'SpecEditor': $tom_som_dart_runtime_8.SpecEditor,
@@ -277,40 +300,69 @@ class SomRuntimeBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'DocSpecsViolation': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'DocSpecsSection': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'DocSpecsDocument': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'DocSpecsPatternCheck': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'DocSpecsSubsectionRule': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'DocSpecsSectionType': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'DocSpecsFormField': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'DocSpecsFormType': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'DocSpecsDocumentSection': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'DocSpecsSchema': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'DocSpecsValidator': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'SpecChip': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'SpecRowExtras': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'CodeSpecsRouting': 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      'CodeSpecsExtractEntry': 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      'CodeSpecsSlice': 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      'CodeSpecsArea': 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      'CodeSpecsAreaCatalog': 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      'CodeSpecsExtract': 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      'CodeSpecsExtractError': 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
-      'CodeSpecsExtractor': 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      'DocSpecsViolation':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'DocSpecsSection':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'DocSpecsDocument':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'DocSpecsPatternCheck':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'DocSpecsSubsectionRule':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'DocSpecsSectionType':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'DocSpecsFormField':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'DocSpecsFormType':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'DocSpecsDocumentSection':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'DocSpecsSchema':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'DocSpecsValidator':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'SpecChip':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'SpecRowExtras':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'CodeSpecsRouting':
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      'CodeSpecsExtractEntry':
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      'CodeSpecsSlice':
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      'CodeSpecsArea':
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      'CodeSpecsAreaCatalog':
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      'CodeSpecsExtract':
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      'CodeSpecsExtractError':
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      'CodeSpecsExtractor':
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
       'SomNode': 'package:tom_som_dart_runtime/src/som_facade.dart',
       'SomScalar': 'package:tom_som_dart_runtime/src/som_facade.dart',
       'SomList': 'package:tom_som_dart_runtime/src/som_facade.dart',
       'SomVersionException': 'package:tom_som_dart_runtime/src/som_facade.dart',
       'SpecDocument': 'package:tom_som_dart_runtime/src/spec_document.dart',
-      'SpecDocumentState': 'package:tom_som_dart_runtime/src/spec_document.dart',
-      'SpecMarkdownRejection': 'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
-      'SpecMarkdownResult': 'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
-      'SpecDocumentMarkdown': 'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
-      'MarkdownFenceTracker': 'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
-      'SpecYamlFormatException': 'package:tom_som_dart_runtime/src/spec_document_yaml.dart',
-      'SpecYamlContents': 'package:tom_som_dart_runtime/src/spec_document_yaml.dart',
-      'SpecDocumentYaml': 'package:tom_som_dart_runtime/src/spec_document_yaml.dart',
+      'SpecDocumentState':
+          'package:tom_som_dart_runtime/src/spec_document.dart',
+      'SpecMarkdownRejection':
+          'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
+      'SpecMarkdownResult':
+          'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
+      'SpecDocumentMarkdown':
+          'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
+      'MarkdownFenceTracker':
+          'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
+      'SpecYamlFormatException':
+          'package:tom_som_dart_runtime/src/spec_document_yaml.dart',
+      'SpecYamlContents':
+          'package:tom_som_dart_runtime/src/spec_document_yaml.dart',
+      'SpecDocumentYaml':
+          'package:tom_som_dart_runtime/src/spec_document_yaml.dart',
       'SpecEditor': 'package:tom_som_dart_runtime/src/spec_editor.dart',
       'SomContentTypeMeta': 'package:tom_som_dart_runtime/src/spec_meta.dart',
       'SomFormFieldMeta': 'package:tom_som_dart_runtime/src/spec_meta.dart',
@@ -333,21 +385,29 @@ class SomRuntimeBridge {
       'SpecModelStampCheck': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'SpecModel': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'AnnotatedSpecNode': 'package:tom_som_dart_runtime/src/spec_model.dart',
-      'SpecCreationError': 'package:tom_som_dart_runtime/src/spec_node_creation.dart',
-      'SpecNodeCreator': 'package:tom_som_dart_runtime/src/spec_node_creation.dart',
+      'SpecCreationError':
+          'package:tom_som_dart_runtime/src/spec_node_creation.dart',
+      'SpecNodeCreator':
+          'package:tom_som_dart_runtime/src/spec_node_creation.dart',
       'SpecNodeProjection': 'package:tom_som_dart_runtime/src/spec_query.dart',
       'SpecQueryMatch': 'package:tom_som_dart_runtime/src/spec_query.dart',
       'SpecQuery': 'package:tom_som_dart_runtime/src/spec_query.dart',
       'SpecQueryEngine': 'package:tom_som_dart_runtime/src/spec_query.dart',
       'SpecQueryCursor': 'package:tom_som_dart_runtime/src/spec_query.dart',
-      'SpecSectionIdCollision': 'package:tom_som_dart_runtime/src/spec_section_id.dart',
+      'SpecSectionIdCollision':
+          'package:tom_som_dart_runtime/src/spec_section_id.dart',
       'SpecResolution': 'package:tom_som_dart_runtime/src/spec_reflection.dart',
       'SpecReflection': 'package:tom_som_dart_runtime/src/spec_reflection.dart',
-      'SpecSerializationOrder': 'package:tom_som_dart_runtime/src/spec_serialization_order.dart',
-      'SpecMatchSpan': 'package:tom_som_dart_runtime/src/spec_text_pattern.dart',
-      'SomPatternError': 'package:tom_som_dart_runtime/src/spec_text_pattern.dart',
-      'SomTextPattern': 'package:tom_som_dart_runtime/src/spec_text_pattern.dart',
-      'SpecValidationError': 'package:tom_som_dart_runtime/src/spec_validator.dart',
+      'SpecSerializationOrder':
+          'package:tom_som_dart_runtime/src/spec_serialization_order.dart',
+      'SpecMatchSpan':
+          'package:tom_som_dart_runtime/src/spec_text_pattern.dart',
+      'SomPatternError':
+          'package:tom_som_dart_runtime/src/spec_text_pattern.dart',
+      'SomTextPattern':
+          'package:tom_som_dart_runtime/src/spec_text_pattern.dart',
+      'SpecValidationError':
+          'package:tom_som_dart_runtime/src/spec_validator.dart',
     };
   }
 
@@ -379,8 +439,7 @@ class SomRuntimeBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {
-    };
+    return {};
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -388,8 +447,12 @@ class SomRuntimeBridge {
   /// Function typedefs like `typedef VoidCallback = void Function()` are
   /// registered so that they can be used as type arguments in D4rt scripts.
   static List<String> functionTypedefs() {
-    return [
-    ];
+    return [];
+  }
+
+  /// Positional arity of each function typedef in [functionTypedefs].
+  static Map<String, ({int required, int max})> functionTypedefArity() {
+    return {};
   }
 
   /// Returns all bridged enum definitions.
@@ -424,7 +487,11 @@ class SomRuntimeBridge {
         values: $tom_som_dart_runtime_12.SpecFieldKind.values,
         staticMethods: {
           'parse': (visitor, positional, named, typeArgs) {
-            return Function.apply($tom_som_dart_runtime_12.SpecFieldKind.parse, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+            return Function.apply(
+              $tom_som_dart_runtime_12.SpecFieldKind.parse,
+              positional,
+              named.map((k, v) => MapEntry(Symbol(k), v)),
+            );
           },
         },
       ),
@@ -453,60 +520,172 @@ class SomRuntimeBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
     return {
-      'DocSpecsViolationRule': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'SpecChipRole': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'CodeSpecsRoutingVerdict': 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      'DocSpecsViolationRule':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'SpecChipRole':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'CodeSpecsRoutingVerdict':
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
       'SomEditability': 'package:tom_som_dart_runtime/src/som_facade.dart',
-      'SpecMarkdownRejectReason': 'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
+      'SpecMarkdownRejectReason':
+          'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
       'SomMetaKind': 'package:tom_som_dart_runtime/src/spec_meta.dart',
       'SpecFieldKind': 'package:tom_som_dart_runtime/src/spec_model.dart',
-      'SpecCreationCode': 'package:tom_som_dart_runtime/src/spec_node_creation.dart',
+      'SpecCreationCode':
+          'package:tom_som_dart_runtime/src/spec_node_creation.dart',
       'SpecStateFilter': 'package:tom_som_dart_runtime/src/spec_query.dart',
       'SpecNodeKind': 'package:tom_som_dart_runtime/src/spec_reflection.dart',
-      'SpecValidationCode': 'package:tom_som_dart_runtime/src/spec_validator.dart',
+      'SpecValidationCode':
+          'package:tom_som_dart_runtime/src/spec_validator.dart',
     };
   }
 
   /// Returns all bridged extension definitions.
   static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// GEN-107: Library re-exports declared by the bridged source
   /// libraries. Each tuple mirrors a Dart `export '…'` directive.
   /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
   /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
-  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  static List<
+    ({String source, String target, Set<String>? show, Set<String>? hide})
+  >
   bridgeReExports() {
     return [
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/docspecs_validator.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/som_facade.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_document.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_document_markdown.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_document_yaml.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_editor.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_meta.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_meta_bridge.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_meta_diff.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_model.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_node_creation.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_paths.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_query.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_section_id.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_reflection.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_serialization_order.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_text_pattern.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_typed_values.dart', show: null, hide: null),
-      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_validator.dart', show: null, hide: null),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/som_facade.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_document.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_document_yaml.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_editor.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_meta.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_meta_bridge.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_meta_diff.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_model.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_node_creation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_paths.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_query.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_section_id.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_reflection.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target:
+            'package:tom_som_dart_runtime/src/spec_serialization_order.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_text_pattern.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
+        target: 'package:tom_som_dart_runtime/src/spec_validator.dart',
+        show: null,
+        hide: null,
+      ),
     ];
   }
 
@@ -540,7 +719,11 @@ class SomRuntimeBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
-      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
+      interpreter.registerBridgedEnum(
+        enumDef,
+        importPath,
+        sourceUri: enumSources[enumDef.name],
+      );
     }
 
     // Register global variables
@@ -551,12 +734,23 @@ class SomRuntimeBridge {
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
-      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+      interpreter.registertopLevelFunction(
+        entry.key,
+        entry.value,
+        importPath,
+        sourceUri: funcSources[entry.key],
+        signature: funcSigs[entry.key],
+      );
     }
 
     // GEN-107: Register library re-exports
     for (final r in bridgeReExports()) {
-      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
+      interpreter.registerLibraryReExport(
+        r.source,
+        r.target,
+        show: r.show,
+        hide: r.hide,
+      );
     }
   }
 
@@ -569,103 +763,218 @@ class SomRuntimeBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable('kListItemSegment', $tom_som_dart_runtime_3.kListItemSegment, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'kListItemSegment',
+        $tom_som_dart_runtime_3.kListItemSegment,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kListItemSegment": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kSectionContentSegment', $tom_som_dart_runtime_3.kSectionContentSegment, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'kSectionContentSegment',
+        $tom_som_dart_runtime_3.kSectionContentSegment,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kSectionContentSegment": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kOneOfSegment', $tom_som_dart_runtime_3.kOneOfSegment, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'kOneOfSegment',
+        $tom_som_dart_runtime_3.kOneOfSegment,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kOneOfSegment": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kProjectionLabel', $tom_som_dart_runtime_3.kProjectionLabel, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'kProjectionLabel',
+        $tom_som_dart_runtime_3.kProjectionLabel,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kProjectionLabel": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kProjectionExplanation', $tom_som_dart_runtime_3.kProjectionExplanation, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'kProjectionExplanation',
+        $tom_som_dart_runtime_3.kProjectionExplanation,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kProjectionExplanation": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kUnusedChipLabel', $tom_som_dart_runtime_3.kUnusedChipLabel, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'kUnusedChipLabel',
+        $tom_som_dart_runtime_3.kUnusedChipLabel,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kUnusedChipLabel": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kReferencesChipLabel', $tom_som_dart_runtime_3.kReferencesChipLabel, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'kReferencesChipLabel',
+        $tom_som_dart_runtime_3.kReferencesChipLabel,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kReferencesChipLabel": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kSerializationOrderToggleLabel', $tom_som_dart_runtime_3.kSerializationOrderToggleLabel, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'kSerializationOrderToggleLabel',
+        $tom_som_dart_runtime_3.kSerializationOrderToggleLabel,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
-      errors.add('Failed to register variable "kSerializationOrderToggleLabel": $e');
+      errors.add(
+        'Failed to register variable "kSerializationOrderToggleLabel": $e',
+      );
     }
     try {
-      interpreter.registerGlobalVariable('kRenderedAnnotations', $tom_som_dart_runtime_3.kRenderedAnnotations, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'kRenderedAnnotations',
+        $tom_som_dart_runtime_3.kRenderedAnnotations,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kRenderedAnnotations": $e');
     }
     try {
-      interpreter.registerGlobalVariable('projectionChip', $tom_som_dart_runtime_3.projectionChip, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'projectionChip',
+        $tom_som_dart_runtime_3.projectionChip,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "projectionChip": $e');
     }
     try {
-      interpreter.registerGlobalVariable('unusedChip', $tom_som_dart_runtime_3.unusedChip, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'unusedChip',
+        $tom_som_dart_runtime_3.unusedChip,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "unusedChip": $e');
     }
     try {
-      interpreter.registerGlobalVariable('referencesChip', $tom_som_dart_runtime_3.referencesChip, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_annotation_display.dart');
+      interpreter.registerGlobalVariable(
+        'referencesChip',
+        $tom_som_dart_runtime_3.referencesChip,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "referencesChip": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kCodeSpecsExtractFormat', $tom_som_dart_runtime_4.kCodeSpecsExtractFormat, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart');
+      interpreter.registerGlobalVariable(
+        'kCodeSpecsExtractFormat',
+        $tom_som_dart_runtime_4.kCodeSpecsExtractFormat,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kCodeSpecsExtractFormat": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kCodeSpecKindAnnotation', $tom_som_dart_runtime_4.kCodeSpecKindAnnotation, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart');
+      interpreter.registerGlobalVariable(
+        'kCodeSpecKindAnnotation',
+        $tom_som_dart_runtime_4.kCodeSpecKindAnnotation,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kCodeSpecKindAnnotation": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kFollowUpKindAnnotation', $tom_som_dart_runtime_4.kFollowUpKindAnnotation, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart');
+      interpreter.registerGlobalVariable(
+        'kFollowUpKindAnnotation',
+        $tom_som_dart_runtime_4.kFollowUpKindAnnotation,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kFollowUpKindAnnotation": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kNoArtifactAnnotation', $tom_som_dart_runtime_4.kNoArtifactAnnotation, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart');
+      interpreter.registerGlobalVariable(
+        'kNoArtifactAnnotation',
+        $tom_som_dart_runtime_4.kNoArtifactAnnotation,
+        importPath,
+        sourceUri:
+            'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kNoArtifactAnnotation": $e');
     }
     try {
-      interpreter.registerGlobalVariable('defaultMaxSnapshotAge', $tom_som_dart_runtime_12.defaultMaxSnapshotAge, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_model.dart');
+      interpreter.registerGlobalVariable(
+        'defaultMaxSnapshotAge',
+        $tom_som_dart_runtime_12.defaultMaxSnapshotAge,
+        importPath,
+        sourceUri: 'package:tom_som_dart_runtime/src/spec_model.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "defaultMaxSnapshotAge": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kSpecPathSeparator', $tom_som_dart_runtime_14.kSpecPathSeparator, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_paths.dart');
+      interpreter.registerGlobalVariable(
+        'kSpecPathSeparator',
+        $tom_som_dart_runtime_14.kSpecPathSeparator,
+        importPath,
+        sourceUri: 'package:tom_som_dart_runtime/src/spec_paths.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kSpecPathSeparator": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kSectionIdSlot', $tom_som_dart_runtime_17.kSectionIdSlot, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_section_id.dart');
+      interpreter.registerGlobalVariable(
+        'kSectionIdSlot',
+        $tom_som_dart_runtime_17.kSectionIdSlot,
+        importPath,
+        sourceUri: 'package:tom_som_dart_runtime/src/spec_section_id.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kSectionIdSlot": $e');
     }
 
     if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (som_runtime):\n${errors.join("\n")}');
+      throw StateError(
+        'Bridge registration errors (som_runtime):\n${errors.join("\n")}',
+      );
     }
   }
 
@@ -674,221 +983,583 @@ class SomRuntimeBridge {
     return {
       'docSpecsIdTransform': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'docSpecsIdTransform');
-        final id = D4.getRequiredArg<String>(positional, 0, 'id', 'docSpecsIdTransform');
+        final id = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'id',
+          'docSpecsIdTransform',
+        );
         return $tom_som_dart_runtime_1.docSpecsIdTransform(id);
       },
       'bindDocSpecsMarkdown': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'bindDocSpecsMarkdown');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'bindDocSpecsMarkdown');
-        final document = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(positional, 1, 'document', 'bindDocSpecsMarkdown');
-        final text = D4.getRequiredArg<String>(positional, 2, 'text', 'bindDocSpecsMarkdown');
-        return $tom_som_dart_runtime_1.bindDocSpecsMarkdown(model, document, text);
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          0,
+          'model',
+          'bindDocSpecsMarkdown',
+        );
+        final document = D4
+            .getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(
+              positional,
+              1,
+              'document',
+              'bindDocSpecsMarkdown',
+            );
+        final text = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'text',
+          'bindDocSpecsMarkdown',
+        );
+        return $tom_som_dart_runtime_1.bindDocSpecsMarkdown(
+          model,
+          document,
+          text,
+        );
       },
       'kindChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'kindChips');
-        final codeSpec = D4.getRequiredArg<$tom_som_dart_runtime_12.KindLink?>(positional, 0, 'codeSpec', 'kindChips');
-        final followUp = D4.getRequiredArg<$tom_som_dart_runtime_12.KindLink?>(positional, 1, 'followUp', 'kindChips');
-        final noArtifact = D4.getRequiredArg<$tom_som_dart_runtime_12.NoArtifactLink?>(positional, 2, 'noArtifact', 'kindChips');
-        return $tom_som_dart_runtime_3.kindChips(codeSpec, followUp, noArtifact);
+        final codeSpec = D4.getRequiredArg<$tom_som_dart_runtime_12.KindLink?>(
+          positional,
+          0,
+          'codeSpec',
+          'kindChips',
+        );
+        final followUp = D4.getRequiredArg<$tom_som_dart_runtime_12.KindLink?>(
+          positional,
+          1,
+          'followUp',
+          'kindChips',
+        );
+        final noArtifact = D4
+            .getRequiredArg<$tom_som_dart_runtime_12.NoArtifactLink?>(
+              positional,
+              2,
+              'noArtifact',
+              'kindChips',
+            );
+        return $tom_som_dart_runtime_3.kindChips(
+          codeSpec,
+          followUp,
+          noArtifact,
+        );
       },
       'codeSpecKindChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'codeSpecKindChips');
-        final link = D4.getRequiredArg<$tom_som_dart_runtime_12.KindLink?>(positional, 0, 'link', 'codeSpecKindChips');
-        final suppressUnmapped = D4.getNamedArgWithDefault<bool>(named, 'suppressUnmapped', false);
-        return $tom_som_dart_runtime_3.codeSpecKindChips(link, suppressUnmapped: suppressUnmapped);
+        final link = D4.getRequiredArg<$tom_som_dart_runtime_12.KindLink?>(
+          positional,
+          0,
+          'link',
+          'codeSpecKindChips',
+        );
+        final suppressUnmapped = D4.getNamedArgWithDefault<bool>(
+          named,
+          'suppressUnmapped',
+          false,
+        );
+        return $tom_som_dart_runtime_3.codeSpecKindChips(
+          link,
+          suppressUnmapped: suppressUnmapped,
+        );
       },
       'followUpKindChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'followUpKindChips');
-        final link = D4.getRequiredArg<$tom_som_dart_runtime_12.KindLink?>(positional, 0, 'link', 'followUpKindChips');
+        final link = D4.getRequiredArg<$tom_som_dart_runtime_12.KindLink?>(
+          positional,
+          0,
+          'link',
+          'followUpKindChips',
+        );
         return $tom_som_dart_runtime_3.followUpKindChips(link);
       },
       'noArtifactChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'noArtifactChips');
-        final link = D4.getRequiredArg<$tom_som_dart_runtime_12.NoArtifactLink?>(positional, 0, 'link', 'noArtifactChips');
+        final link = D4
+            .getRequiredArg<$tom_som_dart_runtime_12.NoArtifactLink?>(
+              positional,
+              0,
+              'link',
+              'noArtifactChips',
+            );
         return $tom_som_dart_runtime_3.noArtifactChips(link);
       },
       'caseChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'caseChips');
-        final field = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecField>(positional, 0, 'field', 'caseChips');
+        final field = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecField>(
+          positional,
+          0,
+          'field',
+          'caseChips',
+        );
         return $tom_som_dart_runtime_3.caseChips(field);
       },
       'fieldChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fieldChips');
-        final field = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecField>(positional, 0, 'field', 'fieldChips');
+        final field = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecField>(
+          positional,
+          0,
+          'field',
+          'fieldChips',
+        );
         return $tom_som_dart_runtime_3.fieldChips(field);
       },
       'oneOfChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'oneOfChips');
-        final group = D4.getRequiredArg<$tom_som_dart_runtime_12.OneOfGroup>(positional, 0, 'group', 'oneOfChips');
+        final group = D4.getRequiredArg<$tom_som_dart_runtime_12.OneOfGroup>(
+          positional,
+          0,
+          'group',
+          'oneOfChips',
+        );
         return $tom_som_dart_runtime_3.oneOfChips(group);
       },
       'isHandoffAway': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'isHandoffAway');
-        final cls = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecClass>(positional, 0, 'cls', 'isHandoffAway');
-        final rootType = D4.getRequiredArg<String>(positional, 1, 'rootType', 'isHandoffAway');
-        final cutAtDetails = D4.getRequiredNamedArg<bool>(named, 'cutAtDetails', 'isHandoffAway');
-        final cutAtMaps = D4.getRequiredNamedArg<bool>(named, 'cutAtMaps', 'isHandoffAway');
-        return $tom_som_dart_runtime_3.isHandoffAway(cls, rootType, cutAtDetails: cutAtDetails, cutAtMaps: cutAtMaps);
+        final cls = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecClass>(
+          positional,
+          0,
+          'cls',
+          'isHandoffAway',
+        );
+        final rootType = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'rootType',
+          'isHandoffAway',
+        );
+        final cutAtDetails = D4.getRequiredNamedArg<bool>(
+          named,
+          'cutAtDetails',
+          'isHandoffAway',
+        );
+        final cutAtMaps = D4.getRequiredNamedArg<bool>(
+          named,
+          'cutAtMaps',
+          'isHandoffAway',
+        );
+        return $tom_som_dart_runtime_3.isHandoffAway(
+          cls,
+          rootType,
+          cutAtDetails: cutAtDetails,
+          cutAtMaps: cutAtMaps,
+        );
       },
       'pathToType': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'pathToType');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'pathToType');
-        final rootType = D4.getRequiredArg<String>(positional, 1, 'rootType', 'pathToType');
-        final targetType = D4.getRequiredArg<String>(positional, 2, 'targetType', 'pathToType');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          0,
+          'model',
+          'pathToType',
+        );
+        final rootType = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'rootType',
+          'pathToType',
+        );
+        final targetType = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'targetType',
+          'pathToType',
+        );
         return $tom_som_dart_runtime_3.pathToType(model, rootType, targetType);
       },
       'somEditabilityFor': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'somEditabilityFor');
-        final generated = D4.getRequiredArg<String>(positional, 0, 'generated', 'somEditabilityFor');
-        final documentVersion = D4.getRequiredArg<String?>(positional, 1, 'documentVersion', 'somEditabilityFor');
-        return $tom_som_dart_runtime_2.somEditabilityFor(generated, documentVersion);
+        final generated = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'generated',
+          'somEditabilityFor',
+        );
+        final documentVersion = D4.getRequiredArg<String?>(
+          positional,
+          1,
+          'documentVersion',
+          'somEditabilityFor',
+        );
+        return $tom_som_dart_runtime_2.somEditabilityFor(
+          generated,
+          documentVersion,
+        );
       },
       'checkSomModelVersion': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'checkSomModelVersion');
-        final generated = D4.getRequiredArg<String>(positional, 0, 'generated', 'checkSomModelVersion');
-        final documentVersion = D4.getRequiredArg<String?>(positional, 1, 'documentVersion', 'checkSomModelVersion');
-        return $tom_som_dart_runtime_2.checkSomModelVersion(generated, documentVersion);
+        final generated = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'generated',
+          'checkSomModelVersion',
+        );
+        final documentVersion = D4.getRequiredArg<String?>(
+          positional,
+          1,
+          'documentVersion',
+          'checkSomModelVersion',
+        );
+        return $tom_som_dart_runtime_2.checkSomModelVersion(
+          generated,
+          documentVersion,
+        );
       },
       'buildSomMetaTree': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'buildSomMetaTree');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'buildSomMetaTree');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          0,
+          'model',
+          'buildSomMetaTree',
+        );
         final rootType = D4.getOptionalNamedArg<String?>(named, 'rootType');
-        return $tom_som_dart_runtime_10.buildSomMetaTree(model, rootType: rootType);
+        return $tom_som_dart_runtime_10.buildSomMetaTree(
+          model,
+          rootType: rootType,
+        );
       },
       'somMetaNodeDiff': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'somMetaNodeDiff');
-        final a = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaNode>(positional, 0, 'a', 'somMetaNodeDiff');
-        final b = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaNode>(positional, 1, 'b', 'somMetaNodeDiff');
+        final a = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaNode>(
+          positional,
+          0,
+          'a',
+          'somMetaNodeDiff',
+        );
+        final b = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaNode>(
+          positional,
+          1,
+          'b',
+          'somMetaNodeDiff',
+        );
         final at = D4.getNamedArgWithDefault<String>(named, 'at', '<root>');
         return $tom_som_dart_runtime_11.somMetaNodeDiff(a, b, at: at);
       },
       'somModelVersionString': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'somModelVersionString');
-        final major = D4.getRequiredArg<int>(positional, 0, 'major', 'somModelVersionString');
-        final label = D4.getRequiredArg<String?>(positional, 1, 'label', 'somModelVersionString');
+        final major = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'major',
+          'somModelVersionString',
+        );
+        final label = D4.getRequiredArg<String?>(
+          positional,
+          1,
+          'label',
+          'somModelVersionString',
+        );
         return $tom_som_dart_runtime_12.somModelVersionString(major, label);
       },
       'parseStampTimestamp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'parseStampTimestamp');
-        final raw = D4.getRequiredArg<String?>(positional, 0, 'raw', 'parseStampTimestamp');
+        final raw = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'raw',
+          'parseStampTimestamp',
+        );
         return $tom_som_dart_runtime_12.parseStampTimestamp(raw);
       },
       'checkAddNode': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 4, 'checkAddNode');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'checkAddNode');
-        final document = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(positional, 1, 'document', 'checkAddNode');
-        final parentPath = D4.getRequiredArg<String>(positional, 2, 'parentPath', 'checkAddNode');
-        final childSegment = D4.getRequiredArg<String>(positional, 3, 'childSegment', 'checkAddNode');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          0,
+          'model',
+          'checkAddNode',
+        );
+        final document = D4
+            .getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(
+              positional,
+              1,
+              'document',
+              'checkAddNode',
+            );
+        final parentPath = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'parentPath',
+          'checkAddNode',
+        );
+        final childSegment = D4.getRequiredArg<String>(
+          positional,
+          3,
+          'childSegment',
+          'checkAddNode',
+        );
         final itemId = D4.getOptionalNamedArg<String?>(named, 'itemId');
-        return $tom_som_dart_runtime_13.checkAddNode(model, document, parentPath, childSegment, itemId: itemId);
+        return $tom_som_dart_runtime_13.checkAddNode(
+          model,
+          document,
+          parentPath,
+          childSegment,
+          itemId: itemId,
+        );
       },
       'specPathJoin': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'specPathJoin');
-        final parent = D4.getRequiredArg<String>(positional, 0, 'parent', 'specPathJoin');
-        final segment = D4.getRequiredArg<String>(positional, 1, 'segment', 'specPathJoin');
+        final parent = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'parent',
+          'specPathJoin',
+        );
+        final segment = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'segment',
+          'specPathJoin',
+        );
         return $tom_som_dart_runtime_14.specPathJoin(parent, segment);
       },
       'specPathSegments': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'specPathSegments');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'specPathSegments');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'specPathSegments',
+        );
         return $tom_som_dart_runtime_14.specPathSegments(path);
       },
       'specParentPath': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'specParentPath');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'specParentPath');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'specParentPath',
+        );
         return $tom_som_dart_runtime_14.specParentPath(path);
       },
       'listItemPath': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'listItemPath');
-        final listPath = D4.getRequiredArg<String>(positional, 0, 'listPath', 'listItemPath');
-        final seq = D4.getRequiredArg<int>(positional, 1, 'seq', 'listItemPath');
+        final listPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'listPath',
+          'listItemPath',
+        );
+        final seq = D4.getRequiredArg<int>(
+          positional,
+          1,
+          'seq',
+          'listItemPath',
+        );
         return $tom_som_dart_runtime_14.listItemPath(listPath, seq);
       },
       'splitListItemSegment': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'splitListItemSegment');
-        final segment = D4.getRequiredArg<String>(positional, 0, 'segment', 'splitListItemSegment');
+        final segment = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'segment',
+          'splitListItemSegment',
+        );
         return $tom_som_dart_runtime_14.splitListItemSegment(segment);
       },
       'encodeTwoLetterDate': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'encodeTwoLetterDate');
-        final date = D4.getRequiredArg<DateTime>(positional, 0, 'date', 'encodeTwoLetterDate');
+        final date = D4.getRequiredArg<DateTime>(
+          positional,
+          0,
+          'date',
+          'encodeTwoLetterDate',
+        );
         return $tom_som_dart_runtime_17.encodeTwoLetterDate(date);
       },
       'sectionIdPatternPrefix': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'sectionIdPatternPrefix');
-        final pattern = D4.getRequiredArg<String>(positional, 0, 'pattern', 'sectionIdPatternPrefix');
+        final pattern = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'pattern',
+          'sectionIdPatternPrefix',
+        );
         return $tom_som_dart_runtime_17.sectionIdPatternPrefix(pattern);
       },
       'effectiveListItemSectionId': (visitor, positional, named, typeArgs) {
-        final storedId = D4.getRequiredNamedArg<String?>(named, 'storedId', 'effectiveListItemSectionId');
-        final pattern = D4.getRequiredNamedArg<String?>(named, 'pattern', 'effectiveListItemSectionId');
-        final position = D4.getRequiredNamedArg<int>(named, 'position', 'effectiveListItemSectionId');
-        final fallbackStem = D4.getRequiredNamedArg<String>(named, 'fallbackStem', 'effectiveListItemSectionId');
-        return $tom_som_dart_runtime_17.effectiveListItemSectionId(storedId: storedId, pattern: pattern, position: position, fallbackStem: fallbackStem);
+        final storedId = D4.getRequiredNamedArg<String?>(
+          named,
+          'storedId',
+          'effectiveListItemSectionId',
+        );
+        final pattern = D4.getRequiredNamedArg<String?>(
+          named,
+          'pattern',
+          'effectiveListItemSectionId',
+        );
+        final position = D4.getRequiredNamedArg<int>(
+          named,
+          'position',
+          'effectiveListItemSectionId',
+        );
+        final fallbackStem = D4.getRequiredNamedArg<String>(
+          named,
+          'fallbackStem',
+          'effectiveListItemSectionId',
+        );
+        return $tom_som_dart_runtime_17.effectiveListItemSectionId(
+          storedId: storedId,
+          pattern: pattern,
+          position: position,
+          fallbackStem: fallbackStem,
+        );
       },
       'generateListItemSectionId': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'generateListItemSectionId');
-        final pattern = D4.getRequiredArg<String>(positional, 0, 'pattern', 'generateListItemSectionId');
-        final date = D4.getRequiredArg<DateTime>(positional, 1, 'date', 'generateListItemSectionId');
-        final existingIds = D4.getRequiredArg<Iterable<String>>(positional, 2, 'existingIds', 'generateListItemSectionId');
-        return $tom_som_dart_runtime_17.generateListItemSectionId(pattern, date, existingIds);
+        final pattern = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'pattern',
+          'generateListItemSectionId',
+        );
+        final date = D4.getRequiredArg<DateTime>(
+          positional,
+          1,
+          'date',
+          'generateListItemSectionId',
+        );
+        final existingIds = D4.getRequiredArg<Iterable<String>>(
+          positional,
+          2,
+          'existingIds',
+          'generateListItemSectionId',
+        );
+        return $tom_som_dart_runtime_17.generateListItemSectionId(
+          pattern,
+          date,
+          existingIds,
+        );
       },
       'somParseInt': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'somParseInt');
-        final raw = D4.getRequiredArg<String?>(positional, 0, 'raw', 'somParseInt');
+        final raw = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'raw',
+          'somParseInt',
+        );
         return $tom_som_dart_runtime_20.somParseInt(raw);
       },
       'somFormatInt': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'somFormatInt');
-        final value = D4.getRequiredArg<int?>(positional, 0, 'value', 'somFormatInt');
+        final value = D4.getRequiredArg<int?>(
+          positional,
+          0,
+          'value',
+          'somFormatInt',
+        );
         return $tom_som_dart_runtime_20.somFormatInt(value);
       },
       'somParseDouble': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'somParseDouble');
-        final raw = D4.getRequiredArg<String?>(positional, 0, 'raw', 'somParseDouble');
+        final raw = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'raw',
+          'somParseDouble',
+        );
         return $tom_som_dart_runtime_20.somParseDouble(raw);
       },
       'somFormatDouble': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'somFormatDouble');
-        final value = D4.getRequiredArg<double?>(positional, 0, 'value', 'somFormatDouble');
+        final value = D4.getRequiredArg<double?>(
+          positional,
+          0,
+          'value',
+          'somFormatDouble',
+        );
         return $tom_som_dart_runtime_20.somFormatDouble(value);
       },
       'somParseNum': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'somParseNum');
-        final raw = D4.getRequiredArg<String?>(positional, 0, 'raw', 'somParseNum');
+        final raw = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'raw',
+          'somParseNum',
+        );
         return $tom_som_dart_runtime_20.somParseNum(raw);
       },
       'somFormatNum': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'somFormatNum');
-        final value = D4.getRequiredArg<num?>(positional, 0, 'value', 'somFormatNum');
+        final value = D4.getRequiredArg<num?>(
+          positional,
+          0,
+          'value',
+          'somFormatNum',
+        );
         return $tom_som_dart_runtime_20.somFormatNum(value);
       },
       'somParseBool': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'somParseBool');
-        final raw = D4.getRequiredArg<String?>(positional, 0, 'raw', 'somParseBool');
+        final raw = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'raw',
+          'somParseBool',
+        );
         return $tom_som_dart_runtime_20.somParseBool(raw);
       },
       'somFormatBool': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'somFormatBool');
-        final value = D4.getRequiredArg<bool?>(positional, 0, 'value', 'somFormatBool');
+        final value = D4.getRequiredArg<bool?>(
+          positional,
+          0,
+          'value',
+          'somFormatBool',
+        );
         return $tom_som_dart_runtime_20.somFormatBool(value);
       },
       'somParseEnumName': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'somParseEnumName');
-        final raw = D4.getRequiredArg<String?>(positional, 0, 'raw', 'somParseEnumName');
-        final values = D4.getRequiredArg<List<String>>(positional, 1, 'values', 'somParseEnumName');
+        final raw = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'raw',
+          'somParseEnumName',
+        );
+        final values = D4.getRequiredArg<List<String>>(
+          positional,
+          1,
+          'values',
+          'somParseEnumName',
+        );
         return $tom_som_dart_runtime_20.somParseEnumName(raw, values);
       },
       'somFormatEnumName': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'somFormatEnumName');
-        final name = D4.getRequiredArg<String?>(positional, 0, 'name', 'somFormatEnumName');
-        final values = D4.getRequiredArg<List<String>>(positional, 1, 'values', 'somFormatEnumName');
+        final name = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'name',
+          'somFormatEnumName',
+        );
+        final values = D4.getRequiredArg<List<String>>(
+          positional,
+          1,
+          'values',
+          'somFormatEnumName',
+        );
         return $tom_som_dart_runtime_20.somFormatEnumName(name, values);
       },
       'validateDocument': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'validateDocument');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'validateDocument');
-        final doc = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(positional, 1, 'doc', 'validateDocument');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          0,
+          'model',
+          'validateDocument',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(
+          positional,
+          1,
+          'doc',
+          'validateDocument',
+        );
         return $tom_som_dart_runtime_21.validateDocument(model, doc);
       },
     };
@@ -900,44 +1571,70 @@ class SomRuntimeBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> globalFunctionSourceUris() {
     return {
-      'docSpecsIdTransform': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'bindDocSpecsMarkdown': 'package:tom_som_dart_runtime/src/docspecs_validator.dart',
-      'kindChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'codeSpecKindChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'followUpKindChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'noArtifactChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'caseChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'fieldChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'oneOfChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'isHandoffAway': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
-      'pathToType': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'docSpecsIdTransform':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'bindDocSpecsMarkdown':
+          'package:tom_som_dart_runtime/src/docspecs_validator.dart',
+      'kindChips':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'codeSpecKindChips':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'followUpKindChips':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'noArtifactChips':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'caseChips':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'fieldChips':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'oneOfChips':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'isHandoffAway':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'pathToType':
+          'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'somEditabilityFor': 'package:tom_som_dart_runtime/src/som_facade.dart',
-      'checkSomModelVersion': 'package:tom_som_dart_runtime/src/som_facade.dart',
-      'buildSomMetaTree': 'package:tom_som_dart_runtime/src/spec_meta_bridge.dart',
+      'checkSomModelVersion':
+          'package:tom_som_dart_runtime/src/som_facade.dart',
+      'buildSomMetaTree':
+          'package:tom_som_dart_runtime/src/spec_meta_bridge.dart',
       'somMetaNodeDiff': 'package:tom_som_dart_runtime/src/spec_meta_diff.dart',
-      'somModelVersionString': 'package:tom_som_dart_runtime/src/spec_model.dart',
+      'somModelVersionString':
+          'package:tom_som_dart_runtime/src/spec_model.dart',
       'parseStampTimestamp': 'package:tom_som_dart_runtime/src/spec_model.dart',
-      'checkAddNode': 'package:tom_som_dart_runtime/src/spec_node_creation.dart',
+      'checkAddNode':
+          'package:tom_som_dart_runtime/src/spec_node_creation.dart',
       'specPathJoin': 'package:tom_som_dart_runtime/src/spec_paths.dart',
       'specPathSegments': 'package:tom_som_dart_runtime/src/spec_paths.dart',
       'specParentPath': 'package:tom_som_dart_runtime/src/spec_paths.dart',
       'listItemPath': 'package:tom_som_dart_runtime/src/spec_paths.dart',
-      'splitListItemSegment': 'package:tom_som_dart_runtime/src/spec_paths.dart',
-      'encodeTwoLetterDate': 'package:tom_som_dart_runtime/src/spec_section_id.dart',
-      'sectionIdPatternPrefix': 'package:tom_som_dart_runtime/src/spec_section_id.dart',
-      'effectiveListItemSectionId': 'package:tom_som_dart_runtime/src/spec_section_id.dart',
-      'generateListItemSectionId': 'package:tom_som_dart_runtime/src/spec_section_id.dart',
+      'splitListItemSegment':
+          'package:tom_som_dart_runtime/src/spec_paths.dart',
+      'encodeTwoLetterDate':
+          'package:tom_som_dart_runtime/src/spec_section_id.dart',
+      'sectionIdPatternPrefix':
+          'package:tom_som_dart_runtime/src/spec_section_id.dart',
+      'effectiveListItemSectionId':
+          'package:tom_som_dart_runtime/src/spec_section_id.dart',
+      'generateListItemSectionId':
+          'package:tom_som_dart_runtime/src/spec_section_id.dart',
       'somParseInt': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'somFormatInt': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
-      'somParseDouble': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
-      'somFormatDouble': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
+      'somParseDouble':
+          'package:tom_som_dart_runtime/src/spec_typed_values.dart',
+      'somFormatDouble':
+          'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'somParseNum': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'somFormatNum': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'somParseBool': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
-      'somFormatBool': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
-      'somParseEnumName': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
-      'somFormatEnumName': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
-      'validateDocument': 'package:tom_som_dart_runtime/src/spec_validator.dart',
+      'somFormatBool':
+          'package:tom_som_dart_runtime/src/spec_typed_values.dart',
+      'somParseEnumName':
+          'package:tom_som_dart_runtime/src/spec_typed_values.dart',
+      'somFormatEnumName':
+          'package:tom_som_dart_runtime/src/spec_typed_values.dart',
+      'validateDocument':
+          'package:tom_som_dart_runtime/src/spec_validator.dart',
     };
   }
 
@@ -945,32 +1642,46 @@ class SomRuntimeBridge {
   static Map<String, String> globalFunctionSignatures() {
     return {
       'docSpecsIdTransform': 'String docSpecsIdTransform(String id)',
-      'bindDocSpecsMarkdown': 'SpecMarkdownResult bindDocSpecsMarkdown(SpecModel model, SpecDocument document, String text)',
-      'kindChips': 'List<SpecChip> kindChips(KindLink? codeSpec, KindLink? followUp, NoArtifactLink? noArtifact)',
-      'codeSpecKindChips': 'List<SpecChip> codeSpecKindChips(KindLink? link, {bool suppressUnmapped = false})',
+      'bindDocSpecsMarkdown':
+          'SpecMarkdownResult bindDocSpecsMarkdown(SpecModel model, SpecDocument document, String text)',
+      'kindChips':
+          'List<SpecChip> kindChips(KindLink? codeSpec, KindLink? followUp, NoArtifactLink? noArtifact)',
+      'codeSpecKindChips':
+          'List<SpecChip> codeSpecKindChips(KindLink? link, {bool suppressUnmapped = false})',
       'followUpKindChips': 'List<SpecChip> followUpKindChips(KindLink? link)',
       'noArtifactChips': 'List<SpecChip> noArtifactChips(NoArtifactLink? link)',
       'caseChips': 'List<SpecChip> caseChips(SpecField field)',
       'fieldChips': 'List<SpecChip> fieldChips(SpecField field)',
       'oneOfChips': 'List<SpecChip> oneOfChips(OneOfGroup group)',
-      'isHandoffAway': 'bool isHandoffAway(SpecClass cls, String rootType, {required bool cutAtDetails, required bool cutAtMaps})',
-      'pathToType': 'Set<String> pathToType(SpecModel model, String rootType, String targetType)',
-      'somEditabilityFor': 'SomEditability somEditabilityFor(String generated, String? documentVersion)',
-      'checkSomModelVersion': 'void checkSomModelVersion(String generated, String? documentVersion)',
-      'buildSomMetaTree': 'SomMetaTree buildSomMetaTree(SpecModel model, {String? rootType})',
-      'somMetaNodeDiff': 'String? somMetaNodeDiff(SomMetaNode a, SomMetaNode b, {String at = \'<root>\'})',
-      'somModelVersionString': 'String somModelVersionString(int major, String? label)',
+      'isHandoffAway':
+          'bool isHandoffAway(SpecClass cls, String rootType, {required bool cutAtDetails, required bool cutAtMaps})',
+      'pathToType':
+          'Set<String> pathToType(SpecModel model, String rootType, String targetType)',
+      'somEditabilityFor':
+          'SomEditability somEditabilityFor(String generated, String? documentVersion)',
+      'checkSomModelVersion':
+          'void checkSomModelVersion(String generated, String? documentVersion)',
+      'buildSomMetaTree':
+          'SomMetaTree buildSomMetaTree(SpecModel model, {String? rootType})',
+      'somMetaNodeDiff':
+          'String? somMetaNodeDiff(SomMetaNode a, SomMetaNode b, {String at = \'<root>\'})',
+      'somModelVersionString':
+          'String somModelVersionString(int major, String? label)',
       'parseStampTimestamp': 'DateTime? parseStampTimestamp(String? raw)',
-      'checkAddNode': 'SpecCreationError? checkAddNode(SpecModel model, SpecDocument document, String parentPath, String childSegment, {String? itemId})',
+      'checkAddNode':
+          'SpecCreationError? checkAddNode(SpecModel model, SpecDocument document, String parentPath, String childSegment, {String? itemId})',
       'specPathJoin': 'String specPathJoin(String parent, String segment)',
       'specPathSegments': 'List<String> specPathSegments(String path)',
       'specParentPath': 'String specParentPath(String path)',
       'listItemPath': 'String listItemPath(String listPath, int seq)',
-      'splitListItemSegment': '({String base, int seq})? splitListItemSegment(String segment)',
+      'splitListItemSegment':
+          '({String base, int seq})? splitListItemSegment(String segment)',
       'encodeTwoLetterDate': 'String encodeTwoLetterDate(DateTime date)',
       'sectionIdPatternPrefix': 'String sectionIdPatternPrefix(String pattern)',
-      'effectiveListItemSectionId': 'String effectiveListItemSectionId({required String? storedId, required String? pattern, required int position, required String fallbackStem})',
-      'generateListItemSectionId': 'String generateListItemSectionId(String pattern, DateTime date, Iterable<String> existingIds)',
+      'effectiveListItemSectionId':
+          'String effectiveListItemSectionId({required String? storedId, required String? pattern, required int position, required String fallbackStem})',
+      'generateListItemSectionId':
+          'String generateListItemSectionId(String pattern, DateTime date, Iterable<String> existingIds)',
       'somParseInt': 'int? somParseInt(String? raw)',
       'somFormatInt': 'String somFormatInt(int? value)',
       'somParseDouble': 'double? somParseDouble(String? raw)',
@@ -979,9 +1690,12 @@ class SomRuntimeBridge {
       'somFormatNum': 'String somFormatNum(num? value)',
       'somParseBool': 'bool? somParseBool(String? raw)',
       'somFormatBool': 'String somFormatBool(bool? value)',
-      'somParseEnumName': 'String? somParseEnumName(String? raw, List<String> values)',
-      'somFormatEnumName': 'String somFormatEnumName(String? name, List<String> values)',
-      'validateDocument': 'List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc)',
+      'somParseEnumName':
+          'String? somParseEnumName(String? raw, List<String> values)',
+      'somFormatEnumName':
+          'String somFormatEnumName(String? name, List<String> values)',
+      'validateDocument':
+          'List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc)',
     };
   }
 
@@ -1048,7 +1762,6 @@ class SomRuntimeBridge {
     'SpecNodeKind',
     'SpecValidationCode',
   ];
-
 }
 
 // =============================================================================
@@ -1062,33 +1775,78 @@ BridgedClass _createDocSpecsViolationBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_1.DocSpecsViolation,
     constructors: {
       '': (visitor, positional, named) {
-        final rule = D4.getRequiredNamedArg<$tom_som_dart_runtime_1.DocSpecsViolationRule>(named, 'rule', 'DocSpecsViolation');
-        final line = D4.getRequiredNamedArg<int>(named, 'line', 'DocSpecsViolation');
-        final message = D4.getRequiredNamedArg<String>(named, 'message', 'DocSpecsViolation');
+        final rule = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_1.DocSpecsViolationRule>(
+              named,
+              'rule',
+              'DocSpecsViolation',
+            );
+        final line = D4.getRequiredNamedArg<int>(
+          named,
+          'line',
+          'DocSpecsViolation',
+        );
+        final message = D4.getRequiredNamedArg<String>(
+          named,
+          'message',
+          'DocSpecsViolation',
+        );
         final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
         final path = D4.getOptionalNamedArg<String?>(named, 'path');
-        return $tom_som_dart_runtime_1.DocSpecsViolation(rule: rule, line: line, message: message, sectionId: sectionId, path: path);
+        return $tom_som_dart_runtime_1.DocSpecsViolation(
+          rule: rule,
+          line: line,
+          message: message,
+          sectionId: sectionId,
+          path: path,
+        );
       },
     },
     getters: {
-      'rule': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(target, 'DocSpecsViolation').rule,
-      'sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(target, 'DocSpecsViolation').sectionId,
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(target, 'DocSpecsViolation').path,
-      'line': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(target, 'DocSpecsViolation').line,
-      'message': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(target, 'DocSpecsViolation').message,
+      'rule': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(
+            target,
+            'DocSpecsViolation',
+          )
+          .rule,
+      'sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(
+            target,
+            'DocSpecsViolation',
+          )
+          .sectionId,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(
+            target,
+            'DocSpecsViolation',
+          )
+          .path,
+      'line': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(
+            target,
+            'DocSpecsViolation',
+          )
+          .line,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(
+            target,
+            'DocSpecsViolation',
+          )
+          .message,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(target, 'DocSpecsViolation');
+        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsViolation>(
+          target,
+          'DocSpecsViolation',
+        );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'DocSpecsViolation({required DocSpecsViolationRule rule, required int line, required String message, String? sectionId, String? path})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'rule': 'DocSpecsViolationRule get rule',
       'sectionId': 'String? get sectionId',
@@ -1110,22 +1868,83 @@ BridgedClass _createDocSpecsSectionBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_1.DocSpecsSection,
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<String?>(named, 'id', 'DocSpecsSection');
-        final title = D4.getRequiredNamedArg<String>(named, 'title', 'DocSpecsSection');
-        final level = D4.getRequiredNamedArg<int>(named, 'level', 'DocSpecsSection');
-        final line = D4.getRequiredNamedArg<int>(named, 'line', 'DocSpecsSection');
-        return $tom_som_dart_runtime_1.DocSpecsSection(id: id, title: title, level: level, line: line);
+        final id = D4.getRequiredNamedArg<String?>(
+          named,
+          'id',
+          'DocSpecsSection',
+        );
+        final title = D4.getRequiredNamedArg<String>(
+          named,
+          'title',
+          'DocSpecsSection',
+        );
+        final level = D4.getRequiredNamedArg<int>(
+          named,
+          'level',
+          'DocSpecsSection',
+        );
+        final line = D4.getRequiredNamedArg<int>(
+          named,
+          'line',
+          'DocSpecsSection',
+        );
+        return $tom_som_dart_runtime_1.DocSpecsSection(
+          id: id,
+          title: title,
+          level: level,
+          line: line,
+        );
       },
     },
     getters: {
-      'id': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(target, 'DocSpecsSection').id,
-      'title': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(target, 'DocSpecsSection').title,
-      'level': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(target, 'DocSpecsSection').level,
-      'line': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(target, 'DocSpecsSection').line,
-      'bodyLines': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(target, 'DocSpecsSection').bodyLines,
-      'children': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(target, 'DocSpecsSection').children,
-      'bodyStartLine': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(target, 'DocSpecsSection').bodyStartLine,
-      'text': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(target, 'DocSpecsSection').text,
+      'id': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(
+            target,
+            'DocSpecsSection',
+          )
+          .id,
+      'title': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(
+            target,
+            'DocSpecsSection',
+          )
+          .title,
+      'level': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(
+            target,
+            'DocSpecsSection',
+          )
+          .level,
+      'line': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(
+            target,
+            'DocSpecsSection',
+          )
+          .line,
+      'bodyLines': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(
+            target,
+            'DocSpecsSection',
+          )
+          .bodyLines,
+      'children': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(
+            target,
+            'DocSpecsSection',
+          )
+          .children,
+      'bodyStartLine': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(
+            target,
+            'DocSpecsSection',
+          )
+          .bodyStartLine,
+      'text': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSection>(
+            target,
+            'DocSpecsSection',
+          )
+          .text,
     },
     constructorSignatures: {
       '': 'DocSpecsSection({required String? id, required String title, required int level, required int line})',
@@ -1152,16 +1971,38 @@ BridgedClass _createDocSpecsDocumentBridge() {
     nativeType: $tom_som_dart_runtime_1.DocSpecsDocument,
     name: 'DocSpecsDocument',
     isAssignable: (v) => v is $tom_som_dart_runtime_1.DocSpecsDocument,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'declaredSchema': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsDocument>(target, 'DocSpecsDocument').declaredSchema,
-      'sections': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsDocument>(target, 'DocSpecsDocument').sections,
-      'violations': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsDocument>(target, 'DocSpecsDocument').violations,
+      'declaredSchema': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsDocument>(
+            target,
+            'DocSpecsDocument',
+          )
+          .declaredSchema,
+      'sections': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsDocument>(
+            target,
+            'DocSpecsDocument',
+          )
+          .sections,
+      'violations': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsDocument>(
+            target,
+            'DocSpecsDocument',
+          )
+          .violations,
     },
     setters: {
-      'declaredSchema': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsDocument>(target, 'DocSpecsDocument').declaredSchema = D4.extractBridgedArgOrNull<String>(value, 'declaredSchema'),
+      'declaredSchema': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_1.DocSpecsDocument>(
+                target,
+                'DocSpecsDocument',
+              )
+              .declaredSchema = D4.extractBridgedArgOrNull<String>(
+            value,
+            'declaredSchema',
+          ),
     },
     staticMethods: {
       'parse': (visitor, positional, named, typeArgs) {
@@ -1175,12 +2016,8 @@ BridgedClass _createDocSpecsDocumentBridge() {
       'sections': 'List<DocSpecsSection> get sections',
       'violations': 'List<DocSpecsViolation> get violations',
     },
-    setterSignatures: {
-      'declaredSchema': 'set declaredSchema(dynamic value)',
-    },
-    staticMethodSignatures: {
-      'parse': 'DocSpecsDocument parse(String text)',
-    },
+    setterSignatures: {'declaredSchema': 'set declaredSchema(dynamic value)'},
+    staticMethodSignatures: {'parse': 'DocSpecsDocument parse(String text)'},
   );
 }
 
@@ -1195,29 +2032,56 @@ BridgedClass _createDocSpecsPatternCheckBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_1.DocSpecsPatternCheck,
     constructors: {
       '': (visitor, positional, named) {
-        final pattern = D4.getRequiredNamedArg<String>(named, 'pattern', 'DocSpecsPatternCheck');
-        final errorMessage = D4.getOptionalNamedArg<String?>(named, 'errorMessage');
-        return $tom_som_dart_runtime_1.DocSpecsPatternCheck(pattern: pattern, errorMessage: errorMessage);
+        final pattern = D4.getRequiredNamedArg<String>(
+          named,
+          'pattern',
+          'DocSpecsPatternCheck',
+        );
+        final errorMessage = D4.getOptionalNamedArg<String?>(
+          named,
+          'errorMessage',
+        );
+        return $tom_som_dart_runtime_1.DocSpecsPatternCheck(
+          pattern: pattern,
+          errorMessage: errorMessage,
+        );
       },
     },
     getters: {
-      'pattern': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsPatternCheck>(target, 'DocSpecsPatternCheck').pattern,
-      'errorMessage': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsPatternCheck>(target, 'DocSpecsPatternCheck').errorMessage,
+      'pattern': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsPatternCheck>(
+            target,
+            'DocSpecsPatternCheck',
+          )
+          .pattern,
+      'errorMessage': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsPatternCheck>(
+            target,
+            'DocSpecsPatternCheck',
+          )
+          .errorMessage,
     },
     methods: {
       'matches': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsPatternCheck>(target, 'DocSpecsPatternCheck');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_1.DocSpecsPatternCheck>(
+              target,
+              'DocSpecsPatternCheck',
+            );
         D4.requireMinArgs(positional, 1, 'matches');
-        final value = D4.getRequiredArg<String>(positional, 0, 'value', 'matches');
+        final value = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'value',
+          'matches',
+        );
         return t.matches(value);
       },
     },
     constructorSignatures: {
       '': 'DocSpecsPatternCheck({required String pattern, String? errorMessage})',
     },
-    methodSignatures: {
-      'matches': 'bool matches(String value)',
-    },
+    methodSignatures: {'matches': 'bool matches(String value)'},
     getterSignatures: {
       'pattern': 'String get pattern',
       'errorMessage': 'String? get errorMessage',
@@ -1236,14 +2100,35 @@ BridgedClass _createDocSpecsSubsectionRuleBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_1.DocSpecsSubsectionRule,
     constructors: {
       '': (visitor, positional, named) {
-        final minCount = D4.getRequiredNamedArg<int>(named, 'minCount', 'DocSpecsSubsectionRule');
-        final maxCount = D4.getRequiredNamedArg<int?>(named, 'maxCount', 'DocSpecsSubsectionRule');
-        return $tom_som_dart_runtime_1.DocSpecsSubsectionRule(minCount: minCount, maxCount: maxCount);
+        final minCount = D4.getRequiredNamedArg<int>(
+          named,
+          'minCount',
+          'DocSpecsSubsectionRule',
+        );
+        final maxCount = D4.getRequiredNamedArg<int?>(
+          named,
+          'maxCount',
+          'DocSpecsSubsectionRule',
+        );
+        return $tom_som_dart_runtime_1.DocSpecsSubsectionRule(
+          minCount: minCount,
+          maxCount: maxCount,
+        );
       },
     },
     getters: {
-      'minCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSubsectionRule>(target, 'DocSpecsSubsectionRule').minCount,
-      'maxCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSubsectionRule>(target, 'DocSpecsSubsectionRule').maxCount,
+      'minCount': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSubsectionRule>(
+            target,
+            'DocSpecsSubsectionRule',
+          )
+          .minCount,
+      'maxCount': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSubsectionRule>(
+            target,
+            'DocSpecsSubsectionRule',
+          )
+          .maxCount,
     },
     constructorSignatures: {
       '': 'DocSpecsSubsectionRule({required int minCount, required int? maxCount})',
@@ -1266,32 +2151,126 @@ BridgedClass _createDocSpecsSectionTypeBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_1.DocSpecsSectionType,
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<String>(named, 'name', 'DocSpecsSectionType');
-        final prefix = D4.getRequiredNamedArg<String>(named, 'prefix', 'DocSpecsSectionType');
-        final patternCheckId = D4.getOptionalNamedArg<$tom_som_dart_runtime_1.DocSpecsPatternCheck?>(named, 'patternCheckId');
-        final subsectionTypes = named.containsKey('subsectionTypes') && named['subsectionTypes'] != null
-            ? D4.coerceMap<String, $tom_som_dart_runtime_1.DocSpecsSubsectionRule>(named['subsectionTypes'], 'subsectionTypes')
+        final name = D4.getRequiredNamedArg<String>(
+          named,
+          'name',
+          'DocSpecsSectionType',
+        );
+        final prefix = D4.getRequiredNamedArg<String>(
+          named,
+          'prefix',
+          'DocSpecsSectionType',
+        );
+        final patternCheckId = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_1.DocSpecsPatternCheck?>(
+              named,
+              'patternCheckId',
+            );
+        final subsectionTypes =
+            named.containsKey('subsectionTypes') &&
+                named['subsectionTypes'] != null
+            ? D4.coerceMap<
+                String,
+                $tom_som_dart_runtime_1.DocSpecsSubsectionRule
+              >(named['subsectionTypes'], 'subsectionTypes')
             : const <String, $tom_som_dart_runtime_1.DocSpecsSubsectionRule>{};
         final format = D4.getOptionalNamedArg<String?>(named, 'format');
-        final textRequired = D4.getNamedArgWithDefault<bool>(named, 'textRequired', false);
-        final minTextLength = D4.getOptionalNamedArg<int?>(named, 'minTextLength');
-        final maxTextLength = D4.getOptionalNamedArg<int?>(named, 'maxTextLength');
-        final description = D4.getOptionalNamedArg<String?>(named, 'description');
-        final validationPrompt = D4.getOptionalNamedArg<String?>(named, 'validationPrompt');
-        return $tom_som_dart_runtime_1.DocSpecsSectionType(name: name, prefix: prefix, patternCheckId: patternCheckId, subsectionTypes: subsectionTypes, format: format, textRequired: textRequired, minTextLength: minTextLength, maxTextLength: maxTextLength, description: description, validationPrompt: validationPrompt);
+        final textRequired = D4.getNamedArgWithDefault<bool>(
+          named,
+          'textRequired',
+          false,
+        );
+        final minTextLength = D4.getOptionalNamedArg<int?>(
+          named,
+          'minTextLength',
+        );
+        final maxTextLength = D4.getOptionalNamedArg<int?>(
+          named,
+          'maxTextLength',
+        );
+        final description = D4.getOptionalNamedArg<String?>(
+          named,
+          'description',
+        );
+        final validationPrompt = D4.getOptionalNamedArg<String?>(
+          named,
+          'validationPrompt',
+        );
+        return $tom_som_dart_runtime_1.DocSpecsSectionType(
+          name: name,
+          prefix: prefix,
+          patternCheckId: patternCheckId,
+          subsectionTypes: subsectionTypes,
+          format: format,
+          textRequired: textRequired,
+          minTextLength: minTextLength,
+          maxTextLength: maxTextLength,
+          description: description,
+          validationPrompt: validationPrompt,
+        );
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(target, 'DocSpecsSectionType').name,
-      'prefix': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(target, 'DocSpecsSectionType').prefix,
-      'patternCheckId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(target, 'DocSpecsSectionType').patternCheckId,
-      'subsectionTypes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(target, 'DocSpecsSectionType').subsectionTypes,
-      'format': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(target, 'DocSpecsSectionType').format,
-      'textRequired': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(target, 'DocSpecsSectionType').textRequired,
-      'minTextLength': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(target, 'DocSpecsSectionType').minTextLength,
-      'maxTextLength': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(target, 'DocSpecsSectionType').maxTextLength,
-      'description': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(target, 'DocSpecsSectionType').description,
-      'validationPrompt': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(target, 'DocSpecsSectionType').validationPrompt,
+      'name': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(
+            target,
+            'DocSpecsSectionType',
+          )
+          .name,
+      'prefix': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(
+            target,
+            'DocSpecsSectionType',
+          )
+          .prefix,
+      'patternCheckId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(
+            target,
+            'DocSpecsSectionType',
+          )
+          .patternCheckId,
+      'subsectionTypes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(
+            target,
+            'DocSpecsSectionType',
+          )
+          .subsectionTypes,
+      'format': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(
+            target,
+            'DocSpecsSectionType',
+          )
+          .format,
+      'textRequired': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(
+            target,
+            'DocSpecsSectionType',
+          )
+          .textRequired,
+      'minTextLength': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(
+            target,
+            'DocSpecsSectionType',
+          )
+          .minTextLength,
+      'maxTextLength': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(
+            target,
+            'DocSpecsSectionType',
+          )
+          .maxTextLength,
+      'description': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(
+            target,
+            'DocSpecsSectionType',
+          )
+          .description,
+      'validationPrompt': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSectionType>(
+            target,
+            'DocSpecsSectionType',
+          )
+          .validationPrompt,
     },
     constructorSignatures: {
       '': 'DocSpecsSectionType({required String name, required String prefix, DocSpecsPatternCheck? patternCheckId, Map<String, DocSpecsSubsectionRule> subsectionTypes = const {}, String? format, bool textRequired = false, int? minTextLength, int? maxTextLength, String? description, String? validationPrompt})',
@@ -1300,7 +2279,8 @@ BridgedClass _createDocSpecsSectionTypeBridge() {
       'name': 'String get name',
       'prefix': 'String get prefix',
       'patternCheckId': 'DocSpecsPatternCheck? get patternCheckId',
-      'subsectionTypes': 'Map<String, DocSpecsSubsectionRule> get subsectionTypes',
+      'subsectionTypes':
+          'Map<String, DocSpecsSubsectionRule> get subsectionTypes',
       'format': 'String? get format',
       'textRequired': 'bool get textRequired',
       'minTextLength': 'int? get minTextLength',
@@ -1322,18 +2302,58 @@ BridgedClass _createDocSpecsFormFieldBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_1.DocSpecsFormField,
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<String>(named, 'name', 'DocSpecsFormField');
-        final required = D4.getNamedArgWithDefault<bool>(named, 'required', false);
-        final description = D4.getOptionalNamedArg<String?>(named, 'description');
-        final patternCheck = D4.getOptionalNamedArg<$tom_som_dart_runtime_1.DocSpecsPatternCheck?>(named, 'patternCheck');
-        return $tom_som_dart_runtime_1.DocSpecsFormField(name: name, required: required, description: description, patternCheck: patternCheck);
+        final name = D4.getRequiredNamedArg<String>(
+          named,
+          'name',
+          'DocSpecsFormField',
+        );
+        final required = D4.getNamedArgWithDefault<bool>(
+          named,
+          'required',
+          false,
+        );
+        final description = D4.getOptionalNamedArg<String?>(
+          named,
+          'description',
+        );
+        final patternCheck = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_1.DocSpecsPatternCheck?>(
+              named,
+              'patternCheck',
+            );
+        return $tom_som_dart_runtime_1.DocSpecsFormField(
+          name: name,
+          required: required,
+          description: description,
+          patternCheck: patternCheck,
+        );
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsFormField>(target, 'DocSpecsFormField').name,
-      'required': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsFormField>(target, 'DocSpecsFormField').required,
-      'description': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsFormField>(target, 'DocSpecsFormField').description,
-      'patternCheck': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsFormField>(target, 'DocSpecsFormField').patternCheck,
+      'name': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsFormField>(
+            target,
+            'DocSpecsFormField',
+          )
+          .name,
+      'required': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsFormField>(
+            target,
+            'DocSpecsFormField',
+          )
+          .required,
+      'description': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsFormField>(
+            target,
+            'DocSpecsFormField',
+          )
+          .description,
+      'patternCheck': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsFormField>(
+            target,
+            'DocSpecsFormField',
+          )
+          .patternCheck,
     },
     constructorSignatures: {
       '': 'DocSpecsFormField({required String name, bool required = false, String? description, DocSpecsPatternCheck? patternCheck})',
@@ -1358,17 +2378,39 @@ BridgedClass _createDocSpecsFormTypeBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_1.DocSpecsFormType,
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<String>(named, 'name', 'DocSpecsFormType');
+        final name = D4.getRequiredNamedArg<String>(
+          named,
+          'name',
+          'DocSpecsFormType',
+        );
         if (!named.containsKey('fields') || named['fields'] == null) {
-          throw ArgumentError('DocSpecsFormType: Missing required named argument "fields"');
+          throw ArgumentError(
+            'DocSpecsFormType: Missing required named argument "fields"',
+          );
         }
-        final fields = D4.coerceList<$tom_som_dart_runtime_1.DocSpecsFormField>(named['fields'], 'fields');
-        return $tom_som_dart_runtime_1.DocSpecsFormType(name: name, fields: fields);
+        final fields = D4.coerceList<$tom_som_dart_runtime_1.DocSpecsFormField>(
+          named['fields'],
+          'fields',
+        );
+        return $tom_som_dart_runtime_1.DocSpecsFormType(
+          name: name,
+          fields: fields,
+        );
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsFormType>(target, 'DocSpecsFormType').name,
-      'fields': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsFormType>(target, 'DocSpecsFormType').fields,
+      'name': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsFormType>(
+            target,
+            'DocSpecsFormType',
+          )
+          .name,
+      'fields': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsFormType>(
+            target,
+            'DocSpecsFormType',
+          )
+          .fields,
     },
     constructorSignatures: {
       '': 'DocSpecsFormType({required String name, required List<DocSpecsFormField> fields})',
@@ -1391,14 +2433,35 @@ BridgedClass _createDocSpecsDocumentSectionBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_1.DocSpecsDocumentSection,
     constructors: {
       '': (visitor, positional, named) {
-        final sectionType = D4.getRequiredNamedArg<String>(named, 'sectionType', 'DocSpecsDocumentSection');
-        final optional = D4.getRequiredNamedArg<bool>(named, 'optional', 'DocSpecsDocumentSection');
-        return $tom_som_dart_runtime_1.DocSpecsDocumentSection(sectionType: sectionType, optional: optional);
+        final sectionType = D4.getRequiredNamedArg<String>(
+          named,
+          'sectionType',
+          'DocSpecsDocumentSection',
+        );
+        final optional = D4.getRequiredNamedArg<bool>(
+          named,
+          'optional',
+          'DocSpecsDocumentSection',
+        );
+        return $tom_som_dart_runtime_1.DocSpecsDocumentSection(
+          sectionType: sectionType,
+          optional: optional,
+        );
       },
     },
     getters: {
-      'sectionType': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsDocumentSection>(target, 'DocSpecsDocumentSection').sectionType,
-      'optional': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsDocumentSection>(target, 'DocSpecsDocumentSection').optional,
+      'sectionType': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsDocumentSection>(
+            target,
+            'DocSpecsDocumentSection',
+          )
+          .sectionType,
+      'optional': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsDocumentSection>(
+            target,
+            'DocSpecsDocumentSection',
+          )
+          .optional,
     },
     constructorSignatures: {
       '': 'DocSpecsDocumentSection({required String sectionType, required bool optional})',
@@ -1419,49 +2482,120 @@ BridgedClass _createDocSpecsSchemaBridge() {
     nativeType: $tom_som_dart_runtime_1.DocSpecsSchema,
     name: 'DocSpecsSchema',
     isAssignable: (v) => v is $tom_som_dart_runtime_1.DocSpecsSchema,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'schemaId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').schemaId,
-      'titleFormat': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').titleFormat,
-      'sectionTypes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').sectionTypes,
-      'sectionTypesByName': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').sectionTypesByName,
-      'formTypes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').formTypes,
-      'documentSections': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').documentSections,
-      'warnings': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').warnings,
-      'rootSectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').rootSectionId,
+      'schemaId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+            target,
+            'DocSpecsSchema',
+          )
+          .schemaId,
+      'titleFormat': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+            target,
+            'DocSpecsSchema',
+          )
+          .titleFormat,
+      'sectionTypes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+            target,
+            'DocSpecsSchema',
+          )
+          .sectionTypes,
+      'sectionTypesByName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+            target,
+            'DocSpecsSchema',
+          )
+          .sectionTypesByName,
+      'formTypes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+            target,
+            'DocSpecsSchema',
+          )
+          .formTypes,
+      'documentSections': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+            target,
+            'DocSpecsSchema',
+          )
+          .documentSections,
+      'warnings': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+            target,
+            'DocSpecsSchema',
+          )
+          .warnings,
+      'rootSectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+            target,
+            'DocSpecsSchema',
+          )
+          .rootSectionId,
     },
     setters: {
-      'schemaId': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').schemaId = D4.extractBridgedArgOrNull<String>(value, 'schemaId'),
-      'titleFormat': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema').titleFormat = D4.extractBridgedArgOrNull<String>(value, 'titleFormat'),
+      'schemaId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+                target,
+                'DocSpecsSchema',
+              )
+              .schemaId = D4.extractBridgedArgOrNull<String>(
+            value,
+            'schemaId',
+          ),
+      'titleFormat': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+                target,
+                'DocSpecsSchema',
+              )
+              .titleFormat = D4.extractBridgedArgOrNull<String>(
+            value,
+            'titleFormat',
+          ),
     },
     methods: {
       'resolveSectionType': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(target, 'DocSpecsSchema');
+        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsSchema>(
+          target,
+          'DocSpecsSchema',
+        );
         D4.requireMinArgs(positional, 1, 'resolveSectionType');
-        final id = D4.getRequiredArg<String>(positional, 0, 'id', 'resolveSectionType');
+        final id = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'id',
+          'resolveSectionType',
+        );
         return t.resolveSectionType(id);
       },
     },
     staticMethods: {
       'fromYamlText': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromYamlText');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'fromYamlText');
+        final text = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'text',
+          'fromYamlText',
+        );
         return $tom_som_dart_runtime_1.DocSpecsSchema.fromYamlText(text);
       },
     },
     methodSignatures: {
-      'resolveSectionType': 'DocSpecsSectionType? resolveSectionType(String id)',
+      'resolveSectionType':
+          'DocSpecsSectionType? resolveSectionType(String id)',
     },
     getterSignatures: {
       'schemaId': 'String? get schemaId',
       'titleFormat': 'String? get titleFormat',
       'sectionTypes': 'List<DocSpecsSectionType> get sectionTypes',
-      'sectionTypesByName': 'Map<String, DocSpecsSectionType> get sectionTypesByName',
+      'sectionTypesByName':
+          'Map<String, DocSpecsSectionType> get sectionTypesByName',
       'formTypes': 'Map<String, DocSpecsFormType> get formTypes',
-      'documentSections': 'Map<String, DocSpecsDocumentSection> get documentSections',
+      'documentSections':
+          'Map<String, DocSpecsDocumentSection> get documentSections',
       'warnings': 'List<String> get warnings',
       'rootSectionId': 'String? get rootSectionId',
     },
@@ -1487,44 +2621,76 @@ BridgedClass _createDocSpecsValidatorBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DocSpecsValidator');
-        final schema = D4.getRequiredArg<$tom_som_dart_runtime_1.DocSpecsSchema>(positional, 0, 'schema', 'DocSpecsValidator');
+        final schema = D4
+            .getRequiredArg<$tom_som_dart_runtime_1.DocSpecsSchema>(
+              positional,
+              0,
+              'schema',
+              'DocSpecsValidator',
+            );
         return $tom_som_dart_runtime_1.DocSpecsValidator(schema);
       },
     },
     getters: {
-      'schema': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(target, 'DocSpecsValidator').schema,
+      'schema': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(
+            target,
+            'DocSpecsValidator',
+          )
+          .schema,
     },
     methods: {
       'schemaMismatch': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(target, 'DocSpecsValidator');
+        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(
+          target,
+          'DocSpecsValidator',
+        );
         D4.requireMinArgs(positional, 1, 'schemaMismatch');
-        final doc = D4.getRequiredArg<$tom_som_dart_runtime_1.DocSpecsDocument>(positional, 0, 'doc', 'schemaMismatch');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_1.DocSpecsDocument>(
+          positional,
+          0,
+          'doc',
+          'schemaMismatch',
+        );
         return t.schemaMismatch(doc);
       },
       'validateMarkdown': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(target, 'DocSpecsValidator');
+        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(
+          target,
+          'DocSpecsValidator',
+        );
         D4.requireMinArgs(positional, 1, 'validateMarkdown');
-        final markdown = D4.getRequiredArg<String>(positional, 0, 'markdown', 'validateMarkdown');
+        final markdown = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'markdown',
+          'validateMarkdown',
+        );
         return t.validateMarkdown(markdown);
       },
       'validate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(target, 'DocSpecsValidator');
+        final t = D4.validateTarget<$tom_som_dart_runtime_1.DocSpecsValidator>(
+          target,
+          'DocSpecsValidator',
+        );
         D4.requireMinArgs(positional, 1, 'validate');
-        final doc = D4.getRequiredArg<$tom_som_dart_runtime_1.DocSpecsDocument>(positional, 0, 'doc', 'validate');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_1.DocSpecsDocument>(
+          positional,
+          0,
+          'doc',
+          'validate',
+        );
         return t.validate(doc);
       },
     },
-    constructorSignatures: {
-      '': 'DocSpecsValidator(DocSpecsSchema schema)',
-    },
+    constructorSignatures: {'': 'DocSpecsValidator(DocSpecsSchema schema)'},
     methodSignatures: {
       'schemaMismatch': 'String? schemaMismatch(DocSpecsDocument doc)',
-      'validateMarkdown': 'List<DocSpecsViolation> validateMarkdown(String markdown)',
+      'validateMarkdown':
+          'List<DocSpecsViolation> validateMarkdown(String markdown)',
       'validate': 'List<DocSpecsViolation> validate(DocSpecsDocument doc)',
     },
-    getterSignatures: {
-      'schema': 'DocSpecsSchema get schema',
-    },
+    getterSignatures: {'schema': 'DocSpecsSchema get schema'},
   );
 }
 
@@ -1540,29 +2706,46 @@ BridgedClass _createSpecChipBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SpecChip');
-        final label = D4.getRequiredArg<String>(positional, 0, 'label', 'SpecChip');
-        final role = D4.getRequiredArg<$tom_som_dart_runtime_3.SpecChipRole>(positional, 1, 'role', 'SpecChip');
+        final label = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'label',
+          'SpecChip',
+        );
+        final role = D4.getRequiredArg<$tom_som_dart_runtime_3.SpecChipRole>(
+          positional,
+          1,
+          'role',
+          'SpecChip',
+        );
         final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
         return $tom_som_dart_runtime_3.SpecChip(label, role, tooltip: tooltip);
       },
     },
     getters: {
-      'label': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecChip>(target, 'SpecChip').label,
-      'role': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecChip>(target, 'SpecChip').role,
-      'tooltip': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecChip>(target, 'SpecChip').tooltip,
+      'label': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecChip>(target, 'SpecChip')
+          .label,
+      'role': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecChip>(target, 'SpecChip')
+          .role,
+      'tooltip': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecChip>(target, 'SpecChip')
+          .tooltip,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_3.SpecChip>(target, 'SpecChip');
+        final t = D4.validateTarget<$tom_som_dart_runtime_3.SpecChip>(
+          target,
+          'SpecChip',
+        );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const SpecChip(String label, SpecChipRole role, {String? tooltip})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'label': 'String get label',
       'role': 'SpecChipRole get role',
@@ -1585,27 +2768,92 @@ BridgedClass _createSpecRowExtrasBridge() {
         final unused = D4.getNamedArgWithDefault<bool>(named, 'unused', false);
         final comment = D4.getOptionalNamedArg<String?>(named, 'comment');
         final headline = D4.getOptionalNamedArg<String?>(named, 'headline');
-        final sectionIdPattern = D4.getOptionalNamedArg<String?>(named, 'sectionIdPattern');
+        final sectionIdPattern = D4.getOptionalNamedArg<String?>(
+          named,
+          'sectionIdPattern',
+        );
         final reference = D4.getOptionalNamedArg<String?>(named, 'reference');
-        final standardReferences = D4.getOptionalNamedArg<$tom_som_dart_runtime_12.StandardReferences?>(named, 'standardReferences');
-        final serializationOrder = D4.getOptionalNamedArg<int?>(named, 'serializationOrder');
-        return $tom_som_dart_runtime_3.SpecRowExtras(unused: unused, comment: comment, headline: headline, sectionIdPattern: sectionIdPattern, reference: reference, standardReferences: standardReferences, serializationOrder: serializationOrder);
+        final standardReferences = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_12.StandardReferences?>(
+              named,
+              'standardReferences',
+            );
+        final serializationOrder = D4.getOptionalNamedArg<int?>(
+          named,
+          'serializationOrder',
+        );
+        return $tom_som_dart_runtime_3.SpecRowExtras(
+          unused: unused,
+          comment: comment,
+          headline: headline,
+          sectionIdPattern: sectionIdPattern,
+          reference: reference,
+          standardReferences: standardReferences,
+          serializationOrder: serializationOrder,
+        );
       },
       'of': (visitor, positional, named) {
-        final field = D4.getOptionalNamedArg<$tom_som_dart_runtime_12.SpecField?>(named, 'field');
-        final cls = D4.getOptionalNamedArg<$tom_som_dart_runtime_12.SpecClass?>(named, 'cls');
+        final field = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_12.SpecField?>(
+              named,
+              'field',
+            );
+        final cls = D4.getOptionalNamedArg<$tom_som_dart_runtime_12.SpecClass?>(
+          named,
+          'cls',
+        );
         return $tom_som_dart_runtime_3.SpecRowExtras.of(field: field, cls: cls);
       },
     },
     getters: {
-      'unused': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(target, 'SpecRowExtras').unused,
-      'comment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(target, 'SpecRowExtras').comment,
-      'headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(target, 'SpecRowExtras').headline,
-      'sectionIdPattern': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(target, 'SpecRowExtras').sectionIdPattern,
-      'reference': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(target, 'SpecRowExtras').reference,
-      'standardReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(target, 'SpecRowExtras').standardReferences,
-      'serializationOrder': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(target, 'SpecRowExtras').serializationOrder,
-      'hasReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(target, 'SpecRowExtras').hasReferences,
+      'unused': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(
+            target,
+            'SpecRowExtras',
+          )
+          .unused,
+      'comment': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(
+            target,
+            'SpecRowExtras',
+          )
+          .comment,
+      'headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(
+            target,
+            'SpecRowExtras',
+          )
+          .headline,
+      'sectionIdPattern': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(
+            target,
+            'SpecRowExtras',
+          )
+          .sectionIdPattern,
+      'reference': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(
+            target,
+            'SpecRowExtras',
+          )
+          .reference,
+      'standardReferences': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(
+            target,
+            'SpecRowExtras',
+          )
+          .standardReferences,
+      'serializationOrder': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(
+            target,
+            'SpecRowExtras',
+          )
+          .serializationOrder,
+      'hasReferences': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_3.SpecRowExtras>(
+            target,
+            'SpecRowExtras',
+          )
+          .hasReferences,
     },
     staticGetters: {
       'none': (visitor) => $tom_som_dart_runtime_3.SpecRowExtras.none,
@@ -1624,9 +2872,7 @@ BridgedClass _createSpecRowExtrasBridge() {
       'serializationOrder': 'int? get serializationOrder',
       'hasReferences': 'bool get hasReferences',
     },
-    staticGetterSignatures: {
-      'none': 'SpecRowExtras get none',
-    },
+    staticGetterSignatures: {'none': 'SpecRowExtras get none'},
   );
 }
 
@@ -1641,37 +2887,90 @@ BridgedClass _createCodeSpecsRoutingBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_4.CodeSpecsRouting,
     constructors: {
       '': (visitor, positional, named) {
-        final path = D4.getRequiredNamedArg<String>(named, 'path', 'CodeSpecsRouting');
-        final className = D4.getRequiredNamedArg<String>(named, 'className', 'CodeSpecsRouting');
-        final verdict = D4.getRequiredNamedArg<$tom_som_dart_runtime_4.CodeSpecsRoutingVerdict>(named, 'verdict', 'CodeSpecsRouting');
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'CodeSpecsRouting',
+        );
+        final className = D4.getRequiredNamedArg<String>(
+          named,
+          'className',
+          'CodeSpecsRouting',
+        );
+        final verdict = D4
+            .getRequiredNamedArg<
+              $tom_som_dart_runtime_4.CodeSpecsRoutingVerdict
+            >(named, 'verdict', 'CodeSpecsRouting');
         final values = named.containsKey('values') && named['values'] != null
             ? D4.coerceList<String>(named['values'], 'values')
             : const <String>[];
         final note = D4.getOptionalNamedArg<String?>(named, 'note');
-        final declaredAt = D4.getNamedArgWithDefault<String>(named, 'declaredAt', '');
-        return $tom_som_dart_runtime_4.CodeSpecsRouting(path: path, className: className, verdict: verdict, values: values, note: note, declaredAt: declaredAt);
+        final declaredAt = D4.getNamedArgWithDefault<String>(
+          named,
+          'declaredAt',
+          '',
+        );
+        return $tom_som_dart_runtime_4.CodeSpecsRouting(
+          path: path,
+          className: className,
+          verdict: verdict,
+          values: values,
+          note: note,
+          declaredAt: declaredAt,
+        );
       },
     },
     getters: {
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(target, 'CodeSpecsRouting').path,
-      'className': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(target, 'CodeSpecsRouting').className,
-      'verdict': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(target, 'CodeSpecsRouting').verdict,
-      'values': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(target, 'CodeSpecsRouting').values,
-      'note': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(target, 'CodeSpecsRouting').note,
-      'declaredAt': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(target, 'CodeSpecsRouting').declaredAt,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(
+            target,
+            'CodeSpecsRouting',
+          )
+          .path,
+      'className': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(
+            target,
+            'CodeSpecsRouting',
+          )
+          .className,
+      'verdict': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(
+            target,
+            'CodeSpecsRouting',
+          )
+          .verdict,
+      'values': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(
+            target,
+            'CodeSpecsRouting',
+          )
+          .values,
+      'note': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(
+            target,
+            'CodeSpecsRouting',
+          )
+          .note,
+      'declaredAt': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(
+            target,
+            'CodeSpecsRouting',
+          )
+          .declaredAt,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(target, 'CodeSpecsRouting');
+        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsRouting>(
+          target,
+          'CodeSpecsRouting',
+        );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const CodeSpecsRouting({required String path, required String className, required CodeSpecsRoutingVerdict verdict, List<String> values = const [], String? note, String declaredAt = \'\'})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'path': 'String get path',
       'className': 'String get className',
@@ -1694,47 +2993,157 @@ BridgedClass _createCodeSpecsExtractEntryBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_4.CodeSpecsExtractEntry,
     constructors: {
       '': (visitor, positional, named) {
-        final areaCode = D4.getRequiredNamedArg<String>(named, 'areaCode', 'CodeSpecsExtractEntry');
-        final sectionId = D4.getRequiredNamedArg<String>(named, 'sectionId', 'CodeSpecsExtractEntry');
-        final path = D4.getRequiredNamedArg<String>(named, 'path', 'CodeSpecsExtractEntry');
-        final className = D4.getRequiredNamedArg<String>(named, 'className', 'CodeSpecsExtractEntry');
-        final fieldName = D4.getRequiredNamedArg<String>(named, 'fieldName', 'CodeSpecsExtractEntry');
-        final routedBy = D4.getRequiredNamedArg<String>(named, 'routedBy', 'CodeSpecsExtractEntry');
-        final routedAt = D4.getRequiredNamedArg<String>(named, 'routedAt', 'CodeSpecsExtractEntry');
-        final value = D4.getRequiredNamedArg<String>(named, 'value', 'CodeSpecsExtractEntry');
+        final areaCode = D4.getRequiredNamedArg<String>(
+          named,
+          'areaCode',
+          'CodeSpecsExtractEntry',
+        );
+        final sectionId = D4.getRequiredNamedArg<String>(
+          named,
+          'sectionId',
+          'CodeSpecsExtractEntry',
+        );
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'CodeSpecsExtractEntry',
+        );
+        final className = D4.getRequiredNamedArg<String>(
+          named,
+          'className',
+          'CodeSpecsExtractEntry',
+        );
+        final fieldName = D4.getRequiredNamedArg<String>(
+          named,
+          'fieldName',
+          'CodeSpecsExtractEntry',
+        );
+        final routedBy = D4.getRequiredNamedArg<String>(
+          named,
+          'routedBy',
+          'CodeSpecsExtractEntry',
+        );
+        final routedAt = D4.getRequiredNamedArg<String>(
+          named,
+          'routedAt',
+          'CodeSpecsExtractEntry',
+        );
+        final value = D4.getRequiredNamedArg<String>(
+          named,
+          'value',
+          'CodeSpecsExtractEntry',
+        );
         final headline = D4.getOptionalNamedArg<String?>(named, 'headline');
         final instanceId = D4.getOptionalNamedArg<String?>(named, 'instanceId');
         final formField = D4.getOptionalNamedArg<String?>(named, 'formField');
-        final routingNote = D4.getOptionalNamedArg<String?>(named, 'routingNote');
-        return $tom_som_dart_runtime_4.CodeSpecsExtractEntry(areaCode: areaCode, sectionId: sectionId, path: path, className: className, fieldName: fieldName, routedBy: routedBy, routedAt: routedAt, value: value, headline: headline, instanceId: instanceId, formField: formField, routingNote: routingNote);
+        final routingNote = D4.getOptionalNamedArg<String?>(
+          named,
+          'routingNote',
+        );
+        return $tom_som_dart_runtime_4.CodeSpecsExtractEntry(
+          areaCode: areaCode,
+          sectionId: sectionId,
+          path: path,
+          className: className,
+          fieldName: fieldName,
+          routedBy: routedBy,
+          routedAt: routedAt,
+          value: value,
+          headline: headline,
+          instanceId: instanceId,
+          formField: formField,
+          routingNote: routingNote,
+        );
       },
     },
     getters: {
-      'areaCode': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').areaCode,
-      'sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').sectionId,
-      'headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').headline,
-      'instanceId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').instanceId,
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').path,
-      'className': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').className,
-      'fieldName': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').fieldName,
-      'formField': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').formField,
-      'routedBy': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').routedBy,
-      'routedAt': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').routedAt,
-      'routingNote': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').routingNote,
-      'value': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').value,
+      'areaCode': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .areaCode,
+      'sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .sectionId,
+      'headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .headline,
+      'instanceId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .instanceId,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .path,
+      'className': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .className,
+      'fieldName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .fieldName,
+      'formField': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .formField,
+      'routedBy': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .routedBy,
+      'routedAt': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .routedAt,
+      'routingNote': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .routingNote,
+      'value': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+            target,
+            'CodeSpecsExtractEntry',
+          )
+          .value,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+              target,
+              'CodeSpecsExtractEntry',
+            );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const CodeSpecsExtractEntry({required String areaCode, required String sectionId, required String path, required String className, required String fieldName, required String routedBy, required String routedAt, required String value, String? headline, String? instanceId, String? formField, String? routingNote})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'areaCode': 'String get areaCode',
       'sectionId': 'String get sectionId',
@@ -1763,28 +3172,67 @@ BridgedClass _createCodeSpecsSliceBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_4.CodeSpecsSlice,
     constructors: {
       '': (visitor, positional, named) {
-        final number = D4.getRequiredNamedArg<int>(named, 'number', 'CodeSpecsSlice');
-        final title = D4.getRequiredNamedArg<String>(named, 'title', 'CodeSpecsSlice');
-        final project = D4.getRequiredNamedArg<String>(named, 'project', 'CodeSpecsSlice');
+        final number = D4.getRequiredNamedArg<int>(
+          named,
+          'number',
+          'CodeSpecsSlice',
+        );
+        final title = D4.getRequiredNamedArg<String>(
+          named,
+          'title',
+          'CodeSpecsSlice',
+        );
+        final project = D4.getRequiredNamedArg<String>(
+          named,
+          'project',
+          'CodeSpecsSlice',
+        );
         final cites = named.containsKey('cites') && named['cites'] != null
             ? D4.coerceList<int>(named['cites'], 'cites')
             : const <int>[];
-        return $tom_som_dart_runtime_4.CodeSpecsSlice(number: number, title: title, project: project, cites: cites);
+        return $tom_som_dart_runtime_4.CodeSpecsSlice(
+          number: number,
+          title: title,
+          project: project,
+          cites: cites,
+        );
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CodeSpecsSlice');
         if (positional.isEmpty) {
-          throw ArgumentError('CodeSpecsSlice: Missing required argument "j" at position 0');
+          throw ArgumentError(
+            'CodeSpecsSlice: Missing required argument "j" at position 0',
+          );
         }
         final j = D4.coerceMap<String, dynamic>(positional[0], 'j');
         return $tom_som_dart_runtime_4.CodeSpecsSlice.fromJson(j);
       },
     },
     getters: {
-      'number': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsSlice>(target, 'CodeSpecsSlice').number,
-      'title': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsSlice>(target, 'CodeSpecsSlice').title,
-      'project': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsSlice>(target, 'CodeSpecsSlice').project,
-      'cites': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsSlice>(target, 'CodeSpecsSlice').cites,
+      'number': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsSlice>(
+            target,
+            'CodeSpecsSlice',
+          )
+          .number,
+      'title': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsSlice>(
+            target,
+            'CodeSpecsSlice',
+          )
+          .title,
+      'project': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsSlice>(
+            target,
+            'CodeSpecsSlice',
+          )
+          .project,
+      'cites': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsSlice>(
+            target,
+            'CodeSpecsSlice',
+          )
+          .cites,
     },
     constructorSignatures: {
       '': 'const CodeSpecsSlice({required int number, required String title, required String project, List<int> cites = const []})',
@@ -1810,47 +3258,131 @@ BridgedClass _createCodeSpecsAreaBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_4.CodeSpecsArea,
     constructors: {
       '': (visitor, positional, named) {
-        final code = D4.getRequiredNamedArg<String>(named, 'code', 'CodeSpecsArea');
-        final canonicalId = D4.getRequiredNamedArg<String>(named, 'canonicalId', 'CodeSpecsArea');
-        final part = D4.getRequiredNamedArg<String>(named, 'part', 'CodeSpecsArea');
-        final annotations = named.containsKey('annotations') && named['annotations'] != null
+        final code = D4.getRequiredNamedArg<String>(
+          named,
+          'code',
+          'CodeSpecsArea',
+        );
+        final canonicalId = D4.getRequiredNamedArg<String>(
+          named,
+          'canonicalId',
+          'CodeSpecsArea',
+        );
+        final part = D4.getRequiredNamedArg<String>(
+          named,
+          'part',
+          'CodeSpecsArea',
+        );
+        final annotations =
+            named.containsKey('annotations') && named['annotations'] != null
             ? D4.coerceList<String>(named['annotations'], 'annotations')
             : const <String>[];
         final builtOn = D4.getNamedArgWithDefault<String>(named, 'builtOn', '');
-        final attributeSurface = D4.getNamedArgWithDefault<String>(named, 'attributeSurface', '');
+        final attributeSurface = D4.getNamedArgWithDefault<String>(
+          named,
+          'attributeSurface',
+          '',
+        );
         final slices = named.containsKey('slices') && named['slices'] != null
             ? D4.coerceList<int>(named['slices'], 'slices')
             : const <int>[];
-        final authoringSteps = named.containsKey('authoringSteps') && named['authoringSteps'] != null
+        final authoringSteps =
+            named.containsKey('authoringSteps') &&
+                named['authoringSteps'] != null
             ? D4.coerceList<int>(named['authoringSteps'], 'authoringSteps')
             : const <int>[];
         final active = D4.getNamedArgWithDefault<bool>(named, 'active', true);
-        return $tom_som_dart_runtime_4.CodeSpecsArea(code: code, canonicalId: canonicalId, part: part, annotations: annotations, builtOn: builtOn, attributeSurface: attributeSurface, slices: slices, authoringSteps: authoringSteps, active: active);
+        return $tom_som_dart_runtime_4.CodeSpecsArea(
+          code: code,
+          canonicalId: canonicalId,
+          part: part,
+          annotations: annotations,
+          builtOn: builtOn,
+          attributeSurface: attributeSurface,
+          slices: slices,
+          authoringSteps: authoringSteps,
+          active: active,
+        );
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CodeSpecsArea');
         if (positional.isEmpty) {
-          throw ArgumentError('CodeSpecsArea: Missing required argument "j" at position 0');
+          throw ArgumentError(
+            'CodeSpecsArea: Missing required argument "j" at position 0',
+          );
         }
         final j = D4.coerceMap<String, dynamic>(positional[0], 'j');
         return $tom_som_dart_runtime_4.CodeSpecsArea.fromJson(j);
       },
     },
     getters: {
-      'code': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea').code,
-      'canonicalId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea').canonicalId,
-      'part': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea').part,
-      'annotations': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea').annotations,
-      'builtOn': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea').builtOn,
-      'attributeSurface': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea').attributeSurface,
-      'slices': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea').slices,
-      'authoringSteps': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea').authoringSteps,
-      'active': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea').active,
-      'kindValue': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea').kindValue,
+      'code': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+            target,
+            'CodeSpecsArea',
+          )
+          .code,
+      'canonicalId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+            target,
+            'CodeSpecsArea',
+          )
+          .canonicalId,
+      'part': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+            target,
+            'CodeSpecsArea',
+          )
+          .part,
+      'annotations': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+            target,
+            'CodeSpecsArea',
+          )
+          .annotations,
+      'builtOn': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+            target,
+            'CodeSpecsArea',
+          )
+          .builtOn,
+      'attributeSurface': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+            target,
+            'CodeSpecsArea',
+          )
+          .attributeSurface,
+      'slices': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+            target,
+            'CodeSpecsArea',
+          )
+          .slices,
+      'authoringSteps': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+            target,
+            'CodeSpecsArea',
+          )
+          .authoringSteps,
+      'active': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+            target,
+            'CodeSpecsArea',
+          )
+          .active,
+      'kindValue': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+            target,
+            'CodeSpecsArea',
+          )
+          .kindValue,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(target, 'CodeSpecsArea');
+        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsArea>(
+          target,
+          'CodeSpecsArea',
+        );
         return t.toString();
       },
     },
@@ -1858,9 +3390,7 @@ BridgedClass _createCodeSpecsAreaBridge() {
       '': 'const CodeSpecsArea({required String code, required String canonicalId, required String part, List<String> annotations = const [], String builtOn = \'\', String attributeSurface = \'\', List<int> slices = const [], List<int> authoringSteps = const [], bool active = true})',
       'fromJson': 'factory CodeSpecsArea.fromJson(Map<String, dynamic> j)',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'code': 'String get code',
       'canonicalId': 'String get canonicalId',
@@ -1889,63 +3419,136 @@ BridgedClass _createCodeSpecsAreaCatalogBridge() {
       '': (visitor, positional, named) {
         final source = D4.getNamedArgWithDefault<String>(named, 'source', '');
         final slices = named.containsKey('slices') && named['slices'] != null
-            ? D4.coerceList<$tom_som_dart_runtime_4.CodeSpecsSlice>(named['slices'], 'slices')
+            ? D4.coerceList<$tom_som_dart_runtime_4.CodeSpecsSlice>(
+                named['slices'],
+                'slices',
+              )
             : const <$tom_som_dart_runtime_4.CodeSpecsSlice>[];
         final areas = named.containsKey('areas') && named['areas'] != null
-            ? D4.coerceList<$tom_som_dart_runtime_4.CodeSpecsArea>(named['areas'], 'areas')
+            ? D4.coerceList<$tom_som_dart_runtime_4.CodeSpecsArea>(
+                named['areas'],
+                'areas',
+              )
             : const <$tom_som_dart_runtime_4.CodeSpecsArea>[];
-        return $tom_som_dart_runtime_4.CodeSpecsAreaCatalog(source: source, slices: slices, areas: areas);
+        return $tom_som_dart_runtime_4.CodeSpecsAreaCatalog(
+          source: source,
+          slices: slices,
+          areas: areas,
+        );
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CodeSpecsAreaCatalog');
         if (positional.isEmpty) {
-          throw ArgumentError('CodeSpecsAreaCatalog: Missing required argument "j" at position 0');
+          throw ArgumentError(
+            'CodeSpecsAreaCatalog: Missing required argument "j" at position 0',
+          );
         }
         final j = D4.coerceMap<String, dynamic>(positional[0], 'j');
         return $tom_som_dart_runtime_4.CodeSpecsAreaCatalog.fromJson(j);
       },
     },
     getters: {
-      'source': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(target, 'CodeSpecsAreaCatalog').source,
-      'slices': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(target, 'CodeSpecsAreaCatalog').slices,
-      'areas': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(target, 'CodeSpecsAreaCatalog').areas,
-      'activeAreas': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(target, 'CodeSpecsAreaCatalog').activeAreas,
+      'source': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+            target,
+            'CodeSpecsAreaCatalog',
+          )
+          .source,
+      'slices': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+            target,
+            'CodeSpecsAreaCatalog',
+          )
+          .slices,
+      'areas': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+            target,
+            'CodeSpecsAreaCatalog',
+          )
+          .areas,
+      'activeAreas': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+            target,
+            'CodeSpecsAreaCatalog',
+          )
+          .activeAreas,
     },
     methods: {
       'byCode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(target, 'CodeSpecsAreaCatalog');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+              target,
+              'CodeSpecsAreaCatalog',
+            );
         D4.requireMinArgs(positional, 1, 'byCode');
         final code = D4.getRequiredArg<String>(positional, 0, 'code', 'byCode');
         return t.byCode(code);
       },
       'byPart': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(target, 'CodeSpecsAreaCatalog');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+              target,
+              'CodeSpecsAreaCatalog',
+            );
         D4.requireMinArgs(positional, 1, 'byPart');
-        final value = D4.getRequiredArg<String>(positional, 0, 'value', 'byPart');
+        final value = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'value',
+          'byPart',
+        );
         return t.byPart(value);
       },
       'sliceNumbered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(target, 'CodeSpecsAreaCatalog');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+              target,
+              'CodeSpecsAreaCatalog',
+            );
         D4.requireMinArgs(positional, 1, 'sliceNumbered');
-        final number = D4.getRequiredArg<int>(positional, 0, 'number', 'sliceNumbered');
+        final number = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'number',
+          'sliceNumbered',
+        );
         return t.sliceNumbered(number);
       },
       'projectsFor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(target, 'CodeSpecsAreaCatalog');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+              target,
+              'CodeSpecsAreaCatalog',
+            );
         D4.requireMinArgs(positional, 1, 'projectsFor');
-        final area = D4.getRequiredArg<$tom_som_dart_runtime_4.CodeSpecsArea>(positional, 0, 'area', 'projectsFor');
+        final area = D4.getRequiredArg<$tom_som_dart_runtime_4.CodeSpecsArea>(
+          positional,
+          0,
+          'area',
+          'projectsFor',
+        );
         return t.projectsFor(area);
       },
       'citableAreaCodes': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(target, 'CodeSpecsAreaCatalog');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+              target,
+              'CodeSpecsAreaCatalog',
+            );
         D4.requireMinArgs(positional, 1, 'citableAreaCodes');
-        final area = D4.getRequiredArg<$tom_som_dart_runtime_4.CodeSpecsArea>(positional, 0, 'area', 'citableAreaCodes');
+        final area = D4.getRequiredArg<$tom_som_dart_runtime_4.CodeSpecsArea>(
+          positional,
+          0,
+          'area',
+          'citableAreaCodes',
+        );
         return t.citableAreaCodes(area);
       },
     },
     constructorSignatures: {
       '': 'const CodeSpecsAreaCatalog({String source = \'\', List<CodeSpecsSlice> slices = const [], List<CodeSpecsArea> areas = const []})',
-      'fromJson': 'factory CodeSpecsAreaCatalog.fromJson(Map<String, dynamic> j)',
+      'fromJson':
+          'factory CodeSpecsAreaCatalog.fromJson(Map<String, dynamic> j)',
     },
     methodSignatures: {
       'byCode': 'CodeSpecsArea? byCode(String code)',
@@ -1974,37 +3577,103 @@ BridgedClass _createCodeSpecsExtractBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_4.CodeSpecsExtract,
     constructors: {
       '': (visitor, positional, named) {
-        final area = D4.getRequiredNamedArg<$tom_som_dart_runtime_4.CodeSpecsArea>(named, 'area', 'CodeSpecsExtract');
-        final documentRoot = D4.getRequiredNamedArg<String>(named, 'documentRoot', 'CodeSpecsExtract');
-        final catalogSource = D4.getNamedArgWithDefault<String>(named, 'catalogSource', '');
-        final citableParts = named.containsKey('citableParts') && named['citableParts'] != null
+        final area = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_4.CodeSpecsArea>(
+              named,
+              'area',
+              'CodeSpecsExtract',
+            );
+        final documentRoot = D4.getRequiredNamedArg<String>(
+          named,
+          'documentRoot',
+          'CodeSpecsExtract',
+        );
+        final catalogSource = D4.getNamedArgWithDefault<String>(
+          named,
+          'catalogSource',
+          '',
+        );
+        final citableParts =
+            named.containsKey('citableParts') && named['citableParts'] != null
             ? D4.coerceList<String>(named['citableParts'], 'citableParts')
             : const <String>[];
-        final projects = named.containsKey('projects') && named['projects'] != null
+        final projects =
+            named.containsKey('projects') && named['projects'] != null
             ? D4.coerceList<String>(named['projects'], 'projects')
             : const <String>[];
         final entries = named.containsKey('entries') && named['entries'] != null
-            ? D4.coerceList<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(named['entries'], 'entries')
+            ? D4.coerceList<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(
+                named['entries'],
+                'entries',
+              )
             : const <$tom_som_dart_runtime_4.CodeSpecsExtractEntry>[];
-        return $tom_som_dart_runtime_4.CodeSpecsExtract(area: area, documentRoot: documentRoot, catalogSource: catalogSource, citableParts: citableParts, projects: projects, entries: entries);
+        return $tom_som_dart_runtime_4.CodeSpecsExtract(
+          area: area,
+          documentRoot: documentRoot,
+          catalogSource: catalogSource,
+          citableParts: citableParts,
+          projects: projects,
+          entries: entries,
+        );
       },
     },
     getters: {
-      'area': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(target, 'CodeSpecsExtract').area,
-      'catalogSource': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(target, 'CodeSpecsExtract').catalogSource,
-      'documentRoot': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(target, 'CodeSpecsExtract').documentRoot,
-      'citableParts': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(target, 'CodeSpecsExtract').citableParts,
-      'projects': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(target, 'CodeSpecsExtract').projects,
-      'entries': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(target, 'CodeSpecsExtract').entries,
-      'fileStem': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(target, 'CodeSpecsExtract').fileStem,
+      'area': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(
+            target,
+            'CodeSpecsExtract',
+          )
+          .area,
+      'catalogSource': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(
+            target,
+            'CodeSpecsExtract',
+          )
+          .catalogSource,
+      'documentRoot': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(
+            target,
+            'CodeSpecsExtract',
+          )
+          .documentRoot,
+      'citableParts': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(
+            target,
+            'CodeSpecsExtract',
+          )
+          .citableParts,
+      'projects': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(
+            target,
+            'CodeSpecsExtract',
+          )
+          .projects,
+      'entries': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(
+            target,
+            'CodeSpecsExtract',
+          )
+          .entries,
+      'fileStem': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(
+            target,
+            'CodeSpecsExtract',
+          )
+          .fileStem,
     },
     methods: {
       'toYaml': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(target, 'CodeSpecsExtract');
+        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(
+          target,
+          'CodeSpecsExtract',
+        );
         return t.toYaml();
       },
       'toMarkdown': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(target, 'CodeSpecsExtract');
+        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtract>(
+          target,
+          'CodeSpecsExtract',
+        );
         return t.toMarkdown();
       },
     },
@@ -2039,29 +3708,62 @@ BridgedClass _createCodeSpecsExtractErrorBridge() {
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        final message = D4.getRequiredNamedArg<String>(named, 'message', 'CodeSpecsExtractError');
-        final path = D4.getRequiredNamedArg<String>(named, 'path', 'CodeSpecsExtractError');
-        final className = D4.getRequiredNamedArg<String>(named, 'className', 'CodeSpecsExtractError');
-        return $tom_som_dart_runtime_4.CodeSpecsExtractError(message: message, path: path, className: className);
+        final message = D4.getRequiredNamedArg<String>(
+          named,
+          'message',
+          'CodeSpecsExtractError',
+        );
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'CodeSpecsExtractError',
+        );
+        final className = D4.getRequiredNamedArg<String>(
+          named,
+          'className',
+          'CodeSpecsExtractError',
+        );
+        return $tom_som_dart_runtime_4.CodeSpecsExtractError(
+          message: message,
+          path: path,
+          className: className,
+        );
       },
     },
     getters: {
-      'message': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractError>(target, 'CodeSpecsExtractError').message,
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractError>(target, 'CodeSpecsExtractError').path,
-      'className': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractError>(target, 'CodeSpecsExtractError').className,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractError>(
+            target,
+            'CodeSpecsExtractError',
+          )
+          .message,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractError>(
+            target,
+            'CodeSpecsExtractError',
+          )
+          .path,
+      'className': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractError>(
+            target,
+            'CodeSpecsExtractError',
+          )
+          .className,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractError>(target, 'CodeSpecsExtractError');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractError>(
+              target,
+              'CodeSpecsExtractError',
+            );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const CodeSpecsExtractError({required String message, required String path, required String className})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'message': 'String get message',
       'path': 'String get path',
@@ -2081,32 +3783,86 @@ BridgedClass _createCodeSpecsExtractorBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_4.CodeSpecsExtractor,
     constructors: {
       '': (visitor, positional, named) {
-        final model = D4.getRequiredNamedArg<$tom_som_dart_runtime_12.SpecModel>(named, 'model', 'CodeSpecsExtractor');
-        final document = D4.getRequiredNamedArg<$tom_som_dart_runtime_5.SpecDocument>(named, 'document', 'CodeSpecsExtractor');
-        final catalog = D4.getRequiredNamedArg<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(named, 'catalog', 'CodeSpecsExtractor');
+        final model = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_12.SpecModel>(
+              named,
+              'model',
+              'CodeSpecsExtractor',
+            );
+        final document = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_5.SpecDocument>(
+              named,
+              'document',
+              'CodeSpecsExtractor',
+            );
+        final catalog = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+              named,
+              'catalog',
+              'CodeSpecsExtractor',
+            );
         final rootType = D4.getOptionalNamedArg<String?>(named, 'rootType');
-        return $tom_som_dart_runtime_4.CodeSpecsExtractor(model: model, document: document, catalog: catalog, rootType: rootType);
+        return $tom_som_dart_runtime_4.CodeSpecsExtractor(
+          model: model,
+          document: document,
+          catalog: catalog,
+          rootType: rootType,
+        );
       },
     },
     getters: {
-      'model': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor').model,
-      'document': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor').document,
-      'catalog': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor').catalog,
-      'root': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor').root,
+      'model': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(
+            target,
+            'CodeSpecsExtractor',
+          )
+          .model,
+      'document': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(
+            target,
+            'CodeSpecsExtractor',
+          )
+          .document,
+      'catalog': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(
+            target,
+            'CodeSpecsExtractor',
+          )
+          .catalog,
+      'root': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(
+            target,
+            'CodeSpecsExtractor',
+          )
+          .root,
     },
     methods: {
       'routings': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(
+          target,
+          'CodeSpecsExtractor',
+        );
         return t.routings();
       },
       'extractAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(
+          target,
+          'CodeSpecsExtractor',
+        );
         return t.extractAll();
       },
       'extractFor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(
+          target,
+          'CodeSpecsExtractor',
+        );
         D4.requireMinArgs(positional, 1, 'extractFor');
-        final areaCode = D4.getRequiredArg<String>(positional, 0, 'areaCode', 'extractFor');
+        final areaCode = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'areaCode',
+          'extractFor',
+        );
         return t.extractFor(areaCode);
       },
     },
@@ -2137,24 +3893,61 @@ BridgedClass _createSomNodeBridge() {
     name: 'SomNode',
     isAssignable: (v) => v is $tom_som_dart_runtime_2.SomNode,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'doc': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').doc,
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').path,
-      'isEmpty': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').isEmpty,
-      'canHaveContent': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').canHaveContent,
-      '\$sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$sectionId,
-      '\$headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$headline,
-      '\$codeSpec': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$codeSpec,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode')
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode')
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode')
+          .$codeSpec,
     },
     setters: {
-      '\$sectionId': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$sectionId = D4.extractBridgedArg<String>(value, '\$sectionId'),
-      '\$headline': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$headline = D4.extractBridgedArgOrNull<String>(value, '\$headline'),
-      '\$codeSpec': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$codeSpec = D4.extractBridgedArgOrNull<String>(value, '\$codeSpec'),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_2.SomNode>(
+                target,
+                'SomNode',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_2.SomNode>(
+                target,
+                'SomNode',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_2.SomNode>(
+                target,
+                'SomNode',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
     },
     getterSignatures: {
       'doc': 'SpecDocument get doc',
@@ -2186,34 +3979,114 @@ BridgedClass _createSomScalarBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SomScalar');
-        final doc = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(positional, 0, 'doc', 'SomScalar');
-        final path = D4.getRequiredArg<String>(positional, 1, 'path', 'SomScalar');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'SomScalar',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SomScalar',
+        );
         return $tom_som_dart_runtime_2.SomScalar(doc, path);
       },
     },
     getters: {
-      'doc': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').doc,
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').path,
-      'isEmpty': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').isEmpty,
-      'canHaveContent': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').canHaveContent,
-      '\$sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$sectionId,
-      '\$headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$headline,
-      '\$codeSpec': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$codeSpec,
-      'value': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').value,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+            target,
+            'SomScalar',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+            target,
+            'SomScalar',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+            target,
+            'SomScalar',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+            target,
+            'SomScalar',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+            target,
+            'SomScalar',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+            target,
+            'SomScalar',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+            target,
+            'SomScalar',
+          )
+          .$codeSpec,
+      'value': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+            target,
+            'SomScalar',
+          )
+          .value,
     },
     setters: {
-      '\$sectionId': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$sectionId = D4.extractBridgedArg<String>(value, '\$sectionId'),
-      '\$headline': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$headline = D4.extractBridgedArgOrNull<String>(value, '\$headline'),
-      '\$codeSpec': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$codeSpec = D4.extractBridgedArgOrNull<String>(value, '\$codeSpec'),
-      'value': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').value = D4.extractBridgedArg<String>(value, 'value'),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+                target,
+                'SomScalar',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+                target,
+                'SomScalar',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+                target,
+                'SomScalar',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+      'value': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_2.SomScalar>(
+                target,
+                'SomScalar',
+              )
+              .value = D4.extractBridgedArg<String>(
+            value,
+            'value',
+          ),
     },
-    constructorSignatures: {
-      '': 'SomScalar(SpecDocument doc, String path)',
-    },
+    constructorSignatures: {'': 'SomScalar(SpecDocument doc, String path)'},
     getterSignatures: {
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -2245,50 +4118,110 @@ BridgedClass _createSomListBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'SomList');
-        final doc = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(positional, 0, 'doc', 'SomList');
-        final listPath = D4.getRequiredArg<String>(positional, 1, 'listPath', 'SomList');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'SomList',
+        );
+        final listPath = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'listPath',
+          'SomList',
+        );
         if (positional.length <= 2) {
-          throw ArgumentError('SomList: Missing required argument "_factory" at position 2');
+          throw ArgumentError(
+            'SomList: Missing required argument "_factory" at position 2',
+          );
         }
         final factoryRaw = positional[2];
         final pattern = D4.getOptionalNamedArg<String?>(named, 'pattern');
-        return $tom_som_dart_runtime_2.SomList(doc, listPath, ($tom_som_dart_runtime_5.SpecDocument p0, String p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1])); }, pattern: pattern);
+        return $tom_som_dart_runtime_2.SomList(doc, listPath, (
+          $tom_som_dart_runtime_5.SpecDocument p0,
+          String p1,
+        ) {
+          return D4.castCallbackResult<dynamic>(
+            D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1]),
+          );
+        }, pattern: pattern);
       },
     },
     getters: {
-      'doc': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList').doc,
-      'listPath': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList').listPath,
-      'pattern': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList').pattern,
-      'length': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList').length,
-      'items': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList').items,
-      'sectionIds': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList').sectionIds,
-      'contents': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList').contents,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList')
+          .doc,
+      'listPath': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList')
+          .listPath,
+      'pattern': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList')
+          .pattern,
+      'length': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList')
+          .length,
+      'items': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList')
+          .items,
+      'sectionIds': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList')
+          .sectionIds,
+      'contents': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList')
+          .contents,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList');
+        final t = D4.validateTarget<$tom_som_dart_runtime_2.SomList>(
+          target,
+          'SomList',
+        );
         final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
         final date = D4.getOptionalNamedArg<DateTime?>(named, 'date');
         return t.add(sectionId: sectionId, date: date);
       },
       'addContent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList');
+        final t = D4.validateTarget<$tom_som_dart_runtime_2.SomList>(
+          target,
+          'SomList',
+        );
         D4.requireMinArgs(positional, 1, 'addContent');
-        final content = D4.getRequiredArg<String>(positional, 0, 'content', 'addContent');
+        final content = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'content',
+          'addContent',
+        );
         final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
         final date = D4.getOptionalNamedArg<DateTime?>(named, 'date');
         return t.addContent(content, sectionId: sectionId, date: date);
       },
       'removeAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList');
+        final t = D4.validateTarget<$tom_som_dart_runtime_2.SomList>(
+          target,
+          'SomList',
+        );
         D4.requireMinArgs(positional, 1, 'removeAt');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'removeAt');
+        final index = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'index',
+          'removeAt',
+        );
         t.removeAt(index);
         return null;
       },
       '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_2.SomList>(target, 'SomList');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]');
+        final t = D4.validateTarget<$tom_som_dart_runtime_2.SomList>(
+          target,
+          'SomList',
+        );
+        final index = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'index',
+          'operator[]',
+        );
         return t[index];
       },
     },
@@ -2297,7 +4230,8 @@ BridgedClass _createSomListBridge() {
     },
     methodSignatures: {
       'add': 'T add({String? sectionId, DateTime? date})',
-      'addContent': 'T addContent(String content, {String? sectionId, DateTime? date})',
+      'addContent':
+          'T addContent(String content, {String? sectionId, DateTime? date})',
       'removeAt': 'void removeAt(int index)',
     },
     getterSignatures: {
@@ -2325,28 +4259,36 @@ BridgedClass _createSomVersionExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SomVersionException');
-        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'SomVersionException');
+        final message = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'message',
+          'SomVersionException',
+        );
         return $tom_som_dart_runtime_2.SomVersionException(message);
       },
     },
     getters: {
-      'message': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomVersionException>(target, 'SomVersionException').message,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_2.SomVersionException>(
+            target,
+            'SomVersionException',
+          )
+          .message,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_2.SomVersionException>(target, 'SomVersionException');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_2.SomVersionException>(
+              target,
+              'SomVersionException',
+            );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'const SomVersionException(String message)',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'message': 'String get message',
-    },
+    constructorSignatures: {'': 'const SomVersionException(String message)'},
+    methodSignatures: {'toString': 'String toString()'},
+    getterSignatures: {'message': 'String get message'},
   );
 }
 
@@ -2365,184 +4307,456 @@ BridgedClass _createSpecDocumentBridge() {
       },
     },
     getters: {
-      'modelVersion': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument').modelVersion,
-      'pathNormalizer': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument').pathNormalizer,
-      'headlinePaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument').headlinePaths,
-      'codeSpecPaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument').codeSpecPaths,
-      'isEmpty': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument').isEmpty,
-      'contentPaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument').contentPaths,
-      'formPaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument').formPaths,
-      'listPaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument').listPaths,
+      'modelVersion': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+            target,
+            'SpecDocument',
+          )
+          .modelVersion,
+      'pathNormalizer': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+            target,
+            'SpecDocument',
+          )
+          .pathNormalizer,
+      'headlinePaths': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+            target,
+            'SpecDocument',
+          )
+          .headlinePaths,
+      'codeSpecPaths': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+            target,
+            'SpecDocument',
+          )
+          .codeSpecPaths,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+            target,
+            'SpecDocument',
+          )
+          .isEmpty,
+      'contentPaths': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+            target,
+            'SpecDocument',
+          )
+          .contentPaths,
+      'formPaths': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+            target,
+            'SpecDocument',
+          )
+          .formPaths,
+      'listPaths': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+            target,
+            'SpecDocument',
+          )
+          .listPaths,
     },
     setters: {
-      'modelVersion': (visitor, target, value) => 
-        D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument').modelVersion = D4.extractBridgedArgOrNull<String>(value, 'modelVersion'),
+      'modelVersion': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+                target,
+                'SpecDocument',
+              )
+              .modelVersion = D4.extractBridgedArgOrNull<String>(
+            value,
+            'modelVersion',
+          ),
     },
     methods: {
       'installPathNormalizer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'installPathNormalizer');
         if (positional.isEmpty) {
-          throw ArgumentError('installPathNormalizer: Missing required argument "normalizer" at position 0');
+          throw ArgumentError(
+            'installPathNormalizer: Missing required argument "normalizer" at position 0',
+          );
         }
         final normalizerRaw = positional[0];
-        t.installPathNormalizer(((String p0) { return D4.callInterpreterCallback(visitor!, normalizerRaw, [p0]) as String; }) as String Function(String));
+        t.installPathNormalizer(
+          ((String p0) {
+                return D4.callInterpreterCallback(visitor!, normalizerRaw, [p0])
+                    as String;
+              })
+              as String Function(String),
+        );
         return null;
       },
       'toMarkdown': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'toMarkdown');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'toMarkdown');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          0,
+          'model',
+          'toMarkdown',
+        );
         final rootType = D4.getOptionalNamedArg<String?>(named, 'rootType');
         return t.toMarkdown(model, rootType: rootType);
       },
       'content': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'content');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'content');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'content',
+        );
         return t.content(path);
       },
       'hasContent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'hasContent');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'hasContent');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'hasContent',
+        );
         return t.hasContent(path);
       },
       'setContent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 2, 'setContent');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setContent');
-        final value = D4.getRequiredArg<String>(positional, 1, 'value', 'setContent');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'setContent',
+        );
+        final value = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'value',
+          'setContent',
+        );
         t.setContent(path, value);
         return null;
       },
       'headline': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'headline');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'headline');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'headline',
+        );
         return t.headline(path);
       },
       'setHeadline': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 2, 'setHeadline');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setHeadline');
-        final value = D4.getRequiredArg<String>(positional, 1, 'value', 'setHeadline');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'setHeadline',
+        );
+        final value = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'value',
+          'setHeadline',
+        );
         t.setHeadline(path, value);
         return null;
       },
       'codeSpec': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'codeSpec');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'codeSpec');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'codeSpec',
+        );
         return t.codeSpec(path);
       },
       'setCodeSpec': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 2, 'setCodeSpec');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setCodeSpec');
-        final value = D4.getRequiredArg<String>(positional, 1, 'value', 'setCodeSpec');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'setCodeSpec',
+        );
+        final value = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'value',
+          'setCodeSpec',
+        );
         t.setCodeSpec(path, value);
         return null;
       },
       'formField': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 2, 'formField');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'formField');
-        final field = D4.getRequiredArg<String>(positional, 1, 'field', 'formField');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'formField',
+        );
+        final field = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'field',
+          'formField',
+        );
         return t.formField(path, field);
       },
       'setFormField': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 3, 'setFormField');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setFormField');
-        final field = D4.getRequiredArg<String>(positional, 1, 'field', 'setFormField');
-        final value = D4.getRequiredArg<String>(positional, 2, 'value', 'setFormField');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'setFormField',
+        );
+        final field = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'field',
+          'setFormField',
+        );
+        final value = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'value',
+          'setFormField',
+        );
         t.setFormField(path, field, value);
         return null;
       },
       'listItems': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'listItems');
-        final listPath = D4.getRequiredArg<String>(positional, 0, 'listPath', 'listItems');
+        final listPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'listPath',
+          'listItems',
+        );
         return t.listItems(listPath);
       },
       'addListItem': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'addListItem');
-        final listPath = D4.getRequiredArg<String>(positional, 0, 'listPath', 'addListItem');
+        final listPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'listPath',
+          'addListItem',
+        );
         final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
         return t.addListItem(listPath, sectionId: sectionId);
       },
       'itemSectionId': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'itemSectionId');
-        final itemPath = D4.getRequiredArg<String>(positional, 0, 'itemPath', 'itemSectionId');
+        final itemPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'itemPath',
+          'itemSectionId',
+        );
         return t.itemSectionId(itemPath);
       },
       'setItemSectionId': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 2, 'setItemSectionId');
-        final itemPath = D4.getRequiredArg<String>(positional, 0, 'itemPath', 'setItemSectionId');
-        final id = D4.getRequiredArg<String>(positional, 1, 'id', 'setItemSectionId');
+        final itemPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'itemPath',
+          'setItemSectionId',
+        );
+        final id = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'id',
+          'setItemSectionId',
+        );
         t.setItemSectionId(itemPath, id);
         return null;
       },
       'listItemSectionIds': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'listItemSectionIds');
-        final listPath = D4.getRequiredArg<String>(positional, 0, 'listPath', 'listItemSectionIds');
+        final listPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'listPath',
+          'listItemSectionIds',
+        );
         return t.listItemSectionIds(listPath);
       },
       'removeListItem': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'removeListItem');
-        final itemPath = D4.getRequiredArg<String>(positional, 0, 'itemPath', 'removeListItem');
+        final itemPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'itemPath',
+          'removeListItem',
+        );
         return t.removeListItem(itemPath);
       },
       'removeValuesUnder': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'removeValuesUnder');
-        final prefix = D4.getRequiredArg<String>(positional, 0, 'prefix', 'removeValuesUnder');
+        final prefix = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'prefix',
+          'removeValuesUnder',
+        );
         t.removeValuesUnder(prefix);
         return null;
       },
       'hasValuesUnder': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'hasValuesUnder');
-        final prefix = D4.getRequiredArg<String>(positional, 0, 'prefix', 'hasValuesUnder');
+        final prefix = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'prefix',
+          'hasValuesUnder',
+        );
         return t.hasValuesUnder(prefix);
       },
       'formFieldNames': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'formFieldNames');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'formFieldNames');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'formFieldNames',
+        );
         return t.formFieldNames(path);
       },
       'listItemCount': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'listItemCount');
-        final listPath = D4.getRequiredArg<String>(positional, 0, 'listPath', 'listItemCount');
+        final listPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'listPath',
+          'listItemCount',
+        );
         return t.listItemCount(listPath);
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         return t.toJson();
       },
       'loadJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'loadJson');
         final json = D4.getRequiredArg<Map>(positional, 0, 'json', 'loadJson');
         t.loadJson(json);
         return null;
       },
       'captureState': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         return t.captureState();
       },
       'restoreState': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(target, 'SpecDocument');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
         D4.requireMinArgs(positional, 1, 'restoreState');
-        final state = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocumentState>(positional, 0, 'state', 'restoreState');
+        final state = D4
+            .getRequiredArg<$tom_som_dart_runtime_5.SpecDocumentState>(
+              positional,
+              0,
+              'state',
+              'restoreState',
+            );
         t.restoreState(state);
         return null;
       },
@@ -2550,22 +4764,41 @@ BridgedClass _createSpecDocumentBridge() {
     staticMethods: {
       'fromYaml': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'fromYaml');
-        final yaml = D4.getRequiredArg<String>(positional, 0, 'yaml', 'fromYaml');
-        final tree = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaTree>(positional, 1, 'tree', 'fromYaml');
+        final yaml = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'yaml',
+          'fromYaml',
+        );
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaTree>(
+          positional,
+          1,
+          'tree',
+          'fromYaml',
+        );
         return $tom_som_dart_runtime_5.SpecDocument.fromYaml(yaml, tree);
       },
       'fromFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'fromFile');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'fromFile');
-        final tree = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaTree>(positional, 1, 'tree', 'fromFile');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'fromFile',
+        );
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaTree>(
+          positional,
+          1,
+          'tree',
+          'fromFile',
+        );
         return $tom_som_dart_runtime_5.SpecDocument.fromFile(path, tree);
       },
     },
-    constructorSignatures: {
-      '': 'SpecDocument()',
-    },
+    constructorSignatures: {'': 'SpecDocument()'},
     methodSignatures: {
-      'installPathNormalizer': 'void installPathNormalizer(String Function(String path) normalizer)',
+      'installPathNormalizer':
+          'void installPathNormalizer(String Function(String path) normalizer)',
       'toMarkdown': 'String toMarkdown(SpecModel model, {String? rootType})',
       'content': 'String? content(String path)',
       'hasContent': 'bool hasContent(String path)',
@@ -2575,7 +4808,8 @@ BridgedClass _createSpecDocumentBridge() {
       'codeSpec': 'String? codeSpec(String path)',
       'setCodeSpec': 'void setCodeSpec(String path, String value)',
       'formField': 'String? formField(String path, String field)',
-      'setFormField': 'void setFormField(String path, String field, String value)',
+      'setFormField':
+          'void setFormField(String path, String field, String value)',
       'listItems': 'List<String> listItems(String listPath)',
       'addListItem': 'String addListItem(String listPath, {String? sectionId})',
       'itemSectionId': 'String? itemSectionId(String itemPath)',
@@ -2601,9 +4835,7 @@ BridgedClass _createSpecDocumentBridge() {
       'formPaths': 'Iterable<String> get formPaths',
       'listPaths': 'Iterable<String> get listPaths',
     },
-    setterSignatures: {
-      'modelVersion': 'set modelVersion(dynamic value)',
-    },
+    setterSignatures: {'modelVersion': 'set modelVersion(dynamic value)'},
     staticMethodSignatures: {
       'fromYaml': 'SpecDocument fromYaml(String yaml, SomMetaTree tree)',
       'fromFile': 'SpecDocument fromFile(String path, SomMetaTree tree)',
@@ -2620,23 +4852,48 @@ BridgedClass _createSpecDocumentStateBridge() {
     nativeType: $tom_som_dart_runtime_5.SpecDocumentState,
     name: 'SpecDocumentState',
     isAssignable: (v) => v is $tom_som_dart_runtime_5.SpecDocumentState,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'fingerprint': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_5.SpecDocumentState>(target, 'SpecDocumentState').fingerprint,
+      'fingerprint': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_5.SpecDocumentState>(
+            target,
+            'SpecDocumentState',
+          )
+          .fingerprint,
     },
     methods: {
       'contentAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocumentState>(target, 'SpecDocumentState');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocumentState>(
+          target,
+          'SpecDocumentState',
+        );
         D4.requireMinArgs(positional, 1, 'contentAt');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'contentAt');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'contentAt',
+        );
         return t.contentAt(path);
       },
       'formFieldAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocumentState>(target, 'SpecDocumentState');
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocumentState>(
+          target,
+          'SpecDocumentState',
+        );
         D4.requireMinArgs(positional, 2, 'formFieldAt');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'formFieldAt');
-        final field = D4.getRequiredArg<String>(positional, 1, 'field', 'formFieldAt');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'formFieldAt',
+        );
+        final field = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'field',
+          'formFieldAt',
+        );
         return t.formFieldAt(path, field);
       },
     },
@@ -2644,9 +4901,7 @@ BridgedClass _createSpecDocumentStateBridge() {
       'contentAt': 'String? contentAt(String path)',
       'formFieldAt': 'String? formFieldAt(String path, String field)',
     },
-    getterSignatures: {
-      'fingerprint': 'String get fingerprint',
-    },
+    getterSignatures: {'fingerprint': 'String get fingerprint'},
   );
 }
 
@@ -2661,31 +4916,69 @@ BridgedClass _createSpecMarkdownRejectionBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_6.SpecMarkdownRejection,
     constructors: {
       '': (visitor, positional, named) {
-        final line = D4.getRequiredNamedArg<int>(named, 'line', 'SpecMarkdownRejection');
-        final reason = D4.getRequiredNamedArg<$tom_som_dart_runtime_6.SpecMarkdownRejectReason>(named, 'reason', 'SpecMarkdownRejection');
-        final message = D4.getRequiredNamedArg<String>(named, 'message', 'SpecMarkdownRejection');
+        final line = D4.getRequiredNamedArg<int>(
+          named,
+          'line',
+          'SpecMarkdownRejection',
+        );
+        final reason = D4
+            .getRequiredNamedArg<
+              $tom_som_dart_runtime_6.SpecMarkdownRejectReason
+            >(named, 'reason', 'SpecMarkdownRejection');
+        final message = D4.getRequiredNamedArg<String>(
+          named,
+          'message',
+          'SpecMarkdownRejection',
+        );
         final anchor = D4.getOptionalNamedArg<String?>(named, 'anchor');
-        return $tom_som_dart_runtime_6.SpecMarkdownRejection(line: line, reason: reason, message: message, anchor: anchor);
+        return $tom_som_dart_runtime_6.SpecMarkdownRejection(
+          line: line,
+          reason: reason,
+          message: message,
+          anchor: anchor,
+        );
       },
     },
     getters: {
-      'line': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownRejection>(target, 'SpecMarkdownRejection').line,
-      'reason': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownRejection>(target, 'SpecMarkdownRejection').reason,
-      'message': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownRejection>(target, 'SpecMarkdownRejection').message,
-      'anchor': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownRejection>(target, 'SpecMarkdownRejection').anchor,
+      'line': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownRejection>(
+            target,
+            'SpecMarkdownRejection',
+          )
+          .line,
+      'reason': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownRejection>(
+            target,
+            'SpecMarkdownRejection',
+          )
+          .reason,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownRejection>(
+            target,
+            'SpecMarkdownRejection',
+          )
+          .message,
+      'anchor': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownRejection>(
+            target,
+            'SpecMarkdownRejection',
+          )
+          .anchor,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownRejection>(target, 'SpecMarkdownRejection');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownRejection>(
+              target,
+              'SpecMarkdownRejection',
+            );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'SpecMarkdownRejection({required int line, required SpecMarkdownRejectReason reason, required String message, String? anchor})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'line': 'int get line',
       'reason': 'SpecMarkdownRejectReason get reason',
@@ -2707,44 +5000,126 @@ BridgedClass _createSpecMarkdownResultBridge() {
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('content') || named['content'] == null) {
-          throw ArgumentError('SpecMarkdownResult: Missing required named argument "content"');
+          throw ArgumentError(
+            'SpecMarkdownResult: Missing required named argument "content"',
+          );
         }
-        final content = D4.coerceMap<String, String>(named['content'], 'content');
+        final content = D4.coerceMap<String, String>(
+          named['content'],
+          'content',
+        );
         if (!named.containsKey('forms') || named['forms'] == null) {
-          throw ArgumentError('SpecMarkdownResult: Missing required named argument "forms"');
+          throw ArgumentError(
+            'SpecMarkdownResult: Missing required named argument "forms"',
+          );
         }
-        final forms = D4.coerceMap<String, Map<String, String>>(named['forms'], 'forms');
+        final forms = D4.coerceMap<String, Map<String, String>>(
+          named['forms'],
+          'forms',
+        );
         if (!named.containsKey('lists') || named['lists'] == null) {
-          throw ArgumentError('SpecMarkdownResult: Missing required named argument "lists"');
+          throw ArgumentError(
+            'SpecMarkdownResult: Missing required named argument "lists"',
+          );
         }
-        final lists = D4.coerceMap<String, Map<String, Object?>>(named['lists'], 'lists');
+        final lists = D4.coerceMap<String, Map<String, Object?>>(
+          named['lists'],
+          'lists',
+        );
         if (!named.containsKey('rejections') || named['rejections'] == null) {
-          throw ArgumentError('SpecMarkdownResult: Missing required named argument "rejections"');
+          throw ArgumentError(
+            'SpecMarkdownResult: Missing required named argument "rejections"',
+          );
         }
-        final rejections = D4.coerceList<$tom_som_dart_runtime_6.SpecMarkdownRejection>(named['rejections'], 'rejections');
-        if (!named.containsKey('rootPrefixes') || named['rootPrefixes'] == null) {
-          throw ArgumentError('SpecMarkdownResult: Missing required named argument "rootPrefixes"');
+        final rejections = D4
+            .coerceList<$tom_som_dart_runtime_6.SpecMarkdownRejection>(
+              named['rejections'],
+              'rejections',
+            );
+        if (!named.containsKey('rootPrefixes') ||
+            named['rootPrefixes'] == null) {
+          throw ArgumentError(
+            'SpecMarkdownResult: Missing required named argument "rootPrefixes"',
+          );
         }
-        final rootPrefixes = D4.coerceSet<String>(named['rootPrefixes'], 'rootPrefixes');
-        final headlines = named.containsKey('headlines') && named['headlines'] != null
+        final rootPrefixes = D4.coerceSet<String>(
+          named['rootPrefixes'],
+          'rootPrefixes',
+        );
+        final headlines =
+            named.containsKey('headlines') && named['headlines'] != null
             ? D4.coerceMap<String, String>(named['headlines'], 'headlines')
             : const <String, String>{};
-        final codeSpecs = named.containsKey('codeSpecs') && named['codeSpecs'] != null
+        final codeSpecs =
+            named.containsKey('codeSpecs') && named['codeSpecs'] != null
             ? D4.coerceMap<String, String>(named['codeSpecs'], 'codeSpecs')
             : const <String, String>{};
-        return $tom_som_dart_runtime_6.SpecMarkdownResult(content: content, forms: forms, lists: lists, rejections: rejections, rootPrefixes: rootPrefixes, headlines: headlines, codeSpecs: codeSpecs);
+        return $tom_som_dart_runtime_6.SpecMarkdownResult(
+          content: content,
+          forms: forms,
+          lists: lists,
+          rejections: rejections,
+          rootPrefixes: rootPrefixes,
+          headlines: headlines,
+          codeSpecs: codeSpecs,
+        );
       },
     },
     getters: {
-      'content': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(target, 'SpecMarkdownResult').content,
-      'forms': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(target, 'SpecMarkdownResult').forms,
-      'lists': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(target, 'SpecMarkdownResult').lists,
-      'headlines': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(target, 'SpecMarkdownResult').headlines,
-      'codeSpecs': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(target, 'SpecMarkdownResult').codeSpecs,
-      'rejections': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(target, 'SpecMarkdownResult').rejections,
-      'rootPrefixes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(target, 'SpecMarkdownResult').rootPrefixes,
-      'isClean': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(target, 'SpecMarkdownResult').isClean,
-      'appliedCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(target, 'SpecMarkdownResult').appliedCount,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+            target,
+            'SpecMarkdownResult',
+          )
+          .content,
+      'forms': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+            target,
+            'SpecMarkdownResult',
+          )
+          .forms,
+      'lists': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+            target,
+            'SpecMarkdownResult',
+          )
+          .lists,
+      'headlines': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+            target,
+            'SpecMarkdownResult',
+          )
+          .headlines,
+      'codeSpecs': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+            target,
+            'SpecMarkdownResult',
+          )
+          .codeSpecs,
+      'rejections': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+            target,
+            'SpecMarkdownResult',
+          )
+          .rejections,
+      'rootPrefixes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+            target,
+            'SpecMarkdownResult',
+          )
+          .rootPrefixes,
+      'isClean': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+            target,
+            'SpecMarkdownResult',
+          )
+          .isClean,
+      'appliedCount': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+            target,
+            'SpecMarkdownResult',
+          )
+          .appliedCount,
     },
     constructorSignatures: {
       '': 'SpecMarkdownResult({required Map<String, String> content, required Map<String, Map<String, String>> forms, required Map<String, Map<String, Object?>> lists, required List<SpecMarkdownRejection> rejections, required Set<String> rootPrefixes, Map<String, String> headlines = const {}, Map<String, String> codeSpecs = const {}})',
@@ -2775,58 +5150,124 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SpecDocumentMarkdown');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'SpecDocumentMarkdown');
-        final document = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(positional, 1, 'document', 'SpecDocumentMarkdown');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          0,
+          'model',
+          'SpecDocumentMarkdown',
+        );
+        final document = D4
+            .getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(
+              positional,
+              1,
+              'document',
+              'SpecDocumentMarkdown',
+            );
         return $tom_som_dart_runtime_6.SpecDocumentMarkdown(model, document);
       },
     },
     getters: {
-      'model': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecDocumentMarkdown>(target, 'SpecDocumentMarkdown').model,
-      'document': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.SpecDocumentMarkdown>(target, 'SpecDocumentMarkdown').document,
+      'model': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecDocumentMarkdown>(
+            target,
+            'SpecDocumentMarkdown',
+          )
+          .model,
+      'document': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecDocumentMarkdown>(
+            target,
+            'SpecDocumentMarkdown',
+          )
+          .document,
     },
     methods: {
       'exportRoot': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_6.SpecDocumentMarkdown>(target, 'SpecDocumentMarkdown');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_6.SpecDocumentMarkdown>(
+              target,
+              'SpecDocumentMarkdown',
+            );
         D4.requireMinArgs(positional, 1, 'exportRoot');
-        final root = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecRoot>(positional, 0, 'root', 'exportRoot');
+        final root = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecRoot>(
+          positional,
+          0,
+          'root',
+          'exportRoot',
+        );
         return t.exportRoot(root);
       },
       'parse': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_6.SpecDocumentMarkdown>(target, 'SpecDocumentMarkdown');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_6.SpecDocumentMarkdown>(
+              target,
+              'SpecDocumentMarkdown',
+            );
         D4.requireMinArgs(positional, 1, 'parse');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'parse');
         return t.parse(text);
       },
     },
     staticGetters: {
-      'headingLine': (visitor) => $tom_som_dart_runtime_6.SpecDocumentMarkdown.headingLine,
-      'headlineComment': (visitor) => $tom_som_dart_runtime_6.SpecDocumentMarkdown.headlineComment,
-      'docspecComment': (visitor) => $tom_som_dart_runtime_6.SpecDocumentMarkdown.docspecComment,
+      'headingLine': (visitor) =>
+          $tom_som_dart_runtime_6.SpecDocumentMarkdown.headingLine,
+      'headlineComment': (visitor) =>
+          $tom_som_dart_runtime_6.SpecDocumentMarkdown.headlineComment,
+      'docspecComment': (visitor) =>
+          $tom_som_dart_runtime_6.SpecDocumentMarkdown.docspecComment,
     },
     staticMethods: {
       'titleCase': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'titleCase');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'titleCase');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'titleCase',
+        );
         return $tom_som_dart_runtime_6.SpecDocumentMarkdown.titleCase(name);
       },
       'kebabCase': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'kebabCase');
-        final title = D4.getRequiredArg<String>(positional, 0, 'title', 'kebabCase');
+        final title = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'title',
+          'kebabCase',
+        );
         return $tom_som_dart_runtime_6.SpecDocumentMarkdown.kebabCase(title);
       },
       'itemTitleStem': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'itemTitleStem');
-        final elementClassName = D4.getRequiredArg<String>(positional, 0, 'elementClassName', 'itemTitleStem');
-        return $tom_som_dart_runtime_6.SpecDocumentMarkdown.itemTitleStem(elementClassName);
+        final elementClassName = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'elementClassName',
+          'itemTitleStem',
+        );
+        return $tom_som_dart_runtime_6.SpecDocumentMarkdown.itemTitleStem(
+          elementClassName,
+        );
       },
       'formLabel': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'formLabel');
-        final fieldName = D4.getRequiredArg<String>(positional, 0, 'fieldName', 'formLabel');
-        return $tom_som_dart_runtime_6.SpecDocumentMarkdown.formLabel(fieldName);
+        final fieldName = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'fieldName',
+          'formLabel',
+        );
+        return $tom_som_dart_runtime_6.SpecDocumentMarkdown.formLabel(
+          fieldName,
+        );
       },
       'codeSpecOf': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'codeSpecOf');
-        final region = D4.getRequiredArg<String>(positional, 0, 'region', 'codeSpecOf');
+        final region = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'region',
+          'codeSpecOf',
+        );
         return $tom_som_dart_runtime_6.SpecDocumentMarkdown.codeSpecOf(region);
       },
     },
@@ -2871,26 +5312,29 @@ BridgedClass _createMarkdownFenceTrackerBridge() {
       },
     },
     getters: {
-      'inFence': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_6.MarkdownFenceTracker>(target, 'MarkdownFenceTracker').inFence,
+      'inFence': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.MarkdownFenceTracker>(
+            target,
+            'MarkdownFenceTracker',
+          )
+          .inFence,
     },
     methods: {
       'feed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_6.MarkdownFenceTracker>(target, 'MarkdownFenceTracker');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_6.MarkdownFenceTracker>(
+              target,
+              'MarkdownFenceTracker',
+            );
         D4.requireMinArgs(positional, 1, 'feed');
         final line = D4.getRequiredArg<String>(positional, 0, 'line', 'feed');
         t.feed(line);
         return null;
       },
     },
-    constructorSignatures: {
-      '': 'MarkdownFenceTracker()',
-    },
-    methodSignatures: {
-      'feed': 'void feed(String line)',
-    },
-    getterSignatures: {
-      'inFence': 'bool get inFence',
-    },
+    constructorSignatures: {'': 'MarkdownFenceTracker()'},
+    methodSignatures: {'feed': 'void feed(String line)'},
+    getterSignatures: {'inFence': 'bool get inFence'},
   );
 }
 
@@ -2907,28 +5351,36 @@ BridgedClass _createSpecYamlFormatExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecYamlFormatException');
-        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'SpecYamlFormatException');
+        final message = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'message',
+          'SpecYamlFormatException',
+        );
         return $tom_som_dart_runtime_7.SpecYamlFormatException(message);
       },
     },
     getters: {
-      'message': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_7.SpecYamlFormatException>(target, 'SpecYamlFormatException').message,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_7.SpecYamlFormatException>(
+            target,
+            'SpecYamlFormatException',
+          )
+          .message,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_7.SpecYamlFormatException>(target, 'SpecYamlFormatException');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_7.SpecYamlFormatException>(
+              target,
+              'SpecYamlFormatException',
+            );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'SpecYamlFormatException(String message)',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'message': 'String get message',
-    },
+    constructorSignatures: {'': 'SpecYamlFormatException(String message)'},
+    methodSignatures: {'toString': 'String toString()'},
+    getterSignatures: {'message': 'String get message'},
   );
 }
 
@@ -2943,16 +5395,47 @@ BridgedClass _createSpecYamlContentsBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_7.SpecYamlContents,
     constructors: {
       '': (visitor, positional, named) {
-        final document = D4.getRequiredNamedArg<$tom_som_dart_runtime_5.SpecDocument>(named, 'document', 'SpecYamlContents');
-        final review = D4.getRequiredNamedArg<Map>(named, 'review', 'SpecYamlContents');
-        final modelVersion = D4.getOptionalNamedArg<String?>(named, 'modelVersion');
-        return $tom_som_dart_runtime_7.SpecYamlContents(document: document, review: review, modelVersion: modelVersion);
+        final document = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_5.SpecDocument>(
+              named,
+              'document',
+              'SpecYamlContents',
+            );
+        final review = D4.getRequiredNamedArg<Map>(
+          named,
+          'review',
+          'SpecYamlContents',
+        );
+        final modelVersion = D4.getOptionalNamedArg<String?>(
+          named,
+          'modelVersion',
+        );
+        return $tom_som_dart_runtime_7.SpecYamlContents(
+          document: document,
+          review: review,
+          modelVersion: modelVersion,
+        );
       },
     },
     getters: {
-      'document': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_7.SpecYamlContents>(target, 'SpecYamlContents').document,
-      'review': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_7.SpecYamlContents>(target, 'SpecYamlContents').review,
-      'modelVersion': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_7.SpecYamlContents>(target, 'SpecYamlContents').modelVersion,
+      'document': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_7.SpecYamlContents>(
+            target,
+            'SpecYamlContents',
+          )
+          .document,
+      'review': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_7.SpecYamlContents>(
+            target,
+            'SpecYamlContents',
+          )
+          .review,
+      'modelVersion': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_7.SpecYamlContents>(
+            target,
+            'SpecYamlContents',
+          )
+          .modelVersion,
     },
     constructorSignatures: {
       '': 'SpecYamlContents({required SpecDocument document, required Map review, String? modelVersion})',
@@ -2980,33 +5463,92 @@ BridgedClass _createSpecDocumentYamlBridge() {
       },
     },
     staticGetters: {
-      'formatVersion': (visitor) => $tom_som_dart_runtime_7.SpecDocumentYaml.formatVersion,
+      'formatVersion': (visitor) =>
+          $tom_som_dart_runtime_7.SpecDocumentYaml.formatVersion,
     },
     staticMethods: {
       'encode': (visitor, positional, named, typeArgs) {
-        final document = D4.getRequiredNamedArg<$tom_som_dart_runtime_5.SpecDocument>(named, 'document', 'encode');
-        final tree = D4.getRequiredNamedArg<$tom_som_dart_runtime_9.SomMetaTree>(named, 'tree', 'encode');
-        final modelVersion = D4.getOptionalNamedArg<String?>(named, 'modelVersion');
-        return $tom_som_dart_runtime_7.SpecDocumentYaml.encode(document: document, tree: tree, modelVersion: modelVersion);
+        final document = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_5.SpecDocument>(
+              named,
+              'document',
+              'encode',
+            );
+        final tree = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_9.SomMetaTree>(
+              named,
+              'tree',
+              'encode',
+            );
+        final modelVersion = D4.getOptionalNamedArg<String?>(
+          named,
+          'modelVersion',
+        );
+        return $tom_som_dart_runtime_7.SpecDocumentYaml.encode(
+          document: document,
+          tree: tree,
+          modelVersion: modelVersion,
+        );
       },
       'writeHeader': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'writeHeader');
-        final b = D4.getRequiredArg<StringBuffer>(positional, 0, 'b', 'writeHeader');
-        final modelVersion = D4.getOptionalNamedArg<String?>(named, 'modelVersion');
-        return $tom_som_dart_runtime_7.SpecDocumentYaml.writeHeader(b, modelVersion: modelVersion);
+        final b = D4.getRequiredArg<StringBuffer>(
+          positional,
+          0,
+          'b',
+          'writeHeader',
+        );
+        final modelVersion = D4.getOptionalNamedArg<String?>(
+          named,
+          'modelVersion',
+        );
+        return $tom_som_dart_runtime_7.SpecDocumentYaml.writeHeader(
+          b,
+          modelVersion: modelVersion,
+        );
       },
       'nodeKey': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'nodeKey');
-        final node = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaNode>(positional, 0, 'node', 'nodeKey');
+        final node = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaNode>(
+          positional,
+          0,
+          'node',
+          'nodeKey',
+        );
         return $tom_som_dart_runtime_7.SpecDocumentYaml.nodeKey(node);
       },
       'writeScalar': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 4, 'writeScalar');
-        final b = D4.getRequiredArg<StringBuffer>(positional, 0, 'b', 'writeScalar');
-        final keyIndent = D4.getRequiredArg<int>(positional, 1, 'keyIndent', 'writeScalar');
-        final key = D4.getRequiredArg<String>(positional, 2, 'key', 'writeScalar');
-        final value = D4.getRequiredArg<String>(positional, 3, 'value', 'writeScalar');
-        return $tom_som_dart_runtime_7.SpecDocumentYaml.writeScalar(b, keyIndent, key, value);
+        final b = D4.getRequiredArg<StringBuffer>(
+          positional,
+          0,
+          'b',
+          'writeScalar',
+        );
+        final keyIndent = D4.getRequiredArg<int>(
+          positional,
+          1,
+          'keyIndent',
+          'writeScalar',
+        );
+        final key = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'key',
+          'writeScalar',
+        );
+        final value = D4.getRequiredArg<String>(
+          positional,
+          3,
+          'value',
+          'writeScalar',
+        );
+        return $tom_som_dart_runtime_7.SpecDocumentYaml.writeScalar(
+          b,
+          keyIndent,
+          key,
+          value,
+        );
       },
       'yamlKey': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'yamlKey');
@@ -3020,32 +5562,40 @@ BridgedClass _createSpecDocumentYamlBridge() {
       },
       'dedupEmptyLines': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'dedupEmptyLines');
-        final value = D4.getRequiredArg<String>(positional, 0, 'value', 'dedupEmptyLines');
+        final value = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'value',
+          'dedupEmptyLines',
+        );
         return $tom_som_dart_runtime_7.SpecDocumentYaml.dedupEmptyLines(value);
       },
       'decode': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'decode');
         final yaml = D4.getRequiredArg<String>(positional, 0, 'yaml', 'decode');
-        final tree = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaTree>(positional, 1, 'tree', 'decode');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaTree>(
+          positional,
+          1,
+          'tree',
+          'decode',
+        );
         return $tom_som_dart_runtime_7.SpecDocumentYaml.decode(yaml, tree);
       },
     },
-    constructorSignatures: {
-      '': 'SpecDocumentYaml()',
-    },
+    constructorSignatures: {'': 'SpecDocumentYaml()'},
     staticMethodSignatures: {
-      'encode': 'String encode({required SpecDocument document, required SomMetaTree tree, String? modelVersion})',
+      'encode':
+          'String encode({required SpecDocument document, required SomMetaTree tree, String? modelVersion})',
       'writeHeader': 'void writeHeader(StringBuffer b, {String? modelVersion})',
       'nodeKey': 'String nodeKey(SomMetaNode node)',
-      'writeScalar': 'void writeScalar(StringBuffer b, int keyIndent, String key, String value)',
+      'writeScalar':
+          'void writeScalar(StringBuffer b, int keyIndent, String key, String value)',
       'yamlKey': 'String yamlKey(String key)',
       'plainKey': 'String plainKey(String key)',
       'dedupEmptyLines': 'String dedupEmptyLines(String value)',
       'decode': 'SpecYamlContents decode(String yaml, SomMetaTree tree)',
     },
-    staticGetterSignatures: {
-      'formatVersion': 'int get formatVersion',
-    },
+    staticGetterSignatures: {'formatVersion': 'int get formatVersion'},
   );
 }
 
@@ -3061,96 +5611,232 @@ BridgedClass _createSpecEditorBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SpecEditor');
-        final document = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(positional, 0, 'document', 'SpecEditor');
-        final reflection = D4.getRequiredArg<$tom_som_dart_runtime_16.SpecReflection>(positional, 1, 'reflection', 'SpecEditor');
+        final document = D4
+            .getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(
+              positional,
+              0,
+              'document',
+              'SpecEditor',
+            );
+        final reflection = D4
+            .getRequiredArg<$tom_som_dart_runtime_16.SpecReflection>(
+              positional,
+              1,
+              'reflection',
+              'SpecEditor',
+            );
         return $tom_som_dart_runtime_8.SpecEditor(document, reflection);
       },
       'forModel': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SpecEditor');
-        final document = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(positional, 0, 'document', 'SpecEditor');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 1, 'model', 'SpecEditor');
+        final document = D4
+            .getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(
+              positional,
+              0,
+              'document',
+              'SpecEditor',
+            );
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          1,
+          'model',
+          'SpecEditor',
+        );
         return $tom_som_dart_runtime_8.SpecEditor.forModel(document, model);
       },
     },
     getters: {
-      'document': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor').document,
-      'reflection': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor').reflection,
+      'document': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+            target,
+            'SpecEditor',
+          )
+          .document,
+      'reflection': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+            target,
+            'SpecEditor',
+          )
+          .reflection,
     },
     methods: {
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 1, 'resolve');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'resolve');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'resolve',
+        );
         return t.resolve(path);
       },
       'value': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 1, 'value');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'value');
         return t.value(path);
       },
       'setValue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 2, 'setValue');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setValue');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'setValue',
+        );
         final v = D4.getRequiredArg<Object?>(positional, 1, 'v', 'setValue');
         t.setValue(path, v);
         return null;
       },
       'headline': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 1, 'headline');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'headline');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'headline',
+        );
         return t.headline(path);
       },
       'setHeadline': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 2, 'setHeadline');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setHeadline');
-        final value = D4.getRequiredArg<String?>(positional, 1, 'value', 'setHeadline');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'setHeadline',
+        );
+        final value = D4.getRequiredArg<String?>(
+          positional,
+          1,
+          'value',
+          'setHeadline',
+        );
         t.setHeadline(path, value);
         return null;
       },
       'formValue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 2, 'formValue');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'formValue');
-        final field = D4.getRequiredArg<String>(positional, 1, 'field', 'formValue');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'formValue',
+        );
+        final field = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'field',
+          'formValue',
+        );
         return t.formValue(path, field);
       },
       'setFormValue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 3, 'setFormValue');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setFormValue');
-        final field = D4.getRequiredArg<String>(positional, 1, 'field', 'setFormValue');
-        final v = D4.getRequiredArg<Object?>(positional, 2, 'v', 'setFormValue');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'setFormValue',
+        );
+        final field = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'field',
+          'setFormValue',
+        );
+        final v = D4.getRequiredArg<Object?>(
+          positional,
+          2,
+          'v',
+          'setFormValue',
+        );
         t.setFormValue(path, field, v);
         return null;
       },
       'formFields': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 1, 'formFields');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'formFields');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'formFields',
+        );
         return t.formFields(path);
       },
       'addListItem': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 1, 'addListItem');
-        final listPath = D4.getRequiredArg<String>(positional, 0, 'listPath', 'addListItem');
+        final listPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'listPath',
+          'addListItem',
+        );
         final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
         final now = D4.getOptionalNamedArg<DateTime?>(named, 'now');
         return t.addListItem(listPath, sectionId: sectionId, now: now);
       },
       'removeListItem': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 1, 'removeListItem');
-        final itemPath = D4.getRequiredArg<String>(positional, 0, 'itemPath', 'removeListItem');
+        final itemPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'itemPath',
+          'removeListItem',
+        );
         return t.removeListItem(itemPath);
       },
       'clearSection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(target, 'SpecEditor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecEditor>(
+          target,
+          'SpecEditor',
+        );
         D4.requireMinArgs(positional, 1, 'clearSection');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'clearSection');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'clearSection',
+        );
         t.clearSection(path);
         return null;
       },
@@ -3168,7 +5854,8 @@ BridgedClass _createSpecEditorBridge() {
       'formValue': 'Object? formValue(String path, String field)',
       'setFormValue': 'void setFormValue(String path, String field, Object? v)',
       'formFields': 'List<FormFieldSpec> formFields(String path)',
-      'addListItem': 'String addListItem(String listPath, {String? sectionId, DateTime? now})',
+      'addListItem':
+          'String addListItem(String listPath, {String? sectionId, DateTime? now})',
       'removeListItem': 'bool removeListItem(String itemPath)',
       'clearSection': 'void clearSection(String path)',
     },
@@ -3190,14 +5877,35 @@ BridgedClass _createSomContentTypeMetaBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_9.SomContentTypeMeta,
     constructors: {
       '': (visitor, positional, named) {
-        final type = D4.getRequiredNamedArg<String>(named, 'type', 'SomContentTypeMeta');
-        final description = D4.getRequiredNamedArg<String>(named, 'description', 'SomContentTypeMeta');
-        return $tom_som_dart_runtime_9.SomContentTypeMeta(type: type, description: description);
+        final type = D4.getRequiredNamedArg<String>(
+          named,
+          'type',
+          'SomContentTypeMeta',
+        );
+        final description = D4.getRequiredNamedArg<String>(
+          named,
+          'description',
+          'SomContentTypeMeta',
+        );
+        return $tom_som_dart_runtime_9.SomContentTypeMeta(
+          type: type,
+          description: description,
+        );
       },
     },
     getters: {
-      'type': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomContentTypeMeta>(target, 'SomContentTypeMeta').type,
-      'description': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomContentTypeMeta>(target, 'SomContentTypeMeta').description,
+      'type': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomContentTypeMeta>(
+            target,
+            'SomContentTypeMeta',
+          )
+          .type,
+      'description': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomContentTypeMeta>(
+            target,
+            'SomContentTypeMeta',
+          )
+          .description,
     },
     constructorSignatures: {
       '': 'const SomContentTypeMeta({required String type, required String description})',
@@ -3220,30 +5928,100 @@ BridgedClass _createSomFormFieldMetaBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_9.SomFormFieldMeta,
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<String>(named, 'name', 'SomFormFieldMeta');
-        final typeName = D4.getRequiredNamedArg<String>(named, 'typeName', 'SomFormFieldMeta');
-        final description = D4.getOptionalNamedArg<String?>(named, 'description');
-        final required = D4.getNamedArgWithDefault<bool>(named, 'required', false);
+        final name = D4.getRequiredNamedArg<String>(
+          named,
+          'name',
+          'SomFormFieldMeta',
+        );
+        final typeName = D4.getRequiredNamedArg<String>(
+          named,
+          'typeName',
+          'SomFormFieldMeta',
+        );
+        final description = D4.getOptionalNamedArg<String?>(
+          named,
+          'description',
+        );
+        final required = D4.getNamedArgWithDefault<bool>(
+          named,
+          'required',
+          false,
+        );
         final hint = D4.getOptionalNamedArg<String?>(named, 'hint');
-        final order = D4.getRequiredNamedArg<int>(named, 'order', 'SomFormFieldMeta');
-        final enumValues = named.containsKey('enumValues') && named['enumValues'] != null
+        final order = D4.getRequiredNamedArg<int>(
+          named,
+          'order',
+          'SomFormFieldMeta',
+        );
+        final enumValues =
+            named.containsKey('enumValues') && named['enumValues'] != null
             ? D4.coerceList<String>(named['enumValues'], 'enumValues')
             : const <String>[];
-        final refersTo = named.containsKey('refersTo') && named['refersTo'] != null
+        final refersTo =
+            named.containsKey('refersTo') && named['refersTo'] != null
             ? D4.coerceList<String>(named['refersTo'], 'refersTo')
             : const <String>[];
-        return $tom_som_dart_runtime_9.SomFormFieldMeta(name: name, typeName: typeName, description: description, required: required, hint: hint, order: order, enumValues: enumValues, refersTo: refersTo);
+        return $tom_som_dart_runtime_9.SomFormFieldMeta(
+          name: name,
+          typeName: typeName,
+          description: description,
+          required: required,
+          hint: hint,
+          order: order,
+          enumValues: enumValues,
+          refersTo: refersTo,
+        );
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(target, 'SomFormFieldMeta').name,
-      'typeName': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(target, 'SomFormFieldMeta').typeName,
-      'description': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(target, 'SomFormFieldMeta').description,
-      'required': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(target, 'SomFormFieldMeta').required,
-      'hint': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(target, 'SomFormFieldMeta').hint,
-      'order': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(target, 'SomFormFieldMeta').order,
-      'enumValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(target, 'SomFormFieldMeta').enumValues,
-      'refersTo': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(target, 'SomFormFieldMeta').refersTo,
+      'name': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(
+            target,
+            'SomFormFieldMeta',
+          )
+          .name,
+      'typeName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(
+            target,
+            'SomFormFieldMeta',
+          )
+          .typeName,
+      'description': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(
+            target,
+            'SomFormFieldMeta',
+          )
+          .description,
+      'required': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(
+            target,
+            'SomFormFieldMeta',
+          )
+          .required,
+      'hint': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(
+            target,
+            'SomFormFieldMeta',
+          )
+          .hint,
+      'order': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(
+            target,
+            'SomFormFieldMeta',
+          )
+          .order,
+      'enumValues': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(
+            target,
+            'SomFormFieldMeta',
+          )
+          .enumValues,
+      'refersTo': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomFormFieldMeta>(
+            target,
+            'SomFormFieldMeta',
+          )
+          .refersTo,
     },
     constructorSignatures: {
       '': 'const SomFormFieldMeta({required String name, required String typeName, String? description, bool required = false, String? hint, required int order, List<String> enumValues = const [], List<String> refersTo = const []})',
@@ -3273,20 +6051,38 @@ BridgedClass _createSomFormMetaBridge() {
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('fields') || named['fields'] == null) {
-          throw ArgumentError('SomFormMeta: Missing required named argument "fields"');
+          throw ArgumentError(
+            'SomFormMeta: Missing required named argument "fields"',
+          );
         }
-        final fields = D4.coerceList<$tom_som_dart_runtime_9.SomFormFieldMeta>(named['fields'], 'fields');
+        final fields = D4.coerceList<$tom_som_dart_runtime_9.SomFormFieldMeta>(
+          named['fields'],
+          'fields',
+        );
         return $tom_som_dart_runtime_9.SomFormMeta(fields: fields);
       },
     },
     getters: {
-      'fields': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomFormMeta>(target, 'SomFormMeta').fields,
+      'fields': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomFormMeta>(
+            target,
+            'SomFormMeta',
+          )
+          .fields,
     },
     methods: {
       'fieldNamed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomFormMeta>(target, 'SomFormMeta');
+        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomFormMeta>(
+          target,
+          'SomFormMeta',
+        );
         D4.requireMinArgs(positional, 1, 'fieldNamed');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'fieldNamed');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'fieldNamed',
+        );
         return t.fieldNamed(name);
       },
     },
@@ -3296,9 +6092,7 @@ BridgedClass _createSomFormMetaBridge() {
     methodSignatures: {
       'fieldNamed': 'SomFormFieldMeta? fieldNamed(String name)',
     },
-    getterSignatures: {
-      'fields': 'List<SomFormFieldMeta> get fields',
-    },
+    getterSignatures: {'fields': 'List<SomFormFieldMeta> get fields'},
   );
 }
 
@@ -3313,18 +6107,45 @@ BridgedClass _createSomDocMetaBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_9.SomDocMeta,
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<String>(named, 'name', 'SomDocMeta');
-        final description = D4.getRequiredNamedArg<String>(named, 'description', 'SomDocMeta');
+        final name = D4.getRequiredNamedArg<String>(
+          named,
+          'name',
+          'SomDocMeta',
+        );
+        final description = D4.getRequiredNamedArg<String>(
+          named,
+          'description',
+          'SomDocMeta',
+        );
         final basedOn = named.containsKey('basedOn') && named['basedOn'] != null
             ? D4.coerceList<String>(named['basedOn'], 'basedOn')
             : const <String>[];
-        return $tom_som_dart_runtime_9.SomDocMeta(name: name, description: description, basedOn: basedOn);
+        return $tom_som_dart_runtime_9.SomDocMeta(
+          name: name,
+          description: description,
+          basedOn: basedOn,
+        );
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomDocMeta>(target, 'SomDocMeta').name,
-      'description': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomDocMeta>(target, 'SomDocMeta').description,
-      'basedOn': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomDocMeta>(target, 'SomDocMeta').basedOn,
+      'name': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomDocMeta>(
+            target,
+            'SomDocMeta',
+          )
+          .name,
+      'description': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomDocMeta>(
+            target,
+            'SomDocMeta',
+          )
+          .description,
+      'basedOn': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomDocMeta>(
+            target,
+            'SomDocMeta',
+          )
+          .basedOn,
     },
     constructorSignatures: {
       '': 'const SomDocMeta({required String name, required String description, List<String> basedOn = const []})',
@@ -3348,16 +6169,33 @@ BridgedClass _createSomMetaExtraBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_9.SomMetaExtra,
     constructors: {
       '': (visitor, positional, named) {
-        final annotation = D4.getRequiredNamedArg<String>(named, 'annotation', 'SomMetaExtra');
+        final annotation = D4.getRequiredNamedArg<String>(
+          named,
+          'annotation',
+          'SomMetaExtra',
+        );
         final args = named.containsKey('args') && named['args'] != null
             ? D4.coerceMap<String, Object?>(named['args'], 'args')
             : const <String, Object?>{};
-        return $tom_som_dart_runtime_9.SomMetaExtra(annotation: annotation, args: args);
+        return $tom_som_dart_runtime_9.SomMetaExtra(
+          annotation: annotation,
+          args: args,
+        );
       },
     },
     getters: {
-      'annotation': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaExtra>(target, 'SomMetaExtra').annotation,
-      'args': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaExtra>(target, 'SomMetaExtra').args,
+      'annotation': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaExtra>(
+            target,
+            'SomMetaExtra',
+          )
+          .annotation,
+      'args': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaExtra>(
+            target,
+            'SomMetaExtra',
+          )
+          .args,
     },
     constructorSignatures: {
       '': 'const SomMetaExtra({required String annotation, Map<String, Object?> args = const {}})',
@@ -3380,85 +6218,329 @@ BridgedClass _createSomMetaNodeBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_9.SomMetaNode,
     constructors: {
       '': (visitor, positional, named) {
-        final className = D4.getRequiredNamedArg<String>(named, 'className', 'SomMetaNode');
+        final className = D4.getRequiredNamedArg<String>(
+          named,
+          'className',
+          'SomMetaNode',
+        );
         final memberName = D4.getOptionalNamedArg<String?>(named, 'memberName');
         final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
-        final classSectionId = D4.getOptionalNamedArg<String?>(named, 'classSectionId');
-        final sectionIdPattern = D4.getOptionalNamedArg<String?>(named, 'sectionIdPattern');
-        final kind = D4.getRequiredNamedArg<$tom_som_dart_runtime_9.SomMetaKind>(named, 'kind', 'SomMetaNode');
-        final typeName = D4.getRequiredNamedArg<String>(named, 'typeName', 'SomMetaNode');
-        final serializationOrder = D4.getOptionalNamedArg<int?>(named, 'serializationOrder');
+        final classSectionId = D4.getOptionalNamedArg<String?>(
+          named,
+          'classSectionId',
+        );
+        final sectionIdPattern = D4.getOptionalNamedArg<String?>(
+          named,
+          'sectionIdPattern',
+        );
+        final kind = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_9.SomMetaKind>(
+              named,
+              'kind',
+              'SomMetaNode',
+            );
+        final typeName = D4.getRequiredNamedArg<String>(
+          named,
+          'typeName',
+          'SomMetaNode',
+        );
+        final serializationOrder = D4.getOptionalNamedArg<int?>(
+          named,
+          'serializationOrder',
+        );
         final min = D4.getOptionalNamedArg<int?>(named, 'min');
         final unused = D4.getNamedArgWithDefault<bool>(named, 'unused', false);
-        final contentType = D4.getOptionalNamedArg<$tom_som_dart_runtime_9.SomContentTypeMeta?>(named, 'contentType');
-        final contentHelp = D4.getOptionalNamedArg<String?>(named, 'contentHelp');
+        final contentType = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_9.SomContentTypeMeta?>(
+              named,
+              'contentType',
+            );
+        final contentHelp = D4.getOptionalNamedArg<String?>(
+          named,
+          'contentHelp',
+        );
         final headline = D4.getOptionalNamedArg<String?>(named, 'headline');
         final comment = D4.getOptionalNamedArg<String?>(named, 'comment');
         final docComment = D4.getOptionalNamedArg<String?>(named, 'docComment');
-        final classDocComment = D4.getOptionalNamedArg<String?>(named, 'classDocComment');
-        final form = D4.getOptionalNamedArg<$tom_som_dart_runtime_9.SomFormMeta?>(named, 'form');
-        final document = D4.getOptionalNamedArg<$tom_som_dart_runtime_9.SomDocMeta?>(named, 'document');
+        final classDocComment = D4.getOptionalNamedArg<String?>(
+          named,
+          'classDocComment',
+        );
+        final form = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_9.SomFormMeta?>(
+              named,
+              'form',
+            );
+        final document = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_9.SomDocMeta?>(
+              named,
+              'document',
+            );
         final mapsTo = D4.getOptionalNamedArg<String?>(named, 'mapsTo');
         final detailedIn = D4.getOptionalNamedArg<String?>(named, 'detailedIn');
         final extra = named.containsKey('extra') && named['extra'] != null
-            ? D4.coerceList<$tom_som_dart_runtime_9.SomMetaExtra>(named['extra'], 'extra')
+            ? D4.coerceList<$tom_som_dart_runtime_9.SomMetaExtra>(
+                named['extra'],
+                'extra',
+              )
             : const <$tom_som_dart_runtime_9.SomMetaExtra>[];
-        final recursive = D4.getNamedArgWithDefault<bool>(named, 'recursive', false);
-        final children = named.containsKey('children') && named['children'] != null
-            ? D4.coerceList<$tom_som_dart_runtime_9.SomMetaNode>(named['children'], 'children')
+        final recursive = D4.getNamedArgWithDefault<bool>(
+          named,
+          'recursive',
+          false,
+        );
+        final children =
+            named.containsKey('children') && named['children'] != null
+            ? D4.coerceList<$tom_som_dart_runtime_9.SomMetaNode>(
+                named['children'],
+                'children',
+              )
             : const <$tom_som_dart_runtime_9.SomMetaNode>[];
-        final elementNode = D4.getOptionalNamedArg<$tom_som_dart_runtime_9.SomMetaNode?>(named, 'elementNode');
-        return $tom_som_dart_runtime_9.SomMetaNode(className: className, memberName: memberName, sectionId: sectionId, classSectionId: classSectionId, sectionIdPattern: sectionIdPattern, kind: kind, typeName: typeName, serializationOrder: serializationOrder, min: min, unused: unused, contentType: contentType, contentHelp: contentHelp, headline: headline, comment: comment, docComment: docComment, classDocComment: classDocComment, form: form, document: document, mapsTo: mapsTo, detailedIn: detailedIn, extra: extra, recursive: recursive, children: children, elementNode: elementNode);
+        final elementNode = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_9.SomMetaNode?>(
+              named,
+              'elementNode',
+            );
+        return $tom_som_dart_runtime_9.SomMetaNode(
+          className: className,
+          memberName: memberName,
+          sectionId: sectionId,
+          classSectionId: classSectionId,
+          sectionIdPattern: sectionIdPattern,
+          kind: kind,
+          typeName: typeName,
+          serializationOrder: serializationOrder,
+          min: min,
+          unused: unused,
+          contentType: contentType,
+          contentHelp: contentHelp,
+          headline: headline,
+          comment: comment,
+          docComment: docComment,
+          classDocComment: classDocComment,
+          form: form,
+          document: document,
+          mapsTo: mapsTo,
+          detailedIn: detailedIn,
+          extra: extra,
+          recursive: recursive,
+          children: children,
+          elementNode: elementNode,
+        );
       },
     },
     getters: {
-      'className': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').className,
-      'memberName': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').memberName,
-      'sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').sectionId,
-      'classSectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').classSectionId,
-      'sectionIdPattern': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').sectionIdPattern,
-      'kind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').kind,
-      'typeName': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').typeName,
-      'serializationOrder': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').serializationOrder,
-      'min': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').min,
-      'unused': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').unused,
-      'contentType': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').contentType,
-      'contentHelp': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').contentHelp,
-      'headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').headline,
-      'comment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').comment,
-      'docComment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').docComment,
-      'classDocComment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').classDocComment,
-      'form': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').form,
-      'document': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').document,
-      'mapsTo': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').mapsTo,
-      'detailedIn': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').detailedIn,
-      'extra': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').extra,
-      'recursive': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').recursive,
-      'children': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').children,
-      'elementNode': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').elementNode,
-      'tree': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').tree,
-      'parent': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').parent,
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').path,
-      'segment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').segment,
-      'debugName': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode').debugName,
+      'className': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .className,
+      'memberName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .memberName,
+      'sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .sectionId,
+      'classSectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .classSectionId,
+      'sectionIdPattern': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .sectionIdPattern,
+      'kind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .kind,
+      'typeName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .typeName,
+      'serializationOrder': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .serializationOrder,
+      'min': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .min,
+      'unused': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .unused,
+      'contentType': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .contentType,
+      'contentHelp': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .contentHelp,
+      'headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .headline,
+      'comment': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .comment,
+      'docComment': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .docComment,
+      'classDocComment': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .classDocComment,
+      'form': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .form,
+      'document': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .document,
+      'mapsTo': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .mapsTo,
+      'detailedIn': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .detailedIn,
+      'extra': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .extra,
+      'recursive': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .recursive,
+      'children': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .children,
+      'elementNode': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .elementNode,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .tree,
+      'parent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .parent,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .path,
+      'segment': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .segment,
+      'debugName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+            target,
+            'SomMetaNode',
+          )
+          .debugName,
     },
     methods: {
       'itemPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode');
+        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+          target,
+          'SomMetaNode',
+        );
         D4.requireMinArgs(positional, 1, 'itemPath');
         final seq = D4.getRequiredArg<int>(positional, 0, 'seq', 'itemPath');
         return t.itemPath(seq);
       },
       'childByMember': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode');
+        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+          target,
+          'SomMetaNode',
+        );
         D4.requireMinArgs(positional, 1, 'childByMember');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'childByMember');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'childByMember',
+        );
         return t.childByMember(name);
       },
       'childBySegment': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(target, 'SomMetaNode');
+        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaNode>(
+          target,
+          'SomMetaNode',
+        );
         D4.requireMinArgs(positional, 1, 'childBySegment');
-        final seg = D4.getRequiredArg<String>(positional, 0, 'seg', 'childBySegment');
+        final seg = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'seg',
+          'childBySegment',
+        );
         return t.childBySegment(seg);
       },
     },
@@ -3516,37 +6598,69 @@ BridgedClass _createSomMetaTreeBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SomMetaTree');
-        final root = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaNode>(positional, 0, 'root', 'SomMetaTree');
+        final root = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaNode>(
+          positional,
+          0,
+          'root',
+          'SomMetaTree',
+        );
         return $tom_som_dart_runtime_9.SomMetaTree(root);
       },
     },
     getters: {
-      'root': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaTree>(target, 'SomMetaTree').root,
-      'allNodes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaTree>(target, 'SomMetaTree').allNodes,
+      'root': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaTree>(
+            target,
+            'SomMetaTree',
+          )
+          .root,
+      'allNodes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaTree>(
+            target,
+            'SomMetaTree',
+          )
+          .allNodes,
     },
     methods: {
       'allById': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaTree>(target, 'SomMetaTree');
+        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaTree>(
+          target,
+          'SomMetaTree',
+        );
         D4.requireMinArgs(positional, 1, 'allById');
-        final sectionId = D4.getRequiredArg<String>(positional, 0, 'sectionId', 'allById');
+        final sectionId = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'sectionId',
+          'allById',
+        );
         return t.allById(sectionId);
       },
       'byId': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaTree>(target, 'SomMetaTree');
+        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaTree>(
+          target,
+          'SomMetaTree',
+        );
         D4.requireMinArgs(positional, 1, 'byId');
-        final sectionId = D4.getRequiredArg<String>(positional, 0, 'sectionId', 'byId');
+        final sectionId = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'sectionId',
+          'byId',
+        );
         return t.byId(sectionId);
       },
       'byPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaTree>(target, 'SomMetaTree');
+        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomMetaTree>(
+          target,
+          'SomMetaTree',
+        );
         D4.requireMinArgs(positional, 1, 'byPath');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'byPath');
         return t.byPath(path);
       },
     },
-    constructorSignatures: {
-      '': 'SomMetaTree(SomMetaNode root)',
-    },
+    constructorSignatures: {'': 'SomMetaTree(SomMetaNode root)'},
     methodSignatures: {
       'allById': 'List<SomMetaNode> allById(String sectionId)',
       'byId': 'SomMetaNode? byId(String sectionId)',
@@ -3571,19 +6685,42 @@ BridgedClass _createSomMetaRefBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SomMetaRef');
-        final tree = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaTree>(positional, 0, 'tree', 'SomMetaRef');
-        final path = D4.getRequiredArg<String>(positional, 1, 'path', 'SomMetaRef');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'SomMetaRef',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SomMetaRef',
+        );
         return $tom_som_dart_runtime_9.SomMetaRef(tree, path);
       },
     },
     getters: {
-      'tree': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaRef>(target, 'SomMetaRef').tree,
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaRef>(target, 'SomMetaRef').path,
-      'meta': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomMetaRef>(target, 'SomMetaRef').meta,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaRef>(
+            target,
+            'SomMetaRef',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaRef>(
+            target,
+            'SomMetaRef',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomMetaRef>(
+            target,
+            'SomMetaRef',
+          )
+          .meta,
     },
-    constructorSignatures: {
-      '': 'SomMetaRef(SomMetaTree tree, String path)',
-    },
+    constructorSignatures: {'': 'SomMetaRef(SomMetaTree tree, String path)'},
     getterSignatures: {
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
@@ -3605,23 +6742,60 @@ BridgedClass _createSomListMetaRefBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'SomListMetaRef');
-        final tree = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaTree>(positional, 0, 'tree', 'SomListMetaRef');
-        final path = D4.getRequiredArg<String>(positional, 1, 'path', 'SomListMetaRef');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_9.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'SomListMetaRef',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SomListMetaRef',
+        );
         if (positional.length <= 2) {
-          throw ArgumentError('SomListMetaRef: Missing required argument "_element" at position 2');
+          throw ArgumentError(
+            'SomListMetaRef: Missing required argument "_element" at position 2',
+          );
         }
         final elementRaw = positional[2];
-        return $tom_som_dart_runtime_9.SomListMetaRef(tree, path, ($tom_som_dart_runtime_9.SomMetaTree p0, String p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, elementRaw, [p0, p1])); });
+        return $tom_som_dart_runtime_9.SomListMetaRef(tree, path, (
+          $tom_som_dart_runtime_9.SomMetaTree p0,
+          String p1,
+        ) {
+          return D4.castCallbackResult<dynamic>(
+            D4.callInterpreterCallback(visitor!, elementRaw, [p0, p1]),
+          );
+        });
       },
     },
     getters: {
-      'tree': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomListMetaRef>(target, 'SomListMetaRef').tree,
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomListMetaRef>(target, 'SomListMetaRef').path,
-      'meta': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_9.SomListMetaRef>(target, 'SomListMetaRef').meta,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomListMetaRef>(
+            target,
+            'SomListMetaRef',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomListMetaRef>(
+            target,
+            'SomListMetaRef',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_9.SomListMetaRef>(
+            target,
+            'SomListMetaRef',
+          )
+          .meta,
     },
     methods: {
       'item': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomListMetaRef>(target, 'SomListMetaRef');
+        final t = D4.validateTarget<$tom_som_dart_runtime_9.SomListMetaRef>(
+          target,
+          'SomListMetaRef',
+        );
         D4.requireMinArgs(positional, 1, 'item');
         final seq = D4.getRequiredArg<int>(positional, 0, 'seq', 'item');
         return t.item(seq);
@@ -3630,9 +6804,7 @@ BridgedClass _createSomListMetaRefBridge() {
     constructorSignatures: {
       '': 'SomListMetaRef(SomMetaTree tree, String path, E Function(SomMetaTree tree, String path) _element)',
     },
-    methodSignatures: {
-      'item': 'E item(int seq)',
-    },
+    methodSignatures: {'item': 'E item(int seq)'},
     getterSignatures: {
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
@@ -3652,28 +6824,51 @@ BridgedClass _createSpecAnnotationBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_12.SpecAnnotation,
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<String>(named, 'name', 'SpecAnnotation');
-        final arguments = named.containsKey('arguments') && named['arguments'] != null
+        final name = D4.getRequiredNamedArg<String>(
+          named,
+          'name',
+          'SpecAnnotation',
+        );
+        final arguments =
+            named.containsKey('arguments') && named['arguments'] != null
             ? D4.coerceMap<String, Object?>(named['arguments'], 'arguments')
             : const <String, Object?>{};
-        return $tom_som_dart_runtime_12.SpecAnnotation(name: name, arguments: arguments);
+        return $tom_som_dart_runtime_12.SpecAnnotation(
+          name: name,
+          arguments: arguments,
+        );
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecAnnotation');
         if (positional.isEmpty) {
-          throw ArgumentError('SpecAnnotation: Missing required argument "j" at position 0');
+          throw ArgumentError(
+            'SpecAnnotation: Missing required argument "j" at position 0',
+          );
         }
         final j = D4.coerceMap<String, dynamic>(positional[0], 'j');
         return $tom_som_dart_runtime_12.SpecAnnotation.fromJson(j);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecAnnotation>(target, 'SpecAnnotation').name,
-      'arguments': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecAnnotation>(target, 'SpecAnnotation').arguments,
+      'name': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecAnnotation>(
+            target,
+            'SpecAnnotation',
+          )
+          .name,
+      'arguments': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecAnnotation>(
+            target,
+            'SpecAnnotation',
+          )
+          .arguments,
     },
     methods: {
       'argument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecAnnotation>(target, 'SpecAnnotation');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecAnnotation>(
+          target,
+          'SpecAnnotation',
+        );
         D4.requireMinArgs(positional, 1, 'argument');
         final key = D4.getRequiredArg<String>(positional, 0, 'key', 'argument');
         return t.argument(key);
@@ -3682,7 +6877,12 @@ BridgedClass _createSpecAnnotationBridge() {
     staticMethods: {
       'listFromJson': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'listFromJson');
-        final raw = D4.getRequiredArg<Object?>(positional, 0, 'raw', 'listFromJson');
+        final raw = D4.getRequiredArg<Object?>(
+          positional,
+          0,
+          'raw',
+          'listFromJson',
+        );
         return $tom_som_dart_runtime_12.SpecAnnotation.listFromJson(raw);
       },
     },
@@ -3690,9 +6890,7 @@ BridgedClass _createSpecAnnotationBridge() {
       '': 'const SpecAnnotation({required String name, Map<String, Object?> arguments = const {}})',
       'fromJson': 'factory SpecAnnotation.fromJson(Map<String, dynamic> j)',
     },
-    methodSignatures: {
-      'argument': 'Object? argument(String key)',
-    },
+    methodSignatures: {'argument': 'Object? argument(String key)'},
     getterSignatures: {
       'name': 'String get name',
       'arguments': 'Map<String, Object?> get arguments',
@@ -3714,40 +6912,113 @@ BridgedClass _createFormFieldSpecBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_12.FormFieldSpec,
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<String>(named, 'name', 'FormFieldSpec');
-        final label = D4.getRequiredNamedArg<String>(named, 'label', 'FormFieldSpec');
-        final type = D4.getRequiredNamedArg<String>(named, 'type', 'FormFieldSpec');
+        final name = D4.getRequiredNamedArg<String>(
+          named,
+          'name',
+          'FormFieldSpec',
+        );
+        final label = D4.getRequiredNamedArg<String>(
+          named,
+          'label',
+          'FormFieldSpec',
+        );
+        final type = D4.getRequiredNamedArg<String>(
+          named,
+          'type',
+          'FormFieldSpec',
+        );
         final hint = D4.getOptionalNamedArg<String?>(named, 'hint');
-        final required = D4.getNamedArgWithDefault<bool>(named, 'required', false);
-        final enumValues = named.containsKey('enumValues') && named['enumValues'] != null
+        final required = D4.getNamedArgWithDefault<bool>(
+          named,
+          'required',
+          false,
+        );
+        final enumValues =
+            named.containsKey('enumValues') && named['enumValues'] != null
             ? D4.coerceList<String>(named['enumValues'], 'enumValues')
             : const <String>[];
-        final enumValueDocs = named.containsKey('enumValueDocs') && named['enumValueDocs'] != null
-            ? D4.coerceMap<String, String>(named['enumValueDocs'], 'enumValueDocs')
+        final enumValueDocs =
+            named.containsKey('enumValueDocs') && named['enumValueDocs'] != null
+            ? D4.coerceMap<String, String>(
+                named['enumValueDocs'],
+                'enumValueDocs',
+              )
             : const <String, String>{};
-        final refersTo = named.containsKey('refersTo') && named['refersTo'] != null
+        final refersTo =
+            named.containsKey('refersTo') && named['refersTo'] != null
             ? D4.coerceList<String>(named['refersTo'], 'refersTo')
             : const <String>[];
-        return $tom_som_dart_runtime_12.FormFieldSpec(name: name, label: label, type: type, hint: hint, required: required, enumValues: enumValues, enumValueDocs: enumValueDocs, refersTo: refersTo);
+        return $tom_som_dart_runtime_12.FormFieldSpec(
+          name: name,
+          label: label,
+          type: type,
+          hint: hint,
+          required: required,
+          enumValues: enumValues,
+          enumValueDocs: enumValueDocs,
+          refersTo: refersTo,
+        );
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FormFieldSpec');
         if (positional.isEmpty) {
-          throw ArgumentError('FormFieldSpec: Missing required argument "j" at position 0');
+          throw ArgumentError(
+            'FormFieldSpec: Missing required argument "j" at position 0',
+          );
         }
         final j = D4.coerceMap<String, dynamic>(positional[0], 'j');
         return $tom_som_dart_runtime_12.FormFieldSpec.fromJson(j);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').name,
-      'label': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').label,
-      'hint': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').hint,
-      'type': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').type,
-      'required': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').required,
-      'enumValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').enumValues,
-      'enumValueDocs': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').enumValueDocs,
-      'refersTo': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(target, 'FormFieldSpec').refersTo,
+      'name': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .name,
+      'label': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .label,
+      'hint': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .hint,
+      'type': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .type,
+      'required': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .required,
+      'enumValues': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .enumValues,
+      'enumValueDocs': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .enumValueDocs,
+      'refersTo': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .refersTo,
     },
     constructorSignatures: {
       '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const [], Map<String, String> enumValueDocs = const {}, List<String> refersTo = const []})',
@@ -3785,18 +7056,36 @@ BridgedClass _createKindLinkBridge() {
       },
       'fromAnnotation': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'KindLink');
-        final annotation = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecAnnotation>(positional, 0, 'annotation', 'KindLink');
-        final listArgument = D4.getRequiredNamedArg<String>(named, 'listArgument', 'KindLink');
-        return $tom_som_dart_runtime_12.KindLink.fromAnnotation(annotation, listArgument: listArgument);
+        final annotation = D4
+            .getRequiredArg<$tom_som_dart_runtime_12.SpecAnnotation>(
+              positional,
+              0,
+              'annotation',
+              'KindLink',
+            );
+        final listArgument = D4.getRequiredNamedArg<String>(
+          named,
+          'listArgument',
+          'KindLink',
+        );
+        return $tom_som_dart_runtime_12.KindLink.fromAnnotation(
+          annotation,
+          listArgument: listArgument,
+        );
       },
     },
     getters: {
-      'kinds': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.KindLink>(target, 'KindLink').kinds,
-      'note': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.KindLink>(target, 'KindLink').note,
+      'kinds': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.KindLink>(target, 'KindLink')
+          .kinds,
+      'note': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.KindLink>(target, 'KindLink')
+          .note,
     },
     constructorSignatures: {
       '': 'const KindLink({List<String> kinds = const [], String? note})',
-      'fromAnnotation': 'factory KindLink.fromAnnotation(SpecAnnotation annotation, {required String listArgument})',
+      'fromAnnotation':
+          'factory KindLink.fromAnnotation(SpecAnnotation annotation, {required String listArgument})',
     },
     getterSignatures: {
       'kinds': 'List<String> get kinds',
@@ -3816,23 +7105,49 @@ BridgedClass _createNoArtifactLinkBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_12.NoArtifactLink,
     constructors: {
       '': (visitor, positional, named) {
-        final reason = D4.getRequiredNamedArg<String>(named, 'reason', 'NoArtifactLink');
+        final reason = D4.getRequiredNamedArg<String>(
+          named,
+          'reason',
+          'NoArtifactLink',
+        );
         final note = D4.getOptionalNamedArg<String?>(named, 'note');
-        return $tom_som_dart_runtime_12.NoArtifactLink(reason: reason, note: note);
+        return $tom_som_dart_runtime_12.NoArtifactLink(
+          reason: reason,
+          note: note,
+        );
       },
       'fromAnnotation': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NoArtifactLink');
-        final annotation = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecAnnotation>(positional, 0, 'annotation', 'NoArtifactLink');
-        return $tom_som_dart_runtime_12.NoArtifactLink.fromAnnotation(annotation);
+        final annotation = D4
+            .getRequiredArg<$tom_som_dart_runtime_12.SpecAnnotation>(
+              positional,
+              0,
+              'annotation',
+              'NoArtifactLink',
+            );
+        return $tom_som_dart_runtime_12.NoArtifactLink.fromAnnotation(
+          annotation,
+        );
       },
     },
     getters: {
-      'reason': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.NoArtifactLink>(target, 'NoArtifactLink').reason,
-      'note': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.NoArtifactLink>(target, 'NoArtifactLink').note,
+      'reason': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.NoArtifactLink>(
+            target,
+            'NoArtifactLink',
+          )
+          .reason,
+      'note': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.NoArtifactLink>(
+            target,
+            'NoArtifactLink',
+          )
+          .note,
     },
     constructorSignatures: {
       '': 'const NoArtifactLink({required String reason, String? note})',
-      'fromAnnotation': 'factory NoArtifactLink.fromAnnotation(SpecAnnotation annotation)',
+      'fromAnnotation':
+          'factory NoArtifactLink.fromAnnotation(SpecAnnotation annotation)',
     },
     getterSignatures: {
       'reason': 'String get reason',
@@ -3852,21 +7167,43 @@ BridgedClass _createStandardReferencesBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_12.StandardReferences,
     constructors: {
       '': (visitor, positional, named) {
-        final standards = named.containsKey('standards') && named['standards'] != null
+        final standards =
+            named.containsKey('standards') && named['standards'] != null
             ? D4.coerceList<String>(named['standards'], 'standards')
             : const <String>[];
-        final connotation = D4.getOptionalNamedArg<String?>(named, 'connotation');
-        return $tom_som_dart_runtime_12.StandardReferences(standards: standards, connotation: connotation);
+        final connotation = D4.getOptionalNamedArg<String?>(
+          named,
+          'connotation',
+        );
+        return $tom_som_dart_runtime_12.StandardReferences(
+          standards: standards,
+          connotation: connotation,
+        );
       },
     },
     getters: {
-      'standards': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.StandardReferences>(target, 'StandardReferences').standards,
-      'connotation': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.StandardReferences>(target, 'StandardReferences').connotation,
+      'standards': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.StandardReferences>(
+            target,
+            'StandardReferences',
+          )
+          .standards,
+      'connotation': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.StandardReferences>(
+            target,
+            'StandardReferences',
+          )
+          .connotation,
     },
     staticMethods: {
       'fromJson': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromJson');
-        final raw = D4.getRequiredArg<Object?>(positional, 0, 'raw', 'fromJson');
+        final raw = D4.getRequiredArg<Object?>(
+          positional,
+          0,
+          'raw',
+          'fromJson',
+        );
         return $tom_som_dart_runtime_12.StandardReferences.fromJson(raw);
       },
     },
@@ -3896,93 +7233,331 @@ BridgedClass _createSpecFieldBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'SpecField');
-        final kind = D4.getRequiredNamedArg<$tom_som_dart_runtime_12.SpecFieldKind>(named, 'kind', 'SpecField');
+        final kind = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_12.SpecFieldKind>(
+              named,
+              'kind',
+              'SpecField',
+            );
         final doc = D4.getOptionalNamedArg<String?>(named, 'doc');
         final help = D4.getOptionalNamedArg<String?>(named, 'help');
         final headline = D4.getOptionalNamedArg<String?>(named, 'headline');
         final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
-        final sectionIdPattern = D4.getOptionalNamedArg<String?>(named, 'sectionIdPattern');
-        final serializationOrder = D4.getOptionalNamedArg<int?>(named, 'serializationOrder');
-        final elementType = D4.getOptionalNamedArg<String?>(named, 'elementType');
-        final elementIsComplex = D4.getNamedArgWithDefault<bool>(named, 'elementIsComplex', false);
+        final sectionIdPattern = D4.getOptionalNamedArg<String?>(
+          named,
+          'sectionIdPattern',
+        );
+        final serializationOrder = D4.getOptionalNamedArg<int?>(
+          named,
+          'serializationOrder',
+        );
+        final elementType = D4.getOptionalNamedArg<String?>(
+          named,
+          'elementType',
+        );
+        final elementIsComplex = D4.getNamedArgWithDefault<bool>(
+          named,
+          'elementIsComplex',
+          false,
+        );
         final min = D4.getOptionalNamedArg<int?>(named, 'min');
-        final contentType = D4.getOptionalNamedArg<String?>(named, 'contentType');
-        final sectionType = D4.getOptionalNamedArg<String?>(named, 'sectionType');
+        final contentType = D4.getOptionalNamedArg<String?>(
+          named,
+          'contentType',
+        );
+        final sectionType = D4.getOptionalNamedArg<String?>(
+          named,
+          'sectionType',
+        );
         final enumType = D4.getOptionalNamedArg<String?>(named, 'enumType');
-        final enumValues = named.containsKey('enumValues') && named['enumValues'] != null
+        final enumValues =
+            named.containsKey('enumValues') && named['enumValues'] != null
             ? D4.coerceList<String>(named['enumValues'], 'enumValues')
             : const <String>[];
-        final enumValueDocs = named.containsKey('enumValueDocs') && named['enumValueDocs'] != null
-            ? D4.coerceMap<String, String>(named['enumValueDocs'], 'enumValueDocs')
+        final enumValueDocs =
+            named.containsKey('enumValueDocs') && named['enumValueDocs'] != null
+            ? D4.coerceMap<String, String>(
+                named['enumValueDocs'],
+                'enumValueDocs',
+              )
             : const <String, String>{};
         final type = D4.getOptionalNamedArg<String?>(named, 'type');
-        final formFields = named.containsKey('formFields') && named['formFields'] != null
-            ? D4.coerceList<$tom_som_dart_runtime_12.FormFieldSpec>(named['formFields'], 'formFields')
+        final formFields =
+            named.containsKey('formFields') && named['formFields'] != null
+            ? D4.coerceList<$tom_som_dart_runtime_12.FormFieldSpec>(
+                named['formFields'],
+                'formFields',
+              )
             : const <$tom_som_dart_runtime_12.FormFieldSpec>[];
-        final annotations = named.containsKey('annotations') && named['annotations'] != null
-            ? D4.coerceList<$tom_som_dart_runtime_12.SpecAnnotation>(named['annotations'], 'annotations')
+        final annotations =
+            named.containsKey('annotations') && named['annotations'] != null
+            ? D4.coerceList<$tom_som_dart_runtime_12.SpecAnnotation>(
+                named['annotations'],
+                'annotations',
+              )
             : const <$tom_som_dart_runtime_12.SpecAnnotation>[];
-        final standardReferences = D4.getOptionalNamedArg<$tom_som_dart_runtime_12.StandardReferences?>(named, 'standardReferences');
-        return $tom_som_dart_runtime_12.SpecField(name: name, kind: kind, doc: doc, help: help, headline: headline, sectionId: sectionId, sectionIdPattern: sectionIdPattern, serializationOrder: serializationOrder, elementType: elementType, elementIsComplex: elementIsComplex, min: min, contentType: contentType, sectionType: sectionType, enumType: enumType, enumValues: enumValues, enumValueDocs: enumValueDocs, type: type, formFields: formFields, annotations: annotations, standardReferences: standardReferences);
+        final standardReferences = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_12.StandardReferences?>(
+              named,
+              'standardReferences',
+            );
+        return $tom_som_dart_runtime_12.SpecField(
+          name: name,
+          kind: kind,
+          doc: doc,
+          help: help,
+          headline: headline,
+          sectionId: sectionId,
+          sectionIdPattern: sectionIdPattern,
+          serializationOrder: serializationOrder,
+          elementType: elementType,
+          elementIsComplex: elementIsComplex,
+          min: min,
+          contentType: contentType,
+          sectionType: sectionType,
+          enumType: enumType,
+          enumValues: enumValues,
+          enumValueDocs: enumValueDocs,
+          type: type,
+          formFields: formFields,
+          annotations: annotations,
+          standardReferences: standardReferences,
+        );
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecField');
         if (positional.isEmpty) {
-          throw ArgumentError('SpecField: Missing required argument "j" at position 0');
+          throw ArgumentError(
+            'SpecField: Missing required argument "j" at position 0',
+          );
         }
         final j = D4.coerceMap<String, dynamic>(positional[0], 'j');
         return $tom_som_dart_runtime_12.SpecField.fromJson(j);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').name,
-      'kind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').kind,
-      'doc': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').doc,
-      'help': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').help,
-      'headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').headline,
-      'sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').sectionId,
-      'sectionIdPattern': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').sectionIdPattern,
-      'serializationOrder': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').serializationOrder,
-      'elementType': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').elementType,
-      'elementIsComplex': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').elementIsComplex,
-      'min': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').min,
-      'contentType': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').contentType,
-      'sectionType': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').sectionType,
-      'enumType': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').enumType,
-      'enumValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').enumValues,
-      'enumValueDocs': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').enumValueDocs,
-      'type': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').type,
-      'formFields': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').formFields,
-      'annotations': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').annotations,
-      'standardReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').standardReferences,
-      'isExpandable': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').isExpandable,
-      'caseValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').caseValues,
-      'isCase': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').isCase,
-      'isUnused': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').isUnused,
-      'comment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').comment,
-      'reference': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').reference,
-      'hasReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').hasReferences,
-      'codeSpecKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').codeSpecKind,
-      'followUpKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').followUpKind,
-      'noArtifact': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField').noArtifact,
+      'name': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .name,
+      'kind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .kind,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .doc,
+      'help': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .help,
+      'headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .headline,
+      'sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .sectionId,
+      'sectionIdPattern': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .sectionIdPattern,
+      'serializationOrder': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .serializationOrder,
+      'elementType': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .elementType,
+      'elementIsComplex': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .elementIsComplex,
+      'min': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .min,
+      'contentType': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .contentType,
+      'sectionType': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .sectionType,
+      'enumType': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .enumType,
+      'enumValues': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .enumValues,
+      'enumValueDocs': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .enumValueDocs,
+      'type': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .type,
+      'formFields': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .formFields,
+      'annotations': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .annotations,
+      'standardReferences': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .standardReferences,
+      'isExpandable': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .isExpandable,
+      'caseValues': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .caseValues,
+      'isCase': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .isCase,
+      'isUnused': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .isUnused,
+      'comment': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .comment,
+      'reference': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .reference,
+      'hasReferences': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .hasReferences,
+      'codeSpecKind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .codeSpecKind,
+      'followUpKind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .followUpKind,
+      'noArtifact': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecField>(
+            target,
+            'SpecField',
+          )
+          .noArtifact,
     },
     methods: {
       'annotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(
+          target,
+          'SpecField',
+        );
         D4.requireMinArgs(positional, 1, 'annotation');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotation');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'annotation',
+        );
         return t.annotation(name);
       },
       'annotationsNamed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(
+          target,
+          'SpecField',
+        );
         D4.requireMinArgs(positional, 1, 'annotationsNamed');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotationsNamed');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'annotationsNamed',
+        );
         return t.annotationsNamed(name);
       },
       'hasAnnotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(target, 'SpecField');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecField>(
+          target,
+          'SpecField',
+        );
         D4.requireMinArgs(positional, 1, 'hasAnnotation');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'hasAnnotation');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'hasAnnotation',
+        );
         return t.hasAnnotation(name);
       },
     },
@@ -4041,26 +7616,89 @@ BridgedClass _createOneOfGroupBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_12.OneOfGroup,
     constructors: {
       '': (visitor, positional, named) {
-        final discriminator = D4.getRequiredNamedArg<String>(named, 'discriminator', 'OneOfGroup');
+        final discriminator = D4.getRequiredNamedArg<String>(
+          named,
+          'discriminator',
+          'OneOfGroup',
+        );
         if (!named.containsKey('caseFields') || named['caseFields'] == null) {
-          throw ArgumentError('OneOfGroup: Missing required named argument "caseFields"');
+          throw ArgumentError(
+            'OneOfGroup: Missing required named argument "caseFields"',
+          );
         }
-        final caseFields = D4.coerceList<$tom_som_dart_runtime_12.SpecField>(named['caseFields'], 'caseFields');
+        final caseFields = D4.coerceList<$tom_som_dart_runtime_12.SpecField>(
+          named['caseFields'],
+          'caseFields',
+        );
         final note = D4.getOptionalNamedArg<String?>(named, 'note');
-        final discriminatorField = D4.getOptionalNamedArg<$tom_som_dart_runtime_12.FormFieldSpec?>(named, 'discriminatorField');
-        return $tom_som_dart_runtime_12.OneOfGroup(discriminator: discriminator, caseFields: caseFields, note: note, discriminatorField: discriminatorField);
+        final discriminatorField = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_12.FormFieldSpec?>(
+              named,
+              'discriminatorField',
+            );
+        return $tom_som_dart_runtime_12.OneOfGroup(
+          discriminator: discriminator,
+          caseFields: caseFields,
+          note: note,
+          discriminatorField: discriminatorField,
+        );
       },
     },
     getters: {
-      'discriminator': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').discriminator,
-      'note': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').note,
-      'discriminatorField': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').discriminatorField,
-      'caseFields': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').caseFields,
-      'discriminatorValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').discriminatorValues,
-      'coveredValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').coveredValues,
-      'uncoveredValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').uncoveredValues,
-      'hasDiscriminatorValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').hasDiscriminatorValues,
-      'isComplete': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(target, 'OneOfGroup').isComplete,
+      'discriminator': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(
+            target,
+            'OneOfGroup',
+          )
+          .discriminator,
+      'note': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(
+            target,
+            'OneOfGroup',
+          )
+          .note,
+      'discriminatorField': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(
+            target,
+            'OneOfGroup',
+          )
+          .discriminatorField,
+      'caseFields': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(
+            target,
+            'OneOfGroup',
+          )
+          .caseFields,
+      'discriminatorValues': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(
+            target,
+            'OneOfGroup',
+          )
+          .discriminatorValues,
+      'coveredValues': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(
+            target,
+            'OneOfGroup',
+          )
+          .coveredValues,
+      'uncoveredValues': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(
+            target,
+            'OneOfGroup',
+          )
+          .uncoveredValues,
+      'hasDiscriminatorValues': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(
+            target,
+            'OneOfGroup',
+          )
+          .hasDiscriminatorValues,
+      'isComplete': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.OneOfGroup>(
+            target,
+            'OneOfGroup',
+          )
+          .isComplete,
     },
     constructorSignatures: {
       '': 'const OneOfGroup({required String discriminator, required List<SpecField> caseFields, String? note, FormFieldSpec? discriminatorField})',
@@ -4099,73 +7737,232 @@ BridgedClass _createSpecClassBridge() {
         final mapsTo = D4.getOptionalNamedArg<String?>(named, 'mapsTo');
         final detailedIn = D4.getOptionalNamedArg<String?>(named, 'detailedIn');
         final fields = named.containsKey('fields') && named['fields'] != null
-            ? D4.coerceList<$tom_som_dart_runtime_12.SpecField>(named['fields'], 'fields')
+            ? D4.coerceList<$tom_som_dart_runtime_12.SpecField>(
+                named['fields'],
+                'fields',
+              )
             : const <$tom_som_dart_runtime_12.SpecField>[];
-        final annotations = named.containsKey('annotations') && named['annotations'] != null
-            ? D4.coerceList<$tom_som_dart_runtime_12.SpecAnnotation>(named['annotations'], 'annotations')
+        final annotations =
+            named.containsKey('annotations') && named['annotations'] != null
+            ? D4.coerceList<$tom_som_dart_runtime_12.SpecAnnotation>(
+                named['annotations'],
+                'annotations',
+              )
             : const <$tom_som_dart_runtime_12.SpecAnnotation>[];
-        final standardReferences = D4.getOptionalNamedArg<$tom_som_dart_runtime_12.StandardReferences?>(named, 'standardReferences');
-        return $tom_som_dart_runtime_12.SpecClass(name: name, sectionId: sectionId, doc: doc, help: help, headline: headline, mapsTo: mapsTo, detailedIn: detailedIn, fields: fields, annotations: annotations, standardReferences: standardReferences);
+        final standardReferences = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_12.StandardReferences?>(
+              named,
+              'standardReferences',
+            );
+        return $tom_som_dart_runtime_12.SpecClass(
+          name: name,
+          sectionId: sectionId,
+          doc: doc,
+          help: help,
+          headline: headline,
+          mapsTo: mapsTo,
+          detailedIn: detailedIn,
+          fields: fields,
+          annotations: annotations,
+          standardReferences: standardReferences,
+        );
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecClass');
         if (positional.isEmpty) {
-          throw ArgumentError('SpecClass: Missing required argument "j" at position 0');
+          throw ArgumentError(
+            'SpecClass: Missing required argument "j" at position 0',
+          );
         }
         final j = D4.coerceMap<String, dynamic>(positional[0], 'j');
         return $tom_som_dart_runtime_12.SpecClass.fromJson(j);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').name,
-      'sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').sectionId,
-      'doc': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').doc,
-      'help': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').help,
-      'headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').headline,
-      'mapsTo': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').mapsTo,
-      'detailedIn': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').detailedIn,
-      'fields': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').fields,
-      'annotations': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').annotations,
-      'standardReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').standardReferences,
-      'oneOf': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').oneOf,
-      'isCodeSpecsProjection': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').isCodeSpecsProjection,
-      'isUnused': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').isUnused,
-      'comment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').comment,
-      'reference': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').reference,
-      'hasReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').hasReferences,
-      'codeSpecKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').codeSpecKind,
-      'followUpKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').followUpKind,
-      'noArtifact': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass').noArtifact,
+      'name': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .name,
+      'sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .sectionId,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .doc,
+      'help': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .help,
+      'headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .headline,
+      'mapsTo': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .mapsTo,
+      'detailedIn': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .detailedIn,
+      'fields': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .fields,
+      'annotations': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .annotations,
+      'standardReferences': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .standardReferences,
+      'oneOf': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .oneOf,
+      'isCodeSpecsProjection': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .isCodeSpecsProjection,
+      'isUnused': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .isUnused,
+      'comment': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .comment,
+      'reference': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .reference,
+      'hasReferences': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .hasReferences,
+      'codeSpecKind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .codeSpecKind,
+      'followUpKind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .followUpKind,
+      'noArtifact': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+            target,
+            'SpecClass',
+          )
+          .noArtifact,
     },
     methods: {
       'fieldNamed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+          target,
+          'SpecClass',
+        );
         D4.requireMinArgs(positional, 1, 'fieldNamed');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'fieldNamed');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'fieldNamed',
+        );
         return t.fieldNamed(name);
       },
       'formFieldNamed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+          target,
+          'SpecClass',
+        );
         D4.requireMinArgs(positional, 1, 'formFieldNamed');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'formFieldNamed');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'formFieldNamed',
+        );
         return t.formFieldNamed(name);
       },
       'annotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+          target,
+          'SpecClass',
+        );
         D4.requireMinArgs(positional, 1, 'annotation');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotation');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'annotation',
+        );
         return t.annotation(name);
       },
       'annotationsNamed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+          target,
+          'SpecClass',
+        );
         D4.requireMinArgs(positional, 1, 'annotationsNamed');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotationsNamed');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'annotationsNamed',
+        );
         return t.annotationsNamed(name);
       },
       'hasAnnotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(target, 'SpecClass');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecClass>(
+          target,
+          'SpecClass',
+        );
         D4.requireMinArgs(positional, 1, 'hasAnnotation');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'hasAnnotation');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'hasAnnotation',
+        );
         return t.hasAnnotation(name);
       },
     },
@@ -4216,27 +8013,52 @@ BridgedClass _createSpecRootBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final type = D4.getRequiredNamedArg<String>(named, 'type', 'SpecRoot');
-        final title = D4.getRequiredNamedArg<String>(named, 'title', 'SpecRoot');
+        final title = D4.getRequiredNamedArg<String>(
+          named,
+          'title',
+          'SpecRoot',
+        );
         final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
-        final description = D4.getOptionalNamedArg<String?>(named, 'description');
+        final description = D4.getOptionalNamedArg<String?>(
+          named,
+          'description',
+        );
         final doc = D4.getOptionalNamedArg<String?>(named, 'doc');
-        return $tom_som_dart_runtime_12.SpecRoot(type: type, title: title, sectionId: sectionId, description: description, doc: doc);
+        return $tom_som_dart_runtime_12.SpecRoot(
+          type: type,
+          title: title,
+          sectionId: sectionId,
+          description: description,
+          doc: doc,
+        );
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecRoot');
         if (positional.isEmpty) {
-          throw ArgumentError('SpecRoot: Missing required argument "j" at position 0');
+          throw ArgumentError(
+            'SpecRoot: Missing required argument "j" at position 0',
+          );
         }
         final j = D4.coerceMap<String, dynamic>(positional[0], 'j');
         return $tom_som_dart_runtime_12.SpecRoot.fromJson(j);
       },
     },
     getters: {
-      'type': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecRoot>(target, 'SpecRoot').type,
-      'title': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecRoot>(target, 'SpecRoot').title,
-      'sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecRoot>(target, 'SpecRoot').sectionId,
-      'description': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecRoot>(target, 'SpecRoot').description,
-      'doc': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecRoot>(target, 'SpecRoot').doc,
+      'type': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecRoot>(target, 'SpecRoot')
+          .type,
+      'title': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecRoot>(target, 'SpecRoot')
+          .title,
+      'sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecRoot>(target, 'SpecRoot')
+          .sectionId,
+      'description': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecRoot>(target, 'SpecRoot')
+          .description,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecRoot>(target, 'SpecRoot')
+          .doc,
     },
     constructorSignatures: {
       '': 'SpecRoot({required String type, required String title, String? sectionId, String? description, String? doc})',
@@ -4263,28 +8085,119 @@ BridgedClass _createSpecModelStampCheckBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_12.SpecModelStampCheck,
     constructors: {
       '': (visitor, positional, named) {
-        final age = D4.getRequiredNamedArg<Duration?>(named, 'age', 'SpecModelStampCheck');
-        final maxAge = D4.getRequiredNamedArg<Duration>(named, 'maxAge', 'SpecModelStampCheck');
-        final declaredClassCount = D4.getRequiredNamedArg<int?>(named, 'declaredClassCount', 'SpecModelStampCheck');
-        final actualClassCount = D4.getRequiredNamedArg<int>(named, 'actualClassCount', 'SpecModelStampCheck');
-        final declaredRootCount = D4.getRequiredNamedArg<int?>(named, 'declaredRootCount', 'SpecModelStampCheck');
-        final actualRootCount = D4.getRequiredNamedArg<int>(named, 'actualRootCount', 'SpecModelStampCheck');
-        return $tom_som_dart_runtime_12.SpecModelStampCheck(age: age, maxAge: maxAge, declaredClassCount: declaredClassCount, actualClassCount: actualClassCount, declaredRootCount: declaredRootCount, actualRootCount: actualRootCount);
+        final age = D4.getRequiredNamedArg<Duration?>(
+          named,
+          'age',
+          'SpecModelStampCheck',
+        );
+        final maxAge = D4.getRequiredNamedArg<Duration>(
+          named,
+          'maxAge',
+          'SpecModelStampCheck',
+        );
+        final declaredClassCount = D4.getRequiredNamedArg<int?>(
+          named,
+          'declaredClassCount',
+          'SpecModelStampCheck',
+        );
+        final actualClassCount = D4.getRequiredNamedArg<int>(
+          named,
+          'actualClassCount',
+          'SpecModelStampCheck',
+        );
+        final declaredRootCount = D4.getRequiredNamedArg<int?>(
+          named,
+          'declaredRootCount',
+          'SpecModelStampCheck',
+        );
+        final actualRootCount = D4.getRequiredNamedArg<int>(
+          named,
+          'actualRootCount',
+          'SpecModelStampCheck',
+        );
+        return $tom_som_dart_runtime_12.SpecModelStampCheck(
+          age: age,
+          maxAge: maxAge,
+          declaredClassCount: declaredClassCount,
+          actualClassCount: actualClassCount,
+          declaredRootCount: declaredRootCount,
+          actualRootCount: actualRootCount,
+        );
       },
     },
     getters: {
-      'age': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').age,
-      'maxAge': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').maxAge,
-      'declaredClassCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').declaredClassCount,
-      'actualClassCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').actualClassCount,
-      'declaredRootCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').declaredRootCount,
-      'actualRootCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').actualRootCount,
-      'isAged': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').isAged,
-      'classCountDisagrees': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').classCountDisagrees,
-      'rootCountDisagrees': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').rootCountDisagrees,
-      'countsDisagree': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').countsDisagree,
-      'isStale': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').isStale,
-      'warnings': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(target, 'SpecModelStampCheck').warnings,
+      'age': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .age,
+      'maxAge': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .maxAge,
+      'declaredClassCount': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .declaredClassCount,
+      'actualClassCount': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .actualClassCount,
+      'declaredRootCount': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .declaredRootCount,
+      'actualRootCount': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .actualRootCount,
+      'isAged': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .isAged,
+      'classCountDisagrees': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .classCountDisagrees,
+      'rootCountDisagrees': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .rootCountDisagrees,
+      'countsDisagree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .countsDisagree,
+      'isStale': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .isStale,
+      'warnings': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModelStampCheck>(
+            target,
+            'SpecModelStampCheck',
+          )
+          .warnings,
     },
     constructorSignatures: {
       '': 'const SpecModelStampCheck({required Duration? age, required Duration maxAge, required int? declaredClassCount, required int actualClassCount, required int? declaredRootCount, required int actualRootCount})',
@@ -4318,72 +8231,194 @@ BridgedClass _createSpecModelBridge() {
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('roots') || named['roots'] == null) {
-          throw ArgumentError('SpecModel: Missing required named argument "roots"');
+          throw ArgumentError(
+            'SpecModel: Missing required named argument "roots"',
+          );
         }
-        final roots = D4.coerceList<$tom_som_dart_runtime_12.SpecRoot>(named['roots'], 'roots');
+        final roots = D4.coerceList<$tom_som_dart_runtime_12.SpecRoot>(
+          named['roots'],
+          'roots',
+        );
         if (!named.containsKey('classes') || named['classes'] == null) {
-          throw ArgumentError('SpecModel: Missing required named argument "classes"');
+          throw ArgumentError(
+            'SpecModel: Missing required named argument "classes"',
+          );
         }
-        final classes = D4.coerceMap<String, $tom_som_dart_runtime_12.SpecClass>(named['classes'], 'classes');
-        final modelVersion = D4.getNamedArgWithDefault<int>(named, 'modelVersion', 0);
-        final modelVersionLabel = D4.getOptionalNamedArg<String?>(named, 'modelVersionLabel');
-        final generatedAt = D4.getOptionalNamedArg<DateTime?>(named, 'generatedAt');
-        final metaSchemaVersion = D4.getOptionalNamedArg<int?>(named, 'metaSchemaVersion');
+        final classes = D4
+            .coerceMap<String, $tom_som_dart_runtime_12.SpecClass>(
+              named['classes'],
+              'classes',
+            );
+        final modelVersion = D4.getNamedArgWithDefault<int>(
+          named,
+          'modelVersion',
+          0,
+        );
+        final modelVersionLabel = D4.getOptionalNamedArg<String?>(
+          named,
+          'modelVersionLabel',
+        );
+        final generatedAt = D4.getOptionalNamedArg<DateTime?>(
+          named,
+          'generatedAt',
+        );
+        final metaSchemaVersion = D4.getOptionalNamedArg<int?>(
+          named,
+          'metaSchemaVersion',
+        );
         final classCount = D4.getOptionalNamedArg<int?>(named, 'classCount');
         final rootCount = D4.getOptionalNamedArg<int?>(named, 'rootCount');
-        final containerRoot = D4.getOptionalNamedArg<String?>(named, 'containerRoot');
-        return $tom_som_dart_runtime_12.SpecModel(roots: roots, classes: classes, modelVersion: modelVersion, modelVersionLabel: modelVersionLabel, generatedAt: generatedAt, metaSchemaVersion: metaSchemaVersion, classCount: classCount, rootCount: rootCount, containerRoot: containerRoot);
+        final containerRoot = D4.getOptionalNamedArg<String?>(
+          named,
+          'containerRoot',
+        );
+        return $tom_som_dart_runtime_12.SpecModel(
+          roots: roots,
+          classes: classes,
+          modelVersion: modelVersion,
+          modelVersionLabel: modelVersionLabel,
+          generatedAt: generatedAt,
+          metaSchemaVersion: metaSchemaVersion,
+          classCount: classCount,
+          rootCount: rootCount,
+          containerRoot: containerRoot,
+        );
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecModel');
         if (positional.isEmpty) {
-          throw ArgumentError('SpecModel: Missing required argument "j" at position 0');
+          throw ArgumentError(
+            'SpecModel: Missing required argument "j" at position 0',
+          );
         }
         final j = D4.coerceMap<String, dynamic>(positional[0], 'j');
         return $tom_som_dart_runtime_12.SpecModel.fromJson(j);
       },
     },
     getters: {
-      'roots': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel').roots,
-      'classes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel').classes,
-      'modelVersion': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel').modelVersion,
-      'modelVersionLabel': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel').modelVersionLabel,
-      'generatedAt': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel').generatedAt,
-      'metaSchemaVersion': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel').metaSchemaVersion,
-      'classCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel').classCount,
-      'rootCount': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel').rootCount,
-      'containerRoot': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel').containerRoot,
-      'modelVersionString': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel').modelVersionString,
+      'roots': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+            target,
+            'SpecModel',
+          )
+          .roots,
+      'classes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+            target,
+            'SpecModel',
+          )
+          .classes,
+      'modelVersion': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+            target,
+            'SpecModel',
+          )
+          .modelVersion,
+      'modelVersionLabel': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+            target,
+            'SpecModel',
+          )
+          .modelVersionLabel,
+      'generatedAt': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+            target,
+            'SpecModel',
+          )
+          .generatedAt,
+      'metaSchemaVersion': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+            target,
+            'SpecModel',
+          )
+          .metaSchemaVersion,
+      'classCount': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+            target,
+            'SpecModel',
+          )
+          .classCount,
+      'rootCount': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+            target,
+            'SpecModel',
+          )
+          .rootCount,
+      'containerRoot': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+            target,
+            'SpecModel',
+          )
+          .containerRoot,
+      'modelVersionString': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+            target,
+            'SpecModel',
+          )
+          .modelVersionString,
     },
     methods: {
       'checkStamp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+          target,
+          'SpecModel',
+        );
         final now = D4.getOptionalNamedArg<DateTime?>(named, 'now');
         if (!named.containsKey('maxAge')) {
           return t.checkStamp(now: now);
         }
         if (named.containsKey('maxAge')) {
-          final maxAge = D4.getRequiredNamedArg<Duration>(named, 'maxAge', 'checkStamp');
+          final maxAge = D4.getRequiredNamedArg<Duration>(
+            named,
+            'maxAge',
+            'checkStamp',
+          );
           return t.checkStamp(now: now, maxAge: maxAge);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw StateError(
+          'Unreachable: all named parameter combinations should be covered',
+        );
       },
       'classNamed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+          target,
+          'SpecModel',
+        );
         D4.requireMinArgs(positional, 1, 'classNamed');
-        final name = D4.getRequiredArg<String?>(positional, 0, 'name', 'classNamed');
+        final name = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'name',
+          'classNamed',
+        );
         return t.classNamed(name);
       },
       'isGenerationInput': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+          target,
+          'SpecModel',
+        );
         D4.requireMinArgs(positional, 1, 'isGenerationInput');
-        final root = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecRoot>(positional, 0, 'root', 'isGenerationInput');
+        final root = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecRoot>(
+          positional,
+          0,
+          'root',
+          'isGenerationInput',
+        );
         return t.isGenerationInput(root);
       },
       'rootByType': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(target, 'SpecModel');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.SpecModel>(
+          target,
+          'SpecModel',
+        );
         D4.requireMinArgs(positional, 1, 'rootByType');
-        final type = D4.getRequiredArg<String>(positional, 0, 'type', 'rootByType');
+        final type = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'type',
+          'rootByType',
+        );
         return t.rootByType(type);
       },
     },
@@ -4392,7 +8427,8 @@ BridgedClass _createSpecModelBridge() {
       'fromJson': 'factory SpecModel.fromJson(Map<String, dynamic> j)',
     },
     methodSignatures: {
-      'checkStamp': 'SpecModelStampCheck checkStamp({Duration maxAge = defaultMaxSnapshotAge, DateTime? now})',
+      'checkStamp':
+          'SpecModelStampCheck checkStamp({Duration maxAge = defaultMaxSnapshotAge, DateTime? now})',
       'classNamed': 'SpecClass? classNamed(String? name)',
       'isGenerationInput': 'bool isGenerationInput(SpecRoot root)',
       'rootByType': 'SpecRoot rootByType(String type)',
@@ -4423,36 +8459,104 @@ BridgedClass _createAnnotatedSpecNodeBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_12.AnnotatedSpecNode,
     canBeUsedAsMixin: true,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'annotations': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').annotations,
-      'standardReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').standardReferences,
-      'isUnused': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').isUnused,
-      'comment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').comment,
-      'reference': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').reference,
-      'hasReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').hasReferences,
-      'codeSpecKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').codeSpecKind,
-      'followUpKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').followUpKind,
-      'noArtifact': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').noArtifact,
+      'annotations': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+            target,
+            'AnnotatedSpecNode',
+          )
+          .annotations,
+      'standardReferences': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+            target,
+            'AnnotatedSpecNode',
+          )
+          .standardReferences,
+      'isUnused': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+            target,
+            'AnnotatedSpecNode',
+          )
+          .isUnused,
+      'comment': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+            target,
+            'AnnotatedSpecNode',
+          )
+          .comment,
+      'reference': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+            target,
+            'AnnotatedSpecNode',
+          )
+          .reference,
+      'hasReferences': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+            target,
+            'AnnotatedSpecNode',
+          )
+          .hasReferences,
+      'codeSpecKind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+            target,
+            'AnnotatedSpecNode',
+          )
+          .codeSpecKind,
+      'followUpKind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+            target,
+            'AnnotatedSpecNode',
+          )
+          .followUpKind,
+      'noArtifact': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+            target,
+            'AnnotatedSpecNode',
+          )
+          .noArtifact,
     },
     methods: {
       'annotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+          target,
+          'AnnotatedSpecNode',
+        );
         D4.requireMinArgs(positional, 1, 'annotation');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotation');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'annotation',
+        );
         return t.annotation(name);
       },
       'annotationsNamed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+          target,
+          'AnnotatedSpecNode',
+        );
         D4.requireMinArgs(positional, 1, 'annotationsNamed');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'annotationsNamed');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'annotationsNamed',
+        );
         return t.annotationsNamed(name);
       },
       'hasAnnotation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(target, 'AnnotatedSpecNode');
+        final t = D4.validateTarget<$tom_som_dart_runtime_12.AnnotatedSpecNode>(
+          target,
+          'AnnotatedSpecNode',
+        );
         D4.requireMinArgs(positional, 1, 'hasAnnotation');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'hasAnnotation');
+        final name = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'name',
+          'hasAnnotation',
+        );
         return t.hasAnnotation(name);
       },
     },
@@ -4487,31 +8591,74 @@ BridgedClass _createSpecCreationErrorBridge() {
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        final parentPath = D4.getRequiredNamedArg<String>(named, 'parentPath', 'SpecCreationError');
-        final childSegment = D4.getRequiredNamedArg<String>(named, 'childSegment', 'SpecCreationError');
-        final code = D4.getRequiredNamedArg<$tom_som_dart_runtime_13.SpecCreationCode>(named, 'code', 'SpecCreationError');
-        final message = D4.getRequiredNamedArg<String>(named, 'message', 'SpecCreationError');
-        return $tom_som_dart_runtime_13.SpecCreationError(parentPath: parentPath, childSegment: childSegment, code: code, message: message);
+        final parentPath = D4.getRequiredNamedArg<String>(
+          named,
+          'parentPath',
+          'SpecCreationError',
+        );
+        final childSegment = D4.getRequiredNamedArg<String>(
+          named,
+          'childSegment',
+          'SpecCreationError',
+        );
+        final code = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_13.SpecCreationCode>(
+              named,
+              'code',
+              'SpecCreationError',
+            );
+        final message = D4.getRequiredNamedArg<String>(
+          named,
+          'message',
+          'SpecCreationError',
+        );
+        return $tom_som_dart_runtime_13.SpecCreationError(
+          parentPath: parentPath,
+          childSegment: childSegment,
+          code: code,
+          message: message,
+        );
       },
     },
     getters: {
-      'parentPath': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_13.SpecCreationError>(target, 'SpecCreationError').parentPath,
-      'childSegment': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_13.SpecCreationError>(target, 'SpecCreationError').childSegment,
-      'code': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_13.SpecCreationError>(target, 'SpecCreationError').code,
-      'message': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_13.SpecCreationError>(target, 'SpecCreationError').message,
+      'parentPath': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_13.SpecCreationError>(
+            target,
+            'SpecCreationError',
+          )
+          .parentPath,
+      'childSegment': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_13.SpecCreationError>(
+            target,
+            'SpecCreationError',
+          )
+          .childSegment,
+      'code': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_13.SpecCreationError>(
+            target,
+            'SpecCreationError',
+          )
+          .code,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_13.SpecCreationError>(
+            target,
+            'SpecCreationError',
+          )
+          .message,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_13.SpecCreationError>(target, 'SpecCreationError');
+        final t = D4.validateTarget<$tom_som_dart_runtime_13.SpecCreationError>(
+          target,
+          'SpecCreationError',
+        );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const SpecCreationError({required String parentPath, required String childSegment, required SpecCreationCode code, required String message})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'parentPath': 'String get parentPath',
       'childSegment': 'String get childSegment',
@@ -4533,21 +8680,55 @@ BridgedClass _createSpecNodeCreatorBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SpecNodeCreator');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'SpecNodeCreator');
-        final document = D4.getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(positional, 1, 'document', 'SpecNodeCreator');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          0,
+          'model',
+          'SpecNodeCreator',
+        );
+        final document = D4
+            .getRequiredArg<$tom_som_dart_runtime_5.SpecDocument>(
+              positional,
+              1,
+              'document',
+              'SpecNodeCreator',
+            );
         return $tom_som_dart_runtime_13.SpecNodeCreator(model, document);
       },
     },
     getters: {
-      'model': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_13.SpecNodeCreator>(target, 'SpecNodeCreator').model,
-      'document': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_13.SpecNodeCreator>(target, 'SpecNodeCreator').document,
+      'model': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_13.SpecNodeCreator>(
+            target,
+            'SpecNodeCreator',
+          )
+          .model,
+      'document': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_13.SpecNodeCreator>(
+            target,
+            'SpecNodeCreator',
+          )
+          .document,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_13.SpecNodeCreator>(target, 'SpecNodeCreator');
+        final t = D4.validateTarget<$tom_som_dart_runtime_13.SpecNodeCreator>(
+          target,
+          'SpecNodeCreator',
+        );
         D4.requireMinArgs(positional, 2, 'add');
-        final parentPath = D4.getRequiredArg<String>(positional, 0, 'parentPath', 'add');
-        final childSegment = D4.getRequiredArg<String>(positional, 1, 'childSegment', 'add');
+        final parentPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'parentPath',
+          'add',
+        );
+        final childSegment = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'childSegment',
+          'add',
+        );
         final itemId = D4.getOptionalNamedArg<String?>(named, 'itemId');
         final date = D4.getOptionalNamedArg<DateTime?>(named, 'date');
         return t.add(parentPath, childSegment, itemId: itemId, date: date);
@@ -4557,7 +8738,8 @@ BridgedClass _createSpecNodeCreatorBridge() {
       '': 'const SpecNodeCreator(SpecModel model, SpecDocument document)',
     },
     methodSignatures: {
-      'add': 'String add(String parentPath, String childSegment, {String? itemId, DateTime? date})',
+      'add':
+          'String add(String parentPath, String childSegment, {String? itemId, DateTime? date})',
     },
     getterSignatures: {
       'model': 'SpecModel get model',
@@ -4577,43 +8759,118 @@ BridgedClass _createSpecNodeProjectionBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_15.SpecNodeProjection,
     constructors: {
       '': (visitor, positional, named) {
-        final path = D4.getRequiredNamedArg<String>(named, 'path', 'SpecNodeProjection');
-        final kind = D4.getRequiredNamedArg<$tom_som_dart_runtime_16.SpecNodeKind>(named, 'kind', 'SpecNodeProjection');
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'SpecNodeProjection',
+        );
+        final kind = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_16.SpecNodeKind>(
+              named,
+              'kind',
+              'SpecNodeProjection',
+            );
         final classId = D4.getOptionalNamedArg<String?>(named, 'classId');
         final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
         final mapsTo = D4.getOptionalNamedArg<String?>(named, 'mapsTo');
         final detailedIn = D4.getOptionalNamedArg<String?>(named, 'detailedIn');
         final headline = D4.getOptionalNamedArg<String?>(named, 'headline');
-        final searchableStrings = named.containsKey('searchableStrings') && named['searchableStrings'] != null
-            ? D4.coerceList<String>(named['searchableStrings'], 'searchableStrings')
+        final searchableStrings =
+            named.containsKey('searchableStrings') &&
+                named['searchableStrings'] != null
+            ? D4.coerceList<String>(
+                named['searchableStrings'],
+                'searchableStrings',
+              )
             : const <String>[];
-        final hasValue = D4.getNamedArgWithDefault<bool>(named, 'hasValue', false);
-        return $tom_som_dart_runtime_15.SpecNodeProjection(path: path, kind: kind, classId: classId, sectionId: sectionId, mapsTo: mapsTo, detailedIn: detailedIn, headline: headline, searchableStrings: searchableStrings, hasValue: hasValue);
+        final hasValue = D4.getNamedArgWithDefault<bool>(
+          named,
+          'hasValue',
+          false,
+        );
+        return $tom_som_dart_runtime_15.SpecNodeProjection(
+          path: path,
+          kind: kind,
+          classId: classId,
+          sectionId: sectionId,
+          mapsTo: mapsTo,
+          detailedIn: detailedIn,
+          headline: headline,
+          searchableStrings: searchableStrings,
+          hasValue: hasValue,
+        );
       },
     },
     getters: {
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(target, 'SpecNodeProjection').path,
-      'kind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(target, 'SpecNodeProjection').kind,
-      'classId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(target, 'SpecNodeProjection').classId,
-      'sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(target, 'SpecNodeProjection').sectionId,
-      'mapsTo': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(target, 'SpecNodeProjection').mapsTo,
-      'detailedIn': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(target, 'SpecNodeProjection').detailedIn,
-      'headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(target, 'SpecNodeProjection').headline,
-      'searchableStrings': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(target, 'SpecNodeProjection').searchableStrings,
-      'hasValue': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(target, 'SpecNodeProjection').hasValue,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(
+            target,
+            'SpecNodeProjection',
+          )
+          .path,
+      'kind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(
+            target,
+            'SpecNodeProjection',
+          )
+          .kind,
+      'classId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(
+            target,
+            'SpecNodeProjection',
+          )
+          .classId,
+      'sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(
+            target,
+            'SpecNodeProjection',
+          )
+          .sectionId,
+      'mapsTo': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(
+            target,
+            'SpecNodeProjection',
+          )
+          .mapsTo,
+      'detailedIn': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(
+            target,
+            'SpecNodeProjection',
+          )
+          .detailedIn,
+      'headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(
+            target,
+            'SpecNodeProjection',
+          )
+          .headline,
+      'searchableStrings': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(
+            target,
+            'SpecNodeProjection',
+          )
+          .searchableStrings,
+      'hasValue': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(
+            target,
+            'SpecNodeProjection',
+          )
+          .hasValue,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(target, 'SpecNodeProjection');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_15.SpecNodeProjection>(
+              target,
+              'SpecNodeProjection',
+            );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const SpecNodeProjection({required String path, required SpecNodeKind kind, String? classId, String? sectionId, String? mapsTo, String? detailedIn, String? headline, List<String> searchableStrings = const [], bool hasValue = false})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'path': 'String get path',
       'kind': 'SpecNodeKind get kind',
@@ -4639,37 +8896,88 @@ BridgedClass _createSpecQueryMatchBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_15.SpecQueryMatch,
     constructors: {
       '': (visitor, positional, named) {
-        final path = D4.getRequiredNamedArg<String>(named, 'path', 'SpecQueryMatch');
-        final kind = D4.getRequiredNamedArg<$tom_som_dart_runtime_16.SpecNodeKind>(named, 'kind', 'SpecQueryMatch');
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'SpecQueryMatch',
+        );
+        final kind = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_16.SpecNodeKind>(
+              named,
+              'kind',
+              'SpecQueryMatch',
+            );
         final classId = D4.getOptionalNamedArg<String?>(named, 'classId');
         final headline = D4.getOptionalNamedArg<String?>(named, 'headline');
         final snippet = D4.getOptionalNamedArg<String?>(named, 'snippet');
-        final matchSpans = named.containsKey('matchSpans') && named['matchSpans'] != null
-            ? D4.coerceList<$tom_som_dart_runtime_19.SpecMatchSpan>(named['matchSpans'], 'matchSpans')
+        final matchSpans =
+            named.containsKey('matchSpans') && named['matchSpans'] != null
+            ? D4.coerceList<$tom_som_dart_runtime_19.SpecMatchSpan>(
+                named['matchSpans'],
+                'matchSpans',
+              )
             : const <$tom_som_dart_runtime_19.SpecMatchSpan>[];
-        return $tom_som_dart_runtime_15.SpecQueryMatch(path: path, kind: kind, classId: classId, headline: headline, snippet: snippet, matchSpans: matchSpans);
+        return $tom_som_dart_runtime_15.SpecQueryMatch(
+          path: path,
+          kind: kind,
+          classId: classId,
+          headline: headline,
+          snippet: snippet,
+          matchSpans: matchSpans,
+        );
       },
     },
     getters: {
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(target, 'SpecQueryMatch').path,
-      'kind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(target, 'SpecQueryMatch').kind,
-      'classId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(target, 'SpecQueryMatch').classId,
-      'headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(target, 'SpecQueryMatch').headline,
-      'snippet': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(target, 'SpecQueryMatch').snippet,
-      'matchSpans': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(target, 'SpecQueryMatch').matchSpans,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(
+            target,
+            'SpecQueryMatch',
+          )
+          .path,
+      'kind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(
+            target,
+            'SpecQueryMatch',
+          )
+          .kind,
+      'classId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(
+            target,
+            'SpecQueryMatch',
+          )
+          .classId,
+      'headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(
+            target,
+            'SpecQueryMatch',
+          )
+          .headline,
+      'snippet': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(
+            target,
+            'SpecQueryMatch',
+          )
+          .snippet,
+      'matchSpans': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(
+            target,
+            'SpecQueryMatch',
+          )
+          .matchSpans,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(target, 'SpecQueryMatch');
+        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryMatch>(
+          target,
+          'SpecQueryMatch',
+        );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const SpecQueryMatch({required String path, required SpecNodeKind kind, String? classId, String? headline, String? snippet, List<SpecMatchSpan> matchSpans = const []})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'path': 'String get path',
       'kind': 'SpecNodeKind get kind',
@@ -4694,30 +9002,114 @@ BridgedClass _createSpecQueryBridge() {
       '': (visitor, positional, named) {
         final text = D4.getOptionalNamedArg<String?>(named, 'text');
         final regex = D4.getNamedArgWithDefault<bool>(named, 'regex', false);
-        final caseInsensitive = D4.getNamedArgWithDefault<bool>(named, 'caseInsensitive', false);
-        final kinds = D4.coerceSetOrNull<$tom_som_dart_runtime_16.SpecNodeKind>(named['kinds'], 'kinds');
+        final caseInsensitive = D4.getNamedArgWithDefault<bool>(
+          named,
+          'caseInsensitive',
+          false,
+        );
+        final kinds = D4.coerceSetOrNull<$tom_som_dart_runtime_16.SpecNodeKind>(
+          named['kinds'],
+          'kinds',
+        );
         final className = D4.getOptionalNamedArg<String?>(named, 'className');
-        final sectionIdExact = D4.getOptionalNamedArg<String?>(named, 'sectionIdExact');
-        final sectionIdPrefix = D4.getOptionalNamedArg<String?>(named, 'sectionIdPrefix');
+        final sectionIdExact = D4.getOptionalNamedArg<String?>(
+          named,
+          'sectionIdExact',
+        );
+        final sectionIdPrefix = D4.getOptionalNamedArg<String?>(
+          named,
+          'sectionIdPrefix',
+        );
         final pathGlob = D4.getOptionalNamedArg<String?>(named, 'pathGlob');
         final mapsTo = D4.getOptionalNamedArg<String?>(named, 'mapsTo');
         final detailedIn = D4.getOptionalNamedArg<String?>(named, 'detailedIn');
-        final state = D4.getOptionalNamedArg<$tom_som_dart_runtime_15.SpecStateFilter?>(named, 'state');
-        return $tom_som_dart_runtime_15.SpecQuery(text: text, regex: regex, caseInsensitive: caseInsensitive, kinds: kinds, className: className, sectionIdExact: sectionIdExact, sectionIdPrefix: sectionIdPrefix, pathGlob: pathGlob, mapsTo: mapsTo, detailedIn: detailedIn, state: state);
+        final state = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_15.SpecStateFilter?>(
+              named,
+              'state',
+            );
+        return $tom_som_dart_runtime_15.SpecQuery(
+          text: text,
+          regex: regex,
+          caseInsensitive: caseInsensitive,
+          kinds: kinds,
+          className: className,
+          sectionIdExact: sectionIdExact,
+          sectionIdPrefix: sectionIdPrefix,
+          pathGlob: pathGlob,
+          mapsTo: mapsTo,
+          detailedIn: detailedIn,
+          state: state,
+        );
       },
     },
     getters: {
-      'text': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').text,
-      'regex': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').regex,
-      'caseInsensitive': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').caseInsensitive,
-      'kinds': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').kinds,
-      'className': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').className,
-      'sectionIdExact': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').sectionIdExact,
-      'sectionIdPrefix': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').sectionIdPrefix,
-      'pathGlob': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').pathGlob,
-      'mapsTo': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').mapsTo,
-      'detailedIn': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').detailedIn,
-      'state': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQuery>(target, 'SpecQuery').state,
+      'text': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .text,
+      'regex': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .regex,
+      'caseInsensitive': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .caseInsensitive,
+      'kinds': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .kinds,
+      'className': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .className,
+      'sectionIdExact': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .sectionIdExact,
+      'sectionIdPrefix': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .sectionIdPrefix,
+      'pathGlob': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .pathGlob,
+      'mapsTo': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .mapsTo,
+      'detailedIn': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .detailedIn,
+      'state': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQuery>(
+            target,
+            'SpecQuery',
+          )
+          .state,
     },
     constructorSignatures: {
       '': 'const SpecQuery({String? text, bool regex = false, bool caseInsensitive = false, Set<SpecNodeKind>? kinds, String? className, String? sectionIdExact, String? sectionIdPrefix, String? pathGlob, String? mapsTo, String? detailedIn, SpecStateFilter? state})',
@@ -4749,30 +9141,72 @@ BridgedClass _createSpecQueryEngineBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_15.SpecQueryEngine,
     constructors: {
       '': (visitor, positional, named) {
-        final model = D4.getRequiredNamedArg<$tom_som_dart_runtime_12.SpecModel>(named, 'model', 'SpecQueryEngine');
-        final document = D4.getRequiredNamedArg<$tom_som_dart_runtime_5.SpecDocument>(named, 'document', 'SpecQueryEngine');
-        return $tom_som_dart_runtime_15.SpecQueryEngine(model: model, document: document);
+        final model = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_12.SpecModel>(
+              named,
+              'model',
+              'SpecQueryEngine',
+            );
+        final document = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_5.SpecDocument>(
+              named,
+              'document',
+              'SpecQueryEngine',
+            );
+        return $tom_som_dart_runtime_15.SpecQueryEngine(
+          model: model,
+          document: document,
+        );
       },
     },
     getters: {
-      'model': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryEngine>(target, 'SpecQueryEngine').model,
-      'document': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryEngine>(target, 'SpecQueryEngine').document,
+      'model': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQueryEngine>(
+            target,
+            'SpecQueryEngine',
+          )
+          .model,
+      'document': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQueryEngine>(
+            target,
+            'SpecQueryEngine',
+          )
+          .document,
     },
     methods: {
       'query': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryEngine>(target, 'SpecQueryEngine');
+        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryEngine>(
+          target,
+          'SpecQueryEngine',
+        );
         D4.requireMinArgs(positional, 1, 'query');
-        final query = D4.getRequiredArg<$tom_som_dart_runtime_15.SpecQuery>(positional, 0, 'query', 'query');
+        final query = D4.getRequiredArg<$tom_som_dart_runtime_15.SpecQuery>(
+          positional,
+          0,
+          'query',
+          'query',
+        );
         return t.query(query);
       },
       'projectNodes': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryEngine>(target, 'SpecQueryEngine');
+        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryEngine>(
+          target,
+          'SpecQueryEngine',
+        );
         return t.projectNodes();
       },
       'projectNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryEngine>(target, 'SpecQueryEngine');
+        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryEngine>(
+          target,
+          'SpecQueryEngine',
+        );
         D4.requireMinArgs(positional, 1, 'projectNode');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'projectNode');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'projectNode',
+        );
         return t.projectNode(path);
       },
     },
@@ -4800,24 +9234,37 @@ BridgedClass _createSpecQueryCursorBridge() {
     nativeType: $tom_som_dart_runtime_15.SpecQueryCursor,
     name: 'SpecQueryCursor',
     isAssignable: (v) => v is $tom_som_dart_runtime_15.SpecQueryCursor,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'count': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryCursor>(target, 'SpecQueryCursor').count,
+      'count': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.SpecQueryCursor>(
+            target,
+            'SpecQueryCursor',
+          )
+          .count,
     },
     methods: {
       'next': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryCursor>(target, 'SpecQueryCursor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryCursor>(
+          target,
+          'SpecQueryCursor',
+        );
         return t.next();
       },
       'take': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryCursor>(target, 'SpecQueryCursor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryCursor>(
+          target,
+          'SpecQueryCursor',
+        );
         D4.requireMinArgs(positional, 1, 'take');
         final n = D4.getRequiredArg<int>(positional, 0, 'n', 'take');
         return t.take(n);
       },
       'toList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryCursor>(target, 'SpecQueryCursor');
+        final t = D4.validateTarget<$tom_som_dart_runtime_15.SpecQueryCursor>(
+          target,
+          'SpecQueryCursor',
+        );
         return t.toList();
       },
     },
@@ -4826,9 +9273,7 @@ BridgedClass _createSpecQueryCursorBridge() {
       'take': 'List<SpecQueryMatch> take(int n)',
       'toList': 'List<SpecQueryMatch> toList()',
     },
-    getterSignatures: {
-      'count': 'int get count',
-    },
+    getterSignatures: {'count': 'int get count'},
   );
 }
 
@@ -4845,27 +9290,49 @@ BridgedClass _createSpecSectionIdCollisionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SpecSectionIdCollision');
-        final id = D4.getRequiredArg<String>(positional, 0, 'id', 'SpecSectionIdCollision');
-        final listPath = D4.getRequiredArg<String>(positional, 1, 'listPath', 'SpecSectionIdCollision');
+        final id = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'id',
+          'SpecSectionIdCollision',
+        );
+        final listPath = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'listPath',
+          'SpecSectionIdCollision',
+        );
         return $tom_som_dart_runtime_17.SpecSectionIdCollision(id, listPath);
       },
     },
     getters: {
-      'id': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_17.SpecSectionIdCollision>(target, 'SpecSectionIdCollision').id,
-      'listPath': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_17.SpecSectionIdCollision>(target, 'SpecSectionIdCollision').listPath,
+      'id': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecSectionIdCollision>(
+            target,
+            'SpecSectionIdCollision',
+          )
+          .id,
+      'listPath': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_17.SpecSectionIdCollision>(
+            target,
+            'SpecSectionIdCollision',
+          )
+          .listPath,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_17.SpecSectionIdCollision>(target, 'SpecSectionIdCollision');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_17.SpecSectionIdCollision>(
+              target,
+              'SpecSectionIdCollision',
+            );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const SpecSectionIdCollision(String id, String listPath)',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'id': 'String get id',
       'listPath': 'String get listPath',
@@ -4884,21 +9351,78 @@ BridgedClass _createSpecResolutionBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_16.SpecResolution,
     constructors: {
       '': (visitor, positional, named) {
-        final path = D4.getRequiredNamedArg<String>(named, 'path', 'SpecResolution');
-        final kind = D4.getRequiredNamedArg<$tom_som_dart_runtime_16.SpecNodeKind>(named, 'kind', 'SpecResolution');
-        final root = D4.getRequiredNamedArg<$tom_som_dart_runtime_12.SpecRoot>(named, 'root', 'SpecResolution');
-        final field = D4.getOptionalNamedArg<$tom_som_dart_runtime_12.SpecField?>(named, 'field');
-        final targetClass = D4.getOptionalNamedArg<$tom_som_dart_runtime_12.SpecClass?>(named, 'targetClass');
-        return $tom_som_dart_runtime_16.SpecResolution(path: path, kind: kind, root: root, field: field, targetClass: targetClass);
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'SpecResolution',
+        );
+        final kind = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_16.SpecNodeKind>(
+              named,
+              'kind',
+              'SpecResolution',
+            );
+        final root = D4.getRequiredNamedArg<$tom_som_dart_runtime_12.SpecRoot>(
+          named,
+          'root',
+          'SpecResolution',
+        );
+        final field = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_12.SpecField?>(
+              named,
+              'field',
+            );
+        final targetClass = D4
+            .getOptionalNamedArg<$tom_som_dart_runtime_12.SpecClass?>(
+              named,
+              'targetClass',
+            );
+        return $tom_som_dart_runtime_16.SpecResolution(
+          path: path,
+          kind: kind,
+          root: root,
+          field: field,
+          targetClass: targetClass,
+        );
       },
     },
     getters: {
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_16.SpecResolution>(target, 'SpecResolution').path,
-      'kind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_16.SpecResolution>(target, 'SpecResolution').kind,
-      'root': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_16.SpecResolution>(target, 'SpecResolution').root,
-      'field': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_16.SpecResolution>(target, 'SpecResolution').field,
-      'targetClass': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_16.SpecResolution>(target, 'SpecResolution').targetClass,
-      'isValueLeaf': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_16.SpecResolution>(target, 'SpecResolution').isValueLeaf,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_16.SpecResolution>(
+            target,
+            'SpecResolution',
+          )
+          .path,
+      'kind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_16.SpecResolution>(
+            target,
+            'SpecResolution',
+          )
+          .kind,
+      'root': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_16.SpecResolution>(
+            target,
+            'SpecResolution',
+          )
+          .root,
+      'field': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_16.SpecResolution>(
+            target,
+            'SpecResolution',
+          )
+          .field,
+      'targetClass': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_16.SpecResolution>(
+            target,
+            'SpecResolution',
+          )
+          .targetClass,
+      'isValueLeaf': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_16.SpecResolution>(
+            target,
+            'SpecResolution',
+          )
+          .isValueLeaf,
     },
     constructorSignatures: {
       '': 'const SpecResolution({required String path, required SpecNodeKind kind, required SpecRoot root, SpecField? field, SpecClass? targetClass})',
@@ -4926,80 +9450,176 @@ BridgedClass _createSpecReflectionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecReflection');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'SpecReflection');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          0,
+          'model',
+          'SpecReflection',
+        );
         return $tom_som_dart_runtime_16.SpecReflection(model);
       },
     },
     getters: {
-      'model': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection').model,
-      'roots': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection').roots,
-      'classes': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection').classes,
+      'model': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+            target,
+            'SpecReflection',
+          )
+          .model,
+      'roots': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+            target,
+            'SpecReflection',
+          )
+          .roots,
+      'classes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+            target,
+            'SpecReflection',
+          )
+          .classes,
     },
     methods: {
       'classNamed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection');
+        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+          target,
+          'SpecReflection',
+        );
         D4.requireMinArgs(positional, 1, 'classNamed');
-        final name = D4.getRequiredArg<String?>(positional, 0, 'name', 'classNamed');
+        final name = D4.getRequiredArg<String?>(
+          positional,
+          0,
+          'name',
+          'classNamed',
+        );
         return t.classNamed(name);
       },
       'fieldsOf': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection');
+        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+          target,
+          'SpecReflection',
+        );
         D4.requireMinArgs(positional, 1, 'fieldsOf');
-        final className = D4.getRequiredArg<String>(positional, 0, 'className', 'fieldsOf');
+        final className = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'className',
+          'fieldsOf',
+        );
         return t.fieldsOf(className);
       },
       'annotationsOf': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection');
+        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+          target,
+          'SpecReflection',
+        );
         D4.requireMinArgs(positional, 1, 'annotationsOf');
-        final className = D4.getRequiredArg<String>(positional, 0, 'className', 'annotationsOf');
+        final className = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'className',
+          'annotationsOf',
+        );
         return t.annotationsOf(className);
       },
       'fieldAnnotations': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection');
+        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+          target,
+          'SpecReflection',
+        );
         D4.requireMinArgs(positional, 2, 'fieldAnnotations');
-        final className = D4.getRequiredArg<String>(positional, 0, 'className', 'fieldAnnotations');
-        final fieldName = D4.getRequiredArg<String>(positional, 1, 'fieldName', 'fieldAnnotations');
+        final className = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'className',
+          'fieldAnnotations',
+        );
+        final fieldName = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'fieldName',
+          'fieldAnnotations',
+        );
         return t.fieldAnnotations(className, fieldName);
       },
       'reachableClassNames': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection');
+        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+          target,
+          'SpecReflection',
+        );
         D4.requireMinArgs(positional, 1, 'reachableClassNames');
-        final typeName = D4.getRequiredArg<String>(positional, 0, 'typeName', 'reachableClassNames');
+        final typeName = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'typeName',
+          'reachableClassNames',
+        );
         return t.reachableClassNames(typeName);
       },
       'rootSegment': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection');
+        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+          target,
+          'SpecReflection',
+        );
         D4.requireMinArgs(positional, 1, 'rootSegment');
-        final root = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecRoot>(positional, 0, 'root', 'rootSegment');
+        final root = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecRoot>(
+          positional,
+          0,
+          'root',
+          'rootSegment',
+        );
         return t.rootSegment(root);
       },
       'fieldSegment': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection');
+        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+          target,
+          'SpecReflection',
+        );
         D4.requireMinArgs(positional, 1, 'fieldSegment');
-        final field = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecField>(positional, 0, 'field', 'fieldSegment');
+        final field = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecField>(
+          positional,
+          0,
+          'field',
+          'fieldSegment',
+        );
         return t.fieldSegment(field);
       },
       'rootForSegment': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection');
+        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+          target,
+          'SpecReflection',
+        );
         D4.requireMinArgs(positional, 1, 'rootForSegment');
-        final segment = D4.getRequiredArg<String>(positional, 0, 'segment', 'rootForSegment');
+        final segment = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'segment',
+          'rootForSegment',
+        );
         return t.rootForSegment(segment);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(target, 'SpecReflection');
+        final t = D4.validateTarget<$tom_som_dart_runtime_16.SpecReflection>(
+          target,
+          'SpecReflection',
+        );
         D4.requireMinArgs(positional, 1, 'resolve');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'resolve');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'resolve',
+        );
         return t.resolve(path);
       },
     },
-    constructorSignatures: {
-      '': 'const SpecReflection(SpecModel model)',
-    },
+    constructorSignatures: {'': 'const SpecReflection(SpecModel model)'},
     methodSignatures: {
       'classNamed': 'SpecClass? classNamed(String? name)',
       'fieldsOf': 'List<SpecField> fieldsOf(String className)',
       'annotationsOf': 'List<SpecAnnotation> annotationsOf(String className)',
-      'fieldAnnotations': 'List<SpecAnnotation> fieldAnnotations(String className, String fieldName)',
+      'fieldAnnotations':
+          'List<SpecAnnotation> fieldAnnotations(String className, String fieldName)',
       'reachableClassNames': 'Set<String> reachableClassNames(String typeName)',
       'rootSegment': 'String rootSegment(SpecRoot root)',
       'fieldSegment': 'String fieldSegment(SpecField field)',
@@ -5026,44 +9646,74 @@ BridgedClass _createSpecSerializationOrderBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SpecSerializationOrder');
-        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(positional, 0, 'model', 'SpecSerializationOrder');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          0,
+          'model',
+          'SpecSerializationOrder',
+        );
         return $tom_som_dart_runtime_18.SpecSerializationOrder(model);
       },
     },
     methods: {
       'orderKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_18.SpecSerializationOrder>(target, 'SpecSerializationOrder');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_18.SpecSerializationOrder>(
+              target,
+              'SpecSerializationOrder',
+            );
         D4.requireMinArgs(positional, 1, 'orderKey');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'orderKey');
+        final path = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'path',
+          'orderKey',
+        );
         return t.orderKey(path);
       },
       'orderPaths': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_18.SpecSerializationOrder>(target, 'SpecSerializationOrder');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_18.SpecSerializationOrder>(
+              target,
+              'SpecSerializationOrder',
+            );
         D4.requireMinArgs(positional, 1, 'orderPaths');
         if (positional.isEmpty) {
-          throw ArgumentError('orderPaths: Missing required argument "paths" at position 0');
+          throw ArgumentError(
+            'orderPaths: Missing required argument "paths" at position 0',
+          );
         }
         final paths = D4.coerceList<String>(positional[0], 'paths');
         return t.orderPaths(paths);
       },
       'orderFormFields': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_18.SpecSerializationOrder>(target, 'SpecSerializationOrder');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_18.SpecSerializationOrder>(
+              target,
+              'SpecSerializationOrder',
+            );
         D4.requireMinArgs(positional, 2, 'orderFormFields');
-        final formPath = D4.getRequiredArg<String>(positional, 0, 'formPath', 'orderFormFields');
+        final formPath = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'formPath',
+          'orderFormFields',
+        );
         if (positional.length <= 1) {
-          throw ArgumentError('orderFormFields: Missing required argument "fieldNames" at position 1');
+          throw ArgumentError(
+            'orderFormFields: Missing required argument "fieldNames" at position 1',
+          );
         }
         final fieldNames = D4.coerceList<String>(positional[1], 'fieldNames');
         return t.orderFormFields(formPath, fieldNames);
       },
     },
-    constructorSignatures: {
-      '': 'SpecSerializationOrder(SpecModel model)',
-    },
+    constructorSignatures: {'': 'SpecSerializationOrder(SpecModel model)'},
     methodSignatures: {
       'orderKey': 'List<int> orderKey(String path)',
       'orderPaths': 'List<String> orderPaths(Iterable<String> paths)',
-      'orderFormFields': 'List<String> orderFormFields(String formPath, Iterable<String> fieldNames)',
+      'orderFormFields':
+          'List<String> orderFormFields(String formPath, Iterable<String> fieldNames)',
     },
   );
 }
@@ -5080,35 +9730,67 @@ BridgedClass _createSpecMatchSpanBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SpecMatchSpan');
-        final start = D4.getRequiredArg<int>(positional, 0, 'start', 'SpecMatchSpan');
-        final end = D4.getRequiredArg<int>(positional, 1, 'end', 'SpecMatchSpan');
+        final start = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'start',
+          'SpecMatchSpan',
+        );
+        final end = D4.getRequiredArg<int>(
+          positional,
+          1,
+          'end',
+          'SpecMatchSpan',
+        );
         return $tom_som_dart_runtime_19.SpecMatchSpan(start, end);
       },
     },
     getters: {
-      'start': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_19.SpecMatchSpan>(target, 'SpecMatchSpan').start,
-      'end': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_19.SpecMatchSpan>(target, 'SpecMatchSpan').end,
-      'hashCode': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_19.SpecMatchSpan>(target, 'SpecMatchSpan').hashCode,
+      'start': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_19.SpecMatchSpan>(
+            target,
+            'SpecMatchSpan',
+          )
+          .start,
+      'end': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_19.SpecMatchSpan>(
+            target,
+            'SpecMatchSpan',
+          )
+          .end,
+      'hashCode': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_19.SpecMatchSpan>(
+            target,
+            'SpecMatchSpan',
+          )
+          .hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_19.SpecMatchSpan>(target, 'SpecMatchSpan');
+        final t = D4.validateTarget<$tom_som_dart_runtime_19.SpecMatchSpan>(
+          target,
+          'SpecMatchSpan',
+        );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_19.SpecMatchSpan>(target, 'SpecMatchSpan');
+        final t = D4.validateTarget<$tom_som_dart_runtime_19.SpecMatchSpan>(
+          target,
+          'SpecMatchSpan',
+        );
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        final other = D4.getRequiredArg<Object>(
+          positional,
+          0,
+          'other',
+          'operator==',
+        );
         return t == other;
       },
     },
-    constructorSignatures: {
-      '': 'const SpecMatchSpan(int start, int end)',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    constructorSignatures: {'': 'const SpecMatchSpan(int start, int end)'},
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'start': 'int get start',
       'end': 'int get end',
@@ -5130,27 +9812,48 @@ BridgedClass _createSomPatternErrorBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SomPatternError');
-        final pattern = D4.getRequiredArg<String>(positional, 0, 'pattern', 'SomPatternError');
-        final message = D4.getRequiredArg<String>(positional, 1, 'message', 'SomPatternError');
+        final pattern = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'pattern',
+          'SomPatternError',
+        );
+        final message = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'message',
+          'SomPatternError',
+        );
         return $tom_som_dart_runtime_19.SomPatternError(pattern, message);
       },
     },
     getters: {
-      'pattern': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_19.SomPatternError>(target, 'SomPatternError').pattern,
-      'message': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_19.SomPatternError>(target, 'SomPatternError').message,
+      'pattern': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_19.SomPatternError>(
+            target,
+            'SomPatternError',
+          )
+          .pattern,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_19.SomPatternError>(
+            target,
+            'SomPatternError',
+          )
+          .message,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_19.SomPatternError>(target, 'SomPatternError');
+        final t = D4.validateTarget<$tom_som_dart_runtime_19.SomPatternError>(
+          target,
+          'SomPatternError',
+        );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const SomPatternError(String pattern, String message)',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'pattern': 'String get pattern',
       'message': 'String get message',
@@ -5170,34 +9873,76 @@ BridgedClass _createSomTextPatternBridge() {
     constructors: {
       'literal': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SomTextPattern');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'SomTextPattern');
-        final caseInsensitive = D4.getNamedArgWithDefault<bool>(named, 'caseInsensitive', false);
-        return $tom_som_dart_runtime_19.SomTextPattern.literal(text, caseInsensitive: caseInsensitive);
+        final text = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'text',
+          'SomTextPattern',
+        );
+        final caseInsensitive = D4.getNamedArgWithDefault<bool>(
+          named,
+          'caseInsensitive',
+          false,
+        );
+        return $tom_som_dart_runtime_19.SomTextPattern.literal(
+          text,
+          caseInsensitive: caseInsensitive,
+        );
       },
       'compile': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SomTextPattern');
-        final source = D4.getRequiredArg<String>(positional, 0, 'source', 'SomTextPattern');
-        final caseInsensitive = D4.getNamedArgWithDefault<bool>(named, 'caseInsensitive', false);
-        return $tom_som_dart_runtime_19.SomTextPattern.compile(source, caseInsensitive: caseInsensitive);
+        final source = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'source',
+          'SomTextPattern',
+        );
+        final caseInsensitive = D4.getNamedArgWithDefault<bool>(
+          named,
+          'caseInsensitive',
+          false,
+        );
+        return $tom_som_dart_runtime_19.SomTextPattern.compile(
+          source,
+          caseInsensitive: caseInsensitive,
+        );
       },
     },
     methods: {
       'allMatches': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_19.SomTextPattern>(target, 'SomTextPattern');
+        final t = D4.validateTarget<$tom_som_dart_runtime_19.SomTextPattern>(
+          target,
+          'SomTextPattern',
+        );
         D4.requireMinArgs(positional, 1, 'allMatches');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'allMatches');
+        final text = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'text',
+          'allMatches',
+        );
         return t.allMatches(text);
       },
       'hasMatch': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_19.SomTextPattern>(target, 'SomTextPattern');
+        final t = D4.validateTarget<$tom_som_dart_runtime_19.SomTextPattern>(
+          target,
+          'SomTextPattern',
+        );
         D4.requireMinArgs(positional, 1, 'hasMatch');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'hasMatch');
+        final text = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'text',
+          'hasMatch',
+        );
         return t.hasMatch(text);
       },
     },
     constructorSignatures: {
-      'literal': 'factory SomTextPattern.literal(String text, {bool caseInsensitive = false})',
-      'compile': 'factory SomTextPattern.compile(String source, {bool caseInsensitive = false})',
+      'literal':
+          'factory SomTextPattern.literal(String text, {bool caseInsensitive = false})',
+      'compile':
+          'factory SomTextPattern.compile(String source, {bool caseInsensitive = false})',
     },
     methodSignatures: {
       'allMatches': 'List<SpecMatchSpan> allMatches(String text)',
@@ -5217,29 +9962,63 @@ BridgedClass _createSpecValidationErrorBridge() {
     isAssignable: (v) => v is $tom_som_dart_runtime_21.SpecValidationError,
     constructors: {
       '': (visitor, positional, named) {
-        final path = D4.getRequiredNamedArg<String>(named, 'path', 'SpecValidationError');
-        final code = D4.getRequiredNamedArg<$tom_som_dart_runtime_21.SpecValidationCode>(named, 'code', 'SpecValidationError');
-        final message = D4.getRequiredNamedArg<String>(named, 'message', 'SpecValidationError');
-        return $tom_som_dart_runtime_21.SpecValidationError(path: path, code: code, message: message);
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'SpecValidationError',
+        );
+        final code = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_21.SpecValidationCode>(
+              named,
+              'code',
+              'SpecValidationError',
+            );
+        final message = D4.getRequiredNamedArg<String>(
+          named,
+          'message',
+          'SpecValidationError',
+        );
+        return $tom_som_dart_runtime_21.SpecValidationError(
+          path: path,
+          code: code,
+          message: message,
+        );
       },
     },
     getters: {
-      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_21.SpecValidationError>(target, 'SpecValidationError').path,
-      'code': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_21.SpecValidationError>(target, 'SpecValidationError').code,
-      'message': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_21.SpecValidationError>(target, 'SpecValidationError').message,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecValidationError>(
+            target,
+            'SpecValidationError',
+          )
+          .path,
+      'code': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecValidationError>(
+            target,
+            'SpecValidationError',
+          )
+          .code,
+      'message': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecValidationError>(
+            target,
+            'SpecValidationError',
+          )
+          .message,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_som_dart_runtime_21.SpecValidationError>(target, 'SpecValidationError');
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_21.SpecValidationError>(
+              target,
+              'SpecValidationError',
+            );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const SpecValidationError({required String path, required SpecValidationCode code, required String message})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'path': 'String get path',
       'code': 'SpecValidationCode get code',
@@ -5247,4 +10026,3 @@ BridgedClass _createSpecValidationErrorBridge() {
     },
   );
 }
-

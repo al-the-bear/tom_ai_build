@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_spec_engine
-// Generated: 2026-09-18T00:27:50.963577 by tom_d4rt_generator 1.26.2
+// Generated: 2026-09-30T20:17:44.531760 by tom_d4rt_generator 1.51.0
 
 /// D4rt Bridge Registration for tom_spec_engine
 library;
@@ -21,7 +21,8 @@ class TomSomBridge {
       'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel in som_runtime_bridges.SomRuntimeBridge.subPackageBarrels()) {
+    for (final barrel
+        in som_runtime_bridges.SomRuntimeBridge.subPackageBarrels()) {
       som_runtime_bridges.SomRuntimeBridge.registerBridges(d4rt, barrel);
     }
     som_v0_bridges.SomV0Bridge.registerBridges(
