@@ -10,9 +10,24 @@
 
 # rustup and the Go tarball wire themselves into the *interactive* shell profile
 # only. Same prepend as run_all_suites.sh and regenerate_golden.sh.
-for extra in "$HOME/.cargo/bin" "/usr/local/go/bin" "$HOME/.local/go/bin" "/opt/homebrew/bin"; do
+#
+# `~/.local/bin` is where `pip install --user` puts `pdoc`; on bomber it is on
+# PATH only in a login shell, so a plain `ssh host cmd` reported pdoc missing
+# on a host that had just installed it.
+for extra in "$HOME/.cargo/bin" "/usr/local/go/bin" "$HOME/.local/go/bin" "/opt/homebrew/bin" "$HOME/.local/bin"; do
   case ":$PATH:" in *":$extra:"*) ;; *) [ -d "$extra" ] && PATH="$PATH:$extra" ;; esac
 done
+
+# Node (for `npx typedoc`): nvm installs per user under $NVM_DIR and wires it up
+# in the interactive profile only. Take the newest installed version.
+if ! command -v npx > /dev/null 2>&1; then
+  nvm_root="${NVM_DIR:-$HOME/.nvm}/versions/node"
+  if [ -d "$nvm_root" ]; then
+    newest_node="$(ls -1 "$nvm_root" 2> /dev/null | sort -V | tail -1)"
+    [ -n "$newest_node" ] && [ -x "$nvm_root/$newest_node/bin/npx" ] \
+      && PATH="$PATH:$nvm_root/$newest_node/bin"
+  fi
+fi
 
 # Dart: on a host whose Dart comes bundled with Flutter, the SDK is a checkout
 # wired into the interactive profile only — so `dart` is absent here while the
@@ -26,7 +41,8 @@ if ! command -v dart > /dev/null 2>&1; then
   flutter_on_path="$(command -v flutter 2> /dev/null || true)"
   [ -n "$flutter_on_path" ] && dart_dirs="$dart_dirs $(dirname "$flutter_on_path")"
   dart_dirs="$dart_dirs $HOME/development/flutter/bin $HOME/Desktop/development/flutter/bin"
-  dart_dirs="$dart_dirs $HOME/flutter/bin /opt/flutter/bin /usr/lib/dart/bin"
+  dart_dirs="$dart_dirs $HOME/flutter/bin /opt/flutter/bin /srv/flutter/flutter/bin"
+  dart_dirs="$dart_dirs /usr/lib/dart/bin"
   for d in $dart_dirs; do
     if [ -x "$d/dart" ]; then PATH="$PATH:$d"; break; fi
   done

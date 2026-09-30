@@ -13,11 +13,17 @@
 #
 # The PDOC SUBTLETY, worth not rediscovering: pdoc *imports* the module rather
 # than parsing it, so the interpreter that runs it needs the Python runtime's
-# own dependencies (PyYAML) installed FOR THAT INTERPRETER; and it must be
-# Python >= 3.10, because the runtime's sources use PEP 604 `X | Y` annotations
-# that pdoc evaluates. That is why this reports the interpreter behind pdoc
+# own dependencies (PyYAML) installed FOR THAT INTERPRETER; and that
+# interpreter must be Python >= 3.13. Two separate floors meet there: >= 3.10
+# because the runtime's sources use PEP 604 `X | Y` annotations that pdoc
+# evaluates, and >= 3.13 because below it `inspect.findsource` locates a CLASS
+# by re-parsing the whole module file. The generated facades hold ~4,000
+# classes in one module, so on 3.12 that is ~4,000 full parses of a very large
+# file: measured on bomber, `tom_som_python_v0` ran for over 2h39m on one core
+# without finishing, and took 1m48s on 3.13, whose classes carry
+# `__firstlineno__`. That is why this reports the interpreter behind pdoc
 # rather than just "pdoc 16.0.0" — the version alone cannot tell a working
-# install from one that will fail at import.
+# install from one that fails at import or one that never finishes.
 #
 # It reports by default and installs only when asked, because a script that
 # changes a host as a side effect of being asked a question is one nobody dares
@@ -88,11 +94,18 @@ probe_pdoc() {
   note="on $(basename "$interp") $pyver"
   # Both preconditions are checkable, and a failing one is worse than absence:
   # pdoc runs and renders something wrong or dies at import.
+  local status=present
   case "$pyver" in
-    3.[0-9].*|3.[0-9]) note="$note — TOO OLD, pdoc needs >= 3.10" ;;
+    3.[0-9].*|3.[0-9])
+      note="$note — TOO OLD, pdoc needs >= 3.10"; status=inadequate ;;
+    3.1[0-2].*|3.1[0-2])
+      note="$note — TOO SLOW: below 3.13 each class re-parses the whole module, so a facade takes hours"
+      status=inadequate ;;
   esac
-  [ "$yaml_ok" = NO ] && note="$note — PyYAML MISSING for this interpreter"
-  echo "pdoc|present|$(first_line pdoc --version | awk '{print $NF}') $note|$(pdoc_install_hint)"
+  if [ "$yaml_ok" = NO ]; then
+    note="$note — PyYAML MISSING for this interpreter"; status=inadequate
+  fi
+  echo "pdoc|$status|$(first_line pdoc --version | awk '{print $NF}') $note|$(pdoc_install_hint)"
 }
 
 probe_typedoc() {
@@ -155,11 +168,7 @@ doxygen_install_hint() {
 }
 
 pdoc_install_hint() {
-  case "$(pkg_manager)" in
-    apt|dnf) echo "python3 -m pip install --break-system-packages pdoc PyYAML" ;;
-    brew) echo "python3 -m pip install --break-system-packages pdoc PyYAML against the default python3" ;;
-    *) echo "pip install pdoc PyYAML" ;;
-  esac
+  echo "uv tool install --python 3.13 pdoc --with PyYAML (uv fetches 3.13 itself)"
 }
 
 # The install commands themselves. PyYAML travels with pdoc deliberately: the
@@ -174,11 +183,15 @@ install_doxygen_cmd() {
   esac
 }
 
+# uv, because it supplies the interpreter as well: bomber's system Python is
+# 3.12, and uv installs 3.13 per user without root or touching the system
+# Python. `--force` replaces an inadequate install.
 install_pdoc_cmd() {
-  local py
-  py="$(command -v python3 || true)"
-  [ -n "$py" ] || { echo ""; return; }
-  echo "$py -m pip install --break-system-packages pdoc PyYAML"
+  local uv
+  uv="$(command -v uv || true)"
+  [ -n "$uv" ] || { [ -x "$HOME/.local/bin/uv" ] && uv="$HOME/.local/bin/uv"; }
+  [ -n "$uv" ] || { echo ""; return; }
+  echo "$uv tool install --force --python 3.13 pdoc --with PyYAML"
 }
 
 PROBES=(probe_dart probe_pdoc probe_typedoc probe_go probe_cargo probe_javadoc probe_doxygen)
@@ -196,7 +209,7 @@ collect() {
 missing_count() {
   local row n=0
   for row in "${ROWS[@]}"; do
-    case "$(echo "$row" | cut -d'|' -f2)" in missing) n=$((n + 1)) ;; esac
+    case "$(echo "$row" | cut -d'|' -f2)" in missing|inadequate) n=$((n + 1)) ;; esac
   done
   echo "$n"
 }
@@ -216,6 +229,7 @@ if [ "$MODE" = markdown ]; then
     how="$(echo "$row" | cut -d'|' -f4)"
     case "$status" in
       missing) version="**MISSING**" ;;
+      inadequate) version="**INADEQUATE** — $version" ;;
       not-installed-by-design) version="$version, **no host install**" ;;
     esac
     echo "| \`$name\` | $version | $how |"
@@ -233,6 +247,7 @@ for row in "${ROWS[@]}"; do
     present) printf '%-10s %-24s %s\n' "$name" "present" "$version" ;;
     not-installed-by-design) printf '%-10s %-24s %s\n' "$name" "by design: no install" "$version" ;;
     missing) printf '%-10s %-24s %s\n' "$name" "MISSING" "install: $how" ;;
+    inadequate) printf '%-10s %-24s %s\n' "$name" "INADEQUATE" "$version; install: $how" ;;
   esac
 done
 echo
@@ -241,7 +256,7 @@ echo "host: $(hostname -s 2>/dev/null || hostname)  package manager: $(pkg_manag
 if [ "$MODE" = report ]; then
   n="$(missing_count)"
   if [ "$n" -gt 0 ]; then
-    echo "$n generator(s) missing — run with --install, or install by hand from the column above."
+    echo "$n generator(s) missing or inadequate — run with --install, or install by hand from the column above."
     exit 1
   fi
   echo "all eight generators available."
@@ -268,7 +283,7 @@ run_or_show() {
 }
 
 rc=0
-if [ "$(status_of pdoc)" = missing ]; then
+if [ "$(status_of pdoc)" = missing ] || [ "$(status_of pdoc)" = inadequate ]; then
   echo "installing pdoc (with PyYAML, which pdoc needs because it imports the module):"
   run_or_show "$(install_pdoc_cmd)" || rc=1
 else

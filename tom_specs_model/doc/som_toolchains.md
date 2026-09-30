@@ -21,13 +21,13 @@ below).
 
 | Language | Toolchain | Version on `bomber` | `v0` project exists? | Verified | How obtained |
 | --- | --- | --- | --- | --- | --- |
-| **Dart** | Dart SDK | `3.11.4 (stable)` | **yes** (`tom_som_dart_v0`) | **builds + analyzes clean** | Dart SDK on `PATH` (fleet-managed) — the analyzer-backed tools need none, see "Dart host" |
+| **Dart** | Dart SDK | `3.12.2 (stable)` | **yes** (`tom_som_dart_v0`) | **builds + analyzes clean** | the SDK bundled with the Flutter checkout at `/srv/flutter/flutter`, on `PATH` in a login shell — the analyzer-backed tools need none, see "Dart host" |
 | **Python** | CPython | `3.12.3` | **yes** (`tom_som_python_v0`) | **compiles + imports against runtime** | system `python3` (apt, Ubuntu 24.04) |
 | **JavaScript** | Node.js | `22.22.3` (npm `10.9.8`) | **yes** (`tom_som_javascript_v0`) | **builds + runs generated `v0` ✓** (facade loads; behavioural + samples pass) | system `node`/`npm` |
 | **TypeScript** | `tsc` (project-local npm) | **pinned `6.0.3`** (Node 22.22.3 / npm 10.9.8) | **yes** (`tom_som_typescript_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | project-local `npm i -D typescript@6.0.3` |
 | **C** | GCC | `gcc 13.3.0` | **yes** (`tom_som_c_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | apt `build-essential` |
 | **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | **yes** (`tom_som_cpp_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | apt `build-essential` / `clang` |
-| **Java** | JDK | `javac 21.0.11` (JDK 21.0.11+10) | **yes** (`tom_som_java_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | apt `openjdk-21-jdk-headless` (compiler only, no AWT/X11) |
+| **Java** | JDK | `javac 21.0.12.1` | **yes** (`tom_som_java_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | apt `openjdk-21-jdk-headless` (compiler only, no AWT/X11) |
 | **Go** | Go toolchain | `1.26.4` (official tarball) | **yes** (`tom_som_go_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | official tarball → `~/.local/go` (per-user, sha256-verified; PATH from `.bashrc`/`.profile`) |
 | **Rust** | rustc / cargo | `1.96.0` (stable; rustfmt `1.9.0`) | **yes** (`tom_som_rust_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | `rustup` (per-user, `~/.cargo`; `~/.cargo/env` sourced from `.bashrc`/`.profile`) |
 
@@ -66,13 +66,13 @@ golden logs are byte-identical to `dart.log`. Versions were matched to
 
 | Language | Toolchain on `mbp` | Version | vs `bomber` | How obtained |
 | --- | --- | --- | --- | --- |
-| **Dart** | Dart SDK | `3.12.2 (stable)` | newer (3.11.4) | fleet-managed SDK on `PATH` |
+| **Dart** | Dart SDK | `3.12.2 (stable)` | **exact** | fleet-managed SDK on `PATH` |
 | **Python** | CPython (Homebrew `python@3.12`) | `3.12.13` (PyYAML `6.0.3`) | same minor (3.12.3) | `brew install python@3.12`; PyYAML via `python3.12 -m pip install --user --break-system-packages PyYAML` |
 | **JavaScript** | Node.js (nvm) | `22.22.3` (npm `10.9.8`) | **exact** | `nvm install 22.22.3 && nvm alias default 22.22.3` |
 | **TypeScript** | project-local `tsc` | pinned `6.0.3` | **exact** (by design) | devDependency of the `v0` project — never a host install |
 | **C** | Apple clang (via `cc`) | `17.0.0 (clang-1700.6.3.2)` | different suite (gcc 13.3.0) | Xcode Command Line Tools |
 | **C++** | Apple clang (via `c++`/`g++` shims) | `17.0.0 (clang-1700.6.3.2)` | different suite (g++ 13.3.0 / clang++ 18.1.3) | Xcode Command Line Tools |
-| **Java** | JDK (Homebrew `openjdk@21`, keg-only) | `javac 21.0.11` | **exact** | `brew install openjdk@21`; `PATH` + `JAVA_HOME` exported in `~/.zshrc` |
+| **Java** | JDK (Homebrew `openjdk@21`, keg-only) | `javac 21.0.11` | one patch behind (21.0.12.1) | `brew install openjdk@21`; `PATH` + `JAVA_HOME` exported in `~/.zshrc` |
 | **Go** | Go toolchain (Homebrew) | `1.26.5` | newer (1.26.4) | `brew install go` |
 | **Rust** | rustc / cargo (rustup) | `1.96.0` | **exact** | `rustup` per-user (`~/.cargo`); `. "$HOME/.cargo/env"` in `~/.zshrc` |
 
@@ -117,14 +117,33 @@ All eighteen packages generate here under `--strict`.
 
 **The documentation interpreter is not the harness interpreter**, and on this
 host that distinction is load-bearing. The conformance harness must run under
-Homebrew's **3.12** (see the note above); `pdoc` must run under **≥ 3.10**
-because the Python runtime's sources use PEP 604 `X | Y` annotations that pdoc
-evaluates — and it *imports* the module rather than parsing it, so that
-interpreter also needs the runtime's own dependencies. Both conditions are met
-by installing `pdoc` **and `PyYAML`** into Homebrew's default `python3` (3.14)
-and leaving the 3.12 harness path alone. Installing pdoc into the framework
-Python 3.11, or into 3.9, produces either an import failure or silently
-degraded type rendering.
+Homebrew's **3.12** (see the note above); `pdoc` must run under **≥ 3.13** —
+see "Provisioning a host" for why 3.12 does not finish — and it *imports* the
+module rather than parsing it, so that interpreter also needs the runtime's own
+dependencies. Both conditions are met by `pdoc` **and `PyYAML`** in Homebrew's
+default `python3` (3.14), leaving the 3.12 harness path alone.
+
+### Documentation toolchains on `bomber`
+
+The reference host carries all eight, and all eighteen packages generate here
+under `--strict` — **7m46s** for the full run, sequential by design.
+
+| Generator | On `bomber` | How obtained |
+| --- | --- | --- |
+| `dart doc` | ships with Dart `3.12.2` | the SDK bundled with the Flutter checkout at `/srv/flutter/flutter`; on `PATH` only in a login shell, so the driver finds it |
+| `pdoc` | `16.0.0` on **CPython 3.13.13** | `uv tool install --python 3.13 pdoc --with PyYAML` — uv supplies the interpreter; the system `python3` is 3.12, which cannot finish the facades |
+| `typedoc` | pinned `0.28.15`, **no host install** | `npx --yes typedoc@0.28.15`, Node `22.22.3` via `~/.local/bin` |
+| `go doc` | ships with Go `1.26.4` | official tarball |
+| `cargo doc` | ships with `1.96.0` | rustup |
+| `javadoc` | JDK `21.0.12` | apt `openjdk-21-jdk-headless` |
+| `doxygen` | `1.9.8` | `apt-get install doxygen` |
+
+**The run is sequential on a 64-core host, and that is measured rather than
+overlooked.** Once pdoc ran on 3.13 the full run took 7m46s, and the longest
+single target is `cpp_v0` under doxygen at roughly three and a half minutes.
+Running targets in parallel would save about four minutes and let two `dart doc`
+runs resolve against the shared pub cache at once — the side effect the driver's
+resolve-only-when-unresolved rule exists to avoid.
 
 ## Language coverage
 
@@ -137,7 +156,7 @@ The install path for each toolchain is recorded in the *How obtained* column of
 the status matrix above, so a rebuild is a one-liner.
 
 > **Host-install posture.** The **Java** compiler (`openjdk-21-jdk-headless`,
-> `javac 21.0.11`), the **Rust** toolchain (`rustup` stable, `rustc`/`cargo`
+> `javac 21.0.12.1`), the **Rust** toolchain (`rustup` stable, `rustc`/`cargo`
 > `1.96.0`), and the **Go** toolchain (official tarball, `go 1.26.4`) are
 > installed on `bomber` as host toolchains. **TypeScript** is the one toolchain
 > that is intentionally **not** a host install: its `tsc` is a project-local
@@ -341,11 +360,15 @@ The rules live in
 shared with the provisioner below so the two cannot disagree about what counts
 as installed:
 
-- `~/.cargo/bin` and the Go tarball locations — rustup and the Go tarball wire
-  themselves into the *interactive* profile only.
+- `~/.cargo/bin`, the Go tarball locations and `~/.local/bin` — rustup and the
+  Go tarball wire themselves into the *interactive* profile only, and
+  `~/.local/bin` is where `pip install --user` puts `pdoc`, which on `bomber`
+  is on `PATH` only in a login shell.
 - **Dart**, when it is the SDK bundled with a Flutter checkout: `DART_SDK`,
   `FLUTTER_ROOT`, the directory of a `flutter` on `PATH`, then the usual
-  checkout locations.
+  checkout locations — `bomber`'s is `/srv/flutter/flutter`.
+- **Node**, for `npx typedoc`, from the newest nvm-managed version under
+  `$NVM_DIR` when `npx` is not otherwise resolvable.
 - **`javadoc` from JDK 21 by preference**, because 21 is what the build matrix
   pins and a reference rendered by another major is a reference for a different
   language level. This cannot be written as "prepend a JDK when `javadoc` is
@@ -377,16 +400,25 @@ It installs only the two that are ever a documentation-only install — a missin
 status matrix at the top of this document, not here.
 
 For `pdoc` it reports **the interpreter behind the tool**, not just the version,
-and checks that interpreter for `PyYAML` and for Python ≥ 3.10. The version
-alone cannot tell a working install from one that dies at import: pdoc imports
-the module rather than parsing it, and the runtime's sources use PEP 604
-`X | Y` annotations that pdoc evaluates.
+and checks that interpreter for `PyYAML` and for **Python ≥ 3.13**, reporting
+anything older as INADEQUATE and replacing it on `--install`. The version alone
+cannot tell a working install from one that dies at import — pdoc imports the
+module rather than parsing it — or from one that never finishes.
 
-**Host state.** `mbp` carries all eight (table above). The reference host
-`bomber` carries the build toolchains but not the two documentation-only
-installs; run `./tool/provision_doc_generators.sh --install` there and record
-its `--markdown` table beside `mbp`'s. Hosts provisioned only for the build —
-`bigbeast` is one — report `pdoc`, `doxygen` and whichever toolchains they lack.
+**Below 3.13, pdoc is quadratic on these packages.** `inspect.findsource` finds
+a *class* by re-parsing the whole module file, and pdoc asks for every class's
+source; the generated facades hold ~4,000 classes in one module. Measured on
+`bomber`: `tom_som_python_v0` ran for **over 2h39m on one core without
+finishing** under 3.12, and took **1m48s** under 3.13, whose classes carry
+`__firstlineno__` so nothing is re-parsed. More cores do not help — it is one
+process on one module. So `--install` uses `uv tool install --python 3.13 pdoc
+--with PyYAML`, which fetches its own interpreter per user and leaves the system
+Python alone.
+
+**Host state.** `mbp` and the reference host `bomber` carry all eight, and both
+generate all eighteen packages under `--strict` (their tables are above). Hosts
+provisioned only for the build — `bigbeast` is one — report `pdoc`, `doxygen`
+and whichever toolchains they lack.
 
 ### The generated reference is **gitignored**, deliberately
 
@@ -423,7 +455,7 @@ refuses to hold is a line nobody can satisfy.
 | Language | Tool | Obtain it with | Output |
 | --- | --- | --- | --- |
 | **Dart** | `dart doc` | Ships with the Dart SDK | HTML tree (~7 MB) |
-| **Python** | `pdoc` | `python3 -m pip install pdoc` — **on Python ≥ 3.10** | HTML tree |
+| **Python** | `pdoc` | `uv tool install --python 3.13 pdoc --with PyYAML` — **on Python ≥ 3.13** | HTML tree |
 | **JavaScript** | `typedoc` | `npx typedoc@<pinned>` (no host install) | HTML tree |
 | **TypeScript** | `typedoc` | `npx typedoc@<pinned>` (no host install) | HTML tree |
 | **Go** | `go doc` | Ships with the Go toolchain | One rendered **text** file |
@@ -439,7 +471,7 @@ the tool by hand:
 | Language | The adjustment, and why |
 | --- | --- |
 | **Python** | The importable name is **not** the directory name — the runtime ships the package `tom_som_runtime/`, the facade the module `tom_som_python_v0.py` — so the driver discovers it. And **pdoc imports the module rather than parsing it**, so the interpreter running pdoc needs the runtime's own dependencies (`pyyaml`) installed *for that interpreter*. |
-| **Python** | It must run on **Python ≥ 3.10**. The sources use PEP 604 `X \| Y` annotations, which pdoc evaluates; on 3.9 it warns and degrades the types. On a host whose default `python3` is 3.9 (macOS), install pdoc into a newer interpreter. |
+| **Python** | It must run on **Python ≥ 3.13**. Two floors meet there: the sources use PEP 604 `X \| Y` annotations, which pdoc evaluates (on 3.9 it warns and degrades the types), and below 3.13 finding a class's source re-parses the whole module, which makes the ~4,000-class facades take hours. |
 | **JavaScript** | `allowJs` is a *TypeScript compiler* option, so it cannot be a typedoc flag — it has to arrive through a `tsconfig`, and that tsconfig must `include` the entry point or typedoc reports "unable to find any entry points". The driver writes a scoped one beside the entry and removes it afterwards. |
 | **JS / TS** | typedoc exits **non-zero on warnings** as well as errors, and these sources warn routinely (doc links to built-in types they do not export). The driver asks whether `index.html` was rendered instead of reading a status that conflates the two. |
 | **Java** | The facade's sources reference the runtime's types, so `tom_som_java_runtime/src` must be on the `-sourcepath` — without it javadoc reports a hundred unresolved symbols and writes nothing. Only the named subpackages are documented, so this widens resolution without widening output. |
