@@ -399,8 +399,11 @@ enum CsOverridableBy {
   /// the sole scope wider than CE-CC.
   client,
 
-  /// A per-user setting may shadow this key; so, transitively, may a device
-  /// setting.
+  /// A per-user setting (CE-UP) may shadow this key. On a CE-CF declaration so
+  /// may a client configuration value (CE-CC), the one scope that lies between.
+  /// A device setting (CE-DS) may not: it is narrower than the scope named, and
+  /// opening it is what [device] is for. On a CE-CC declaration nothing lies
+  /// between, so `user` opens CE-UP alone.
   user,
 
   /// A per-user-per-device setting may shadow this key. The narrowest arm, so it

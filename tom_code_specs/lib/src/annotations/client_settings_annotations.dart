@@ -118,7 +118,9 @@ class CsClientConfig {
   /// ▸ CE-UP ▸ CE-CC ▸ CE-CF` lattice, so [CsOverridableBy.user],
   /// [CsOverridableBy.device] and [CsOverridableBy.none] are the admissible
   /// values here; [CsOverridableBy.client] is not strictly narrower and is
-  /// rejected by `codespecs_derivation_contract.md` §6 check 15.
+  /// rejected by `codespecs_derivation_contract.md` §6 check 15. The two open
+  /// arms differ: `user` lets a per-user setting shadow the key and nothing
+  /// narrower, `device` lets a per-user-per-device setting shadow it as well.
   ///
   /// [envAlias] names the environment variable the value may also be read from,
   /// verbatim; omit it where there is none. The setting's **type and default

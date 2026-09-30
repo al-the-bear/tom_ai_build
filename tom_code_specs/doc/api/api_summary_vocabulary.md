@@ -278,7 +278,7 @@ Which narrower configuration scope may shadow a setting (`codespecs_mapping.md` 
 |-------|---------|
 | `none` | Scope-pinned: no narrower scope may shadow this key. |
 | `client` | A per-install client configuration value may shadow this key — CE-CF only, the sole scope wider than CE-CC. |
-| `user` | A per-user setting may shadow this key; so, transitively, may a device setting. |
+| `user` | A per-user setting (CE-UP) may shadow this key; on a CE-CF declaration so may a client configuration value (CE-CC), the one scope between. A device setting (CE-DS) may not — that is what `device` opens. On a CE-CC declaration `user` opens CE-UP alone. |
 | `device` | A per-user-per-device setting may shadow this key. |
 
 ## Classes

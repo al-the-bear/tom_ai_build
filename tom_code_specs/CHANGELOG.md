@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.14.1
+
+- **`CsOverridableBy.user` now states the rule the enum states.** Its line said
+  a device setting could shadow a `user` key "transitively", which contradicted
+  the lattice rule on the enum itself — the value names the narrowest scope
+  permitted, and only the scopes *between* the declaring one and the named one
+  are opened too. A CE-CF declaration marked `user` opens CE-CC and CE-UP; a
+  CE-CC declaration opens CE-UP alone; neither opens CE-DS, which is what
+  `device` is for. `tom_core_flutter`'s `TomEffectiveSettings` already
+  implements this reading. `CsClientConfig.overridableBy` says how the two open
+  arms differ at CE-CC. Documentation only; no code changed.
+
 ## 0.14.0
 
 22 files, +4051 lines since 0.13.0.
