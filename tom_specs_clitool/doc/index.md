@@ -60,5 +60,5 @@ not part of the tier above:
 | [`tom_specs_model_rules.md`](../../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules the validator enforces, and — in `tom_specs_model_rules.md` §11 — the outliner's rendering rules |
 | [`tom_specs_model_meta_schema.md`](../../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of the exported class graph |
 | [`som_toolchains.md`](../../tom_specs_model/doc/som_toolchains.md) | The per-language build and verify toolchains, and regenerating after an SDK change |
-| [`codespecs_derivation_contract.md`](../../tom_specs_model/doc/codespecs_derivation_contract.md) | The thirty-seven checks `validate_codespecs.dart` runs |
+| [`codespecs_derivation_contract.md`](../../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md) | The thirty-seven checks `validate_codespecs.dart` runs |
 | [`tom_specs_model/doc/index.md`](../../tom_specs_model/doc/index.md) | The catalogue of the whole subject-matter tier, and the `§` citation convention |

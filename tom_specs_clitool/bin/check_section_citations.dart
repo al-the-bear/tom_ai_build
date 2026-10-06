@@ -111,6 +111,10 @@ Future<void> main(List<String> arguments) async {
   try {
     report = checkSectionCitations(
       docDir: docDir,
+      corpusDocuments: [
+        for (final document in defaultCorpusDocuments)
+          p.normalize(p.join(containerRoot, document)),
+      ],
       extraFiles: [
         if (results.flag('default-readmes'))
           for (final readme in defaultCitedReadmes)

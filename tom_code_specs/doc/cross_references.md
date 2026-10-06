@@ -5,9 +5,9 @@ an element, a job cites a report. This guide covers how those edges are written
 — the thirteen typed `Cs*Ref` const types — and how a piece of code traces back
 to the specification section that shaped it, through `@DocSpec` and `DocRef`.
 The rule that a cross-part edge must be a const rather than a string is
-[`codespecs_mapping.md`](../../tom_specs_model/doc/codespecs_mapping.md) §5.23;
+[`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §5.23;
 the naming rules the ids follow are
-[`codespecs_derivation_contract.md`](../../tom_specs_model/doc/codespecs_derivation_contract.md)
+[`codespecs_derivation_contract.md`](../../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §2.1. Both are cited here rather than restated.
 
 ## Table of Contents

@@ -416,7 +416,7 @@ NoArtifactReason values: 3
 ```
 
 The three enums are closed catalogues transcribed from
-[`codespecs_mapping.md`](../../tom_specs_model/doc/codespecs_mapping.md) §4.1,
+[`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §4.1,
 §4.3 and §8.3 — that document decides what the values mean and which parts are
 active rather than deferred.
 

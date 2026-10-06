@@ -325,7 +325,7 @@ graph, never a document (`tom_specs_reviewer_specification.md` §2.4).
 | [tom_specs_reviewer_specification.md](../tom_specs_model/doc/tom_specs_reviewer_specification.md) | What this app must be — purpose, inputs, the start page, the tree, the review vocabulary, persistence |
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The snapshot's on-disk schema, its two version stamps, and the refresh procedure for both committed assets |
 | [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | What each annotation the tree draws means, and the structural invariants a finding may be about |
-| [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) | The `CodeSpecPart` catalogue and the three routing verdicts `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` that this app records judgements against |
+| [codespecs_mapping.md](../../core/tom_core_codespecs/doc/codespecs_mapping.md) | The `CodeSpecPart` catalogue and the three routing verdicts `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` that this app records judgements against |
 | [tom_specs_editor_specification.md](../tom_specs_model/doc/tom_specs_editor_specification.md) | The *other* app — what a specification editor is, and why this one is not it |
 
 

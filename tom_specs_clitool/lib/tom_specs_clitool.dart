@@ -69,6 +69,7 @@ export 'src/section_citations.dart'
         defaultCitedReadmes,
         defaultCitedSourceRoots,
         defaultCitedDocFolders,
+        defaultCorpusDocuments,
         hashComments,
         isScannedSource,
         liftComments,

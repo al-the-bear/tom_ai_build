@@ -14,7 +14,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// members (agreement with the code the mapping document says it generates).
 void main() {
   final mapping = File(
-    '../tom_specs_model/doc/codespecs_mapping.md',
+    '../../core/tom_core_codespecs/doc/codespecs_mapping.md',
   ).readAsStringSync();
 
   group('codespecs_areas.json', () {

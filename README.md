@@ -107,8 +107,8 @@ reading order for a newcomer:
 | [tom_specs_model_meta_schema.md](tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk shape of `spec_model.meta.json`, the class graph every runtime loads. |
 | [som_generator_config.md](tom_specs_model/doc/som_generator_config.md) | The generator's config block — languages, output roots, document roots. |
 | [som_toolchains.md](tom_specs_model/doc/som_toolchains.md) | Per-language toolchains needed to build and run the generated artefacts. |
-| [codespecs_mapping.md](tom_specs_model/doc/codespecs_mapping.md) | CodeSpecs: which specification section feeds which code part — the parts catalogue, attribute surfaces, generation slices. |
-| [codespecs_derivation_contract.md](tom_specs_model/doc/codespecs_derivation_contract.md) | CodeSpecs: exactly what code comes out — per-marker derivation, naming rules, validator checks. |
+| [codespecs_mapping.md](../core/tom_core_codespecs/doc/codespecs_mapping.md) | CodeSpecs: which specification section feeds which code part — the parts catalogue, attribute surfaces, generation slices. |
+| [codespecs_derivation_contract.md](../core/tom_core_codespecs/doc/codespecs_derivation_contract.md) | CodeSpecs: exactly what code comes out — per-marker derivation, naming rules, validator checks. |
 | [codespecs_prompt.md](tom_specs_model/doc/codespecs_prompt.md) | How a Phase-4 run starts, and the quality gate that lets it refuse to. |
 | [tom_specs_editor_specification.md](tom_specs_model/doc/tom_specs_editor_specification.md) | The spec-authoring desktop app (not part of release 1). |
 | [tom_specs_reviewer_specification.md](tom_specs_model/doc/tom_specs_reviewer_specification.md) | The object-model review app (not part of release 1). |

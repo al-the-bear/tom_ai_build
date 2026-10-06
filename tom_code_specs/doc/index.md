@@ -43,7 +43,7 @@ here cite it rather than restating it
 
 | Where | What it decides |
 |-------|-----------------|
-| [`codespecs_mapping.md`](../../tom_specs_model/doc/codespecs_mapping.md) | Which specification section feeds which part — the catalogue, the attribute surfaces, the generation slices, the trio |
-| [`codespecs_derivation_contract.md`](../../tom_specs_model/doc/codespecs_derivation_contract.md) | What code comes out per marker — emitted Dart, superclass, naming rules, stub bodies, validator checks |
+| [`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) | Which specification section feeds which part — the catalogue, the attribute surfaces, the generation slices, the trio |
+| [`codespecs_derivation_contract.md`](../../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md) | What code comes out per marker — emitted Dart, superclass, naming rules, stub bodies, validator checks |
 | [`codespecs_prompt.md`](../../tom_specs_model/doc/codespecs_prompt.md) | When a Phase-4 run may begin at all — the mechanical gate and the per-area judgment |
 | [`tom_specs_model/doc/index.md`](../../tom_specs_model/doc/index.md) | The catalogue of the whole subject-matter tier, and the `§` citation convention |

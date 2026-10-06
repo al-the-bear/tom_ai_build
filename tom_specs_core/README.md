@@ -202,7 +202,7 @@ into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
 #### DocSpecs ↔ CodeSpecs link (general, type-level)
 
 The general type-level half of the bidirectional DocSpecs↔CodeSpecs link
-([`codespecs_mapping.md`](../tom_specs_model/doc/codespecs_mapping.md)
+([`codespecs_mapping.md`](../../core/tom_core_codespecs/doc/codespecs_mapping.md)
 §9.1/§9.5). It lives here because
 it annotates SOM model classes — the concrete forward `codeSpec` member is a
 `DocSpecsSection` field, and the code-side back-trace `@DocSpec`/`DocRef` lives
@@ -304,7 +304,7 @@ class SecurityConcept extends DocSpecsSection {}
 `@CodeSpecKind` the CodeSpecs part the section is realised as. What each of
 them *means* is decided by
 [`tom_specs_model_rules.md`](../tom_specs_model/doc/tom_specs_model_rules.md)
-and [`codespecs_mapping.md`](../tom_specs_model/doc/codespecs_mapping.md), not
+and [`codespecs_mapping.md`](../../core/tom_core_codespecs/doc/codespecs_mapping.md), not
 here.
 
 ## Architecture
@@ -388,7 +388,7 @@ it produced, not the package itself.
 | [index.md](../tom_specs_model/doc/index.md) | The catalogue of the whole TomSpecs document set, and the `§` citation convention used throughout it |
 | [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | When to reach for which annotation, what each one does to the emitted document/schema/metadata, and the structural invariants the validator enforces |
 | [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | The nine-language generation, the metadata tree, and the markdown/YAML serialization of every construct |
-| [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) | The CodeSpecs parts catalogue behind `CodeSpecPart`, and the routing verdicts behind `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` |
+| [codespecs_mapping.md](../../core/tom_core_codespecs/doc/codespecs_mapping.md) | The CodeSpecs parts catalogue behind `CodeSpecPart`, and the routing verdicts behind `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` |
 | [tom_specs_project_flow.md](../tom_specs_model/doc/tom_specs_project_flow.md) | The TomSpecs creation process — the phases these documents are produced in |
 
 **Runnable samples** — a whole task carried end to end across several

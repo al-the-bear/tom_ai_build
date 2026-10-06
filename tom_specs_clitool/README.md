@@ -713,8 +713,8 @@ tom_specs_clitool
 | [som_toolchains.md](../tom_specs_model/doc/som_toolchains.md) | The per-language build and verify toolchains, and running the Dart host with no installed SDK |
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of the emitted `spec_model.meta.json`, its two version stamps, and the committed-asset refresh procedure |
 | [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules, the seventeen structural invariants the validator enforces, and the outliner |
-| [codespecs_derivation_contract.md](../tom_specs_model/doc/codespecs_derivation_contract.md) | What `bin/validate_codespecs.dart` checks, and why each corroborating input is needed |
-| [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) | The parts catalogue `bin/codespecs_areas.dart` transcribes |
+| [codespecs_derivation_contract.md](../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md) | What `bin/validate_codespecs.dart` checks, and why each corroborating input is needed |
+| [codespecs_mapping.md](../../core/tom_core_codespecs/doc/codespecs_mapping.md) | The parts catalogue `bin/codespecs_areas.dart` transcribes |
 
 **This package** — its own guides:
 

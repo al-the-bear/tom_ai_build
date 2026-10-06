@@ -25,6 +25,10 @@ void main() {
   final docDir = p.normalize(
     p.join(clitoolRoot, '..', 'tom_specs_model', 'doc'),
   );
+  final corpusDocuments = [
+    for (final document in defaultCorpusDocuments)
+      p.normalize(p.join(containerRoot, document)),
+  ];
 
   /// A corpus of documents named `<name>` declaring `<ids>` as headings.
   SectionCorpus corpusOf(Map<String, List<String>> documents) => SectionCorpus([
@@ -431,7 +435,10 @@ void main() {
 
   group('SCC5: the doc-folder gate', () {
     test('every document in the folder is scanned and resolved', () {
-      final report = checkSectionCitations(docDir: docDir);
+      final report = checkSectionCitations(
+        docDir: docDir,
+        corpusDocuments: corpusDocuments,
+      );
 
       // The corpus is the folder itself, flat by design — generated output lives
       // in a sibling tree and must not be scanned.
@@ -449,14 +456,20 @@ void main() {
     test('the self-reference carve-out is what the doc set actually does', () {
       // The empirical case for the rule: self-citation is not an exception in
       // these documents, it is the overwhelming majority of how they cite.
-      final report = checkSectionCitations(docDir: docDir);
+      final report = checkSectionCitations(
+        docDir: docDir,
+        corpusDocuments: corpusDocuments,
+      );
       final self = report.countOf(SectionCitationVerdict.self);
 
       expect(self, greaterThan(report.citations.length ~/ 2));
     });
 
     test('index.md itself obeys the convention it states', () {
-      final report = checkSectionCitations(docDir: docDir);
+      final report = checkSectionCitations(
+        docDir: docDir,
+        corpusDocuments: corpusDocuments,
+      );
       final offenders = report.violations
           .where((c) => p.basename(c.file) == 'index.md')
           .map((c) => c.describe(relativeTo: docDir));
@@ -484,7 +497,11 @@ void main() {
         return;
       }
 
-      final report = checkSectionCitations(docDir: docDir, extraFiles: extras);
+      final report = checkSectionCitations(
+        docDir: docDir,
+        corpusDocuments: corpusDocuments,
+        extraFiles: extras,
+      );
 
       expect(
         report.violations.map((c) => c.describe(relativeTo: containerRoot)),
@@ -626,6 +643,7 @@ class A {}
       final sources = [for (final files in byRoot.values) ...files];
       final report = checkSectionCitations(
         docDir: docDir,
+        corpusDocuments: corpusDocuments,
         extraSources: sources,
       );
 

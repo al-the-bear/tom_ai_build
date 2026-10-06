@@ -5,9 +5,9 @@ class and *marked* by the annotations in this package. This guide covers how the
 markers are applied: the identity annotation every emission unit carries, the
 forty `Cs*` part markers, the collaborator marker that is not a part, and the
 note-only / argument-carrying split. What code each marker produces is
-[`codespecs_derivation_contract.md`](../../tom_specs_model/doc/codespecs_derivation_contract.md);
+[`codespecs_derivation_contract.md`](../../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md);
 which specification section feeds which part is
-[`codespecs_mapping.md`](../../tom_specs_model/doc/codespecs_mapping.md). Both
+[`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md). Both
 are cited here, never restated.
 
 ## Table of Contents

@@ -7,7 +7,7 @@ validator in `tom_specs_clitool`, and the Dart compiler.
 
 For task-oriented guidance see [marking_code.md](../marking_code.md). For the
 code each marker produces, see
-[`codespecs_derivation_contract.md`](../../../tom_specs_model/doc/codespecs_derivation_contract.md).
+[`codespecs_derivation_contract.md`](../../../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md).
 
 The cross-part reference types are documented separately in
 [api_summary_cross_part_refs.md](api_summary_cross_part_refs.md); the closed

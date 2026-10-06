@@ -39,5 +39,5 @@ here cite it rather than restating it
 |-------|-----------------|
 | [`tom_specs_model_rules.md`](../../tom_specs_model/doc/tom_specs_model_rules.md) | When a member must carry which annotation, and the structural invariants the validator enforces |
 | [`som_multiplatform_spec_model.md`](../../tom_specs_model/doc/som_multiplatform_spec_model.md) | How an annotated model becomes nine language runtimes, and how every construct serializes |
-| [`codespecs_mapping.md`](../../tom_specs_model/doc/codespecs_mapping.md) | The parts catalogue behind `CodeSpecPart`, and the three routing verdicts |
+| [`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) | The parts catalogue behind `CodeSpecPart`, and the three routing verdicts |
 | [`tom_specs_model/doc/index.md`](../../tom_specs_model/doc/index.md) | The catalogue of the whole subject-matter tier, and the `§` citation convention |

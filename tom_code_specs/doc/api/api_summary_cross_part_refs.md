@@ -6,7 +6,7 @@ so a renamed or deleted target is a **compile error**.
 
 For task-oriented guidance see [cross_references.md](../cross_references.md).
 For the rule itself, see
-[`codespecs_mapping.md`](../../../tom_specs_model/doc/codespecs_mapping.md) §5.23.
+[`codespecs_mapping.md`](../../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §5.23.
 
 ## Table of Contents
 

@@ -3,8 +3,8 @@
 # `test/` holds this package's own suite, and that suite is workspace-bound by
 # design rather than by accident. It checks the real object model, the real
 # documentation corpus and the real citation set: `areas_catalog_test.dart`
-# reads `tom_specs_model/doc/codespecs_mapping.md` to prove the 27-area
-# catalogue is a transcription of it, `invariant_correspondence_test.dart`
+# reads `tom_ai/core/tom_core_codespecs/doc/codespecs_mapping.md` to prove
+# the 27-area catalogue is a transcription of it, `invariant_correspondence_test.dart`
 # reads that document and the model's own annotations to hold §10.2's invariant
 # list against the validator, and `shipped_script_paths_test.dart` carries
 # fixture paths that escape a package on purpose — that is what it is testing.

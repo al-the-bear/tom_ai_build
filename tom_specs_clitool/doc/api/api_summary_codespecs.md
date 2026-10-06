@@ -7,7 +7,7 @@ nine-runtime extract surface consumes.
 For task-oriented guidance see
 [gates.md § The CodeSpecs validator](../gates.md#the-codespecs-validator). For
 the checks themselves, see
-[`codespecs_derivation_contract.md`](../../../tom_specs_model/doc/codespecs_derivation_contract.md)
+[`codespecs_derivation_contract.md`](../../../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §6.
 
 ## Table of Contents

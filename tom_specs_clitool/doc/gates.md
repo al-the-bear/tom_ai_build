@@ -5,7 +5,7 @@ resolving, a release set that acquires a dependency, a generated CodeSpecs trio
 that drifts from its contract. This guide covers running each, reading its
 report, and what a failure actually means. What each gate *enforces* is decided
 elsewhere — `index.md`'s citation convention, the release-set manifest,
-[`codespecs_derivation_contract.md`](../../tom_specs_model/doc/codespecs_derivation_contract.md)
+[`codespecs_derivation_contract.md`](../../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §6 — and is cited here, never restated.
 
 ## Table of Contents

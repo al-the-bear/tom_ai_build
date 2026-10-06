@@ -139,6 +139,6 @@ empty. The stages are the ones below; only the numbers differ.
 | Document | For |
 |----------|-----|
 | `tom_specs_model/doc/codespecs_prompt.md` | The gate stage 1 runs, and when a run may begin |
-| `tom_specs_model/doc/codespecs_mapping.md` | Which SOM section feeds which part; the areas, slices and projects |
-| `tom_specs_model/doc/codespecs_derivation_contract.md` | What code comes out, and the 37 checks stage 4 runs |
+| `tom_ai/core/tom_core_codespecs/doc/codespecs_mapping.md` | Which SOM section feeds which part; the areas, slices and projects |
+| `tom_ai/core/tom_core_codespecs/doc/codespecs_derivation_contract.md` | What code comes out, and the 37 checks stage 4 runs |
 | `tom_specs_model/doc/tom_specs_project_flow.md` | Phase 4's place in the process, and gate G4 |

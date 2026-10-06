@@ -244,7 +244,7 @@ final RegExp _trailingQualifier = RegExp(
 
 /// A table cell holding a document reference **and nothing else**.
 final RegExp _documentOnlyCell = RegExp(
-  r'^[\s`*_]*(?:\[[^\]]*\]\(\s*)?([A-Za-z0-9_.-]+\.md)(?:\s*\))?[\s`*_]*$',
+  r'^[\s`*_]*(?:\[[^\]]*\]\(\s*(?:[^)\s]*/)?)?([A-Za-z0-9_.-]+\.md)(?:\s*\))?[\s`*_]*$',
 );
 
 /// A table **header** cell holding a document reference and nothing else but an
@@ -254,7 +254,7 @@ final RegExp _documentOnlyCell = RegExp(
 /// of that document" rather than merely mentioning it, so it is admitted here
 /// and nowhere else.
 final RegExp _documentColumnHeaderCell = RegExp(
-  r'^[\s`*_]*(?:\[[^\]]*\]\(\s*)?([A-Za-z0-9_.-]+\.md)(?:\s*\))?'
+  r'^[\s`*_]*(?:\[[^\]]*\]\(\s*(?:[^)\s]*/)?)?([A-Za-z0-9_.-]+\.md)(?:\s*\))?'
   r'[\s`*_]*§?[\s`*_]*$',
 );
 
@@ -319,6 +319,20 @@ const defaultCitedReadmes = [
   'tom_ai/ai_build/tom_som_c_v0/README.md',
   'tom_ai/ai_build/tom_som_cpp_runtime/README.md',
   'tom_ai/ai_build/tom_som_cpp_v0/README.md',
+];
+
+/// The two documents of the TomSpecs set that do not live in its doc folder,
+/// relative to the container root.
+///
+/// The CodeSpecs mapping and derivation contract are the normative design of
+/// `tom_core_codespecs`, so they ship with that package; they remain part of
+/// the TomSpecs document set, which cites them by section throughout. The gate
+/// therefore reads them into its corpus by name — their headings are what a
+/// citation of them resolves against — and scans their own citations as
+/// documents of the set rather than as citing files outside it.
+const defaultCorpusDocuments = [
+  'tom_ai/core/tom_core_codespecs/doc/codespecs_mapping.md',
+  'tom_ai/core/tom_core_codespecs/doc/codespecs_derivation_contract.md',
 ];
 
 /// The **package-tier `doc/` folders** that cite the doc set,
@@ -1372,7 +1386,7 @@ class SectionCitationReport {
 }
 
 /// Resolves the citations of every `*.md` directly inside [docDir], against the
-/// documents in that same folder.
+/// documents in that same folder and the [corpusDocuments] named beside it.
 ///
 /// [extraFiles] are markdown outside the folder — project READMEs.
 /// [extraSources] are source files of any kind [isScannedSource] admits, whose
@@ -1380,10 +1394,20 @@ class SectionCitationReport {
 SectionCitationReport checkSectionCitations({
   required String docDir,
   SectionCorpus? corpus,
+  Iterable<String> corpusDocuments = const [],
   Iterable<String> extraFiles = const [],
   Iterable<String> extraSources = const [],
 }) {
-  final resolved = corpus ?? SectionCorpus.loadFolder(docDir);
+  final resolved =
+      corpus ??
+      SectionCorpus([
+        ...SectionCorpus.loadFolder(docDir).documents,
+        for (final path in corpusDocuments)
+          if (File(path).existsSync()) DocumentSections.read(path),
+      ]);
+  final inCorpus = {
+    for (final document in resolved.documents) p.normalize(document.path),
+  };
   final citations = <SectionCitation>[];
   final stale = <StaleSectionExemption>[];
   final files = <String>[];
@@ -1416,6 +1440,9 @@ SectionCitationReport checkSectionCitations({
   // and a bare citation in one of them resolves against its own headings like
   // any other file.
   for (final path in extraFiles) {
+    // A corpus document reached again through a cited folder is already
+    // scanned, as a document of the set.
+    if (inCorpus.contains(p.normalize(path))) continue;
     final file = File(path);
     if (!file.existsSync()) continue;
     scan(file.readAsStringSync(), path: path);

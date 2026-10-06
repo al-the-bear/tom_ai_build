@@ -44,7 +44,10 @@ void main() {
 
       expect(sources, contains('validator.dart'));
       expect(sources, contains('pubspec.yaml'));
-      expect(sources, contains('../tom_specs_model/doc/codespecs_mapping.md'));
+      expect(
+        sources,
+        contains('../../core/tom_core_codespecs/doc/codespecs_mapping.md'),
+      );
       expect(
         sources,
         contains('../tom_specs_model/doc/tom_specs_model_rules.md'),

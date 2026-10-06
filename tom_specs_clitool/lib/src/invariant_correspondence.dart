@@ -42,6 +42,8 @@ library;
 
 import 'dart:io';
 
+import 'package:path/path.dart' as p;
+
 /// The shape of an invariant id in `tom_specs_model_rules.md` §10.2: uppercase,
 /// hyphen-separated words.
 ///
@@ -442,6 +444,8 @@ const List<String> defaultCitingPaths = [
   'test',
   'pubspec.yaml',
   '../tom_specs_model/doc',
+  '../../core/tom_core_codespecs/doc/codespecs_mapping.md',
+  '../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md',
   '../tom_specs_model/lib',
   '../tom_specs_core/lib',
   '../tom_specs_core/README.md',
@@ -460,9 +464,9 @@ const String _corpusExemption = 'test/invariant_correspondence_test.dart';
 Map<String, String> readCitingCorpus(String clitoolRoot) {
   final corpus = <String, String>{};
   void add(File file) {
-    final path = file.path
-        .replaceFirst(RegExp('^${RegExp.escape(clitoolRoot)}/'), '')
-        .replaceAll('/../', '/');
+    final path = p.normalize(
+      file.path.replaceFirst(RegExp('^${RegExp.escape(clitoolRoot)}/'), ''),
+    );
     if (path.endsWith(_corpusExemption)) return;
     corpus[path] = file.readAsStringSync();
   }

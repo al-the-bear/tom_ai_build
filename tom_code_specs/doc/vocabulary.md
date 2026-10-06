@@ -6,9 +6,9 @@ arguments select from a **closed catalogue** — an enum declared in
 rather than strings, why they are declared here rather than imported, and the
 per-kind slot rule that a `const` expression cannot enforce. What each value
 *means* for a specification is
-[`codespecs_mapping.md`](../../tom_specs_model/doc/codespecs_mapping.md); what
+[`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md); what
 code it produces is
-[`codespecs_derivation_contract.md`](../../tom_specs_model/doc/codespecs_derivation_contract.md)
+[`codespecs_derivation_contract.md`](../../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §5.3. This guide states the API and cites those.
 
 ## Table of Contents

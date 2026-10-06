@@ -19,8 +19,8 @@ Future<void> main(List<String> arguments) async {
     ..addOption(
       'mapping',
       help:
-          'The mapping document to transcribe. Default: the sibling '
-          'tom_specs_model/doc/codespecs_mapping.md.',
+          'The mapping document to transcribe. Default: '
+          'tom_ai/core/tom_core_codespecs/doc/codespecs_mapping.md.',
     )
     ..addOption(
       'output',
@@ -61,7 +61,15 @@ Future<void> main(List<String> arguments) async {
   final mappingPath = p.normalize(
     p.absolute(
       results.option('mapping') ??
-          p.join(modelRoot, 'doc', 'codespecs_mapping.md'),
+          p.join(
+            clitoolRoot,
+            '..',
+            '..',
+            'core',
+            'tom_core_codespecs',
+            'doc',
+            'codespecs_mapping.md',
+          ),
     ),
   );
   final outputPath = p.normalize(

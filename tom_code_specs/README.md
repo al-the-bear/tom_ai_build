@@ -1,11 +1,11 @@
 # tom_code_specs — the CodeSpecs annotation framework
 
 > **Cross-references.**
-> [`tom_specs_model/doc/codespecs_mapping.md`](../tom_specs_model/doc/codespecs_mapping.md)
+> [`tom_ai/core/tom_core_codespecs/doc/codespecs_mapping.md`](../../core/tom_core_codespecs/doc/codespecs_mapping.md)
 > owns the **parts catalogue** (`codespecs_mapping.md` §4.1), the per-part
 > **spec-authorable attribute surfaces** (`codespecs_mapping.md` §5) and the
 > **DocSpecs↔CodeSpecs link** (`codespecs_mapping.md` §9).
-> [`tom_specs_model/doc/codespecs_derivation_contract.md`](../tom_specs_model/doc/codespecs_derivation_contract.md)
+> [`tom_ai/core/tom_core_codespecs/doc/codespecs_derivation_contract.md`](../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md)
 > owns **what code each marker produces** — its inputs, the exact Dart emitted,
 > its `tom_core`-family superclass, the naming rules and the validator checks.
 > This README is the catalogue of *what each annotation is and how to write
@@ -50,7 +50,7 @@ with the gaps `tom_core` genuinely lacks supplied by
 > `tom_core` lacks live in [`tom_core_codespecs`](../../core/tom_core_codespecs).
 > The framework is owned by the **`tom_specs` quest** (the former `code_spec`
 > quest is retired — see
-> [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) §1.1/§12).
+> [codespecs_mapping.md](../../core/tom_core_codespecs/doc/codespecs_mapping.md) §1.1/§12).
 
 A CodeSpec declaration is therefore an ordinary Dart class or member with three
 layers of information on it:
@@ -116,12 +116,12 @@ body calls: one per emitting declaration, holding one abstract method per
 contributing step and nothing else, reached through the declaration's single
 `late final … collaborator;` field. It is a marker rather than a naming
 convention because
-[`codespecs_derivation_contract.md`](../tom_specs_model/doc/codespecs_derivation_contract.md)
+[`codespecs_derivation_contract.md`](../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §2.7 point 4 requires one
 on every generated top-level declaration and because the
 `codespecs_derivation_contract.md` §6 checks have to find collaborators.
 
-The [`codespecs_mapping.md`](../tom_specs_model/doc/codespecs_mapping.md) §4.3
+The [`codespecs_mapping.md`](../../core/tom_core_codespecs/doc/codespecs_mapping.md) §4.3
 **deferred** candidate — **CE-WF alone** —
 deliberately has **no marker**: a deferred part is mapping-only, so its
 `CodeSpecPart` value is reserved and a SOM section can already carry
@@ -175,7 +175,7 @@ fallback — which names a **sibling channel**. That is why the family has no
 ### The closed catalogues
 
 `vocabulary.dart` holds the sixteen enums a marker's arguments select from
-([`codespecs_derivation_contract.md`](../tom_specs_model/doc/codespecs_derivation_contract.md)
+([`codespecs_derivation_contract.md`](../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §5.3). They are enums rather than strings for
 the same reason the refs are consts: a catalogue grows by a reviewed taxonomy
 edit, not by a specification inventing a value in passing.
@@ -271,7 +271,7 @@ stays a plain id string — that is why there is no `CsChannelRef`.
 `@DocSpec` carries one `DocRef` per section that shaped the declaration, so
 Phases 5 and 6 read the code rather than reopening the Phase-3 documents. That
 self-sufficiency rule is
-[`codespecs_mapping.md`](../tom_specs_model/doc/codespecs_mapping.md) §9.6, and
+[`codespecs_mapping.md`](../../core/tom_core_codespecs/doc/codespecs_mapping.md) §9.6, and
 two of the validator's checks exist to enforce it in both directions.
 
 ```dart
@@ -374,8 +374,8 @@ annotation, so it lives in [`tom_specs_model`](../tom_specs_model) /
 | Document | Authority for |
 |----------|---------------|
 | [index.md](../tom_specs_model/doc/index.md) | The catalogue of the whole TomSpecs document set, and the `§` citation convention |
-| [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) | Which SOM section feeds which part — the catalogue, the attribute surfaces, the generation slices, the DocSpecs↔CodeSpecs link |
-| [codespecs_derivation_contract.md](../tom_specs_model/doc/codespecs_derivation_contract.md) | What code comes out per marker — inputs, emitted Dart, superclass, naming rules, stub bodies, constructor shapes, validator checks |
+| [codespecs_mapping.md](../../core/tom_core_codespecs/doc/codespecs_mapping.md) | Which SOM section feeds which part — the catalogue, the attribute surfaces, the generation slices, the DocSpecs↔CodeSpecs link |
+| [codespecs_derivation_contract.md](../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md) | What code comes out per marker — inputs, emitted Dart, superclass, naming rules, stub bodies, constructor shapes, validator checks |
 | [codespecs_prompt.md](../tom_specs_model/doc/codespecs_prompt.md) | When a Phase-4 run may begin at all — the mechanical gate and the per-area judgment |
 | [tom_specs_project_flow.md](../tom_specs_model/doc/tom_specs_project_flow.md) | The phase model Phase 4 sits in, and the quality gate it must pass |
 | [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules behind the `@CodeSpecKind` routing this family consumes |
@@ -421,7 +421,7 @@ surface; the other **16 carry a single optional `note`** — a design decision, 
 an omission, because everything their part authors is already carried by the
 annotated declaration itself or by a `tom_core` substrate constructor. Which
 attributes become constructor parameters is decided by
-[`codespecs_derivation_contract.md`](../tom_specs_model/doc/codespecs_derivation_contract.md)
+[`codespecs_derivation_contract.md`](../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §2.3's three tests, and
 `codespecs_derivation_contract.md` §5.1–§5.3 give the resulting shape of every
 marker.

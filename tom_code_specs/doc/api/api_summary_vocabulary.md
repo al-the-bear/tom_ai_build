@@ -9,7 +9,7 @@ same role `DocRef` and the `Cs*Ref` family play.
 
 For task-oriented guidance see [vocabulary.md](../vocabulary.md). For what each
 value means for a specification, see
-[`codespecs_mapping.md`](../../../tom_specs_model/doc/codespecs_mapping.md).
+[`codespecs_mapping.md`](../../../../core/tom_core_codespecs/doc/codespecs_mapping.md).
 
 ## Table of Contents
 

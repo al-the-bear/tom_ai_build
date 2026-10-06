@@ -256,7 +256,7 @@ CsOrder, CsOrder.total, CsOrderRepository
 It is empty by default so an untouched section stays byte-stable through a
 round-trip. What the strings mean, and how they pair with the code-side
 `@DocSpec` annotation, is
-[`codespecs_mapping.md`](../../tom_specs_model/doc/codespecs_mapping.md) §9.2.
+[`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §9.2.
 
 ## Error Handling
 

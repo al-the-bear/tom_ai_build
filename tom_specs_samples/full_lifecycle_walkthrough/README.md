@@ -182,5 +182,5 @@ copies would be demonstrating luck.
 |----------|-----|
 | `tom_specs_model/doc/tom_specs_project_flow.md` | The process authority: phases, gates, iteration, roles, tooling |
 | `tom_specs_model/doc/codespecs_prompt.md` | Phase 4's starting prompt and its gate |
-| `tom_specs_model/doc/codespecs_mapping.md` | Which specification section feeds which CodeSpecs part |
-| `tom_specs_model/doc/codespecs_derivation_contract.md` | What code Phase 4 emits, and the 37 checks G4 runs |
+| `tom_ai/core/tom_core_codespecs/doc/codespecs_mapping.md` | Which specification section feeds which CodeSpecs part |
+| `tom_ai/core/tom_core_codespecs/doc/codespecs_derivation_contract.md` | What code Phase 4 emits, and the 37 checks G4 runs |

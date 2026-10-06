@@ -20,7 +20,7 @@ void main() {
   group('§6 ↔ codeSpecsChecks correspondence', () {
     test('the real table and the real registry name the same checks', () {
       final contract = File(
-        '${Directory.current.path}/../tom_specs_model/doc/'
+        '${Directory.current.path}/../../core/tom_core_codespecs/doc/'
         'codespecs_derivation_contract.md',
       );
       final report = compareCsCheckTable(markdown: contract.readAsStringSync());
