@@ -157,7 +157,7 @@ struct DataAttributeKind {
   // It binds [DataAttributeEntry.enumerationTypeOptions], which names
   // **which** domain enum the attribute is typed by. That is not optional
   // detail: the emitted column's value type *is* the generated enum type
-  // (`TomDbColumn<DART_TYPE, …>`), so without the name the column cannot be
+  // (the annotated field's Dart type), so without the name the column cannot be
   // emitted at all. Naming the registry entry rather than restating its values
   // keeps the single source `DomainEnumRegistry` declares, and matches how
   // every other enumerated value in the model is typed — an operation member
