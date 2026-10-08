@@ -41,7 +41,7 @@ the upgrade cycle.
 - The **DocSpecs document format** itself — see
   [`doc_specs_specification.md`](../../../../_ai/quests/doc_specs/doc_specs_specification.md).
 - The **CodeSpecs annotation framework and part catalogue** — see
-  [`codespecs_mapping.md`](codespecs_mapping.md).
+  [`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md).
 - **Language-level coding standards** — see `_copilot_guidelines/dart/`.
 
 ### PF-DOC-BAS Basis
@@ -161,7 +161,7 @@ root of the specification object model with a three-letter section ID.
 
 `CGP` is not authored: it is a **projection** over the other roots that routes
 each section to its CodeSpecs part and deployment locus. See
-[`codespecs_mapping.md`](codespecs_mapping.md) §9.
+[`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §9.
 
 ### PF-FLW-SBP The Solution Blueprint as the Expansion Point
 
@@ -308,7 +308,7 @@ class, marked with `Cs*` annotations. There is no separate CodeSpecs document
 model and no `Cs*` base classes. Every class a CodeSpec instantiates comes from
 `tom_core_kernel` / `tom_core_flutter` / `tom_core_server` / `tom_core_d4rt` /
 `tom_flutter_ui`, with `tom_core_codespecs` filling only the genuine gaps. See
-[`codespecs_mapping.md`](codespecs_mapping.md) §1.1.
+[`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §1.1.
 
 **What is specified.**
 
@@ -327,13 +327,13 @@ model and no `Cs*` base classes. Every class a CodeSpec instantiates comes from
 
 **How the code is produced.** Phase 4 is neither a compiler pass nor free
 authoring. It runs in **two passes with a fixed boundary** between them
-([`codespecs_mapping.md`](codespecs_mapping.md) §1.1, §1.1.1 — pillar (e) and
+([`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §1.1, §1.1.1 — pillar (e) and
 the production contract it fixes):
 
 | Pass | Performed by | Produces |
 |------|--------------|----------|
 | **1 · Extract** | The **extract generator** — a `spec_codespecs_extract` surface present in all nine SOM runtimes, so Phase 4 is not a Dart-only phase | One bounded, cited **extract** per CodeSpecs area, holding every SOM field the section's `@CodeSpecKind` routes there, verbatim and with its provenance: `<CE-CODE>.extract.yaml` (the artifact of record) plus a rendered `.extract.md`, under `<spec-root>/generated-doc/codespecs_extracts/` |
-| **2 · Author** | The **authoring agent** — one prompt pass per **authoring step**, working from that step's extract(s) alone and walking the thirty-one steps in [`codespecs_mapping.md`](codespecs_mapping.md) §4.4.6's order, so nothing is written before what it cites | The CodeSpecs Dart, written against [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md), which is normative for it |
+| **2 · Author** | The **authoring agent** — one prompt pass per **authoring step**, working from that step's extract(s) alone and walking the thirty-one steps in [`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §4.4.6's order, so nothing is written before what it cites | The CodeSpecs Dart, written against [`codespecs_derivation_contract.md`](../../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md), which is normative for it |
 
 The generator may copy and index; it may not summarise, rephrase, compose a
 sentence out of field values, or choose a name. The agent makes every judgement
@@ -362,7 +362,7 @@ scaffolding, per authoring step, per specification element — and the open ques
 first and to exhaustion, which is the mechanism by which an underspecified
 project stops Phase 4 instead of being guessed through. Each level's generation
 rule, and the criteria under which a generated todo is born blocked rather than
-runnable, are [`codespecs_mapping.md`](codespecs_mapping.md) §1.1.3's; the run
+runnable, are [`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §1.1.3's; the run
 procedure that instantiates them is §1.1.2 of `codespecs_mapping.md`.
 
 **Output — three generated projects**, split by deployment locus:
