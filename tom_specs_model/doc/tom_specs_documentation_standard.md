@@ -10,11 +10,9 @@ each piece lives, and when it is finished**. It owns no subject matter of its
 own: it is the rule the other documents in this folder are exempt from and the
 packages are held to.
 
-It exists because the two workspace conventions it builds on —
-[`_copilot_guidelines/component_module_readme_example.md`](../../../../_copilot_guidelines/component_module_readme_example.md)
-(README shape) and
-[`_copilot_guidelines/documentation_guidelines.md`](../../../../_copilot_guidelines/documentation_guidelines.md)
-(`doc/` folder shape) — describe a *standalone* package, and TomSpecs is not
+It exists because the two workspace conventions it builds on — the workspace
+guidelines `component_module_readme_example.md` (README shape) and
+`documentation_guidelines.md` (`doc/` folder shape) — describe a *standalone* package, and TomSpecs is not
 one. It is 29 packages sharing a single body of subject matter that no package
 owns. Applying the workspace conventions naively would put a copy of the
 methodology in every package; applying [`index.md`](index.md) naively would

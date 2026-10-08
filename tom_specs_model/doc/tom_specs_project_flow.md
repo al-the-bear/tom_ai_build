@@ -1444,9 +1444,8 @@ defects found during implementation, failures found during acceptance testing â€
 are worked through a lightweight per-issue sequence. This is **not** a phase
 gate; it is a checklist that agents execute automatically for every issue.
 
-The general workflow is the workspace-wide one in
-[`_copilot_guidelines/issue_implementation.md`](../../../../_copilot_guidelines/issue_implementation.md).
-What follows is how it plugs into the TomSpecs flow and what is checked at each
+The general workflow is the workspace-wide one in the workspace guideline
+`issue_implementation.md`. What follows is how it plugs into the TomSpecs flow and what is checked at each
 step.
 
 ### PF-ISS-SEQ The Issue Sequence

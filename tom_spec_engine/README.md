@@ -248,8 +248,15 @@ writes `tool/som_surface.stamp.json`, and `test/som_bridge_freshness_test.dart`
 recomputes the fingerprint in the default `dart test` run. That catches
 *additive* staleness too — SOM gaining a class or member while the existing
 bridge still compiles — which a build error never would.
-[`_copilot_guidelines/bridge_regeneration.md`](_copilot_guidelines/bridge_regeneration.md)
-states when to re-run it.
+
+Re-run `dart run tool/regenerate_bridges.dart` whenever the public surface of
+either SOM package changes — anything reachable from the
+`tom_som_dart_runtime` or `tom_som_dart_v0` barrel — and whenever the generator
+itself has moved. The second case is the one the fingerprint cannot see, so
+`test/bridges_fresh_test.dart` regenerates into a scratch tree under
+`.dart_tool/` and fails on any difference from the committed bridges. Commit
+`tool/som_surface.stamp.json` together with the bridges: a regeneration
+committed without its stamp leaves the freshness test red.
 
 ### Vector runtime precondition
 
@@ -338,7 +345,6 @@ than as a red suite.
 | [doc/memory.md](doc/memory.md) | The RAG plane, its degradation path, and the vector-runtime precondition |
 | [doc/tools.md](doc/tools.md) | The four tool families and why results are values rather than exceptions |
 | [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
-| [_copilot_guidelines/bridge_regeneration.md](_copilot_guidelines/bridge_regeneration.md) | When and how to re-run `tool/regenerate_bridges.dart`, and what the freshness stamp holds |
 
 **Siblings** — packages you will reach for next:
 

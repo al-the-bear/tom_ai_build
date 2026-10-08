@@ -184,6 +184,22 @@ over its own stale self — the check would agree with itself and prove nothing.
 One stamp covers all nine because the meta tree is generated first and every
 language derives from it.
 
+**What the fingerprint ignores.** It is taken over each model file's token
+stream, so **formatting**, **function bodies** and ordinary `//` **comments**
+never move it. **Doc comments do** — they are exported into every language's
+meta as `docComment`, so rewording one is a model change that all nine packages
+carry. **Private declarations do too**: renaming a private helper moves the
+fingerprint though no emitted package changes. Take the regeneration; if it
+produces no diff in the nine packages, commit the refreshed stamp alone.
+
+**The gap it leaves.** The fingerprint covers the model, not the **emitters**:
+changing `SomDartEmitter` and its siblings makes the committed packages stale in
+a way the stamp cannot see. Every emitter has a golden test in `test/`, so an
+emitter change arrives with a visible "output moved" failure — but the
+regeneration still has to be run by hand. And the check runs in this package's
+suite, so a model edit committed without anyone running these tests is caught at
+the next run, not at the moment it happens.
+
 **Commit the stamp with the regenerated packages.** A stamp committed alone says
 the model was generated when it was not; packages committed without it leave the
 next test run red for the wrong reason.

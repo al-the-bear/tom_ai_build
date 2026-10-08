@@ -240,7 +240,7 @@ changes all nine packages. This is enforced, not remembered: a canonical run
 writes `tool/model_surface.stamp.json` with a fingerprint of the model it read,
 and `test/model_freshness_test.dart` fails in the **default** suite when the
 model has moved since. See
-[`_copilot_guidelines/som_regeneration.md`](_copilot_guidelines/som_regeneration.md)
+[`doc/generating.md`](doc/generating.md#the-freshness-stamp)
 for what the fingerprint covers and what it deliberately ignores. Commit the
 stamp together with the regenerated artefacts.
 
@@ -725,8 +725,6 @@ tom_specs_clitool
 | [doc/inspecting_the_model.md](doc/inspecting_the_model.md) | The outliner, the JSON exporter, and reading an outline's notation |
 | [doc/gates.md](doc/gates.md) | Running each gate, reading a citation failure, and why the scan sets are closed |
 | [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
-| [_copilot_guidelines/index.md](_copilot_guidelines/index.md) | The index of this package's development guidelines |
-| [_copilot_guidelines/som_regeneration.md](_copilot_guidelines/som_regeneration.md) | When to re-run `generate_som.dart`, what the freshness fingerprint covers, and what it deliberately ignores |
 
 **Siblings** — packages you will reach for next:
 

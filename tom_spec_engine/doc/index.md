@@ -45,13 +45,12 @@ here cite it rather than restating it
 
 ## Development documentation
 
-`_copilot_guidelines/` holds this package's **development** documentation and is
-not part of the tier above:
-
-| Document | Covers |
-|----------|--------|
-| [`_copilot_guidelines/index.md`](../_copilot_guidelines/index.md) | The catalogue of this package's development guidelines |
-| [`_copilot_guidelines/bridge_regeneration.md`](../_copilot_guidelines/bridge_regeneration.md) | When to re-run the D4rt bridge generator, and what the freshness stamp catches |
+Maintainers of this repository keep development guidelines in the package's
+`_copilot_guidelines/` folder — among them `bridge_regeneration.md`, the full
+account of the bridge freshness checks. They are not part of the package's
+documentation and are not linked from it: the guidelines ship with neither the
+package nor its published page. What a reader of this package needs about
+regenerating the bridges is in the [README](../README.md).
 
 ## Beyond this package
 

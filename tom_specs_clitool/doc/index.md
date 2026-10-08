@@ -43,13 +43,13 @@ here cite it rather than restating it
 
 ## Development documentation
 
-`_copilot_guidelines/` holds this package's **development** documentation and is
-not part of the tier above:
-
-| Document | Covers |
-|----------|--------|
-| [`_copilot_guidelines/index.md`](../_copilot_guidelines/index.md) | The catalogue of this package's development guidelines |
-| [`_copilot_guidelines/som_regeneration.md`](../_copilot_guidelines/som_regeneration.md) | The regeneration discipline the freshness stamp enforces, and why it is mechanical rather than remembered |
+Maintainers of this repository keep development guidelines in the package's
+`_copilot_guidelines/` folder — among them `som_regeneration.md`, the reasoning
+behind the regeneration discipline. They are not part of the package's
+documentation and are not linked from it: the guidelines ship with neither the
+package nor its published page. What a reader needs about the freshness stamp —
+what it covers, what it ignores, and the gap it leaves — is in
+[generating.md](generating.md#the-freshness-stamp).
 
 ## Beyond this package
 
