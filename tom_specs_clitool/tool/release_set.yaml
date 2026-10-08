@@ -101,6 +101,23 @@ workspace_prefixes:
 # alternative is a manifest outside the release set, which would then have no
 # gate over it at all.
 unpublished_drift:
+  tom_specs_core: >-
+    NO CODE: documentation links only. `e65ae6a9` moved the CodeSpecs mapping and
+    contract into `tom_core_codespecs`, and the README and three doc/ pages were
+    re-pointed at their new home. A 0.2.1 to carry four link targets can wait
+    for the next release step.
+  tom_code_specs: >-
+    NO CODE: documentation links only, from the same `e65ae6a9` — the README,
+    three API summaries and four doc/ pages re-pointed at the CodeSpecs mapping
+    and contract in `tom_core_codespecs`. A 0.14.2 to carry link targets can
+    wait for the next release step.
+  tom_som_dart_v0: >-
+    NO BEHAVIOUR: one dartdoc line of the generated model (`cc4dc439`: an
+    enumerated column's value type is described as the annotated field's Dart
+    type), which the embedded model JSON carries too, and a new
+    `tool/validate_samples.dart` (`088ed57b`) that no consumer runs. Like
+    tom_specs_model above, a bump would move the nine-package SOM lockstep for
+    prose, so it waits for the next release step.
   tom_specs_clitool: >-
     Three things since 0.3.2, none urgent for a consumer. This manifest, whose
     acknowledgements were recorded after the publish and which ships inside this
