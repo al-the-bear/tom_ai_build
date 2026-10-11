@@ -1,3 +1,15 @@
+## 1.3.3
+
+- An enumerated column's documentation now names the annotated field's Dart type
+  as the column's value type, matching `tom_core_server`'s `TomDbColumn`, which
+  no longer takes type parameters. Documentation of the model, carried into all
+  nine language packages through the meta.
+- The documentation moves with the CodeSpecs mapping and derivation contract to
+  `tom_core_codespecs`; twelve of the fourteen subject-matter documents remain in
+  `doc/`. `doc/` also gains the conformance driver's `editor` step and the
+  documentation-generator provisioning (pdoc on Python 3.13 or newer).
+- Test files formatted with the SDK formatter. No behaviour changes.
+
 ## 1.3.2
 
 - **The shipped tests run from the published archive.** Three test groups read

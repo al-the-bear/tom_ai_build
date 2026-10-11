@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+- Documentation only. The README and `doc/` pages link to the CodeSpecs mapping
+  and derivation contract at their new home in `tom_core_codespecs`, so the
+  links resolve for a reader of the published package.
+
 ## 0.2.0
 
 The annotation catalogue grew with the model it annotates: 43 files, +2400

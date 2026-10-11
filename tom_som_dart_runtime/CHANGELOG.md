@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.3
+
+- Version follows the TomSpecs model to 1.3.3, which the generated
+  `tom_som_dart_v0` facade pins. No changes to the runtime itself.
+
 ## 1.3.2
 
 - Version realigned to TomSpecs model 1.3.2 (lockstep with `tom_som_dart_v0`).

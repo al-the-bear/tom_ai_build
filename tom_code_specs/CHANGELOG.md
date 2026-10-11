@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.14.2
+
+- Documentation only. The README, the API summaries and the `doc/` pages link to
+  the CodeSpecs mapping and derivation contract at their new home in
+  `tom_core_codespecs`, so the links resolve for a reader of the published
+  package.
+
 ## 0.14.1
 
 - **`CsOverridableBy.user` now states the rule the enum states.** Its line said
