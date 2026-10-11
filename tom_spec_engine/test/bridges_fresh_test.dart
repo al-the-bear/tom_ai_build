@@ -54,5 +54,13 @@ void main() {
           'deletes them; decide and remove by hand:\n  '
           '${freshness.orphaned.join('\n  ')}',
     );
-  }, timeout: const Timeout(Duration(minutes: 10)));
+    // The budget is wall-clock, not part of the claim: the assertions above are
+    // what the test holds. It is sized from a measurement, because the work is a
+    // full regeneration into a scratch tree. Since tom_d4rt_generator 1.51 emits
+    // formatted output the SOM bridges run to ~973k lines, and on mbp the test
+    // alone took 5m39s (2026-10-11). Inside the full suite, sharing the CPU with
+    // the memory-tier tests, it overran the old 10-minute budget and timed out
+    // without ever reaching a comparison — a red that said nothing about the
+    // bridges. Twenty minutes is ~3.5x the uncontended run.
+  }, timeout: const Timeout(Duration(minutes: 20)));
 }
