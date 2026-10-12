@@ -37,6 +37,10 @@ dependencies:
   # The generic SOM runtime the Dart emitter targets — the emitter drives its
   # SpecModel and the generated code extends its SomNode/SomList facade base.
   tom_som_dart_runtime: ^1.3.0
+  # The generated Dart facade's embedded object model and DocSpecs schemas —
+  # validate_spec checks a project's document against them, so a project needs
+  # no runner of its own and no second copy of the model.
+  tom_som_dart_v0: ^1.3.3
   # The annotation library the model is written against. The validator reads
   # `deferredCodeSpecParts` from it (invariant PART-ROUTED's exemption) rather than
   # restating which CodeSpecs parts have no generated surface.

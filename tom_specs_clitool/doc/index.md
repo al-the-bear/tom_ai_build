@@ -14,6 +14,7 @@ here cite it rather than restating it
 |----------|--------|
 | [generating.md](generating.md) | The canonical `generate_som.dart` run and its five phases, reading its output, stamping serialization order (and the two numbers that do not mean what they look like), the ad-hoc entry points, and the freshness stamp |
 | [inspecting_the_model.md](inspecting_the_model.md) | The outliner, the JSON exporter and the summary builder: running them, **reading an outline's notation**, and refreshing the two committed assets |
+| [validating_a_document.md](validating_a_document.md) | `validate_spec`: checking a project's `*.docspecs.yaml` or rendered `*.md` on the three tiers (decode, DocSpecs schema, instance), reading its report, and the `--json` shape |
 | [gates.md](gates.md) | The three citation gates, the release-closure walker and the CodeSpecs validator: running each, **reading a citation failure**, and why the scan sets are closed |
 
 ## API reference

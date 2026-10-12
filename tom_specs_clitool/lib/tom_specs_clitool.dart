@@ -305,6 +305,15 @@ export 'src/codespecs/codespecs_validator.dart'
         runCodeSpecsChecks,
         assertCodeSpecsValid,
         readCsEnumMirrors;
+export 'src/validate_spec_cli.dart'
+    show
+        runValidateSpec,
+        validateSpecParser,
+        specSchemaIdFor,
+        SpecValidationFinding,
+        kSpecValidationFormat,
+        kSpecValidationFormatVersion,
+        kSpecValidationTiers;
 export 'src/codespecs/validate_codespecs_cli.dart'
     show
         runValidateCodespecs,

@@ -147,7 +147,8 @@ unpublished_drift:
     tom_som_dart_runtime must move to the release carrying that reader; the
     catalogue transcribes the Stage-A gate tables (vsctsa39);
     validate_codespecs gains --json, --backlinks and a standalone-compile
-    path (vsctsa40). Unpublished
+    path (vsctsa40); validate_spec checks a project's document on three tiers,
+    and the clitool now depends on tom_som_dart_v0 (vsctsa41). Unpublished
     until vsctsa45, which publishes the regenerated packages these produce.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`

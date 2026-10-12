@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- `validate_spec` validates any project's TomSpecs document — a
+  `*.docspecs.yaml` or a SOM-rendered `*.md`, any of the fourteen roots,
+  detected or named with `--root` — on three tiers that all run: decode, the
+  DocSpecs schema over the rendition, and `validateDocument`. `--markdown-out`
+  writes the rendition; `--json` gives the report in `validate_codespecs`'
+  shape. Depends on `tom_som_dart_v0` for the embedded model and schemas.
+  Documented in `doc/validating_a_document.md`.
+
 - `validate_codespecs --json` writes one versioned JSON report (format
   `codespecs-validation`): inputs, unrun checks, excluded areas, and per
   violation its check, title, defining section, severity, file, line, token,
