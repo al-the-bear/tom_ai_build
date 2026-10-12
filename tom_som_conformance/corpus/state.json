@@ -29,7 +29,7 @@
     },
     "DEMO/DET": {
       "active": "true",
-      "contact": "bob@example.com",
+      "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
       "estimate": "8",
       "owner": "Bob",
       "priority": "high",

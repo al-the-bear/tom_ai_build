@@ -661,8 +661,9 @@ class SpecDocumentMarkdown {
 
   /**
    * Writes a `@Form` section body: the preamble content (when set) followed by
-   * one `FieldName: value` group per populated field (SOM §11.4). Throws when
-   * the form holds a field the model does not declare.
+   * one `FieldName: value` group per populated field (SOM §11.4), consecutive
+   * groups separated by one blank line. Throws when the form holds a field the
+   * model does not declare.
    */
   _writeForm(b, node, path) {
     this._checkFormDeclared(node, path);
@@ -672,6 +673,13 @@ class SpecDocumentMarkdown {
       const value = this.document.formField(path, f.name);
       if (value === null) {
         continue;
+      }
+      // SOM §11.4 rule 2: one blank line between consecutive field groups, so
+      // a markdown viewer renders each field as its own paragraph (and a list
+      // ending a value cannot swallow the next label as a lazy continuation).
+      // Parse trims each value's trailing blank lines, so it is lossless.
+      if (fieldBuf.toString() !== '') {
+        fieldBuf.writeln();
       }
       const lines = this._prepareValue(value, path).split('\n');
       fieldBuf.writeln(`${SpecDocumentMarkdown.formLabel(f.name)}: ${lines[0]}`);

@@ -574,8 +574,9 @@ public final class SpecDocumentMarkdown {
   /**
    * Writes a {@code @Form} section body: the preamble content (when set)
    * followed by one {@code FieldName: value} group per populated field
-   * (SOM §11.4). Throws {@link IllegalStateException} when the form holds a
-   * field the model does not declare.
+   * (SOM §11.4), consecutive groups separated by one blank line. Throws
+   * {@link IllegalStateException} when the form holds a field the model does
+   * not declare.
    */
   private void writeForm(StringBuilder b, SomMetaNode node, String path) {
     checkFormDeclared(node, path);
@@ -586,6 +587,13 @@ public final class SpecDocumentMarkdown {
       String value = document.formField(path, f.name);
       if (value == null) {
         continue;
+      }
+      // SOM §11.4 rule 2: one blank line between consecutive field groups, so
+      // a markdown viewer renders each field as its own paragraph (and a list
+      // ending a value cannot swallow the next label as a lazy continuation).
+      // Parse trims each value's trailing blank lines, so it is lossless.
+      if (fieldBuf.length() > 0) {
+        writeln(fieldBuf, "");
       }
       String prepared = prepareValue(value, path);
       String[] lines = splitLines(prepared);

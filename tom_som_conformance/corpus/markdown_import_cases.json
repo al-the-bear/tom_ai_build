@@ -151,6 +151,40 @@
       }
     },
     {
+      "name": "blank-line separated form fields import, and a markdown list ending a value stays in that value",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details & Contacts\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- Owner: not a label, a list item\n\nEstimate: 8\n",
+      "rejections": [],
+      "document": {
+        "forms": {
+          "DEMO/DET": {
+            "contact": "bob@example.com\n- on call: weekdays\n- Owner: not a label, a list item",
+            "estimate": "8",
+            "owner": "Bob"
+          }
+        },
+        "headlines": {
+          "DEMO/DET": "Details & Contacts"
+        }
+      }
+    },
+    {
+      "name": "the legacy layout with no blank line between form fields still imports to the same values",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details & Contacts\n\nOwner: Bob\nContact: bob@example.com\n- on call: weekdays\n- Owner: not a label, a list item\nEstimate: 8\n",
+      "rejections": [],
+      "document": {
+        "forms": {
+          "DEMO/DET": {
+            "contact": "bob@example.com\n- on call: weekdays\n- Owner: not a label, a list item",
+            "estimate": "8",
+            "owner": "Bob"
+          }
+        },
+        "headlines": {
+          "DEMO/DET": "Details & Contacts"
+        }
+      }
+    },
+    {
       "name": "an id that does not resolve under a list item is reported against the item path, and the list still imports",
       "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[items]--> Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[BOGUS]--> Bogus\n\ndropped\n\n#### <!--[STS]--> Status\n\nopen\n",
       "rejections": [

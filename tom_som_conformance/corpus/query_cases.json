@@ -60,7 +60,7 @@
         "kind": "form",
         "classId": null,
         "headline": "Details & Contacts",
-        "snippet": "bob@example.com",
+        "snippet": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
         "spans": [
           [
             0,
@@ -234,6 +234,19 @@
       "caseInsensitive": true
     },
     "matches": [
+      {
+        "path": "DEMO/DET",
+        "kind": "form",
+        "classId": null,
+        "headline": "Details & Contacts",
+        "snippet": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+        "spans": [
+          [
+            46,
+            51
+          ]
+        ]
+      },
       {
         "path": "DEMO/META/OWNR",
         "kind": "content",

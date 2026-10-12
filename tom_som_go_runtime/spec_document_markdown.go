@@ -709,8 +709,9 @@ func (c *SpecDocumentMarkdown) formHasValues(node *SomMetaNode, path string) boo
 }
 
 // writeForm writes a `@Form` section body: the preamble content (when set)
-// followed by one `FieldName: value` group per populated field (SOM §11.4).
-// Returns an error when the form holds a field the model does not declare.
+// followed by one `FieldName: value` group per populated field (SOM §11.4),
+// consecutive groups separated by one blank line. Returns an error when the
+// form holds a field the model does not declare.
 func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path string) error {
 	if err := c.checkFormDeclared(node, path); err != nil {
 		return err
@@ -724,6 +725,13 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 		value, ok := c.Document.FormField(path, f.Name)
 		if !ok {
 			continue
+		}
+		// SOM §11.4 rule 2: one blank line between consecutive field groups, so
+		// a markdown viewer renders each field as its own paragraph (and a list
+		// ending a value cannot swallow the next label as a lazy continuation).
+		// Parse trims each value's trailing blank lines, so it is lossless.
+		if fieldBuf.String() != "" {
+			fieldBuf.writeln("")
 		}
 		prepared, err := c.prepareValue(value, path)
 		if err != nil {

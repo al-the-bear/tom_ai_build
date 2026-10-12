@@ -1012,7 +1012,8 @@ static int form_has_values(MdCodec *c, const SomMetaNode *node,
 }
 
 /* writeForm: a `@Form` section body — the preamble content (when set) followed
- * by one `FieldName: value` group per populated field (SOM §11.4). The field
+ * by one `FieldName: value` group per populated field (SOM §11.4), consecutive
+ * groups separated by one blank line. The field
  * groups are buffered first so the preamble can be emitted above them with the
  * blank-line separator only when there actually are field lines. Returns 0
  * (writing `*err`) when the form holds a field the model does not declare. */
@@ -1029,6 +1030,13 @@ static int write_form(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     const char *value = spec_document_form_field(c->document, path, f->name);
     if (value == NULL) {
       continue;
+    }
+    /* SOM §11.4 rule 2: one blank line between consecutive field groups, so a
+     * markdown viewer renders each field as its own paragraph (and a list
+     * ending a value cannot swallow the next label as a lazy continuation).
+     * Parse trims each value's trailing blank lines, so it is lossless. */
+    if (fieldbuf.len > 0) {
+      som_buf_putc(&fieldbuf, '\n');
     }
     char *prepared = NULL;
     if (!prepare_value(value, path, &prepared, err)) {

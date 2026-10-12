@@ -25,6 +25,8 @@ document:
         Bob
       contact: |2-
         bob@example.com
+        - on call: weekdays
+        - backup: alice@example.com
       estimate: 8
       weight: 2.5
       active: true

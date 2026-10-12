@@ -951,8 +951,9 @@ impl<'a> SpecDocumentMarkdown<'a> {
     }
 
     /// Writes a `@Form` section body: the preamble content (when set) followed
-    /// by one `FieldName: value` group per populated field (SOM §11.4). Returns
-    /// an error when the form holds a field the model does not declare.
+    /// by one `FieldName: value` group per populated field (SOM §11.4),
+    /// consecutive groups separated by one blank line. Returns an error when
+    /// the form holds a field the model does not declare.
     fn write_form(&self, b: &mut MdBuffer, node: &SomMetaNode, path: &str) -> Result<(), String> {
         self.check_form_declared(node, path)?;
         let empty: Vec<SomFormFieldMeta> = Vec::new();
@@ -966,6 +967,14 @@ impl<'a> SpecDocumentMarkdown<'a> {
                 Some(v) => v.clone(),
                 None => continue,
             };
+            // SOM §11.4 rule 2: one blank line between consecutive field
+            // groups, so a markdown viewer renders each field as its own
+            // paragraph (and a list ending a value cannot swallow the next
+            // label as a lazy continuation). Parse trims each value's trailing
+            // blank lines, so it is lossless.
+            if !field_buf.out.is_empty() {
+                field_buf.writeln("");
+            }
             let prepared = self.prepare_value(&value, path)?;
             let mut lines = prepared.split('\n');
             let first = lines.next().unwrap_or("");

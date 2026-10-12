@@ -159,6 +159,38 @@
     ]
   },
   {
+    "name": "form-blankLineSeparated-valid",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\n\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": []
+  },
+  {
+    "name": "form-listInValue-valid",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\n- drafted the overview\n- Reviewer: bob, a list item\n\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": []
+  },
+  {
+    "name": "form-listLineIsNotALabel-missingRequiredField",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nReviewer: Bob\n- Author: Alice\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "missingRequiredField",
+        "sectionId": "D00-HDR",
+        "line": 10
+      }
+    ]
+  },
+  {
+    "name": "form-blankLineDoesNotEndField-fieldPatternMismatch",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\n\nReviewer:\n\nbob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "fieldPatternMismatch",
+        "sectionId": "D00-HDR",
+        "line": 14
+      }
+    ]
+  },
+  {
     "name": "multipleViolations-neverFailFast",
     "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nReviewer: bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-B]--> Goal 2\n\nSecond goal.\n",
     "violations": [

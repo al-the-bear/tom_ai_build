@@ -159,7 +159,12 @@ def _build_document() -> SpecDocument:
     d.set_form_field("DEMO/DET", "owner", "Bob")
     d.set_form_field("DEMO/DET", "active", "true")
     d.set_form_field("DEMO/DET", "estimate", "8")
-    d.set_form_field("DEMO/DET", "contact", "bob@example.com")
+    # A multi-line value ending in a markdown list (SOM §11.4 rule 2).
+    d.set_form_field(
+        "DEMO/DET",
+        "contact",
+        "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+    )
     # The form preamble (SOM §11.4 rule 7): free text in the form's own content
     # slot, beside its fields. Line 2 is label-shaped AND shadows the declared
     # `owner` field, so the rule-3 escape has to hold on emit.

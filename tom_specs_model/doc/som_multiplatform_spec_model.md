@@ -1154,7 +1154,9 @@ no anchors:
 ## <!--[DOCO]--> Document Control
 
 Version: 1.0
+
 ApprovedBy: Programme Sponsor
+
 ReviewCount: 3
 ```
 
@@ -1162,6 +1164,16 @@ ReviewCount: 3
    order** (§9, "Form-field order"); the label is the field name with the first
    letter upper-cased; parse matching is case-insensitive.
 2. Multi-line values run until the next `Fieldname:` line or the section end.
+   The emitter separates consecutive groups with **one blank line**, also when
+   a value spans several lines. A markdown viewer merges consecutive lines into
+   one paragraph, so without the separator a form block renders as a run-on
+   paragraph, and a markdown list ending a value would swallow the next
+   `Field:` line as a lazy continuation of its last item. The separator is a
+   rendering aid, not a field boundary: a blank line inside a value stays part
+   of the value, and parse trims each value's leading/trailing blank lines, so
+   the separator round-trips losslessly. Parse and the DocSpecs validator
+   accept the layout with or without the separator; only a declared label at
+   column 0 starts a field — a list line such as `- Owner: x` never does.
 3. A value line that would mis-split as a field label is prefixed with a
    single space on emit (DocSpecs trims leading whitespace — lossless). The
    rule reads in both directions, and the authoring direction is the one worth
@@ -1296,7 +1308,9 @@ Remove the nightly batch window.
 ## <!--[DOCO]--> Document Control
 
 Version: 1.0
+
 ApprovedBy: Programme Sponsor
+
 ReviewCount: 3
 ```
 

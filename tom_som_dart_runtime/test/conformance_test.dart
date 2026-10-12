@@ -2000,7 +2000,17 @@ SpecDocument _buildDocument() {
   d.setFormField('DEMO/DET', 'owner', 'Bob');
   d.setFormField('DEMO/DET', 'active', 'true');
   d.setFormField('DEMO/DET', 'estimate', '8');
-  d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
+  // A multi-line form value ending in a markdown list, followed (in model
+  // order) by another field. SOM §11.4 rule 2 separates consecutive field
+  // groups with one blank line; without it a markdown viewer reads the next
+  // `Estimate:` line as a lazy continuation of the last list item. Pins, in all
+  // nine ports, that the separator is emitted after a multi-line value and
+  // that parse trims it back off (the value must not gain a trailing blank).
+  d.setFormField(
+    'DEMO/DET',
+    'contact',
+    'bob@example.com\n- on call: weekdays\n- backup: alice@example.com',
+  );
   // A form **preamble** — free text before the first field line (SOM §11.4
   // rule 7). It rides in the same `content` slot a plain section's body uses,
   // so this pins the one shape a form section has that a non-form section does
@@ -2156,6 +2166,20 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
     caseFor('unknownFormField', {
       'forms': {
         'DEMO/DET': {'bogus': 'v'},
+      },
+    }),
+    // An enum-typed form field holding a token its enum does not declare is
+    // reported; an EMPTY value is absence, not a bad value (tsdocd2). Both
+    // were first committed straight into the table, so a regeneration
+    // dropped them — they are generated here now.
+    caseFor('enumValueUnknown', {
+      'forms': {
+        'DEMO/DET': {'priority': 'urgent'},
+      },
+    }),
+    caseFor('enumValueEmptyIsAbsence', {
+      'forms': {
+        'DEMO/DET': {'priority': ''},
       },
     }),
     caseFor('minItems', {
@@ -3324,6 +3348,74 @@ Map<String, dynamic> _markdownImportCases() {
           'headlines': {'DEMO/DET': 'Details & Contacts'},
         },
       ),
+      // SOM §11.4 rule 2: the emitter separates consecutive field groups with
+      // one blank line. The separator, and every blank line inside a value, is
+      // value text up to the next label — so it must be trimmed back off the
+      // end of each value, while a list ending a value stays part of it and a
+      // list line shaped like `- Owner: x` is not a label (column 0 only).
+      c(
+        name:
+            'blank-line separated form fields import, and a markdown list '
+            'ending a value stays in that value',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[DET]--> Details & Contacts', //                     3
+          '', //                                                       4
+          'Owner: Bob', //                                             5
+          '', //                                                       6
+          'Contact: bob@example.com', //                               7
+          '- on call: weekdays', //                                    8
+          '- Owner: not a label, a list item', //                      9
+          '', //                                                      10
+          'Estimate: 8', //                                           11
+        ],
+        rejections: const <Map<String, dynamic>>[],
+        document: {
+          'forms': {
+            'DEMO/DET': {
+              'contact':
+                  'bob@example.com\n- on call: weekdays\n'
+                  '- Owner: not a label, a list item',
+              'estimate': '8',
+              'owner': 'Bob',
+            },
+          },
+          'headlines': {'DEMO/DET': 'Details & Contacts'},
+        },
+      ),
+      // The layout written before the blank-line separator — consecutive
+      // `Field:` lines — still imports to the same values: the separator is a
+      // rendering aid, never a field boundary.
+      c(
+        name:
+            'the legacy layout with no blank line between form fields still '
+            'imports to the same values',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[DET]--> Details & Contacts', //                     3
+          '', //                                                       4
+          'Owner: Bob', //                                             5
+          'Contact: bob@example.com', //                               6
+          '- on call: weekdays', //                                    7
+          '- Owner: not a label, a list item', //                      8
+          'Estimate: 8', //                                            9
+        ],
+        rejections: const <Map<String, dynamic>>[],
+        document: {
+          'forms': {
+            'DEMO/DET': {
+              'contact':
+                  'bob@example.com\n- on call: weekdays\n'
+                  '- Owner: not a label, a list item',
+              'estimate': '8',
+              'owner': 'Bob',
+            },
+          },
+          'headlines': {'DEMO/DET': 'Details & Contacts'},
+        },
+      ),
       // Inside a `-LST` container any heading id is a legal item (it becomes
       // the item's stored id), so the list case has to nest one level deeper —
       // under an *item* — to reach the resolver at all. The list membership
@@ -3838,6 +3930,43 @@ List<Map<String, String>> _docSpecsMarkdownCases() {
     c(
       'malformedHeading',
       '$_docSpecsValidDoc\n## Plain Heading With No Comment\n\nBody.\n',
+    ),
+    // SOM §11.4 rule 2 — the form block as the emitter writes it: one blank
+    // line between field groups, and a value that carries a markdown list.
+    // Neither the separator nor a list line is a field boundary; only a
+    // declared `Field:` label at column 0 is.
+    c(
+      'form-blankLineSeparated-valid',
+      _docSpecsValidDoc.replaceFirst(
+        'Author: Alice\nReviewer: Bob\n',
+        'Author: Alice\n\nReviewer: Bob\n',
+      ),
+    ),
+    c(
+      'form-listInValue-valid',
+      _docSpecsValidDoc.replaceFirst(
+        'Author: Alice\nReviewer: Bob\n',
+        'Author: Alice\n- drafted the overview\n- Reviewer: bob, a list item\n'
+            '\nReviewer: Bob\n',
+      ),
+    ),
+    // A list line naming a declared field is not that field: `author` stays
+    // missing even though `- Author: Alice` sits in the body.
+    c(
+      'form-listLineIsNotALabel-missingRequiredField',
+      _docSpecsValidDoc.replaceFirst(
+        'Author: Alice\nReviewer: Bob\n',
+        'Reviewer: Bob\n- Author: Alice\n',
+      ),
+    ),
+    // A blank line does not end a field: text after it is still the value, so
+    // the pattern-check sees `bob` and fails at the `Reviewer:` line.
+    c(
+      'form-blankLineDoesNotEndField-fieldPatternMismatch',
+      _docSpecsValidDoc.replaceFirst(
+        'Author: Alice\nReviewer: Bob\n',
+        'Author: Alice\n\nReviewer:\n\nbob\n',
+      ),
     ),
     c(
       'multipleViolations-neverFailFast',

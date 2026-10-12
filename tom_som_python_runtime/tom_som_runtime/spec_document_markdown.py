@@ -606,8 +606,9 @@ class SpecDocumentMarkdown:
     def _write_form(self, b: _Buffer, node: SomMetaNode, path: str) -> None:
         """Writes a ``@Form`` section body: the preamble content (when set)
         followed by one ``FieldName: value`` group per populated field
-        (SOM §11.4). Raises :class:`ValueError` when the form holds a field the
-        model does not declare."""
+        (SOM §11.4), consecutive groups separated by one blank line. Raises
+        :class:`ValueError` when the form holds a field the model does not
+        declare."""
         self._check_form_declared(node, path)
         fields = node.form.fields if node.form is not None else []
         field_buf = _Buffer()
@@ -615,6 +616,13 @@ class SpecDocumentMarkdown:
             value = self.document.form_field(path, f.name)
             if value is None:
                 continue
+            # SOM §11.4 rule 2: one blank line between consecutive field
+            # groups, so a markdown viewer renders each field as its own
+            # paragraph (and a list ending a value cannot swallow the next
+            # label as a lazy continuation). Parse trims each value's trailing
+            # blank lines, so it is lossless.
+            if str(field_buf):
+                field_buf.writeln()
             lines = self._prepare_value(value, path).split("\n")
             field_buf.writeln(f"{self.form_label(f.name)}: {lines[0]}")
             for line in lines[1:]:

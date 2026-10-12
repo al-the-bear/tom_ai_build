@@ -806,7 +806,8 @@ bool formHasValues(const SpecDocument& doc, const SomMetaNode& node,
 }
 
 /* Writes a `@Form` section body: the preamble content (when set) followed by one
- * `FieldName: value` group per populated field (SOM §11.4). Throws
+ * `FieldName: value` group per populated field (SOM §11.4), consecutive groups
+ * separated by one blank line. Throws
  * std::invalid_argument when the form holds a field the model does not
  * declare. */
 void writeForm(std::string& b, const SpecDocument& doc, const SomMetaNode& node,
@@ -818,6 +819,13 @@ void writeForm(std::string& b, const SpecDocument& doc, const SomMetaNode& node,
       const std::string* value = doc.formFieldOpt(path, f.name);
       if (value == nullptr) {
         continue;
+      }
+      /* SOM §11.4 rule 2: one blank line between consecutive field groups, so
+       * a markdown viewer renders each field as its own paragraph (and a list
+       * ending a value cannot swallow the next label as a lazy continuation).
+       * Parse trims each value's trailing blank lines, so it is lossless. */
+      if (!fields.empty()) {
+        fields.push_back('\n');
       }
       std::string prepared = prepareValue(*value, path);
       std::vector<std::string> plines = splitLines(prepared);

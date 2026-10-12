@@ -798,7 +798,12 @@ function _buildFixtureDocument() {
   d.setFormField('DEMO/DET', 'owner', 'Bob');
   d.setFormField('DEMO/DET', 'active', 'true');
   d.setFormField('DEMO/DET', 'estimate', '8');
-  d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
+  // A multi-line value ending in a markdown list (SOM §11.4 rule 2).
+  d.setFormField(
+    'DEMO/DET',
+    'contact',
+    'bob@example.com\n- on call: weekdays\n- backup: alice@example.com',
+  );
   // The form preamble (SOM §11.4 rule 7): free text in the form's own content
   // slot, beside its fields. Line 2 is label-shaped AND shadows the declared
   // `owner` field, so the rule-3 escape has to hold on emit.

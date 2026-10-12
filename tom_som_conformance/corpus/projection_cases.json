@@ -98,7 +98,7 @@
     "headline": "Details & Contacts",
     "searchableStrings": [
       "Bob",
-      "bob@example.com",
+      "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
       "8",
       "2.5",
       "true",

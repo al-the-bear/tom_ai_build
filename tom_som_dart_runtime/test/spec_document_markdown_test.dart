@@ -479,6 +479,95 @@ void main() {
     );
   });
 
+  group('form field separation (SOM §11.4 rule 2)', () {
+    test('consecutive form fields are separated by one blank line', () {
+      final doc = SpecDocument()
+        ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace')
+        ..setFormField('D00/D00-HDR', 'reviewer', 'Grace Hopper');
+      expect(
+        _export(doc),
+        contains(
+          '## <!--[D00-HDR]--> Header\n\n'
+          'Author: Ada Lovelace\n\nReviewer: Grace Hopper\n\n',
+        ),
+      );
+    });
+
+    test('a single field has no separator of its own', () {
+      final md = _export(_populated());
+      expect(md, contains('Author: Ada Lovelace\n\n## '));
+      expect(md, isNot(contains('Author: Ada Lovelace\n\n\n')));
+    });
+
+    test('a markdown list ending a value round-trips, separator and all', () {
+      const author =
+          'Ada Lovelace\n'
+          '- first analyst\n'
+          '- Reviewer: a list item, not the field';
+      final doc = SpecDocument()
+        ..setFormField('D00/D00-HDR', 'author', author)
+        ..setFormField('D00/D00-HDR', 'reviewer', 'Grace Hopper');
+      final md1 = _export(doc);
+      // The separator stops a viewer reading `Reviewer:` as a lazy
+      // continuation of the last list item.
+      expect(
+        md1,
+        contains(
+          'Author: Ada Lovelace\n- first analyst\n'
+          '- Reviewer: a list item, not the field\n\nReviewer: Grace Hopper\n',
+        ),
+      );
+
+      final (reloaded, report) = _reload(md1);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(reloaded.formField('D00/D00-HDR', 'author'), author);
+      expect(reloaded.formField('D00/D00-HDR', 'reviewer'), 'Grace Hopper');
+      expect(_export(reloaded), md1);
+    });
+
+    test('a value with an inner blank line keeps it; the separator is not '
+        'part of the value', () {
+      const author = 'Ada Lovelace\n\nsecond paragraph';
+      final doc = SpecDocument()
+        ..setFormField('D00/D00-HDR', 'author', author)
+        ..setFormField('D00/D00-HDR', 'reviewer', 'Grace Hopper');
+      final md1 = _export(doc);
+      expect(
+        md1,
+        contains(
+          'Author: Ada Lovelace\n\nsecond paragraph\n\nReviewer: Grace Hopper\n',
+        ),
+      );
+      final (reloaded, report) = _reload(md1);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(reloaded.formField('D00/D00-HDR', 'author'), author);
+      expect(_export(reloaded), md1);
+    });
+
+    test('the legacy layout (no blank line between fields) still parses, and '
+        're-emits in the separated layout', () {
+      const legacy =
+          '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-HDR]--> Header\n\n'
+          'Author: Ada Lovelace\n'
+          '- first analyst\n'
+          'Reviewer: Grace Hopper\n';
+      final (reloaded, report) = _reload(legacy);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(
+        reloaded.formField('D00/D00-HDR', 'author'),
+        'Ada Lovelace\n- first analyst',
+      );
+      expect(reloaded.formField('D00/D00-HDR', 'reviewer'), 'Grace Hopper');
+      expect(
+        _export(reloaded),
+        contains(
+          'Author: Ada Lovelace\n- first analyst\n\nReviewer: Grace Hopper\n',
+        ),
+      );
+    });
+  });
+
   group('a form section\'s preamble (SOM §11.4 rule 7)', () {
     test(
       'prose before the first field label parses as the form\'s content',

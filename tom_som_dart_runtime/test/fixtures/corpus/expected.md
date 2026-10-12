@@ -26,10 +26,17 @@ Captured during the November review.
  Owner: this line is prose, not the field.
 
 Owner: Bob
+
 Contact: bob@example.com
+- on call: weekdays
+- backup: alice@example.com
+
 Estimate: 8
+
 Weight: 2.5
+
 Active: true
+
 Priority: high
 
 ## <!--[items]--> Work Items
