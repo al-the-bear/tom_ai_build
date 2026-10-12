@@ -3698,6 +3698,155 @@ static void test_assembly(Checker *c) {
   som_json_free(table);
 }
 
+/* ---- moving a list item (spec_document_move_list_item, vsctsa44) -------- */
+
+/* Asserts parallel `keys` / `vals` lists equal the JSON object `want` as a
+ * map (order-insensitive, like the Dart reference's map equality). */
+static void check_pairs(Checker *c, const char *tag, const SomStrList *keys,
+                        const SomStrList *vals, const SomJson *want) {
+  SomMap got;
+  som_map_init(&got);
+  for (size_t i = 0; i < keys->len; i++) {
+    som_map_set(&got, keys->items[i], vals->items[i]);
+  }
+  int eq = keys->len == got.len && want != NULL &&
+           want->type == SOM_JSON_OBJECT && want->as.object.len == got.len;
+  for (size_t i = 0; eq && i < want->as.object.len; i++) {
+    const SomJsonMember *m = &want->as.object.members[i];
+    const char *g = som_map_get(&got, m->key);
+    const char *w = som_json_as_str(m->value);
+    eq = g != NULL && w != NULL && strcmp(g, w) == 0;
+  }
+  SomBuf b;
+  som_buf_init(&b);
+  for (size_t i = 0; i < got.len; i++) {
+    som_buf_puts(&b, got.entries[i].key);
+    som_buf_puts(&b, "=");
+    som_buf_puts(&b, got.entries[i].val);
+    som_buf_puts(&b, ";");
+  }
+  char *detail = som_buf_take(&b);
+  check(c, tag, eq, detail);
+  free(detail);
+  som_map_free(&got);
+}
+
+/* The `review:` pass of `v` as written (entries sorted), for comparing two
+ * review maps as maps. Owned result. */
+static char *review_text(const YamlValue *v) {
+  SomBuf b;
+  som_buf_init(&b);
+  spec_yaml_write_review_pass(&b, v);
+  return som_buf_take(&b);
+}
+
+/* list_move_cases.json, run like the Dart reference's `_runListMoveCase`:
+ * each case loads its state, moves the item, and the outcome — the moved
+ * path, renames, pins and resulting document, or the refusal's name — must
+ * match `expect`. Each review case re-keys a review map by the renames. */
+static void test_list_move(Checker *c, const SpecModel *model) {
+  SomJson *table = read_json("list_move_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "listMove.cases", n > 0, "no cases in list_move_cases.json");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    char label[512];
+    snprintf(label, sizeof(label), "listMove[%s]", som_json_str_or(kase, "name"));
+    DocumentJson state;
+    document_json_from_json(som_json_get(kase, "state"), &state);
+    SpecDocument doc;
+    doc_from_state(&doc, &state);
+    document_json_free(&state);
+
+    const SomJson *move = som_json_get(kase, "move");
+    long long to_index = 0;
+    som_json_as_i64(som_json_get(move, "toIndex"), &to_index);
+    SpecListItemMove result;
+    SpecListMoveError err;
+    spec_list_move_error_init(&err);
+    int got_ok = spec_document_move_list_item(
+        &doc, model, som_json_str_or(move, "itemPath"), to_index,
+        som_json_as_str(som_json_get(move, "toList")), &result, &err);
+
+    const SomJson *expect = som_json_get(kase, "expect");
+    char tag[640];
+    int want_ok = som_json_bool_or(expect, "ok");
+    snprintf(tag, sizeof(tag), "%s.ok", label);
+    check(c, tag, got_ok == want_ok,
+          got_ok ? "got ok" : spec_list_move_error_name(err.kind));
+    if (want_ok && got_ok) {
+      snprintf(tag, sizeof(tag), "%s.path", label);
+      check_opt_str(c, tag, result.path, expect, "path");
+      snprintf(tag, sizeof(tag), "%s.renamed", label);
+      check_pairs(c, tag, &result.renamed_from, &result.renamed_to,
+                  som_json_get(expect, "renamed"));
+      snprintf(tag, sizeof(tag), "%s.pinnedIds", label);
+      check_pairs(c, tag, &result.pinned_paths, &result.pinned_ids,
+                  som_json_get(expect, "pinnedIds"));
+      char *got = doc_canonical(&doc);
+      char *want = state_canonical(som_json_get(expect, "document"));
+      snprintf(tag, sizeof(tag), "%s.document", label);
+      char *d = byte_diff(tag, got, want);
+      check(c, tag, strcmp(got, want) == 0, d);
+      free(d);
+      free(got);
+      free(want);
+    } else if (!want_ok && !got_ok) {
+      snprintf(tag, sizeof(tag), "%s.error", label);
+      check_opt_str(c, tag, spec_list_move_error_name(err.kind), expect,
+                    "error");
+      snprintf(tag, sizeof(tag), "%s.unchanged", label);
+      char *got = doc_canonical(&doc);
+      char *want = state_canonical(som_json_get(kase, "state"));
+      check(c, tag, strcmp(got, want) == 0, "a refused move changed the document");
+      free(got);
+      free(want);
+    }
+    spec_list_item_move_free(&result);
+    spec_list_move_error_free(&err);
+    spec_document_free(&doc);
+  }
+
+  const SomJson *review_cases = som_json_get(table, "reviewCases");
+  size_t rn = som_json_array_len(review_cases);
+  check(c, "listMove.reviewCases", rn > 0, "no reviewCases");
+  for (size_t i = 0; i < rn; i++) {
+    const SomJson *kase = som_json_array_at(review_cases, i);
+    char tag[640];
+    snprintf(tag, sizeof(tag), "listMove.review[%s]",
+             som_json_str_or(kase, "name"));
+    SomStrList from, to;
+    som_strlist_init(&from);
+    som_strlist_init(&to);
+    const SomJson *renamed = som_json_get(kase, "renamed");
+    for (size_t k = 0; renamed != NULL && renamed->type == SOM_JSON_OBJECT &&
+                       k < renamed->as.object.len;
+         k++) {
+      const SomJsonMember *m = &renamed->as.object.members[k];
+      som_strlist_push_copy(&from, m->key);
+      som_strlist_push_copy(&to, som_json_as_str(m->value));
+    }
+    YamlValue *review = yaml_value_from_json(som_json_get(kase, "review"));
+    YamlValue *want = yaml_value_from_json(som_json_get(kase, "expect"));
+    YamlValue *got = spec_yaml_rekey_review(review, &from, &to);
+    char *gt = review_text(got);
+    char *wt = review_text(want);
+    int same_len = got->as.map.len == want->as.map.len;
+    char *d = byte_diff(tag, gt, wt);
+    check(c, tag, same_len && strcmp(gt, wt) == 0, d);
+    free(d);
+    free(gt);
+    free(wt);
+    yaml_value_free(got);
+    yaml_value_free(want);
+    yaml_value_free(review);
+    som_strlist_free(&from);
+    som_strlist_free(&to);
+  }
+  som_json_free(table);
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -3745,6 +3894,7 @@ int main(int argc, char **argv) {
   test_node_creation_cases(&c, model);
   test_node_creation_script(&c, model);
   test_assembly(&c);
+  test_list_move(&c, model);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

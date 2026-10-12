@@ -69,7 +69,7 @@ path routes, version pinning, and `cargo package` from source.
 | `spec_paths.rs` | The section-path grammar (root / child / list-item segments). |
 | `spec_model.rs` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
 | `spec_reflection.rs` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, node-kind constants). |
-| `spec_document.rs` | A sparse in-memory document — values keyed by section path. |
+| `spec_document.rs` | A sparse in-memory document — values keyed by section path. `SpecDocument::move_list_item` moves a list item to another position of its list, or into another list of the same element class: the affected lists are renumbered, every value under each item travels with it, and an anonymous item whose position changed keeps its old id (`SpecListItemMove`; refusals are `SpecListMoveError`). `rekey_review` (`spec_document_yaml.rs`) re-keys a `review:` pass with the move's `renamed` pairs. |
 | `spec_document_assembly.rs` | Assembling one document from fragments written in parallel (`SpecDocument::assemble`, `assemble_spec_documents`): a refusing merge of the plain-data stores — a content path, form field, list, headline or code-spec location two fragments both write is a `SpecAssemblyOverlap`, and an assembly with any overlap has no document. |
 | `spec_typed_values.rs` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `spec_editor.rs` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |

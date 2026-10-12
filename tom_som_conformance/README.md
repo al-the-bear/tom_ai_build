@@ -652,6 +652,17 @@ against exactly what the extractor emits:
 The expected value is the assembled document's stores, or none, plus every
 overlap's store, path, field, fragments and message.
 
+##### …and so does moving a list item (SOM §9)
+
+[`corpus/list_move_cases.json`](corpus/list_move_cases.json) pins
+`SpecDocument.moveListItem` and `SpecDocumentYaml.rekeyReview` over the shared
+fixture:
+- within a list: renumbering, values travelling, an anonymous item's id
+  pinned, and a move to its own place changing nothing;
+- across lists of one class, into `Registry.archived`, which exists for this;
+- the four refusals, as the error words `argument` / `range` / `collision`;
+- the review pass re-keyed after a swap.
+
 ##### …and the Stage-A gate over them
 
 [`corpus/codespecs_gate_cases.json`](corpus/codespecs_gate_cases.json) pins

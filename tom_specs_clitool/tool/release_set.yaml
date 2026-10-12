@@ -120,7 +120,9 @@ unpublished_drift:
     and `CodeSpecsGate`, Stage A's five checks as one gate (vsctsa39), pinned
     by `codespecs_gate_cases.json`; and `SpecDocument.assemble` (vsctsa42),
     pinned by `assembly_cases.json`; and the `countMismatch` instance-tier
-    check over `countOf` fields (vsctsa43), pinned by validation_cases.json
+    check over `countOf` fields (vsctsa43), pinned by validation_cases.json;
+    and `SpecDocument.moveListItem` + `SpecDocumentYaml.rekeyReview` (vsctsa44),
+    pinned by list_move_cases.json
     — all in all nine runtimes.
   tom_som_dart_v0: >-
     REGENERATED, unpublished until vsctsa45: the meta now carries the class-level
@@ -142,7 +144,8 @@ unpublished_drift:
     gate record's `note:` and its runtime reader (vsctsa38); §4.4/§4.5 pin A4
     and A5 and the catalogue carries their tables (vsctsa39); SOM §12.9
     documents assembly from fragments (vsctsa42); the Blueprint's count fields
-    declare `countOf` and the rules document states it as §6.2.2 (vsctsa43). Goes out with
+    declare `countOf` and the rules document states it as §6.2.2 (vsctsa43);
+    SOM §9 documents moving a list item (vsctsa44). Goes out with
     vsctsa45.
   tom_specs_clitool: >-
     The model JSON export honours a class-level `@Form`, and the schema

@@ -378,6 +378,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/REG/RGA-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "SIDE",
         "kind": "root",
         "classId": "Sidecar",
@@ -938,6 +946,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/REG/RGA-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/REG/CHO",
         "kind": "complex",
         "classId": "Choice",
@@ -1377,6 +1393,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/REG/RGA-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/REG/CHO",
         "kind": "complex",
         "classId": "Choice",
@@ -1491,6 +1515,14 @@
       },
       {
         "path": "DEMO/REG/RGL-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGA-LST",
         "kind": "list",
         "classId": null,
         "headline": null,
@@ -2021,6 +2053,14 @@
       },
       {
         "path": "DEMO/REG/RGL-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGA-LST",
         "kind": "list",
         "classId": null,
         "headline": null,

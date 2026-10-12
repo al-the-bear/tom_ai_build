@@ -63,6 +63,7 @@ void main() {
   final codeSpecsExtractCases = _codeSpecsExtractCases(model, doc);
   final codeSpecsRecordCases = _codeSpecsRecordCases(codeSpecsExtractCases);
   final assemblyCases = _assemblyCases(state);
+  final listMoveCases = _listMoveCases(model, state);
   final codeSpecsGateCases = _codeSpecsGateCases(
     meta,
     state,
@@ -118,6 +119,7 @@ void main() {
     );
     write('codespecs_gate_cases.json', '${enc.convert(codeSpecsGateCases)}\n');
     write('assembly_cases.json', '${enc.convert(assemblyCases)}\n');
+    write('list_move_cases.json', '${enc.convert(listMoveCases)}\n');
     write('cursor_cases.json', '${enc.convert(cursorScript)}\n');
     write('node_creation_cases.json', '${enc.convert(nodeCreationCases)}\n');
     write('node_creation_script.json', '${enc.convert(nodeCreationScript)}\n');
@@ -1013,6 +1015,29 @@ void main() {
     expect(got, jsonDecode(read('projection_cases.json')));
   });
 
+  group('list_move_cases.json (moving a list item)', () {
+    final table = update
+        ? listMoveCases
+        : jsonDecode(read('list_move_cases.json')) as Map<String, dynamic>;
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('move: ${c['name']}', () {
+        expect(jsonDecode(jsonEncode(_runListMoveCase(model, c))), c['expect']);
+      });
+    }
+    for (final c
+        in (table['reviewCases'] as List).cast<Map<String, dynamic>>()) {
+      test('review re-key: ${c['name']}', () {
+        expect(
+          SpecDocumentYaml.rekeyReview(
+            (c['review'] as Map).cast<String, dynamic>(),
+            (c['renamed'] as Map).cast<String, String>(),
+          ),
+          c['expect'],
+        );
+      });
+    }
+  });
+
   group('assembly_cases.json (assembling a document from fragments)', () {
     final table = update
         ? assemblyCases
@@ -1850,6 +1875,16 @@ Map<String, dynamic> _buildMeta() => {
           'sectionId': 'RGL-LST',
           'sectionIdPattern': 'RGL-xxx',
           'elementType': 'RegistryLink',
+          'elementIsComplex': true,
+        },
+        // vsctsa44: a second list of the same element class under its own
+        // id pattern — the destination of a cross-list move.
+        {
+          'name': 'archived',
+          'kind': 'list',
+          'sectionId': 'RGA-LST',
+          'sectionIdPattern': 'RGA-xxx',
+          'elementType': 'RegistryEntry',
           'elementIsComplex': true,
         },
         {
@@ -6352,4 +6387,165 @@ Map<String, dynamic> _runAssemblyCase(Map<String, dynamic> c) {
         },
     ],
   };
+}
+
+/// Moving a list item (`SpecDocument.moveListItem`, vsctsa44). The item's
+/// section id is its identity and its path is its position: a move renumbers
+/// the affected lists, carries every value under each item, and stores the
+/// old positional id of an anonymous item whose position changed. Across
+/// lists the element class must match and a stored id must fit the
+/// destination's pattern.
+Map<String, dynamic> _listMoveCases(
+  SpecModel model,
+  Map<String, dynamic> state,
+) {
+  Map<String, dynamic> registry() {
+    final s =
+        jsonDecode(
+              jsonEncode(
+                _registryState(
+                  entryCode: 'ALPHA',
+                  entryId: 'RGE-ALPHA',
+                  anyRefs: 'ALPHA',
+                ),
+              ),
+            )
+            as Map<String, dynamic>;
+    // An archived entry with a stored id, so the destination list is live.
+    (s['forms'] as Map)['DEMO/REG/RGA-LST-1/RGE-DET'] = {
+      'code': 'OLD',
+      'label': 'Old',
+    };
+    (s['lists'] as Map)['DEMO/REG/RGA-LST'] = {
+      'seq': 1,
+      'items': ['DEMO/REG/RGA-LST-1'],
+      'ids': {'DEMO/REG/RGA-LST-1': 'RGA-OLD'},
+    };
+    return s;
+  }
+
+  final cases = <Map<String, dynamic>>[
+    {
+      'name': 'an anonymous item moves to the front; values travel, ids hold',
+      'state': state,
+      'move': {'itemPath': 'DEMO/CARD-LST-2', 'toIndex': 0},
+    },
+    {
+      'name': 'an item with nested values moves within an unpatterned list',
+      'state': state,
+      'move': {'itemPath': 'DEMO/items-2', 'toIndex': 0},
+    },
+    {
+      'name': 'moving an item to its own position renames nothing',
+      'state': state,
+      'move': {'itemPath': 'DEMO/CARD-LST-1', 'toIndex': 0},
+    },
+    {
+      'name': 'an anonymous item crosses to a list of the same class',
+      'state': registry(),
+      'move': {
+        'itemPath': 'DEMO/REG/RGE-LST-2',
+        'toIndex': 1,
+        'toList': 'DEMO/REG/RGA-LST',
+      },
+    },
+    {
+      'name':
+          'a stored id that does not fit the destination pattern is refused',
+      'state': registry(),
+      'move': {
+        'itemPath': 'DEMO/REG/RGE-LST-1',
+        'toIndex': 0,
+        'toList': 'DEMO/REG/RGA-LST',
+      },
+    },
+    {
+      'name': 'a stored id already used in the destination is refused',
+      'state': () {
+        final s = registry();
+        // The archived entry carries an id that fits the entries' pattern
+        // and is already taken there.
+        (((s['lists'] as Map)['DEMO/REG/RGA-LST'] as Map)['ids']
+                as Map)['DEMO/REG/RGA-LST-1'] =
+            'RGE-ALPHA';
+        return s;
+      }(),
+      'move': {
+        'itemPath': 'DEMO/REG/RGA-LST-1',
+        'toIndex': 0,
+        'toList': 'DEMO/REG/RGE-LST',
+      },
+    },
+    {
+      'name': 'a list of another element class is refused',
+      'state': registry(),
+      'move': {
+        'itemPath': 'DEMO/REG/RGE-LST-2',
+        'toIndex': 0,
+        'toList': 'DEMO/REG/RGL-LST',
+      },
+    },
+    {
+      'name': 'an index past the end is refused',
+      'state': state,
+      'move': {'itemPath': 'DEMO/CARD-LST-1', 'toIndex': 2},
+    },
+    {
+      'name': 'a path that is not a list item is refused',
+      'state': state,
+      'move': {'itemPath': 'DEMO/TTL', 'toIndex': 0},
+    },
+  ];
+  for (final c in cases) {
+    c['expect'] = _runListMoveCase(model, c);
+  }
+  return {
+    'cases': cases,
+    'reviewCases': [
+      {
+        'name': 'entries of moved items and below them follow; others stay',
+        'review': {
+          'DEMO/CARD-LST-1': {'status': 'ok'},
+          'DEMO/CARD-LST-2/content': {'status': 'todo'},
+          'DEMO/TTL': {'status': 'ok'},
+        },
+        'renamed': {
+          'DEMO/CARD-LST-2': 'DEMO/CARD-LST-1',
+          'DEMO/CARD-LST-1': 'DEMO/CARD-LST-2',
+        },
+        'expect': {
+          'DEMO/CARD-LST-2': {'status': 'ok'},
+          'DEMO/CARD-LST-1/content': {'status': 'todo'},
+          'DEMO/TTL': {'status': 'ok'},
+        },
+      },
+    ],
+  };
+}
+
+Map<String, dynamic> _runListMoveCase(SpecModel model, Map<String, dynamic> c) {
+  final doc = SpecDocument()
+    ..loadJson((c['state'] as Map).cast<String, dynamic>());
+  final move = (c['move'] as Map).cast<String, dynamic>();
+  try {
+    final result = doc.moveListItem(
+      model,
+      move['itemPath'] as String,
+      move['toIndex'] as int,
+      toList: move['toList'] as String?,
+    );
+    return {
+      'ok': true,
+      'path': result.path,
+      'renamed': result.renamed,
+      'pinnedIds': result.pinnedIds,
+      'document': doc.toJson(),
+    };
+  } on SpecSectionIdCollision {
+    return {'ok': false, 'error': 'collision'};
+  } on RangeError {
+    return {'ok': false, 'error': 'range'};
+  } on ArgumentError {
+    return {'ok': false, 'error': 'argument'};
+  }
 }

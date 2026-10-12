@@ -1,6 +1,11 @@
 'use strict';
 
-const { SpecSectionIdCollision } = require('./spec_section_id');
+const {
+  SpecSectionIdCollision,
+  effectiveListItemSectionId,
+} = require('./spec_section_id');
+const { SpecFieldKind } = require('./spec_model');
+const { SpecReflection } = require('./spec_reflection');
 
 /**
  * A sparse, live instance of a TomSpecs document — a faithful port of
@@ -493,6 +498,172 @@ class SpecDocument {
   }
 
   /**
+   * Moves the list item at `itemPath` to position `toIndex` (0-based) of its
+   * list, or of `toList`, another list of the same element class (vsctsa44).
+   *
+   * **A path is a position, the section id is the identity.** Every affected
+   * list is renumbered to `<list>-1 … <list>-n` in its new order, and every
+   * value under each item — content, forms, nested lists, headline, code-spec,
+   * stored id — travels with it. An anonymous item whose positional id would
+   * change has its old id stored, so its identity survives the renumbering.
+   * The result maps every old item path to its new one; a caller holding
+   * anything else keyed by path (the `review:` pass) re-keys it with
+   * {@link SpecDocumentYaml.rekeyReview}.
+   *
+   * Across lists, the destination must hold the same element class, and an
+   * item with a stored id keeps it only when the id fits the destination's
+   * `@SectionIdPattern` and is free there; otherwise the move is refused
+   * (`Error` / {@link SpecSectionIdCollision}) and nothing changes. An
+   * anonymous item takes its positional id in the destination. A `toIndex`
+   * outside `0..length` of the destination (after removing the item) throws a
+   * `RangeError`, also without changing anything.
+   *
+   * @param {import('./spec_model').SpecModel} model
+   * @param {string} itemPath
+   * @param {number} toIndex
+   * @param {string|null} [toList]
+   * @returns {SpecListItemMove}
+   */
+  moveListItem(model, itemPath, toIndex, toList = null) {
+    const item = itemPath;
+    const from = this._owningListOf(item);
+    if (from === null) {
+      throw new Error(`'${itemPath}' is not a live list item`);
+    }
+    const to = toList === null || toList === undefined ? from : toList;
+    const refl = new SpecReflection(model);
+    const fromRes = refl.resolve(from);
+    const fromField = fromRes ? fromRes.field : null;
+    const toRes = refl.resolve(to);
+    const toField = toRes ? toRes.field : null;
+    if (toField === null || toField.kind !== SpecFieldKind.LIST) {
+      throw new Error(`toList '${toList}' is not a list of the model`);
+    }
+    const fromElement = fromField ? fromField.elementType : null;
+    if (to !== from && toField.elementType !== fromElement) {
+      throw new Error(
+        `toList '${toList}' holds ${toField.elementType}, but the item is a ` +
+          `${fromElement} — an item moves only between lists of its own ` +
+          'element class',
+      );
+    }
+    const storedId = this._itemSectionId.has(item)
+      ? (this._itemSectionId.get(item))
+      : null;
+    if (to !== from && storedId !== null) {
+      const pattern = toField.sectionIdPattern;
+      if (pattern !== null && !_sectionIdFitsPattern(pattern, storedId)) {
+        throw new Error(
+          `section id '${storedId}' does not fit the destination pattern ` +
+            `${pattern} — set an id that does before moving the item`,
+        );
+      }
+      this._assertSectionIdFree(to, storedId, null);
+    }
+
+    // The new orders.
+    const fromOld = this._listItems.get(from);
+    const fromItems = fromOld.filter((p) => p !== item);
+    const toItems =
+      to === from ? fromItems : (this._listItems.get(to) || []).slice();
+    if (!Number.isInteger(toIndex) || toIndex < 0 || toIndex > toItems.length) {
+      throw new RangeError(
+        `toIndex ${toIndex} is not in the range 0..${toItems.length}`,
+      );
+    }
+    toItems.splice(toIndex, 0, item);
+
+    const fieldOf = (list) => (list === from ? fromField : toField);
+    const stemOf = (list) => {
+      const field = fieldOf(list);
+      return field ? field.name : list.split('/').pop();
+    };
+
+    // Each affected item's effective id before the move, so an anonymous
+    // item keeps its identity when its position changes.
+    const before = new Map();
+    const record = (list, items) => {
+      const field = fieldOf(list);
+      items.forEach((p, i) => {
+        before.set(
+          p,
+          effectiveListItemSectionId(
+            this._itemSectionId.get(p),
+            field ? field.sectionIdPattern : null,
+            i + 1,
+            stemOf(list),
+          ),
+        );
+      });
+    };
+    record(from, fromOld);
+    if (to !== from) record(to, this._listItems.get(to) || []);
+
+    // Old → new item paths, and the ids anonymous items must now store.
+    const renamed = new Map();
+    const pinned = new Map();
+    const renumber = (list, items) => {
+      const field = fieldOf(list);
+      items.forEach((old, i) => {
+        const now = `${list}-${i + 1}`;
+        if (old !== now) renamed.set(old, now);
+        const crossing = old === item && to !== from;
+        if (this._itemSectionId.has(old) || crossing) return;
+        const positional = effectiveListItemSectionId(
+          null,
+          field ? field.sectionIdPattern : null,
+          i + 1,
+          stemOf(list),
+        );
+        const was = before.get(old);
+        if (positional !== was) pinned.set(old, was);
+      });
+    };
+    renumber(from, fromItems);
+    if (to !== from) renumber(to, toItems);
+
+    const remap = (key) => _remapUnder(key, renamed);
+    const rekey = (store) => {
+      const out = new Map();
+      for (const [k, v] of store) out.set(remap(k), v);
+      return out;
+    };
+
+    const content = rekey(this._content);
+    const form = rekey(this._form);
+    const headline = rekey(this._headline);
+    const codeSpec = rekey(this._codeSpec);
+    const ids = rekey(this._itemSectionId);
+    for (const [old, id] of pinned) ids.set(remap(old), id);
+    const seq = rekey(this._listSeq);
+    const lists = new Map();
+    for (const [k, v] of this._listItems) {
+      lists.set(remap(k), v.map(remap));
+    }
+    lists.set(remap(from), fromItems.map(remap));
+    seq.set(remap(from), fromItems.length);
+    if (to !== from) {
+      lists.set(remap(to), toItems.map(remap));
+      seq.set(remap(to), toItems.length);
+    }
+    for (const [k, v] of Array.from(lists)) {
+      if (v.length === 0) lists.delete(k);
+    }
+
+    _replaceWith(this._content, content);
+    _replaceWith(this._form, form);
+    _replaceWith(this._headline, headline);
+    _replaceWith(this._codeSpec, codeSpec);
+    _replaceWith(this._itemSectionId, ids);
+    _replaceWith(this._listSeq, seq);
+    _replaceWith(this._listItems, lists);
+
+    const pinnedIds = new Map();
+    for (const [old, id] of pinned) pinnedIds.set(remap(old), id);
+    return new SpecListItemMove(remap(item), renamed, pinnedIds);
+  }
+
+  /**
    * Removes the list item at `itemPath` along with every value nested beneath it.
    * The counter is left untouched so future items keep getting fresh sequence
    * numbers (no renumbering).
@@ -783,4 +954,54 @@ class SpecDocument {
   }
 }
 
-module.exports = { SpecDocument };
+/** The result of {@link SpecDocument.moveListItem}. */
+class SpecListItemMove {
+  /**
+   * @param {string} path the moved item's path after the move
+   * @param {Map<string, string>} [renamed] every item path the move changed,
+   *   old → new: the moved item and each sibling whose position moved. Values
+   *   under a renamed item moved with it.
+   * @param {Map<string, string>} [pinnedIds] the items (by new path) that were
+   *   anonymous and now store the id they had by position, so their identity
+   *   did not change with their position.
+   */
+  constructor(path, renamed = new Map(), pinnedIds = new Map()) {
+    this.path = path;
+    this.renamed = renamed;
+    this.pinnedIds = pinnedIds;
+  }
+}
+
+/**
+ * `key` re-keyed by the first `old → new` entry of `renamed` it equals or lies
+ * under (`old/…` for descendants, `old-…` for the item's own lists); `key`
+ * itself when none applies. Shared by {@link SpecDocument.moveListItem} and
+ * the `review:` re-keying in the YAML codec.
+ *
+ * @param {string} key
+ * @param {Map<string, string>} renamed
+ * @returns {string}
+ */
+function _remapUnder(key, renamed) {
+  for (const [old, now] of renamed) {
+    if (key === old) return now;
+    if (key.startsWith(`${old}/`) || key.startsWith(`${old}-`)) {
+      return now + key.substring(old.length);
+    }
+  }
+  return key;
+}
+
+/** Whether `id` fits `pattern`, its `xxx` slot standing for any non-empty run. */
+function _sectionIdFitsPattern(pattern, id) {
+  const escape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`^${pattern.split('xxx').map(escape).join('.+')}$`).test(id);
+}
+
+/** Replaces the entries of `target` with those of `source`, in order. */
+function _replaceWith(target, source) {
+  target.clear();
+  for (const [k, v] of source) target.set(k, v);
+}
+
+module.exports = { SpecDocument, SpecListItemMove, _remapUnder };

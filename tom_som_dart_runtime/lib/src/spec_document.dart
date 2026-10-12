@@ -5,6 +5,7 @@ import 'spec_document_markdown.dart';
 import 'spec_document_yaml.dart';
 import 'spec_meta.dart';
 import 'spec_model.dart';
+import 'spec_reflection.dart';
 import 'spec_section_id.dart';
 
 /// A sparse, live instance of a TomSpecs document
@@ -434,6 +435,188 @@ class SpecDocument {
     }
   }
 
+  /// Moves the list item at [itemPath] to position [toIndex] (0-based) of its
+  /// list, or of [toList], another list of the same element class (vsctsa44).
+  ///
+  /// **A path is a position, the section id is the identity.** Every affected
+  /// list is renumbered to `<list>-1 … <list>-n` in its new order, and every
+  /// value under each item — content, forms, nested lists, headline, code-spec,
+  /// stored id — travels with it. An anonymous item whose positional id would
+  /// change has its old id stored, so its identity survives the renumbering.
+  /// The result maps every old item path to its new one; a caller holding
+  /// anything else keyed by path (the `review:` pass) re-keys it with
+  /// [SpecDocumentYaml.rekeyReview].
+  ///
+  /// Across lists, the destination must hold the same element class, and an
+  /// item with a stored id keeps it only when the id fits the destination's
+  /// `@SectionIdPattern` and is free there; otherwise the move is refused
+  /// ([ArgumentError] / [SpecSectionIdCollision]) and nothing changes. An
+  /// anonymous item takes its positional id in the destination.
+  SpecListItemMove moveListItem(
+    SpecModel model,
+    String itemPath,
+    int toIndex, {
+    String? toList,
+  }) {
+    final item = _key(itemPath);
+    final from = _owningListOf(item);
+    if (from == null) {
+      throw ArgumentError.value(itemPath, 'itemPath', 'not a live list item');
+    }
+    final to = toList == null ? from : _key(toList);
+    final refl = SpecReflection(model);
+    final fromField = refl.resolve(from)?.field;
+    final toField = refl.resolve(to)?.field;
+    if (toField == null || toField.kind != SpecFieldKind.list) {
+      throw ArgumentError.value(toList, 'toList', 'not a list of the model');
+    }
+    if (to != from && toField.elementType != fromField?.elementType) {
+      throw ArgumentError.value(
+        toList,
+        'toList',
+        'holds ${toField.elementType}, but the item is a '
+            '${fromField?.elementType} — an item moves only between lists of '
+            'its own element class',
+      );
+    }
+    final storedId = _itemSectionId[item];
+    if (to != from && storedId != null) {
+      final pattern = toField.sectionIdPattern;
+      if (pattern != null && !_sectionIdFitsPattern(pattern, storedId)) {
+        throw ArgumentError.value(
+          storedId,
+          'itemPath',
+          'section id does not fit the destination pattern $pattern — set an '
+              'id that does before moving the item',
+        );
+      }
+      _assertSectionIdFree(to, storedId, null);
+    }
+
+    // The new orders.
+    final fromItems = List.of(_listItems[from]!)..remove(item);
+    final toItems = to == from
+        ? fromItems
+        : List.of(_listItems[to] ?? <String>[]);
+    if (toIndex < 0 || toIndex > toItems.length) {
+      throw RangeError.range(toIndex, 0, toItems.length, 'toIndex');
+    }
+    toItems.insert(toIndex, item);
+
+    // Each affected item's effective id before the move, so an anonymous
+    // item keeps its identity when its position changes.
+    String effective(String list, List<String> items, String path) {
+      final field = list == from ? fromField : toField;
+      return effectiveListItemSectionId(
+        storedId: _itemSectionId[path],
+        pattern: field?.sectionIdPattern,
+        position: items.indexOf(path) + 1,
+        fallbackStem: field?.name ?? list.split('/').last,
+      );
+    }
+
+    final before = <String, String>{
+      for (final p in _listItems[from]!)
+        p: effective(from, _listItems[from]!, p),
+      if (to != from)
+        for (final p in _listItems[to] ?? const <String>[])
+          p: effective(to, _listItems[to]!, p),
+    };
+
+    // Old → new item paths, and the ids anonymous items must now store.
+    final renamed = <String, String>{};
+    final pinned = <String, String>{};
+    void renumber(String list, List<String> items) {
+      final field = list == from ? fromField : toField;
+      for (var i = 0; i < items.length; i++) {
+        final old = items[i];
+        final now = '$list-${i + 1}';
+        if (old != now) renamed[old] = now;
+        final crossing = old == item && to != from;
+        if (_itemSectionId[old] != null || crossing) continue;
+        final positional = effectiveListItemSectionId(
+          storedId: null,
+          pattern: field?.sectionIdPattern,
+          position: i + 1,
+          fallbackStem: field?.name ?? list.split('/').last,
+        );
+        if (positional != before[old]) pinned[old] = before[old]!;
+      }
+    }
+
+    renumber(from, fromItems);
+    if (to != from) renumber(to, toItems);
+
+    String remap(String key) {
+      for (final MapEntry(key: old, value: now) in renamed.entries) {
+        if (key == old) return now;
+        if (key.startsWith('$old/') || key.startsWith('$old-')) {
+          return '$now${key.substring(old.length)}';
+        }
+      }
+      return key;
+    }
+
+    Map<String, V> rekey<V>(Map<String, V> store) => {
+      for (final e in store.entries) remap(e.key): e.value,
+    };
+
+    final content = rekey(_content);
+    final form = rekey(_form);
+    final headline = rekey(_headline);
+    final codeSpec = rekey(_codeSpec);
+    final ids = rekey(_itemSectionId);
+    for (final MapEntry(key: old, value: id) in pinned.entries) {
+      ids[remap(old)] = id;
+    }
+    final seq = rekey(_listSeq);
+    final lists = <String, List<String>>{
+      for (final e in _listItems.entries)
+        remap(e.key): [for (final p in e.value) remap(p)],
+    };
+    lists[remap(from)] = [for (final p in fromItems) remap(p)];
+    seq[remap(from)] = fromItems.length;
+    if (to != from) {
+      lists[remap(to)] = [for (final p in toItems) remap(p)];
+      seq[remap(to)] = toItems.length;
+    }
+    lists.removeWhere((_, v) => v.isEmpty);
+
+    _content
+      ..clear()
+      ..addAll(content);
+    _form
+      ..clear()
+      ..addAll(form);
+    _headline
+      ..clear()
+      ..addAll(headline);
+    _codeSpec
+      ..clear()
+      ..addAll(codeSpec);
+    _itemSectionId
+      ..clear()
+      ..addAll(ids);
+    _listSeq
+      ..clear()
+      ..addAll(seq);
+    _listItems
+      ..clear()
+      ..addAll(lists);
+
+    return SpecListItemMove(
+      path: remap(item),
+      renamed: Map.unmodifiable(renamed),
+      pinnedIds: Map.unmodifiable({
+        for (final e in pinned.entries) remap(e.key): e.value,
+      }),
+    );
+  }
+
+  static bool _sectionIdFitsPattern(String pattern, String id) => RegExp(
+    '^${pattern.split('xxx').map(RegExp.escape).join('.+')}\$',
+  ).hasMatch(id);
+
   /// Removes the list item at [itemPath] along with every value nested beneath
   /// it. Returns `true` if an item was found and removed.
   ///
@@ -696,6 +879,27 @@ class SpecDocument {
       ..clear()
       ..addAll(state._codeSpec);
   }
+}
+
+/// The result of [SpecDocument.moveListItem].
+class SpecListItemMove {
+  /// The moved item's path after the move.
+  final String path;
+
+  /// Every item path the move changed, old → new: the moved item and each
+  /// sibling whose position moved. Values under a renamed item moved with it.
+  final Map<String, String> renamed;
+
+  /// The items (by new path) that were anonymous and now store the id they
+  /// had by position, so their identity did not change with their position.
+  final Map<String, String> pinnedIds;
+
+  /// Creates a result.
+  const SpecListItemMove({
+    required this.path,
+    this.renamed = const {},
+    this.pinnedIds = const {},
+  });
 }
 
 /// An immutable deep-copied snapshot of a [SpecDocument]

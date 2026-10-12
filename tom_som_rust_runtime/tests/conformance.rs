@@ -47,10 +47,10 @@ use tom_som_rust_runtime::spec_codespecs_gate::{CodeSpecsGate, CodeSpecsGateRepo
 use tom_som_rust_runtime::spec_codespecs_records::{
     CodeSpecsExtractSet, CodeSpecsGateEntry, CodeSpecsGateRecord, CodeSpecsGateVerdict,
 };
-use tom_som_rust_runtime::spec_document::{DocumentJson, SpecDocument};
+use tom_som_rust_runtime::spec_document::{DocumentJson, SpecDocument, SpecListMoveError};
 use tom_som_rust_runtime::spec_document_markdown::{SpecDocumentMarkdown, SpecMarkdownResult};
 use tom_som_rust_runtime::spec_document_yaml::{
-    decode_yaml, encode_yaml, encode_yaml_with_review, stale_review_paths,
+    decode_yaml, encode_yaml, encode_yaml_with_review, rekey_review, stale_review_paths,
 };
 use tom_som_rust_runtime::spec_editor::{SomValue, SpecEditor};
 use tom_som_rust_runtime::spec_meta::SomMetaTree;
@@ -72,6 +72,7 @@ use tom_som_rust_runtime::spec_section_id::{
 use tom_som_rust_runtime::spec_serialization_order::SpecSerializationOrder;
 use tom_som_rust_runtime::spec_text_pattern::SomTextPattern;
 use tom_som_rust_runtime::spec_validator::validate_document;
+use tom_som_rust_runtime::yaml::{YamlMap, YamlValue};
 use tom_som_rust_runtime::{
     DocSpecsDocument, DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES,
 };
@@ -184,6 +185,7 @@ fn conformance() {
     test_markdown_import_rejections(&mut c, &model);
     test_markdown_apply(&mut c, &model);
     test_assembly(&mut c);
+    test_list_move(&mut c, &model);
     test_yaml_review(&mut c, &model, &tree);
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
@@ -598,6 +600,120 @@ fn test_assembly(c: &mut Checker) {
             let whole = canonical(table.get("whole"));
             c.check("assembly.whole", got == whole, &format!("got {} want {}", got, whole));
         }
+    }
+}
+
+/// `list_move_cases.json`: [`SpecDocument::move_list_item`] over a loaded
+/// state — the renames, the pinned ids and the resulting document, or the
+/// refusal mapped to its error word — and [`rekey_review`] over the review
+/// re-key table (the Dart reference's `_runListMoveCase`).
+fn test_list_move(c: &mut Checker, model: &SpecModel) {
+    let table = read_json("list_move_cases.json");
+    let pairs = |v: &[(String, String)]| {
+        Json::Object(v.iter().map(|(k, x)| (k.clone(), jstr(x))).collect())
+    };
+    for kase in cases(&table, "cases") {
+        let tag = format!("listMove[{}]", kase.str_or("name"));
+        let state = kase.get("state").unwrap_or(&Json::Null);
+        let mut doc = doc_from_state(&DocumentJson::from_json(state));
+        let mv = kase.get("move").unwrap_or(&Json::Null);
+        let to_list = mv.get("toList").and_then(|v| v.as_str());
+        let to_index = mv.get("toIndex").and_then(|v| v.as_i64()).unwrap_or(0);
+        let result = doc.move_list_item(model, &mv.str_or("itemPath"), to_index, to_list);
+        let expect = kase.get("expect").unwrap_or(&Json::Null);
+        match result {
+            Ok(moved) => {
+                let got = obj(vec![
+                    ("ok", Json::Bool(true)),
+                    ("path", jstr(&moved.path)),
+                    ("renamed", pairs(&moved.renamed)),
+                    ("pinnedIds", pairs(&moved.pinned_ids)),
+                ]);
+                let want = obj(vec![
+                    ("ok", expect.get("ok").cloned().unwrap_or(Json::Null)),
+                    ("path", expect.get("path").cloned().unwrap_or(Json::Null)),
+                    ("renamed", expect.get("renamed").cloned().unwrap_or(Json::Null)),
+                    ("pinnedIds", expect.get("pinnedIds").cloned().unwrap_or(Json::Null)),
+                ]);
+                c.check(
+                    &format!("{}.result", tag),
+                    json_eq(&got, &want),
+                    &format!("got {:?} want {:?}", got, want),
+                );
+                let got_doc = doc.to_json().to_canonical_json();
+                let want_doc = match expect.get("document") {
+                    Some(d) => DocumentJson::from_json(d).to_canonical_json(),
+                    None => "missing".to_string(),
+                };
+                c.check(
+                    &format!("{}.document", tag),
+                    got_doc == want_doc,
+                    &format!("got {} want {}", got_doc, want_doc),
+                );
+            }
+            Err(err) => {
+                let word = match err {
+                    SpecListMoveError::Collision(_) => "collision",
+                    SpecListMoveError::IndexOutOfRange { .. } => "range",
+                    _ => "argument",
+                };
+                let got = obj(vec![("ok", Json::Bool(false)), ("error", jstr(word))]);
+                c.check(
+                    &format!("{}.refusal", tag),
+                    json_eq(&got, expect),
+                    &format!("got {:?} ({}) want {:?}", got, err, expect),
+                );
+            }
+        }
+    }
+    for kase in cases(&table, "reviewCases") {
+        let tag = format!("reviewRekey[{}]", kase.str_or("name"));
+        let review = match json_to_yaml(kase.get("review").unwrap_or(&Json::Null)) {
+            YamlValue::Map(m) => m,
+            _ => YamlMap::new(),
+        };
+        let renamed: Vec<(String, String)> = kase
+            .get("renamed")
+            .and_then(|v| v.as_object())
+            .unwrap_or(&[])
+            .iter()
+            .map(|(k, v)| (k.clone(), v.as_str().unwrap_or("").to_string()))
+            .collect();
+        let got = yaml_to_json(&YamlValue::Map(rekey_review(&review, &renamed)));
+        let want = kase.get("expect").unwrap_or(&Json::Null);
+        c.check(&tag, json_eq(&got, want), &format!("got {:?} want {:?}", got, want));
+    }
+}
+
+/// A corpus JSON value as the YAML codec's value (strings, integers, maps,
+/// sequences — the shapes a `review:` pass holds).
+fn json_to_yaml(v: &Json) -> YamlValue {
+    match v {
+        Json::Object(pairs) => {
+            let mut m = YamlMap::new();
+            for (k, x) in pairs {
+                m.insert(k.clone(), json_to_yaml(x));
+            }
+            YamlValue::Map(m)
+        }
+        Json::Array(items) => YamlValue::Seq(items.iter().map(json_to_yaml).collect()),
+        Json::Int(n) => YamlValue::Int(*n),
+        Json::Str(s) => YamlValue::Str(s.clone()),
+        Json::Bool(b) => YamlValue::Str(b.to_string()),
+        Json::Float(f) => YamlValue::Str(f.to_string()),
+        Json::Null => YamlValue::Str(String::new()),
+    }
+}
+
+/// The inverse of [`json_to_yaml`] for comparison against the corpus.
+fn yaml_to_json(v: &YamlValue) -> Json {
+    match v {
+        YamlValue::Map(m) => Json::Object(
+            m.iter().map(|(k, x)| (k.clone(), yaml_to_json(x))).collect(),
+        ),
+        YamlValue::Seq(items) => Json::Array(items.iter().map(yaml_to_json).collect()),
+        YamlValue::Int(n) => Json::Int(*n),
+        YamlValue::Str(s) => Json::Str(s.clone()),
     }
 }
 

@@ -27,7 +27,9 @@ golden byte-for-byte and matches every behavioural case:
   * the Phase-4 Stage-A gate (``CodeSpecsGate``, checks A1–A5);
   * constrained node creation (the stateless gate probes and a mutation
     script);
-  * assembling one document from fragments (``assembly_cases.json``).
+  * assembling one document from fragments (``assembly_cases.json``);
+  * moving a list item and re-keying the review pass
+    (``list_move_cases.json``).
 
 Run with: ``python3 tests/conformance_runner.py``. Exit code 0 == all green.
 """
@@ -88,6 +90,7 @@ from tom_som_runtime import (  # noqa: E402
     encode_two_letter_date,
     generate_list_item_section_id,
     validate_document,
+    rekey_review,
     stale_review_paths,
     yaml_decode,
     yaml_encode,
@@ -882,6 +885,47 @@ def _run_assembly_case(case: dict) -> dict:
     }
 
 
+def _run_list_move_case(model: SpecModel, case: dict) -> dict:
+    """One ``list_move_cases.json`` case, in the corpus's wire form: the
+    result and the document after the move, or the error word of a refusal
+    (``argument`` / ``range`` / ``collision``)."""
+    d = SpecDocument()
+    d.load_json(case["state"])
+    move = case["move"]
+    try:
+        result = d.move_list_item(
+            model, move["itemPath"], move["toIndex"], to_list=move.get("toList")
+        )
+    except SpecSectionIdCollision:
+        return {"ok": False, "error": "collision"}
+    except IndexError:
+        return {"ok": False, "error": "range"}
+    except ValueError:
+        return {"ok": False, "error": "argument"}
+    return {
+        "ok": True,
+        "path": result.path,
+        "renamed": result.renamed,
+        "pinnedIds": result.pinned_ids,
+        "document": d.to_json(),
+    }
+
+
+def test_list_move(model: SpecModel) -> None:
+    """Moving a list item (``SpecDocument.move_list_item``, vsctsa44): a path
+    is a position, the section id is the identity. Plus the review-pass
+    re-keying a caller applies with the move's ``renamed`` map."""
+    table = _read_json("list_move_cases.json")
+    for case in table["cases"]:
+        got = _run_list_move_case(model, case)
+        _check(f"listMove[{case['name']}]", got == case["expect"],
+               _json_mismatch(got, case["expect"]))
+    for case in table["reviewCases"]:
+        got = rekey_review(case["review"], case["renamed"])
+        _check(f"listMoveReview[{case['name']}]", got == case["expect"],
+               _json_mismatch(got, case["expect"]))
+
+
 def test_assembly() -> None:
     """``assembly_cases.json``: assembling a document from fragments — the
     split-and-reassemble identity, per-field form merging, and the refusing
@@ -1594,6 +1638,7 @@ def main() -> int:
     test_docspecs()
     test_docspecs_replace()
     test_assembly()
+    test_list_move(model)
     test_build_document_matches_state()
     test_pattern()
     test_query(model)

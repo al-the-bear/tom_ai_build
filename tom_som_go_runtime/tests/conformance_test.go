@@ -222,6 +222,7 @@ func TestConformance(t *testing.T) {
 	testDocSpecs(c, t)
 	testDocSpecsReplace(c, t)
 	testAssembly(c, t)
+	testListMove(c, t, model)
 	testPattern(c, t)
 	testQuery(c, t, model)
 	testProjection(c, t, model)
@@ -2629,5 +2630,91 @@ func testCodeSpecsGate(c *checker, t *testing.T) {
 		}
 		want := jsonAny(t, cs["expect"])
 		c.check(tag, reflect.DeepEqual(got, want), canonJSON(t, got)+" != "+canonJSON(t, want))
+	}
+}
+
+// listMoveCaseTable mirrors corpus/list_move_cases.json — moving a list item
+// (SpecDocument.MoveListItem, vsctsa44) and re-keying the review pass with the
+// move's renamed map. Expectations stay generic and are compared as decoded
+// JSON.
+type listMoveCaseTable struct {
+	Cases []struct {
+		Name  string           `json:"name"`
+		State som.DocumentJson `json:"state"`
+		Move  struct {
+			ItemPath string `json:"itemPath"`
+			ToIndex  int    `json:"toIndex"`
+			ToList   string `json:"toList"`
+		} `json:"move"`
+		Expect json.RawMessage `json:"expect"`
+	} `json:"cases"`
+	ReviewCases []struct {
+		Name    string            `json:"name"`
+		Review  json.RawMessage   `json:"review"`
+		Renamed map[string]string `json:"renamed"`
+		Expect  json.RawMessage   `json:"expect"`
+	} `json:"reviewCases"`
+}
+
+// generic round-trips v through JSON into the dynamic shape a corpus
+// expectation decodes to, so the two compare with reflect.DeepEqual.
+func generic(t *testing.T, v any) any {
+	var out any
+	if err := json.Unmarshal([]byte(canonJSON(t, v)), &out); err != nil {
+		t.Fatalf("decode: %v", err)
+	}
+	return out
+}
+
+func testListMove(c *checker, t *testing.T, model *som.SpecModel) {
+	var table listMoveCaseTable
+	readJSON(t, "list_move_cases.json", &table)
+	c.check("listMove.cases", len(table.Cases) > 0, "no cases in list_move_cases.json")
+	for _, cc := range table.Cases {
+		doc := docFromState(&cc.State)
+		result, err := doc.MoveListItem(model, cc.Move.ItemPath, cc.Move.ToIndex, cc.Move.ToList)
+		var got any
+		var argErr *som.SpecListMoveArgumentError
+		var rangeErr *som.SpecListMoveRangeError
+		var collision *som.SpecSectionIDCollision
+		switch {
+		case err == nil:
+			got = map[string]any{
+				"ok":        true,
+				"path":      result.Path,
+				"renamed":   result.Renamed,
+				"pinnedIds": result.PinnedIDs,
+				"document":  doc.ToJSON(),
+			}
+		case errors.As(err, &collision):
+			got = map[string]any{"ok": false, "error": "collision"}
+		case errors.As(err, &rangeErr):
+			got = map[string]any{"ok": false, "error": "range"}
+		case errors.As(err, &argErr):
+			got = map[string]any{"ok": false, "error": "argument"}
+		default:
+			got = map[string]any{"ok": false, "error": err.Error()}
+		}
+		g, want := generic(t, got), jsonAny(t, cc.Expect)
+		c.check("listMove["+cc.Name+"]", reflect.DeepEqual(g, want),
+			"got "+canonJSON(t, g)+" want "+canonJSON(t, want))
+	}
+	for _, cc := range table.ReviewCases {
+		var raw map[string]any
+		if err := json.Unmarshal(cc.Review, &raw); err != nil {
+			t.Fatalf("decode review: %v", err)
+		}
+		review := som.NewYamlMap()
+		for k, v := range raw {
+			review.Set(k, v)
+		}
+		rekeyed := som.RekeyReview(review, cc.Renamed)
+		gotMap := map[string]any{}
+		for _, k := range rekeyed.Keys() {
+			gotMap[k], _ = rekeyed.Get(k)
+		}
+		g, want := generic(t, gotMap), jsonAny(t, cc.Expect)
+		c.check("listMoveReview["+cc.Name+"]", reflect.DeepEqual(g, want),
+			"got "+canonJSON(t, g)+" want "+canonJSON(t, want))
 	}
 }

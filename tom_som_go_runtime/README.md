@@ -201,6 +201,7 @@ guard and the `ROUTE-TOTAL` error cases).
 | ---- | -------------- |
 | `SpecDocument` | The sparse, path-keyed store of a document's content, form and list values. |
 | `AssembleSpecDocuments` | Merges an ordered slice of named fragments into one document, refusing any place two fragments both write (`SpecDocumentAssembly`, `SpecAssemblyOverlap`). |
+| `SpecDocument.MoveListItem` | Moves a list item to another position of its list, or into another list of the same element class; renumbers the affected lists, carries every value under each item and pins the old id of an anonymous item whose position changed (`SpecListItemMove`). `RekeyReview` re-keys a `review:` pass with the move's `Renamed` map. |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations. |
 | `SpecReflection` | Resolves and enumerates paths against the model without reading values. |
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated structs. |

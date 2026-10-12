@@ -20,8 +20,11 @@ use std::collections::BTreeMap;
 
 use crate::json::{encode_str, Json};
 use crate::spec_document_markdown::{SpecDocumentMarkdown, SpecMarkdownImport, SpecMarkdownResult};
-use crate::spec_model::{SpecModel, SpecRoot};
-use crate::spec_section_id::{SpecSectionIdCollision, SpecSectionIdError};
+use crate::spec_model::{SpecField, SpecModel, SpecRoot, SPEC_FIELD_KIND_LIST};
+use crate::spec_reflection::SpecReflection;
+use crate::spec_section_id::{
+    effective_list_item_section_id, SpecSectionIdCollision, SpecSectionIdError,
+};
 
 /// The plain-data shape of a single list store entry. `ids` maps an item path to
 /// its assigned section id; it is present only for lists that carry section ids
@@ -631,6 +634,185 @@ impl SpecDocument {
         true
     }
 
+    /// Moves the list item at `item_path` to position `to_index` (0-based) of
+    /// its list, or of `to_list`, another list of the same element class
+    /// (vsctsa44).
+    ///
+    /// **A path is a position, the section id is the identity.** Every affected
+    /// list is renumbered to `<list>-1 … <list>-n` in its new order, and every
+    /// value under each item — content, forms, nested lists, headline,
+    /// code-spec, stored id — travels with it. An anonymous item whose
+    /// positional id would change has its old id stored, so its identity
+    /// survives the renumbering. The result maps every old item path to its new
+    /// one; a caller holding anything else keyed by path (the `review:` pass)
+    /// re-keys it with [`rekey_review`](crate::spec_document_yaml::rekey_review).
+    ///
+    /// Across lists, the destination must hold the same element class, and an
+    /// item with a stored id keeps it only when the id fits the destination's
+    /// `@SectionIdPattern` and is free there; otherwise the move is refused
+    /// ([`SpecListMoveError`]) and nothing changes. An anonymous item takes its
+    /// positional id in the destination.
+    pub fn move_list_item(
+        &mut self,
+        model: &SpecModel,
+        item_path: &str,
+        to_index: i64,
+        to_list: Option<&str>,
+    ) -> Result<SpecListItemMove, SpecListMoveError> {
+        let item = item_path.to_string();
+        let from = match self.owning_list_of(&item) {
+            Some(k) => k,
+            None => return Err(SpecListMoveError::NotLiveItem { item_path: item }),
+        };
+        let to = to_list.map(|t| t.to_string()).unwrap_or_else(|| from.clone());
+        let cross = to != from;
+        let refl = SpecReflection::new(model);
+        let from_field = refl.resolve(&from).and_then(|r| r.field);
+        let to_field = match refl.resolve(&to).and_then(|r| r.field) {
+            Some(f) if f.kind == SPEC_FIELD_KIND_LIST => f,
+            _ => return Err(SpecListMoveError::NotAList { list_path: to }),
+        };
+        let from_element = from_field.as_ref().map(|f| f.element_type.clone());
+        if cross && from_element.as_deref() != Some(to_field.element_type.as_str()) {
+            return Err(SpecListMoveError::ElementClassMismatch {
+                list_path: to,
+                list_element: to_field.element_type.clone(),
+                item_element: from_element.unwrap_or_default(),
+            });
+        }
+        let stored_id = self.item_section_id.get(&item).cloned();
+        if cross {
+            if let Some(id) = &stored_id {
+                let pattern = &to_field.section_id_pattern;
+                if !pattern.is_empty() && !section_id_fits_pattern(pattern, id) {
+                    return Err(SpecListMoveError::PatternMismatch {
+                        id: id.clone(),
+                        pattern: pattern.clone(),
+                    });
+                }
+                if let Err(SpecSectionIdError::Collision(c)) =
+                    self.assert_section_id_free(&to, id, "")
+                {
+                    return Err(SpecListMoveError::Collision(c));
+                }
+            }
+        }
+
+        // The new orders.
+        let held_from = self.list_items.get(&from).cloned().unwrap_or_default();
+        let held_to = if cross {
+            self.list_items.get(&to).cloned().unwrap_or_default()
+        } else {
+            Vec::new()
+        };
+        let mut from_items: Vec<String> =
+            held_from.iter().filter(|p| **p != item).cloned().collect();
+        let dest_len = if cross { held_to.len() } else { from_items.len() };
+        if to_index < 0 || to_index as usize > dest_len {
+            return Err(SpecListMoveError::IndexOutOfRange {
+                index: to_index,
+                max: dest_len,
+            });
+        }
+        let at = to_index as usize;
+        let mut to_items = held_to.clone();
+        if cross {
+            to_items.insert(at, item.clone());
+        } else {
+            from_items.insert(at, item.clone());
+        }
+
+        // Each affected item's effective id before the move, so an anonymous
+        // item keeps its identity when its position changes.
+        let mut before: BTreeMap<String, String> = BTreeMap::new();
+        for (i, p) in held_from.iter().enumerate() {
+            let stored = self.item_section_id.get(p);
+            let id = effective_item_id(&from, from_field.as_ref(), stored, i + 1);
+            before.insert(p.clone(), id);
+        }
+        if cross {
+            for (i, p) in held_to.iter().enumerate() {
+                let stored = self.item_section_id.get(p);
+                let id = effective_item_id(&to, Some(&to_field), stored, i + 1);
+                before.insert(p.clone(), id);
+            }
+        }
+
+        // Old → new item paths, and the ids anonymous items must now store.
+        let mut renamed: Vec<(String, String)> = Vec::new();
+        let mut pinned: Vec<(String, String)> = Vec::new();
+        let mut renumber = |list: &str, field: Option<&SpecField>, items: &[String]| {
+            for (i, old) in items.iter().enumerate() {
+                let now = format!("{}-{}", list, i + 1);
+                if *old != now {
+                    renamed.push((old.clone(), now));
+                }
+                let crossing = *old == item && cross;
+                if self.item_section_id.contains_key(old) || crossing {
+                    continue;
+                }
+                let positional = effective_item_id(list, field, None, i + 1);
+                let was = before.get(old).cloned().unwrap_or_default();
+                if positional != was {
+                    pinned.push((old.clone(), was));
+                }
+            }
+        };
+        if cross {
+            renumber(&from, from_field.as_ref(), &from_items);
+            renumber(&to, Some(&to_field), &to_items);
+        } else {
+            renumber(&from, from_field.as_ref(), &from_items);
+        }
+
+        let remap = |key: &str| remap_path(key, &renamed);
+        fn rekey<V: Clone>(
+            store: &BTreeMap<String, V>,
+            remap: &dyn Fn(&str) -> String,
+        ) -> BTreeMap<String, V> {
+            store.iter().map(|(k, v)| (remap(k), v.clone())).collect()
+        }
+
+        let content = rekey(&self.content, &remap);
+        let form = rekey(&self.form, &remap);
+        let headline = rekey(&self.headline, &remap);
+        let code_spec = rekey(&self.code_spec, &remap);
+        let mut ids = rekey(&self.item_section_id, &remap);
+        for (old, id) in &pinned {
+            ids.insert(remap(old), id.clone());
+        }
+        let mut seq = rekey(&self.list_seq, &remap);
+        let mut lists: BTreeMap<String, Vec<String>> = self
+            .list_items
+            .iter()
+            .map(|(k, v)| (remap(k), v.iter().map(|p| remap(p)).collect()))
+            .collect();
+        lists.insert(remap(&from), from_items.iter().map(|p| remap(p)).collect());
+        seq.insert(remap(&from), from_items.len() as i64);
+        if cross {
+            lists.insert(remap(&to), to_items.iter().map(|p| remap(p)).collect());
+            seq.insert(remap(&to), to_items.len() as i64);
+        }
+        lists.retain(|_, v| !v.is_empty());
+
+        let path = remap(&item);
+        let pinned_ids = pinned.iter().map(|(old, id)| (remap(old), id.clone())).collect();
+
+        self.content = content;
+        self.form = form;
+        self.headline = headline;
+        self.code_spec = code_spec;
+        self.item_section_id = ids;
+        self.list_seq = seq;
+        self.list_items = lists;
+
+        Ok(SpecListItemMove {
+            path,
+            renamed,
+            pinned_ids,
+        })
+    }
+
     /// Drops every value at `prefix` or nested beneath it — content, form
     /// entries, list items (with their nested values, ids and sequence
     /// counters), and stored headlines (YRD7 generic modification API: "clear
@@ -856,6 +1038,138 @@ impl SpecDocument {
             }
             self.code_spec.insert(k.clone(), v.clone());
         }
+    }
+}
+
+/// The result of [`SpecDocument::move_list_item`].
+#[derive(Debug, Clone, PartialEq)]
+pub struct SpecListItemMove {
+    /// The moved item's path after the move.
+    pub path: String,
+    /// Every item path the move changed, old → new, in renumbering order: the
+    /// moved item and each sibling whose position moved. Values under a renamed
+    /// item moved with it.
+    pub renamed: Vec<(String, String)>,
+    /// The items (by new path) that were anonymous and now store the id they
+    /// had by position, so their identity did not change with their position.
+    pub pinned_ids: Vec<(String, String)>,
+}
+
+/// Why [`SpecDocument::move_list_item`] refused a move. Nothing was changed.
+#[derive(Debug, Clone, PartialEq)]
+pub enum SpecListMoveError {
+    /// `item_path` is not a live list item.
+    NotLiveItem { item_path: String },
+    /// The destination is not a list of the model.
+    NotAList { list_path: String },
+    /// The destination holds another element class than the item's list.
+    ElementClassMismatch {
+        list_path: String,
+        list_element: String,
+        item_element: String,
+    },
+    /// The item's stored id does not fit the destination `@SectionIdPattern`.
+    PatternMismatch { id: String, pattern: String },
+    /// The item's stored id is already used in the destination.
+    Collision(SpecSectionIdCollision),
+    /// `to_index` is outside `0..=max` (the destination without the item).
+    IndexOutOfRange { index: i64, max: usize },
+}
+
+impl std::fmt::Display for SpecListMoveError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            SpecListMoveError::NotLiveItem { item_path } => {
+                write!(f, "'{}' is not a live list item", item_path)
+            }
+            SpecListMoveError::NotAList { list_path } => {
+                write!(f, "'{}' is not a list of the model", list_path)
+            }
+            SpecListMoveError::ElementClassMismatch {
+                list_path,
+                list_element,
+                item_element,
+            } => write!(
+                f,
+                "'{}' holds {}, but the item is a {} — an item moves only between lists of its own element class",
+                list_path, list_element, item_element
+            ),
+            SpecListMoveError::PatternMismatch { id, pattern } => write!(
+                f,
+                "section id \"{}\" does not fit the destination pattern {} — set an id that does before moving the item",
+                id, pattern
+            ),
+            SpecListMoveError::Collision(c) => write!(f, "{}", c),
+            SpecListMoveError::IndexOutOfRange { index, max } => {
+                write!(f, "toIndex {} is not in 0..{}", index, max)
+            }
+        }
+    }
+}
+
+impl std::error::Error for SpecListMoveError {}
+
+/// The effective section id of an item of `list` at 1-based `position`.
+fn effective_item_id(
+    list: &str,
+    field: Option<&SpecField>,
+    stored_id: Option<&String>,
+    position: usize,
+) -> String {
+    let stem = match field {
+        Some(f) => f.name.clone(),
+        None => list.rsplit('/').next().unwrap_or(list).to_string(),
+    };
+    effective_list_item_section_id(
+        stored_id.map(|s| s.as_str()),
+        field.map(|f| f.section_id_pattern.as_str()).unwrap_or(""),
+        position,
+        &stem,
+    )
+}
+
+/// `key` with its leading renamed item path (`old`, `old/…` or `old-…`)
+/// replaced by the new one — the first match in `renamed` order; unchanged
+/// when under none.
+pub(crate) fn remap_path(key: &str, renamed: &[(String, String)]) -> String {
+    for (old, now) in renamed {
+        if key == old {
+            return now.clone();
+        }
+        if let Some(rest) = key.strip_prefix(old.as_str()) {
+            if rest.starts_with('/') || rest.starts_with('-') {
+                return format!("{}{}", now, rest);
+            }
+        }
+    }
+    key.to_string()
+}
+
+/// Whether `id` fits `pattern`: each `xxx` stands for one or more characters
+/// other than a line terminator (the reference's `.+`), the rest is literal,
+/// and the whole id must match.
+fn section_id_fits_pattern(pattern: &str, id: &str) -> bool {
+    let parts: Vec<&str> = pattern.split("xxx").collect();
+    fn rest(s: &str, parts: &[&str]) -> bool {
+        let Some((next, tail)) = parts.split_first() else {
+            return s.is_empty();
+        };
+        for (i, ch) in s.char_indices() {
+            if matches!(ch, '\n' | '\r' | '\u{2028}' | '\u{2029}') {
+                return false;
+            }
+            let after = &s[i + ch.len_utf8()..];
+            if let Some(remaining) = after.strip_prefix(next) {
+                if rest(remaining, tail) {
+                    return true;
+                }
+            }
+        }
+        false
+    }
+    match id.strip_prefix(parts[0]) {
+        Some(remaining) => rest(remaining, &parts[1..]),
+        None => false,
     }
 }
 

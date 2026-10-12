@@ -169,6 +169,7 @@ wrapper (`tests/conformance.test.js`).
 | ---- | -------------- |
 | `SpecDocument` | The sparse, path-keyed store of a document's content, form and list values. |
 | `SpecDocument.assemble` | Merges fragment documents written in parallel into one, refusing every place two fragments both write (`SpecDocumentAssembly`, `SpecAssemblyOverlap`). |
+| `SpecDocument.moveListItem` | Moves a list item within its list or to another list of the same element class, renumbering paths and pinning anonymous ids (`SpecListItemMove`); `SpecDocumentYaml.rekeyReview` re-keys the `review:` pass to match. |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations. |
 | `SpecReflection` | Resolves and enumerates paths against the model without reading values. |
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |

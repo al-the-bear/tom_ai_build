@@ -44,7 +44,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import * as yaml from './yaml';
-import { SpecDocument } from './spec_document';
+import { SpecDocument, _remapUnder } from './spec_document';
 import { SomFormMeta, SomMetaKind, SomMetaNode, SomMetaTree } from './spec_meta';
 import { specPathJoin } from './spec_paths';
 import { SpecModel } from './spec_model';
@@ -515,6 +515,53 @@ export function staleReviewPaths(
     return false;
   };
   return _sortStrings(_reviewKeys(review).filter(isStale));
+}
+
+/**
+ * `review` with every path `renamed` (old item path → new, as
+ * {@link SpecDocument.moveListItem} returns it) re-keyed — the entry for an
+ * item and every entry under it. Entries under no renamed path are kept as
+ * they are. A new plain object; `review` is not changed. Both arguments may be
+ * a `Map` or a plain object.
+ */
+export function rekeyReview(
+  review: any,
+  renamed: ReadonlyMap<string, string> | Record<string, string>,
+): Record<string, any> {
+  const moves: ReadonlyMap<string, string> =
+    renamed instanceof Map
+      ? renamed
+      : new Map(Object.entries(renamed as Record<string, string>));
+  const out: Record<string, any> = {};
+  for (const key of _reviewKeys(review)) {
+    out[_remapUnder(key, moves)] = _reviewGet(review, key);
+  }
+  return out;
+}
+
+/**
+ * The review-pass helpers under the Dart reference's class name
+ * (`SpecDocumentYaml.staleReviewPaths` / `SpecDocumentYaml.rekeyReview`), so a
+ * consumer ported from Dart finds them where it expects. The module-level
+ * functions are the same implementations.
+ */
+export class SpecDocumentYaml {
+  /** See {@link staleReviewPaths}. */
+  static staleReviewPaths(
+    model: SpecModel,
+    document: SpecDocument,
+    review: any,
+  ): string[] {
+    return staleReviewPaths(model, document, review);
+  }
+
+  /** See {@link rekeyReview}. */
+  static rekeyReview(
+    review: any,
+    renamed: ReadonlyMap<string, string> | Record<string, string>,
+  ): Record<string, any> {
+    return rekeyReview(review, renamed);
+  }
 }
 
 /**

@@ -1852,3 +1852,40 @@ void spec_yaml_stale_review_paths(const SpecModel *model,
     qsort(out->items, out->len, sizeof(char *), cmp_cstr);
   }
 }
+
+YamlValue *spec_yaml_rekey_review(const YamlValue *review,
+                                  const SomStrList *renamed_from,
+                                  const SomStrList *renamed_to) {
+  YamlValue *out = calloc(1, sizeof(YamlValue));
+  out->type = YAML_MAP;
+  if (review == NULL || review->type != YAML_MAP) {
+    return out;
+  }
+  for (size_t i = 0; i < review->as.map.len; i++) {
+    char *key = spec_rekey_path(review->as.map.entries[i].key, renamed_from,
+                                renamed_to);
+    YamlValue *value = clone_yaml(review->as.map.entries[i].value);
+    size_t at = out->as.map.len;
+    for (size_t j = 0; j < out->as.map.len; j++) {
+      if (strcmp(out->as.map.entries[j].key, key) == 0) {
+        at = j;
+        break;
+      }
+    }
+    if (at < out->as.map.len) {
+      free(key);
+      yaml_value_free(out->as.map.entries[at].value);
+      out->as.map.entries[at].value = value;
+      continue;
+    }
+    if (out->as.map.len == out->as.map.cap) {
+      out->as.map.cap = out->as.map.cap ? out->as.map.cap * 2 : 4;
+      out->as.map.entries = realloc(out->as.map.entries,
+                                    out->as.map.cap * sizeof(YamlMapEntry));
+    }
+    out->as.map.entries[out->as.map.len].key = key;
+    out->as.map.entries[out->as.map.len].value = value;
+    out->as.map.len++;
+  }
+  return out;
+}

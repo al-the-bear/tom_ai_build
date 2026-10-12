@@ -526,6 +526,37 @@ func reviewJSON(value interface{}) string {
 	}
 }
 
+// RekeyReview returns review with every path renamed (old item path → new, as
+// SpecDocument.MoveListItem returns it) re-keyed — the entry for an item and
+// every entry under it (`old`, `old/…`, `old-…`). Entries under no renamed path
+// are kept as they are, in their order. A new map; review is not changed.
+//
+// A Go map has no order, so when one renamed path lies under another the old
+// paths are tried in ascending order (the enclosing path first). That case
+// arises only when a move's destination list lies under an item of its source
+// list (or the reverse); for a move within one list or between unrelated lists
+// the order cannot matter.
+func RekeyReview(review *YamlMap, renamed map[string]string) *YamlMap {
+	olds := make([]string, 0, len(renamed))
+	for old := range renamed {
+		olds = append(olds, old)
+	}
+	sort.Strings(olds)
+	pairs := make([]listItemRename, len(olds))
+	for i, old := range olds {
+		pairs[i] = listItemRename{old: old, now: renamed[old]}
+	}
+	out := NewYamlMap()
+	if review == nil {
+		return out
+	}
+	for _, k := range review.Keys() {
+		v, _ := review.Get(k)
+		out.Set(rekeyPath(k, pairs), v)
+	}
+	return out
+}
+
 // StaleReviewPaths returns the review paths in review that no longer resolve
 // against document: paths the model cannot resolve, and paths running through
 // a list item the document does not hold (an item that was removed). Sorted.

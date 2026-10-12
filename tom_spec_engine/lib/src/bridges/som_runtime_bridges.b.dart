@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 24 files
-// Generated: 2026-10-13T01:05:45.888983 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-13T01:26:24.492743 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -104,6 +104,7 @@ class SomRuntimeBridge {
       _createSomListBridge(),
       _createSomVersionExceptionBridge(),
       _createSpecDocumentBridge(),
+      _createSpecListItemMoveBridge(),
       _createSpecDocumentStateBridge(),
       _createSpecAssemblyOverlapBridge(),
       _createSpecDocumentAssemblyBridge(),
@@ -200,6 +201,7 @@ class SomRuntimeBridge {
       'SomList': _createSomListBridge,
       'SomVersionException': _createSomVersionExceptionBridge,
       'SpecDocument': _createSpecDocumentBridge,
+      'SpecListItemMove': _createSpecListItemMoveBridge,
       'SpecDocumentState': _createSpecDocumentStateBridge,
       'SpecAssemblyOverlap': _createSpecAssemblyOverlapBridge,
       'SpecDocumentAssembly': _createSpecDocumentAssemblyBridge,
@@ -298,6 +300,7 @@ class SomRuntimeBridge {
       'SomList': $tom_som_dart_runtime_2.SomList,
       'SomVersionException': $tom_som_dart_runtime_2.SomVersionException,
       'SpecDocument': $tom_som_dart_runtime_7.SpecDocument,
+      'SpecListItemMove': $tom_som_dart_runtime_7.SpecListItemMove,
       'SpecDocumentState': $tom_som_dart_runtime_7.SpecDocumentState,
       'SpecAssemblyOverlap': $tom_som_dart_runtime_8.SpecAssemblyOverlap,
       'SpecDocumentAssembly': $tom_som_dart_runtime_8.SpecDocumentAssembly,
@@ -429,6 +432,7 @@ class SomRuntimeBridge {
       'SomList': 'package:tom_som_dart_runtime/src/som_facade.dart',
       'SomVersionException': 'package:tom_som_dart_runtime/src/som_facade.dart',
       'SpecDocument': 'package:tom_som_dart_runtime/src/spec_document.dart',
+      'SpecListItemMove': 'package:tom_som_dart_runtime/src/spec_document.dart',
       'SpecDocumentState':
           'package:tom_som_dart_runtime/src/spec_document.dart',
       'SpecAssemblyOverlap':
@@ -6320,6 +6324,33 @@ BridgedClass _createSpecDocumentBridge() {
         );
         return t.listItemSectionIds(listPath);
       },
+      'moveListItem': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_7.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
+        D4.requireMinArgs(positional, 3, 'moveListItem');
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_15.SpecModel>(
+          positional,
+          0,
+          'model',
+          'moveListItem',
+        );
+        final itemPath = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'itemPath',
+          'moveListItem',
+        );
+        final toIndex = D4.getRequiredArg<int>(
+          positional,
+          2,
+          'toIndex',
+          'moveListItem',
+        );
+        final toList = D4.getOptionalNamedArg<String?>(named, 'toList');
+        return t.moveListItem(model, itemPath, toIndex, toList: toList);
+      },
       'removeListItem': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_som_dart_runtime_7.SpecDocument>(
           target,
@@ -6518,6 +6549,8 @@ BridgedClass _createSpecDocumentBridge() {
       'itemSectionId': 'String? itemSectionId(String itemPath)',
       'setItemSectionId': 'void setItemSectionId(String itemPath, String id)',
       'listItemSectionIds': 'List<String> listItemSectionIds(String listPath)',
+      'moveListItem':
+          'SpecListItemMove moveListItem(SpecModel model, String itemPath, int toIndex, {String? toList})',
       'removeListItem': 'bool removeListItem(String itemPath)',
       'removeValuesUnder': 'void removeValuesUnder(String prefix)',
       'hasValuesUnder': 'bool hasValuesUnder(String prefix)',
@@ -6546,6 +6579,67 @@ BridgedClass _createSpecDocumentBridge() {
           'SpecDocumentAssembly assemble(Map<String, SpecDocument> fragments)',
       'fromMarkdown':
           'SpecMarkdownImport fromMarkdown(String text, SpecModel model)',
+    },
+  );
+}
+
+// =============================================================================
+// SpecListItemMove Bridge
+// =============================================================================
+
+BridgedClass _createSpecListItemMoveBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_7.SpecListItemMove,
+    name: 'SpecListItemMove',
+    isAssignable: (v) => v is $tom_som_dart_runtime_7.SpecListItemMove,
+    constructors: {
+      '': (visitor, positional, named) {
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'SpecListItemMove',
+        );
+        final renamed = named.containsKey('renamed') && named['renamed'] != null
+            ? D4.coerceMap<String, String>(named['renamed'], 'renamed')
+            : const <String, String>{};
+        final pinnedIds =
+            named.containsKey('pinnedIds') && named['pinnedIds'] != null
+            ? D4.coerceMap<String, String>(named['pinnedIds'], 'pinnedIds')
+            : const <String, String>{};
+        return $tom_som_dart_runtime_7.SpecListItemMove(
+          path: path,
+          renamed: renamed,
+          pinnedIds: pinnedIds,
+        );
+      },
+    },
+    getters: {
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_7.SpecListItemMove>(
+            target,
+            'SpecListItemMove',
+          )
+          .path,
+      'renamed': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_7.SpecListItemMove>(
+            target,
+            'SpecListItemMove',
+          )
+          .renamed,
+      'pinnedIds': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_7.SpecListItemMove>(
+            target,
+            'SpecListItemMove',
+          )
+          .pinnedIds,
+    },
+    constructorSignatures: {
+      '': 'const SpecListItemMove({required String path, Map<String, String> renamed = const {}, Map<String, String> pinnedIds = const {}})',
+    },
+    getterSignatures: {
+      'path': 'String get path',
+      'renamed': 'Map<String, String> get renamed',
+      'pinnedIds': 'Map<String, String> get pinnedIds',
     },
   );
 }
@@ -7460,6 +7554,25 @@ BridgedClass _createSpecDocumentYamlBridge() {
           review,
         );
       },
+      'rekeyReview': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'rekeyReview');
+        final review = D4.getRequiredArg<Map>(
+          positional,
+          0,
+          'review',
+          'rekeyReview',
+        );
+        if (positional.length <= 1) {
+          throw ArgumentError(
+            'rekeyReview: Missing required argument "renamed" at position 1',
+          );
+        }
+        final renamed = D4.coerceMap<String, String>(positional[1], 'renamed');
+        return $tom_som_dart_runtime_10.SpecDocumentYaml.rekeyReview(
+          review,
+          renamed,
+        );
+      },
       'writeHeader': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'writeHeader');
         final b = D4.getRequiredArg<StringBuffer>(
@@ -7559,6 +7672,8 @@ BridgedClass _createSpecDocumentYamlBridge() {
       'writeReviewPass': 'void writeReviewPass(StringBuffer b, Map review)',
       'staleReviewPaths':
           'List<String> staleReviewPaths(SpecModel model, SpecDocument document, Map review)',
+      'rekeyReview':
+          'Map<String, dynamic> rekeyReview(Map review, Map<String, String> renamed)',
       'writeHeader': 'void writeHeader(StringBuffer b, {String? modelVersion})',
       'nodeKey': 'String nodeKey(SomMetaNode node)',
       'writeScalar':

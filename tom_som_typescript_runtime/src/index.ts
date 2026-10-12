@@ -50,7 +50,7 @@ export { SpecNodeKind, SpecResolution, SpecReflection } from './spec_reflection'
 export type { SpecNodeKindValue } from './spec_reflection';
 
 // document
-export { SpecDocument } from './spec_document';
+export { SpecDocument, SpecListItemMove } from './spec_document';
 export type { DocumentJson, ListJson } from './spec_document';
 
 // assembling one document from fragments
@@ -224,6 +224,8 @@ export {
   writeHeader,
   writeReviewPass,
   staleReviewPaths,
+  rekeyReview,
+  SpecDocumentYaml,
   encode as yamlEncode,
   decode as yamlDecode,
 } from './spec_document_yaml';

@@ -25,6 +25,7 @@
 #include "som_json.h"
 #include "som_util.h"
 #include "spec_meta.h"
+#include "spec_model.h"
 #include "spec_section_id.h"
 
 /* ---- DocumentJson — plain-data view for persistence --------------------- */
@@ -208,5 +209,89 @@ size_t spec_document_list_item_count(const SpecDocument *d,
 /* Persistence: plain-data view / replace-all from a plain-data view. */
 void spec_document_to_json(const SpecDocument *d, DocumentJson *out);
 void spec_document_load_json(SpecDocument *d, const DocumentJson *j);
+
+/* ---- moving a list item (vsctsa44) -------------------------------------- */
+
+/* Why `spec_document_move_list_item` refused a move. The three refusals of the
+ * Dart reference: an `ArgumentError`, a `RangeError` and a
+ * `SpecSectionIdCollision`. */
+typedef enum {
+  SPEC_LIST_MOVE_OK = 0,
+  /* The path is not a live list item, the destination is not a list of the
+   * model, holds another element class, or the item's stored id does not fit
+   * the destination's `@SectionIdPattern`. */
+  SPEC_LIST_MOVE_ARGUMENT = 1,
+  /* The target index lies outside 0..n, n being the destination's length
+   * once the item has left it. */
+  SPEC_LIST_MOVE_RANGE = 2,
+  /* The item's stored id is already used by an item of the destination. */
+  SPEC_LIST_MOVE_COLLISION = 3,
+} SpecListMoveErrorKind;
+
+/* A refused move. Owns `message`; initialise with `spec_list_move_error_init`
+ * and release with `spec_list_move_error_free`. */
+typedef struct {
+  SpecListMoveErrorKind kind;
+  char *message; /* owned; NULL when OK */
+} SpecListMoveError;
+
+void spec_list_move_error_init(SpecListMoveError *err);
+void spec_list_move_error_free(SpecListMoveError *err);
+
+/* The refusal's name as the conformance corpus spells it — `"argument"`,
+ * `"range"`, `"collision"` — a static literal; `""` for SPEC_LIST_MOVE_OK. */
+const char *spec_list_move_error_name(SpecListMoveErrorKind kind);
+
+/* The result of `spec_document_move_list_item` (the Dart `SpecListItemMove`).
+ * The two maps are kept as parallel lists in the order the move produced
+ * them — the order `spec_rekey_path` matches old paths in. Owns everything;
+ * release with `spec_list_item_move_free`. */
+typedef struct {
+  char *path;               /* the moved item's path after the move, owned */
+  SomStrList renamed_from;  /* every item path the move changed (old) … */
+  SomStrList renamed_to;    /* … and its new path, index for index */
+  SomStrList pinned_paths;  /* items (by new path) that were anonymous … */
+  SomStrList pinned_ids;    /* … and now store the id they had by position */
+} SpecListItemMove;
+
+void spec_list_item_move_init(SpecListItemMove *m);
+void spec_list_item_move_free(SpecListItemMove *m);
+
+/* Moves the list item at `item_path` to position `to_index` (0-based) of its
+ * list, or of `to_list` (NULL: the item's own list), another list of the same
+ * element class.
+ *
+ * A path is a position, the section id is the identity. Every affected list
+ * is renumbered to `<list>-1 … <list>-n` in its new order (its seq becomes n;
+ * a list left empty is dropped), and every value under each item — content,
+ * forms, nested lists, headline, codeSpec, stored id — travels with it. An
+ * anonymous item whose positional id (`spec_effective_list_item_section_id`)
+ * would change has its old id stored, so its identity survives the
+ * renumbering; the moved item itself is not pinned when it crosses lists (it
+ * takes the destination's positional id). A caller holding anything else
+ * keyed by path (the `review:` pass) re-keys it with
+ * `spec_yaml_rekey_review`.
+ *
+ * Across lists, the destination must hold the same element class, and an item
+ * with a stored id keeps it only when the id fits the destination's
+ * `@SectionIdPattern` (`xxx` standing for one or more characters) and is free
+ * there.
+ *
+ * `*out` is initialised by the callee and must be released with
+ * `spec_list_item_move_free` whatever the outcome. Returns 1 on success. On a
+ * refusal nothing changes, `*out` stays empty, `*err` (when non-NULL; owned
+ * message, release with `spec_list_move_error_free`) names the refusal, and 0
+ * is returned. `model` is borrowed. */
+int spec_document_move_list_item(SpecDocument *d, const SpecModel *model,
+                                 const char *item_path, long long to_index,
+                                 const char *to_list, SpecListItemMove *out,
+                                 SpecListMoveError *err);
+
+/* `key` re-keyed by a move's renames (`renamed_from[i]` → `renamed_to[i]`):
+ * a key equal to an old path, or under it (`old/…`, `old-…`), takes the new
+ * path in its place; the first old path that matches wins. Any other key is
+ * returned unchanged. Owned result. */
+char *spec_rekey_path(const char *key, const SomStrList *renamed_from,
+                      const SomStrList *renamed_to);
 
 #endif /* SPEC_DOCUMENT_H */

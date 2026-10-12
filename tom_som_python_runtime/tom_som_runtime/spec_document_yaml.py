@@ -44,7 +44,7 @@ import json
 import re
 from typing import Any, Optional
 
-from .spec_document import SpecDocument
+from .spec_document import SpecDocument, _rekey_path
 from .spec_meta import SomFormMeta, SomMetaKind, SomMetaNode, SomMetaTree
 from .spec_paths import spec_path_join
 
@@ -430,6 +430,15 @@ def stale_review_paths(model: Any, document: SpecDocument, review: dict) -> list
         return False
 
     return sorted(k for k in (_review_str(k) for k in review) if is_stale(k))
+
+
+
+def rekey_review(review: dict, renamed: dict[str, str]) -> dict[str, Any]:
+    """*review* with every path *renamed* (old item path → new, as
+    :meth:`SpecDocument.move_list_item` returns it) re-keyed — the entry for an
+    item and every entry under it. Entries under no renamed path are kept as
+    they are. A new dict; *review* is not changed."""
+    return {_rekey_path(_review_str(k), renamed): v for k, v in review.items()}
 
 
 class _Encoder:

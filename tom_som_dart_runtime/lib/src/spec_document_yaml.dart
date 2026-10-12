@@ -232,6 +232,27 @@ class SpecDocumentYaml {
     ]..sort();
   }
 
+  /// [review] with every path [renamed] (old item path → new, as
+  /// [SpecDocument.moveListItem] returns it) re-keyed — the entry for an item
+  /// and every entry under it. Entries under no renamed path are kept as they
+  /// are. A new map; [review] is not changed.
+  static Map<String, dynamic> rekeyReview(
+    Map<dynamic, dynamic> review,
+    Map<String, String> renamed,
+  ) {
+    String remap(String key) {
+      for (final MapEntry(key: old, value: now) in renamed.entries) {
+        if (key == old) return now;
+        if (key.startsWith('$old/') || key.startsWith('$old-')) {
+          return '$now${key.substring(old.length)}';
+        }
+      }
+      return key;
+    }
+
+    return {for (final e in review.entries) remap('${e.key}'): e.value};
+  }
+
   /// Writes the file header comment + `version:` line, and the optional
   /// `modelVersion:` stamp when [modelVersion] is non-empty.
   static void writeHeader(StringBuffer b, {String? modelVersion}) {

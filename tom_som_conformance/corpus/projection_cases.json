@@ -488,6 +488,17 @@
     "hasValue": false
   },
   {
+    "path": "DEMO/REG/RGA-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "RGA-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
     "path": "DEMO/REG/CHO",
     "kind": "complex",
     "classId": "Choice",

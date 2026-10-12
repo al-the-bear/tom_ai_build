@@ -1529,4 +1529,16 @@ bool decodeYaml(const std::string& yamlText, const SomMetaTree& tree,
   return true;
 }
 
+YamlPtr specYamlRekeyReview(const YamlValue& review,
+                            const SpecPathPairs& renamed) {
+  auto out = std::make_shared<YamlValue>(YamlType::Map);
+  if (review.type != YamlType::Map) {
+    return out;
+  }
+  for (const auto& kv : review.map) {
+    out->mapSet(specRekeyPath(kv.first, renamed), kv.second);
+  }
+  return out;
+}
+
 }  // namespace som

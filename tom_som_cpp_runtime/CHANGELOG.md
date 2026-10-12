@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+- Moving a list item (vsctsa44). `SpecDocument::moveListItem(model,
+  itemPath, toIndex, toList)` moves the item to an index of its own list or,
+  given `toList`, of another list of the same element class. A path is a
+  position, the section id is the identity: every affected list is renumbered
+  to `<list>-1..n` (seq = n, an emptied list dropped), every store key at or
+  under an old item path — content, forms, headlines, codeSpecs, item ids,
+  list keys and items, seq keys — is re-keyed to the new path, and an
+  anonymous item whose positional id changes stores its old one (the moved
+  item is not pinned when it crosses lists). Refusals change nothing:
+  `std::invalid_argument` (not a live item, not a model list, another element
+  class, a stored id not fitting the destination's `@SectionIdPattern`),
+  `SomSectionIdError` (collision: the stored id is taken in the destination)
+  or `std::out_of_range`. The result, `SpecListItemMove` (`path`, `renamed`,
+  `pinnedIds` as ordered `SpecPathPairs`), feeds `specYamlRekeyReview`, which
+  returns a review map re-keyed the same way, and `specRekeyPath`. The
+  conformance runner checks every case of `list_move_cases.json`
+  (`listMove[...]`).
+
 - Stated counts (vsctsa43). `FormFieldSpec::countOf` (read from the meta's
   `formFields[].countOf`; empty when absent) names the entries a form field's
   value counts — `X` for every list item whose element class carries

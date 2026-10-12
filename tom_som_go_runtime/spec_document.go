@@ -23,6 +23,7 @@ package somruntime
 import (
 	"fmt"
 	"os"
+	"regexp"
 	"sort"
 	"strings"
 )
@@ -392,6 +393,312 @@ func (d *SpecDocument) assertSectionIDFree(listPath, id, exceptItemPath string) 
 		}
 	}
 	return nil
+}
+
+// MoveListItem moves the list item at itemPath to position toIndex (0-based) of
+// its list, or of toList, another list of the same element class (vsctsa44).
+// toList "" means the item's own list.
+//
+// A path is a position, the section id is the identity. Every affected list is
+// renumbered to `<list>-1 … <list>-n` in its new order, and every value under
+// each item — content, forms, nested lists, headline, code-spec, stored id —
+// travels with it. An anonymous item whose positional id would change has its
+// old id stored, so its identity survives the renumbering. The result maps
+// every old item path to its new one; a caller holding anything else keyed by
+// path (the `review:` pass) re-keys it with RekeyReview.
+//
+// Across lists, the destination must hold the same element class, and an item
+// with a stored id keeps it only when the id fits the destination's
+// `@SectionIdPattern` and is free there. Every refusal changes nothing: a
+// *SpecListMoveArgumentError (not a live list item, not a model list, another
+// element class, an id not fitting the destination pattern), a
+// *SpecSectionIDCollision (the stored id is taken in the destination), or a
+// *SpecListMoveRangeError (toIndex outside 0..len(destination without the
+// item)). An anonymous item takes its positional id in the destination.
+func (d *SpecDocument) MoveListItem(
+	model *SpecModel, itemPath string, toIndex int, toList string,
+) (*SpecListItemMove, error) {
+	d.ensure()
+	item := itemPath
+	from, ok := d.owningListOf(item)
+	if !ok {
+		return nil, &SpecListMoveArgumentError{
+			Name: "itemPath", Value: itemPath, Message: "not a live list item",
+		}
+	}
+	to := from
+	if toList != "" {
+		to = toList
+	}
+	refl := NewSpecReflection(model)
+	var fromField, toField *SpecField
+	if res := refl.Resolve(from); res != nil {
+		fromField = res.Field
+	}
+	if res := refl.Resolve(to); res != nil {
+		toField = res.Field
+	}
+	if toField == nil || toField.Kind != SpecFieldKindList {
+		return nil, &SpecListMoveArgumentError{
+			Name: "toList", Value: toList, Message: "not a list of the model",
+		}
+	}
+	fromElement := ""
+	if fromField != nil {
+		fromElement = fromField.ElementType
+	}
+	if to != from && toField.ElementType != fromElement {
+		return nil, &SpecListMoveArgumentError{
+			Name:  "toList",
+			Value: toList,
+			Message: "holds " + toField.ElementType + ", but the item is a " +
+				fromElement + " — an item moves only between lists of its own " +
+				"element class",
+		}
+	}
+	storedID, hasStored := d.itemSectionID[item]
+	if to != from && hasStored {
+		pattern := toField.SectionIDPattern
+		if pattern != "" && !sectionIDFitsPattern(pattern, storedID) {
+			return nil, &SpecListMoveArgumentError{
+				Name:  "itemPath",
+				Value: storedID,
+				Message: "section id does not fit the destination pattern " +
+					pattern + " — set an id that does before moving the item",
+			}
+		}
+		if err := d.assertSectionIDFree(to, storedID, ""); err != nil {
+			return nil, err
+		}
+	}
+
+	// The new orders.
+	fromItems := []string{}
+	for _, p := range d.listItems[from] {
+		if p != item {
+			fromItems = append(fromItems, p)
+		}
+	}
+	var toItems []string
+	if to == from {
+		toItems = fromItems
+	} else {
+		toItems = append([]string{}, d.listItems[to]...)
+	}
+	if toIndex < 0 || toIndex > len(toItems) {
+		return nil, &SpecListMoveRangeError{Index: toIndex, Max: len(toItems)}
+	}
+	toItems = append(toItems, "")
+	copy(toItems[toIndex+1:], toItems[toIndex:])
+	toItems[toIndex] = item
+	if to == from {
+		fromItems = toItems
+	}
+
+	fieldOf := func(list string) *SpecField {
+		if list == from {
+			return fromField
+		}
+		return toField
+	}
+	patternOf := func(list string) string {
+		if f := fieldOf(list); f != nil {
+			return f.SectionIDPattern
+		}
+		return ""
+	}
+	stemOf := func(list string) string {
+		if f := fieldOf(list); f != nil {
+			return f.Name
+		}
+		segs := strings.Split(list, "/")
+		return segs[len(segs)-1]
+	}
+
+	// Each affected item's effective id before the move, so an anonymous item
+	// keeps its identity when its position changes.
+	before := map[string]string{}
+	listsBefore := []string{from}
+	if to != from {
+		listsBefore = append(listsBefore, to)
+	}
+	for _, list := range listsBefore {
+		for i, p := range d.listItems[list] {
+			id, has := d.itemSectionID[p]
+			before[p] = EffectiveListItemSectionID(
+				id, has, patternOf(list), i+1, stemOf(list))
+		}
+	}
+
+	// Old → new item paths (in move order: the source list, then the
+	// destination), and the ids anonymous items must now store.
+	var renamed []listItemRename
+	var pinned []listItemRename
+	renumber := func(list string, items []string) {
+		for i, old := range items {
+			now := list + "-" + itoa(i+1)
+			if old != now {
+				renamed = append(renamed, listItemRename{old: old, now: now})
+			}
+			crossing := old == item && to != from
+			if _, has := d.itemSectionID[old]; has || crossing {
+				continue
+			}
+			positional := EffectiveListItemSectionID(
+				"", false, patternOf(list), i+1, stemOf(list))
+			if positional != before[old] {
+				pinned = append(pinned, listItemRename{old: old, now: before[old]})
+			}
+		}
+	}
+	renumber(from, fromItems)
+	if to != from {
+		renumber(to, toItems)
+	}
+
+	remap := func(key string) string { return rekeyPath(key, renamed) }
+	rekeyStrings := func(store map[string]string) map[string]string {
+		out := make(map[string]string, len(store))
+		for k, v := range store {
+			out[remap(k)] = v
+		}
+		return out
+	}
+
+	content := rekeyStrings(d.content)
+	headline := rekeyStrings(d.headline)
+	codeSpec := rekeyStrings(d.codeSpec)
+	ids := rekeyStrings(d.itemSectionID)
+	for _, p := range pinned {
+		ids[remap(p.old)] = p.now
+	}
+	form := make(map[string]map[string]string, len(d.form))
+	for k, v := range d.form {
+		form[remap(k)] = v
+	}
+	seq := make(map[string]int, len(d.listSeq))
+	for k, v := range d.listSeq {
+		seq[remap(k)] = v
+	}
+	remapAll := func(items []string) []string {
+		out := make([]string, len(items))
+		for i, p := range items {
+			out[i] = remap(p)
+		}
+		return out
+	}
+	lists := make(map[string][]string, len(d.listItems))
+	for k, v := range d.listItems {
+		lists[remap(k)] = remapAll(v)
+	}
+	lists[remap(from)] = remapAll(fromItems)
+	seq[remap(from)] = len(fromItems)
+	if to != from {
+		lists[remap(to)] = remapAll(toItems)
+		seq[remap(to)] = len(toItems)
+	}
+	for k, v := range lists {
+		if len(v) == 0 {
+			delete(lists, k)
+		}
+	}
+
+	d.content = content
+	d.form = form
+	d.headline = headline
+	d.codeSpec = codeSpec
+	d.itemSectionID = ids
+	d.listSeq = seq
+	d.listItems = lists
+
+	result := &SpecListItemMove{
+		Path:      remap(item),
+		Renamed:   map[string]string{},
+		PinnedIDs: map[string]string{},
+	}
+	for _, r := range renamed {
+		result.Renamed[r.old] = r.now
+	}
+	for _, p := range pinned {
+		result.PinnedIDs[remap(p.old)] = p.now
+	}
+	return result, nil
+}
+
+// SpecListItemMove is the result of SpecDocument.MoveListItem.
+type SpecListItemMove struct {
+	// Path is the moved item's path after the move.
+	Path string `json:"path"`
+	// Renamed holds every item path the move changed, old → new: the moved
+	// item and each sibling whose position moved. Values under a renamed item
+	// moved with it.
+	Renamed map[string]string `json:"renamed"`
+	// PinnedIDs holds the items (by new path) that were anonymous and now
+	// store the id they had by position, so their identity did not change with
+	// their position.
+	PinnedIDs map[string]string `json:"pinnedIds"`
+}
+
+// SpecListMoveArgumentError is returned by MoveListItem for a move it refuses
+// on its arguments: not a live list item, a toList that is not a list of the
+// model or holds another element class, or a stored id that does not fit the
+// destination's @SectionIdPattern. Nothing was changed.
+type SpecListMoveArgumentError struct {
+	// Name is the argument at fault (`itemPath` or `toList`).
+	Name string
+	// Value is the offending value.
+	Value string
+	// Message says what is wrong with it.
+	Message string
+}
+
+// Error implements the error interface.
+func (e *SpecListMoveArgumentError) Error() string {
+	return fmt.Sprintf("Invalid argument (%s): %s: %q", e.Name, e.Message, e.Value)
+}
+
+// SpecListMoveRangeError is returned by MoveListItem when toIndex lies outside
+// 0..Max, Max being the destination's length without the moved item. Nothing
+// was changed.
+type SpecListMoveRangeError struct {
+	Index int
+	Max   int
+}
+
+// Error implements the error interface.
+func (e *SpecListMoveRangeError) Error() string {
+	return "RangeError (toIndex): Invalid value: Not in inclusive range 0.." +
+		itoa(e.Max) + ": " + itoa(e.Index)
+}
+
+// listItemRename is one old → new pair, kept in a slice so the first-match
+// rule of rekeyPath follows the move order as the reference's ordered map does.
+type listItemRename struct{ old, now string }
+
+// rekeyPath returns key with the first old path of renamed it equals or lies
+// under (`old`, `old/…`, `old-…`) replaced by its new path; key itself when it
+// lies under none.
+func rekeyPath(key string, renamed []listItemRename) string {
+	for _, r := range renamed {
+		if key == r.old {
+			return r.now
+		}
+		if hasPrefix(key, r.old+"/") || hasPrefix(key, r.old+"-") {
+			return r.now + key[len(r.old):]
+		}
+	}
+	return key
+}
+
+// sectionIDFitsPattern reports whether id fits the @SectionIdPattern pattern —
+// its `xxx` placeholder standing for one or more characters, the whole id
+// matched.
+func sectionIDFitsPattern(pattern, id string) bool {
+	parts := strings.Split(pattern, "xxx")
+	for i, p := range parts {
+		parts[i] = regexp.QuoteMeta(p)
+	}
+	return regexp.MustCompile("^" + strings.Join(parts, ".+") + "$").MatchString(id)
 }
 
 // RemoveListItem removes the list item at itemPath along with every value nested

@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Moving a list item: `SpecDocument::move_list_item(model, item_path,
+  to_index, to_list)` reorders a list item, or moves it into another list of
+  the same element class; the section id is the identity and the path the
+  position. Every affected list is renumbered to `<list>-1..n`, every value
+  under each item (content, forms, headlines, code specs, nested lists, stored
+  ids) is re-keyed with it, and an anonymous item whose positional id changes
+  has its old id stored. The result is a `SpecListItemMove` (`path`, and the
+  ordered `(old, new)` / `(new path, id)` pairs `renamed` / `pinned_ids`).
+  A refusal changes nothing and is a `SpecListMoveError`: `NotLiveItem`,
+  `NotAList`, `ElementClassMismatch` and `PatternMismatch` (the conformance
+  word `argument`), `Collision` (`collision`) and `IndexOutOfRange`
+  (`range`). `spec_document_yaml::rekey_review(review, renamed)` re-keys a
+  `review:` pass with the move's `renamed` pairs. Verified against
+  `list_move_cases.json`.
+
 - Stated counts: `FormFieldSpec::count_of` (read from the meta's
   `formFields[].countOf`, empty when absent) names the entries a form field's
   value counts — `X` (every list item whose element class carries

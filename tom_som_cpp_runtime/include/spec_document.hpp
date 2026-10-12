@@ -72,6 +72,27 @@ std::string documentJsonToCanonicalJson(const DocumentJson& d);
 
 /* ---- SpecDocument — the live sparse document ---------------------------- */
 
+/* An ordered old -> new path mapping (or new path -> id), kept in the order a
+ * move produced it — the order specRekeyPath matches old paths in. */
+using SpecPathPairs = std::vector<std::pair<std::string, std::string>>;
+
+/* The result of SpecDocument::moveListItem (vsctsa44). */
+struct SpecListItemMove {
+  /* The moved item's path after the move. */
+  std::string path;
+  /* Every item path the move changed, old -> new: the moved item and each
+   * sibling whose position moved. Values under a renamed item moved with it. */
+  SpecPathPairs renamed;
+  /* The items (by new path) that were anonymous and now store the id they had
+   * by position, so their identity did not change with their position. */
+  SpecPathPairs pinnedIds;
+};
+
+/* `key` re-keyed by a move's `renamed` pairs: a key equal to an old path, or
+ * under it (`old/...`, `old-...`), takes the new path in its place; the first
+ * old path that matches wins. Any other key is returned unchanged. */
+std::string specRekeyPath(const std::string& key, const SpecPathPairs& renamed);
+
 /* Fragments for SpecDocument::assemble: an ordered sequence of name/document
  * pairs (spec_document_assembly.hpp). */
 using SpecAssemblyFragments = std::vector<std::pair<std::string, SpecDocument>>;
@@ -181,6 +202,30 @@ class SpecDocument {
   std::size_t listItemCount(const std::string& listPath) const;
   std::string addListItem(const std::string& listPath);  // returns new item path
   bool removeListItem(const std::string& itemPath);
+
+  /* Moves the list item at `itemPath` to position `toIndex` (0-based) of its
+   * list, or of `toList`, another list of the same element class (vsctsa44).
+   *
+   * A path is a position, the section id is the identity. Every affected list
+   * is renumbered to `<list>-1 … <list>-n` in its new order (its seq becomes
+   * n; a list left empty is dropped), and every value under each item —
+   * content, forms, nested lists, headline, codeSpec, stored id — travels with
+   * it. An anonymous item whose positional id (effectiveListItemSectionId)
+   * would change has its old id stored, so its identity survives the
+   * renumbering; the moved item itself is not pinned when it crosses lists (it
+   * takes the destination's positional id). A caller holding anything else
+   * keyed by path (the `review:` pass) re-keys it with specYamlRekeyReview.
+   *
+   * Refusals change nothing: std::invalid_argument when `itemPath` is not a
+   * live list item, `toList` is not a list of the model or holds another
+   * element class, or the item's stored id does not fit the destination's
+   * `@SectionIdPattern` (`xxx` standing for one or more characters);
+   * SomSectionIdError (Collision) when that id is already used in the
+   * destination; std::out_of_range when `toIndex` lies outside 0..n, n being
+   * the destination's length once the item has left it. */
+  SpecListItemMove moveListItem(
+      const SpecModel& model, const std::string& itemPath, long long toIndex,
+      const std::optional<std::string>& toList = std::nullopt);
 
   // section ids (criteria 3–6)
   /* Appends a new item to `listPath` carrying `sectionId`. Throws

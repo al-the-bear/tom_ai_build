@@ -17,6 +17,7 @@
  *   * reflection resolution cases;
  *   * validation cases;
  *   * assembling one document from fragments (`assembly_cases.json`);
+ *   * moving a list item and re-keying the review pass (`list_move_cases.json`);
  *   * the imperative operations script;
  *   * the YRD7 generic editor script (typed values, enum domains, structure);
  *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule);
@@ -84,6 +85,7 @@ import {
   yamlDecode,
   yamlEncode,
   staleReviewPaths,
+  SpecDocumentYaml,
 } from '../src/index';
 import type { SpecNodeKindValue, SpecStateFilterValue } from '../src/index';
 
@@ -538,6 +540,51 @@ function testAssembly(): void {
       _deepEqual(got, c.expect),
       _jsonMismatch(got, c.expect),
     );
+  }
+}
+
+function _mapToObject(m: ReadonlyMap<string, string>): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [k, v] of m) out[k] = v;
+  return out;
+}
+
+function _runListMoveCase(model: SpecModel, c: any): any {
+  const doc = _documentFromState(c.state);
+  const move = c.move;
+  try {
+    const result = doc.moveListItem(
+      model,
+      move.itemPath,
+      move.toIndex,
+      move.toList === undefined ? null : move.toList,
+    );
+    return {
+      ok: true,
+      path: result.path,
+      renamed: _mapToObject(result.renamed),
+      pinnedIds: _mapToObject(result.pinnedIds),
+      document: doc.toJson(),
+    };
+  } catch (e) {
+    if (e instanceof SpecSectionIdCollision) return { ok: false, error: 'collision' };
+    if (e instanceof RangeError) return { ok: false, error: 'range' };
+    return { ok: false, error: 'argument' };
+  }
+}
+
+// Moving a list item (vsctsa44): a path is a position, the section id is the
+// identity — renumbering, values travelling with their item, anonymous ids
+// pinned, the refusals; and the `review:` pass re-keyed by the move's result.
+function testListMove(model: SpecModel): void {
+  const table = _readJson('list_move_cases.json');
+  for (const c of table.cases) {
+    const got = _runListMoveCase(model, c);
+    _check(`listMove[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+  }
+  for (const c of table.reviewCases) {
+    const got = SpecDocumentYaml.rekeyReview(c.review, c.renamed);
+    _check(`listMove.review[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
   }
 }
 
@@ -1989,6 +2036,7 @@ export function main(): number {
   testMarkdownImportRejections(model);
   testMarkdownApply(model);
   testAssembly();
+  testListMove(model);
   testOneLineExport(model);
   testReflection(model);
   testValidation(model);

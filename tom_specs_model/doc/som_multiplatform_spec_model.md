@@ -732,6 +732,29 @@ were written, each silently absent to every typed reader. Note what it does
 **not** report: an **empty** value is absence, not a bad value, and every other
 tier reads it that way — a half-filled document is incomplete, not invalid.
 
+### Moving a list item
+
+`SpecDocument.moveListItem(model, itemPath, toIndex, {toList})` reorders an
+item within its list, or moves it to another list of the **same element class**,
+in all nine runtimes. Before it, the only way was remove and re-add, which lost
+the item's headline, code-spec and review entries.
+
+- **A path is a position, the section id is the identity.** The affected lists
+  are renumbered to `<list>-1 … <list>-n` in their new order. Every value under
+  each item travels with it: content, forms, nested lists, headline, code-spec
+  and stored id.
+- An **anonymous** item whose positional id (§11.5) would change has its old id
+  stored, so the heading a reader knew it by does not change.
+- **Across lists** the item must keep fitting where it lands. A stored id has to
+  match the destination's `@SectionIdPattern` and be free there. An anonymous
+  item takes the destination's positional id.
+- Any refusal changes nothing: an unknown item, a list of another class, an id
+  that does not fit, an index out of range.
+
+The result maps every old item path to its new one. Anything a caller keys by
+path re-keys with it; the YAML codec's `rekeyReview` does that for the
+`review:` pass (§12).
+
 ### The generation stamp
 
 Every runtime's `SpecModel` reads the five stamp keys the exporter writes —

@@ -74,7 +74,7 @@ from .spec_codespecs_records import (
     CodeSpecsRecordError,
     parse_code_specs_extract_yaml,
 )
-from .spec_document import SpecDocument
+from .spec_document import SpecDocument, SpecListItemMove
 from .spec_document_assembly import (
     SpecAssemblyOverlap,
     SpecDocumentAssembly,
@@ -103,6 +103,7 @@ from .spec_document_yaml import (
     SpecYamlFormatException,
     decode as yaml_decode,
     encode as yaml_encode,
+    rekey_review,
     stale_review_paths,
     write_review_pass,
 )
@@ -287,6 +288,7 @@ __all__ = [
     "SpecReflection",
     "SpecResolution",
     "SpecRoot",
+    "SpecListItemMove",
     "SpecSectionIdCollision",
     "SpecSerializationOrder",
     "SpecStateFilter",
@@ -326,6 +328,7 @@ __all__ = [
     "validate_document",
     "yaml_decode",
     "yaml_encode",
+    "rekey_review",
     "stale_review_paths",
     "write_review_pass",
 ]

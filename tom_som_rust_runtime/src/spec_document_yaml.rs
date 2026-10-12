@@ -610,6 +610,18 @@ fn review_json(value: &YamlValue) -> String {
     }
 }
 
+/// `review` with every path `renamed` (old item path → new, as
+/// [`SpecDocument::move_list_item`] returns it) re-keyed — the entry for an
+/// item and every entry under it. Entries under no renamed path are kept as
+/// they are. A new map; `review` is not changed.
+pub fn rekey_review(review: &YamlMap, renamed: &[(String, String)]) -> YamlMap {
+    let mut out = YamlMap::new();
+    for (key, value) in review.iter() {
+        out.insert(crate::spec_document::remap_path(key, renamed), value.clone());
+    }
+    out
+}
+
 /// The review paths in `review` that no longer resolve against `document`:
 /// paths the model cannot resolve, and paths running through a list item the
 /// document does not hold (an item that was removed). Sorted. Reports only —

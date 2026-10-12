@@ -12,7 +12,7 @@
  * conformance corpus in `tom_som_conformance/corpus`.
  */
 
-const { SpecDocument } = require('./spec_document');
+const { SpecDocument, SpecListItemMove } = require('./spec_document');
 const {
   SpecAssemblyOverlap,
   SpecDocumentAssembly,
@@ -166,6 +166,8 @@ const {
   writeHeader,
   writeReviewPass,
   staleReviewPaths,
+  rekeyReview,
+  SpecDocumentYaml,
   encode: yamlEncode,
   decode: yamlDecode,
 } = require('./spec_document_yaml');
@@ -298,6 +300,7 @@ module.exports = {
   SpecSerializationOrder,
   // document
   SpecDocument,
+  SpecListItemMove,
   // assembling one document from fragments
   SpecAssemblyOverlap,
   SpecDocumentAssembly,
@@ -339,6 +342,8 @@ module.exports = {
   writeHeader,
   writeReviewPass,
   staleReviewPaths,
+  rekeyReview,
+  SpecDocumentYaml,
   yamlEncode,
   yamlDecode,
   // markdown codec

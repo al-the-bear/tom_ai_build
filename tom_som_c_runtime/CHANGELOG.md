@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+- Moving a list item (vsctsa44). `spec_document_move_list_item` moves the
+  item at a path to an index of its own list or, given `to_list`, of another
+  list of the same element class. A path is a position, the section id is the
+  identity: every affected list is renumbered to `<list>-1..n` (seq = n, an
+  emptied list dropped), every store key at or under an old item path —
+  content, forms, headlines, codeSpecs, item ids, list keys and items, seq
+  keys — is re-keyed to the new path, and an anonymous item whose positional
+  id changes stores its old one (the moved item is not pinned when it crosses
+  lists). Refusals leave the document unchanged and fill a
+  `SpecListMoveError` — `SPEC_LIST_MOVE_ARGUMENT` (not a live item, not a
+  model list, another element class, a stored id not fitting the
+  destination's `@SectionIdPattern`), `SPEC_LIST_MOVE_COLLISION` (the stored
+  id is taken in the destination) or `SPEC_LIST_MOVE_RANGE`. The result,
+  `SpecListItemMove` (`path`, `renamed_from`/`renamed_to`,
+  `pinned_paths`/`pinned_ids`, released with `spec_list_item_move_free`),
+  feeds `spec_yaml_rekey_review`, which returns a review map re-keyed the
+  same way, and `spec_rekey_path`. The conformance runner checks every case
+  of `list_move_cases.json` (`listMove[...]`).
+
 - Stated counts (vsctsa43). `FormFieldSpec.count_of` (a `SomStrList`, read
   from the meta's `formFields[].countOf`; empty when absent, freed with the
   model) names the entries a form field's value counts — `X` for every list

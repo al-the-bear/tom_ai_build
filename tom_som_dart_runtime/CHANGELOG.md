@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- `SpecDocument.moveListItem(model, itemPath, toIndex, {toList})` reorders a
+  list item, or moves it to another list of the same element class; the
+  section id is the identity and the path the position (SOM §9). Values travel
+  with the item, an anonymous item keeps its old id, and a cross-list stored id
+  must fit the destination pattern. `SpecDocumentYaml.rekeyReview` re-keys the
+  review pass with the move's path map. Pinned by `list_move_cases.json` in all
+  nine runtimes.
+
 - `validateDocument` reports `countMismatch` when a `countOf` form field
   (`FormFieldSpec.countOf`) states a number that is not a whole number or not
   the number of entries the document holds (SOM §9, phase 6). Pinned by the

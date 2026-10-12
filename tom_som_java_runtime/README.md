@@ -74,6 +74,7 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SpecReflection`, `SpecResolution`, `SpecNodeKind` | Value-free enumeration + path resolution. |
 | `SpecDocument` | A sparse in-memory document — values keyed by section path. |
 | `SpecDocumentAssembly`, `SpecAssemblyOverlap` | Assembling one document from fragments written in parallel (`SpecDocument.assemble`): a refusing merge of the plain-data stores — a content path, form field, list, headline or code-spec location two fragments both write is an overlap, and an assembly with any overlap has no document. |
+| `SpecListItemMove` | Moving a list item (`SpecDocument.moveListItem`) to another position of its list, or into another list of the same element class: the affected lists are renumbered, every value under each item travels with it, and an anonymous item whose position changed keeps its old id (pinned). `SpecDocumentYaml.rekeyReview` re-keys a `review:` pass with the move's `renamed` map. |
 | `SpecTypedValues` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `SpecEditor` | The generic meta-model-driven modification API (YRD7) — typed edits over any path, without a generated facade. |
 | `SpecValidator` | Validates a document's values against the model. |

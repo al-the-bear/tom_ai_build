@@ -1,10 +1,13 @@
 #include "spec_document.h"
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "spec_document_yaml.h"
+#include "spec_paths.h"
+#include "spec_reflection.h"
 
 /* ---- is_under ----------------------------------------------------------- */
 
@@ -1010,6 +1013,412 @@ void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
     som_map_set(&d->code_spec, j->code_specs.entries[i].key,
                 j->code_specs.entries[i].val);
   }
+}
+
+/* --- moving a list item (vsctsa44) --- */
+
+void spec_list_move_error_init(SpecListMoveError *err) {
+  err->kind = SPEC_LIST_MOVE_OK;
+  err->message = NULL;
+}
+
+void spec_list_move_error_free(SpecListMoveError *err) {
+  free(err->message);
+  spec_list_move_error_init(err);
+}
+
+const char *spec_list_move_error_name(SpecListMoveErrorKind kind) {
+  switch (kind) {
+    case SPEC_LIST_MOVE_ARGUMENT:
+      return "argument";
+    case SPEC_LIST_MOVE_RANGE:
+      return "range";
+    case SPEC_LIST_MOVE_COLLISION:
+      return "collision";
+    case SPEC_LIST_MOVE_OK:
+      break;
+  }
+  return "";
+}
+
+void spec_list_item_move_init(SpecListItemMove *m) {
+  m->path = NULL;
+  som_strlist_init(&m->renamed_from);
+  som_strlist_init(&m->renamed_to);
+  som_strlist_init(&m->pinned_paths);
+  som_strlist_init(&m->pinned_ids);
+}
+
+void spec_list_item_move_free(SpecListItemMove *m) {
+  free(m->path);
+  som_strlist_free(&m->renamed_from);
+  som_strlist_free(&m->renamed_to);
+  som_strlist_free(&m->pinned_paths);
+  som_strlist_free(&m->pinned_ids);
+  spec_list_item_move_init(m);
+}
+
+/* Writes a refusal into `*err` (when non-NULL) with a formatted message. */
+static void set_move_err(SpecListMoveError *err, SpecListMoveErrorKind kind,
+                         const char *fmt, ...) {
+  if (err == NULL) {
+    return;
+  }
+  va_list ap;
+  va_start(ap, fmt);
+  int n = vsnprintf(NULL, 0, fmt, ap);
+  va_end(ap);
+  char *msg = (char *)malloc(n > 0 ? (size_t)n + 1 : 1);
+  msg[0] = '\0';
+  if (n > 0) {
+    va_start(ap, fmt);
+    vsnprintf(msg, (size_t)n + 1, fmt, ap);
+    va_end(ap);
+  }
+  free(err->message);
+  err->kind = kind;
+  err->message = msg;
+}
+
+char *spec_rekey_path(const char *key, const SomStrList *renamed_from,
+                      const SomStrList *renamed_to) {
+  for (size_t i = 0; i < renamed_from->len && i < renamed_to->len; i++) {
+    const char *old = renamed_from->items[i];
+    if (is_under(key, old)) {
+      size_t n = strlen(old);
+      SomBuf b;
+      som_buf_init(&b);
+      som_buf_puts(&b, renamed_to->items[i]);
+      som_buf_puts(&b, key + n);
+      return som_buf_take(&b);
+    }
+  }
+  return som_strdup(key);
+}
+
+/* Whether `s` (from its start) matches `.+<segs[i]>.+<segs[i+1]>…` to its
+ * end — the tail of the anchored pattern regex, `.` excluding line breaks as
+ * a Dart RegExp's does. */
+static int pattern_tail_matches(const SomStrList *segs, size_t i,
+                                const char *s) {
+  if (i == segs->len) {
+    return *s == '\0';
+  }
+  const char *seg = segs->items[i];
+  size_t n = strlen(seg);
+  for (size_t k = 1; s[k - 1] != '\0'; k++) {
+    if (s[k - 1] == '\n' || s[k - 1] == '\r') {
+      return 0;
+    }
+    if (strncmp(s + k, seg, n) == 0 && pattern_tail_matches(segs, i + 1, s + k + n)) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+/* Whether `id` fits the `@SectionIdPattern` `pattern`: each `xxx` stands for
+ * one or more characters, everything else is literal, the whole id must match
+ * (the Dart `_sectionIdFitsPattern`). */
+static int section_id_fits_pattern(const char *pattern, const char *id) {
+  SomStrList segs;
+  som_strlist_init(&segs);
+  const char *p = pattern;
+  const char *xxx;
+  while ((xxx = strstr(p, "xxx")) != NULL) {
+    som_strlist_push(&segs, som_strdup_n(p, (size_t)(xxx - p)));
+    p = xxx + 3;
+  }
+  som_strlist_push_copy(&segs, p);
+  size_t n0 = strlen(segs.items[0]);
+  int fits = strncmp(id, segs.items[0], n0) == 0 &&
+             pattern_tail_matches(&segs, 1, id + n0);
+  som_strlist_free(&segs);
+  return fits;
+}
+
+/* The id an item of `list` (described by `field`, NULL when unresolved) is
+ * identified by at 1-based `position`. Owned result. */
+static char *move_effective_id(const char *stored_id, const SpecField *field,
+                               const char *list, long long position) {
+  const char *pattern = field != NULL ? field->section_id_pattern : NULL;
+  const char *stem;
+  if (field != NULL && field->name != NULL) {
+    stem = field->name;
+  } else {
+    const char *slash = strrchr(list, '/');
+    stem = slash != NULL ? slash + 1 : list;
+  }
+  return spec_effective_list_item_section_id(stored_id, pattern, position,
+                                             stem);
+}
+
+/* Inserts `owned` at `index` (0 ≤ index ≤ len) of `l`. */
+static void strlist_insert(SomStrList *l, size_t index, char *owned) {
+  som_strlist_push(l, owned);
+  memmove(&l->items[index + 1], &l->items[index],
+          (l->len - 1 - index) * sizeof(char *));
+  l->items[index] = owned;
+}
+
+/* Renumbers `items` (the new order of `list`) into `m`'s renames and pins:
+ * the Dart `renumber`. `before` maps every affected item to its effective id
+ * before the move; `crossing_item` is the moved item when it crossed lists,
+ * else NULL. */
+static void move_renumber(const SpecDocument *d, const char *list,
+                          const SomStrList *items, const SpecField *field,
+                          const SomMap *before, const char *crossing_item,
+                          SpecListItemMove *m) {
+  for (size_t i = 0; i < items->len; i++) {
+    const char *old = items->items[i];
+    char *now = spec_list_item_path(list, (long long)i + 1);
+    if (strcmp(old, now) != 0) {
+      som_strlist_push_copy(&m->renamed_from, old);
+      som_strlist_push(&m->renamed_to, now);
+    } else {
+      free(now);
+    }
+    if (som_map_get(&d->item_section_id, old) != NULL ||
+        (crossing_item != NULL && strcmp(old, crossing_item) == 0)) {
+      continue;
+    }
+    char *positional = move_effective_id(NULL, field, list, (long long)i + 1);
+    const char *was = som_map_get(before, old);
+    if (was != NULL && strcmp(positional, was) != 0) {
+      som_strlist_push_copy(&m->pinned_paths, old);
+      som_strlist_push_copy(&m->pinned_ids, was);
+    }
+    free(positional);
+  }
+}
+
+/* Replaces `*m` with a copy whose every key is re-keyed by the renames
+ * (a later entry wins a key two entries re-key to, as in a Dart map). */
+static void rekey_map(SomMap *m, const SomStrList *from, const SomStrList *to) {
+  SomMap out;
+  som_map_init(&out);
+  for (size_t i = 0; i < m->len; i++) {
+    char *k = spec_rekey_path(m->entries[i].key, from, to);
+    som_map_set(&out, k, m->entries[i].val);
+    free(k);
+  }
+  som_map_free(m);
+  *m = out;
+}
+
+/* Sets the items of list `key` in `arr` to `items` re-keyed (created when
+ * absent). */
+static void set_rekeyed_items(DocListItems **arr, size_t *len, size_t *cap,
+                              const char *key, const SomStrList *items,
+                              const SomStrList *from, const SomStrList *to) {
+  DocListItems *e = li_get_or_create(arr, len, cap, key);
+  som_strlist_free(&e->items);
+  som_strlist_init(&e->items);
+  for (size_t i = 0; i < items->len; i++) {
+    som_strlist_push(&e->items, spec_rekey_path(items->items[i], from, to));
+  }
+}
+
+int spec_document_move_list_item(SpecDocument *d, const SpecModel *model,
+                                 const char *item_path, long long to_index,
+                                 const char *to_list, SpecListItemMove *out,
+                                 SpecListMoveError *err) {
+  spec_list_item_move_init(out);
+  const char *owning = owning_list_of(d, item_path);
+  if (owning == NULL) {
+    set_move_err(err, SPEC_LIST_MOVE_ARGUMENT,
+                 "itemPath \"%s\": not a live list item", item_path);
+    return 0;
+  }
+  /* Copies: `item_path` and `to_list` may be borrowed from the stores the
+   * move replaces. */
+  char *item = som_strdup(item_path);
+  char *from = som_strdup(owning);
+  char *to = som_strdup(to_list != NULL ? to_list : from);
+  int cross = strcmp(to, from) != 0;
+
+  SpecReflection refl = spec_reflection_make(model);
+  SpecResolution from_res, to_res;
+  int has_from = spec_reflection_resolve(&refl, from, &from_res);
+  int has_to = spec_reflection_resolve(&refl, to, &to_res);
+  const SpecField *from_field = has_from ? from_res.field : NULL;
+  const SpecField *to_field = has_to ? to_res.field : NULL;
+
+  int ok = 0;
+  SomStrList from_items, to_own;
+  som_strlist_init(&from_items);
+  som_strlist_init(&to_own);
+  SomMap before;
+  som_map_init(&before);
+
+  if (to_field == NULL || strcmp(to_field->kind, SPEC_FIELD_KIND_LIST) != 0) {
+    set_move_err(err, SPEC_LIST_MOVE_ARGUMENT,
+                 "toList \"%s\": not a list of the model", to);
+    goto done;
+  }
+  if (cross && (from_field == NULL ||
+                strcmp(to_field->element_type, from_field->element_type) != 0)) {
+    set_move_err(err, SPEC_LIST_MOVE_ARGUMENT,
+                 "toList \"%s\": holds %s, but the item is a %s — an item "
+                 "moves only between lists of its own element class",
+                 to, to_field->element_type,
+                 from_field != NULL ? from_field->element_type : "null");
+    goto done;
+  }
+  const char *stored_id = som_map_get(&d->item_section_id, item);
+  if (cross && stored_id != NULL) {
+    const char *pattern = to_field->section_id_pattern;
+    if (pattern != NULL && pattern[0] != '\0' &&
+        !section_id_fits_pattern(pattern, stored_id)) {
+      set_move_err(err, SPEC_LIST_MOVE_ARGUMENT,
+                   "itemPath \"%s\": section id \"%s\" does not fit the "
+                   "destination pattern %s — set an id that does before "
+                   "moving the item",
+                   item, stored_id, pattern);
+      goto done;
+    }
+    if (!assert_section_id_free(d, to, stored_id, NULL, NULL)) {
+      set_move_err(err, SPEC_LIST_MOVE_COLLISION,
+                   "section id \"%s\" is already used in list \"%s\"",
+                   stored_id, to);
+      goto done;
+    }
+  }
+
+  /* The new orders. */
+  const SomStrList *from_old = spec_document_list_items(d, from);
+  for (size_t i = 0; i < from_old->len; i++) {
+    if (strcmp(from_old->items[i], item) != 0) {
+      som_strlist_push_copy(&from_items, from_old->items[i]);
+    }
+  }
+  const SomStrList *to_old = cross ? spec_document_list_items(d, to) : NULL;
+  if (to_old != NULL) {
+    som_strlist_copy(&to_own, to_old);
+  }
+  SomStrList *to_items = cross ? &to_own : &from_items;
+  if (to_index < 0 || to_index > (long long)to_items->len) {
+    set_move_err(err, SPEC_LIST_MOVE_RANGE,
+                 "toIndex %lld: not in range 0..%zu", to_index, to_items->len);
+    goto done;
+  }
+  strlist_insert(to_items, (size_t)to_index, som_strdup(item));
+
+  /* Each affected item's effective id before the move, so an anonymous item
+   * keeps its identity when its position changes. */
+  for (size_t i = 0; i < from_old->len; i++) {
+    const char *p = from_old->items[i];
+    char *id = move_effective_id(som_map_get(&d->item_section_id, p),
+                                 from_field, from, (long long)i + 1);
+    som_map_set(&before, p, id);
+    free(id);
+  }
+  for (size_t i = 0; to_old != NULL && i < to_old->len; i++) {
+    const char *p = to_old->items[i];
+    char *id = move_effective_id(som_map_get(&d->item_section_id, p), to_field,
+                                 to, (long long)i + 1);
+    som_map_set(&before, p, id);
+    free(id);
+  }
+
+  /* Old → new item paths, and the ids anonymous items must now store. */
+  move_renumber(d, from, &from_items, from_field, &before, NULL, out);
+  if (cross) {
+    move_renumber(d, to, &to_own, to_field, &before, item, out);
+  }
+  const SomStrList *rf = &out->renamed_from;
+  const SomStrList *rt = &out->renamed_to;
+
+  rekey_map(&d->content, rf, rt);
+  rekey_map(&d->headline, rf, rt);
+  rekey_map(&d->code_spec, rf, rt);
+  rekey_map(&d->item_section_id, rf, rt);
+  for (size_t i = 0; i < out->pinned_paths.len; i++) {
+    char *k = spec_rekey_path(out->pinned_paths.items[i], rf, rt);
+    som_map_set(&d->item_section_id, k, out->pinned_ids.items[i]);
+    free(k);
+  }
+  rekey_map(&d->list_seq, rf, rt);
+
+  DocFormEntry *forms = NULL;
+  size_t forms_len = 0, forms_cap = 0;
+  for (size_t i = 0; i < d->forms_len; i++) {
+    char *k = spec_rekey_path(d->forms[i].key, rf, rt);
+    DocFormEntry *e = form_get_or_create(&forms, &forms_len, &forms_cap, k);
+    free(k);
+    som_map_free(&e->fields);
+    e->fields = d->forms[i].fields; /* move */
+    free(d->forms[i].key);
+  }
+  free(d->forms);
+  d->forms = forms;
+  d->forms_len = forms_len;
+  d->forms_cap = forms_cap;
+
+  DocListItems *lists = NULL;
+  size_t lists_len = 0, lists_cap = 0;
+  for (size_t i = 0; i < d->list_items_len; i++) {
+    char *k = spec_rekey_path(d->list_items[i].key, rf, rt);
+    set_rekeyed_items(&lists, &lists_len, &lists_cap, k,
+                      &d->list_items[i].items, rf, rt);
+    free(k);
+  }
+  char *new_from = spec_rekey_path(from, rf, rt);
+  set_rekeyed_items(&lists, &lists_len, &lists_cap, new_from, &from_items, rf,
+                    rt);
+  char *seq = som_format_i64((long long)from_items.len);
+  som_map_set(&d->list_seq, new_from, seq);
+  free(seq);
+  free(new_from);
+  if (cross) {
+    char *new_to = spec_rekey_path(to, rf, rt);
+    set_rekeyed_items(&lists, &lists_len, &lists_cap, new_to, &to_own, rf, rt);
+    seq = som_format_i64((long long)to_own.len);
+    som_map_set(&d->list_seq, new_to, seq);
+    free(seq);
+    free(new_to);
+  }
+  for (size_t i = 0; i < lists_len;) {
+    if (lists[i].items.len == 0) {
+      li_remove_at(&lists, &lists_len, i);
+    } else {
+      i++;
+    }
+  }
+  for (size_t i = 0; i < d->list_items_len; i++) {
+    free(d->list_items[i].key);
+    som_strlist_free(&d->list_items[i].items);
+  }
+  free(d->list_items);
+  d->list_items = lists;
+  d->list_items_len = lists_len;
+  d->list_items_cap = lists_cap;
+
+  out->path = spec_rekey_path(item, rf, rt);
+  for (size_t i = 0; i < out->pinned_paths.len; i++) {
+    char *k = spec_rekey_path(out->pinned_paths.items[i], rf, rt);
+    free(out->pinned_paths.items[i]);
+    out->pinned_paths.items[i] = k;
+  }
+  ok = 1;
+
+done:
+  som_map_free(&before);
+  som_strlist_free(&from_items);
+  som_strlist_free(&to_own);
+  if (has_from) {
+    spec_resolution_free(&from_res);
+  }
+  if (has_to) {
+    spec_resolution_free(&to_res);
+  }
+  free(from);
+  free(to);
+  free(item);
+  if (!ok) {
+    spec_list_item_move_free(out);
+  }
+  return ok;
 }
 
 /* --- one-call loading (SOM §21) --- */

@@ -238,6 +238,14 @@
           "elementIsComplex": true
         },
         {
+          "name": "archived",
+          "kind": "list",
+          "sectionId": "RGA-LST",
+          "sectionIdPattern": "RGA-xxx",
+          "elementType": "RegistryEntry",
+          "elementIsComplex": true
+        },
+        {
           "name": "choice",
           "kind": "complex",
           "sectionId": "CHO",

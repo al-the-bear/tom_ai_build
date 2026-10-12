@@ -451,6 +451,21 @@ public final class SpecDocumentYaml {
           java.util.Arrays.asList("true", "false", "null", "yes", "no", "on", "off", "y", "n"));
 
   /**
+   * {@code review} with every path {@code renamed} (old item path → new, as
+   * {@link SpecDocument#moveListItem} returns it) re-keyed — the entry for an
+   * item and every entry under it. Entries under no renamed path are kept as
+   * they are. A new map; {@code review} is not changed.
+   */
+  public static Map<String, Object> rekeyReview(
+      Map<?, ?> review, Map<String, String> renamed) {
+    Map<String, Object> out = new LinkedHashMap<>();
+    for (Map.Entry<?, ?> e : review.entrySet()) {
+      out.put(SpecDocument.remapPath(String.valueOf(e.getKey()), renamed), e.getValue());
+    }
+    return out;
+  }
+
+  /**
    * The review paths in {@code review} that no longer resolve against
    * {@code document}: paths the model cannot resolve, and paths running
    * through a list item the document does not hold (an item that was

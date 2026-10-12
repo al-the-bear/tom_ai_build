@@ -105,6 +105,15 @@ std::vector<std::string> specYamlStaleReviewPaths(const SpecModel& model,
                                                   const SpecDocument& document,
                                                   const YamlValue& review);
 
+/* `review` with every path a list-item move renamed (`renamed`, as
+ * SpecDocument::moveListItem returns it) re-keyed — the entry for an item and
+ * every entry under it (specRekeyPath); entries under no renamed path are kept
+ * as they are, in their order (a key two entries re-key to keeps its first
+ * place and the later value). A new map (empty for a non-map `review`) sharing
+ * the entry values; `review` is not changed. */
+YamlPtr specYamlRekeyReview(const YamlValue& review,
+                            const SpecPathPairs& renamed);
+
 /* Parses a `*.docspecs.yaml` file into its passes, matching every `document:`
  * key against `tree`. On success writes `*out` and returns true.
  *

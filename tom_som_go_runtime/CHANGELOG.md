@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Moving a list item (vsctsa44): `SpecDocument.MoveListItem(model, itemPath,
+  toIndex, toList)` moves an item to position `toIndex` of its list (`toList`
+  `""`), or of `toList`, another list of the same element class, and returns a
+  `*SpecListItemMove` (`Path`, `Renamed` old → new item paths, `PinnedIDs` new
+  path → id). A path is a position, the section id is the identity: every
+  affected list is renumbered to `<list>-1..n` (seq = n, an emptied list is
+  dropped), every store key at or under an old item path is re-keyed, and an
+  anonymous item whose positional id changes has its old id stored. Refusals
+  change nothing: `*SpecListMoveArgumentError` (not a live list item, not a
+  model list, another element class, a stored id not fitting the destination
+  `@SectionIdPattern`), `*SpecSectionIDCollision` (the stored id is taken in
+  the destination), `*SpecListMoveRangeError` (`toIndex` out of range).
+  `RekeyReview(review, renamed)` returns the `review:` pass re-keyed the same
+  way; since a Go map has no order, it tries the old paths in ascending order.
+  The `list_move_cases.json` corpus table pins both.
 - Stated counts (vsctsa43): `FormFieldSpec.CountOf` reads the meta's
   `formFields[].countOf` (absent → empty slice), and `ValidateDocument` gains a
   sixth, instance-tier step after the reference check. A form field with

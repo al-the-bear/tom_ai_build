@@ -19,6 +19,7 @@
  *   * reflection resolution cases;
  *   * validation cases;
  *   * assembling one document from fragments (`assembly_cases.json`);
+ *   * moving a list item and re-keying the review pass (`list_move_cases.json`);
  *   * the imperative operations script;
  *   * the generic editor (YRD7) script;
  *   * the SOM §9 query tier — the portable text-pattern subset, the query /
@@ -79,6 +80,7 @@ const {
   SpecSectionIdCollision,
   SpecSerializationOrder,
   SpecStateFilter,
+  SpecDocumentYaml,
   encodeTwoLetterDate,
   generateListItemSectionId,
   validateDocument,
@@ -465,6 +467,54 @@ function testAssembly() {
   for (const c of _readJson('assembly_cases.json').cases) {
     const got = _runAssemblyCase(c);
     _check(`assembly[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+  }
+}
+
+function _mapToObject(m) {
+  const out = {};
+  for (const [k, v] of m) out[k] = v;
+  return out;
+}
+
+// One `list_move_cases.json` case, run like Dart's `_runListMoveCase`: the
+// state loads, the move runs, and the result (or the refusal's error word) is
+// reported as plain data.
+function _runListMoveCase(model, c) {
+  const doc = _documentFromState(c.state);
+  const move = c.move;
+  try {
+    const result = doc.moveListItem(
+      model,
+      move.itemPath,
+      move.toIndex,
+      move.toList === undefined ? null : move.toList,
+    );
+    return {
+      ok: true,
+      path: result.path,
+      renamed: _mapToObject(result.renamed),
+      pinnedIds: _mapToObject(result.pinnedIds),
+      document: doc.toJson(),
+    };
+  } catch (e) {
+    if (e instanceof SpecSectionIdCollision) return { ok: false, error: 'collision' };
+    if (e instanceof RangeError) return { ok: false, error: 'range' };
+    return { ok: false, error: 'argument' };
+  }
+}
+
+// Moving a list item (vsctsa44): a path is a position, the section id is the
+// identity — renumbering, values travelling with their item, anonymous ids
+// pinned, the refusals; and the `review:` pass re-keyed by the move's result.
+function testListMove(model) {
+  const table = _readJson('list_move_cases.json');
+  for (const c of table.cases) {
+    const got = _runListMoveCase(model, c);
+    _check(`listMove[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+  }
+  for (const c of table.reviewCases) {
+    const got = SpecDocumentYaml.rekeyReview(c.review, c.renamed);
+    _check(`listMove.review[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
   }
 }
 
@@ -1818,6 +1868,7 @@ function main() {
   testMarkdownImportRejections(model);
   testMarkdownApply(model);
   testAssembly();
+  testListMove(model);
   testReflection(model);
   testValidation(model);
   testEditor(model);

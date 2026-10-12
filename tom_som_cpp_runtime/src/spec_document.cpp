@@ -1,6 +1,7 @@
 #include "spec_document.hpp"
 
 #include <fstream>
+#include <iterator>
 #include <sstream>
 #include <stdexcept>
 
@@ -8,6 +9,7 @@
 #include "spec_document_markdown.hpp"
 #include "spec_document_yaml.hpp"
 #include "spec_model.hpp"
+#include "spec_reflection.hpp"
 #include "spec_section_id.hpp"
 
 namespace som {
@@ -747,6 +749,239 @@ std::size_t SpecDocument::listItemCount(const std::string& listPath) const {
 }
 
 /* --- persistence --- */
+
+/* --- moving a list item (vsctsa44) --- */
+
+std::string specRekeyPath(const std::string& key, const SpecPathPairs& renamed) {
+  for (const auto& [old, now] : renamed) {
+    if (isUnder(key, old)) {
+      return now + key.substr(old.size());
+    }
+  }
+  return key;
+}
+
+/* Whether `s` from `at` matches `.+<segs[i]>.+<segs[i+1]>…` to its end — the
+ * tail of the anchored pattern regex, `.` excluding line breaks as a Dart
+ * RegExp's does. */
+static bool patternTailMatches(const std::vector<std::string>& segs,
+                               std::size_t i, const std::string& s,
+                               std::size_t at) {
+  if (i == segs.size()) {
+    return at == s.size();
+  }
+  const std::string& seg = segs[i];
+  for (std::size_t k = at + 1; k <= s.size(); k++) {
+    char consumed = s[k - 1];
+    if (consumed == '\n' || consumed == '\r') {
+      return false;
+    }
+    if (s.compare(k, seg.size(), seg) == 0 && k + seg.size() <= s.size() &&
+        patternTailMatches(segs, i + 1, s, k + seg.size())) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/* Whether `id` fits the `@SectionIdPattern` `pattern`: each `xxx` stands for
+ * one or more characters, everything else is literal, the whole id must match
+ * (the Dart `_sectionIdFitsPattern`). */
+static bool sectionIdFitsPattern(const std::string& pattern,
+                                 const std::string& id) {
+  std::vector<std::string> segs;
+  std::size_t p = 0, xxx;
+  while ((xxx = pattern.find("xxx", p)) != std::string::npos) {
+    segs.push_back(pattern.substr(p, xxx - p));
+    p = xxx + 3;
+  }
+  segs.push_back(pattern.substr(p));
+  return id.compare(0, segs[0].size(), segs[0]) == 0 &&
+         id.size() >= segs[0].size() &&
+         patternTailMatches(segs, 1, id, segs[0].size());
+}
+
+/* The id an item of `list` (described by `field`, null when unresolved) is
+ * identified by at 1-based `position`. */
+static std::string moveEffectiveId(const std::string* storedId,
+                                   const SpecField* field,
+                                   const std::string& list,
+                                   long long position) {
+  std::string stem;
+  if (field != nullptr) {
+    stem = field->name;
+  } else {
+    std::size_t slash = list.rfind('/');
+    stem = slash == std::string::npos ? list : list.substr(slash + 1);
+  }
+  return effectiveListItemSectionId(
+      storedId, field != nullptr ? field->sectionIdPattern : std::string(),
+      position, stem);
+}
+
+/* A copy of `store` with every key re-keyed (a later entry wins a key two
+ * entries re-key to, as in a Dart map). */
+template <typename V>
+static std::map<std::string, V> rekeyStore(const std::map<std::string, V>& store,
+                                           const SpecPathPairs& renamed) {
+  std::map<std::string, V> out;
+  for (const auto& kv : store) {
+    out[specRekeyPath(kv.first, renamed)] = kv.second;
+  }
+  return out;
+}
+
+SpecListItemMove SpecDocument::moveListItem(
+    const SpecModel& model, const std::string& itemPath, long long toIndex,
+    const std::optional<std::string>& toList) {
+  // A copy: `itemPath` may be borrowed from a store the move replaces.
+  const std::string item = itemPath;
+  const std::string from = owningListOf(item);
+  if (from.empty()) {
+    throw std::invalid_argument("itemPath \"" + item +
+                                "\": not a live list item");
+  }
+  const std::string to = toList.has_value() ? *toList : from;
+  const bool cross = to != from;
+  const SpecReflection refl(model);
+  const std::optional<SpecResolution> fromRes = refl.resolve(from);
+  const std::optional<SpecResolution> toRes = refl.resolve(to);
+  const SpecField* fromField = fromRes ? fromRes->field : nullptr;
+  const SpecField* toField = toRes ? toRes->field : nullptr;
+  if (toField == nullptr || toField->kind != kSpecFieldKindList) {
+    throw std::invalid_argument("toList \"" + to +
+                                "\": not a list of the model");
+  }
+  if (cross && (fromField == nullptr ||
+                toField->elementType != fromField->elementType)) {
+    throw std::invalid_argument(
+        "toList \"" + to + "\": holds " + toField->elementType +
+        ", but the item is a " +
+        (fromField != nullptr ? fromField->elementType : std::string("null")) +
+        " — an item moves only between lists of its own element class");
+  }
+  const std::string* storedId = itemSectionIdOpt(item);
+  if (cross && storedId != nullptr) {
+    const std::string& pattern = toField->sectionIdPattern;
+    if (!pattern.empty() && !sectionIdFitsPattern(pattern, *storedId)) {
+      throw std::invalid_argument(
+          "itemPath \"" + item + "\": section id \"" + *storedId +
+          "\" does not fit the destination pattern " + pattern +
+          " — set an id that does before moving the item");
+    }
+    assertSectionIdFree(to, *storedId, "");
+  }
+
+  // The new orders.
+  const std::vector<std::string>& fromOld = listItems_.at(from);
+  std::vector<std::string> fromItems;
+  for (const std::string& p : fromOld) {
+    if (p != item) {
+      fromItems.push_back(p);
+    }
+  }
+  static const std::vector<std::string> kNone;
+  auto toIt = cross ? listItems_.find(to) : listItems_.end();
+  const std::vector<std::string>& toOld =
+      toIt != listItems_.end() ? toIt->second : kNone;
+  std::vector<std::string> toOwn = cross ? toOld : std::vector<std::string>();
+  std::vector<std::string>& toItems = cross ? toOwn : fromItems;
+  if (toIndex < 0 || toIndex > static_cast<long long>(toItems.size())) {
+    throw std::out_of_range("toIndex " + formatI64(toIndex) +
+                            ": not in range 0.." +
+                            formatI64(static_cast<long long>(toItems.size())));
+  }
+  toItems.insert(toItems.begin() + toIndex, item);
+
+  // Each affected item's effective id before the move, so an anonymous item
+  // keeps its identity when its position changes.
+  std::map<std::string, std::string> before;
+  for (std::size_t i = 0; i < fromOld.size(); i++) {
+    before[fromOld[i]] = moveEffectiveId(itemSectionIdOpt(fromOld[i]), fromField,
+                                         from, static_cast<long long>(i) + 1);
+  }
+  for (std::size_t i = 0; cross && i < toOld.size(); i++) {
+    before[toOld[i]] = moveEffectiveId(itemSectionIdOpt(toOld[i]), toField, to,
+                                       static_cast<long long>(i) + 1);
+  }
+
+  // Old -> new item paths, and the ids anonymous items must now store.
+  SpecListItemMove result;
+  auto renumber = [&](const std::string& list,
+                      const std::vector<std::string>& items,
+                      const SpecField* field) {
+    for (std::size_t i = 0; i < items.size(); i++) {
+      const std::string& old = items[i];
+      const long long pos = static_cast<long long>(i) + 1;
+      std::string now = list + "-" + formatI64(pos);
+      if (old != now) {
+        result.renamed.emplace_back(old, now);
+      }
+      const bool crossing = old == item && cross;
+      if (itemSectionIdOpt(old) != nullptr || crossing) {
+        continue;
+      }
+      std::string positional = moveEffectiveId(nullptr, field, list, pos);
+      const std::string& was = before.at(old);
+      if (positional != was) {
+        result.pinnedIds.emplace_back(old, was);
+      }
+    }
+  };
+  renumber(from, fromItems, fromField);
+  if (cross) {
+    renumber(to, toOwn, toField);
+  }
+  const SpecPathPairs& renamed = result.renamed;
+  auto remap = [&](const std::string& key) {
+    return specRekeyPath(key, renamed);
+  };
+
+  auto content = rekeyStore(content_, renamed);
+  auto forms = rekeyStore(forms_, renamed);
+  auto headline = rekeyStore(headline_, renamed);
+  auto codeSpec = rekeyStore(codeSpec_, renamed);
+  auto ids = rekeyStore(itemSectionId_, renamed);
+  for (const auto& [old, id] : result.pinnedIds) {
+    ids[remap(old)] = id;
+  }
+  auto seq = rekeyStore(listSeq_, renamed);
+  std::map<std::string, std::vector<std::string>> lists;
+  auto remapItems = [&](const std::vector<std::string>& items) {
+    std::vector<std::string> out;
+    out.reserve(items.size());
+    for (const std::string& p : items) {
+      out.push_back(remap(p));
+    }
+    return out;
+  };
+  for (const auto& kv : listItems_) {
+    lists[remap(kv.first)] = remapItems(kv.second);
+  }
+  lists[remap(from)] = remapItems(fromItems);
+  seq[remap(from)] = static_cast<long long>(fromItems.size());
+  if (cross) {
+    lists[remap(to)] = remapItems(toOwn);
+    seq[remap(to)] = static_cast<long long>(toOwn.size());
+  }
+  for (auto it = lists.begin(); it != lists.end();) {
+    it = it->second.empty() ? lists.erase(it) : std::next(it);
+  }
+
+  content_ = std::move(content);
+  forms_ = std::move(forms);
+  headline_ = std::move(headline);
+  codeSpec_ = std::move(codeSpec);
+  itemSectionId_ = std::move(ids);
+  listSeq_ = std::move(seq);
+  listItems_ = std::move(lists);
+
+  result.path = remap(item);
+  for (auto& pin : result.pinnedIds) {
+    pin.first = remap(pin.first);
+  }
+  return result;
+}
 
 DocumentJson SpecDocument::toJson() const {
   DocumentJson out;

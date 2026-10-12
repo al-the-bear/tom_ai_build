@@ -54,6 +54,7 @@ import tom_som_runtime.SpecDocumentMarkdown;
 import tom_som_runtime.SpecDocumentYaml;
 import tom_som_runtime.SpecEditor;
 import tom_som_runtime.SpecField;
+import tom_som_runtime.SpecListItemMove;
 import tom_som_runtime.SpecMarkdownImport;
 import tom_som_runtime.SpecMarkdownRejection;
 import tom_som_runtime.SpecMarkdownResult;
@@ -832,6 +833,65 @@ public final class ConformanceRunner {
       overlaps.add(entry);
     }
     out.put("overlaps", overlaps);
+    return out;
+  }
+
+  /**
+   * {@code list_move_cases.json}: {@link SpecDocument#moveListItem} over a loaded state — the
+   * renames, the pinned ids and the resulting document, or the refusal mapped to its error word —
+   * and {@link SpecDocumentYaml#rekeyReview} over the review re-key table.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testListMoveCases(SpecModel model) throws IOException {
+    Map<String, Object> table = readJsonObject("list_move_cases.json");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      Map<String, Object> got = runListMoveCase(model, c);
+      Object expect = c.get("expect");
+      check("listMove[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
+    }
+    for (Object caseObj : (List<Object>) table.get("reviewCases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      Map<String, String> renamed = new LinkedHashMap<>();
+      for (Map.Entry<String, Object> e : ((Map<String, Object>) c.get("renamed")).entrySet()) {
+        renamed.put(e.getKey(), (String) e.getValue());
+      }
+      Map<String, Object> got =
+          SpecDocumentYaml.rekeyReview((Map<String, Object>) c.get("review"), renamed);
+      Object expect = c.get("expect");
+      check("reviewRekey[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
+    }
+  }
+
+  /** Runs one {@code list_move_cases.json} case, in the shape of its {@code expect}. */
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> runListMoveCase(SpecModel model, Map<String, Object> c) {
+    SpecDocument doc = new SpecDocument();
+    doc.loadJson((Map<String, Object>) c.get("state"));
+    Map<String, Object> move = (Map<String, Object>) c.get("move");
+    Map<String, Object> out = new LinkedHashMap<>();
+    try {
+      SpecListItemMove result =
+          doc.moveListItem(
+              model,
+              (String) move.get("itemPath"),
+              ((Number) move.get("toIndex")).intValue(),
+              (String) move.get("toList"));
+      out.put("ok", true);
+      out.put("path", result.path);
+      out.put("renamed", new LinkedHashMap<String, Object>(result.renamed));
+      out.put("pinnedIds", new LinkedHashMap<String, Object>(result.pinnedIds));
+      out.put("document", doc.toJson());
+    } catch (SpecSectionIdCollision e) {
+      out.put("ok", false);
+      out.put("error", "collision");
+    } catch (IndexOutOfBoundsException e) {
+      out.put("ok", false);
+      out.put("error", "range");
+    } catch (IllegalArgumentException e) {
+      out.put("ok", false);
+      out.put("error", "argument");
+    }
     return out;
   }
 
@@ -2167,6 +2227,7 @@ public final class ConformanceRunner {
     testMarkdownImportRejections(model);
     testMarkdownApplyCases(model);
     testAssemblyCases();
+    testListMoveCases(model);
     testReflection(model);
     testValidation(model);
     testOperations();

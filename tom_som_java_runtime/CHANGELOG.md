@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Moving a list item: `SpecDocument.moveListItem(model, itemPath, toIndex[,
+  toList])` reorders a list item, or moves it into another list of the same
+  element class; the section id is the identity and the path the position.
+  Every affected list is renumbered to `<list>-1..n`, every value under each
+  item (content, forms, headlines, codeSpecs, nested lists, stored ids) is
+  re-keyed with it, and an anonymous item whose positional id changes has its
+  old id stored. The result is a `SpecListItemMove` (`path`, `renamed`,
+  `pinnedIds`). Refusals change nothing: not a live list item, a `toList` that
+  is no model list, a different element class, or a stored id that does not
+  fit the destination `@SectionIdPattern` throw `IllegalArgumentException`; a
+  stored id already used in the destination throws `SpecSectionIdCollision`;
+  a `toIndex` out of range throws `IndexOutOfBoundsException`.
+  `SpecDocumentYaml.rekeyReview(review, renamed)` re-keys a `review:` pass with
+  the move's `renamed` map. Verified against `list_move_cases.json`.
+
 - Stated counts: `FormFieldSpec.countOf` (read from the meta's
   `formFields[].countOf`, empty when absent) names the entries a form field's
   value counts — `X` (every list item whose element class carries

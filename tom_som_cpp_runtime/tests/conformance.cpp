@@ -35,6 +35,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
+#include <map>
+#include <memory>
 #include <optional>
 #include <set>
 #include <sstream>
@@ -2492,6 +2494,150 @@ static void test_assembly(Checker& c) {
   }
 }
 
+/* ---- moving a list item (SpecDocument::moveListItem, vsctsa44) ---------- */
+
+/* Path pairs as a map, for comparing with a corpus object as a map
+ * (order-insensitive, like the Dart reference's map equality). */
+static std::map<std::string, std::string> pairs_map(const som::SpecPathPairs& p) {
+  return std::map<std::string, std::string>(p.begin(), p.end());
+}
+
+static std::map<std::string, std::string> json_str_map(const som::JsonRef& v) {
+  std::map<std::string, std::string> out;
+  if (v == nullptr || v->type != som::JsonType::Object) {
+    return out;
+  }
+  for (const auto& m : v->object) {
+    const std::string* s = som::jsonAsStr(m.second);
+    out[m.first] = s != nullptr ? *s : std::string("<non-string>");
+  }
+  return out;
+}
+
+static std::string map_text(const std::map<std::string, std::string>& m) {
+  std::string out;
+  for (const auto& kv : m) {
+    out += kv.first + "=" + kv.second + ";";
+  }
+  return out;
+}
+
+/* A corpus JSON value in the YAML value model (objects as maps, scalars as
+ * plain strings), for building and comparing review maps. */
+static som::YamlPtr json_to_yaml(const som::JsonRef& v) {
+  if (v != nullptr && v->type == som::JsonType::Object) {
+    auto out = std::make_shared<som::YamlValue>(som::YamlType::Map);
+    for (const auto& m : v->object) {
+      out->mapSet(m.first, json_to_yaml(m.second));
+    }
+    return out;
+  }
+  if (v != nullptr && v->type == som::JsonType::Array) {
+    auto out = std::make_shared<som::YamlValue>(som::YamlType::Seq);
+    for (std::size_t i = 0; i < som::jsonArrayLen(v); i++) {
+      out->seq.push_back(json_to_yaml(som::jsonArrayAt(v, i)));
+    }
+    return out;
+  }
+  auto out = std::make_shared<som::YamlValue>(som::YamlType::Str);
+  const std::string* s = som::jsonAsStr(v);
+  out->str = s != nullptr ? *s : std::string();
+  out->plain = true;
+  return out;
+}
+
+/* list_move_cases.json, run like the Dart reference's `_runListMoveCase`:
+ * each case loads its state, moves the item, and the outcome — the moved
+ * path, renames, pins and resulting document, or the refusal's name — must
+ * match `expect`. Each review case re-keys a review map by the renames. */
+static void test_list_move(Checker& c, const som::SpecModel& model) {
+  som::JsonPtr table = read_json("list_move_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  c.check("listMove.cases", n > 0, "no cases in list_move_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string label = "listMove[" + som::jsonStrOr(kase, "name") + "]";
+    som::JsonRef state = som::jsonGet(kase, "state");
+    som::SpecDocument doc = doc_from_state(som::documentJsonFromJson(state));
+    som::JsonRef move = som::jsonGet(kase, "move");
+    std::optional<long long> toIndex = opt_i64(move, "toIndex");
+    const std::string* toListStr = som::jsonAsStr(som::jsonGet(move, "toList"));
+    std::optional<std::string> toList;
+    if (toListStr != nullptr) {
+      toList = *toListStr;
+    }
+
+    std::optional<som::SpecListItemMove> result;
+    std::string error;
+    try {
+      result = doc.moveListItem(model, som::jsonStrOr(move, "itemPath"),
+                                toIndex.value_or(0), toList);
+    } catch (const som::SomSectionIdError&) {
+      error = "collision";
+    } catch (const std::out_of_range&) {
+      error = "range";
+    } catch (const std::invalid_argument&) {
+      error = "argument";
+    }
+
+    som::JsonRef expect = som::jsonGet(kase, "expect");
+    bool wantOk = som::jsonBoolOr(expect, "ok");
+    c.check(label + ".ok", result.has_value() == wantOk,
+            result ? "got ok" : error);
+    if (wantOk && result) {
+      c.check(label + ".path", result->path == som::jsonStrOr(expect, "path"),
+              result->path);
+      c.check(label + ".renamed",
+              pairs_map(result->renamed) ==
+                  json_str_map(som::jsonGet(expect, "renamed")),
+              map_text(pairs_map(result->renamed)));
+      c.check(label + ".pinnedIds",
+              pairs_map(result->pinnedIds) ==
+                  json_str_map(som::jsonGet(expect, "pinnedIds")),
+              map_text(pairs_map(result->pinnedIds)));
+      std::string got = som::documentJsonToCanonicalJson(doc.toJson());
+      std::string want = som::documentJsonToCanonicalJson(
+          som::documentJsonFromJson(som::jsonGet(expect, "document")));
+      c.check(label + ".document", got == want,
+              byte_diff(label + ".document", got, want));
+    } else if (!wantOk && !result) {
+      c.check(label + ".error", error == som::jsonStrOr(expect, "error"),
+              error);
+      std::string got = som::documentJsonToCanonicalJson(doc.toJson());
+      std::string want =
+          som::documentJsonToCanonicalJson(som::documentJsonFromJson(state));
+      c.check(label + ".unchanged", got == want,
+              "a refused move changed the document");
+    }
+  }
+
+  som::JsonRef reviewCases = som::jsonGet(table, "reviewCases");
+  std::size_t rn = som::jsonArrayLen(reviewCases);
+  c.check("listMove.reviewCases", rn > 0, "no reviewCases");
+  for (std::size_t i = 0; i < rn; i++) {
+    som::JsonRef kase = som::jsonArrayAt(reviewCases, i);
+    const std::string tag =
+        "listMove.review[" + som::jsonStrOr(kase, "name") + "]";
+    som::SpecPathPairs renamed;
+    som::JsonRef r = som::jsonGet(kase, "renamed");
+    if (r != nullptr && r->type == som::JsonType::Object) {
+      for (const auto& m : r->object) {
+        const std::string* s = som::jsonAsStr(m.second);
+        renamed.emplace_back(m.first, s != nullptr ? *s : std::string());
+      }
+    }
+    som::YamlPtr review = json_to_yaml(som::jsonGet(kase, "review"));
+    som::YamlPtr want = json_to_yaml(som::jsonGet(kase, "expect"));
+    som::YamlPtr got = som::specYamlRekeyReview(*review, renamed);
+    std::string gt, wt;
+    som::specYamlWriteReviewPass(gt, *got);
+    som::specYamlWriteReviewPass(wt, *want);
+    c.check(tag, got->map.size() == want->map.size() && gt == wt,
+            byte_diff(tag, gt, wt));
+  }
+}
+
 int main(int argc, char** argv) {
   if (argc > 1) {
     g_corpus_dir = argv[1];
@@ -2536,6 +2682,7 @@ int main(int argc, char** argv) {
   test_node_creation_cases(c, *model);
   test_node_creation_script(c, *model);
   test_assembly(c);
+  test_list_move(c, *model);
 
   return c.finish();
 }

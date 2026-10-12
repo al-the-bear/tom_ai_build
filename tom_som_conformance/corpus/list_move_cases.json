@@ -1,0 +1,1084 @@
+{
+  "cases": [
+    {
+      "name": "an anonymous item moves to the front; values travel, ids hold",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "move": {
+        "itemPath": "DEMO/CARD-LST-2",
+        "toIndex": 0
+      },
+      "expect": {
+        "ok": true,
+        "path": "DEMO/CARD-LST-1",
+        "renamed": {
+          "DEMO/CARD-LST-2": "DEMO/CARD-LST-1",
+          "DEMO/CARD-LST-1": "DEMO/CARD-LST-2"
+        },
+        "pinnedIds": {
+          "DEMO/CARD-LST-1": "CARD-2"
+        },
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "second card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "first card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "priority": "high",
+              "weight": "2.5"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-2",
+                "DEMO/CARD-LST-2": "CARD-ALPHA"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-2": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items"
+          }
+        }
+      }
+    },
+    {
+      "name": "an item with nested values moves within an unpatterned list",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "move": {
+        "itemPath": "DEMO/items-2",
+        "toIndex": 0
+      },
+      "expect": {
+        "ok": true,
+        "path": "DEMO/items-1",
+        "renamed": {
+          "DEMO/items-2": "DEMO/items-1",
+          "DEMO/items-1": "DEMO/items-2"
+        },
+        "pinnedIds": {
+          "DEMO/items-1": "items-2",
+          "DEMO/items-2": "items-1"
+        },
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "done",
+            "DEMO/items-1/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/items-2/STS": "open",
+            "DEMO/items-2/label": "First",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "priority": "high",
+              "weight": "2.5"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ],
+              "ids": {
+                "DEMO/items-1": "items-2",
+                "DEMO/items-2": "items-1"
+              }
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items"
+          }
+        }
+      }
+    },
+    {
+      "name": "moving an item to its own position renames nothing",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "move": {
+        "itemPath": "DEMO/CARD-LST-1",
+        "toIndex": 0
+      },
+      "expect": {
+        "ok": true,
+        "path": "DEMO/CARD-LST-1",
+        "renamed": {},
+        "pinnedIds": {},
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "priority": "high",
+              "weight": "2.5"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items"
+          }
+        }
+      }
+    },
+    {
+      "name": "an anonymous item crosses to a list of the same class",
+      "state": {
+        "forms": {
+          "DEMO/REG/RGE-LST-1/RGE-DET": {
+            "code": "ALPHA",
+            "label": "Alpha"
+          },
+          "DEMO/REG/RGE-LST-2/RGE-DET": {
+            "code": "BETA",
+            "label": "Beta"
+          },
+          "DEMO/REG/RGL-LST-1/RGL-DET": {
+            "entryCode": "ALPHA",
+            "entryId": "RGE-ALPHA",
+            "anyRefs": "ALPHA"
+          },
+          "DEMO/REG/RGA-LST-1/RGE-DET": {
+            "code": "OLD",
+            "label": "Old"
+          }
+        },
+        "lists": {
+          "DEMO/REG/RGE-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REG/RGE-LST-1",
+              "DEMO/REG/RGE-LST-2"
+            ],
+            "ids": {
+              "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+            }
+          },
+          "DEMO/REG/RGL-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/REG/RGL-LST-1"
+            ]
+          },
+          "DEMO/REG/RGA-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/REG/RGA-LST-1"
+            ],
+            "ids": {
+              "DEMO/REG/RGA-LST-1": "RGA-OLD"
+            }
+          }
+        }
+      },
+      "move": {
+        "itemPath": "DEMO/REG/RGE-LST-2",
+        "toIndex": 1,
+        "toList": "DEMO/REG/RGA-LST"
+      },
+      "expect": {
+        "ok": true,
+        "path": "DEMO/REG/RGA-LST-2",
+        "renamed": {
+          "DEMO/REG/RGE-LST-2": "DEMO/REG/RGA-LST-2"
+        },
+        "pinnedIds": {},
+        "document": {
+          "forms": {
+            "DEMO/REG/RGA-LST-1/RGE-DET": {
+              "code": "OLD",
+              "label": "Old"
+            },
+            "DEMO/REG/RGA-LST-2/RGE-DET": {
+              "code": "BETA",
+              "label": "Beta"
+            },
+            "DEMO/REG/RGE-LST-1/RGE-DET": {
+              "code": "ALPHA",
+              "label": "Alpha"
+            },
+            "DEMO/REG/RGL-LST-1/RGL-DET": {
+              "anyRefs": "ALPHA",
+              "entryCode": "ALPHA",
+              "entryId": "RGE-ALPHA"
+            }
+          },
+          "lists": {
+            "DEMO/REG/RGA-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REG/RGA-LST-1",
+                "DEMO/REG/RGA-LST-2"
+              ],
+              "ids": {
+                "DEMO/REG/RGA-LST-1": "RGA-OLD"
+              }
+            },
+            "DEMO/REG/RGE-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/REG/RGE-LST-1"
+              ],
+              "ids": {
+                "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+              }
+            },
+            "DEMO/REG/RGL-LST": {
+              "seq": 1,
+              "items": [
+                "DEMO/REG/RGL-LST-1"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "a stored id that does not fit the destination pattern is refused",
+      "state": {
+        "forms": {
+          "DEMO/REG/RGE-LST-1/RGE-DET": {
+            "code": "ALPHA",
+            "label": "Alpha"
+          },
+          "DEMO/REG/RGE-LST-2/RGE-DET": {
+            "code": "BETA",
+            "label": "Beta"
+          },
+          "DEMO/REG/RGL-LST-1/RGL-DET": {
+            "entryCode": "ALPHA",
+            "entryId": "RGE-ALPHA",
+            "anyRefs": "ALPHA"
+          },
+          "DEMO/REG/RGA-LST-1/RGE-DET": {
+            "code": "OLD",
+            "label": "Old"
+          }
+        },
+        "lists": {
+          "DEMO/REG/RGE-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REG/RGE-LST-1",
+              "DEMO/REG/RGE-LST-2"
+            ],
+            "ids": {
+              "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+            }
+          },
+          "DEMO/REG/RGL-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/REG/RGL-LST-1"
+            ]
+          },
+          "DEMO/REG/RGA-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/REG/RGA-LST-1"
+            ],
+            "ids": {
+              "DEMO/REG/RGA-LST-1": "RGA-OLD"
+            }
+          }
+        }
+      },
+      "move": {
+        "itemPath": "DEMO/REG/RGE-LST-1",
+        "toIndex": 0,
+        "toList": "DEMO/REG/RGA-LST"
+      },
+      "expect": {
+        "ok": false,
+        "error": "argument"
+      }
+    },
+    {
+      "name": "a stored id already used in the destination is refused",
+      "state": {
+        "forms": {
+          "DEMO/REG/RGE-LST-1/RGE-DET": {
+            "code": "ALPHA",
+            "label": "Alpha"
+          },
+          "DEMO/REG/RGE-LST-2/RGE-DET": {
+            "code": "BETA",
+            "label": "Beta"
+          },
+          "DEMO/REG/RGL-LST-1/RGL-DET": {
+            "entryCode": "ALPHA",
+            "entryId": "RGE-ALPHA",
+            "anyRefs": "ALPHA"
+          },
+          "DEMO/REG/RGA-LST-1/RGE-DET": {
+            "code": "OLD",
+            "label": "Old"
+          }
+        },
+        "lists": {
+          "DEMO/REG/RGE-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REG/RGE-LST-1",
+              "DEMO/REG/RGE-LST-2"
+            ],
+            "ids": {
+              "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+            }
+          },
+          "DEMO/REG/RGL-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/REG/RGL-LST-1"
+            ]
+          },
+          "DEMO/REG/RGA-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/REG/RGA-LST-1"
+            ],
+            "ids": {
+              "DEMO/REG/RGA-LST-1": "RGE-ALPHA"
+            }
+          }
+        }
+      },
+      "move": {
+        "itemPath": "DEMO/REG/RGA-LST-1",
+        "toIndex": 0,
+        "toList": "DEMO/REG/RGE-LST"
+      },
+      "expect": {
+        "ok": false,
+        "error": "collision"
+      }
+    },
+    {
+      "name": "a list of another element class is refused",
+      "state": {
+        "forms": {
+          "DEMO/REG/RGE-LST-1/RGE-DET": {
+            "code": "ALPHA",
+            "label": "Alpha"
+          },
+          "DEMO/REG/RGE-LST-2/RGE-DET": {
+            "code": "BETA",
+            "label": "Beta"
+          },
+          "DEMO/REG/RGL-LST-1/RGL-DET": {
+            "entryCode": "ALPHA",
+            "entryId": "RGE-ALPHA",
+            "anyRefs": "ALPHA"
+          },
+          "DEMO/REG/RGA-LST-1/RGE-DET": {
+            "code": "OLD",
+            "label": "Old"
+          }
+        },
+        "lists": {
+          "DEMO/REG/RGE-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REG/RGE-LST-1",
+              "DEMO/REG/RGE-LST-2"
+            ],
+            "ids": {
+              "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+            }
+          },
+          "DEMO/REG/RGL-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/REG/RGL-LST-1"
+            ]
+          },
+          "DEMO/REG/RGA-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/REG/RGA-LST-1"
+            ],
+            "ids": {
+              "DEMO/REG/RGA-LST-1": "RGA-OLD"
+            }
+          }
+        }
+      },
+      "move": {
+        "itemPath": "DEMO/REG/RGE-LST-2",
+        "toIndex": 0,
+        "toList": "DEMO/REG/RGL-LST"
+      },
+      "expect": {
+        "ok": false,
+        "error": "argument"
+      }
+    },
+    {
+      "name": "an index past the end is refused",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "move": {
+        "itemPath": "DEMO/CARD-LST-1",
+        "toIndex": 2
+      },
+      "expect": {
+        "ok": false,
+        "error": "range"
+      }
+    },
+    {
+      "name": "a path that is not a list item is refused",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "move": {
+        "itemPath": "DEMO/TTL",
+        "toIndex": 0
+      },
+      "expect": {
+        "ok": false,
+        "error": "argument"
+      }
+    }
+  ],
+  "reviewCases": [
+    {
+      "name": "entries of moved items and below them follow; others stay",
+      "review": {
+        "DEMO/CARD-LST-1": {
+          "status": "ok"
+        },
+        "DEMO/CARD-LST-2/content": {
+          "status": "todo"
+        },
+        "DEMO/TTL": {
+          "status": "ok"
+        }
+      },
+      "renamed": {
+        "DEMO/CARD-LST-2": "DEMO/CARD-LST-1",
+        "DEMO/CARD-LST-1": "DEMO/CARD-LST-2"
+      },
+      "expect": {
+        "DEMO/CARD-LST-2": {
+          "status": "ok"
+        },
+        "DEMO/CARD-LST-1/content": {
+          "status": "todo"
+        },
+        "DEMO/TTL": {
+          "status": "ok"
+        }
+      }
+    }
+  ]
+}

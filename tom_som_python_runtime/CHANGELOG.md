@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Moving a list item (vsctsa44): `SpecDocument.move_list_item(model,
+  item_path, to_index, to_list=None)` moves an item to position `to_index` of
+  its list, or of `to_list`, another list of the same element class, and
+  returns a `SpecListItemMove` (`path`, `renamed` old → new item paths,
+  `pinned_ids` new path → id). A path is a position, the section id is the
+  identity: every affected list is renumbered to `<list>-1..n` (seq = n, an
+  emptied list is dropped), every store key at or under an old item path is
+  re-keyed, and an anonymous item whose positional id changes has its old id
+  stored. Refusals change nothing: `ValueError` (not a live list item, not a
+  model list, another element class, a stored id not fitting the destination
+  `@SectionIdPattern`), `SpecSectionIdCollision` (the stored id is taken in
+  the destination), `IndexError` (`to_index` out of range).
+  `rekey_review(review, renamed)` (in `spec_document_yaml`) returns the
+  `review:` pass re-keyed the same way. The `list_move_cases.json` corpus table
+  pins both.
 - Stated counts (vsctsa43): `FormFieldSpec.count_of` reads the meta's
   `formFields[].countOf` (absent → empty), and `validate_document` gains a
   sixth, instance-tier step after the reference check. A form field with

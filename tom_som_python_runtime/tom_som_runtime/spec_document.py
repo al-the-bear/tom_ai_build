@@ -30,6 +30,8 @@ the internal item path.
 
 from __future__ import annotations
 
+import re
+from dataclasses import dataclass, field as dc_field
 from typing import TYPE_CHECKING, Any, Iterable, Optional
 
 from .spec_section_id import SpecSectionIdCollision
@@ -388,6 +390,164 @@ class SpecDocument:
             if self._item_section_id.get(item_path) == id:
                 raise SpecSectionIdCollision(id, list_path)
 
+    def move_list_item(
+        self,
+        model: "SpecModel",
+        item_path: str,
+        to_index: int,
+        to_list: Optional[str] = None,
+    ) -> "SpecListItemMove":
+        """Moves the list item at *item_path* to position *to_index* (0-based)
+        of its list, or of *to_list*, another list of the same element class
+        (vsctsa44).
+
+        **A path is a position, the section id is the identity.** Every
+        affected list is renumbered to ``<list>-1 … <list>-n`` in its new
+        order, and every value under each item — content, forms, nested lists,
+        headline, code-spec, stored id — travels with it. An anonymous item
+        whose positional id would change has its old id stored, so its
+        identity survives the renumbering. The result maps every old item path
+        to its new one; a caller holding anything else keyed by path (the
+        ``review:`` pass) re-keys it with :func:`rekey_review`.
+
+        Across lists, the destination must hold the same element class, and an
+        item with a stored id keeps it only when the id fits the destination's
+        ``@SectionIdPattern`` and is free there; otherwise the move is refused
+        (:class:`ValueError` / :class:`SpecSectionIdCollision`) and nothing
+        changes. A *to_index* outside ``0..len(destination without the item)``
+        raises :class:`IndexError`. An anonymous item takes its positional id
+        in the destination."""
+        from .spec_model import SpecFieldKind
+        from .spec_reflection import SpecReflection
+        from .spec_section_id import effective_list_item_section_id
+
+        item = item_path
+        frm = self._owning_list_of(item)
+        if frm is None:
+            raise ValueError(f"{item_path!r} is not a live list item")
+        to = frm if to_list is None else to_list
+        refl = SpecReflection(model)
+        from_res = refl.resolve(frm)
+        to_res = refl.resolve(to)
+        from_field = from_res.field if from_res is not None else None
+        to_field = to_res.field if to_res is not None else None
+        if to_field is None or to_field.kind != SpecFieldKind.LIST:
+            raise ValueError(f"toList {to_list!r} is not a list of the model")
+        from_element = from_field.element_type if from_field is not None else None
+        if to != frm and to_field.element_type != from_element:
+            raise ValueError(
+                f"toList {to_list!r} holds {to_field.element_type}, but the "
+                f"item is a {from_element} — an item moves only between lists "
+                "of its own element class"
+            )
+        stored_id = self._item_section_id.get(item)
+        if to != frm and stored_id is not None:
+            pattern = to_field.section_id_pattern
+            if pattern is not None and not _section_id_fits_pattern(
+                pattern, stored_id
+            ):
+                raise ValueError(
+                    f"section id {stored_id!r} does not fit the destination "
+                    f"pattern {pattern} — set an id that does before moving "
+                    "the item"
+                )
+            self._assert_section_id_free(to, stored_id, None)
+
+        # The new orders.
+        from_items = [p for p in self._list_items[frm] if p != item]
+        to_items = from_items if to == frm else list(self._list_items.get(to, []))
+        if to_index < 0 or to_index > len(to_items):
+            raise IndexError(
+                f"toIndex {to_index} is not in range 0..{len(to_items)}"
+            )
+        to_items.insert(to_index, item)
+
+        def field_of(lst: str):
+            return from_field if lst == frm else to_field
+
+        def stem_of(lst: str) -> str:
+            f = field_of(lst)
+            return f.name if f is not None else lst.split("/")[-1]
+
+        def pattern_of(lst: str) -> Optional[str]:
+            f = field_of(lst)
+            return f.section_id_pattern if f is not None else None
+
+        # Each affected item's effective id before the move, so an anonymous
+        # item keeps its identity when its position changes.
+        before: dict[str, str] = {}
+        lists_before = [frm] if to == frm else [frm, to]
+        for lst in lists_before:
+            items = self._list_items.get(lst, [])
+            for pos, p in enumerate(items, start=1):
+                before[p] = effective_list_item_section_id(
+                    self._item_section_id.get(p), pattern_of(lst), pos, stem_of(lst)
+                )
+
+        # Old → new item paths, and the ids anonymous items must now store.
+        renamed: dict[str, str] = {}
+        pinned: dict[str, str] = {}
+
+        def renumber(lst: str, items: list[str]) -> None:
+            for i, old in enumerate(items):
+                now = f"{lst}-{i + 1}"
+                if old != now:
+                    renamed[old] = now
+                crossing = old == item and to != frm
+                if self._item_section_id.get(old) is not None or crossing:
+                    continue
+                positional = effective_list_item_section_id(
+                    None, pattern_of(lst), i + 1, stem_of(lst)
+                )
+                if positional != before[old]:
+                    pinned[old] = before[old]
+
+        renumber(frm, from_items)
+        if to != frm:
+            renumber(to, to_items)
+
+        def remap(key: str) -> str:
+            return _rekey_path(key, renamed)
+
+        def rekey(store: dict) -> dict:
+            return {remap(k): v for k, v in store.items()}
+
+        content = rekey(self._content)
+        form = rekey(self._form)
+        headline = rekey(self._headline)
+        code_spec = rekey(self._code_spec)
+        ids = rekey(self._item_section_id)
+        for old, id in pinned.items():
+            ids[remap(old)] = id
+        seq = rekey(self._list_seq)
+        lists = {
+            remap(k): [remap(p) for p in v] for k, v in self._list_items.items()
+        }
+        lists[remap(frm)] = [remap(p) for p in from_items]
+        seq[remap(frm)] = len(from_items)
+        if to != frm:
+            lists[remap(to)] = [remap(p) for p in to_items]
+            seq[remap(to)] = len(to_items)
+        lists = {k: v for k, v in lists.items() if v}
+
+        for store, fresh in (
+            (self._content, content),
+            (self._form, form),
+            (self._headline, headline),
+            (self._code_spec, code_spec),
+            (self._item_section_id, ids),
+            (self._list_seq, seq),
+            (self._list_items, lists),
+        ):
+            store.clear()
+            store.update(fresh)
+
+        return SpecListItemMove(
+            path=remap(item),
+            renamed=dict(renamed),
+            pinned_ids={remap(k): v for k, v in pinned.items()},
+        )
+
     def remove_list_item(self, item_path: str) -> bool:
         """Removes the list item at *item_path* along with every value nested
         beneath it. The counter is left untouched so future items keep getting
@@ -585,3 +745,36 @@ class SpecDocument:
             for k, v in code_specs.items():
                 if v is not None and str(v) != "":
                     self._code_spec[str(k)] = str(v)
+
+
+@dataclass(frozen=True)
+class SpecListItemMove:
+    """The result of :meth:`SpecDocument.move_list_item`."""
+
+    #: The moved item's path after the move.
+    path: str
+    #: Every item path the move changed, old → new: the moved item and each
+    #: sibling whose position moved. Values under a renamed item moved with it.
+    renamed: dict[str, str] = dc_field(default_factory=dict)
+    #: The items (by new path) that were anonymous and now store the id they
+    #: had by position, so their identity did not change with their position.
+    pinned_ids: dict[str, str] = dc_field(default_factory=dict)
+
+
+def _section_id_fits_pattern(pattern: str, id: str) -> bool:
+    """Whether *id* fits the ``@SectionIdPattern`` *pattern* — its ``xxx``
+    placeholder standing for one or more characters, the whole id matched."""
+    regex = ".+".join(re.escape(part) for part in pattern.split("xxx"))
+    return re.fullmatch(regex, id) is not None
+
+
+def _rekey_path(key: str, renamed: dict[str, str]) -> str:
+    """*key* with the first old path of *renamed* it equals or lies under
+    (``old``, ``old/…``, ``old-…``) replaced by its new path; *key* itself when
+    it lies under none."""
+    for old, now in renamed.items():
+        if key == old:
+            return now
+        if key.startswith(f"{old}/") or key.startswith(f"{old}-"):
+            return now + key[len(old):]
+    return key

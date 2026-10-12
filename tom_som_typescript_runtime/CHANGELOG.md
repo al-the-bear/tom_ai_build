@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Moving a list item: `SpecDocument.moveListItem(model, itemPath, toIndex,
+  toList?)` moves an item to a 0-based position of its own list or of another
+  list of the same element class, returning a `SpecListItemMove` (`path`,
+  `renamed` old → new item paths, `pinnedIds` new path → id, both `Map`s). A
+  path is a position, the section id is the identity: every affected list is
+  renumbered to `<list>-1..n` (seq = n, an emptied list is dropped), every
+  value under a moved item travels with it, and an anonymous item whose
+  positional id changes stores its old id. Refused with nothing changed: not a
+  live list item, `toList` not a model list, a list of another element class,
+  a stored id that does not fit the destination `@SectionIdPattern` (`Error`),
+  a stored id already used there (`SpecSectionIdCollision`), `toIndex` out of
+  range (`RangeError`). `SpecDocumentYaml.rekeyReview(review, renamed)` (also
+  the module function `rekeyReview`) re-keys a `review:` pass by the move's
+  `renamed` map. Conformance: `list_move_cases.json` (`listMove[*]`).
 - Stated counts: `FormFieldSpec.countOf` (read from the meta's
   `formFields[].countOf`, absent → empty), and `validateDocument` reports
   `SpecValidationCode.COUNT_MISMATCH` (`countMismatch`) when a `countOf` form

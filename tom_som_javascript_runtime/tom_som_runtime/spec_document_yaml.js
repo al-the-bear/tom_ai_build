@@ -44,7 +44,7 @@
  */
 
 const yaml = require('./yaml');
-const { SpecDocument } = require('./spec_document');
+const { SpecDocument, _remapUnder } = require('./spec_document');
 const { SomFormMeta, SomMetaKind } = require('./spec_meta');
 const { specPathJoin } = require('./spec_paths');
 const { SpecNodeKind, SpecReflection } = require('./spec_reflection');
@@ -463,6 +463,44 @@ function staleReviewPaths(model, document, review) {
     .map((k) => `${k}`)
     .filter(isStale)
     .sort();
+}
+
+/**
+ * `review` with every path `renamed` (old item path → new, as
+ * {@link SpecDocument.moveListItem} returns it) re-keyed — the entry for an
+ * item and every entry under it. Entries under no renamed path are kept as
+ * they are. A new plain object; `review` is not changed. `renamed` may be a
+ * `Map` or a plain object.
+ *
+ * @param {Object} review
+ * @param {Map<string, string>|Object<string, string>} renamed
+ * @returns {Object}
+ */
+function rekeyReview(review, renamed) {
+  const moves = renamed instanceof Map ? renamed : new Map(Object.entries(renamed));
+  const out = {};
+  for (const key of Object.keys(review)) {
+    out[_remapUnder(`${key}`, moves)] = review[key];
+  }
+  return out;
+}
+
+/**
+ * The review-pass helpers under the Dart reference's class name
+ * (`SpecDocumentYaml.staleReviewPaths` / `SpecDocumentYaml.rekeyReview`), so a
+ * consumer ported from Dart finds them where it expects. The module-level
+ * functions are the same implementations.
+ */
+class SpecDocumentYaml {
+  /** See {@link staleReviewPaths}. */
+  static staleReviewPaths(model, document, review) {
+    return staleReviewPaths(model, document, review);
+  }
+
+  /** See {@link rekeyReview}. */
+  static rekeyReview(review, renamed) {
+    return rekeyReview(review, renamed);
+  }
 }
 
 /**
@@ -1173,6 +1211,8 @@ module.exports = {
   writeHeader,
   writeReviewPass,
   staleReviewPaths,
+  rekeyReview,
+  SpecDocumentYaml,
   encode,
   decode,
 };

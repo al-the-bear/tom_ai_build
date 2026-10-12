@@ -515,6 +515,236 @@ public final class SpecDocument {
     }
   }
 
+  /** {@link #moveListItem(SpecModel, String, int, String)} within the item's own list. */
+  public SpecListItemMove moveListItem(SpecModel model, String itemPath, int toIndex) {
+    return moveListItem(model, itemPath, toIndex, null);
+  }
+
+  /**
+   * Moves the list item at {@code itemPath} to position {@code toIndex} (0-based)
+   * of its list, or of {@code toList}, another list of the same element class
+   * (vsctsa44).
+   *
+   * <p><b>A path is a position, the section id is the identity.</b> Every
+   * affected list is renumbered to {@code <list>-1 … <list>-n} in its new order,
+   * and every value under each item — content, forms, nested lists, headline,
+   * code-spec, stored id — travels with it. An anonymous item whose positional
+   * id would change has its old id stored, so its identity survives the
+   * renumbering. The result maps every old item path to its new one; a caller
+   * holding anything else keyed by path (the {@code review:} pass) re-keys it
+   * with {@link SpecDocumentYaml#rekeyReview}.
+   *
+   * <p>Across lists, the destination must hold the same element class, and an
+   * item with a stored id keeps it only when the id fits the destination's
+   * {@code @SectionIdPattern} and is free there; otherwise the move is refused
+   * ({@link IllegalArgumentException} / {@link SpecSectionIdCollision}) and
+   * nothing changes. An anonymous item takes its positional id in the
+   * destination. A {@code toIndex} outside {@code 0..n} (n = the destination's
+   * length without the item) is an {@link IndexOutOfBoundsException}.
+   */
+  public SpecListItemMove moveListItem(
+      SpecModel model, String itemPath, int toIndex, String toList) {
+    final String item = itemPath;
+    final String from = owningListOf(item);
+    if (from == null) {
+      throw new IllegalArgumentException("\"" + itemPath + "\" is not a live list item");
+    }
+    final String to = toList == null ? from : toList;
+    SpecReflection refl = new SpecReflection(model);
+    SpecResolution fromRes = refl.resolve(from);
+    SpecResolution toRes = refl.resolve(to);
+    final SpecField fromField = fromRes == null ? null : fromRes.field;
+    final SpecField toField = toRes == null ? null : toRes.field;
+    if (toField == null || toField.kind != SpecFieldKind.LIST) {
+      throw new IllegalArgumentException("toList \"" + toList + "\" is not a list of the model");
+    }
+    final boolean cross = !to.equals(from);
+    String fromElement = fromField == null ? null : fromField.elementType;
+    if (cross && !java.util.Objects.equals(toField.elementType, fromElement)) {
+      throw new IllegalArgumentException(
+          "toList \"" + toList + "\" holds " + toField.elementType + ", but the item is a "
+              + fromElement + " — an item moves only between lists of its own element class");
+    }
+    String storedId = itemSectionId.get(item);
+    if (cross && storedId != null) {
+      String pattern = toField.sectionIdPattern;
+      if (pattern != null && !sectionIdFitsPattern(pattern, storedId)) {
+        throw new IllegalArgumentException(
+            "section id \"" + storedId + "\" does not fit the destination pattern " + pattern
+                + " — set an id that does before moving the item");
+      }
+      assertSectionIdFree(to, storedId, null);
+    }
+
+    // The new orders.
+    final List<String> fromItems = new ArrayList<>(listItems.get(from));
+    fromItems.remove(item);
+    final List<String> toItems;
+    if (cross) {
+      List<String> held = listItems.get(to);
+      toItems = held == null ? new ArrayList<>() : new ArrayList<>(held);
+    } else {
+      toItems = fromItems;
+    }
+    if (toIndex < 0 || toIndex > toItems.size()) {
+      throw new IndexOutOfBoundsException(
+          "toIndex " + toIndex + " is not in 0.." + toItems.size());
+    }
+    toItems.add(toIndex, item);
+
+    // Each affected item's effective id before the move, so an anonymous item
+    // keeps its identity when its position changes.
+    Map<String, String> before = new LinkedHashMap<>();
+    List<String> heldFrom = listItems.get(from);
+    for (String p : heldFrom) {
+      before.put(p, effectiveItemId(from, fromField, itemSectionId.get(p), heldFrom.indexOf(p) + 1));
+    }
+    if (cross) {
+      List<String> heldTo = listItems.get(to);
+      if (heldTo != null) {
+        for (String p : heldTo) {
+          before.put(p, effectiveItemId(to, toField, itemSectionId.get(p), heldTo.indexOf(p) + 1));
+        }
+      }
+    }
+
+    // Old → new item paths, and the ids anonymous items must now store.
+    Map<String, String> renamed = new LinkedHashMap<>();
+    Map<String, String> pinned = new LinkedHashMap<>();
+    renumberForMove(from, fromField, fromItems, item, cross, before, renamed, pinned);
+    if (cross) {
+      renumberForMove(to, toField, toItems, item, cross, before, renamed, pinned);
+    }
+
+    Map<String, String> newContent = rekeyStore(content, renamed);
+    Map<String, Map<String, String>> newForm = rekeyStore(form, renamed);
+    Map<String, String> newHeadline = rekeyStore(headline, renamed);
+    Map<String, String> newCodeSpec = rekeyStore(codeSpec, renamed);
+    Map<String, String> ids = rekeyStore(itemSectionId, renamed);
+    for (Map.Entry<String, String> e : pinned.entrySet()) {
+      ids.put(remapPath(e.getKey(), renamed), e.getValue());
+    }
+    Map<String, Integer> seq = rekeyStore(listSeq, renamed);
+    Map<String, List<String>> lists = new LinkedHashMap<>();
+    for (Map.Entry<String, List<String>> e : listItems.entrySet()) {
+      lists.put(remapPath(e.getKey(), renamed), remapAll(e.getValue(), renamed));
+    }
+    lists.put(remapPath(from, renamed), remapAll(fromItems, renamed));
+    seq.put(remapPath(from, renamed), fromItems.size());
+    if (cross) {
+      lists.put(remapPath(to, renamed), remapAll(toItems, renamed));
+      seq.put(remapPath(to, renamed), toItems.size());
+    }
+    lists.values().removeIf(List::isEmpty);
+
+    content.clear();
+    content.putAll(newContent);
+    form.clear();
+    form.putAll(newForm);
+    headline.clear();
+    headline.putAll(newHeadline);
+    codeSpec.clear();
+    codeSpec.putAll(newCodeSpec);
+    itemSectionId.clear();
+    itemSectionId.putAll(ids);
+    listSeq.clear();
+    listSeq.putAll(seq);
+    listItems.clear();
+    listItems.putAll(lists);
+
+    Map<String, String> pinnedIds = new LinkedHashMap<>();
+    for (Map.Entry<String, String> e : pinned.entrySet()) {
+      pinnedIds.put(remapPath(e.getKey(), renamed), e.getValue());
+    }
+    return new SpecListItemMove(remapPath(item, renamed), renamed, pinnedIds);
+  }
+
+  /** The effective section id of an item of {@code list} at 1-based {@code position}. */
+  private static String effectiveItemId(
+      String list, SpecField field, String storedId, int position) {
+    return SpecSectionId.effectiveListItemSectionId(
+        storedId,
+        field == null ? null : field.sectionIdPattern,
+        position,
+        field != null ? field.name : list.substring(list.lastIndexOf('/') + 1));
+  }
+
+  /**
+   * Records the renames of {@code list} renumbered in {@code items} order, and
+   * the old effective id of each anonymous item whose positional id changes.
+   */
+  private void renumberForMove(
+      String list,
+      SpecField field,
+      List<String> items,
+      String item,
+      boolean cross,
+      Map<String, String> before,
+      Map<String, String> renamed,
+      Map<String, String> pinned) {
+    for (int i = 0; i < items.size(); i++) {
+      String old = items.get(i);
+      String now = list + "-" + (i + 1);
+      if (!old.equals(now)) {
+        renamed.put(old, now);
+      }
+      boolean crossing = old.equals(item) && cross;
+      if (itemSectionId.get(old) != null || crossing) {
+        continue;
+      }
+      String positional = effectiveItemId(list, field, null, i + 1);
+      if (!positional.equals(before.get(old))) {
+        pinned.put(old, before.get(old));
+      }
+    }
+  }
+
+  /**
+   * {@code key} with its leading renamed item path ({@code old}, {@code old/…}
+   * or {@code old-…}) replaced by the new one; unchanged when under none.
+   */
+  static String remapPath(String key, Map<String, String> renamed) {
+    for (Map.Entry<String, String> e : renamed.entrySet()) {
+      String old = e.getKey();
+      if (key.equals(old)) {
+        return e.getValue();
+      }
+      if (key.startsWith(old + "/") || key.startsWith(old + "-")) {
+        return e.getValue() + key.substring(old.length());
+      }
+    }
+    return key;
+  }
+
+  private static List<String> remapAll(List<String> paths, Map<String, String> renamed) {
+    List<String> out = new ArrayList<>();
+    for (String p : paths) {
+      out.add(remapPath(p, renamed));
+    }
+    return out;
+  }
+
+  private static <V> Map<String, V> rekeyStore(Map<String, V> store, Map<String, String> renamed) {
+    Map<String, V> out = new LinkedHashMap<>();
+    for (Map.Entry<String, V> e : store.entrySet()) {
+      out.put(remapPath(e.getKey(), renamed), e.getValue());
+    }
+    return out;
+  }
+
+  /** Whether {@code id} fits {@code pattern} ({@code xxx} = one or more characters, anchored). */
+  private static boolean sectionIdFitsPattern(String pattern, String id) {
+    StringBuilder re = new StringBuilder();
+    String[] parts = pattern.split(java.util.regex.Pattern.quote("xxx"), -1);
+    for (int i = 0; i < parts.length; i++) {
+      if (i > 0) {
+        re.append(".+");
+      }
+      re.append(java.util.regex.Pattern.quote(parts[i]));
+    }
+    return java.util.regex.Pattern.compile(re.toString()).matcher(id).matches();
+  }
+
   /**
    * Removes the list item at {@code itemPath} along with every value nested
    * beneath it. The counter is left untouched so future items keep getting fresh

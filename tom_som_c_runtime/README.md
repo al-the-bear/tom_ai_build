@@ -217,6 +217,7 @@ make test CORPUS=/path/to/corpus
 | ---- | -------------- |
 | `SpecDocument` | The sparse, path-keyed store of a document's content, form and list values. |
 | `spec_document_assemble` | One document from ordered name/document fragments; `SpecDocumentAssembly` carries the document or every overlap. |
+| `spec_document_move_list_item` | Moves a list item within its list or to another list of its element class, renumbering the affected lists and carrying every value under each item; `SpecListItemMove` names the renames and pinned ids, and `spec_yaml_rekey_review` re-keys a `review:` pass by them. |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations. |
 | `SpecReflection` | Resolves and enumerates paths against the model without reading values. |
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated structs. |

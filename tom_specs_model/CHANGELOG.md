@@ -1,5 +1,7 @@
 ## Unreleased
 
+- SOM §9 documents moving a list item.
+
 - The Solution Blueprint's stated counts are declared with `countOf` and checked
   against the lists they describe: the scale form (`SYSCL`) counts user
   categories, external interfaces, functional and non-functional (technical +

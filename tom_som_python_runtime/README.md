@@ -158,6 +158,7 @@ document round-trips, and the reflection / validation / operations behaviour.
 | ---- | -------------- |
 | `SpecDocument` | The sparse, path-keyed store of a document's content, form and list values. |
 | `SpecDocument.assemble` | Merges ordered `(name, document)` fragments into one document, refusing any place two fragments both write (`SpecDocumentAssembly`, `SpecAssemblyOverlap`). |
+| `SpecDocument.move_list_item` | Moves a list item to another position of its list, or into another list of the same element class; renumbers the affected lists, carries every value under each item and pins the old id of an anonymous item whose position changed (`SpecListItemMove`). `rekey_review` re-keys a `review:` pass with the move's `renamed` map. |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations. |
 | `SpecReflection` | Resolves and enumerates paths against the model without reading values. |
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |

@@ -115,6 +115,17 @@ void spec_yaml_stale_review_paths(const SpecModel *model,
                                   const SpecDocument *document,
                                   const YamlValue *review, SomStrList *out);
 
+/* `review` with every path a list-item move renamed (`renamed_from[i]` →
+ * `renamed_to[i]`, as `spec_document_move_list_item` returns them) re-keyed —
+ * the entry for an item and every entry under it (`spec_rekey_path`); entries
+ * under no renamed path are kept as they are, in their order (a key two
+ * entries re-key to keeps its first place and the later value). A new owned
+ * YAML_MAP (empty for a NULL or non-map `review`), values deep-copied;
+ * `review` is not changed. Free with `yaml_value_free`. */
+YamlValue *spec_yaml_rekey_review(const YamlValue *review,
+                                  const SomStrList *renamed_from,
+                                  const SomStrList *renamed_to);
+
 /* Parses a `*.docspecs.yaml` file into its passes, matching every `document:`
  * key against `tree`. On success writes `*out` (owned by the caller; release
  * with `spec_yaml_contents_free`) and returns 1.
