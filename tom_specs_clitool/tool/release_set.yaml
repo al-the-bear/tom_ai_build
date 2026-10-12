@@ -120,6 +120,10 @@ unpublished_drift:
     `@Form` of 73 classes as their `content` member's form, and the schemas
     drop the `format: description` lines that demanded a fenced block around
     prose.
+  tom_core_codespecs: >-
+    NO CODE: one documentation line — `codespecs_derivation_contract.md`'s
+    "Where they run" names the SOM runtime's `CodeSpecsExtractSet` as the reader
+    `cs_extract` goes through (vsctsa38). Goes out with vsctsa45.
   tom_specs_model: >-
     NO CODE: SOM §11.6 (wrapper sections), SOM §11.7 (applying a parsed
     import), SOM §12.1 (the review pass), SOM §14 item 4 (section replace)
