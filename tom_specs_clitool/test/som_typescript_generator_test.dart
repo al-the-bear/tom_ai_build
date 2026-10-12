@@ -102,16 +102,34 @@ void main() {
       expect(File(s).existsSync(), isTrue);
     }
 
-    // package.json records a *relative* `file:` runtime dependency (portable
-    // across checkouts) that resolves back to the TS runtime package.
+    // package.json: the runtime is a PEER (one shared instance, and a packed
+    // tarball installs without a symlink), linked for the local build by a
+    // *relative* `file:` devDependency that resolves back to the TS runtime.
     final manifest =
         jsonDecode(File(result.packageJsonPath).readAsStringSync())
             as Map<String, Object?>;
     expect(manifest['name'], 'tom_som_typescript_v0');
     expect(manifest['main'], 'dist/tom_som_typescript_v0.js');
-    final deps = manifest['dependencies'] as Map<String, Object?>;
-    final dep = deps['tom_som_typescript_runtime'] as String;
+    expect(manifest.containsKey('dependencies'), isFalse);
+    final peers = manifest['peerDependencies'] as Map<String, Object?>;
+    expect(peers['tom_som_typescript_runtime'], startsWith('^'));
+    final devDeps = manifest['devDependencies'] as Map<String, Object?>;
+    final dep = devDeps['tom_som_typescript_runtime'] as String;
     expect(dep, startsWith('file:'), reason: 'runtime must be a file: dep');
+
+    // The schema accessor module ships and is exported, beside the files.
+    expect(
+      File(
+        p.join(result.outputRoot, 'tom_som_typescript_v0_schemas.ts'),
+      ).readAsStringSync(),
+      contains('export function somDocSpecsSchema(id: string)'),
+    );
+    final exportsMap = manifest['exports'] as Map<String, Object?>;
+    expect(exportsMap.keys, containsAll(['./schemas', './schemas/*']));
+    expect(
+      manifest['files'] as List<Object?>,
+      contains('dist/tom_som_typescript_v0_schemas.js'),
+    );
     final rtPath = dep.substring('file:'.length);
     expect(
       p.isRelative(rtPath),

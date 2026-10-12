@@ -123,7 +123,9 @@ unpublished_drift:
     vsctsa45.
   tom_specs_clitool: >-
     The model JSON export honours a class-level `@Form`, and the schema
-    generator treats `@ContentType('description', …)` as prose. Unpublished
+    generator treats `@ContentType('description', …)` as prose; the
+    TypeScript/JavaScript facades gain a schema accessor and the TypeScript
+    facade takes its runtime as a peer (vsctsa36). Unpublished
     until vsctsa45, which publishes the regenerated packages these produce.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`

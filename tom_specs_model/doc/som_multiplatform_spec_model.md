@@ -1016,6 +1016,18 @@ between fourteen imports a consumer must know about and one that costs 3.7 MB
 when opted into — and splitting it later is a change to one emitter rather than
 one consumers have to follow.
 
+**The schemas in the script planes.** TypeScript and JavaScript carry the same
+schema accessor as Dart, `somDocSpecsSchema(id)` (with `somDocSpecsSchemaIds` and
+`somDocSpecsSchemaYaml`), in `<package>_schemas.ts` / `<package>_schemas.js`
+beside the facade. It is **embedded** for the reason Dart's is: the consumer that
+motivated it, a VS Code extension, ships as a bundle, and a bundler cannot follow
+a package-relative file read. It is a separate module, reached as
+`<package>/schemas`, and the package's `exports` also open `<package>/schemas/*`
+for the shipped files. Each facade's test suite holds the embedded text equal to
+the shipped files, byte for byte. Python reads the shipped tree through its
+resolution helpers. Java, Go, Rust, C and C++ ship the `schemas/` tree as files
+that their consumers read directly; none of them has a bundled consumer yet.
+
 **The accessor is uniform; its mechanism is not, and that is deliberate.** What
 every plane owes a consumer is *one expression that yields the model*. How the
 payload gets there is decided per language by what that language's packaging can

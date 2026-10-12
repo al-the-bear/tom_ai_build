@@ -140,6 +140,15 @@ void main() {
     );
     final exports = manifest['exports'] as Map<String, Object?>;
     expect(exports['.'], './tom_som_javascript_v0.js');
+    // The schema accessor module and the shipped schema files are exported.
+    expect(exports['./schemas'], './tom_som_javascript_v0_schemas.js');
+    expect(exports['./schemas/*'], './schemas/*');
+    expect(
+      File(
+        p.join(result.outputRoot, 'tom_som_javascript_v0_schemas.js'),
+      ).readAsStringSync(),
+      contains('function somDocSpecsSchema(id)'),
+    );
     final deps = manifest['dependencies'] as Map<String, Object?>;
     expect(deps['tom_som_javascript_runtime'], '>=1.0.0');
   });

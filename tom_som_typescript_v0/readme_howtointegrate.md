@@ -27,16 +27,17 @@ console.log(blueprint.content);
 
 ### From npm
 
-Install the facade (it depends on `tom_som_typescript_runtime`):
+Install the facade together with its runtime — the runtime is a **peer dependency**, so the facade shares your single runtime instance:
 
 ```bash
-npm install tom_som_typescript_v0
+npm install tom_som_typescript_runtime tom_som_typescript_v0
 ```
 
-or pin it in your `package.json`:
+or pin both in your `package.json`:
 
 ```json
 "dependencies": {
+  "tom_som_typescript_runtime": "^1.3.3",
   "tom_som_typescript_v0": "^1.3.3"
 }
 ```
@@ -62,7 +63,9 @@ npm install ../tom_som_typescript_runtime
 npm install ../tom_som_typescript_v0
 ```
 
-The facade already declares the runtime as a relative `file:` dependency in its `package.json`, so an in-tree `npm install` links it and `npm run build` compiles both.
+The facade declares the runtime as a peer dependency and links it for its own build through a relative `file:` devDependency, so an in-tree `npm install` links it and `npm run build` compiles both. The devDependency never reaches a consumer: `npm pack` both packages and install the two tarballs side by side, and the installed tree holds no symlink.
+
+The DocSpecs schemas are reachable through the package itself: `require('tom_som_typescript_v0/schemas').somDocSpecsSchema(id)` for the parsed schema (embedded, so a bundler needs no file copy), or `tom_som_typescript_v0/schemas/<id>/...` for the shipped files.
 
 ## Pinning the version
 

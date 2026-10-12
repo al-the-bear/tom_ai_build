@@ -29,16 +29,17 @@ Everything generated here is derived from the `tom_specs_model` Dart model and r
 
 ## Installation
 
-Install the facade (it depends on `tom_som_typescript_runtime`):
+Install the facade together with its runtime — the runtime is a **peer dependency**, so the facade shares your single runtime instance:
 
 ```bash
-npm install tom_som_typescript_v0
+npm install tom_som_typescript_runtime tom_som_typescript_v0
 ```
 
-or pin it in your `package.json`:
+or pin both in your `package.json`:
 
 ```json
 "dependencies": {
+  "tom_som_typescript_runtime": "^1.3.3",
   "tom_som_typescript_v0": "^1.3.3"
 }
 ```

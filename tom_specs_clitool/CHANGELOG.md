@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **The TypeScript and JavaScript facades carry a DocSpecs schema accessor**
+  (`SomScriptSchemasEmitter`): `somDocSpecsSchema(id)` in
+  `<package>_schemas.ts` / `.js`, embedded like Dart's, exported as
+  `<package>/schemas`, with `<package>/schemas/*` opening the shipped files.
+- **The TypeScript facade takes its runtime as a peer dependency**, linked for
+  its own build by a `file:` devDependency. A `file:` dependency travelled into
+  the `npm pack` tarball and left a symlink in a consumer's installed tree;
+  the two tarballs now install side by side with none.
 - **The model JSON export honours a class-level `@Form`.** A class's `content`
   member is exported as a form carrying the class's form fields, as
   `tom_specs_model_rules.md` §5.3 states and the DocSpecs schema generator

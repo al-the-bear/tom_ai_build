@@ -1753,14 +1753,17 @@ console.log(blueprint.content);''',
     PackagingRoute(
       heading: 'From npm',
       body:
-          'Install the facade (it depends on `tom_som_typescript_runtime`):'
+          'Install the facade together with its runtime — the runtime is a '
+          '**peer dependency**, so the facade shares your single runtime '
+          'instance:'
           '\n\n'
           '```bash\n'
-          'npm install tom_som_typescript_v0\n'
+          'npm install tom_som_typescript_runtime tom_som_typescript_v0\n'
           '```\n\n'
-          'or pin it in your `package.json`:\n\n'
+          'or pin both in your `package.json`:\n\n'
           '```json\n'
           '"dependencies": {\n'
+          '  "tom_som_typescript_runtime": "^VERSION",\n'
           '  "tom_som_typescript_v0": "^VERSION"\n'
           '}\n'
           '```\n\n'
@@ -1790,9 +1793,16 @@ console.log(blueprint.content);''',
           'npm install ../tom_som_typescript_runtime\n'
           'npm install ../tom_som_typescript_v0\n'
           '```\n\n'
-          'The facade already declares the runtime as a relative `file:` '
-          'dependency in its `package.json`, so an in-tree `npm install` links '
-          'it and `npm run build` compiles both.',
+          'The facade declares the runtime as a peer dependency and links it '
+          'for its own build through a relative `file:` devDependency, so an '
+          'in-tree `npm install` links it and `npm run build` compiles both. '
+          'The devDependency never reaches a consumer: `npm pack` both '
+          'packages and install the two tarballs side by side, and the '
+          'installed tree holds no symlink.\n\n'
+          'The DocSpecs schemas are reachable through the package itself: '
+          '`require(\'tom_som_typescript_v0/schemas\').somDocSpecsSchema(id)` '
+          'for the parsed schema (embedded, so a bundler needs no file copy), '
+          'or `tom_som_typescript_v0/schemas/<id>/...` for the shipped files.',
     ),
   ],
   buildFromSource:

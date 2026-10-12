@@ -22,6 +22,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 import 'analyzer_bootstrap.dart';
 import 'docspecs_schema_generator.dart';
+import 'som_script_schemas_emitter.dart';
 import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
@@ -249,6 +250,18 @@ SomJavaScriptGenerationResult writeSomJavaScriptProject({
     schemas,
   );
 
+  // ── DocSpecs schema accessor (SOM §10.3): `<package>_schemas.js` ──────────
+  // The same schemas, embedded, behind `somDocSpecsSchema(id)` as the Dart
+  // facade has it; a separate module so importing the facade does not load them.
+  final schemasEmitter = SomScriptSchemasEmitter(
+    schemas,
+    packageName: packageName,
+    plane: SomScriptPlane.javascript,
+  );
+  File(
+    p.join(outputRoot, schemasEmitter.fileName),
+  ).writeAsStringSync(schemasEmitter.generateModule());
+
   // ── package.json (relative runtime path for portability) ───────────────────
   // The Node analog of pubspec.yaml / pyproject.toml: zero external deps. It
   // records where the generic runtime package lives (relative to this project
@@ -306,6 +319,7 @@ String _packageJson(String name, String runtimeRel, {required String version}) {
     'files': <String>[
       '$name.js',
       '${name}_meta.js',
+      '${name}_schemas.js',
       'meta/',
       'schemas/',
       'examples/',
@@ -317,6 +331,9 @@ String _packageJson(String name, String runtimeRel, {required String version}) {
     'exports': <String, Object?>{
       '.': './$name.js',
       './meta': './meta/spec_model.meta.json',
+      // The schema accessor, and the shipped schema files themselves.
+      './schemas': './${name}_schemas.js',
+      './schemas/*': './schemas/*',
       './package.json': './package.json',
     },
     'engines': <String, Object?>{'node': '>=18'},

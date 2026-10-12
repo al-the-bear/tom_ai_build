@@ -34,6 +34,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 import 'analyzer_bootstrap.dart';
 import 'docspecs_schema_generator.dart';
+import 'som_script_schemas_emitter.dart';
 import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
@@ -269,6 +270,18 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
     schemas,
   );
 
+  // ── DocSpecs schema accessor (SOM §10.3): `<package>_schemas.ts` ──────────
+  // The same schemas, embedded, behind `somDocSpecsSchema(id)` as the Dart
+  // facade has it; a separate module so importing the facade does not load them.
+  final schemasEmitter = SomScriptSchemasEmitter(
+    schemas,
+    packageName: packageName,
+    plane: SomScriptPlane.typescript,
+  );
+  File(
+    p.join(outputRoot, schemasEmitter.fileName),
+  ).writeAsStringSync(schemasEmitter.generateModule());
+
   // ── package.json (relative `file:` dependency on the runtime) ──────────────
   // Unlike the JS path, the generated TS module imports the runtime by a fixed
   // bare specifier, so resolution is wired through node_modules: a `file:`
@@ -336,6 +349,8 @@ String _packageJson(String name, String runtimeRel, {required String version}) {
       'dist/$name.d.ts',
       'dist/${name}_meta.js',
       'dist/${name}_meta.d.ts',
+      'dist/${name}_schemas.js',
+      'dist/${name}_schemas.d.ts',
       'meta/',
       'schemas/',
       'README.md',
@@ -349,6 +364,12 @@ String _packageJson(String name, String runtimeRel, {required String version}) {
         'default': './dist/$name.js',
       },
       './meta': './meta/spec_model.meta.json',
+      // The schema accessor, and the shipped schema files themselves.
+      './schemas': <String, Object?>{
+        'types': './dist/${name}_schemas.d.ts',
+        'default': './dist/${name}_schemas.js',
+      },
+      './schemas/*': './schemas/*',
       './package.json': './package.json',
     },
     'engines': <String, Object?>{'node': '>=18'},
@@ -365,14 +386,21 @@ String _packageJson(String name, String runtimeRel, {required String version}) {
       'build': 'tsc',
       'prepack': 'npm run build',
     },
-    'dependencies': <String, Object?>{
-      // The generic runtime package this typed facade edits over. A relative
-      // `file:` dependency wires bare-specifier resolution through node_modules
-      // for both `tsc` and `node`. Relative for portability across machines and
-      // checkout roots.
-      'tom_som_typescript_runtime': 'file:$runtimeRel',
+    // The generic runtime package this typed facade edits over is a PEER, not
+    // a dependency: the facade must share the consumer's single runtime
+    // instance (objects cross between the two), and a `file:` dependency
+    // travels into the `npm pack` tarball unchanged, where npm resolves it
+    // relative to the install location and leaves a symlink in the installed
+    // tree. Measured 2026-10-12: with the peer form, the runtime and facade
+    // tarballs install side by side into a fresh project with no symlink.
+    'peerDependencies': <String, Object?>{
+      'tom_som_typescript_runtime': '^$version',
     },
     'devDependencies': <String, Object?>{
+      // The local build resolves the runtime through this relative `file:`
+      // link (bare-specifier resolution for `tsc` and `node`). npm ignores a
+      // package's devDependencies for its consumers, so it never ships.
+      'tom_som_typescript_runtime': 'file:$runtimeRel',
       'typescript': '6.0.3',
       '@types/node': '^22',
     },

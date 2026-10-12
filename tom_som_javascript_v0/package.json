@@ -13,6 +13,7 @@
   "files": [
     "tom_som_javascript_v0.js",
     "tom_som_javascript_v0_meta.js",
+    "tom_som_javascript_v0_schemas.js",
     "meta/",
     "schemas/",
     "examples/",
@@ -24,6 +25,8 @@
   "exports": {
     ".": "./tom_som_javascript_v0.js",
     "./meta": "./meta/spec_model.meta.json",
+    "./schemas": "./tom_som_javascript_v0_schemas.js",
+    "./schemas/*": "./schemas/*",
     "./package.json": "./package.json"
   },
   "engines": {
