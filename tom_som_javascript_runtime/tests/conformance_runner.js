@@ -65,6 +65,7 @@ const {
   checkAddNode,
   checkSomModelVersion,
   somEditabilityFor,
+  staleReviewPaths,
   SpecReflection,
   SpecSectionIdCollision,
   SpecSerializationOrder,
@@ -423,6 +424,35 @@ function testMarkdownApply(model) {
   for (const c of _readJson('markdown_apply_cases.json').cases) {
     const got = _runMarkdownApplyCase(model, c);
     _check(`mdApply[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+  }
+}
+
+// One `yaml_review_cases.json` case, run like Dart's `_runYamlReviewCase`:
+// `roundTrip` re-encodes the decoded document with its decoded review pass;
+// `stale` removes the named list items, then asks which review entries no
+// longer resolve.
+function _runYamlReviewCase(model, tree, c) {
+  const contents = yamlDecode(c.yaml, tree);
+  if (c.op === 'roundTrip') {
+    return yamlEncode(contents.document, tree, contents.modelVersion, contents.review);
+  }
+  for (const item of c.removeItems) {
+    contents.document.removeListItem(item);
+  }
+  return staleReviewPaths(model, contents.document, contents.review);
+}
+
+// The `review:` pass: written back sorted and byte-stable, and stale entries
+// (unresolvable paths, removed list items) reported.
+function testYamlReview(model, tree) {
+  for (const c of _readJson('yaml_review_cases.json').cases) {
+    const got = _runYamlReviewCase(model, tree, c);
+    const ok = c.op === 'roundTrip' ? got === c.expect : _deepEqual(got, c.expect);
+    const detail =
+      c.op === 'roundTrip'
+        ? _byteDiff(`yamlReview[${c.name}]`, String(got), c.expect)
+        : _jsonMismatch(got, c.expect);
+    _check(`yamlReview[${c.name}]`, ok, detail);
   }
 }
 
@@ -1422,6 +1452,7 @@ function main() {
   testStateRoundTrip();
   testYamlEncode(tree);
   testYamlDecodeRoundTrip(tree);
+  testYamlReview(model, tree);
   testMarkdownExport(model);
   testMarkdownRoundTrip(model);
   testMarkdownMemoryLanding(model);

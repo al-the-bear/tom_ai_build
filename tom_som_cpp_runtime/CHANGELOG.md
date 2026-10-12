@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- YAML codec: the `review:` pass is written back. `encodeYaml` takes an optional
+  `review` (`const YamlValue*`, typically `SpecYamlContents::review.get()`);
+  when given, `specYamlWriteReviewPass` appends it after the document pass:
+  `review: {}` when empty, else entries sorted by path with JSON-quoted keys,
+  each entry's fields sorted by name; null, booleans, numbers and
+  identifier-like strings plain, lists as JSON flow, any other string as a
+  self-verified block scalar. A decoded plain scalar now carries
+  `YamlValue::plain`, so `true`, `null` and numbers keep their YAML type on the
+  way back. `specYamlStaleReviewPaths(model, document, review)` lists, sorted,
+  the review paths the model no longer resolves or that run through a list item
+  the document no longer holds. The conformance runner checks both against
+  `yaml_review_cases.json` (`yamlReview[...]`).
+
 - Markdown import: `SpecDocument::applyMarkdownResult(result,
   allowRejections)` applies a parsed import as a full overwrite of the roots
   it covers (SOM §11.7): every value under each root prefix is removed, then

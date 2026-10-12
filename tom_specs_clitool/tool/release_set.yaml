@@ -106,7 +106,9 @@ unpublished_drift:
     authoring tom_uam's Blueprint; pinned by the `Notes.remarks` corpus case in
     all nine runtimes. And new API: `SpecDocument.applyMarkdownResult` and
     `SpecDocument.fromMarkdown` (vsctsa33), pinned by
-    `markdown_apply_cases.json` in all nine runtimes.
+    `markdown_apply_cases.json`; and the YAML codec writes the `review:` pass
+    back plus `staleReviewPaths` (vsctsa34), pinned by
+    `yaml_review_cases.json` — both in all nine runtimes.
   tom_som_dart_v0: >-
     REGENERATED, unpublished until vsctsa45: the meta now carries the class-level
     `@Form` of 73 classes as their `content` member's form, and the schemas
@@ -114,8 +116,8 @@ unpublished_drift:
     prose.
   tom_specs_model: >-
     NO CODE: SOM §11.6 (wrapper sections), SOM §11.7 (applying a parsed
-    import) and the meta-schema note on the class-level `@Form`. Goes out with
-    vsctsa45.
+    import), SOM §12.1 (the review pass) and the meta-schema note on the
+    class-level `@Form`. Goes out with vsctsa45.
   tom_specs_clitool: >-
     The model JSON export honours a class-level `@Form`, and the schema
     generator treats `@ContentType('description', …)` as prose. Unpublished

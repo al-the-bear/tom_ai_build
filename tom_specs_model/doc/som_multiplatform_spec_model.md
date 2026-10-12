@@ -1346,11 +1346,27 @@ version: 2                # on-disk format version
 modelVersion: "1.0"       # authoring object-model major.minor (optional)
 document:
   <root tree>
-review:                   # optional, opaque to the runtimes (editor-owned)
+review:                   # optional; uninterpreted by the runtimes
   …
 ```
 
 Readers reject `version: 1` files with a clear error (no compatibility path).
+
+The `review:` pass is structural-review state keyed by section path. The
+runtimes do not interpret it, but they carry it: `decode` returns it as a raw
+map and `encode` writes back the map it is given, so a load followed by a save
+keeps a reviewed document's review state. The writer is canonical and the same
+in every port:
+- entries sorted by path, with JSON-quoted keys;
+- each entry's fields sorted by name;
+- booleans, numbers and identifier-like strings written plain, any other
+  string as a block scalar;
+- an empty pass written as `review: {}`.
+Decode followed by encode is therefore byte-identical. Review entries are keyed
+by path, so removing a list item can leave entries behind. `staleReviewPaths`
+reports the entries whose path no longer resolves against the document (unknown
+to the model, or under a list item the document no longer holds); it never
+deletes them. Pinned by `yaml_review_cases.json` in every port.
 
 ### 12.2 Key syntax
 

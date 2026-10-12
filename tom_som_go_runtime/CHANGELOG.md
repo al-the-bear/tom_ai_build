@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- YAML review pass: `EncodeYamlWithReview(document, tree, modelVersion,
+  review)` writes the opaque `review:` pass back after the document pass
+  (`EncodeYaml` is unchanged and writes none), through the exported
+  `WriteReviewPass`: entries sorted by path with JSON-quoted keys, fields sorted
+  by name, booleans/numbers/identifier-like strings plain, other strings as
+  self-verified block scalars, lists as JSON flow, an empty map as
+  `review: {}`. `DecodeYaml` now reads the review pass with the new
+  `YamlParseTyped` (YAML 1.2 core-schema booleans, null and numbers), so a
+  decode followed by an encode is byte-identical. `StaleReviewPaths(model,
+  document, review)` lists the review paths that no longer resolve — unknown to
+  the model, or running through a removed list item. Pinned by the shared
+  corpus table `yaml_review_cases.json`.
 - Markdown load/apply: `SpecDocumentFromMarkdown(text, model)` loads a DocSpecs
   Markdown document into a fresh document in one call and returns a
   `SpecMarkdownImport` (`Document`, `Result`, `Rejections()`); rejected blocks

@@ -37,9 +37,11 @@
 
 #include <optional>
 #include <string>
+#include <vector>
 
 #include "spec_document.hpp"
 #include "spec_meta.hpp"
+#include "spec_model.hpp"
 #include "yaml.hpp"
 
 namespace som {
@@ -67,11 +69,41 @@ struct SpecYamlContents {
  * follow their stored sequence; emission is sparse. Returns the owned string;
  * when the document holds values `tree` cannot place returns std::nullopt and,
  * when `err` is non-null, writes a structured message — nothing is silently
- * dropped. */
+ * dropped.
+ *
+ * `review`, when non-null, is written back as the `review:` pass after the
+ * document pass — typically the raw map `decodeYaml` returned, so that a load
+ * followed by a save keeps a reviewed document's review state. The runtime does
+ * not interpret it (specYamlWriteReviewPass); with nullptr the file carries no
+ * `review:` pass. */
 std::optional<std::string> encodeYaml(const SpecDocument& document,
                                       const SomMetaTree& tree,
                                       const std::string& modelVersion,
-                                      std::string* err);
+                                      std::string* err,
+                                      const YamlValue* review = nullptr);
+
+/* Appends `review` (a YAML_MAP) as the `review:` pass, passed through without
+ * interpretation: entries sorted by path (byte order, JSON-quoted keys), each
+ * entry's fields sorted by name. Sorting rather than keeping the map's order
+ * makes the output the same in every port and keeps decode followed by encode
+ * byte-identical. Scalars are typed as YAML types them: a Str flagged `plain`
+ * that reads as null, a boolean or a number is written as that value (`null`,
+ * `true`, an integer without decimal point, a double as Dart prints it), a
+ * plain JSON flow collection as that collection; booleans, numbers and
+ * identifier-like strings (not a YAML keyword such as `yes` or `null`) are
+ * written plain, any other string as a self-verified block scalar, a nested map
+ * one level deeper, a list as a JSON flow sequence. An empty map writes
+ * `review: {}`. */
+void specYamlWriteReviewPass(std::string& out, const YamlValue& review);
+
+/* The review paths (keys of `review`) that no longer resolve against
+ * `document`: paths `model` cannot resolve, and paths running through a list
+ * item the document does not hold (an item that was removed). Sorted. Reports
+ * only — it never edits `review` — so a consumer that removed a list item can
+ * tell its user which review entries it left behind. */
+std::vector<std::string> specYamlStaleReviewPaths(const SpecModel& model,
+                                                  const SpecDocument& document,
+                                                  const YamlValue& review);
 
 /* Parses a `*.docspecs.yaml` file into its passes, matching every `document:`
  * key against `tree`. On success writes `*out` and returns true.

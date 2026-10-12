@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- YAML codec: `encode(document, tree, modelVersion, review)` takes the
+  optional `review:` pass and writes it back after the document pass
+  (`writeReviewPass`): entries sorted by path with JSON-quoted keys, each
+  entry's fields sorted by name; booleans, numbers, null and identifier-like
+  strings plain, lists as JSON flow, any other string as a self-verified block
+  scalar, an empty map as `review: {}`. So a load followed by a save keeps a
+  reviewed document's review state, byte-identical to the Dart runtime.
+  `decode` reads the review pass with YAML 1.2 core typing (`yaml.parse(text,
+  true)`), so its booleans and numbers keep their types.
+  `staleReviewPaths(model, document, review)` lists the review paths that no
+  longer resolve — unknown to the model, or running through a list item the
+  document no longer holds. Pinned by the corpus table
+  `yaml_review_cases.json`.
 - `SpecDocument.applyMarkdownResult(result, allowRejections)` applies a parsed
   Markdown import as a full overwrite of the roots it covers (SOM §11.7): every
   value under each root prefix is removed, then the parsed content, forms,

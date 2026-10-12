@@ -47,6 +47,7 @@ const yaml = require('./yaml');
 const { SpecDocument } = require('./spec_document');
 const { SomFormMeta, SomMetaKind } = require('./spec_meta');
 const { specPathJoin } = require('./spec_paths');
+const { SpecNodeKind, SpecReflection } = require('./spec_reflection');
 
 /**
  * The on-disk format version (independent of the model-version stamp).
@@ -353,14 +354,115 @@ function _isNumericOrBool(typeName) {
  *
  * @param {import('./spec_document').SpecDocument} document
  * @param {import('./spec_meta').SomMetaTree} tree
+ * `review` is written back as the `review:` pass when given — typically the
+ * raw map {@link decode} returned, so that a load followed by a save keeps a
+ * reviewed document's review state. The runtime does not interpret it
+ * ({@link writeReviewPass}); without it the file carries no `review:` pass.
+ *
  * @param {string|null} [modelVersion]
+ * @param {Object|null} [review]
  * @returns {string}
  */
-function encode(document, tree, modelVersion = null) {
+function encode(document, tree, modelVersion = null, review = null) {
   const b = new _Buffer();
   writeHeader(b, modelVersion);
   new _Encoder(document, tree).writeDocumentPass(b);
+  if (review !== null && review !== undefined) writeReviewPass(b, review);
   return b.toString();
+}
+
+/**
+ * Writes `review` as the `review:` pass, passed through without
+ * interpretation: entries sorted by path (JSON-quoted keys), each entry's
+ * fields sorted by name. Sorting, rather than keeping the map's order, is what
+ * makes the output the same in every port, and it keeps decode followed by
+ * encode byte-identical. Booleans, numbers and identifier-like strings are
+ * written plain; any other string as a self-verified block scalar
+ * ({@link writeScalar}); a nested map one level deeper; a list as a JSON flow
+ * sequence. An empty map writes `review: {}`.
+ *
+ * @param {{writeln: function(string=): void}} b
+ * @param {Object} review
+ */
+function writeReviewPass(b, review) {
+  const keys = Object.keys(review).map((k) => `${k}`).sort();
+  if (keys.length === 0) {
+    b.writeln('review: {}');
+    return;
+  }
+  b.writeln('review:');
+  for (const key of keys) {
+    _writeReviewValue(b, 2, yamlKey(key), review[key]);
+  }
+}
+
+function _writeReviewValue(b, indent, renderedKey, value) {
+  const pad = ' '.repeat(indent);
+  if (_isMapping(value)) {
+    const fields = Object.keys(value).map((k) => `${k}`).sort();
+    if (fields.length === 0) {
+      b.writeln(`${pad}${renderedKey}: {}`);
+      return;
+    }
+    b.writeln(`${pad}${renderedKey}:`);
+    for (const field of fields) {
+      _writeReviewValue(b, indent + 2, plainKey(field), value[field]);
+    }
+  } else if (value === null || value === undefined) {
+    b.writeln(`${pad}${renderedKey}: null`);
+  } else if (typeof value === 'boolean' || typeof value === 'number') {
+    b.writeln(`${pad}${renderedKey}: ${value}`);
+  } else if (Array.isArray(value)) {
+    b.writeln(`${pad}${renderedKey}: ${JSON.stringify(value)}`);
+  } else if (
+    _REVIEW_TOKEN_PATTERN.test(`${value}`) &&
+    !_YAML_WORDS.has(`${value}`.toLowerCase())
+  ) {
+    b.writeln(`${pad}${renderedKey}: ${value}`);
+  } else {
+    _writeRendered(b, indent, renderedKey, _scalar(`${value}`));
+  }
+}
+
+const _REVIEW_TOKEN_PATTERN = /^[A-Za-z_][A-Za-z0-9_]*$/;
+
+/** Words a YAML parser (1.1 or 1.2) reads as something other than a string. */
+const _YAML_WORDS = new Set(['true', 'false', 'null', 'yes', 'no', 'on', 'off', 'y', 'n']);
+
+/**
+ * The review paths in `review` that no longer resolve against `document`:
+ * paths the model cannot resolve, and paths running through a list item the
+ * document does not hold (an item that was removed). Sorted. Reports only —
+ * it never edits `review` — so a consumer that removed a list item can tell
+ * its user which review entries it left behind.
+ *
+ * @param {import('./spec_model').SpecModel} model
+ * @param {SpecDocument} document
+ * @param {Object} review
+ * @returns {string[]}
+ */
+function staleReviewPaths(model, document, review) {
+  const refl = new SpecReflection(model);
+  const isStale = (path) => {
+    const segments = path.split('/');
+    for (let i = 1; i <= segments.length; i++) {
+      const prefix = segments.slice(0, i).join('/');
+      const res = refl.resolve(prefix);
+      if (res === null || res === undefined) return true;
+      if (
+        res.kind === SpecNodeKind.LIST_ITEM_COMPLEX ||
+        res.kind === SpecNodeKind.LIST_ITEM_SCALAR
+      ) {
+        const listPath = prefix.substring(0, prefix.lastIndexOf('-'));
+        if (!document.listItems(listPath).includes(prefix)) return true;
+      }
+    }
+    return false;
+  };
+  return Object.keys(review)
+    .map((k) => `${k}`)
+    .filter(isStale)
+    .sort();
 }
 
 /**
@@ -779,7 +881,13 @@ function decode(yamlText, tree) {
     _parsedScalarStr(stampRaw) !== ''
       ? _parsedScalarStr(stampRaw)
       : null;
-  const rev = root['review'];
+  // The `review:` pass is passed through with its values typed (booleans,
+  // null, numbers, flow lists) like a full YAML reader returns them; the
+  // document pass keeps the untyped strings its stores expect.
+  let rev = root['review'];
+  if (_isMapping(rev) && Object.keys(rev).length > 0) {
+    rev = yaml.parse(yamlText, { typed: true })['review'];
+  }
 
   const document = new SpecDocument();
   document.modelVersion = stamp;
@@ -1063,6 +1171,8 @@ module.exports = {
   dedupEmptyLines,
   writeScalar,
   writeHeader,
+  writeReviewPass,
+  staleReviewPaths,
   encode,
   decode,
 };

@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- YAML codec: the `review:` pass is written back. `SpecDocumentYaml.encode`
+  takes an optional `review` map (written after the document pass by the new
+  public `writeReviewPass`: entries sorted by path, fields sorted by name,
+  identifier-like strings, booleans and numbers plain, other strings as
+  self-verified block scalars, an empty map as `review: {}`), so decode
+  followed by encode keeps a reviewed document byte for byte. The new static
+  `staleReviewPaths(model, document, review)` lists the review paths that no
+  longer resolve — unknown paths and paths through a removed list item.
+  `decode` reads the review pass with typed scalars (`Yaml.parse(text, true)`:
+  booleans, nulls, floats, JSON flow lists); the document pass stays untyped.
+  Pinned by the corpus table `yaml_review_cases.json`.
 - Markdown codec: a member's heading id and its transparency are read from its
   meta node (`sectionId`, then `classSectionId`), no longer by looking up the
   node's class name. A wrapper section (`TextSection`, …) carries its owner's

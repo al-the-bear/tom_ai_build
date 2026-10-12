@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- YAML codec: the `review:` pass is written back. `encode_yaml_with_review`
+  takes an optional review map (typically the one `decode_yaml` returned) and
+  appends it after the document pass via `write_review_pass`: entries sorted by
+  path with JSON-quoted keys, each entry's fields sorted by name, booleans,
+  numbers and identifier-like strings plain, any other string as a
+  self-verified block scalar, lists as JSON flow; an empty map writes
+  `review: {}`. `stale_review_paths` reports the review paths that no longer
+  resolve against a document (unknown paths, removed list items), sorted.
+  Verified against the corpus table `yaml_review_cases.json`.
 - Applying a Markdown import is a runtime operation (SOM §11.7).
   `SpecDocument::apply_markdown_result` overwrites the roots a parsed import
   covers and keeps every other root; a result with rejections is refused with

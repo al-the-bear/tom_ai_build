@@ -8,6 +8,7 @@
  *   - state.json loads and re-serialises identically;
  *   - YAML encode == expected.docspecs.yaml (byte-for-byte);
  *   - YAML decode -> memory -> encode is byte-stable + preserves the stamp;
+ *   - the YAML `review:` pass (write-back round trip + stale review paths);
  *   - Markdown export == expected.md (byte-for-byte);
  *   - Markdown parse -> memory -> export is clean + byte-stable;
  *   - the Markdown route lands the fixture in the same memory as the YAML route;
@@ -379,6 +380,63 @@ static void test_yaml_decode_round_trip(Checker& c, const som::SomMetaTree& tree
   }
   c.check("yaml.decode.reencode", *actual == expected,
           byte_diff("yaml.decode.reencode", *actual, expected));
+}
+
+/* yaml_review_cases.json: the `review:` pass written back by encodeYaml
+ * (roundTrip — byte-for-byte) and specYamlStaleReviewPaths after removing list
+ * items (stale — the sorted stale paths). */
+static void test_yaml_review(Checker& c, const som::SpecModel& model,
+                             const som::SomMetaTree& tree) {
+  som::JsonPtr table = read_json("yaml_review_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string name = "yamlReview[" + som::jsonStrOr(kase, "name") + "]";
+    som::SpecYamlContents contents;
+    std::string err;
+    if (!som::decodeYaml(som::jsonStrOr(kase, "yaml"), tree, &contents, &err)) {
+      c.check(name, false, err.empty() ? "(no message)" : err);
+      continue;
+    }
+    std::string op = som::jsonStrOr(kase, "op");
+    som::JsonRef expect = som::jsonGet(kase, "expect");
+    if (op == "roundTrip") {
+      std::string err2;
+      auto actual = som::encodeYaml(contents.document, tree,
+                                    contents.modelVersion, &err2,
+                                    contents.review.get());
+      if (!actual.has_value()) {
+        c.check(name, false, err2.empty() ? "(no message)" : err2);
+        continue;
+      }
+      std::string want = som::jsonStrOr(kase, "expect");
+      c.check(name, *actual == want, byte_diff(name, *actual, want));
+    } else if (op == "stale") {
+      som::JsonRef remove = som::jsonGet(kase, "removeItems");
+      for (std::size_t r = 0; r < som::jsonArrayLen(remove); r++) {
+        const std::string* item = som::jsonAsStr(som::jsonArrayAt(remove, r));
+        if (item != nullptr) {
+          contents.document.removeListItem(*item);
+        }
+      }
+      std::vector<std::string> got = som::specYamlStaleReviewPaths(
+          model, contents.document, *contents.review);
+      std::vector<std::string> want;
+      for (std::size_t w = 0; w < som::jsonArrayLen(expect); w++) {
+        const std::string* s = som::jsonAsStr(som::jsonArrayAt(expect, w));
+        want.push_back(s != nullptr ? *s : std::string());
+      }
+      std::string detail = "got [";
+      for (std::size_t g = 0; g < got.size(); g++) {
+        detail += (g == 0 ? "" : ", ") + got[g];
+      }
+      detail += "]";
+      c.check(name, got == want, detail);
+    } else {
+      c.check(name, false, "unknown op " + op);
+    }
+  }
 }
 
 static void test_markdown_export(Checker& c, const som::SpecModel& model) {
@@ -1807,6 +1865,7 @@ int main(int argc, char** argv) {
   test_state_round_trip(c);
   test_yaml_encode(c, *tree);
   test_yaml_decode_round_trip(c, *tree);
+  test_yaml_review(c, *model, *tree);
   test_markdown_export(c, *model);
   test_markdown_round_trip(c, *model);
   test_markdown_memory_landing(c, *model);

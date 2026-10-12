@@ -54,6 +54,7 @@ void main() {
   final editabilityCases = _editabilityCases();
   final markdownImportCases = _markdownImportCases();
   final markdownApplyCases = _markdownApplyCases(model, mdGolden);
+  final yamlReviewCases = _yamlReviewCases(model, tree, yamlGolden);
   final docSpecsCases = _docSpecsCases();
   final patternCases = _patternCases();
   final queryCases = _queryCases(model, doc);
@@ -89,6 +90,7 @@ void main() {
       '${enc.convert(markdownImportCases)}\n',
     );
     write('markdown_apply_cases.json', '${enc.convert(markdownApplyCases)}\n');
+    write('yaml_review_cases.json', '${enc.convert(yamlReviewCases)}\n');
     write('docspecs_schema.yaml', _docSpecsSchemaYaml);
     write('docspecs_cases.json', '${enc.convert(docSpecsCases)}\n');
     write('pattern_cases.json', '${enc.convert(patternCases)}\n');
@@ -283,6 +285,22 @@ void main() {
       test(c['name'] as String, () {
         final got = _runMarkdownApplyCase(model, c);
         expect(got, c['expect']);
+      });
+    }
+  });
+
+  // The `review:` pass is written back by the runtime: a reviewed document
+  // round-trips byte for byte, and the stale-entry helper names the review
+  // entries a removed list item left behind (it never deletes them).
+  group('yaml_review_cases.json (the review pass)', () {
+    final onDisk = File('${corpusDir.path}/yaml_review_cases.json');
+    final table = update && !onDisk.existsSync()
+        ? yamlReviewCases
+        : jsonDecode(onDisk.readAsStringSync()) as Map<String, dynamic>;
+    for (final raw in table['cases'] as List<dynamic>) {
+      final c = raw as Map<String, dynamic>;
+      test(c['name'] as String, () {
+        expect(_runYamlReviewCase(model, tree, c), c['expect']);
       });
     }
   });
@@ -5119,6 +5137,83 @@ Map<String, dynamic> _markdownApplyCases(SpecModel model, String golden) {
   ];
   for (final c in cases) {
     c['expect'] = _runMarkdownApplyCase(model, c);
+  }
+  return {'cases': cases};
+}
+
+/// Runs one `yaml_review_cases.json` case and returns what it observed.
+Object? _runYamlReviewCase(
+  SpecModel model,
+  SomMetaTree tree,
+  Map<String, dynamic> c,
+) {
+  final contents = SpecDocumentYaml.decode(c['yaml'] as String, tree);
+  if (c['op'] == 'roundTrip') {
+    return SpecDocumentYaml.encode(
+      document: contents.document,
+      tree: tree,
+      modelVersion: contents.modelVersion,
+      review: contents.review,
+    );
+  }
+  // op == 'stale': remove the named list items, then ask which review entries
+  // no longer resolve.
+  for (final item in (c['removeItems'] as List<dynamic>).cast<String>()) {
+    contents.document.removeListItem(item);
+  }
+  return SpecDocumentYaml.staleReviewPaths(
+    model,
+    contents.document,
+    contents.review,
+  );
+}
+
+/// The `yaml_review_cases.json` table, expected results computed live.
+/// [golden] is `expected.docspecs.yaml`, which carries no review pass.
+Map<String, dynamic> _yamlReviewCases(
+  SpecModel model,
+  SomMetaTree tree,
+  String golden,
+) {
+  // A review pass written by the runtime's own writer, so that the round trip
+  // is byte-identical by construction: a scope token (plain), flags (plain
+  // booleans), a one-word and a multi-line comment, and entries under a list
+  // item, the document root and a path the model does not have.
+  final review = <String, Object?>{
+    'DEMO/TTL': {
+      'scope': 'keep',
+      'reviewed': true,
+      'comment': 'Looks right; keep it as written.',
+    },
+    'DEMO/items-2/STS': {'scope': 'trim', 'stop_here': true},
+    'DEMO/items-1/label': {'comment': 'First line.\nSecond line.'},
+    'DEMO/notes': {'comment': 'ok'},
+    'DEMO/NOPE': {'scope': 'keep'},
+  };
+  final withReview = StringBuffer(golden);
+  SpecDocumentYaml.writeReviewPass(withReview, review);
+  final withEmpty = StringBuffer(golden);
+  SpecDocumentYaml.writeReviewPass(withEmpty, const {});
+  final cases = <Map<String, dynamic>>[
+    {
+      'name': 'a reviewed document round-trips byte for byte',
+      'op': 'roundTrip',
+      'yaml': withReview.toString(),
+    },
+    {
+      'name': 'an empty review pass round-trips as review: {}',
+      'op': 'roundTrip',
+      'yaml': withEmpty.toString(),
+    },
+    {
+      'name': 'stale entries: an unknown path and a removed list item',
+      'op': 'stale',
+      'yaml': withReview.toString(),
+      'removeItems': ['DEMO/items-2'],
+    },
+  ];
+  for (final c in cases) {
+    c['expect'] = _runYamlReviewCase(model, tree, c);
   }
   return {'cases': cases};
 }

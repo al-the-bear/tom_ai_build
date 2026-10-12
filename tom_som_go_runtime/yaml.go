@@ -15,10 +15,14 @@ package somruntime
 // ordered — Go's native maps are unordered, but the hierarchical codec walks
 // keys in document order, exactly like the JS/TS objects and Python dicts of
 // the other ports), sequences are []interface{}, scalars are string or int.
-// JSON-quoted scalars are parsed with encoding/json.
+// JSON-quoted scalars are parsed with encoding/json. YamlParseTyped additionally
+// reads plain scalars by the YAML 1.2 core schema (bool, nil, float64, JSON
+// flow collections) — used for the opaque `review:` pass only.
 
 import (
 	"encoding/json"
+	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -143,6 +147,76 @@ func yamlParseScalarKey(keyPart string) string {
 type yamlReader struct {
 	lines []string
 	idx   int
+	// typed reads plain scalars by the YAML 1.2 core schema (yamlTypedPlain)
+	// instead of keeping them as strings.
+	typed bool
+}
+
+var yamlFloatPattern = regexp.MustCompile(
+	`^[-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?$`)
+
+// yamlTypedPlain is the YAML 1.2 core-schema reading of a plain scalar t (the
+// schema package:yaml applies): booleans, null, numbers (float64; integers are
+// already ints); a JSON flow collection is parsed as JSON. Anything else stays
+// the string it is.
+func yamlTypedPlain(t string) interface{} {
+	switch t {
+	case "true", "True", "TRUE":
+		return true
+	case "false", "False", "FALSE":
+		return false
+	case "null", "Null", "NULL", "~":
+		return nil
+	}
+	if yamlFloatPattern.MatchString(t) {
+		if f, err := strconv.ParseFloat(t, 64); err == nil {
+			return f
+		}
+	}
+	if strings.HasPrefix(t, "[") || strings.HasPrefix(t, "{") {
+		dec := json.NewDecoder(strings.NewReader(t))
+		dec.UseNumber()
+		var v interface{}
+		if err := dec.Decode(&v); err == nil && !dec.More() {
+			return yamlFromJSON(v)
+		}
+	}
+	return t
+}
+
+// yamlFromJSON converts an encoding/json value (decoded with UseNumber) into
+// the parser's value model: objects become *YamlMap (keys sorted — JSON object
+// order is not kept by encoding/json), integral numbers int, others float64.
+func yamlFromJSON(v interface{}) interface{} {
+	switch t := v.(type) {
+	case map[string]interface{}:
+		keys := make([]string, 0, len(t))
+		for k := range t {
+			keys = append(keys, k)
+		}
+		sortStrings(keys)
+		m := yamlNewMap()
+		for _, k := range keys {
+			m.Set(k, yamlFromJSON(t[k]))
+		}
+		return m
+	case []interface{}:
+		out := make([]interface{}, len(t))
+		for i, e := range t {
+			out[i] = yamlFromJSON(e)
+		}
+		return out
+	case json.Number:
+		if n, err := strconv.Atoi(string(t)); err == nil {
+			return n
+		}
+		if f, err := t.Float64(); err == nil {
+			return f
+		}
+		return string(t)
+	default:
+		return v
+	}
 }
 
 func (y *yamlReader) nextSignificant(from int) int {
@@ -279,6 +353,9 @@ func (y *yamlReader) parseFlowScalar(s string) interface{} {
 	if yamlIsInteger(t) {
 		return atoi(t)
 	}
+	if y.typed {
+		return yamlTypedPlain(t)
+	}
 	return t
 }
 
@@ -371,8 +448,20 @@ func (y *yamlReader) parseBlockScalar(header string, keyIndent int) string {
 
 // YamlParse parses text into the value model (a *YamlMap or []interface{}).
 func YamlParse(text string) interface{} {
+	return yamlParse(text, false)
+}
+
+// YamlParseTyped parses text like YamlParse, but reads plain scalars by the
+// YAML 1.2 core schema (booleans, null, float64 numbers, JSON flow
+// collections) instead of keeping them as strings — the reading the opaque
+// `review:` pass needs to round-trip its values' types.
+func YamlParseTyped(text string) interface{} {
+	return yamlParse(text, true)
+}
+
+func yamlParse(text string, typed bool) interface{} {
 	lines := strings.Split(text, "\n")
-	y := &yamlReader{lines: lines, idx: 0}
+	y := &yamlReader{lines: lines, idx: 0, typed: typed}
 	first := y.nextSignificant(0)
 	if first == -1 {
 		return yamlNewMap()

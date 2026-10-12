@@ -78,6 +78,7 @@ from tom_som_runtime import (  # noqa: E402
     encode_two_letter_date,
     generate_list_item_section_id,
     validate_document,
+    stale_review_paths,
     yaml_decode,
     yaml_encode,
 )
@@ -274,6 +275,30 @@ def test_yaml_decode_round_trip(tree) -> None:
                          model_version=contents.model_version or _MODEL_VERSION)
     _check("yaml.decode.reencode", actual == expected,
            _byte_diff("yaml.decode.reencode", actual, expected))
+
+
+def _run_yaml_review_case(model: SpecModel, tree, case: dict):
+    """Runs one ``yaml_review_cases.json`` case: ``roundTrip`` re-encodes the
+    decoded file with its review pass; ``stale`` removes the named list items,
+    then asks which review entries no longer resolve."""
+    contents = yaml_decode(case["yaml"], tree)
+    if case["op"] == "roundTrip":
+        return yaml_encode(contents.document, tree,
+                           model_version=contents.model_version,
+                           review=contents.review)
+    for item in case["removeItems"]:
+        contents.document.remove_list_item(item)
+    return stale_review_paths(model, contents.document, contents.review)
+
+
+def test_yaml_review(model: SpecModel, tree) -> None:
+    for case in _read_json("yaml_review_cases.json")["cases"]:
+        name = f"yamlReview[{case['name']}]"
+        got = _run_yaml_review_case(model, tree, case)
+        if isinstance(got, str):
+            _check(name, got == case["expect"], _byte_diff(name, got, case["expect"]))
+        else:
+            _check(name, got == case["expect"], _json_mismatch(got, case["expect"]))
 
 
 def test_markdown_export(model: SpecModel) -> None:
@@ -1246,6 +1271,7 @@ def main() -> int:
     test_state_round_trip()
     test_yaml_encode(tree)
     test_yaml_decode_round_trip(tree)
+    test_yaml_review(model, tree)
     test_markdown_export(model)
     test_markdown_round_trip(model)
     test_markdown_lands_in_shared_memory(model)

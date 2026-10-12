@@ -74,6 +74,7 @@ import {
   validateDocument,
   yamlDecode,
   yamlEncode,
+  staleReviewPaths,
 } from '../src/index';
 import type { SpecNodeKindValue, SpecStateFilterValue } from '../src/index';
 
@@ -368,6 +369,35 @@ function testYamlDecodeRoundTrip(tree: SomMetaTree): void {
     actual === expected,
     _byteDiff('yaml.decode.reencode', actual, expected),
   );
+}
+
+// One `yaml_review_cases.json` case, run exactly as the Dart reference does:
+// `roundTrip` decodes and re-encodes with the decoded review pass; `stale`
+// removes the named list items, then asks which review entries no longer
+// resolve.
+function _runYamlReviewCase(model: SpecModel, tree: SomMetaTree, c: any): any {
+  const contents = yamlDecode(c.yaml as string, tree);
+  if (c.op === 'roundTrip') {
+    return yamlEncode(contents.document, tree, contents.modelVersion, contents.review);
+  }
+  for (const item of c.removeItems as string[]) {
+    contents.document.removeListItem(item);
+  }
+  return staleReviewPaths(model, contents.document, contents.review);
+}
+
+// The `review:` pass: written back sorted and byte-stable, and the entries a
+// removed list item or an unknown path leaves behind are reported stale.
+function testYamlReview(model: SpecModel, tree: SomMetaTree): void {
+  for (const c of _readJson('yaml_review_cases.json').cases) {
+    const got = _runYamlReviewCase(model, tree, c);
+    const name = `yamlReview[${c.name}]`;
+    if (typeof c.expect === 'string') {
+      _check(name, got === c.expect, _byteDiff(name, String(got), c.expect));
+    } else {
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    }
+  }
 }
 
 function testMarkdownExport(model: SpecModel): void {
@@ -1575,6 +1605,7 @@ export function main(): number {
   testStateRoundTrip();
   testYamlEncode(tree);
   testYamlDecodeRoundTrip(tree);
+  testYamlReview(model, tree);
   testMarkdownExport(model);
   testMarkdownRoundTrip(model);
   testMarkdownMemoryLanding(model);

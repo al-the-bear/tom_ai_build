@@ -84,13 +84,37 @@ function _parseScalarKey(keyPart: string): string {
   return keyPart;
 }
 
+const _FLOAT_PATTERN = /^[-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?$/;
+
+/**
+ * The YAML 1.2 core-schema reading of a plain scalar `t` (the schema
+ * `package:yaml` applies): booleans, null, numbers; a JSON flow collection is
+ * parsed as JSON. Anything else stays the string it is.
+ */
+function _typedPlain(t: string): YamlValue {
+  if (t === 'true' || t === 'True' || t === 'TRUE') return true;
+  if (t === 'false' || t === 'False' || t === 'FALSE') return false;
+  if (t === 'null' || t === 'Null' || t === 'NULL' || t === '~') return null;
+  if (_FLOAT_PATTERN.test(t)) return Number(t);
+  if (t.startsWith('[') || t.startsWith('{')) {
+    try {
+      return JSON.parse(t);
+    } catch (_) {
+      return t;
+    }
+  }
+  return t;
+}
+
 class _Yaml {
   lines: string[];
   idx: number;
+  typed: boolean;
 
-  constructor(lines: string[]) {
+  constructor(lines: string[], typed = false) {
     this.lines = lines;
     this.idx = 0;
+    this.typed = typed;
   }
 
   _nextSignificant(from: number): number {
@@ -221,7 +245,7 @@ class _Yaml {
     if (_isInteger(t)) {
       return parseInt(t, 10);
     }
-    return t;
+    return this.typed ? _typedPlain(t) : t;
   }
 
   /**
@@ -317,10 +341,15 @@ class _Yaml {
   }
 }
 
-/** Parses `text` into the value model (a mapping object or array). */
-export function parse(text: string): YamlValue {
+/**
+ * Parses `text` into the value model (a mapping object or array). With
+ * `typed`, plain scalars are read by the YAML 1.2 core schema (booleans, null,
+ * numbers, JSON flow collections) instead of staying strings — the reading the
+ * opaque `review:` pass needs to round-trip its values' types.
+ */
+export function parse(text: string, typed = false): YamlValue {
   const lines = _splitLines(text);
-  const y = new _Yaml(lines);
+  const y = new _Yaml(lines, typed);
   const first = y._nextSignificant(0);
   if (first === -1) {
     return _newMap();

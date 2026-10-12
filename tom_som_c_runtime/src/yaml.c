@@ -1,5 +1,7 @@
 #include "yaml.h"
 
+#include <float.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -51,9 +53,126 @@ void yaml_value_free(YamlValue *v) {
       free(v->as.str);
       break;
     case YAML_INT:
+    case YAML_BOOL:
+    case YAML_NULL:
+    case YAML_FLOAT:
       break;
   }
   free(v);
+}
+
+static void map_set(YamlValue *m, const char *key, YamlValue *value);
+static void seq_push(YamlValue *s, YamlValue *item);
+
+YamlValue *yaml_value_from_json(const SomJson *v) {
+  if (v == NULL) {
+    return NULL;
+  }
+  YamlValue *out;
+  switch (v->type) {
+    case SOM_JSON_NULL:
+      return yaml_new(YAML_NULL);
+    case SOM_JSON_BOOL:
+      out = yaml_new(YAML_BOOL);
+      out->as.boolean = v->as.boolean != 0;
+      return out;
+    case SOM_JSON_INT:
+      return yaml_new_int(v->as.integer);
+    case SOM_JSON_FLOAT:
+      out = yaml_new(YAML_FLOAT);
+      out->as.real = v->as.real;
+      return out;
+    case SOM_JSON_STR:
+      return yaml_new_str(som_strdup(v->as.str));
+    case SOM_JSON_ARRAY:
+      out = yaml_new_seq();
+      for (size_t i = 0; i < v->as.array.len; i++) {
+        seq_push(out, yaml_value_from_json(v->as.array.items[i]));
+      }
+      return out;
+    case SOM_JSON_OBJECT:
+      out = yaml_new_map();
+      for (size_t i = 0; i < v->as.object.len; i++) {
+        map_set(out, v->as.object.members[i].key,
+                yaml_value_from_json(v->as.object.members[i].value));
+      }
+      return out;
+  }
+  return yaml_new(YAML_NULL);
+}
+
+char *yaml_format_double(double v) {
+  /* No libm: the library links without -lm. */
+  if (v != v) {
+    return som_strdup("NaN");
+  }
+  double a = v < 0 ? -v : v;
+  if (a > DBL_MAX) {
+    return som_strdup(v < 0 ? "-Infinity" : "Infinity");
+  }
+  char buf[64];
+  int integral = a >= 9007199254740992.0 || (double)(long long)a == a;
+  if (integral && a < 1e21) {
+    if (v == 0 && 1.0 / v < 0) {
+      return som_strdup("-0.0");
+    }
+    snprintf(buf, sizeof(buf), "%.0f.0", v);
+    return som_strdup(buf);
+  }
+  /* Shortest digits that round-trip, as `d.ddde±x`. */
+  for (int prec = 1; prec <= 17; prec++) {
+    snprintf(buf, sizeof(buf), "%.*e", prec - 1, v);
+    if (strtod(buf, NULL) == v) {
+      break;
+    }
+  }
+  SomBuf out;
+  som_buf_init(&out);
+  const char *p = buf;
+  if (*p == '-') {
+    som_buf_putc(&out, '-');
+    p++;
+  }
+  char digits[32];
+  size_t k = 0;
+  for (; *p != '\0' && *p != 'e'; p++) {
+    if (*p >= '0' && *p <= '9' && k < sizeof(digits) - 1) {
+      digits[k++] = *p;
+    }
+  }
+  while (k > 1 && digits[k - 1] == '0') {
+    k--;
+  }
+  digits[k] = '\0';
+  long exp10 = (*p == 'e') ? strtol(p + 1, NULL, 10) : 0;
+  long n = exp10 + 1; /* position of the decimal point (ECMA-262 Number::toString) */
+  if (n >= (long)k && n <= 21) {
+    som_buf_puts(&out, digits);
+    for (long i = (long)k; i < n; i++) {
+      som_buf_putc(&out, '0');
+    }
+    som_buf_puts(&out, ".0");
+  } else if (n > 0 && n <= 21) {
+    som_buf_putn(&out, digits, (size_t)n);
+    som_buf_putc(&out, '.');
+    som_buf_puts(&out, digits + n);
+  } else if (n > -6 && n <= 0) {
+    som_buf_puts(&out, "0.");
+    for (long i = 0; i < -n; i++) {
+      som_buf_putc(&out, '0');
+    }
+    som_buf_puts(&out, digits);
+  } else {
+    som_buf_putc(&out, digits[0]);
+    if (k > 1) {
+      som_buf_putc(&out, '.');
+      som_buf_puts(&out, digits + 1);
+    }
+    som_buf_putc(&out, 'e');
+    som_buf_putc(&out, n - 1 > 0 ? '+' : '-');
+    som_buf_puti(&out, labs(n - 1));
+  }
+  return som_buf_take(&out);
 }
 
 /* Inserts/replaces `key`→`value` (key copied, value owned). Mappings are
@@ -119,6 +238,15 @@ char *yaml_scalar_string(const YamlValue *v) {
   }
   if (v->type == YAML_INT) {
     return som_format_i64(v->as.integer);
+  }
+  if (v->type == YAML_BOOL) {
+    return som_strdup(v->as.boolean ? "true" : "false");
+  }
+  if (v->type == YAML_NULL) {
+    return som_strdup("null");
+  }
+  if (v->type == YAML_FLOAT) {
+    return yaml_format_double(v->as.real);
   }
   return som_strdup("");
 }
@@ -383,6 +511,7 @@ static YamlValue *parse_flow_scalar(const char *s) {
     }
   } else {
     out = yaml_new_str(som_strdup(t));
+    out->plain = 1;
   }
   free(t);
   return out;

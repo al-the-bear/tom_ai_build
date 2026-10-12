@@ -47,6 +47,8 @@ import * as yaml from './yaml';
 import { SpecDocument } from './spec_document';
 import { SomFormMeta, SomMetaKind, SomMetaNode, SomMetaTree } from './spec_meta';
 import { specPathJoin } from './spec_paths';
+import { SpecModel } from './spec_model';
+import { SpecNodeKind, SpecReflection } from './spec_reflection';
 
 /**
  * The on-disk format version (independent of the model-version stamp).
@@ -367,16 +369,152 @@ function _isNumericOrBool(typeName: string): boolean {
  * follow their stored sequence; emission is sparse (only populated subtrees
  * appear). Throws {@link SpecYamlFormatException} when the document holds
  * values `tree` cannot place — nothing is silently dropped.
+ *
+ * `review` is written back as the `review:` pass when given — typically the
+ * raw map {@link decode} returned, so that a load followed by a save keeps a
+ * reviewed document's review state. The runtime does not interpret it
+ * ({@link writeReviewPass}); without it the file carries no `review:` pass.
  */
 export function encode(
   document: SpecDocument,
   tree: SomMetaTree,
   modelVersion: string | null = null,
+  review: any = null,
 ): string {
   const b = new _Buffer();
   writeHeader(b, modelVersion);
   new _Encoder(document, tree).writeDocumentPass(b);
+  if (review !== null && review !== undefined) writeReviewPass(b, review);
   return b.toString();
+}
+
+function _isPlainObject(v: any): boolean {
+  return (
+    v !== null &&
+    typeof v === 'object' &&
+    !Array.isArray(v) &&
+    !(v instanceof Map)
+  );
+}
+
+/** The keys of a review map (a plain object or a `Map`), stringified. */
+function _reviewKeys(m: any): string[] {
+  return m instanceof Map
+    ? Array.from(m.keys()).map((k) => String(k))
+    : Object.keys(m);
+}
+
+function _reviewGet(m: any, key: string): any {
+  if (m instanceof Map) {
+    for (const [k, v] of m) {
+      if (String(k) === key) return v;
+    }
+    return undefined;
+  }
+  return m[key];
+}
+
+/** String order by UTF-16 code units, the order Dart's `List.sort` uses. */
+function _sortStrings(keys: string[]): string[] {
+  return keys.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+}
+
+/**
+ * Writes `review` as the `review:` pass, passed through without
+ * interpretation: entries sorted by path (JSON-quoted keys), each entry's
+ * fields sorted by name. Sorting, rather than keeping the map's order, is what
+ * makes the output the same in every port — several ports decode YAML into
+ * maps that do not keep insertion order — and it keeps decode followed by
+ * encode byte-identical. Booleans, numbers and identifier-like strings are
+ * written plain; any other string as a self-verified block scalar
+ * ({@link writeScalar}); a nested map one level deeper; a list as a JSON flow
+ * sequence. An empty map writes `review: {}`.
+ */
+export function writeReviewPass(
+  b: { writeln(text?: string): void; write(text: string): void },
+  review: any,
+): void {
+  const keys = _sortStrings(_reviewKeys(review));
+  if (keys.length === 0) {
+    b.writeln('review: {}');
+    return;
+  }
+  b.writeln('review:');
+  for (const key of keys) {
+    _writeReviewValue(b as _Buffer, 2, yamlKey(key), _reviewGet(review, key));
+  }
+}
+
+function _writeReviewValue(
+  b: _Buffer,
+  indent: number,
+  renderedKey: string,
+  value: any,
+): void {
+  const pad = ' '.repeat(indent);
+  if (value instanceof Map || _isPlainObject(value)) {
+    const fields = _sortStrings(_reviewKeys(value));
+    if (fields.length === 0) {
+      b.writeln(`${pad}${renderedKey}: {}`);
+      return;
+    }
+    b.writeln(`${pad}${renderedKey}:`);
+    for (const field of fields) {
+      _writeReviewValue(b, indent + 2, plainKey(field), _reviewGet(value, field));
+    }
+  } else if (value === null || value === undefined) {
+    b.writeln(`${pad}${renderedKey}: null`);
+  } else if (typeof value === 'boolean' || typeof value === 'number') {
+    b.writeln(`${pad}${renderedKey}: ${value}`);
+  } else if (Array.isArray(value)) {
+    b.writeln(`${pad}${renderedKey}: ${JSON.stringify(value)}`);
+  } else if (
+    _REVIEW_TOKEN_PATTERN.test(String(value)) &&
+    !_YAML_WORDS.has(String(value).toLowerCase())
+  ) {
+    b.writeln(`${pad}${renderedKey}: ${value}`);
+  } else {
+    _writeRendered(b, indent, renderedKey, _scalar(String(value)));
+  }
+}
+
+const _REVIEW_TOKEN_PATTERN = /^[A-Za-z_][A-Za-z0-9_]*$/;
+
+/** Words a YAML parser (1.1 or 1.2) reads as something other than a string. */
+const _YAML_WORDS = new Set([
+  'true', 'false', 'null', 'yes', 'no', 'on', 'off', 'y', 'n',
+]);
+
+/**
+ * The review paths in `review` that no longer resolve against `document`:
+ * paths the model cannot resolve, and paths running through a list item the
+ * document does not hold (an item that was removed). Sorted. Reports only — it
+ * never edits `review` — so a consumer that removed a list item can tell its
+ * user which review entries it left behind.
+ */
+export function staleReviewPaths(
+  model: SpecModel,
+  document: SpecDocument,
+  review: any,
+): string[] {
+  const refl = new SpecReflection(model);
+  const isStale = (path: string): boolean => {
+    const segments = path.split('/');
+    for (let i = 1; i <= segments.length; i++) {
+      const prefix = segments.slice(0, i).join('/');
+      const res = refl.resolve(prefix);
+      if (res === null) return true;
+      if (
+        res.kind === SpecNodeKind.LIST_ITEM_COMPLEX ||
+        res.kind === SpecNodeKind.LIST_ITEM_SCALAR
+      ) {
+        const listPath = prefix.substring(0, prefix.lastIndexOf('-'));
+        if (!document.listItems(listPath).includes(prefix)) return true;
+      }
+    }
+    return false;
+  };
+  return _sortStrings(_reviewKeys(review).filter(isStale));
 }
 
 /**
@@ -803,7 +941,9 @@ export function decode(yamlText: string, tree: SomMetaTree): SpecYamlContents {
     _parsedScalarStr(stampRaw) !== ''
       ? _parsedScalarStr(stampRaw)
       : null;
-  const rev = root['review'];
+  // The review pass is opaque: its plain scalars keep their YAML types
+  // (booleans, null, numbers), so it is read with the typed parser.
+  const rev = 'review' in root ? yaml.parse(yamlText, true)['review'] : undefined;
 
   const document = new SpecDocument();
   document.modelVersion = stamp;

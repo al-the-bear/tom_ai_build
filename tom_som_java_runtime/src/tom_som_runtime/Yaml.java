@@ -20,16 +20,30 @@ import java.util.Map;
  */
 public final class Yaml {
   private final List<String> lines;
+  private final boolean typed;
   private int idx;
 
-  private Yaml(List<String> lines) {
+  private Yaml(List<String> lines, boolean typed) {
     this.lines = lines;
+    this.typed = typed;
   }
 
   /** Parses {@code text} into the Object value model (a mapping or sequence). */
   public static Object parse(String text) {
+    return parse(text, false);
+  }
+
+  /**
+   * Parses {@code text}; with {@code typed} set, plain scalars are also read
+   * as YAML 1.2 core-schema booleans ({@code true}/{@code false}), nulls
+   * ({@code null}/{@code ~}) and floats ({@link Double}), and a plain
+   * {@code [...]} as a JSON flow sequence — what the opaque {@code review:}
+   * pass needs to round-trip its typed values. The document pass is read
+   * untyped.
+   */
+  public static Object parse(String text, boolean typed) {
     List<String> raw = splitLines(text);
-    Yaml y = new Yaml(raw);
+    Yaml y = new Yaml(raw, typed);
     int first = y.nextSignificant(0);
     if (first == -1) {
       return new LinkedHashMap<String, Object>();
@@ -174,6 +188,43 @@ public final class Yaml {
     }
     if (isInteger(t)) {
       return Integer.valueOf(Integer.parseInt(t));
+    }
+    if (typed) {
+      return typedScalar(t);
+    }
+    return t;
+  }
+
+  private static final java.util.regex.Pattern FLOAT_PATTERN =
+      java.util.regex.Pattern.compile("^[-+]?(\\.[0-9]+|[0-9]+(\\.[0-9]*)?)([eE][-+]?[0-9]+)?$");
+
+  private static Object typedScalar(String t) {
+    switch (t) {
+      case "true":
+      case "True":
+      case "TRUE":
+        return Boolean.TRUE;
+      case "false":
+      case "False":
+      case "FALSE":
+        return Boolean.FALSE;
+      case "null":
+      case "Null":
+      case "NULL":
+      case "~":
+        return null;
+      default:
+        break;
+    }
+    if (FLOAT_PATTERN.matcher(t).matches()) {
+      return Double.valueOf(Double.parseDouble(t));
+    }
+    if (t.startsWith("[") && t.endsWith("]")) {
+      try {
+        return Json.parse(t);
+      } catch (RuntimeException e) {
+        return t;
+      }
     }
     return t;
   }

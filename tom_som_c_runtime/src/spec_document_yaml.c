@@ -9,6 +9,7 @@
 
 #include "som_json.h"
 #include "spec_paths.h"
+#include "spec_reflection.h"
 #include "spec_section_id.h"
 
 /* ---- small helpers ------------------------------------------------------- */
@@ -940,6 +941,13 @@ static int encoder_assert_nothing_left(YamlEncoder *e, char **err) {
 
 char *encode_yaml(const SpecDocument *document, const SomMetaTree *tree,
                   const char *model_version, char **err) {
+  return encode_yaml_with_review(document, tree, model_version, NULL, err);
+}
+
+char *encode_yaml_with_review(const SpecDocument *document,
+                              const SomMetaTree *tree,
+                              const char *model_version,
+                              const YamlValue *review, char **err) {
   SomBuf out;
   som_buf_init(&out);
   write_header(&out, model_version);
@@ -973,6 +981,9 @@ char *encode_yaml(const SpecDocument *document, const SomMetaTree *tree,
     free(nk);
   }
   free(body);
+  if (review != NULL) {
+    spec_yaml_write_review_pass(&out, review);
+  }
   return som_buf_take(&out);
 }
 
@@ -1012,8 +1023,119 @@ static YamlValue *clone_yaml(const YamlValue *v) {
   case YAML_INT:
     out->as.integer = v->as.integer;
     break;
+  case YAML_BOOL:
+    out->as.boolean = v->as.boolean;
+    break;
+  case YAML_NULL:
+    break;
+  case YAML_FLOAT:
+    out->as.real = v->as.real;
+    break;
   }
+  out->plain = v->plain;
   return out;
+}
+
+static int is_plain_float(const char *t) {
+  size_t i = 0;
+  if (t[i] == '-' || t[i] == '+') {
+    i++;
+  }
+  size_t int_digits = 0;
+  while (t[i] >= '0' && t[i] <= '9') {
+    i++;
+    int_digits++;
+  }
+  size_t frac_digits = 0;
+  if (t[i] == '.') {
+    i++;
+    while (t[i] >= '0' && t[i] <= '9') {
+      i++;
+      frac_digits++;
+    }
+  }
+  if (int_digits == 0 && frac_digits == 0) {
+    return 0;
+  }
+  if (t[i] == 'e' || t[i] == 'E') {
+    i++;
+    if (t[i] == '-' || t[i] == '+') {
+      i++;
+    }
+    size_t exp_digits = 0;
+    while (t[i] >= '0' && t[i] <= '9') {
+      i++;
+      exp_digits++;
+    }
+    if (exp_digits == 0) {
+      return 0;
+    }
+  }
+  return t[i] == '\0';
+}
+
+/* Deep-clones the `review:` pass, typing its plain scalars the way a YAML
+ * core-schema reader (the Dart reference's package:yaml) does: `null` / `~`
+ * → null, `true` / `false` → bool, a decimal or `.inf` / `.nan` → float, and
+ * a JSON flow collection (`["a"]`, what the review writer emits for a list)
+ * → its sequence / map. Quoted and block scalars stay strings. The `document:`
+ * pass is never typed (its scalars are the model's raw text). */
+static YamlValue *clone_review(const YamlValue *v) {
+  if (v->type == YAML_STR && v->plain) {
+    const char *t = v->as.str;
+    YamlValue *out = NULL;
+    if (strcmp(t, "null") == 0 || strcmp(t, "Null") == 0 ||
+        strcmp(t, "NULL") == 0 || strcmp(t, "~") == 0) {
+      out = calloc(1, sizeof(YamlValue));
+      out->type = YAML_NULL;
+    } else if (strcmp(t, "true") == 0 || strcmp(t, "True") == 0 ||
+               strcmp(t, "TRUE") == 0 || strcmp(t, "false") == 0 ||
+               strcmp(t, "False") == 0 || strcmp(t, "FALSE") == 0) {
+      out = calloc(1, sizeof(YamlValue));
+      out->type = YAML_BOOL;
+      out->as.boolean = t[0] == 't' || t[0] == 'T';
+    } else if (is_plain_float(t)) {
+      out = calloc(1, sizeof(YamlValue));
+      out->type = YAML_FLOAT;
+      out->as.real = strtod(t, NULL);
+    } else if (t[0] == '[' || t[0] == '{') {
+      SomJson *j = som_json_parse(t, NULL);
+      if (j != NULL) {
+        out = yaml_value_from_json(j);
+        som_json_free(j);
+      }
+    }
+    if (out != NULL) {
+      return out;
+    }
+  }
+  if (v->type == YAML_MAP || v->type == YAML_SEQ) {
+    YamlValue *out = calloc(1, sizeof(YamlValue));
+    out->type = v->type;
+    if (v->type == YAML_MAP) {
+      out->as.map.len = v->as.map.len;
+      out->as.map.cap = v->as.map.len;
+      if (v->as.map.len > 0) {
+        out->as.map.entries = calloc(v->as.map.len, sizeof(YamlMapEntry));
+        for (size_t i = 0; i < v->as.map.len; i++) {
+          out->as.map.entries[i].key = som_strdup(v->as.map.entries[i].key);
+          out->as.map.entries[i].value =
+              clone_review(v->as.map.entries[i].value);
+        }
+      }
+    } else {
+      out->as.seq.len = v->as.seq.len;
+      out->as.seq.cap = v->as.seq.len;
+      if (v->as.seq.len > 0) {
+        out->as.seq.items = calloc(v->as.seq.len, sizeof(YamlValue *));
+        for (size_t i = 0; i < v->as.seq.len; i++) {
+          out->as.seq.items[i] = clone_review(v->as.seq.items[i]);
+        }
+      }
+    }
+    return out;
+  }
+  return clone_yaml(v);
 }
 
 static YamlValue *new_empty_map(void) {
@@ -1464,7 +1586,7 @@ int decode_yaml(const char *yaml_text, const SomMetaTree *tree,
 
   const YamlValue *rev = yaml_get(root, "review");
   YamlValue *review = (rev != NULL && rev->type == YAML_MAP)
-                          ? clone_yaml(rev)
+                          ? clone_review(rev)
                           : new_empty_map();
 
   SpecDocument document;
@@ -1522,4 +1644,211 @@ fail:
   free(stamp);
   yaml_value_free(root);
   return 0;
+}
+
+/* ---- review pass ---------------------------------------------------------- */
+
+static int cmp_cstr(const void *a, const void *b) {
+  return strcmp(*(const char *const *)a, *(const char *const *)b);
+}
+
+/* The map's keys, byte-sorted (borrowed pointers; free the array only). */
+static const char **sorted_keys(const YamlValue *map) {
+  const char **keys = calloc(map->as.map.len + 1, sizeof(char *));
+  for (size_t i = 0; i < map->as.map.len; i++) {
+    keys[i] = map->as.map.entries[i].key;
+  }
+  qsort(keys, map->as.map.len, sizeof(char *), cmp_cstr);
+  return keys;
+}
+
+/* JSON flow rendering of a review value (Dart `jsonEncode`: no spaces,
+ * insertion-ordered maps). */
+static void write_review_json(SomBuf *b, const YamlValue *v) {
+  if (v == NULL) {
+    som_buf_puts(b, "null");
+    return;
+  }
+  switch (v->type) {
+  case YAML_MAP:
+    som_buf_putc(b, '{');
+    for (size_t i = 0; i < v->as.map.len; i++) {
+      if (i > 0) {
+        som_buf_putc(b, ',');
+      }
+      char *k = js_json_string(v->as.map.entries[i].key);
+      som_buf_puts(b, k);
+      free(k);
+      som_buf_putc(b, ':');
+      write_review_json(b, v->as.map.entries[i].value);
+    }
+    som_buf_putc(b, '}');
+    break;
+  case YAML_SEQ:
+    som_buf_putc(b, '[');
+    for (size_t i = 0; i < v->as.seq.len; i++) {
+      if (i > 0) {
+        som_buf_putc(b, ',');
+      }
+      write_review_json(b, v->as.seq.items[i]);
+    }
+    som_buf_putc(b, ']');
+    break;
+  case YAML_STR: {
+    char *q = js_json_string(v->as.str);
+    som_buf_puts(b, q);
+    free(q);
+    break;
+  }
+  case YAML_INT:
+  case YAML_BOOL:
+  case YAML_NULL:
+  case YAML_FLOAT: {
+    char *t = yaml_scalar_string(v);
+    som_buf_puts(b, t);
+    free(t);
+    break;
+  }
+  }
+}
+
+/* Whether a review string may be written plain: an identifier
+ * (^[A-Za-z_][A-Za-z0-9_]*$) that no YAML 1.1 / 1.2 reader takes for
+ * something other than a string. */
+static int review_plain_token(const char *s) {
+  if (!(isalpha((unsigned char)s[0]) || s[0] == '_')) {
+    return 0;
+  }
+  for (const char *p = s; *p != '\0'; p++) {
+    if (!(isalnum((unsigned char)*p) || *p == '_')) {
+      return 0;
+    }
+  }
+  static const char *const words[] = {"true", "false", "null", "yes", "no",
+                                      "on",   "off",   "y",    "n"};
+  for (size_t i = 0; i < sizeof(words) / sizeof(words[0]); i++) {
+    const char *w = words[i];
+    const char *p = s;
+    while (*p != '\0' && *w != '\0' &&
+           tolower((unsigned char)*p) == (unsigned char)*w) {
+      p++;
+      w++;
+    }
+    if (*p == '\0' && *w == '\0') {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+static void write_review_value(SomBuf *b, size_t indent,
+                               const char *rendered_key, const YamlValue *v) {
+  if (v != NULL && v->type == YAML_MAP) {
+    if (v->as.map.len == 0) {
+      put_pad(b, indent);
+      som_buf_puts(b, rendered_key);
+      som_buf_puts(b, ": {}\n");
+      return;
+    }
+    put_pad(b, indent);
+    som_buf_puts(b, rendered_key);
+    som_buf_puts(b, ":\n");
+    const char **fields = sorted_keys(v);
+    for (size_t i = 0; i < v->as.map.len; i++) {
+      char *pk = spec_yaml_plain_key(fields[i]);
+      write_review_value(b, indent + 2, pk, yaml_get(v, fields[i]));
+      free(pk);
+    }
+    free(fields);
+    return;
+  }
+  if (v != NULL && v->type == YAML_STR && !review_plain_token(v->as.str)) {
+    char *repr = scalar_repr(v->as.str);
+    write_rendered(b, indent, rendered_key, repr);
+    free(repr);
+    return;
+  }
+  put_pad(b, indent);
+  som_buf_puts(b, rendered_key);
+  som_buf_puts(b, ": ");
+  if (v == NULL || v->type == YAML_NULL) {
+    som_buf_puts(b, "null");
+  } else if (v->type == YAML_SEQ) {
+    write_review_json(b, v);
+  } else {
+    /* bool / int / float, or a plain-safe identifier string. */
+    char *t = yaml_scalar_string(v);
+    som_buf_puts(b, t);
+    free(t);
+  }
+  som_buf_putc(b, '\n');
+}
+
+void spec_yaml_write_review_pass(SomBuf *out, const YamlValue *review) {
+  if (review == NULL || review->type != YAML_MAP || review->as.map.len == 0) {
+    som_buf_puts(out, "review: {}\n");
+    return;
+  }
+  som_buf_puts(out, "review:\n");
+  const char **keys = sorted_keys(review);
+  for (size_t i = 0; i < review->as.map.len; i++) {
+    char *rk = js_json_string(keys[i]);
+    write_review_value(out, 2, rk, yaml_get(review, keys[i]));
+    free(rk);
+  }
+  free(keys);
+}
+
+/* Whether a review path no longer resolves: the model cannot resolve one of
+ * its prefixes, or a prefix lands on a list item the document does not hold. */
+static int review_path_stale(const SpecReflection *refl,
+                             const SpecDocument *document, const char *path) {
+  size_t len = strlen(path);
+  for (size_t end = 0; end <= len; end++) {
+    if (end < len && path[end] != '/') {
+      continue;
+    }
+    char *prefix = som_strdup_n(path, end);
+    SpecResolution res;
+    if (!spec_reflection_resolve(refl, prefix, &res)) {
+      free(prefix);
+      return 1;
+    }
+    int stale = 0;
+    if (strcmp(res.kind, SPEC_NODE_KIND_LIST_ITEM_COMPLEX) == 0 ||
+        strcmp(res.kind, SPEC_NODE_KIND_LIST_ITEM_SCALAR) == 0) {
+      const char *dash = strrchr(prefix, '-');
+      if (dash != NULL) {
+        char *list_path = som_strdup_n(prefix, (size_t)(dash - prefix));
+        const SomStrList *items = spec_document_list_items(document, list_path);
+        stale = items == NULL || !som_strlist_contains(items, prefix);
+        free(list_path);
+      }
+    }
+    spec_resolution_free(&res);
+    free(prefix);
+    if (stale) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+void spec_yaml_stale_review_paths(const SpecModel *model,
+                                  const SpecDocument *document,
+                                  const YamlValue *review, SomStrList *out) {
+  som_strlist_init(out);
+  if (review == NULL || review->type != YAML_MAP) {
+    return;
+  }
+  SpecReflection refl = spec_reflection_make(model);
+  for (size_t i = 0; i < review->as.map.len; i++) {
+    const char *key = review->as.map.entries[i].key;
+    if (review_path_stale(&refl, document, key)) {
+      som_strlist_push_copy(out, key);
+    }
+  }
+  if (out->len > 1) {
+    qsort(out->items, out->len, sizeof(char *), cmp_cstr);
+  }
 }

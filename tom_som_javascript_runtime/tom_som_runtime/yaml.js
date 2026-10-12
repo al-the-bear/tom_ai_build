@@ -79,10 +79,17 @@ function _parseScalarKey(keyPart) {
   return keyPart;
 }
 
+// YAML 1.2 core-schema plain scalars, resolved only in typed mode.
+const _CORE_NULL = /^(~|null|Null|NULL)$/;
+const _CORE_TRUE = /^(true|True|TRUE)$/;
+const _CORE_FALSE = /^(false|False|FALSE)$/;
+const _CORE_FLOAT = /^[-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?$/;
+
 class _Yaml {
-  constructor(lines) {
+  constructor(lines, typed = false) {
     this.lines = lines;
     this.idx = 0;
+    this.typed = typed;
   }
 
   _nextSignificant(from) {
@@ -214,6 +221,19 @@ class _Yaml {
     if (_isInteger(t)) {
       return parseInt(t, 10);
     }
+    if (this.typed) {
+      if (_CORE_NULL.test(t)) return null;
+      if (_CORE_TRUE.test(t)) return true;
+      if (_CORE_FALSE.test(t)) return false;
+      if (_CORE_FLOAT.test(t)) return parseFloat(t);
+      if (t.startsWith('[') && t.endsWith(']')) {
+        try {
+          return JSON.parse(t); // the JSON flow sequences the encoder writes.
+        } catch (_) {
+          // not JSON — keep the plain text.
+        }
+      }
+    }
     return t;
   }
 
@@ -306,10 +326,16 @@ class _Yaml {
   }
 }
 
-/** Parses `text` into the value model (a mapping object or array). */
-function parse(text) {
+/**
+ * Parses `text` into the value model (a mapping object or array).
+ *
+ * With `typed`, plain scalars resolve per the YAML 1.2 core schema (`null`,
+ * booleans, floats) and non-empty JSON flow sequences are read as arrays;
+ * without it they stay strings, which is what the document pass expects.
+ */
+function parse(text, { typed = false } = {}) {
   const lines = _splitLines(text);
-  const y = new _Yaml(lines);
+  const y = new _Yaml(lines, typed);
   const first = y._nextSignificant(0);
   if (first === -1) {
     return _newMap();

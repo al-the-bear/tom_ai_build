@@ -12,6 +12,7 @@
  *   - Markdown parse -> memory -> export is clean + byte-stable;
  *   - the Markdown route lands the fixture in the same memory as the YAML route;
  *   - the Markdown apply/one-call import cases (full overwrite of covered roots);
+ *   - the YAML `review:` pass (sorted byte-stable round trip, stale paths);
  *   - the SOM §4.2/§21 editability contract (classification + refusal message);
  *   - reflection resolution cases;
  *   - validation cases;
@@ -672,6 +673,74 @@ static void test_markdown_apply(Checker *c, const SpecModel *model) {
     free(want_json);
     document_json_free(&wanted);
     document_json_free(&dj);
+  }
+  som_json_free(table);
+}
+
+/* yaml_review_cases.json, run like the Dart reference's `_runYamlReviewCase`:
+ * `roundTrip` re-encodes the decoded document with its decoded stamp and
+ * review pass (must equal `expect` byte for byte); `stale` removes the named
+ * list items, then asks which review entries no longer resolve (must equal
+ * the sorted `expect` list). */
+static void test_yaml_review(Checker *c, const SpecModel *model,
+                             const SomMetaTree *tree) {
+  SomJson *table = read_json("yaml_review_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(kase, "name");
+    const char *op = som_json_str_or(kase, "op");
+    const SomJson *expect = som_json_get(kase, "expect");
+    char label[256];
+    snprintf(label, sizeof(label), "yamlReview[%s]", name);
+    SpecYamlContents contents;
+    char *err = NULL;
+    if (!decode_yaml(som_json_str_or(kase, "yaml"), tree, &contents, &err)) {
+      check(c, label, 0, err ? err : "(no message)");
+      free(err);
+      continue;
+    }
+    if (strcmp(op, "roundTrip") == 0) {
+      const char *want = som_json_as_str(expect);
+      char *got = encode_yaml_with_review(&contents.document, tree,
+                                          contents.model_version,
+                                          contents.review, &err);
+      if (got == NULL || want == NULL) {
+        check(c, label, 0, err ? err : "(no output / no expect)");
+        free(err);
+      } else {
+        char *d = byte_diff(label, got, want);
+        check(c, label, strcmp(got, want) == 0, d);
+        free(d);
+      }
+      free(got);
+    } else if (strcmp(op, "stale") == 0) {
+      const SomJson *remove = som_json_get(kase, "removeItems");
+      for (size_t j = 0; j < som_json_array_len(remove); j++) {
+        const char *item = som_json_as_str(som_json_array_at(remove, j));
+        if (item != NULL) {
+          spec_document_remove_list_item(&contents.document, item);
+        }
+      }
+      SomStrList stale;
+      spec_yaml_stale_review_paths(model, &contents.document, contents.review,
+                                   &stale);
+      int ok = som_json_array_len(expect) == stale.len;
+      for (size_t j = 0; ok && j < stale.len; j++) {
+        const char *w = som_json_as_str(som_json_array_at(expect, j));
+        ok = w != NULL && strcmp(w, stale.items[j]) == 0;
+      }
+      char *got = som_strlist_join(&stale, ", ");
+      char detail[2048];
+      snprintf(detail, sizeof(detail), "got [%s]", got);
+      check(c, label, ok, detail);
+      free(got);
+      som_strlist_free(&stale);
+    } else {
+      check(c, label, 0, op);
+    }
+    spec_yaml_contents_free(&contents);
   }
   som_json_free(table);
 }
@@ -2671,6 +2740,7 @@ int main(int argc, char **argv) {
   test_markdown_memory_landing(&c, model);
   test_markdown_import_rejections(&c, model);
   test_markdown_apply(&c, model);
+  test_yaml_review(&c, model, tree);
   test_reflection(&c, model);
   test_validation(&c, model);
   test_operations(&c);

@@ -46,7 +46,10 @@ package somruntime
 // plain-scalar self-verification needs no bool canonicalisation.
 
 import (
+	"math"
 	"regexp"
+	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -373,12 +376,202 @@ func isNumericOrBool(typeName string) bool {
 // appear). Returns a *SpecYamlFormatException when the document holds values
 // tree cannot place — nothing is silently dropped.
 func EncodeYaml(document *SpecDocument, tree *SomMetaTree, modelVersion string) (string, error) {
+	return EncodeYamlWithReview(document, tree, modelVersion, nil)
+}
+
+// EncodeYamlWithReview is EncodeYaml plus the `review:` pass: when review is
+// non-nil (even empty) it is written back after the document pass via
+// WriteReviewPass — typically the SpecYamlContents.Review DecodeYaml returned,
+// so that a load followed by a save keeps a reviewed document's review state.
+// The runtime does not interpret it; with a nil review the file carries no
+// `review:` pass.
+func EncodeYamlWithReview(
+	document *SpecDocument,
+	tree *SomMetaTree,
+	modelVersion string,
+	review *YamlMap,
+) (string, error) {
 	b := &yamlBuffer{}
 	writeHeader(b, modelVersion)
 	if err := newYamlEncoder(document).writeDocumentPass(b, tree); err != nil {
 		return "", err
 	}
+	if review != nil {
+		writeReviewPass(b, review)
+	}
 	return b.String(), nil
+}
+
+// WriteReviewPass appends review to out as the `review:` pass, passed through
+// without interpretation: entries sorted by path (JSON-quoted keys), each
+// entry's fields sorted by name. Sorting, rather than keeping the map's order,
+// is what makes the output the same in every port, and it keeps decode
+// followed by encode byte-identical. Booleans, numbers and identifier-like
+// strings are written plain; any other string as a self-verified block scalar
+// (the writer used for document values); a nested map one level deeper; a list
+// as a JSON flow sequence. An empty (or nil) map writes `review: {}`.
+func WriteReviewPass(out *strings.Builder, review *YamlMap) {
+	b := &yamlBuffer{}
+	writeReviewPass(b, review)
+	out.WriteString(b.String())
+}
+
+func writeReviewPass(b *yamlBuffer, review *YamlMap) {
+	if review == nil || review.Len() == 0 {
+		b.writeln("review: {}")
+		return
+	}
+	b.writeln("review:")
+	keys := review.Keys()
+	sort.Strings(keys)
+	for _, key := range keys {
+		writeReviewValue(b, 2, yamlKey(key), review.GetOr(key))
+	}
+}
+
+func writeReviewValue(b *yamlBuffer, indent int, renderedKey string, value interface{}) {
+	pad := strings.Repeat(" ", indent)
+	switch v := value.(type) {
+	case *YamlMap:
+		if v == nil || v.Len() == 0 {
+			b.writeln(pad + renderedKey + ": {}")
+			return
+		}
+		b.writeln(pad + renderedKey + ":")
+		fields := v.Keys()
+		sort.Strings(fields)
+		for _, field := range fields {
+			writeReviewValue(b, indent+2, PlainKey(field), v.GetOr(field))
+		}
+	case map[string]interface{}:
+		m := NewYamlMap()
+		for k, e := range v {
+			m.Set(k, e)
+		}
+		writeReviewValue(b, indent, renderedKey, m)
+	case nil:
+		b.writeln(pad + renderedKey + ": null")
+	case bool, int, int64, float64:
+		b.writeln(pad + renderedKey + ": " + reviewJSON(v))
+	case []interface{}:
+		b.writeln(pad + renderedKey + ": " + reviewJSON(v))
+	case string:
+		if reviewTokenPattern.MatchString(v) && !yamlWords[strings.ToLower(v)] {
+			b.writeln(pad + renderedKey + ": " + v)
+		} else {
+			writeRendered(b, indent, renderedKey, scalarRepr(v))
+		}
+	default:
+		writeRendered(b, indent, renderedKey, scalarRepr(reviewJSON(v)))
+	}
+}
+
+var reviewTokenPattern = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_]*$`)
+
+// yamlWords are the words a YAML parser (1.1 or 1.2) reads as something other
+// than a string.
+var yamlWords = map[string]bool{
+	"true": true, "false": true, "null": true, "yes": true, "no": true,
+	"on": true, "off": true, "y": true, "n": true,
+}
+
+// reviewJSON renders a review value as JSON (the flow form of a list, the
+// plain form of a number/bool): integral numbers without a decimal point,
+// strings via jsJSONString, maps with their keys sorted.
+func reviewJSON(value interface{}) string {
+	switch v := value.(type) {
+	case nil:
+		return "null"
+	case bool:
+		if v {
+			return "true"
+		}
+		return "false"
+	case int:
+		return itoa(v)
+	case int64:
+		return strconv.FormatInt(v, 10)
+	case float64:
+		if v == math.Trunc(v) && math.Abs(v) < 1e21 {
+			return strconv.FormatFloat(v, 'f', -1, 64)
+		}
+		return strconv.FormatFloat(v, 'g', -1, 64)
+	case string:
+		return jsJSONString(v)
+	case []interface{}:
+		parts := make([]string, len(v))
+		for i, e := range v {
+			parts[i] = reviewJSON(e)
+		}
+		return "[" + strings.Join(parts, ",") + "]"
+	case *YamlMap:
+		if v == nil {
+			return "null"
+		}
+		keys := v.Keys()
+		sort.Strings(keys)
+		parts := make([]string, len(keys))
+		for i, k := range keys {
+			parts[i] = jsJSONString(k) + ":" + reviewJSON(v.GetOr(k))
+		}
+		return "{" + strings.Join(parts, ",") + "}"
+	case map[string]interface{}:
+		m := NewYamlMap()
+		for k, e := range v {
+			m.Set(k, e)
+		}
+		return reviewJSON(m)
+	default:
+		return jsJSONString("")
+	}
+}
+
+// StaleReviewPaths returns the review paths in review that no longer resolve
+// against document: paths the model cannot resolve, and paths running through
+// a list item the document does not hold (an item that was removed). Sorted.
+// Reports only — it never edits review — so a consumer that removed a list
+// item can tell its user which review entries it left behind.
+func StaleReviewPaths(model *SpecModel, document *SpecDocument, review *YamlMap) []string {
+	stale := []string{}
+	if review == nil {
+		return stale
+	}
+	refl := NewSpecReflection(model)
+	isStale := func(path string) bool {
+		segments := strings.Split(path, "/")
+		for i := 1; i <= len(segments); i++ {
+			prefix := strings.Join(segments[:i], "/")
+			res := refl.Resolve(prefix)
+			if res == nil {
+				return true
+			}
+			if res.Kind == SpecNodeKindListItemComplex || res.Kind == SpecNodeKindListItemScalar {
+				dash := strings.LastIndex(prefix, "-")
+				if dash < 0 {
+					return true
+				}
+				listPath := prefix[:dash]
+				found := false
+				for _, item := range document.ListItems(listPath) {
+					if item == prefix {
+						found = true
+						break
+					}
+				}
+				if !found {
+					return true
+				}
+			}
+		}
+		return false
+	}
+	for _, k := range review.Keys() {
+		if isStale(k) {
+			stale = append(stale, k)
+		}
+	}
+	sort.Strings(stale)
+	return stale
 }
 
 // yamlEncoder is one encode run: it walks the metadata tree, consuming values
@@ -799,7 +992,14 @@ func DecodeYaml(yamlText string, tree *SomMetaTree) (*SpecYamlContents, error) {
 		stamp = parsedScalarStr(raw)
 	}
 
-	rev, _ := rootMap.GetOr("review").(*YamlMap)
+	// The review pass is opaque: its plain scalars keep their YAML types
+	// (booleans, null, numbers), so it is read with the typed parser.
+	var rev *YamlMap
+	if rootMap.Has("review") {
+		if typedRoot, ok := YamlParseTyped(yamlText).(*YamlMap); ok {
+			rev, _ = typedRoot.GetOr("review").(*YamlMap)
+		}
+	}
 	if rev == nil {
 		rev = NewYamlMap()
 	}

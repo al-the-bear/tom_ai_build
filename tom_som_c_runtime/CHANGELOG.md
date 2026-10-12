@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- YAML codec: the `review:` pass is written back. `encode_yaml_with_review`
+  encodes with a review value (NULL: no pass, exactly `encode_yaml`) and
+  appends it through `spec_yaml_write_review_pass` — entries sorted by path
+  (JSON-quoted keys), fields sorted by name, `review: {}` when empty; null,
+  booleans, numbers and identifier-like strings plain, any other string as a
+  self-verified block scalar, lists as JSON flow. `decode_yaml` now types the
+  review pass's plain scalars as a YAML core-schema reader does (new
+  `YAML_BOOL` / `YAML_NULL` / `YAML_FLOAT` kinds, a `plain` flag on
+  `YamlValue`), so decode followed by encode is byte-identical;
+  `yaml_value_from_json` builds a review in code. `spec_yaml_stale_review_paths`
+  lists the review paths that no longer resolve (unknown to the model, or
+  through a removed list item). The conformance runner checks the shared
+  `yaml_review_cases.json` table (`yamlReview[...]`).
 - Markdown codec: a member's heading id and its transparency are read from its
   meta node (`sectionId`, then `classSectionId`), no longer by looking up the
   node's class name. A wrapper section (`TextSection`, …) carries its owner's

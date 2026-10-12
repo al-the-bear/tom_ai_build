@@ -136,6 +136,8 @@ const {
   dedupEmptyLines,
   writeScalar,
   writeHeader,
+  writeReviewPass,
+  staleReviewPaths,
   encode: yamlEncode,
   decode: yamlDecode,
 } = require('./spec_document_yaml');
@@ -280,6 +282,8 @@ module.exports = {
   dedupEmptyLines,
   writeScalar,
   writeHeader,
+  writeReviewPass,
+  staleReviewPaths,
   yamlEncode,
   yamlDecode,
   // markdown codec

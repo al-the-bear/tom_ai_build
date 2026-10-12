@@ -357,10 +357,139 @@ public final class SpecDocumentYaml {
    * dropped.
    */
   public static String encode(SpecDocument document, SomMetaTree tree, String modelVersion) {
+    return encode(document, tree, modelVersion, null);
+  }
+
+  /**
+   * As {@link #encode(SpecDocument, SomMetaTree, String)}, then writes
+   * {@code review} back as the {@code review:} pass when non-null — typically
+   * the raw map {@link #decode} returned, so that a load followed by a save
+   * keeps a reviewed document's review state. The runtime does not interpret
+   * it ({@link #writeReviewPass}); without it the file carries no
+   * {@code review:} pass.
+   */
+  public static String encode(
+      SpecDocument document, SomMetaTree tree, String modelVersion, Map<?, ?> review) {
     StringBuilder b = new StringBuilder();
     writeHeader(b, modelVersion);
     new YamlEncoder(document).writeDocumentPass(b, tree);
+    if (review != null) {
+      writeReviewPass(b, review);
+    }
     return b.toString();
+  }
+
+  /**
+   * Writes {@code review} as the {@code review:} pass, passed through without
+   * interpretation: entries sorted by path (JSON-quoted keys), each entry's
+   * fields sorted by name. Sorting, rather than keeping the map's order, is
+   * what makes the output the same in every port, and it keeps decode
+   * followed by encode byte-identical. Booleans, numbers and identifier-like
+   * strings are written plain; any other string as a self-verified block
+   * scalar ({@link #writeScalar}); a nested map one level deeper; a list as a
+   * JSON flow sequence. An empty map writes {@code review: {}}.
+   */
+  public static void writeReviewPass(StringBuilder b, Map<?, ?> review) {
+    if (review.isEmpty()) {
+      b.append("review: {}\n");
+      return;
+    }
+    b.append("review:\n");
+    Map<String, Object> byKey = stringKeyed(review);
+    List<String> keys = new ArrayList<>(byKey.keySet());
+    Collections.sort(keys);
+    for (String key : keys) {
+      writeReviewValue(b, 2, yamlKey(key), byKey.get(key));
+    }
+  }
+
+  private static Map<String, Object> stringKeyed(Map<?, ?> map) {
+    Map<String, Object> out = new LinkedHashMap<>();
+    for (Map.Entry<?, ?> e : map.entrySet()) {
+      out.put(String.valueOf(e.getKey()), e.getValue());
+    }
+    return out;
+  }
+
+  private static void writeReviewValue(
+      StringBuilder b, int indent, String renderedKey, Object value) {
+    String prefix = pad(indent);
+    if (value instanceof Map) {
+      Map<String, Object> fields = stringKeyed((Map<?, ?>) value);
+      if (fields.isEmpty()) {
+        b.append(prefix).append(renderedKey).append(": {}\n");
+        return;
+      }
+      b.append(prefix).append(renderedKey).append(":\n");
+      List<String> names = new ArrayList<>(fields.keySet());
+      Collections.sort(names);
+      for (String field : names) {
+        writeReviewValue(b, indent + 2, plainKey(field), fields.get(field));
+      }
+    } else if (value == null) {
+      b.append(prefix).append(renderedKey).append(": null\n");
+    } else if (value instanceof Boolean || value instanceof Number) {
+      b.append(prefix).append(renderedKey).append(": ").append(value).append('\n');
+    } else if (value instanceof List) {
+      b.append(prefix).append(renderedKey).append(": ").append(Json.write(value)).append('\n');
+    } else {
+      String text = String.valueOf(value);
+      if (REVIEW_TOKEN_PATTERN.matcher(text).matches()
+          && !YAML_WORDS.contains(text.toLowerCase(java.util.Locale.ROOT))) {
+        b.append(prefix).append(renderedKey).append(": ").append(text).append('\n');
+      } else {
+        writeRendered(b, indent, renderedKey, scalarRepr(text));
+      }
+    }
+  }
+
+  private static final Pattern REVIEW_TOKEN_PATTERN = Pattern.compile("^[A-Za-z_][A-Za-z0-9_]*$");
+
+  /** Words a YAML parser (1.1 or 1.2) reads as something other than a string. */
+  private static final Set<String> YAML_WORDS =
+      new HashSet<>(
+          java.util.Arrays.asList("true", "false", "null", "yes", "no", "on", "off", "y", "n"));
+
+  /**
+   * The review paths in {@code review} that no longer resolve against
+   * {@code document}: paths the model cannot resolve, and paths running
+   * through a list item the document does not hold (an item that was
+   * removed). Sorted. Reports only — it never edits {@code review} — so a
+   * consumer that removed a list item can tell its user which review entries
+   * it left behind.
+   */
+  public static List<String> staleReviewPaths(
+      SpecModel model, SpecDocument document, Map<?, ?> review) {
+    SpecReflection refl = new SpecReflection(model);
+    List<String> out = new ArrayList<>();
+    for (Object k : review.keySet()) {
+      String key = String.valueOf(k);
+      if (isStaleReviewPath(refl, document, key)) {
+        out.add(key);
+      }
+    }
+    Collections.sort(out);
+    return out;
+  }
+
+  private static boolean isStaleReviewPath(
+      SpecReflection refl, SpecDocument document, String path) {
+    String[] segments = path.split("/", -1);
+    for (int i = 1; i <= segments.length; i++) {
+      String prefix = String.join("/", java.util.Arrays.asList(segments).subList(0, i));
+      SpecResolution res = refl.resolve(prefix);
+      if (res == null) {
+        return true;
+      }
+      if (res.kind == SpecNodeKind.LIST_ITEM_COMPLEX || res.kind == SpecNodeKind.LIST_ITEM_SCALAR) {
+        int dash = prefix.lastIndexOf('-');
+        String listPath = prefix.substring(0, dash);
+        if (!document.listItems(listPath).contains(prefix)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /**
@@ -766,7 +895,13 @@ public final class SpecDocumentYaml {
       stamp = parsed.isEmpty() ? null : parsed;
     }
 
+    // The review pass is opaque but typed (booleans, numbers, nulls round-trip
+    // as such), so it is read from a typed parse; the document pass stays
+    // untyped.
     Object rawReview = rootMap.get("review");
+    if (rawReview instanceof Map && !((Map<?, ?>) rawReview).isEmpty()) {
+      rawReview = ((Map<String, Object>) Yaml.parse(yamlText, true)).get("review");
+    }
     Map<String, Object> review =
         rawReview instanceof Map ? (Map<String, Object>) rawReview : new LinkedHashMap<>();
 

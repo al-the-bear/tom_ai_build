@@ -44,6 +44,11 @@ class YamlValue {
   std::vector<YamlPtr> seq;
   std::string str;
   long long integer = 0;
+  // A Str scalar that was written plain (unquoted, not a block scalar). The
+  // document codec reads every scalar as text and ignores this; a reader that
+  // needs YAML's typing of plain scalars (`true`, `null`, `2.5`, the review
+  // pass) consults it. Set it on a constructed Str to mean the same.
+  bool plain = false;
 
   explicit YamlValue(YamlType t) : type(t) {}
 

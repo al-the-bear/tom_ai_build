@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- YAML codec: `encode(document, tree, modelVersion, review)` writes the
+  `review:` pass back when `review` is given (`review: {}` when empty), via the
+  new `writeReviewPass` — entries sorted by path, fields sorted by name,
+  identifier-like strings plain and other strings as self-verified block
+  scalars — so a decode followed by an encode keeps a reviewed document
+  byte-identical. `decode` returns the review pass with typed values (booleans,
+  `null`, numbers, JSON flow lists; `yaml.parse(text, {typed: true})`). New
+  `staleReviewPaths(model, document, review)` reports the sorted review paths
+  that no longer resolve or run through a removed list item. Conformance:
+  `yaml_review_cases.json` (`yamlReview[…]`).
 - Markdown codec: a member's heading id and its transparency are read from its
   meta node (`sectionId`, then `classSectionId`), no longer by looking up the
   node's class name. A wrapper section (`TextSection`, …) carries its owner's

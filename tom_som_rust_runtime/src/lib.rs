@@ -71,8 +71,9 @@ pub use spec_document_markdown::{
     SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
 };
 pub use spec_document_yaml::{
-    decode_yaml, dedup_empty_lines, encode_yaml, js_json_string, node_key, plain_key,
-    SpecYamlContents, SpecYamlError, SpecYamlFormatException, FORMAT_VERSION,
+    decode_yaml, dedup_empty_lines, encode_yaml, encode_yaml_with_review, js_json_string,
+    node_key, plain_key, stale_review_paths, write_review_pass, SpecYamlContents, SpecYamlError,
+    SpecYamlFormatException, FORMAT_VERSION,
 };
 pub use spec_editor::{SomValue, SpecEditor};
 pub use spec_meta::{

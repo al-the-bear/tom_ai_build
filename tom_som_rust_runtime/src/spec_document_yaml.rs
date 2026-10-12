@@ -55,7 +55,11 @@ use crate::spec_meta::{
     SOM_META_KIND_ENUM_VALUE, SOM_META_KIND_FORM, SOM_META_KIND_LIST, SOM_META_KIND_SCALAR,
     SOM_META_KIND_SECTION,
 };
+use crate::spec_model::SpecModel;
 use crate::spec_paths::spec_path_join;
+use crate::spec_reflection::{
+    SpecReflection, SPEC_NODE_KIND_LIST_ITEM_COMPLEX, SPEC_NODE_KIND_LIST_ITEM_SCALAR,
+};
 use crate::spec_section_id::SpecSectionIdError;
 use crate::yaml::{yaml_parse, YamlMap, YamlValue};
 
@@ -457,10 +461,193 @@ pub fn encode_yaml(
     tree: &SomMetaTree,
     model_version: &str,
 ) -> Result<String, SpecYamlError> {
+    encode_yaml_with_review(document, tree, model_version, None)
+}
+
+/// [`encode_yaml`] plus the `review:` pass: `review` is written back after the
+/// document pass when given (even empty) — typically the raw map
+/// [`decode_yaml`] returned, so that a load followed by a save keeps a reviewed
+/// document's review state. The runtime does not interpret it
+/// ([`write_review_pass`]); with `None` the file carries no `review:` pass.
+pub fn encode_yaml_with_review(
+    document: &SpecDocument,
+    tree: &SomMetaTree,
+    model_version: &str,
+    review: Option<&YamlMap>,
+) -> Result<String, SpecYamlError> {
     let mut b = YamlBuffer::new();
     write_header(&mut b, model_version);
     YamlEncoder::new(document).write_document_pass(&mut b, tree)?;
+    if let Some(review) = review {
+        write_review_pass_to(&mut b, review);
+    }
     Ok(b.out)
+}
+
+// --- Review pass --------------------------------------------------------------
+
+/// Appends `review` to `out` as the `review:` pass, passed through without
+/// interpretation: entries sorted by path (JSON-quoted keys), each entry's
+/// fields sorted by name. Sorting, rather than keeping the map's order, is
+/// what makes the output the same in every port, and it keeps decode followed
+/// by encode byte-identical. Booleans, numbers and identifier-like strings are
+/// written plain; any other string as a self-verified block scalar; a nested
+/// map one level deeper; a list as a JSON flow sequence. An empty map writes
+/// `review: {}`.
+///
+/// The hand-rolled reader ([`crate::yaml`]) yields no booleans, nulls or
+/// floats: a plain `true`, `null` or `2.5` arrives as a string. So a string
+/// whose text is exactly `true`, `false` or `null`, or a decimal number
+/// (`-?[0-9]+.[0-9]+`), is written plain as the YAML value it denotes — which
+/// is what the Dart reference writes for the bool/null/double it decodes there.
+pub fn write_review_pass(out: &mut String, review: &YamlMap) {
+    let mut b = YamlBuffer {
+        out: std::mem::take(out),
+    };
+    write_review_pass_to(&mut b, review);
+    *out = b.out;
+}
+
+fn write_review_pass_to(b: &mut YamlBuffer, review: &YamlMap) {
+    if review.is_empty() {
+        b.writeln("review: {}");
+        return;
+    }
+    b.writeln("review:");
+    let mut keys = review.keys();
+    keys.sort_unstable();
+    for key in keys {
+        if let Some(value) = review.get(key) {
+            write_review_value(b, 2, &yaml_key(key), value);
+        }
+    }
+}
+
+fn write_review_value(b: &mut YamlBuffer, indent: usize, rendered_key: &str, value: &YamlValue) {
+    let pad = " ".repeat(indent);
+    match value {
+        YamlValue::Map(m) => {
+            if m.is_empty() {
+                b.writeln(&format!("{}{}: {{}}", pad, rendered_key));
+                return;
+            }
+            b.writeln(&format!("{}{}:", pad, rendered_key));
+            let mut fields = m.keys();
+            fields.sort_unstable();
+            for field in fields {
+                if let Some(v) = m.get(field) {
+                    write_review_value(b, indent + 2, &plain_key(field), v);
+                }
+            }
+        }
+        YamlValue::Int(n) => b.writeln(&format!("{}{}: {}", pad, rendered_key, n)),
+        YamlValue::Seq(_) => {
+            b.writeln(&format!("{}{}: {}", pad, rendered_key, review_json(value)))
+        }
+        YamlValue::Str(s) => {
+            if is_review_literal(s) || (is_review_token(s) && !is_yaml_word(s)) {
+                b.writeln(&format!("{}{}: {}", pad, rendered_key, s));
+            } else {
+                write_rendered(b, indent, rendered_key, &scalar_repr(s));
+            }
+        }
+    }
+}
+
+/// Reports whether `s` matches `^[A-Za-z_][A-Za-z0-9_]*$`.
+fn is_review_token(s: &str) -> bool {
+    let b = s.as_bytes();
+    !b.is_empty()
+        && (b[0].is_ascii_alphabetic() || b[0] == b'_')
+        && b.iter().all(|&c| c.is_ascii_alphanumeric() || c == b'_')
+}
+
+/// Words a YAML parser (1.1 or 1.2) reads as something other than a string.
+fn is_yaml_word(s: &str) -> bool {
+    matches!(
+        s.to_ascii_lowercase().as_str(),
+        "true" | "false" | "null" | "yes" | "no" | "on" | "off" | "y" | "n"
+    )
+}
+
+/// Reports whether `s` is the text of a plain YAML bool, null or decimal
+/// number — a value the reader hands over as a string (see
+/// [`write_review_pass`]).
+fn is_review_literal(s: &str) -> bool {
+    if matches!(s, "true" | "false" | "null") {
+        return true;
+    }
+    let digits = s.strip_prefix('-').unwrap_or(s);
+    match digits.split_once('.') {
+        Some((int, frac)) => {
+            !int.is_empty()
+                && !frac.is_empty()
+                && int.bytes().all(|c| c.is_ascii_digit())
+                && frac.bytes().all(|c| c.is_ascii_digit())
+        }
+        None => false,
+    }
+}
+
+/// Renders `value` as a compact JSON flow value (a review list), keys in
+/// insertion order.
+fn review_json(value: &YamlValue) -> String {
+    match value {
+        YamlValue::Map(m) => {
+            let parts: Vec<String> = m
+                .iter()
+                .map(|(k, v)| format!("{}:{}", js_json_string(k), review_json(v)))
+                .collect();
+            format!("{{{}}}", parts.join(","))
+        }
+        YamlValue::Seq(items) => {
+            let parts: Vec<String> = items.iter().map(review_json).collect();
+            format!("[{}]", parts.join(","))
+        }
+        YamlValue::Int(n) => n.to_string(),
+        YamlValue::Str(s) if is_review_literal(s) => s.clone(),
+        YamlValue::Str(s) => js_json_string(s),
+    }
+}
+
+/// The review paths in `review` that no longer resolve against `document`:
+/// paths the model cannot resolve, and paths running through a list item the
+/// document does not hold (an item that was removed). Sorted. Reports only —
+/// it never edits `review` — so a consumer that removed a list item can tell
+/// its user which review entries it left behind.
+pub fn stale_review_paths(
+    model: &SpecModel,
+    document: &SpecDocument,
+    review: &YamlMap,
+) -> Vec<String> {
+    let refl = SpecReflection::new(model);
+    let is_stale = |path: &str| -> bool {
+        let segments: Vec<&str> = path.split('/').collect();
+        for i in 1..=segments.len() {
+            let prefix = segments[..i].join("/");
+            let res = match refl.resolve(&prefix) {
+                Some(res) => res,
+                None => return true,
+            };
+            if res.kind == SPEC_NODE_KIND_LIST_ITEM_COMPLEX
+                || res.kind == SPEC_NODE_KIND_LIST_ITEM_SCALAR
+            {
+                let list_path = &prefix[..prefix.rfind('-').unwrap_or(0)];
+                if !document.list_items(list_path).contains(&prefix) {
+                    return true;
+                }
+            }
+        }
+        false
+    };
+    let mut stale: Vec<String> = review
+        .keys()
+        .into_iter()
+        .filter(|k| is_stale(k))
+        .map(|k| k.to_string())
+        .collect();
+    stale.sort_unstable();
+    stale
 }
 
 /// One encode run: it walks the metadata tree, consuming values from snapshots

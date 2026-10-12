@@ -21,6 +21,15 @@
   `SpecDocument.from_markdown(text, model)` parses and applies in one call and
   returns a `SpecMarkdownImport` (document, result, rejections). Pinned by the
   corpus table `markdown_apply_cases.json`.
+- YAML codec: `encode(..., review=...)` writes the `review:` pass back after
+  the document pass (`write_review_pass`): entries sorted by path with
+  JSON-quoted keys, fields sorted by name, identifier-like strings, booleans
+  and numbers plain, other strings as self-verified block scalars, lists as
+  JSON flow, an empty map as `review: {}`; a decoded reviewed file now
+  round-trips byte for byte. `stale_review_paths(model, document, review)`
+  lists (sorted) the review entries that no longer resolve — unknown paths and
+  paths through a removed list item. Pinned by the corpus table
+  `yaml_review_cases.json`.
 
 ## 1.3.3
 

@@ -354,6 +354,44 @@ public final class ConformanceRunner {
         byteDiff("yaml.decode.reencode", actual, expected));
   }
 
+  /**
+   * {@code yaml_review_cases.json}: the {@code review:} pass — a decoded review
+   * written back byte for byte, and the review paths left stale by removed
+   * list items.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testYamlReviewCases(SpecModel model, SomMetaTree tree) throws IOException {
+    Map<String, Object> table = readJsonObject("yaml_review_cases.json");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "yamlReview[" + c.get("name") + "]";
+      Object expect = c.get("expect");
+      Object got = runYamlReviewCase(model, tree, c);
+      if (got instanceof String && expect instanceof String) {
+        check(name, got.equals(expect), byteDiff(name, (String) got, (String) expect));
+      } else {
+        check(name, got.equals(expect), jsonMismatch(got, expect));
+      }
+    }
+  }
+
+  /** Runs one {@code yaml_review_cases.json} case and returns what it observed. */
+  @SuppressWarnings("unchecked")
+  private static Object runYamlReviewCase(SpecModel model, SomMetaTree tree, Map<String, Object> c) {
+    SpecYamlContents contents = SpecDocumentYaml.decode((String) c.get("yaml"), tree);
+    if ("roundTrip".equals(c.get("op"))) {
+      return SpecDocumentYaml.encode(
+          contents.document, tree, contents.modelVersion, contents.review);
+    }
+    // op == 'stale': remove the named list items, then ask which review
+    // entries no longer resolve.
+    for (Object item : (List<Object>) c.get("removeItems")) {
+      contents.document.removeListItem((String) item);
+    }
+    return new ArrayList<Object>(
+        SpecDocumentYaml.staleReviewPaths(model, contents.document, contents.review));
+  }
+
   // --- markdown conformance (SOM §11) -------------------------------------
 
   private static void testMarkdownExport(SpecModel model) throws IOException {
@@ -1697,6 +1735,7 @@ public final class ConformanceRunner {
     testStateRoundTrip();
     testYamlEncode(tree);
     testYamlDecodeRoundTrip(tree);
+    testYamlReviewCases(model, tree);
     testMarkdownExport(model);
     testMarkdownRoundTrip(model);
     testMarkdownMemoryLanding(model);

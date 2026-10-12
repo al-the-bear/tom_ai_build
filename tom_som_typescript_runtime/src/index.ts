@@ -186,6 +186,8 @@ export {
   dedupEmptyLines,
   writeScalar,
   writeHeader,
+  writeReviewPass,
+  staleReviewPaths,
   encode as yamlEncode,
   decode as yamlDecode,
 } from './spec_document_yaml';

@@ -14,6 +14,8 @@
 //!     parsed values land the fixture memory (md.export / md.parse.* /
 //!     md.land.*), and applying a parsed import overwrites only the roots it
 //!     covers (mdApply[…]);
+//!   - the YAML `review:` pass: written back sorted and byte-stable, and stale
+//!     entries reported (yamlReview[…]);
 //!   - the SOM §4.2/§21 editability contract (classification + refusal message);
 //!   - reflection resolution cases;
 //!   - validation cases;
@@ -36,7 +38,9 @@ use tom_som_rust_runtime::json::Json;
 use tom_som_rust_runtime::spec_codespecs_extract::{CodeSpecsAreaCatalog, CodeSpecsExtractor};
 use tom_som_rust_runtime::spec_document::{DocumentJson, SpecDocument};
 use tom_som_rust_runtime::spec_document_markdown::{SpecDocumentMarkdown, SpecMarkdownResult};
-use tom_som_rust_runtime::spec_document_yaml::{decode_yaml, encode_yaml};
+use tom_som_rust_runtime::spec_document_yaml::{
+    decode_yaml, encode_yaml, encode_yaml_with_review, stale_review_paths,
+};
 use tom_som_rust_runtime::spec_editor::{SomValue, SpecEditor};
 use tom_som_rust_runtime::spec_meta::SomMetaTree;
 use tom_som_rust_runtime::spec_meta_bridge::build_som_meta_tree;
@@ -166,6 +170,7 @@ fn conformance() {
     test_markdown_memory_landing(&mut c, &model);
     test_markdown_import_rejections(&mut c, &model);
     test_markdown_apply(&mut c, &model);
+    test_yaml_review(&mut c, &model, &tree);
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
     test_operations(&mut c);
@@ -547,6 +552,50 @@ fn test_markdown_apply(c: &mut Checker, model: &SpecModel) {
             got == want,
             &format!("got {} want {}", got, want),
         );
+    }
+}
+
+/// The `review:` pass: written back sorted and byte-stable, and stale entries
+/// (unresolvable paths, removed list items) reported. Each case runs exactly
+/// like the Dart reference's `_runYamlReviewCase`: `roundTrip` re-encodes the
+/// decoded document with its decoded stamp and review pass; `stale` removes the
+/// named list items, then asks which review entries no longer resolve.
+fn test_yaml_review(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
+    let table = read_json("yaml_review_cases.json");
+    for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
+        let tag = format!("yamlReview[{}]", kase.str_or("name"));
+        let mut contents = match decode_yaml(&kase.str_or("yaml"), tree) {
+            Ok(contents) => contents,
+            Err(e) => {
+                c.check(&tag, false, &e.to_string());
+                continue;
+            }
+        };
+        if kase.str_or("op") == "roundTrip" {
+            let want = kase.str_or("expect");
+            match encode_yaml_with_review(
+                &contents.document,
+                tree,
+                &contents.model_version,
+                Some(&contents.review),
+            ) {
+                Ok(got) => c.check(&tag, got == want, &byte_diff(&tag, &got, &want)),
+                Err(e) => c.check(&tag, false, &e.to_string()),
+            }
+            continue;
+        }
+        for item in kase.get("removeItems").and_then(|v| v.as_array()).unwrap_or(&[]) {
+            contents.document.remove_list_item(item.as_str().unwrap_or(""));
+        }
+        let got = stale_review_paths(model, &contents.document, &contents.review);
+        let want: Vec<String> = kase
+            .get("expect")
+            .and_then(|v| v.as_array())
+            .unwrap_or(&[])
+            .iter()
+            .map(|v| v.as_str().unwrap_or("").to_string())
+            .collect();
+        c.check(&tag, got == want, &format!("got {:?} want {:?}", got, want));
     }
 }
 

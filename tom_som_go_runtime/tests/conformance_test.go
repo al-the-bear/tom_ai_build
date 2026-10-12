@@ -201,6 +201,7 @@ func TestConformance(t *testing.T) {
 	testStateRoundTrip(c, t)
 	testYamlEncode(c, t, tree)
 	testYamlDecodeRoundTrip(c, t, tree)
+	testYamlReview(c, t, model, tree)
 	testMarkdownExport(c, t, model)
 	testMarkdownRoundTrip(c, t, model)
 	testMarkdownMemoryLanding(c, t, model)
@@ -469,6 +470,63 @@ func testYamlDecodeRoundTrip(c *checker, t *testing.T, tree *som.SomMetaTree) {
 		return
 	}
 	c.check("yaml.decode.reencode", actual == expected, byteDiff("yaml.decode.reencode", actual, expected))
+}
+
+// yamlReviewCaseTable mirrors corpus/yaml_review_cases.json — the opaque
+// `review:` pass: "roundTrip" cases expect the exact re-encoded YAML text,
+// "stale" cases the sorted stale review paths after removing removeItems.
+type yamlReviewCaseTable struct {
+	Cases []struct {
+		Name        string          `json:"name"`
+		Op          string          `json:"op"`
+		Yaml        string          `json:"yaml"`
+		RemoveItems []string        `json:"removeItems"`
+		Expect      json.RawMessage `json:"expect"`
+	} `json:"cases"`
+}
+
+// testYamlReview runs each yaml_review_cases.json case exactly like the Dart
+// reference's _runYamlReviewCase.
+func testYamlReview(c *checker, t *testing.T, model *som.SpecModel, tree *som.SomMetaTree) {
+	var table yamlReviewCaseTable
+	readJSON(t, "yaml_review_cases.json", &table)
+	c.check("yamlReview.cases", len(table.Cases) > 0, "no cases in yaml_review_cases.json")
+	for _, rc := range table.Cases {
+		tag := "yamlReview[" + rc.Name + "]"
+		contents, err := som.DecodeYaml(rc.Yaml, tree)
+		if err != nil {
+			c.check(tag, false, err.Error())
+			continue
+		}
+		switch rc.Op {
+		case "roundTrip":
+			var want string
+			if err := json.Unmarshal(rc.Expect, &want); err != nil {
+				c.check(tag, false, "bad expect: "+err.Error())
+				continue
+			}
+			got, err := som.EncodeYamlWithReview(
+				contents.Document, tree, contents.ModelVersion, contents.Review)
+			if err != nil {
+				c.check(tag, false, err.Error())
+				continue
+			}
+			c.check(tag, got == want, byteDiff(tag, got, want))
+		case "stale":
+			var want []string
+			if err := json.Unmarshal(rc.Expect, &want); err != nil {
+				c.check(tag, false, "bad expect: "+err.Error())
+				continue
+			}
+			for _, item := range rc.RemoveItems {
+				contents.Document.RemoveListItem(item)
+			}
+			got := som.StaleReviewPaths(model, contents.Document, contents.Review)
+			c.check(tag, sliceEq(got, want), join(got))
+		default:
+			c.check(tag, false, "unknown op "+rc.Op)
+		}
+	}
 }
 
 // --- markdown conformance (SOM §11) -----------------------------------------

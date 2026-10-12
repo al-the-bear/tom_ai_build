@@ -44,6 +44,7 @@
 #include "som_util.h"
 #include "spec_document.h"
 #include "spec_meta.h"
+#include "spec_model.h"
 #include "yaml.h"
 
 /* The on-disk format version (independent of the model-version stamp).
@@ -58,7 +59,12 @@
  * optional authoring model-version stamp. */
 typedef struct {
   SpecDocument document;
-  YamlValue *review;   /* owned; YAML_MAP, empty when the pass is absent */
+  /* owned; YAML_MAP, empty when the pass is absent. Its plain scalars are
+   * typed as a YAML core-schema reader types them (`true` → YAML_BOOL,
+   * `null` → YAML_NULL, `2.5` → YAML_FLOAT, a JSON flow list → YAML_SEQ), so
+   * passing it back to `encode_yaml_with_review` reproduces it byte for
+   * byte. */
+  YamlValue *review;
   char *model_version; /* owned; "" when absent */
 } SpecYamlContents;
 
@@ -75,6 +81,39 @@ void spec_yaml_contents_free(SpecYamlContents *c);
  * structured message — nothing is silently dropped. */
 char *encode_yaml(const SpecDocument *document, const SomMetaTree *tree,
                   const char *model_version, char **err);
+
+/* `encode_yaml`, followed by `review` written as the `review:` pass
+ * (`spec_yaml_write_review_pass`) when non-NULL — typically the raw map
+ * `decode_yaml` returned, so that a load followed by a save keeps a reviewed
+ * document's review state. The runtime does not interpret it; with a NULL
+ * `review` the file carries no `review:` pass (exactly `encode_yaml`). Build a
+ * review in code with `yaml_value_from_json`. Borrowed `review`; owned result,
+ * NULL with `*err` on the same conditions as `encode_yaml`. */
+char *encode_yaml_with_review(const SpecDocument *document,
+                              const SomMetaTree *tree,
+                              const char *model_version,
+                              const YamlValue *review, char **err);
+
+/* Writes `review` (a YAML_MAP) as the `review:` pass, passed through without
+ * interpretation: entries sorted by path (byte order, JSON-quoted keys at
+ * indent 2), each entry's fields sorted by name (plain keys,
+ * `spec_yaml_plain_key`). Sorting, rather than keeping the map's order, makes
+ * the output the same in every port and keeps decode followed by encode
+ * byte-identical. Null, booleans, numbers and identifier-like strings
+ * (^[A-Za-z_][A-Za-z0-9_]*$, not a YAML word such as `yes` / `null`) are
+ * written plain; any other string as a self-verified block scalar; a nested
+ * map one level deeper (`{}` when empty); a sequence as a JSON flow sequence.
+ * An empty (or non-map) review writes `review: {}`. */
+void spec_yaml_write_review_pass(SomBuf *out, const YamlValue *review);
+
+/* The review paths (keys of `review`) that no longer resolve against
+ * `document`: paths `model` cannot resolve, and paths running through a list
+ * item the document does not hold (an item that was removed). Byte-sorted.
+ * Reports only — it never edits `review`. `*out` is initialised by the
+ * callee; free it with `som_strlist_free`. */
+void spec_yaml_stale_review_paths(const SpecModel *model,
+                                  const SpecDocument *document,
+                                  const YamlValue *review, SomStrList *out);
 
 /* Parses a `*.docspecs.yaml` file into its passes, matching every `document:`
  * key against `tree`. On success writes `*out` (owned by the caller; release

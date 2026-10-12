@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- `SpecDocumentYaml.encode(..., review:)` writes the `review:` pass back, so a
+  runtime load followed by a save keeps a reviewed document's review state
+  (before, the pass was decoded and silently dropped on save). The writer
+  (`writeReviewPass`) is a canonical pass-through: entries by path, fields by
+  name, decode followed by encode byte-identical. `staleReviewPaths(model,
+  document, review)` reports review entries whose path no longer resolves.
+  The TomSpecs editor's own review writer is replaced by it. Pinned by
+  `yaml_review_cases.json`.
 - `SpecDocument.applyMarkdownResult(result, {allowRejections})` applies a parsed
   Markdown import as a full overwrite of the roots it covers (SOM §11.7): purge,
   then write content, forms, lists, headlines and codeSpecs through the

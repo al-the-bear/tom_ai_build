@@ -312,6 +312,7 @@ def encode(
     document: SpecDocument,
     tree: SomMetaTree,
     model_version: Optional[str] = None,
+    review: Optional[dict] = None,
 ) -> str:
     """Serializes *document* to a header + ``version:`` (+ ``modelVersion:``)
     + hierarchical ``document:`` pass, walking *tree* (the metadata tree of
@@ -321,11 +322,114 @@ def encode(
     items follow their stored sequence; emission is sparse (only populated
     subtrees appear). Raises :class:`SpecYamlFormatException` when the
     document holds values *tree* cannot place — nothing is silently
-    dropped."""
+    dropped.
+
+    *review* is written back as the ``review:`` pass when given — typically
+    the raw map :func:`decode` returned, so that a load followed by a save
+    keeps a reviewed document's review state. The runtime does not interpret
+    it (:func:`write_review_pass`); without it the file carries no
+    ``review:`` pass."""
     b = _Buffer()
     write_header(b, model_version=model_version)
     _Encoder(document, tree).write_document_pass(b)
+    if review is not None:
+        write_review_pass(b, review)
     return str(b)
+
+
+def _review_str(value: Any) -> str:
+    """The string form Dart's ``'$value'`` gives a decoded YAML value."""
+    if value is None:
+        return "null"
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    return str(value)
+
+
+def write_review_pass(b: _Buffer, review: dict) -> None:
+    """Writes *review* as the ``review:`` pass, passed through without
+    interpretation: entries sorted by path (JSON-quoted keys), each entry's
+    fields sorted by name. Sorting, rather than keeping the map's order, is
+    what makes the output the same in every port, and it keeps decode
+    followed by encode byte-identical. Booleans, numbers and identifier-like
+    strings are written plain; any other string as a self-verified block
+    scalar; a nested map one level deeper; a list as a JSON flow sequence. An
+    empty map writes ``review: {}``."""
+    if not review:
+        b.writeln("review: {}")
+        return
+    b.writeln("review:")
+    by_key = {_review_str(k): v for k, v in review.items()}
+    for key in sorted(by_key):
+        _write_review_value(b, 2, yaml_key(key), by_key[key])
+
+
+_REVIEW_TOKEN_PATTERN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+
+#: Words a YAML parser (1.1 or 1.2) reads as something other than a string.
+_YAML_WORDS = frozenset(
+    {"true", "false", "null", "yes", "no", "on", "off", "y", "n"}
+)
+
+
+def _write_review_value(
+    b: _Buffer, indent: int, rendered_key: str, value: Any
+) -> None:
+    pad = " " * indent
+    if isinstance(value, dict):
+        if not value:
+            b.writeln(f"{pad}{rendered_key}: {{}}")
+            return
+        b.writeln(f"{pad}{rendered_key}:")
+        by_field = {_review_str(k): v for k, v in value.items()}
+        for field in sorted(by_field):
+            _write_review_value(b, indent + 2, plain_key(field), by_field[field])
+    elif value is None:
+        b.writeln(f"{pad}{rendered_key}: null")
+    elif isinstance(value, bool):  # before the number test: bool is an int.
+        b.writeln(f"{pad}{rendered_key}: {'true' if value else 'false'}")
+    elif isinstance(value, (int, float)):
+        b.writeln(f"{pad}{rendered_key}: {value}")
+    elif isinstance(value, list):
+        b.writeln(
+            f"{pad}{rendered_key}: "
+            f"{json.dumps(value, ensure_ascii=False, separators=(',', ':'))}"
+        )
+    else:
+        text = _review_str(value)
+        if _REVIEW_TOKEN_PATTERN.match(text) and text.lower() not in _YAML_WORDS:
+            b.writeln(f"{pad}{rendered_key}: {text}")
+        else:
+            _write_rendered(b, indent, rendered_key, _scalar(text))
+
+
+def stale_review_paths(model: Any, document: SpecDocument, review: dict) -> list[str]:
+    """The review paths in *review* that no longer resolve against
+    *document*: paths the model cannot resolve, and paths running through a
+    list item the document does not hold (an item that was removed). Sorted.
+    Reports only — it never edits *review* — so a consumer that removed a
+    list item can tell its user which review entries it left behind."""
+    from .spec_reflection import SpecNodeKind, SpecReflection
+
+    refl = SpecReflection(model)
+
+    def is_stale(path: str) -> bool:
+        segments = path.split("/")
+        for i in range(1, len(segments) + 1):
+            prefix = "/".join(segments[:i])
+            res = refl.resolve(prefix)
+            if res is None:
+                return True
+            if res.kind in (
+                SpecNodeKind.LIST_ITEM_COMPLEX,
+                SpecNodeKind.LIST_ITEM_SCALAR,
+            ):
+                list_path = prefix[: prefix.rfind("-")]
+                if prefix not in document.list_items(list_path):
+                    return True
+        return False
+
+    return sorted(k for k in (_review_str(k) for k in review) if is_stale(k))
 
 
 class _Encoder:

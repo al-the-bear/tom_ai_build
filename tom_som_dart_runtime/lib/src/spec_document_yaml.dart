@@ -51,7 +51,9 @@ import 'package:yaml/yaml.dart';
 
 import 'spec_document.dart';
 import 'spec_meta.dart';
+import 'spec_model.dart';
 import 'spec_paths.dart';
+import 'spec_reflection.dart';
 
 /// A structural error in a `*.docspecs.yaml` file: wrong/unsupported format
 /// version, a key that does not match the metadata tree at its position, a
@@ -119,15 +121,115 @@ class SpecDocumentYaml {
   /// items follow their stored sequence; emission is sparse (only populated
   /// subtrees appear). Throws [SpecYamlFormatException] when the document
   /// holds values [tree] cannot place — nothing is silently dropped.
+  ///
+  /// [review] is written back as the `review:` pass when given — typically the
+  /// raw map [decode] returned, so that a load followed by a save keeps a
+  /// reviewed document's review state. The runtime does not interpret it
+  /// ([writeReviewPass]); without it the file carries no `review:` pass.
   static String encode({
     required SpecDocument document,
     required SomMetaTree tree,
     String? modelVersion,
+    Map<dynamic, dynamic>? review,
   }) {
     final b = StringBuffer();
     writeHeader(b, modelVersion: modelVersion);
     _Encoder(document, tree).writeDocumentPass(b);
+    if (review != null) writeReviewPass(b, review);
     return b.toString();
+  }
+
+  /// Writes [review] as the `review:` pass, passed through without
+  /// interpretation: entries sorted by path (JSON-quoted keys), each entry's
+  /// fields sorted by name. Sorting, rather than keeping the map's order, is
+  /// what makes the output the same in every port — several ports decode YAML
+  /// into maps that do not keep insertion order — and it keeps decode followed
+  /// by encode byte-identical. Booleans, numbers
+  /// and identifier-like strings are written plain; any other string as a
+  /// self-verified block scalar ([writeScalar]); a nested map one level
+  /// deeper; a list as a JSON flow sequence. An empty map writes
+  /// `review: {}`.
+  static void writeReviewPass(StringBuffer b, Map<dynamic, dynamic> review) {
+    if (review.isEmpty) {
+      b.writeln('review: {}');
+      return;
+    }
+    b.writeln('review:');
+    final keys = review.keys.map((k) => '$k').toList()..sort();
+    for (final key in keys) {
+      _writeReviewValue(b, 2, yamlKey(key), review[key]);
+    }
+  }
+
+  static void _writeReviewValue(
+    StringBuffer b,
+    int indent,
+    String renderedKey,
+    Object? value,
+  ) {
+    final pad = ' ' * indent;
+    if (value is Map) {
+      if (value.isEmpty) {
+        b.writeln('$pad$renderedKey: {}');
+        return;
+      }
+      b.writeln('$pad$renderedKey:');
+      final fields = value.keys.map((k) => '$k').toList()..sort();
+      for (final field in fields) {
+        _writeReviewValue(b, indent + 2, plainKey(field), value[field]);
+      }
+    } else if (value == null) {
+      b.writeln('$pad$renderedKey: null');
+    } else if (value is bool || value is num) {
+      b.writeln('$pad$renderedKey: $value');
+    } else if (value is List) {
+      b.writeln('$pad$renderedKey: ${jsonEncode(value)}');
+    } else if (_reviewTokenPattern.hasMatch('$value') &&
+        !_yamlWords.contains('$value'.toLowerCase())) {
+      b.writeln('$pad$renderedKey: $value');
+    } else {
+      _writeRendered(b, indent, renderedKey, _scalar('$value'));
+    }
+  }
+
+  static final RegExp _reviewTokenPattern = RegExp(r'^[A-Za-z_][A-Za-z0-9_]*$');
+
+  /// Words a YAML parser (1.1 or 1.2) reads as something other than a string.
+  static const _yamlWords = {
+    'true', 'false', 'null', 'yes', 'no', 'on', 'off', 'y', 'n', //
+  };
+
+  /// The review paths in [review] that no longer resolve against [document]:
+  /// paths the model cannot resolve, and paths running through a list item
+  /// the document does not hold (an item that was removed). Sorted. Reports
+  /// only — it never edits [review] — so a consumer that removed a list item
+  /// can tell its user which review entries it left behind.
+  static List<String> staleReviewPaths(
+    SpecModel model,
+    SpecDocument document,
+    Map<dynamic, dynamic> review,
+  ) {
+    final refl = SpecReflection(model);
+    bool isStale(String path) {
+      final segments = path.split('/');
+      for (var i = 1; i <= segments.length; i++) {
+        final prefix = segments.take(i).join('/');
+        final res = refl.resolve(prefix);
+        if (res == null) return true;
+        if (res.kind == SpecNodeKind.listItemComplex ||
+            res.kind == SpecNodeKind.listItemScalar) {
+          final dash = prefix.lastIndexOf('-');
+          final listPath = prefix.substring(0, dash);
+          if (!document.listItems(listPath).contains(prefix)) return true;
+        }
+      }
+      return false;
+    }
+
+    return [
+      for (final k in review.keys.map((k) => '$k'))
+        if (isStale(k)) k,
+    ]..sort();
   }
 
   /// Writes the file header comment + `version:` line, and the optional

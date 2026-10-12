@@ -3,12 +3,17 @@
 #include "spec_document_yaml.hpp"
 
 #include <algorithm>
+#include <cerrno>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
 #include <map>
 #include <vector>
 
 #include "som_json.hpp"
 #include "som_util.hpp"
 #include "spec_paths.hpp"
+#include "spec_reflection.hpp"
 #include "spec_section_id.hpp"
 
 namespace som {
@@ -736,7 +741,8 @@ class YamlEncoder {
 std::optional<std::string> encodeYaml(const SpecDocument& document,
                                       const SomMetaTree& tree,
                                       const std::string& modelVersion,
-                                      std::string* err) {
+                                      std::string* err,
+                                      const YamlValue* review) {
   std::string out;
   writeHeader(out, modelVersion);
   YamlEncoder e;
@@ -757,7 +763,351 @@ std::optional<std::string> encodeYaml(const SpecDocument& document,
     out += ":\n";
     out += body;
   }
+  if (review != nullptr) {
+    specYamlWriteReviewPass(out, *review);
+  }
   return out;
+}
+
+/* ---- review pass --------------------------------------------------------- */
+
+namespace {
+
+/* `value` as Dart's double.toString prints it (shortest round-trip digits; an
+ * integral value keeps `.0`; exponent form below 1e-6 and from 1e21). */
+std::string dartDouble(double value) {
+  if (std::isnan(value)) {
+    return "NaN";
+  }
+  if (std::isinf(value)) {
+    return value < 0 ? "-Infinity" : "Infinity";
+  }
+  std::string sign = std::signbit(value) ? "-" : "";
+  double a = std::fabs(value);
+  if (a == 0.0) {
+    return sign + "0.0";
+  }
+  char buf[64];
+  for (int prec = 0; prec <= 17; prec++) {
+    std::snprintf(buf, sizeof buf, "%.*e", prec, a);
+    if (std::strtod(buf, nullptr) == a) {
+      break;
+    }
+  }
+  std::string rep = buf;
+  std::size_t e = rep.find('e');
+  std::string digits;
+  for (std::size_t i = 0; i < e; i++) {
+    if (rep[i] != '.') {
+      digits.push_back(rep[i]);
+    }
+  }
+  while (digits.size() > 1 && digits.back() == '0') {
+    digits.pop_back();
+  }
+  long n = std::strtol(rep.c_str() + e + 1, nullptr, 10) + 1;
+  long k = static_cast<long>(digits.size());
+  std::string out;
+  if (k <= n && n <= 21) {
+    out = digits + std::string(static_cast<std::size_t>(n - k), '0') + ".0";
+  } else if (0 < n && n <= 21) {
+    out = digits.substr(0, static_cast<std::size_t>(n)) + "." +
+          digits.substr(static_cast<std::size_t>(n));
+  } else if (-6 < n && n <= 0) {
+    out = "0." + std::string(static_cast<std::size_t>(-n), '0') + digits;
+  } else {
+    long x = n - 1;
+    std::string exp = (x < 0 ? "-" : "+") + formatI64(x < 0 ? -x : x);
+    out = k == 1 ? digits + "e" + exp
+                 : digits.substr(0, 1) + "." + digits.substr(1) + "e" + exp;
+  }
+  return sign + out;
+}
+
+JsonPtr jsonOf(JsonType t) { return std::make_shared<Json>(t); }
+
+JsonPtr jsonStrValue(const std::string& s) {
+  JsonPtr j = jsonOf(JsonType::Str);
+  j->str = s;
+  return j;
+}
+
+/* The value YAML (package:yaml's core schema) gives a plain scalar: null,
+ * a boolean, an integer, a double, a JSON flow collection, else the string. */
+JsonPtr typedPlain(const std::string& t) {
+  if (t.empty() || t == "null" || t == "Null" || t == "NULL" || t == "~") {
+    return jsonOf(JsonType::Null);
+  }
+  if (t == "true" || t == "True" || t == "TRUE" || t == "false" ||
+      t == "False" || t == "FALSE") {
+    JsonPtr j = jsonOf(JsonType::Bool);
+    j->boolean = t[0] == 't' || t[0] == 'T';
+    return j;
+  }
+  if (t[0] == '[' || t[0] == '{') {
+    std::string err;
+    JsonPtr j = jsonParse(t, &err);
+    return j != nullptr ? j : jsonStrValue(t);
+  }
+  auto isDigit = [](char c) { return c >= '0' && c <= '9'; };
+  auto allOf = [&t](std::size_t from, const std::string& set) {
+    if (from >= t.size()) {
+      return false;
+    }
+    return t.find_first_not_of(set, from) == std::string::npos;
+  };
+  if (t.size() > 2 && t[0] == '0' && (t[1] == 'x' || t[1] == 'o')) {
+    bool hex = t[1] == 'x';
+    if (allOf(2, hex ? "0123456789abcdefABCDEF" : "01234567")) {
+      errno = 0;
+      long long n = std::strtoll(t.c_str() + 2, nullptr, hex ? 16 : 8);
+      if (errno == 0) {
+        JsonPtr j = jsonOf(JsonType::Int);
+        j->integer = n;
+        return j;
+      }
+    }
+    return jsonStrValue(t);
+  }
+  static const char* const kSpecials[][2] = {
+      {".inf", "inf"},   {".Inf", "inf"},   {".INF", "inf"},
+      {"+.inf", "inf"},  {"+.Inf", "inf"},  {"+.INF", "inf"},
+      {"-.inf", "-inf"}, {"-.Inf", "-inf"}, {"-.INF", "-inf"},
+      {".nan", "nan"},   {".NaN", "nan"},   {".NAN", "nan"},
+  };
+  for (const auto& sp : kSpecials) {
+    if (t == sp[0]) {
+      JsonPtr j = jsonOf(JsonType::Float);
+      j->real = std::strtod(sp[1], nullptr);
+      return j;
+    }
+  }
+  bool numberish =
+      isDigit(t[0]) || (t[0] == '.' && t.size() > 1 && isDigit(t[1])) ||
+      ((t[0] == '+' || t[0] == '-') && t.size() > 1 &&
+       (isDigit(t[1]) || t[1] == '.'));
+  if (numberish &&
+      t.find_first_not_of("0123456789+-.eE") == std::string::npos) {
+    char* end = nullptr;
+    double d = std::strtod(t.c_str(), &end);
+    if (end == t.c_str() + t.size()) {
+      JsonPtr j = jsonOf(JsonType::Float);
+      j->real = d;
+      return j;
+    }
+  }
+  return jsonStrValue(t);
+}
+
+/* The review value `v` typed as YAML types it. */
+JsonPtr reviewJson(const YamlValue& v) {
+  switch (v.type) {
+    case YamlType::Map: {
+      JsonPtr j = jsonOf(JsonType::Object);
+      for (const auto& kv : v.map) {
+        j->object.emplace_back(kv.first, kv.second != nullptr
+                                             ? reviewJson(*kv.second)
+                                             : jsonOf(JsonType::Null));
+      }
+      return j;
+    }
+    case YamlType::Seq: {
+      JsonPtr j = jsonOf(JsonType::Array);
+      for (const auto& item : v.seq) {
+        j->array.push_back(item != nullptr ? reviewJson(*item)
+                                           : jsonOf(JsonType::Null));
+      }
+      return j;
+    }
+    case YamlType::Int: {
+      JsonPtr j = jsonOf(JsonType::Int);
+      j->integer = v.integer;
+      return j;
+    }
+    case YamlType::Str:
+      break;
+  }
+  return v.plain ? typedPlain(v.str) : jsonStrValue(v.str);
+}
+
+/* Compact JSON text of `v`, as Dart's jsonEncode writes it. */
+void jsonFlow(std::string& out, const Json& v) {
+  switch (v.type) {
+    case JsonType::Null:
+      out += "null";
+      return;
+    case JsonType::Bool:
+      out += v.boolean ? "true" : "false";
+      return;
+    case JsonType::Int:
+      out += formatI64(v.integer);
+      return;
+    case JsonType::Float:
+      out += dartDouble(v.real);
+      return;
+    case JsonType::Str:
+      out += jsJsonString(v.str);
+      return;
+    case JsonType::Array:
+      out.push_back('[');
+      for (std::size_t i = 0; i < v.array.size(); i++) {
+        if (i > 0) {
+          out.push_back(',');
+        }
+        jsonFlow(out, *v.array[i]);
+      }
+      out.push_back(']');
+      return;
+    case JsonType::Object:
+      out.push_back('{');
+      for (std::size_t i = 0; i < v.object.size(); i++) {
+        if (i > 0) {
+          out.push_back(',');
+        }
+        out += jsJsonString(v.object[i].first);
+        out.push_back(':');
+        jsonFlow(out, *v.object[i].second);
+      }
+      out.push_back('}');
+      return;
+  }
+}
+
+bool reviewToken(const std::string& s) {
+  if (s.empty()) {
+    return false;
+  }
+  auto first = [](char c) {
+    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_';
+  };
+  if (!first(s[0])) {
+    return false;
+  }
+  for (char c : s) {
+    if (!first(c) && !(c >= '0' && c <= '9')) {
+      return false;
+    }
+  }
+  std::string lower = s;
+  for (char& c : lower) {
+    if (c >= 'A' && c <= 'Z') {
+      c = static_cast<char>(c - 'A' + 'a');
+    }
+  }
+  static const char* const kYamlWords[] = {"true", "false", "null", "yes", "no",
+                                           "on",   "off",   "y",    "n"};
+  for (const char* w : kYamlWords) {
+    if (lower == w) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/* Object members of `v` sorted by name (byte order). */
+std::vector<std::pair<std::string, JsonPtr>> sortedMembers(const Json& v) {
+  auto members = v.object;
+  std::stable_sort(members.begin(), members.end(),
+                   [](const std::pair<std::string, JsonPtr>& a,
+                      const std::pair<std::string, JsonPtr>& b) {
+                     return a.first < b.first;
+                   });
+  return members;
+}
+
+void writeReviewValue(std::string& out, std::size_t indent,
+                      const std::string& renderedKey, const Json& value) {
+  std::string pad(indent, ' ');
+  switch (value.type) {
+    case JsonType::Object:
+      if (value.object.empty()) {
+        out += pad + renderedKey + ": {}\n";
+        return;
+      }
+      out += pad + renderedKey + ":\n";
+      for (const auto& kv : sortedMembers(value)) {
+        writeReviewValue(out, indent + 2, specYamlPlainKey(kv.first),
+                         *kv.second);
+      }
+      return;
+    case JsonType::Null:
+    case JsonType::Bool:
+    case JsonType::Int:
+    case JsonType::Float:
+    case JsonType::Array: {
+      std::string flow;
+      jsonFlow(flow, value);
+      out += pad + renderedKey + ": " + flow + "\n";
+      return;
+    }
+    case JsonType::Str:
+      if (reviewToken(value.str)) {
+        out += pad + renderedKey + ": " + value.str + "\n";
+      } else {
+        writeRendered(out, indent, renderedKey, scalarRepr(value.str));
+      }
+      return;
+  }
+}
+
+}  // namespace
+
+void specYamlWriteReviewPass(std::string& out, const YamlValue& review) {
+  JsonPtr r = reviewJson(review);
+  if (r->type != JsonType::Object || r->object.empty()) {
+    out += "review: {}\n";
+    return;
+  }
+  out += "review:\n";
+  for (const auto& kv : sortedMembers(*r)) {
+    writeReviewValue(out, 2, jsJsonString(kv.first), *kv.second);
+  }
+}
+
+std::vector<std::string> specYamlStaleReviewPaths(const SpecModel& model,
+                                                  const SpecDocument& document,
+                                                  const YamlValue& review) {
+  SpecReflection refl(model);
+  auto isStale = [&](const std::string& path) {
+    std::vector<std::string> segments;
+    std::size_t start = 0;
+    for (;;) {
+      std::size_t slash = path.find('/', start);
+      segments.push_back(path.substr(start, slash - start));
+      if (slash == std::string::npos) {
+        break;
+      }
+      start = slash + 1;
+    }
+    std::string prefix;
+    for (std::size_t i = 0; i < segments.size(); i++) {
+      prefix += (i == 0 ? "" : "/") + segments[i];
+      auto res = refl.resolve(prefix);
+      if (!res.has_value()) {
+        return true;
+      }
+      if (res->kind == kSpecNodeKindListItemComplex ||
+          res->kind == kSpecNodeKindListItemScalar) {
+        std::size_t dash = prefix.rfind('-');
+        std::string listPath =
+            dash == std::string::npos ? prefix : prefix.substr(0, dash);
+        if (!contains(document.listItems(listPath), prefix)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+  std::vector<std::string> stale;
+  if (review.type == YamlType::Map) {
+    for (const auto& kv : review.map) {
+      if (isStale(kv.first)) {
+        stale.push_back(kv.first);
+      }
+    }
+  }
+  std::sort(stale.begin(), stale.end());
+  return stale;
 }
 
 /* ---- decode -------------------------------------------------------------- */

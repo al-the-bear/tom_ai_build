@@ -74,6 +74,8 @@ from .spec_document_yaml import (
     SpecYamlFormatException,
     decode as yaml_decode,
     encode as yaml_encode,
+    stale_review_paths,
+    write_review_pass,
 )
 from .spec_meta import (
     SomContentTypeMeta,
@@ -272,4 +274,6 @@ __all__ = [
     "validate_document",
     "yaml_decode",
     "yaml_encode",
+    "stale_review_paths",
+    "write_review_pass",
 ]

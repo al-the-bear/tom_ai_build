@@ -309,9 +309,10 @@ YamlPtr parseFlowScalar(const std::string& s) {
     if (n.has_value()) {
       return yamlNewInt(*n);
     }
-    return yamlNewStr(t);
   }
-  return yamlNewStr(t);
+  YamlPtr plain = yamlNewStr(t);
+  plain->plain = true;
+  return plain;
 }
 
 std::string parseBlockScalar(YamlReader& r, const std::string& header,
