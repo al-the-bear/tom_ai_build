@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.3.2+11.f4804777
-  generatedAt       = 2026-09-09T18:52:10.011801Z
+  modelVersionLabel = 1.3.3+1.0063655c
+  generatedAt       = 2026-10-11T08:32:30.291650Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -179,7 +179,7 @@ sees filled. A tool that wants "is this document good?" runs BOTH.
 THE FIXTURE, both tiers:
   instance tier : 0 error(s)
   document tier : 1 violation(s)
-    line 38: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-fo…
+    line 40: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-fo…
 
 A DELIBERATELY BROKEN COPY — one path the model does not have, one
 form slot the form does not declare:

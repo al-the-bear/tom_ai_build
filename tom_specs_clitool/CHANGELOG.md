@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.4.0
+
+- **`bin/check_som_parity.dart`** — asks whether a capability reached all nine
+  SOM planes, not only whether the planes agree, with deliberate asymmetries
+  recorded in `tool/som_parity_exceptions.yaml`.
+- **Documentation-generator provisioning**: `tool/provision_doc_generators.sh`
+  reports (and on `--install` performs) the toolchains the eight API-reference
+  generators need, sharing its PATH rules with the reference driver through
+  `tool/lib/doc_toolchain_path.sh`. pdoc is required on Python >= 3.13.
+- `check_release_drift.dart` honours `.pubignore`: a path that never reaches
+  pub.dev is not unpublished change.
+- `tool/release_set.yaml` records the 1.3.3 model-chain release as published;
+  only `tom_doc_specs`' acknowledgement remains.
+- Section-citation, doc-coverage and invariant-correspondence gates refined;
+  `tool/doccov.py`, the documentation campaign's Python counter, is retired.
+
 ## 0.3.2
 
 - **`tool/verify_published_tests.sh` — run every release member's shipped tests

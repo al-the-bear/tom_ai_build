@@ -180,8 +180,8 @@ both have `aggregateRoot` cleared. Nothing else changed.
    gate verdict             : REJECTED — the run may not begin
 
    What A1 names, per violation:
-     line 23: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-form" is missing
-     line 63: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-form" is missing
+     line 26: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-form" is missing
+     line 72: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-form" is missing
 
    A2 did not move: 0 violations, the same as
    variant A. Clearing a required field REMOVES a value, and a
