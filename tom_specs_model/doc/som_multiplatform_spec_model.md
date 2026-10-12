@@ -549,6 +549,15 @@ language mirrors it:
   no way to ask for a union of every `@Document` root, and naming a root the
   document never populates is an error rather than 26 silently empty extracts
   (`codespecs_prompt.md` §5).
+- `spec_codespecs_records.dart` — the **reading** half of the same files:
+  `CodeSpecsExtract.fromYaml` reads an extract back (refusing an unknown
+  `formatVersion`, and a `document.entryCount` the entries disagree with),
+  `CodeSpecsGateRecord` reads and writes the Stage-B gate record
+  `gate.verdicts.yaml` in a checked shape (`codespecs_prompt.md` §6.3), and
+  `CodeSpecsExtractSet` reads a run's extract tree scoped by that record.
+  Mirrored in all nine languages for the extractor's reason; the CodeSpecs
+  validator in `tom_specs_clitool` reads through the Dart one, so there is one
+  reader rather than a second copy of its rules.
 
 The Dart runtime additionally carries **`spec_annotation_display.dart`** and the
 test-only `spec_display_fixture.dart`: the theme-free *display semantics* of the

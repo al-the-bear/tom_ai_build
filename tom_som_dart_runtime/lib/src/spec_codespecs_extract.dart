@@ -41,6 +41,7 @@
 /// open the mapping document to find out what `CE-FM` means.
 library;
 
+import 'spec_codespecs_records.dart';
 import 'spec_document.dart';
 import 'spec_model.dart';
 import 'spec_paths.dart';
@@ -597,6 +598,12 @@ class CodeSpecsExtract {
     this.projects = const [],
     this.entries = const [],
   });
+
+  /// Reads an extract back from its artifact of record — the inverse of
+  /// [toYaml]. [source] names the file in errors. Throws
+  /// [CodeSpecsRecordError] on an unknown `formatVersion` or a malformed file.
+  factory CodeSpecsExtract.fromYaml(String text, {String source = ''}) =>
+      parseCodeSpecsExtractYaml(text, source: source);
 
   /// The extract's file name stem — `CE-FM.extract`.
   String get fileStem => '${area.code}.extract';
@@ -1274,6 +1281,10 @@ String _yamlString(String value) {
   b.write('"');
   return b.toString();
 }
+
+/// A JSON string literal that is also a YAML 1.2 double-quoted scalar — the
+/// one escaping rule every CodeSpecs artifact uses for free text.
+String codeSpecsYamlString(String value) => _yamlString(value);
 
 String _yamlNullableString(String? value) =>
     value == null ? 'null' : _yamlString(value);

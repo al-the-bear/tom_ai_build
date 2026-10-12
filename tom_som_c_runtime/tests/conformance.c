@@ -23,12 +23,15 @@
  *   - the lexical/structural query, its cursor and the node projection;
  *   - the Phase-4 CodeSpecs extract generator (routing verdicts, the YAML and
  *     Markdown goldens, the verbatim-copy guard and the ROUTE-TOTAL errors);
+ *   - reading extracts and the Stage-B gate record back, writing the gate
+ *     record, and scoping a set of extracts by it;
  *   - the meta-model-validated node-creation gate and its creator.
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
  * green; non-zero on the first failed group of checks.
  */
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -2654,6 +2657,535 @@ static void test_codespecs_extract(Checker *c, const SpecModel *model) {
   spec_document_free(&doc);
 }
 
+/* ---- CodeSpecs records: reading extracts and the gate record ------------- */
+
+/* Compact JSON text of a corpus value, keys in source order — the form the
+ * summaries below are rendered in, so one string comparison checks a summary. */
+static void json_text_into(SomBuf *b, const SomJson *v) {
+  if (v == NULL) {
+    som_buf_puts(b, "null");
+    return;
+  }
+  switch (v->type) {
+    case SOM_JSON_NULL:
+      som_buf_puts(b, "null");
+      break;
+    case SOM_JSON_BOOL:
+      som_buf_puts(b, v->as.boolean ? "true" : "false");
+      break;
+    case SOM_JSON_INT:
+      som_buf_puti(b, v->as.integer);
+      break;
+    case SOM_JSON_FLOAT: {
+      char num[64];
+      snprintf(num, sizeof(num), "%.17g", v->as.real);
+      som_buf_puts(b, num);
+      break;
+    }
+    case SOM_JSON_STR: {
+      char *q = som_json_encode_str(v->as.str);
+      som_buf_puts(b, q);
+      free(q);
+      break;
+    }
+    case SOM_JSON_ARRAY:
+      som_buf_putc(b, '[');
+      for (size_t i = 0; i < v->as.array.len; i++) {
+        if (i > 0) som_buf_putc(b, ',');
+        json_text_into(b, v->as.array.items[i]);
+      }
+      som_buf_putc(b, ']');
+      break;
+    case SOM_JSON_OBJECT:
+      som_buf_putc(b, '{');
+      for (size_t i = 0; i < v->as.object.len; i++) {
+        if (i > 0) som_buf_putc(b, ',');
+        char *q = som_json_encode_str(v->as.object.members[i].key);
+        som_buf_puts(b, q);
+        free(q);
+        som_buf_putc(b, ':');
+        json_text_into(b, v->as.object.members[i].value);
+      }
+      som_buf_putc(b, '}');
+      break;
+  }
+}
+
+static char *json_text(const SomJson *v) {
+  SomBuf b;
+  som_buf_init(&b);
+  json_text_into(&b, v);
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+/* Summary writers, in the key order of the Dart `_extractSummary`,
+ * `_gateSummary` and `_scopeSummary`. */
+static void sum_key(SomBuf *b, int first, const char *key) {
+  if (!first) som_buf_putc(b, ',');
+  char *q = som_json_encode_str(key);
+  som_buf_puts(b, q);
+  free(q);
+  som_buf_putc(b, ':');
+}
+
+static void sum_str(SomBuf *b, const char *s) {
+  if (s == NULL) {
+    som_buf_puts(b, "null");
+    return;
+  }
+  char *q = som_json_encode_str(s);
+  som_buf_puts(b, q);
+  free(q);
+}
+
+static void sum_strlist(SomBuf *b, const SomStrList *l) {
+  som_buf_putc(b, '[');
+  for (size_t i = 0; i < l->len; i++) {
+    if (i > 0) som_buf_putc(b, ',');
+    sum_str(b, l->items[i]);
+  }
+  som_buf_putc(b, ']');
+}
+
+/* One string field of every entry, as a JSON array. */
+static void sum_entry_field(SomBuf *b, const CodeSpecsExtract *x,
+                            size_t offset) {
+  som_buf_putc(b, '[');
+  for (size_t i = 0; i < x->entries_len; i++) {
+    if (i > 0) som_buf_putc(b, ',');
+    const char *const *field =
+        (const char *const *)((const char *)&x->entries[i] + offset);
+    sum_str(b, *field);
+  }
+  som_buf_putc(b, ']');
+}
+
+static char *extract_summary(const CodeSpecsExtract *x) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_putc(&b, '{');
+  sum_key(&b, 1, "area");
+  sum_str(&b, x->area->code);
+  sum_key(&b, 0, "canonicalId");
+  sum_str(&b, x->area->canonical_id);
+  sum_key(&b, 0, "part");
+  sum_str(&b, x->area->part);
+  sum_key(&b, 0, "documentRoot");
+  sum_str(&b, x->document_root);
+  sum_key(&b, 0, "projects");
+  sum_strlist(&b, &x->projects);
+  sum_key(&b, 0, "citableParts");
+  sum_strlist(&b, &x->citable_parts);
+  sum_key(&b, 0, "entryCount");
+  som_buf_puti(&b, (long long)x->entries_len);
+  sum_key(&b, 0, "sectionIds");
+  sum_entry_field(&b, x, offsetof(CodeSpecsExtractEntry, section_id));
+  sum_key(&b, 0, "values");
+  sum_entry_field(&b, x, offsetof(CodeSpecsExtractEntry, value));
+  sum_key(&b, 0, "classNames");
+  sum_entry_field(&b, x, offsetof(CodeSpecsExtractEntry, class_name));
+  sum_key(&b, 0, "headlines");
+  sum_entry_field(&b, x, offsetof(CodeSpecsExtractEntry, headline));
+  som_buf_putc(&b, '}');
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+static char *gate_summary(const CodeSpecsGateRecord *g) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, "{\"verdicts\":[");
+  for (size_t i = 0; i < g->verdicts_len; i++) {
+    const CodeSpecsGateEntry *e = &g->verdicts[i];
+    if (i > 0) som_buf_putc(&b, ',');
+    som_buf_putc(&b, '{');
+    sum_key(&b, 1, "area");
+    sum_str(&b, e->area);
+    sum_key(&b, 0, "verdict");
+    sum_str(&b, spec_codespecs_gate_verdict_word(e->verdict));
+    sum_key(&b, 0, "resolution");
+    sum_str(&b, e->resolution);
+    sum_key(&b, 0, "note");
+    sum_str(&b, e->note);
+    som_buf_putc(&b, '}');
+  }
+  som_buf_puts(&b, "]}");
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+static char *scope_summary(const CodeSpecsExtractSet *s) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_putc(&b, '{');
+  sum_key(&b, 1, "inScope");
+  som_buf_putc(&b, '[');
+  for (size_t i = 0; i < s->extracts.len; i++) {
+    if (i > 0) som_buf_putc(&b, ',');
+    sum_str(&b, s->extracts.items[i].area->code);
+  }
+  som_buf_putc(&b, ']');
+  sum_key(&b, 0, "sources");
+  sum_strlist(&b, &s->sources);
+  sum_key(&b, 0, "hasGate");
+  som_buf_puts(&b, s->has_gate ? "true" : "false");
+  sum_key(&b, 0, "excluded");
+  som_buf_putc(&b, '[');
+  for (size_t i = 0; i < s->excluded_len; i++) {
+    const CodeSpecsExcludedArea *e = &s->excluded[i];
+    if (i > 0) som_buf_putc(&b, ',');
+    som_buf_putc(&b, '{');
+    sum_key(&b, 1, "area");
+    sum_str(&b, e->area);
+    sum_key(&b, 0, "verdict");
+    sum_str(&b, spec_codespecs_gate_verdict_word(e->verdict));
+    sum_key(&b, 0, "descoped");
+    som_buf_puts(&b, e->descoped ? "true" : "false");
+    sum_key(&b, 0, "entryCount");
+    som_buf_puti(&b, (long long)e->entry_count);
+    sum_key(&b, 0, "source");
+    sum_str(&b, e->source);
+    som_buf_putc(&b, '}');
+  }
+  som_buf_puts(&b, "]}");
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+/* A gate entry from its corpus form, borrowing the corpus strings. */
+static CodeSpecsGateEntry gate_entry_json(const SomJson *v) {
+  CodeSpecsGateEntry e;
+  e.area = (char *)som_json_str_or(v, "area");
+  e.verdict = CODESPECS_GATE_SUFFICIENT;
+  spec_codespecs_gate_verdict_parse(som_json_str_or(v, "verdict"), &e.verdict);
+  e.resolution = (char *)som_json_as_str(som_json_get(v, "resolution"));
+  e.note = (char *)som_json_as_str(som_json_get(v, "note"));
+  return e;
+}
+
+/* Compares `got` with the corpus value `want` (rendered the same way). */
+static void check_summary(Checker *c, const char *tag, const char *got,
+                          const SomJson *want) {
+  char *w = json_text(want);
+  char *diff = byte_diff(tag, got, w);
+  check(c, tag, strcmp(got, w) == 0, diff);
+  free(diff);
+  free(w);
+}
+
+/* Checks that `err` failed with a message containing `want`. */
+static void check_record_error(Checker *c, const char *tag, int ok,
+                               const CodeSpecsRecordError *err,
+                               const char *want) {
+  char detail[4096];
+  if (ok) {
+    snprintf(detail, sizeof(detail), "no error; want \"%s\"", want);
+    check(c, tag, 0, detail);
+    return;
+  }
+  const char *msg = err->message != NULL ? err->message : "";
+  snprintf(detail, sizeof(detail), "got \"%s\" want \"%s\"", msg, want);
+  check(c, tag, err->failed && strstr(msg, want) != NULL, detail);
+}
+
+/* Builds and checks a record from a corpus list of verdicts. */
+static int gate_from_json_list(const SomJson *list, CodeSpecsGateRecord *out,
+                               CodeSpecsRecordError *err) {
+  size_t n = som_json_array_len(list);
+  CodeSpecsGateEntry *entries =
+      n > 0 ? (CodeSpecsGateEntry *)calloc(n, sizeof(CodeSpecsGateEntry)) : NULL;
+  for (size_t i = 0; i < n; i++) {
+    entries[i] = gate_entry_json(som_json_array_at(list, i));
+  }
+  int ok = spec_codespecs_gate_record_make(entries, n, NULL, out, err);
+  free(entries); /* the strings are borrowed from the corpus */
+  return ok;
+}
+
+/* `codespecs_record_cases.json`: reading extracts and the gate record back,
+ * writing the gate record, and scoping a set of extracts by it. */
+static void test_codespecs_records(Checker *c) {
+  SomJson *table = read_json("codespecs_record_cases.json");
+  SomJson *extract_table = read_json("codespecs_extract_cases.json");
+  CodeSpecsAreaCatalog catalog;
+  spec_codespecs_area_catalog_from_json(som_json_get(extract_table, "catalog"),
+                                        &catalog);
+  char tag[512];
+
+  /* 1. Extract reads: the summary, and the byte-stable round trip. */
+  const SomJson *reads = som_json_get(table, "extractReads");
+  check(c, "codespecsRecords.extractReads.nonEmpty",
+        som_json_array_len(reads) > 0, "");
+  for (size_t i = 0; i < som_json_array_len(reads); i++) {
+    const SomJson *k = som_json_array_at(reads, i);
+    const char *yaml = som_json_str_or(k, "yaml");
+    snprintf(tag, sizeof(tag), "codespecsRecords.extractRead[%s]",
+             som_json_str_or(k, "source"));
+    CodeSpecsExtract x;
+    CodeSpecsRecordError err;
+    spec_codespecs_record_error_init(&err);
+    if (!spec_codespecs_extract_from_yaml(yaml, som_json_str_or(k, "source"),
+                                          &x, &err)) {
+      check(c, tag, 0, err.message);
+      spec_codespecs_record_error_free(&err);
+      continue;
+    }
+    char *got = extract_summary(&x);
+    check_summary(c, tag, got, som_json_get(k, "expect"));
+    free(got);
+    char *again = spec_codespecs_extract_to_yaml(&x);
+    char t2[600];
+    snprintf(t2, sizeof(t2), "%s.roundTrip", tag);
+    char *diff = byte_diff(t2, again, yaml);
+    check(c, t2, strcmp(again, yaml) == 0, diff);
+    free(diff);
+    free(again);
+    spec_codespecs_extract_free(&x);
+  }
+
+  /* 2. A minimal hand-written extract: absent keys read as empty. */
+  {
+    const SomJson *k = som_json_get(table, "extractMinimal");
+    CodeSpecsExtract x;
+    CodeSpecsRecordError err;
+    spec_codespecs_record_error_init(&err);
+    if (spec_codespecs_extract_from_yaml(som_json_str_or(k, "yaml"),
+                                         som_json_str_or(k, "source"), &x,
+                                         &err)) {
+      char *got = extract_summary(&x);
+      check_summary(c, "codespecsRecords.extractMinimal", got,
+                    som_json_get(k, "expect"));
+      free(got);
+      spec_codespecs_extract_free(&x);
+    } else {
+      check(c, "codespecsRecords.extractMinimal", 0, err.message);
+    }
+    spec_codespecs_record_error_free(&err);
+  }
+
+  /* 3. Extract errors. */
+  const SomJson *xerrs = som_json_get(table, "extractErrors");
+  for (size_t i = 0; i < som_json_array_len(xerrs); i++) {
+    const SomJson *k = som_json_array_at(xerrs, i);
+    snprintf(tag, sizeof(tag), "codespecsRecords.extractError[%s]",
+             som_json_str_or(k, "name"));
+    CodeSpecsExtract x;
+    CodeSpecsRecordError err;
+    spec_codespecs_record_error_init(&err);
+    int ok = spec_codespecs_extract_from_yaml(som_json_str_or(k, "yaml"),
+                                              som_json_str_or(k, "source"), &x,
+                                              &err);
+    check_record_error(c, tag, ok, &err, som_json_str_or(k, "messageContains"));
+    if (ok) spec_codespecs_extract_free(&x);
+    spec_codespecs_record_error_free(&err);
+  }
+
+  /* 4. Gate records: parse, summary, byte-stable write, valid against the
+   * catalogue. */
+  const SomJson *records = som_json_get(table, "gateRecords");
+  for (size_t i = 0; i < som_json_array_len(records); i++) {
+    const SomJson *k = som_json_array_at(records, i);
+    const char *yaml = som_json_str_or(k, "yaml");
+    snprintf(tag, sizeof(tag), "codespecsRecords.gateRecord[%s]",
+             som_json_str_or(k, "name"));
+    CodeSpecsGateRecord g;
+    CodeSpecsRecordError err;
+    spec_codespecs_record_error_init(&err);
+    if (!spec_codespecs_gate_record_from_yaml(yaml, NULL, &g, &err)) {
+      check(c, tag, 0, err.message);
+      spec_codespecs_record_error_free(&err);
+      continue;
+    }
+    char *got = gate_summary(&g);
+    check_summary(c, tag, got, som_json_get(k, "expect"));
+    free(got);
+    char *again = spec_codespecs_gate_record_to_yaml(&g);
+    char t2[600];
+    snprintf(t2, sizeof(t2), "%s.toYaml", tag);
+    char *diff = byte_diff(t2, again, yaml);
+    check(c, t2, strcmp(again, yaml) == 0, diff);
+    free(diff);
+    free(again);
+    snprintf(t2, sizeof(t2), "%s.checkAgainst", tag);
+    int ok = spec_codespecs_gate_record_check_against(&g, &catalog, NULL, &err);
+    check(c, t2, ok, err.message);
+    spec_codespecs_record_error_free(&err);
+    spec_codespecs_gate_record_free(&g);
+  }
+
+  /* 5. Gate writes: built from verdicts, then one recorded with withVerdict. */
+  const SomJson *writes = som_json_get(table, "gateWrites");
+  for (size_t i = 0; i < som_json_array_len(writes); i++) {
+    const SomJson *k = som_json_array_at(writes, i);
+    snprintf(tag, sizeof(tag), "codespecsRecords.gateWrite[%s]",
+             som_json_str_or(k, "name"));
+    CodeSpecsGateRecord g;
+    CodeSpecsRecordError err;
+    spec_codespecs_record_error_init(&err);
+    if (!gate_from_json_list(som_json_get(k, "verdicts"), &g, &err)) {
+      check(c, tag, 0, err.message);
+      spec_codespecs_record_error_free(&err);
+      continue;
+    }
+    char *yaml = spec_codespecs_gate_record_to_yaml(&g);
+    char *diff = byte_diff(tag, yaml, som_json_str_or(k, "yaml"));
+    check(c, tag, strcmp(yaml, som_json_str_or(k, "yaml")) == 0, diff);
+    free(diff);
+    free(yaml);
+    const SomJson *then = som_json_get(k, "then");
+    if (then != NULL && then->type == SOM_JSON_OBJECT) {
+      char t2[600];
+      snprintf(t2, sizeof(t2), "%s.then", tag);
+      CodeSpecsGateEntry e = gate_entry_json(then);
+      CodeSpecsGateRecord g2;
+      if (spec_codespecs_gate_record_with_verdict(&g, &e, &g2, &err)) {
+        char *y2 = spec_codespecs_gate_record_to_yaml(&g2);
+        char *d2 = byte_diff(t2, y2, som_json_str_or(k, "thenYaml"));
+        check(c, t2, strcmp(y2, som_json_str_or(k, "thenYaml")) == 0, d2);
+        free(d2);
+        free(y2);
+        spec_codespecs_gate_record_free(&g2);
+      } else {
+        check(c, t2, 0, err.message);
+      }
+    }
+    spec_codespecs_record_error_free(&err);
+    spec_codespecs_gate_record_free(&g);
+  }
+
+  /* 6. Gate errors — some only against the catalogue. */
+  const SomJson *gerrs = som_json_get(table, "gateErrors");
+  for (size_t i = 0; i < som_json_array_len(gerrs); i++) {
+    const SomJson *k = som_json_array_at(gerrs, i);
+    snprintf(tag, sizeof(tag), "codespecsRecords.gateError[%s]",
+             som_json_str_or(k, "name"));
+    CodeSpecsGateRecord g;
+    CodeSpecsRecordError err;
+    spec_codespecs_record_error_init(&err);
+    int ok = spec_codespecs_gate_record_from_yaml(som_json_str_or(k, "yaml"),
+                                                  NULL, &g, &err);
+    if (ok) {
+      if (som_json_bool_or(k, "againstCatalog")) {
+        ok = spec_codespecs_gate_record_check_against(&g, &catalog, NULL, &err);
+      }
+      spec_codespecs_gate_record_free(&g);
+    }
+    check_record_error(c, tag, ok, &err, som_json_str_or(k, "messageContains"));
+    spec_codespecs_record_error_free(&err);
+  }
+
+  /* 7. Scoping a set of files (an ordered list of [name, text] pairs). */
+  const SomJson *scopes = som_json_get(table, "scopeCases");
+  for (size_t i = 0; i < som_json_array_len(scopes); i++) {
+    const SomJson *k = som_json_array_at(scopes, i);
+    snprintf(tag, sizeof(tag), "codespecsRecords.scope[%s]",
+             som_json_str_or(k, "name"));
+    const SomJson *list = som_json_get(k, "files");
+    size_t n = som_json_array_len(list);
+    CodeSpecsRecordFile *files =
+        n > 0 ? (CodeSpecsRecordFile *)calloc(n, sizeof(CodeSpecsRecordFile))
+              : NULL;
+    for (size_t f = 0; f < n; f++) {
+      const SomJson *pair = som_json_array_at(list, f);
+      files[f].name = som_json_as_str(som_json_array_at(pair, 0));
+      files[f].text = som_json_as_str(som_json_array_at(pair, 1));
+    }
+    CodeSpecsExtractSet set;
+    CodeSpecsRecordError err;
+    spec_codespecs_record_error_init(&err);
+    int ok = spec_codespecs_extract_set_from_files(files, n, &set, &err);
+    const SomJson *want = som_json_get(k, "expect");
+    const char *want_error = som_json_as_str(som_json_get(want, "error"));
+    if (want_error != NULL) {
+      check_record_error(c, tag, ok, &err, want_error);
+      if (!ok) {
+        char t2[600];
+        snprintf(t2, sizeof(t2), "%s.exactMessage", tag);
+        check(c, t2, strcmp(err.message, want_error) == 0, err.message);
+      }
+    } else if (ok) {
+      char *got = scope_summary(&set);
+      check_summary(c, tag, got, want);
+      free(got);
+      /* The lookups agree with the scope. */
+      for (size_t x = 0; x < set.extracts.len; x++) {
+        const CodeSpecsExtract *ex = &set.extracts.items[x];
+        char t2[600];
+        snprintf(t2, sizeof(t2), "%s.byArea[%s]", tag, ex->area->code);
+        check(c, t2, spec_codespecs_extract_set_by_area(&set, ex->area->code) == ex,
+              "");
+      }
+    } else {
+      check(c, tag, 0, err.message);
+    }
+    if (ok) spec_codespecs_extract_set_free(&set);
+    spec_codespecs_record_error_free(&err);
+    free(files);
+  }
+
+  /* 8. The lookups across a scoped set: every entry is found by its section id
+   * and by its path, and a token no entry carries finds nothing. */
+  {
+    size_t n = som_json_array_len(reads);
+    CodeSpecsRecordFile *files =
+        n > 0 ? (CodeSpecsRecordFile *)calloc(n, sizeof(CodeSpecsRecordFile))
+              : NULL;
+    for (size_t f = 0; f < n; f++) {
+      const SomJson *k = som_json_array_at(reads, f);
+      files[f].name = som_json_str_or(k, "source");
+      files[f].text = som_json_str_or(k, "yaml");
+    }
+    CodeSpecsExtractSet set;
+    CodeSpecsRecordError err;
+    spec_codespecs_record_error_init(&err);
+    int ok = spec_codespecs_extract_set_from_files(files, n, &set, &err);
+    check(c, "codespecsRecords.lookups.read", ok, err.message);
+    if (ok) {
+      size_t total = 0, by_section = 0, by_path = 0;
+      for (size_t x = 0; x < set.extracts.len; x++) {
+        const CodeSpecsExtract *ex = &set.extracts.items[x];
+        for (size_t e = 0; e < ex->entries_len; e++) {
+          const CodeSpecsExtractEntry *entry = &ex->entries[e];
+          const CodeSpecsExtractEntry **hits = NULL;
+          size_t m = spec_codespecs_extract_set_entries_for_section(
+              &set, entry->section_id, &hits);
+          for (size_t h = 0; h < m; h++) by_section += hits[h] == entry;
+          free((void *)hits);
+          m = spec_codespecs_extract_set_entries_at_path(&set, entry->path,
+                                                         &hits);
+          for (size_t h = 0; h < m; h++) by_path += hits[h] == entry;
+          free((void *)hits);
+          total++;
+        }
+      }
+      check(c, "codespecsRecords.lookups.entriesForSection",
+            total > 0 && by_section == total, "");
+      check(c, "codespecsRecords.lookups.entriesAtPath",
+            total > 0 && by_path == total, "");
+      const CodeSpecsExtractEntry **none = NULL;
+      check(c, "codespecsRecords.lookups.none",
+            spec_codespecs_extract_set_entries_for_section(&set, "NO-SUCH",
+                                                           &none) == 0 &&
+                none == NULL,
+            "");
+      check(c, "codespecsRecords.lookups.byArea.missing",
+            spec_codespecs_extract_set_by_area(&set, "CE-NONE") == NULL, "");
+      spec_codespecs_extract_set_free(&set);
+    }
+    spec_codespecs_record_error_free(&err);
+    free(files);
+  }
+
+  spec_codespecs_area_catalog_free(&catalog);
+  som_json_free(extract_table);
+  som_json_free(table);
+}
+
 /* The cursor's laziness and its view of a **mutating** document: the script
  * removes a list item between opening a cursor and draining it, and the removed
  * item must not surface. */
@@ -2949,6 +3481,7 @@ int main(int argc, char **argv) {
   test_query(&c, model);
   test_projection(&c, model);
   test_codespecs_extract(&c, model);
+  test_codespecs_records(&c);
   test_cursor(&c, model);
   test_node_creation_cases(&c, model);
   test_node_creation_script(&c, model);

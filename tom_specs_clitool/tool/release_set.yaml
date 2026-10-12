@@ -111,7 +111,10 @@ unpublished_drift:
     `yaml_review_cases.json`; and `DocSpecsDocument.replaceSectionBody`
     (vsctsa35), pinned by `docspecs_replace_cases.json`; and
     `CodeSpecsAreaCatalog.steps`, the §4.4.6 authoring-step table (vsctsa37),
-    pinned by `codespecs_extract_cases.json` — all in all nine runtimes.
+    pinned by `codespecs_extract_cases.json`; and reading extracts back plus
+    the gate record (`CodeSpecsExtract.fromYaml`, `CodeSpecsGateRecord`,
+    `CodeSpecsExtractSet`, vsctsa38), pinned by `codespecs_record_cases.json`
+    — all in all nine runtimes.
   tom_som_dart_v0: >-
     REGENERATED, unpublished until vsctsa45: the meta now carries the class-level
     `@Form` of 73 classes as their `content` member's form, and the schemas
@@ -121,14 +124,17 @@ unpublished_drift:
     NO CODE: SOM §11.6 (wrapper sections), SOM §11.7 (applying a parsed
     import), SOM §12.1 (the review pass), SOM §14 item 4 (section replace)
     and the meta-schema note on the class-level `@Form`; the area catalogue
-    gains its `steps` (vsctsa37). Goes out with
+    gains its `steps` (vsctsa37); `codespecs_prompt.md` §6.3 names the
+    gate record's `note:` and its runtime reader (vsctsa38). Goes out with
     vsctsa45.
   tom_specs_clitool: >-
     The model JSON export honours a class-level `@Form`, and the schema
     generator treats `@ContentType('description', …)` as prose; the
     TypeScript/JavaScript facades gain a schema accessor and the TypeScript
     facade takes its runtime as a peer (vsctsa36); the area catalogue
-    carries the §4.4.6 step table (vsctsa37). Unpublished
+    carries the §4.4.6 step table (vsctsa37); the CodeSpecs validator reads
+    extracts through the runtime (vsctsa38), so its published constraint on
+    tom_som_dart_runtime must move to the release carrying that reader. Unpublished
     until vsctsa45, which publishes the regenerated packages these produce.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`

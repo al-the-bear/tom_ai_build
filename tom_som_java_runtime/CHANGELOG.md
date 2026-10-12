@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+- CodeSpecs: reading a Phase-4 run back. `CodeSpecsExtract.fromYaml(text[,
+  source])` is the inverse of `toYaml` (byte-identical round trip for every
+  extract the extractor writes): it requires `formatVersion` 3 and a non-empty
+  `area.code`, reads every other absent key as empty, strips a leading
+  `CodeSpecPart.` from `area.part`, and refuses a wrong-typed key or a
+  `document.entryCount` that disagrees with the entries. New
+  `CodeSpecsGateRecord` (`gate.verdicts.yaml`, format 1): the constructor
+  checks the shape (CE-* areas named once, `resolution: descoped` only on an
+  insufficient area), `fromYaml` also refuses unknown keys and other format
+  versions, `toYaml` is byte-stable, plus `verdictFor`, `checkAgainst(catalog)`
+  and `withVerdict`. New `CodeSpecsGateVerdict`, `CodeSpecsGateEntry`,
+  `CodeSpecsExcludedArea`, and `CodeSpecsExtractSet.fromFiles` /
+  `fromDirectory`, which scope an ordered set of extracts by its gate record
+  (in scope iff `sufficient`; the record must be total; `not applicable` with
+  routed entries and an undescoped `insufficient` are errors) and expose
+  `byArea`, `entriesForSection` and `entriesAtPath`. Every reader throws the
+  new unchecked `CodeSpecsRecordError`. Pinned by the corpus table
+  `codespecs_record_cases.json`.
 - CodeSpecs: the area catalogue carries the `codespecs_mapping.md` §4.4.6
   authoring-step table. New `CodeSpecsStep` (`number`, `title`, `slice`,
   `placedBy`, `areaCodes`; `number` and `slice` are required and throw an

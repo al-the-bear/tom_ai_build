@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+- CodeSpecs: reading Phase-4 output back (`spec_codespecs_records.h`).
+  `spec_codespecs_extract_from_yaml` parses a `<CE-CODE>.extract.yaml` — the
+  inverse of `spec_codespecs_extract_to_yaml`, byte-identical on the round
+  trip — refusing an unknown `formatVersion`, a missing `area` / `area.code`,
+  a wrongly typed key and a `document.entryCount` that disagrees with the
+  entries; the read extract owns its area (new `CodeSpecsExtract.owned_area`,
+  released by `spec_codespecs_extract_free`; `spec_codespecs_area_free` frees a
+  standalone area). The Stage-B gate record: `CodeSpecsGateVerdict` (word /
+  parse), `CodeSpecsGateEntry`, and `CodeSpecsGateRecord` built
+  (`spec_codespecs_gate_record_make`) or read
+  (`spec_codespecs_gate_record_from_yaml`) only in the checked shape, with
+  `verdict_for`, `check_against` (a catalogue's active areas), `with_verdict`
+  and the byte-stable `to_yaml`. `CodeSpecsExtractSet` reads an ordered list of
+  `CodeSpecsRecordFile` name/text pairs
+  (`spec_codespecs_extract_set_from_files`) or a directory
+  (`spec_codespecs_extract_set_from_directory`) and scopes it by the gate
+  record — in scope iff `sufficient`, excluded areas kept visible as
+  `CodeSpecsExcludedArea` — with `by_area`, `entries_for_section` and
+  `entries_at_path`. Failures fill a `CodeSpecsRecordError` whose message is
+  the Dart reference's. `spec_codespecs_yaml_string` exposes the extract's
+  string escaper. The conformance runner checks every case of
+  `codespecs_record_cases.json` (`codespecsRecords.*`).
 - CodeSpecs: the area catalogue carries the `codespecs_mapping.md` §4.4.6
   authoring-step table. `CodeSpecsStep` (`number`, `title`, `slice`,
   `placed_by`, `area_codes`) and `CodeSpecsAreaCatalog.steps` / `steps_len`,

@@ -501,6 +501,21 @@ char *spec_codespecs_area_kind_value(const CodeSpecsArea *a) {
   return out;
 }
 
+void spec_codespecs_area_free(CodeSpecsArea *a) {
+  if (a == NULL) {
+    return;
+  }
+  free(a->code);
+  free(a->canonical_id);
+  free(a->part);
+  som_strlist_free(&a->annotations);
+  free(a->built_on);
+  free(a->attribute_surface);
+  free(a->slices);
+  free(a->authoring_steps);
+  memset(a, 0, sizeof(*a));
+}
+
 size_t spec_codespecs_catalog_active_area_count(const CodeSpecsAreaCatalog *c) {
   size_t n = 0;
   for (size_t i = 0; i < c->areas_len; i++) {
@@ -686,6 +701,10 @@ void spec_codespecs_extract_free(CodeSpecsExtract *x) {
   if (x == NULL) {
     return;
   }
+  if (x->owned_area != NULL) {
+    spec_codespecs_area_free(x->owned_area);
+    free(x->owned_area);
+  }
   free(x->catalog_source);
   free(x->document_root);
   som_strlist_free(&x->citable_parts);
@@ -779,6 +798,15 @@ char *spec_codespecs_extract_to_yaml(const CodeSpecsExtract *x) {
     yaml_string(&b, e->value);
     som_buf_putc(&b, '\n');
   }
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+char *spec_codespecs_yaml_string(const char *value) {
+  SomBuf b;
+  som_buf_init(&b);
+  yaml_string(&b, value);
   char *out = som_buf_take(&b);
   som_buf_free(&b);
   return out;
@@ -1375,6 +1403,7 @@ int spec_codespecs_extractor_extract_all(const CodeSpecsExtractor *e,
         spec_codespecs_catalog_active_area_at(e->catalog, i);
     CodeSpecsExtract x;
     x.area = area;
+    x.owned_area = NULL;
     x.catalog_source = som_strdup(e->catalog->source);
     x.document_root = som_strdup(root);
     spec_codespecs_catalog_citable_area_codes(e->catalog, area,

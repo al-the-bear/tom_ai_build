@@ -48,8 +48,14 @@ sys.path.insert(0, _PKG_ROOT)
 from tom_som_runtime import (  # noqa: E402
     DEFAULT_MAX_SNAPSHOT_AGE,
     CodeSpecsAreaCatalog,
+    CodeSpecsExtract,
     CodeSpecsExtractError,
+    CodeSpecsExtractSet,
     CodeSpecsExtractor,
+    CodeSpecsGateEntry,
+    CodeSpecsGateRecord,
+    CodeSpecsGateVerdict,
+    CodeSpecsRecordError,
     DocSpecsDocument,
     DocSpecsSchema,
     DocSpecsValidator,
@@ -1205,6 +1211,153 @@ def test_codespecs_extract(model: SpecModel) -> None:
                str(paths))
 
 
+def _extract_summary(x) -> dict:
+    return {
+        "area": x.area.code,
+        "canonicalId": x.area.canonical_id,
+        "part": x.area.part,
+        "documentRoot": x.document_root,
+        "projects": list(x.projects),
+        "citableParts": list(x.citable_parts),
+        "entryCount": len(x.entries),
+        "sectionIds": [e.section_id for e in x.entries],
+        "values": [e.value for e in x.entries],
+        "classNames": [e.class_name for e in x.entries],
+        "headlines": [e.headline for e in x.entries],
+    }
+
+
+def _gate_summary(g) -> dict:
+    return {
+        "verdicts": [
+            {
+                "area": v.area,
+                "verdict": v.verdict.word,
+                "resolution": v.resolution,
+                "note": v.note,
+            }
+            for v in g.verdicts
+        ]
+    }
+
+
+def _scope_summary(s) -> dict:
+    return {
+        "inScope": [x.area.code for x in s.extracts],
+        "sources": list(s.sources),
+        "hasGate": s.gate is not None,
+        "excluded": [
+            {
+                "area": e.area,
+                "verdict": e.verdict.word,
+                "descoped": e.descoped,
+                "entryCount": e.entry_count,
+                "source": e.source,
+            }
+            for e in s.excluded
+        ],
+    }
+
+
+def _gate_entry(v: dict):
+    return CodeSpecsGateEntry(
+        area=v["area"],
+        verdict=CodeSpecsGateVerdict.parse(v["verdict"]),
+        resolution=v.get("resolution"),
+        note=v.get("note"),
+    )
+
+
+def _record_error(fn):
+    """The :class:`CodeSpecsRecordError` *fn* raises, or ``None``."""
+    try:
+        fn()
+    except CodeSpecsRecordError as e:
+        return e
+    return None
+
+
+def test_codespecs_records() -> None:
+    """Reading extracts and the gate record back
+    (``codespecs_record_cases.json``): every extract the extractor writes reads
+    back byte-stably, the gate record round-trips and checks its shape, and a
+    tree of extracts is scoped by its record with the reference's exact
+    errors."""
+    table = _read_json("codespecs_record_cases.json")
+    catalog = CodeSpecsAreaCatalog.from_json(
+        _read_json("codespecs_extract_cases.json")["catalog"]
+    )
+
+    for c in table["extractReads"]:
+        name = f"records.extractRead[{c['source']}]"
+        x = CodeSpecsExtract.from_yaml(c["yaml"], source=c["source"])
+        got = _extract_summary(x)
+        _check(f"{name}.summary", got == c["expect"], _json_mismatch(got, c["expect"]))
+        out = x.to_yaml()
+        _check(f"{name}.roundTrip", out == c["yaml"],
+               _byte_diff("toYaml", out, c["yaml"]))
+
+    c = table["extractMinimal"]
+    x = CodeSpecsExtract.from_yaml(c["yaml"], source=c["source"])
+    got = _extract_summary(x)
+    _check("records.extractMinimal", got == c["expect"],
+           _json_mismatch(got, c["expect"]))
+
+    for c in table["extractErrors"]:
+        name = f"records.extractError[{c['name']}]"
+        err = _record_error(
+            lambda c=c: CodeSpecsExtract.from_yaml(c["yaml"], source=c["source"])
+        )
+        _check(name, err is not None and c["messageContains"] in err.message,
+               "no error" if err is None else err.message)
+
+    for c in table["gateRecords"]:
+        name = f"records.gateRecord[{c['name']}]"
+        g = CodeSpecsGateRecord.from_yaml(c["yaml"])
+        got = _gate_summary(g)
+        _check(f"{name}.summary", got == c["expect"], _json_mismatch(got, c["expect"]))
+        out = g.to_yaml()
+        _check(f"{name}.toYaml", out == c["yaml"], _byte_diff("toYaml", out, c["yaml"]))
+        err = _record_error(lambda g=g: g.check_against(catalog))
+        _check(f"{name}.checkAgainst", err is None, "" if err is None else err.message)
+
+    for c in table["gateWrites"]:
+        name = f"records.gateWrite[{c['name']}]"
+        g = CodeSpecsGateRecord([_gate_entry(v) for v in c["verdicts"]])
+        out = g.to_yaml()
+        _check(f"{name}.yaml", out == c["yaml"], _byte_diff("toYaml", out, c["yaml"]))
+        then = c.get("then")
+        if then is not None:
+            g = g.with_verdict(_gate_entry(then))
+            out = g.to_yaml()
+            _check(f"{name}.thenYaml", out == c["thenYaml"],
+                   _byte_diff("toYaml", out, c["thenYaml"]))
+
+    for c in table["gateErrors"]:
+        name = f"records.gateError[{c['name']}]"
+
+        def act(c=c) -> None:
+            g = CodeSpecsGateRecord.from_yaml(c["yaml"])
+            if c.get("againstCatalog") is True:
+                g.check_against(catalog)
+
+        err = _record_error(act)
+        _check(name, err is not None and c["messageContains"] in err.message,
+               "no error" if err is None else err.message)
+
+    for c in table["scopeCases"]:
+        name = f"records.scope[{c['name']}]"
+        files = [(f[0], f[1]) for f in c["files"]]
+        want = c["expect"]
+        if "error" in want:
+            err = _record_error(lambda files=files: CodeSpecsExtractSet.from_files(files))
+            _check(name, err is not None and want["error"] in err.message,
+                   "no error" if err is None else err.message)
+            continue
+        got = _scope_summary(CodeSpecsExtractSet.from_files(files))
+        _check(name, got == want, _json_mismatch(got, want))
+
+
 def test_cursor(model: SpecModel) -> None:
     """A scripted cursor session over a freshly built document.
 
@@ -1351,6 +1504,7 @@ def main() -> int:
     test_query(model)
     test_projection(model)
     test_codespecs_extract(model)
+    test_codespecs_records()
     test_cursor(model)
     test_node_creation(model)
     test_node_creation_script(model)

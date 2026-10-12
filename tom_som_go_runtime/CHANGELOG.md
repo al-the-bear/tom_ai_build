@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- CodeSpecs records (`spec_codespecs_records.go`) read back what a Phase-4 run
+  wrote. `CodeSpecsExtractFromYaml(text, source)` (also
+  `ParseCodeSpecsExtractYaml`) is the inverse of `ToYaml` — byte-stable for
+  every extract the extractor writes; it requires `formatVersion` 3 and a
+  non-empty `area.code`, reads every other absent key as empty, refuses a
+  present key of the wrong type and a `document.entryCount` that disagrees
+  with the entries. `CodeSpecsGateRecord` reads, checks and writes the Stage-B
+  gate record `gate.verdicts.yaml` (`CodeSpecsGateRecordFromYaml`,
+  `NewCodeSpecsGateRecord`, `ToYaml`, `VerdictFor`, `CheckAgainst(catalog)`,
+  `WithVerdict`), with the `CodeSpecsGate*` verdict words and
+  `CodeSpecsGateEntry`. `CodeSpecsExtractSetFromFiles([]CodeSpecsFile)` — an
+  ordered slice, since Go maps are unordered — and
+  `CodeSpecsExtractSetFromDirectory(path)` read a tree of extracts scoped by
+  its gate record (`Extracts`, `Sources`, `Excluded`, `Gate`, `ByArea`,
+  `EntriesForSection`, `EntriesAtPath`). Errors are `*CodeSpecsRecordError`.
+  A gate entry's absent resolution/note is `""`, so `note: ""` reads as no
+  note. The `codespecs_record_cases.json` corpus table pins it.
 - CodeSpecs catalogue: `CodeSpecsAreaCatalog.Steps` carries the
   `codespecs_mapping.md` §4.4.6 authoring-step table as `CodeSpecsStep` rows
   (`Number`, `Title`, `Slice`, `PlacedBy`, `AreaCodes`); a catalogue without a

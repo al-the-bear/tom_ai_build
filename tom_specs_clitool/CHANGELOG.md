@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `validate_codespecs` reads extracts and the gate record through the SOM
+  runtime's `CodeSpecsExtractSet` instead of a reader of its own. The
+  gate-record entry may carry a `note:`; an unknown key in it is now an error.
+
 - `bin/codespecs_areas.dart` transcribes the `codespecs_mapping.md` §4.4.6
   step table into the catalogue's `steps` array, cells verbatim, and checks
   the step ↔ area relation in both directions; `--check` covers it.

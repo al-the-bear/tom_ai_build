@@ -77,6 +77,7 @@ path routes, version pinning, and `cargo package` from source.
 | `spec_query.rs` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.rs` | The constrained node-creation gate (`check_add_node`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
 | `spec_codespecs_extract.rs` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — one verbatim, provenance-carrying extract per CodeSpecs area. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
+| `spec_codespecs_records.rs` | Reading a Phase-4 run back: `CodeSpecsExtract::from_yaml` (the inverse of `to_yaml`, refusing an unknown `formatVersion`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord`: read, checked, edited with `with_verdict`, written byte-stable) and `CodeSpecsExtractSet` (`from_files`, `from_directory`) — the extracts scoped by that record, with the excluded areas kept visible. Every reader returns `Result<_, CodeSpecsRecordError>`. |
 | `spec_document_yaml.rs` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.rs` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `som_facade.rs` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList<T>`) for the generated `tom_som_rust_v0`. |
@@ -169,7 +170,8 @@ the **Markdown→memory landing** check (the `md.land.*` shared contract — par
 `expected.md` lands the same memory as the YAML route), reflection resolution,
 validation, the imperative operations script, and the **Phase-4 CodeSpecs tier**
 (the routing diagnostic, the per-area extracts with their YAML/Markdown goldens,
-the "copied, never composed" guard and the `ROUTE-TOTAL` error cases).
+the "copied, never composed" guard and the `ROUTE-TOTAL` error cases), and the
+reading back of extracts and the gate record (`codespecs_record_cases.json`).
 
 ## Architecture
 
@@ -202,6 +204,7 @@ the "copied, never composed" guard and the `ROUTE-TOTAL` error cases).
 | `spec_document_markdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
+| `CodeSpecsExtractSet` | The extracts of one run read back and scoped by their gate record. |
 | `SomNode` / `SomScalar` / `SomList<T>` | The editing-facade base types the generated `tom_som_rust_v0` structs embed. |
 
 ## Ecosystem

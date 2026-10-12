@@ -82,6 +82,7 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `spec_query.c` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.c` | The constrained node-creation gate (`spec_check_add_node`, `spec_node_creator_add`) — a document may only grow in ways the model permits. |
 | `spec_codespecs_extract.c` | The Phase-4 CodeSpecs specification-extract generator (`CodeSpecsExtractor`) — routes every section by `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` and emits one verbatim, provenance-carrying extract per CodeSpecs area. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
+| `spec_codespecs_records.c` | Reads Phase-4 output back: `spec_codespecs_extract_from_yaml` (the inverse of `spec_codespecs_extract_to_yaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written byte-stable), and `CodeSpecsExtractSet`, a set of extract files scoped by its gate record. Failures fill a `CodeSpecsRecordError`. |
 | `spec_document_yaml.c` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.c` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `som_facade.c` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_c_v0`. |
@@ -184,7 +185,7 @@ The conformance harness (`tests/conformance.c`) reproduces the same checks as
 every other port — model meta, `state.json` round-trip, YAML encode/decode,
 Markdown export/parse/landing, reflection, validation, the imperative operations
 script, the generic editing script (`SpecEditor`), and the Phase-4 CodeSpecs
-extract generator. Exit 0 == all green. The corpus directory can be overridden:
+extract generator and reading its extracts and gate record back. Exit 0 == all green. The corpus directory can be overridden:
 
 ```sh
 make test CORPUS=/path/to/corpus
@@ -222,6 +223,7 @@ make test CORPUS=/path/to/corpus
 | `spec_document_markdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
+| `CodeSpecsGateRecord` / `CodeSpecsExtractSet` | The Stage-B gate record, and the extract files of one run read back and scoped by it. |
 | `SomNode` / `SomScalar` / `SomList` | The editing-facade base types the generated `tom_som_c_v0` accessors build on. |
 
 ## Ecosystem

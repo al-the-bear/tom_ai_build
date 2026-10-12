@@ -306,6 +306,12 @@ gate:
       resolution: descoped
 ```
 
+An entry may also carry `note:` — free text saying why the verdict was taken,
+never read as data. All nine SOM runtimes read and write the record as
+`CodeSpecsGateRecord` (`gate.verdicts.yaml`, `formatVersion: 1`), and read an
+extract tree back, scoped by it, as `CodeSpecsExtractSet`; writing the record
+through it is what keeps a hand edit from producing a shape no reader accepts.
+
 The `verdict:` words are exactly §6.2's three; `resolution: descoped` appears
 only on an *insufficient* area whose L0 decision resolved to descoping (§6.2),
 and no other resolution value is recorded — any other resolution means the

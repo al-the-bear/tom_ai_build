@@ -28,6 +28,7 @@
 #include "spec_query.h"
 #include "spec_node_creation.h"
 #include "spec_codespecs_extract.h"
+#include "spec_codespecs_records.h"
 #include "spec_validator.h"
 #include "yaml.h"
 #include "spec_document_yaml.h"

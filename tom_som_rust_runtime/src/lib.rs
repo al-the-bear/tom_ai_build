@@ -17,6 +17,7 @@ pub mod docspecs_validator;
 pub mod json;
 pub mod som_facade;
 pub mod spec_codespecs_extract;
+pub mod spec_codespecs_records;
 pub mod spec_document;
 pub mod spec_document_markdown;
 pub mod spec_document_yaml;
@@ -61,6 +62,12 @@ pub use spec_codespecs_extract::{
     CodeSpecsExtractError, CodeSpecsExtractor, CodeSpecsRouting, CodeSpecsRoutingVerdict,
     CodeSpecsSlice, CodeSpecsStep, CODE_SPECS_EXTRACT_FORMAT, CODE_SPEC_KIND_ANNOTATION,
     FOLLOW_UP_KIND_ANNOTATION, NO_ARTIFACT_ANNOTATION,
+};
+pub use spec_codespecs_records::{
+    parse_code_specs_extract_yaml, CodeSpecsExcludedArea, CodeSpecsExtractSet, CodeSpecsGateEntry,
+    CodeSpecsGateRecord, CodeSpecsGateVerdict, CodeSpecsRecordError,
+    CODE_SPECS_EXTRACT_FILE_SUFFIX, CODE_SPECS_GATE_DESCOPED, CODE_SPECS_GATE_RECORD_FILE,
+    CODE_SPECS_GATE_RECORD_FORMAT,
 };
 pub use spec_document::{DocumentJson, ListJson, SpecDocument};
 pub use spec_document_markdown::{

@@ -76,6 +76,7 @@ editable routes and how to pin.
 | `spec_document_yaml` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `spec_codespecs_extract` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — one extract per CodeSpecs area, collecting every value `@CodeSpecKind` routes there **verbatim and with provenance**. It copies and indexes; it never summarises or composes. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
+| `spec_codespecs_records` | Reads a Phase-4 run back: `CodeSpecsExtract.from_yaml` (the byte-stable inverse of `to_yaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written), and `CodeSpecsExtractSet`, a tree of extracts scoped by its gate record. |
 
 ## Quick start
 
@@ -163,6 +164,7 @@ document round-trips, and the reflection / validation / operations behaviour.
 | `spec_document_markdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
+| `CodeSpecsExtractSet` | A run's extracts read back and scoped by the gate record (`CodeSpecsGateRecord`). |
 | `SomNode` / `SomScalar` / `SomList` | The editing-facade base types the generated `tom_som_python_v0` classes extend. |
 
 ## Ecosystem

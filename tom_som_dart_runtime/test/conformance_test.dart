@@ -61,6 +61,7 @@ void main() {
   final queryCases = _queryCases(model, doc);
   final projectionCases = _projectionCases(model, doc);
   final codeSpecsExtractCases = _codeSpecsExtractCases(model, doc);
+  final codeSpecsRecordCases = _codeSpecsRecordCases(codeSpecsExtractCases);
   final cursorScript = _cursorScript(model);
   final nodeCreationCases = _nodeCreationCases(model);
   final nodeCreationScript = _nodeCreationScript(model);
@@ -104,6 +105,10 @@ void main() {
     write(
       'codespecs_extract_cases.json',
       '${enc.convert(codeSpecsExtractCases)}\n',
+    );
+    write(
+      'codespecs_record_cases.json',
+      '${enc.convert(codeSpecsRecordCases)}\n',
     );
     write('cursor_cases.json', '${enc.convert(cursorScript)}\n');
     write('node_creation_cases.json', '${enc.convert(nodeCreationCases)}\n');
@@ -999,6 +1004,127 @@ void main() {
     ];
     expect(got, jsonDecode(read('projection_cases.json')));
   });
+
+  group(
+    'codespecs_record_cases.json (reading extracts and the gate record)',
+    () {
+      final table = update
+          ? codeSpecsRecordCases
+          : jsonDecode(read('codespecs_record_cases.json'))
+                as Map<String, dynamic>;
+      final extractTable = update
+          ? codeSpecsExtractCases
+          : jsonDecode(read('codespecs_extract_cases.json'))
+                as Map<String, dynamic>;
+      final catalog = CodeSpecsAreaCatalog.fromJson(
+        (extractTable['catalog'] as Map).cast<String, dynamic>(),
+      );
+
+      test('the committed table is what this runtime computes', () {
+        final got = jsonDecode(jsonEncode(_codeSpecsRecordCases(extractTable)));
+        expect(got, table);
+      });
+
+      for (final c in (table['extractReads'] as List).cast<Map>()) {
+        test('extract read: ${c['source']}', () {
+          final x = CodeSpecsExtract.fromYaml(
+            c['yaml'] as String,
+            source: c['source'] as String,
+          );
+          expect(_extractSummary(x), c['expect']);
+          expect(x.toYaml(), c['yaml'], reason: 'the read is byte-stable');
+        });
+      }
+      test('extract read: a minimal hand-written file', () {
+        final c = table['extractMinimal'] as Map;
+        final x = CodeSpecsExtract.fromYaml(
+          c['yaml'] as String,
+          source: c['source'] as String,
+        );
+        expect(_extractSummary(x), c['expect']);
+      });
+      for (final c in (table['extractErrors'] as List).cast<Map>()) {
+        test('extract error: ${c['name']}', () {
+          expect(
+            () => CodeSpecsExtract.fromYaml(
+              c['yaml'] as String,
+              source: c['source'] as String,
+            ),
+            throwsA(
+              isA<CodeSpecsRecordError>().having(
+                (e) => e.message,
+                'message',
+                contains(c['messageContains'] as String),
+              ),
+            ),
+          );
+        });
+      }
+      for (final c in (table['gateRecords'] as List).cast<Map>()) {
+        test('gate record: ${c['name']}', () {
+          final g = CodeSpecsGateRecord.fromYaml(c['yaml'] as String);
+          expect(_gateSummary(g), c['expect']);
+          expect(g.toYaml(), c['yaml']);
+          g.checkAgainst(catalog);
+        });
+      }
+      for (final c in (table['gateWrites'] as List).cast<Map>()) {
+        test('gate write: ${c['name']}', () {
+          var g = CodeSpecsGateRecord([
+            for (final v in (c['verdicts'] as List).cast<Map>()) _gateEntry(v),
+          ]);
+          expect(g.toYaml(), c['yaml']);
+          final then = c['then'] as Map?;
+          if (then != null) {
+            g = g.withVerdict(_gateEntry(then));
+            expect(g.toYaml(), c['thenYaml']);
+          }
+        });
+      }
+      for (final c in (table['gateErrors'] as List).cast<Map>()) {
+        test('gate error: ${c['name']}', () {
+          void act() {
+            final g = CodeSpecsGateRecord.fromYaml(c['yaml'] as String);
+            if (c['againstCatalog'] == true) g.checkAgainst(catalog);
+          }
+
+          expect(
+            act,
+            throwsA(
+              isA<CodeSpecsRecordError>().having(
+                (e) => e.message,
+                'message',
+                contains(c['messageContains'] as String),
+              ),
+            ),
+          );
+        });
+      }
+      for (final c in (table['scopeCases'] as List).cast<Map>()) {
+        test('scope: ${c['name']}', () {
+          final files = {
+            for (final f in (c['files'] as List).cast<List>())
+              f[0] as String: f[1] as String,
+          };
+          final want = (c['expect'] as Map).cast<String, dynamic>();
+          if (want.containsKey('error')) {
+            expect(
+              () => CodeSpecsExtractSet.fromFiles(files),
+              throwsA(
+                isA<CodeSpecsRecordError>().having(
+                  (e) => e.message,
+                  'message',
+                  contains(want['error'] as String),
+                ),
+              ),
+            );
+            return;
+          }
+          expect(_scopeSummary(CodeSpecsExtractSet.fromFiles(files)), want);
+        });
+      }
+    },
+  );
 
   group('codespecs_extract_cases.json (the Phase-4 extract generator)', () {
     // Declared, not deferred: the error and root cases need one test each at
@@ -5411,3 +5537,305 @@ Map<String, dynamic> _docSpecsReplaceCases() {
   }
   return {'cases': cases};
 }
+
+/// The extract-file and gate-record tier: reading back what a Phase-4 run
+/// wrote. Built from the extract table's own YAML, so the round trip is pinned
+/// against exactly what the extractor emits.
+///
+/// File sets are lists of `[name, text]` pairs, not objects: source order is
+/// part of the contract (it is the in-scope order without a gate record, and
+/// it decides which file an error names), and a JSON object's key order does
+/// not survive every language's decoder.
+Map<String, dynamic> _codeSpecsRecordCases(Map<String, dynamic> extractTable) {
+  final yamls = <String, String>{
+    for (final x in (extractTable['extracts'] as List).cast<Map>())
+      '${x['area']}.extract.yaml': x['yaml'] as String,
+  };
+  final fm = yamls['CE-FM.extract.yaml']!;
+  final fmCount = CodeSpecsExtract.fromYaml(fm).entries.length;
+
+  String gate(String verdicts) =>
+      'gate:\n  formatVersion: 1\n  verdicts:\n$verdicts';
+  const scoped =
+      '    - area: CE-FM\n      verdict: sufficient\n'
+      '    - area: CE-TX\n      verdict: sufficient\n'
+      '    - area: CE-DB\n      verdict: sufficient\n'
+      '    - area: CE-ST\n      verdict: sufficient\n'
+      '    - area: CE-NV\n      verdict: insufficient\n'
+      '      resolution: descoped\n'
+      '      note: "navigation is out of scope for release 1"\n'
+      '    - area: CE-ER\n      verdict: not applicable\n';
+  final allFiles = [
+    for (final e in yamls.entries) [e.key, e.value],
+  ];
+
+  Map<String, dynamic> scope(String name, List<List<String>> files) {
+    Map<String, dynamic> expect;
+    try {
+      expect = _scopeSummary(
+        CodeSpecsExtractSet.fromFiles({for (final f in files) f[0]: f[1]}),
+      );
+    } on CodeSpecsRecordError catch (e) {
+      expect = {'error': e.message};
+    }
+    return {'name': name, 'files': files, 'expect': expect};
+  }
+
+  final gateRecords = <Map<String, dynamic>>[
+    {'name': 'the codespecs_prompt.md §6.3 example', 'yaml': gate(scoped)},
+    {
+      'name': 'a note with escapes',
+      'yaml': gate(
+        '    - area: CE-DB\n      verdict: sufficient\n'
+        '      note: "tables \\"orders\\" and line items\\n— see §5.13"\n',
+      ),
+    },
+    {
+      'name': 'no verdicts yet',
+      'yaml': 'gate:\n  formatVersion: 1\n  verdicts: []\n',
+    },
+  ];
+  for (final g in gateRecords) {
+    g['expect'] = _gateSummary(
+      CodeSpecsGateRecord.fromYaml(g['yaml'] as String),
+    );
+  }
+
+  final writeVerdicts = [
+    {'area': 'CE-FM', 'verdict': 'sufficient'},
+    {
+      'area': 'CE-NV',
+      'verdict': 'insufficient',
+      'resolution': 'descoped',
+      'note': 'decided in L0 "csopen3"',
+    },
+  ];
+  final then = {'area': 'CE-FM', 'verdict': 'not applicable'};
+  final written = CodeSpecsGateRecord([
+    for (final v in writeVerdicts) _gateEntry(v),
+  ]);
+
+  return {
+    'extractReads': [
+      for (final e in yamls.entries)
+        {
+          'source': e.key,
+          'yaml': e.value,
+          'expect': _extractSummary(
+            CodeSpecsExtract.fromYaml(e.value, source: e.key),
+          ),
+        },
+    ],
+    // A hand-written extract carrying only what the reader requires: every
+    // absent key reads as empty, and the file is not expected to round-trip.
+    'extractMinimal': {
+      'source': 'CE-DB.extract.yaml',
+      'yaml':
+          'extract:\n  formatVersion: 3\n  area:\n    code: "CE-DB"\n'
+          '  entries:\n    - sectionId: "IMO-014"\n'
+          '      value: "A person or organisation."\n',
+      'expect': _extractSummary(
+        CodeSpecsExtract.fromYaml(
+          'extract:\n  formatVersion: 3\n  area:\n    code: "CE-DB"\n'
+          '  entries:\n    - sectionId: "IMO-014"\n'
+          '      value: "A person or organisation."\n',
+        ),
+      ),
+    },
+    'extractErrors': [
+      {
+        'name': 'a later format version',
+        'source': 'CE-FM.extract.yaml',
+        'yaml': fm.replaceFirst('formatVersion: 3', 'formatVersion: 4'),
+        'messageContains': 'declares extract format 4',
+      },
+      {
+        'name': 'a truncated extract',
+        'source': 'CE-FM.extract.yaml',
+        'yaml': fm.replaceFirst(
+          'entryCount: $fmCount',
+          'entryCount: ${fmCount + 1}',
+        ),
+        'messageContains': 'declares entryCount ${fmCount + 1}',
+      },
+      {
+        'name': 'not an extract',
+        'source': 'notes.extract.yaml',
+        'yaml': 'gate:\n  formatVersion: 1\n',
+        'messageContains': 'has no top-level `extract:` mapping',
+      },
+    ],
+    'gateRecords': gateRecords,
+    'gateWrites': [
+      {
+        'name': 'two verdicts, then one replaced',
+        'verdicts': writeVerdicts,
+        'yaml': written.toYaml(),
+        'then': then,
+        'thenYaml': written.withVerdict(_gateEntry(then)).toYaml(),
+      },
+      {
+        'name': 'an empty record',
+        'verdicts': <Object>[],
+        'yaml': CodeSpecsGateRecord(const []).toYaml(),
+      },
+    ],
+    'gateErrors': [
+      {
+        'name': 'an unknown verdict',
+        'yaml': gate('    - area: CE-FM\n      verdict: maybe\n'),
+        'messageContains': 'the verdict `maybe`',
+      },
+      {
+        'name': 'a resolution on a sufficient area',
+        'yaml': gate(
+          '    - area: CE-FM\n      verdict: sufficient\n'
+          '      resolution: descoped\n',
+        ),
+        'messageContains': 'a `resolution:` on verdict `sufficient`',
+      },
+      {
+        'name': 'a resolution other than descoped',
+        'yaml': gate(
+          '    - area: CE-FM\n      verdict: insufficient\n'
+          '      resolution: completed\n',
+        ),
+        'messageContains': 'the resolution `completed`',
+      },
+      {
+        'name': 'two verdicts for one area',
+        'yaml': gate(
+          '    - area: CE-FM\n      verdict: sufficient\n'
+          '    - area: CE-FM\n      verdict: insufficient\n',
+        ),
+        'messageContains': 'two verdicts for CE-FM',
+      },
+      {
+        'name': 'an area that is not a CE code',
+        'yaml': gate('    - area: forms\n      verdict: sufficient\n'),
+        'messageContains': 'which is not a CE-* code',
+      },
+      {
+        'name': 'an unknown key',
+        'yaml': gate(
+          '    - area: CE-FM\n      verdict: sufficient\n'
+          '      reviewer: me\n',
+        ),
+        'messageContains': 'unknown key `reviewer`',
+      },
+      {
+        'name': 'a later format version',
+        'yaml': 'gate:\n  formatVersion: 2\n  verdicts: []\n',
+        'messageContains': 'declares gate record format 2',
+      },
+      {
+        'name': 'an area the catalogue does not have',
+        'yaml': gate('    - area: CE-XX\n      verdict: sufficient\n'),
+        'againstCatalog': true,
+        'messageContains': 'CE-XX, which is not an active area',
+      },
+    ],
+    'scopeCases': [
+      scope('no gate record: every extract is in scope', allFiles),
+      scope('a total record scopes to the sufficient areas', [
+        ...allFiles,
+        [kCodeSpecsGateRecordFile, gate(scoped)],
+      ]),
+      scope('an area with no extract file is still excluded visibly', [
+        ...allFiles,
+        [
+          kCodeSpecsGateRecordFile,
+          gate('$scoped    - area: CE-JB\n      verdict: not applicable\n'),
+        ],
+      ]),
+      scope('a record silent about an extract fails', [
+        ...allFiles,
+        [
+          kCodeSpecsGateRecordFile,
+          gate(
+            scoped.replaceFirst(
+              '    - area: CE-ER\n      verdict: not applicable\n',
+              '',
+            ),
+          ),
+        ],
+      ]),
+      scope('not applicable with routed entries fails', [
+        ...allFiles,
+        [
+          kCodeSpecsGateRecordFile,
+          gate(
+            scoped.replaceFirst(
+              '    - area: CE-FM\n      verdict: sufficient\n',
+              '    - area: CE-FM\n      verdict: not applicable\n',
+            ),
+          ),
+        ],
+      ]),
+      scope('insufficient without a descope fails', [
+        ...allFiles,
+        [
+          kCodeSpecsGateRecordFile,
+          gate(scoped.replaceFirst('      resolution: descoped\n', '')),
+        ],
+      ]),
+      scope('two gate records fail', [
+        ['a/$kCodeSpecsGateRecordFile', gate(scoped)],
+        ['b/$kCodeSpecsGateRecordFile', gate(scoped)],
+      ]),
+      scope('two extracts for one area fail', [
+        ['CE-FM.extract.yaml', fm],
+        ['copy/CE-FM.extract.yaml', fm],
+      ]),
+    ],
+  };
+}
+
+CodeSpecsGateEntry _gateEntry(Map v) => CodeSpecsGateEntry(
+  area: v['area'] as String,
+  verdict: CodeSpecsGateVerdict.parse(v['verdict'] as String)!,
+  resolution: v['resolution'] as String?,
+  note: v['note'] as String?,
+);
+
+Map<String, dynamic> _extractSummary(CodeSpecsExtract x) => {
+  'area': x.area.code,
+  'canonicalId': x.area.canonicalId,
+  'part': x.area.part,
+  'documentRoot': x.documentRoot,
+  'projects': x.projects,
+  'citableParts': x.citableParts,
+  'entryCount': x.entries.length,
+  'sectionIds': [for (final e in x.entries) e.sectionId],
+  'values': [for (final e in x.entries) e.value],
+  'classNames': [for (final e in x.entries) e.className],
+  'headlines': [for (final e in x.entries) e.headline],
+};
+
+Map<String, dynamic> _gateSummary(CodeSpecsGateRecord g) => {
+  'verdicts': [
+    for (final v in g.verdicts)
+      {
+        'area': v.area,
+        'verdict': v.verdict.word,
+        'resolution': v.resolution,
+        'note': v.note,
+      },
+  ],
+};
+
+Map<String, dynamic> _scopeSummary(CodeSpecsExtractSet set) => {
+  'inScope': [for (final x in set.extracts) x.area.code],
+  'sources': set.sources,
+  'hasGate': set.gate != null,
+  'excluded': [
+    for (final e in set.excluded)
+      {
+        'area': e.area,
+        'verdict': e.verdict.word,
+        'descoped': e.descoped,
+        'entryCount': e.entryCount,
+        'source': e.source,
+      },
+  ],
+};

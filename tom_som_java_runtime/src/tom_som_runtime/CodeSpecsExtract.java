@@ -21,6 +21,9 @@ public final class CodeSpecsExtract {
    */
   public static final int FORMAT_VERSION = 3;
 
+  /** The suffix every extract artifact of record carries. */
+  public static final String FILE_SUFFIX = ".extract.yaml";
+
   /** The area this extract is for. */
   public final CodeSpecsArea area;
 
@@ -52,6 +55,22 @@ public final class CodeSpecsExtract {
     this.citableParts = citableParts;
     this.projects = projects;
     this.entries = entries;
+  }
+
+  /**
+   * Reads an extract back from its artifact of record — the inverse of
+   * {@link #toYaml}: for any extract the extractor wrote,
+   * {@code fromYaml(x.toYaml(), "").toYaml()} equals {@code x.toYaml()}.
+   * {@code source} names the file in errors. Throws {@link CodeSpecsRecordError}
+   * on an unknown {@code formatVersion} or a malformed file.
+   */
+  public static CodeSpecsExtract fromYaml(String text, String source) {
+    return CodeSpecsRecordReader.parseExtract(text, source);
+  }
+
+  /** As {@link #fromYaml(String, String)}, naming the file "the extract" in errors. */
+  public static CodeSpecsExtract fromYaml(String text) {
+    return CodeSpecsRecordReader.parseExtract(text, "");
   }
 
   /** The extract's file name stem — {@code CE-FM.extract}. */
@@ -186,8 +205,9 @@ public final class CodeSpecsExtract {
    *
    * <p>Iterates by <b>code point</b>, not UTF-16 code unit, so a surrogate pair
    * is emitted whole exactly as the Dart reference's {@code runes} loop does.
+   * Package-private: the gate record writes its notes with the same rule.
    */
-  private static String yamlString(String value) {
+  static String yamlString(String value) {
     StringBuilder b = new StringBuilder("\"");
     for (int i = 0; i < value.length(); ) {
       int rune = value.codePointAt(i);

@@ -1393,7 +1393,7 @@ fn writeln_to(b: &mut String, line: &str) {
 /// A JSON string literal, which is also a valid YAML 1.2 double-quoted scalar.
 /// Hand-written rather than delegated to a JSON encoder so the eight ports have
 /// one rule to transcribe rather than nine encoders to hope agree.
-fn yaml_string(value: &str) -> String {
+pub(crate) fn yaml_string(value: &str) -> String {
     let mut b = String::from("\"");
     for ch in value.chars() {
         match ch {

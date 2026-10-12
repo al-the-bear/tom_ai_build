@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+- CodeSpecs: reading a Phase-4 run back (new module `spec_codespecs_records`,
+  re-exported from the crate root). `CodeSpecsExtract::from_yaml(text,
+  source)` / `parse_code_specs_extract_yaml` are the inverse of `to_yaml`
+  (byte-identical round trip for every extract the extractor writes): they
+  require `formatVersion` 3 and a non-empty `area.code`, read every other
+  absent key as empty, strip a leading `CodeSpecPart.` from `area.part`, and
+  refuse a wrong-typed key or a `document.entryCount` that disagrees with the
+  entries. New `CodeSpecsGateRecord` (`gate.verdicts.yaml`, format 1):
+  `new` checks the shape (CE-* areas named once, `resolution: descoped` only
+  on an insufficient area), `from_yaml` also refuses unknown keys and other
+  format versions, `to_yaml` is byte-stable, plus `verdict_for`,
+  `check_against(catalog)` and `with_verdict`. New `CodeSpecsGateVerdict`,
+  `CodeSpecsGateEntry`, `CodeSpecsExcludedArea`, and
+  `CodeSpecsExtractSet::from_files` (an ordered sequence of `(name, text)`
+  pairs) / `from_directory`, which scope the extracts by their gate record and
+  expose `by_area`, `entries_for_section` and `entries_at_path`. Every reader
+  returns `Result<_, CodeSpecsRecordError>`. The YAML reader gains
+  `yaml_parse_raw_scalars`, which keeps scalars as source text so the record
+  reader can tell `null` from `"null"`. Verified against the corpus table
+  `codespecs_record_cases.json`.
 - CodeSpecs: the area catalogue carries the `codespecs_mapping.md` §4.4.6
   authoring-step table. New `CodeSpecsStep` (`number`, `title`, `slice`,
   `placed_by`, `area_codes`), re-exported from the crate root, and

@@ -20,68 +20,23 @@ library;
 
 import 'dart:convert';
 
-import 'package:yaml/yaml.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
-/// The `formatVersion` this reader understands — `kCodeSpecsExtractFormat` on
-/// the emitting side.
-///
-/// Refusing an unknown version is the point: a later format that moved a key
-/// would otherwise read as an extract with no entries, and a check with no
-/// input passes.
-///
-/// 2: entries carry `headline` — the enclosing section instance's headline,
-/// copy-only (stored headline, else the `@Headline` type default, else null).
-///
-/// 3: entries carry `instanceId` — the nearest enclosing list-item instance's
-/// **stored** section id (the `<!--[…]-->` id the document serializes),
-/// copy-only; null when no enclosing instance stores one. Auxiliary trace
-/// data: the back-link vocabulary stays the extract token
-/// (`codespecs_mapping.md` §9.3).
-const int kCsExtractFormat = 3;
+/// The `formatVersion` this reader understands — the runtime's
+/// [kCodeSpecsExtractFormat]; the runtime owns the one reader.
+const int kCsExtractFormat = kCodeSpecsExtractFormat;
 
-/// The file name of the Stage-B gate record — `codespecs_prompt.md` §6.3's
-/// persisted verdicts, written beside the extracts.
-///
-/// Detection is by basename: the record lives in the same tree as the
-/// extracts, and the driver hands the reader everything it found there. The
-/// name is fixed so a partial pass cannot hide its record under a name the
-/// reader does not look for.
-const String kCsGateRecordFile = 'gate.verdicts.yaml';
+/// The file name of the Stage-B gate record — the runtime's
+/// [kCodeSpecsGateRecordFile].
+const String kCsGateRecordFile = kCodeSpecsGateRecordFile;
 
-/// The `formatVersion` of the gate record this reader understands.
-const int kCsGateRecordFormat = 1;
+/// The `formatVersion` of the gate record — the runtime's
+/// [kCodeSpecsGateRecordFormat].
+const int kCsGateRecordFormat = kCodeSpecsGateRecordFormat;
 
-/// One of `codespecs_prompt.md` §6.2's three per-area verdicts.
-enum CsGateVerdict {
-  /// The extract carries every input `codespecs_derivation_contract.md` §3
-  /// requires — the area is in scope.
-  sufficient,
-
-  /// The area does not apply to this project — nothing was routed, with
-  /// positive evidence of absence (`codespecs_prompt.md` §6.4).
-  notApplicable,
-
-  /// The extract is missing required inputs — the run stops for this area
-  /// until its L0 decision resolves. Only a recorded descope
-  /// (`resolution: descoped`) legitimizes continuing without it.
-  insufficient;
-
-  /// The verdict word exactly as `codespecs_prompt.md` §6.2 states it.
-  String get word => switch (this) {
-    sufficient => 'sufficient',
-    notApplicable => 'not applicable',
-    insufficient => 'insufficient',
-  };
-
-  /// Parses a `codespecs_prompt.md` §6.2 verdict word, or returns null for an
-  /// unknown one.
-  static CsGateVerdict? parse(String word) => switch (word) {
-    'sufficient' => sufficient,
-    'not applicable' => notApplicable,
-    'insufficient' => insufficient,
-    _ => null,
-  };
-}
+/// One of `codespecs_prompt.md` §6.2's three per-area verdicts — the
+/// runtime's [CodeSpecsGateVerdict].
+typedef CsGateVerdict = CodeSpecsGateVerdict;
 
 /// One area the gate record excluded from the obligation set.
 ///
@@ -309,90 +264,16 @@ class CsExtractSet {
 /// act that legitimizes the partial pass.
 CsExtractSet readCsExtracts(Map<String, String> sources) {
   if (sources.isEmpty) return CsExtractSet.empty;
-
-  String? gateName;
-  final extractSources = <String, String>{};
-  for (final entry in sources.entries) {
-    final basename = entry.key.split('/').last;
-    if (basename == kCsGateRecordFile) {
-      if (gateName != null) {
-        throw CsExtractException(
-          'both $gateName and ${entry.key} are gate records — the scope must '
-          'have one author',
-        );
-      }
-      gateName = entry.key;
-    } else {
-      extractSources[entry.key] = entry.value;
-    }
+  final CodeSpecsExtractSet read;
+  try {
+    read = CodeSpecsExtractSet.fromFiles(sources);
+  } on CodeSpecsRecordError catch (e) {
+    throw CsExtractException(e.message);
   }
-
-  final extracts = <CsExtract>[];
-  for (final entry in extractSources.entries) {
-    extracts.add(_readExtract(entry.key, entry.value));
-  }
-
-  var inScope = extracts;
-  final excluded = <CsExcludedArea>[];
-  if (gateName != null) {
-    final verdicts = _readGateRecord(gateName, sources[gateName]!);
-    final byArea = {for (final e in extracts) e.areaCode: e};
-    for (final extract in extracts) {
-      if (!verdicts.containsKey(extract.areaCode)) {
-        throw CsExtractException(
-          '$gateName carries no verdict for ${extract.areaCode} '
-          '(${extract.source}) — the gate record must be total over the '
-          'supplied extracts',
-        );
-      }
-    }
-    inScope = <CsExtract>[];
-    for (final entry in verdicts.entries) {
-      final areaCode = entry.key;
-      final record = entry.value;
-      final extract = byArea[areaCode];
-      switch (record.verdict) {
-        case CsGateVerdict.sufficient:
-          if (extract != null) inScope.add(extract);
-        case CsGateVerdict.notApplicable:
-          if (extract != null && extract.entries.isNotEmpty) {
-            throw CsExtractException(
-              '$gateName marks $areaCode `not applicable`, but '
-              '${extract.source} carries ${extract.entries.length} routed '
-              'entr${extract.entries.length == 1 ? 'y' : 'ies'} — a routed '
-              'value is evidence the area applies (codespecs_prompt.md §6.4)',
-            );
-          }
-          excluded.add(
-            CsExcludedArea(
-              areaCode: areaCode,
-              verdict: record.verdict,
-              entryCount: extract?.entries.length ?? 0,
-              source: extract?.source ?? '',
-            ),
-          );
-        case CsGateVerdict.insufficient:
-          if (!record.descoped) {
-            throw CsExtractException(
-              '$gateName marks $areaCode `insufficient` without '
-              '`resolution: descoped` — codespecs_prompt.md §6.2 says the run '
-              'does not continue past an unresolved insufficient area; '
-              'recording the descope is what legitimizes a partial pass',
-            );
-          }
-          excluded.add(
-            CsExcludedArea(
-              areaCode: areaCode,
-              verdict: record.verdict,
-              descoped: true,
-              entryCount: extract?.entries.length ?? 0,
-              source: extract?.source ?? '',
-            ),
-          );
-      }
-    }
-  }
-
+  final inScope = <CsExtract>[
+    for (var i = 0; i < read.extracts.length; i++)
+      _fromRuntime(read.extracts[i], read.sources[i]),
+  ];
   final bySection = <String, List<CsExtractEntry>>{};
   for (final extract in inScope) {
     for (final e in extract.entries) {
@@ -402,165 +283,44 @@ CsExtractSet readCsExtracts(Map<String, String> sources) {
   return CsExtractSet._(
     List.unmodifiable(inScope),
     bySection,
-    excluded: List.unmodifiable(excluded),
-  );
-}
-
-class _CsGateEntry {
-  final CsGateVerdict verdict;
-  final bool descoped;
-  const _CsGateEntry(this.verdict, this.descoped);
-}
-
-/// Reads the gate record into area code → verdict, validating shape.
-Map<String, _CsGateEntry> _readGateRecord(String name, String yamlText) {
-  final Object? document;
-  try {
-    document = loadYaml(yamlText);
-  } on YamlException catch (e) {
-    throw CsExtractException('$name is not valid YAML: ${e.message}');
-  }
-  if (document is! YamlMap) {
-    throw CsExtractException('$name does not hold a YAML mapping');
-  }
-  final root = document['gate'];
-  if (root is! YamlMap) {
-    throw CsExtractException('$name has no top-level `gate:` mapping');
-  }
-  final version = root['formatVersion'];
-  if (version != kCsGateRecordFormat) {
-    throw CsExtractException(
-      '$name declares gate record format $version; this reader understands '
-      '$kCsGateRecordFormat only — reading it would silently change the scope',
-    );
-  }
-  final verdictsNode = root['verdicts'];
-  if (verdictsNode is! YamlList) {
-    throw CsExtractException('$name has no `verdicts:` list');
-  }
-  final verdicts = <String, _CsGateEntry>{};
-  for (final raw in verdictsNode) {
-    if (raw is! YamlMap) {
-      throw CsExtractException('$name has a verdict that is not a mapping');
-    }
-    final area = _string(raw['area']);
-    if (area.isEmpty) {
-      throw CsExtractException('$name has a verdict that names no area');
-    }
-    if (verdicts.containsKey(area)) {
-      throw CsExtractException(
-        '$name carries two verdicts for $area — a scope with two answers for '
-        'one area is no scope',
-      );
-    }
-    final verdictWord = _string(raw['verdict']);
-    final verdict = CsGateVerdict.parse(verdictWord);
-    if (verdict == null) {
-      throw CsExtractException(
-        '$name gives $area the verdict `$verdictWord` — codespecs_prompt.md '
-        '§6.2 knows `sufficient`, `not applicable` and `insufficient` only',
-      );
-    }
-    final resolution = _nullableString(raw['resolution']);
-    var descoped = false;
-    if (resolution != null) {
-      if (verdict != CsGateVerdict.insufficient) {
-        throw CsExtractException(
-          '$name gives $area a `resolution:` on verdict `${verdict.word}` — '
-          'only an insufficient area has an L0 decision to resolve',
-        );
-      }
-      if (resolution != 'descoped') {
-        throw CsExtractException(
-          '$name gives $area the resolution `$resolution` — `descoped` is the '
-          'one resolution that admits a partial pass; any other resolution '
-          'means the area was completed and its verdict re-taken',
-        );
-      }
-      descoped = true;
-    }
-    verdicts[area] = _CsGateEntry(verdict, descoped);
-  }
-  return verdicts;
-}
-
-CsExtract _readExtract(String name, String yamlText) {
-  final Object? document;
-  try {
-    document = loadYaml(yamlText);
-  } on YamlException catch (e) {
-    throw CsExtractException('$name is not valid YAML: ${e.message}');
-  }
-  if (document is! YamlMap) {
-    throw CsExtractException('$name does not hold a YAML mapping');
-  }
-  final root = document['extract'];
-  if (root is! YamlMap) {
-    throw CsExtractException('$name has no top-level `extract:` mapping');
-  }
-
-  final version = root['formatVersion'];
-  if (version != kCsExtractFormat) {
-    throw CsExtractException(
-      '$name declares extract format $version; this reader understands '
-      '$kCsExtractFormat only — reading it would silently drop entries',
-    );
-  }
-
-  final area = root['area'];
-  if (area is! YamlMap) {
-    throw CsExtractException('$name has no `area:` mapping');
-  }
-  final areaCode = _string(area['code']);
-  if (areaCode.isEmpty) {
-    throw CsExtractException('$name names no area code');
-  }
-
-  final documentNode = root['document'];
-  final documentRoot = documentNode is YamlMap
-      ? _string(documentNode['root'])
-      : '';
-
-  final entriesNode = root['entries'];
-  final entries = <CsExtractEntry>[];
-  if (entriesNode is YamlList) {
-    for (final raw in entriesNode) {
-      if (raw is! YamlMap) {
-        throw CsExtractException('$name has an entry that is not a mapping');
-      }
-      entries.add(
-        CsExtractEntry(
-          areaCode: areaCode,
-          sectionId: _string(raw['sectionId']),
-          headline: _nullableString(raw['headline']),
-          instanceId: _nullableString(raw['instanceId']),
-          path: _string(raw['path']),
-          className: _string(raw['className']),
-          fieldName: _string(raw['fieldName']),
-          formField: _nullableString(raw['formField']),
-          routedBy: _string(raw['routedBy']),
-          routedAt: _string(raw['routedAt']),
-          routingNote: _nullableString(raw['routingNote']),
-          value: _string(raw['value']),
+    excluded: List.unmodifiable([
+      for (final x in read.excluded)
+        CsExcludedArea(
+          areaCode: x.area,
+          verdict: x.verdict,
+          descoped: x.descoped,
+          entryCount: x.entryCount,
+          source: x.source,
         ),
-      );
-    }
-  }
-
-  return CsExtract(
-    areaCode: areaCode,
-    canonicalId: _string(area['canonicalId']),
-    part: _string(area['part']),
-    documentRoot: documentRoot,
-    catalogSource: _string(root['catalogSource']),
-    entries: List.unmodifiable(entries),
-    source: name,
+    ]),
   );
 }
 
-String _string(Object? value) => value == null ? '' : value.toString();
-
-String? _nullableString(Object? value) => value == null ? null : '$value';
+CsExtract _fromRuntime(CodeSpecsExtract x, String source) => CsExtract(
+  areaCode: x.area.code,
+  canonicalId: x.area.canonicalId,
+  part: x.area.part,
+  documentRoot: x.documentRoot,
+  catalogSource: x.catalogSource,
+  source: source,
+  entries: List.unmodifiable([
+    for (final e in x.entries)
+      CsExtractEntry(
+        areaCode: e.areaCode,
+        sectionId: e.sectionId,
+        headline: e.headline,
+        instanceId: e.instanceId,
+        path: e.path,
+        className: e.className,
+        fieldName: e.fieldName,
+        formField: e.formField,
+        routedBy: e.routedBy,
+        routedAt: e.routedAt,
+        routingNote: e.routingNote,
+        value: e.value,
+      ),
+  ]),
+);
 
 /// [text] split into lines with `codespecs_derivation_contract.md` §2.8 C4.4's
 /// two escapes applied — `[` → `\[`, `]` → `\]`, `<` → `&lt;`.

@@ -37,8 +37,14 @@ import * as path from 'path';
 
 import {
   CodeSpecsAreaCatalog,
+  CodeSpecsExtract,
   CodeSpecsExtractError,
+  CodeSpecsExtractSet,
   CodeSpecsExtractor,
+  CodeSpecsGateEntry,
+  CodeSpecsGateRecord,
+  CodeSpecsGateVerdict,
+  CodeSpecsRecordError,
   DEFAULT_MAX_SNAPSHOT_AGE_MS,
   DocSpecsDocument,
   DocSpecsSchema,
@@ -1662,6 +1668,223 @@ function testNodeCreationScript(model: SpecModel): void {
   }
 }
 
+/** The summary `_extractSummary` in the Dart reference's conformance test. */
+function _extractSummary(x: CodeSpecsExtract): any {
+  return {
+    area: x.area.code,
+    canonicalId: x.area.canonicalId,
+    part: x.area.part,
+    documentRoot: x.documentRoot,
+    projects: x.projects,
+    citableParts: x.citableParts,
+    entryCount: x.entries.length,
+    sectionIds: x.entries.map((e) => e.sectionId),
+    values: x.entries.map((e) => e.value),
+    classNames: x.entries.map((e) => e.className),
+    headlines: x.entries.map((e) => e.headline),
+  };
+}
+
+/** The summary `_gateSummary` in the Dart reference's conformance test. */
+function _gateSummary(g: CodeSpecsGateRecord): any {
+  return {
+    verdicts: g.verdicts.map((v) => ({
+      area: v.area,
+      verdict: v.verdict.word,
+      resolution: v.resolution,
+      note: v.note,
+    })),
+  };
+}
+
+/** The summary `_scopeSummary` in the Dart reference's conformance test. */
+function _scopeSummary(set: CodeSpecsExtractSet): any {
+  return {
+    inScope: set.extracts.map((x) => x.area.code),
+    sources: [...set.sources],
+    hasGate: set.gate !== null,
+    excluded: set.excluded.map((e) => ({
+      area: e.area,
+      verdict: e.verdict.word,
+      descoped: e.descoped,
+      entryCount: e.entryCount,
+      source: e.source,
+    })),
+  };
+}
+
+function _gateEntry(v: any): CodeSpecsGateEntry {
+  return new CodeSpecsGateEntry({
+    area: v.area,
+    verdict: CodeSpecsGateVerdict.parse(v.verdict) as CodeSpecsGateVerdict,
+    resolution: v.resolution != null ? v.resolution : null,
+    note: v.note != null ? v.note : null,
+  });
+}
+
+/**
+ * Runs `fn`, expecting a {@link CodeSpecsRecordError} whose message contains
+ * `needle` (the corpus pins substrings of the Dart wording).
+ */
+function _recordErrorWith(name: string, fn: () => unknown, needle: string): void {
+  try {
+    fn();
+    _check(name, false, 'expected a CodeSpecsRecordError, but returned normally');
+  } catch (e) {
+    if (!(e instanceof CodeSpecsRecordError)) {
+      _check(name, false, `expected a CodeSpecsRecordError, got ${String(e)}`);
+      return;
+    }
+    _check(
+      name,
+      e.message.includes(needle),
+      `'${e.message}' does not contain '${needle}'`,
+    );
+  }
+}
+
+/**
+ * Reading back what a Phase-4 run wrote: the extract files (an exact round
+ * trip of what the extractor emits) and the Stage-B gate record, alone and as
+ * the scope of a set of extracts (`codespecs_record_cases.json`).
+ */
+function testCodeSpecsRecords(): void {
+  const table = _readJson('codespecs_record_cases.json');
+  const catalog = CodeSpecsAreaCatalog.fromJson(
+    _readJson('codespecs_extract_cases.json').catalog,
+  );
+
+  for (const c of table.extractReads) {
+    const name = `codespecs.record.extractRead[${c.source}]`;
+    try {
+      const x = CodeSpecsExtract.fromYaml(c.yaml, c.source);
+      const got = _extractSummary(x);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      const yaml = x.toYaml();
+      _check(`${name}.roundTrip`, yaml === c.yaml, _byteDiff(name, yaml, c.yaml));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+
+  {
+    const c = table.extractMinimal;
+    const name = 'codespecs.record.extractMinimal';
+    try {
+      const got = _extractSummary(CodeSpecsExtract.fromYaml(c.yaml, c.source));
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+
+  for (const c of table.extractErrors) {
+    _recordErrorWith(
+      `codespecs.record.extractError[${c.name}]`,
+      () => CodeSpecsExtract.fromYaml(c.yaml, c.source),
+      c.messageContains,
+    );
+  }
+
+  for (const c of table.gateRecords) {
+    const name = `codespecs.record.gate[${c.name}]`;
+    try {
+      const g = CodeSpecsGateRecord.fromYaml(c.yaml);
+      const got = _gateSummary(g);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      const yaml = g.toYaml();
+      _check(`${name}.toYaml`, yaml === c.yaml, _byteDiff(name, yaml, c.yaml));
+      g.checkAgainst(catalog);
+      _check(`${name}.checkAgainst`, true);
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+
+  for (const c of table.gateWrites) {
+    const name = `codespecs.record.gateWrite[${c.name}]`;
+    try {
+      let g = new CodeSpecsGateRecord(c.verdicts.map(_gateEntry));
+      const yaml = g.toYaml();
+      _check(name, yaml === c.yaml, _byteDiff(name, yaml, c.yaml));
+      if (c.then != null) {
+        g = g.withVerdict(_gateEntry(c.then));
+        const thenYaml = g.toYaml();
+        _check(
+          `${name}.then`,
+          thenYaml === c.thenYaml,
+          _byteDiff(`${name}.then`, thenYaml, c.thenYaml),
+        );
+      }
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+
+  for (const c of table.gateErrors) {
+    _recordErrorWith(
+      `codespecs.record.gateError[${c.name}]`,
+      () => {
+        const g = CodeSpecsGateRecord.fromYaml(c.yaml);
+        if (c.againstCatalog === true) {
+          g.checkAgainst(catalog);
+        }
+      },
+      c.messageContains,
+    );
+  }
+
+  for (const c of table.scopeCases) {
+    const name = `codespecs.record.scope[${c.name}]`;
+    // A list of [name, text] pairs: the order is part of the contract.
+    const files: Array<[string, string]> = c.files.map(
+      (f: [string, string]) => [f[0], f[1]],
+    );
+    if (c.expect.error !== undefined) {
+      _recordErrorWith(
+        name,
+        () => CodeSpecsExtractSet.fromFiles(files),
+        c.expect.error,
+      );
+      continue;
+    }
+    try {
+      const set = CodeSpecsExtractSet.fromFiles(files);
+      const got = _scopeSummary(set);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      // The same files as a Map read the same, in the same order.
+      const viaMap = _scopeSummary(CodeSpecsExtractSet.fromFiles(new Map(files)));
+      _check(`${name}.map`, _deepEqual(viaMap, c.expect), _jsonMismatch(viaMap, c.expect));
+      // The lookups agree with the in-scope list.
+      for (const x of set.extracts) {
+        _check(`${name}.byArea[${x.area.code}]`, set.byArea(x.area.code) === x);
+      }
+      for (const e of set.excluded) {
+        _check(`${name}.byArea[${e.area}] excluded`, set.byArea(e.area) === null);
+      }
+      if (set.extracts.length > 0 && set.extracts[0].entries.length > 0) {
+        const first = set.extracts[0].entries[0];
+        const bySection = set.entriesForSection(first.sectionId);
+        const atPath = set.entriesAtPath(first.path);
+        _check(
+          `${name}.entriesForSection`,
+          bySection.length > 0 &&
+            bySection.every((e) => e.sectionId === first.sectionId) &&
+            bySection[0] === first,
+        );
+        _check(
+          `${name}.entriesAtPath`,
+          atPath.length > 0 &&
+            atPath.every((e) => e.path === first.path) &&
+            atPath[0] === first,
+        );
+      }
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+}
+
 export function main(): number {
   if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
     process.stderr.write(`corpus not found at ${_CORPUS}\n`);
@@ -1697,6 +1920,7 @@ export function main(): number {
   testQueryCount(model, queryDoc);
   testProjection(model, queryDoc);
   testCodeSpecsExtract(model);
+  testCodeSpecsRecords();
   testCursorScript(model);
   testNodeCreationCases(model);
   testNodeCreationScript(model);

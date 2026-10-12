@@ -18,7 +18,13 @@ import tom_som_runtime.CodeSpecsAreaCatalog;
 import tom_som_runtime.CodeSpecsExtract;
 import tom_som_runtime.CodeSpecsExtractEntry;
 import tom_som_runtime.CodeSpecsExtractError;
+import tom_som_runtime.CodeSpecsExtractSet;
 import tom_som_runtime.CodeSpecsExtractor;
+import tom_som_runtime.CodeSpecsExcludedArea;
+import tom_som_runtime.CodeSpecsGateEntry;
+import tom_som_runtime.CodeSpecsGateRecord;
+import tom_som_runtime.CodeSpecsGateVerdict;
+import tom_som_runtime.CodeSpecsRecordError;
 import tom_som_runtime.CodeSpecsRouting;
 import tom_som_runtime.CodeSpecsStep;
 import tom_som_runtime.DocSpecsDocument;
@@ -77,7 +83,8 @@ import tom_som_runtime.SpecYamlContents;
  * YAML and Markdown codecs (export, re-import, memory landing, rejections), the
  * reflection / validation / operations / editor surfaces, section ids,
  * serialization order, the DocSpecs schema tier, and the SOM §9 tier — patterns,
- * queries, projection, the <b>Phase-4 CodeSpecs extract generator</b>, the cursor
+ * queries, projection, the <b>Phase-4 CodeSpecs extract generator</b> and the
+ * reading back of its extracts and gate record, the cursor
  * script and node creation.
  *
  * <p>Run with: {@code java -cp <out>:<tests> ConformanceRunner <corpusDir>}.
@@ -138,6 +145,212 @@ public final class ConformanceRunner {
 
   private static SpecModel loadModel() throws IOException {
     return SpecModel.fromJson(readJsonObject("model.meta.json"));
+  }
+
+  // --- codespecs_record_cases.json: reading extracts and the gate record ----
+
+  /**
+   * Reading back what a Phase-4 run wrote: extract files (each read is checked
+   * against its summary and must write back byte for byte), the gate record
+   * (read, written, edited, refused) and the scoping of a file set by its
+   * record. Error cases compare by substring of the Dart reference's message.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testCodeSpecsRecords() throws IOException {
+    Map<String, Object> table = readJsonObject("codespecs_record_cases.json");
+    Map<String, Object> extractTable = readJsonObject("codespecs_extract_cases.json");
+    CodeSpecsAreaCatalog catalog =
+        CodeSpecsAreaCatalog.fromJson((Map<String, Object>) extractTable.get("catalog"));
+
+    for (Object o : (List<Object>) table.get("extractReads")) {
+      Map<String, Object> c = (Map<String, Object>) o;
+      String at = "codeSpecsRecords.extractRead[" + c.get("source") + "]";
+      String yaml = (String) c.get("yaml");
+      try {
+        CodeSpecsExtract x = CodeSpecsExtract.fromYaml(yaml, (String) c.get("source"));
+        Object got = extractSummary(x);
+        check(at, got.equals(c.get("expect")), jsonMismatch(got, c.get("expect")));
+        check(at + ".roundTrip", x.toYaml().equals(yaml), byteDiff(at, x.toYaml(), yaml));
+      } catch (CodeSpecsRecordError e) {
+        check(at, false, e.getMessage());
+      }
+    }
+
+    Map<String, Object> minimal = (Map<String, Object>) table.get("extractMinimal");
+    try {
+      Object got = extractSummary(
+          CodeSpecsExtract.fromYaml((String) minimal.get("yaml"), (String) minimal.get("source")));
+      check("codeSpecsRecords.extractMinimal", got.equals(minimal.get("expect")),
+          jsonMismatch(got, minimal.get("expect")));
+    } catch (CodeSpecsRecordError e) {
+      check("codeSpecsRecords.extractMinimal", false, e.getMessage());
+    }
+
+    for (Object o : (List<Object>) table.get("extractErrors")) {
+      Map<String, Object> c = (Map<String, Object>) o;
+      String at = "codeSpecsRecords.extractError[" + c.get("name") + "]";
+      String error = null;
+      try {
+        CodeSpecsExtract.fromYaml((String) c.get("yaml"), (String) c.get("source"));
+      } catch (CodeSpecsRecordError e) {
+        error = e.getMessage();
+      }
+      String want = (String) c.get("messageContains");
+      check(at, error != null && error.contains(want), "got " + error + ", want contains " + want);
+    }
+
+    for (Object o : (List<Object>) table.get("gateRecords")) {
+      Map<String, Object> c = (Map<String, Object>) o;
+      String at = "codeSpecsRecords.gateRecord[" + c.get("name") + "]";
+      String yaml = (String) c.get("yaml");
+      try {
+        CodeSpecsGateRecord g = CodeSpecsGateRecord.fromYaml(yaml);
+        Object got = gateSummary(g);
+        check(at, got.equals(c.get("expect")), jsonMismatch(got, c.get("expect")));
+        check(at + ".toYaml", g.toYaml().equals(yaml), byteDiff(at, g.toYaml(), yaml));
+        g.checkAgainst(catalog);
+        check(at + ".checkAgainst", true, "");
+      } catch (CodeSpecsRecordError e) {
+        check(at, false, e.getMessage());
+      }
+    }
+
+    for (Object o : (List<Object>) table.get("gateWrites")) {
+      Map<String, Object> c = (Map<String, Object>) o;
+      String at = "codeSpecsRecords.gateWrite[" + c.get("name") + "]";
+      try {
+        List<CodeSpecsGateEntry> verdicts = new ArrayList<>();
+        for (Object v : (List<Object>) c.get("verdicts")) {
+          verdicts.add(gateEntry((Map<String, Object>) v));
+        }
+        CodeSpecsGateRecord g = new CodeSpecsGateRecord(verdicts);
+        String want = (String) c.get("yaml");
+        check(at, g.toYaml().equals(want), byteDiff(at, g.toYaml(), want));
+        Object then = c.get("then");
+        if (then != null) {
+          g = g.withVerdict(gateEntry((Map<String, Object>) then));
+          String thenWant = (String) c.get("thenYaml");
+          check(at + ".then", g.toYaml().equals(thenWant), byteDiff(at, g.toYaml(), thenWant));
+        }
+      } catch (CodeSpecsRecordError e) {
+        check(at, false, e.getMessage());
+      }
+    }
+
+    for (Object o : (List<Object>) table.get("gateErrors")) {
+      Map<String, Object> c = (Map<String, Object>) o;
+      String at = "codeSpecsRecords.gateError[" + c.get("name") + "]";
+      String error = null;
+      try {
+        CodeSpecsGateRecord g = CodeSpecsGateRecord.fromYaml((String) c.get("yaml"));
+        if (Boolean.TRUE.equals(c.get("againstCatalog"))) {
+          g.checkAgainst(catalog);
+        }
+      } catch (CodeSpecsRecordError e) {
+        error = e.getMessage();
+      }
+      String want = (String) c.get("messageContains");
+      check(at, error != null && error.contains(want), "got " + error + ", want contains " + want);
+    }
+
+    for (Object o : (List<Object>) table.get("scopeCases")) {
+      Map<String, Object> c = (Map<String, Object>) o;
+      String at = "codeSpecsRecords.scope[" + c.get("name") + "]";
+      List<Map.Entry<String, String>> files = new ArrayList<>();
+      for (Object f : (List<Object>) c.get("files")) {
+        List<Object> pair = (List<Object>) f;
+        files.add(Map.entry((String) pair.get(0), (String) pair.get(1)));
+      }
+      Map<String, Object> want = (Map<String, Object>) c.get("expect");
+      Object got;
+      String error = null;
+      try {
+        got = scopeSummary(CodeSpecsExtractSet.fromFiles(files));
+      } catch (CodeSpecsRecordError e) {
+        error = e.getMessage();
+        got = null;
+      }
+      if (want.containsKey("error")) {
+        String wantError = (String) want.get("error");
+        check(at, error != null && error.contains(wantError),
+            "got " + (error != null ? error : got) + ", want " + wantError);
+      } else {
+        check(at, error == null && want.equals(got),
+            error != null ? error : jsonMismatch(got, want));
+      }
+    }
+  }
+
+  private static CodeSpecsGateEntry gateEntry(Map<String, Object> v) {
+    return new CodeSpecsGateEntry(
+        (String) v.get("area"),
+        CodeSpecsGateVerdict.parse((String) v.get("verdict")),
+        (String) v.get("resolution"),
+        (String) v.get("note"));
+  }
+
+  private static Map<String, Object> extractSummary(CodeSpecsExtract x) {
+    Map<String, Object> o = new LinkedHashMap<>();
+    o.put("area", x.area.code);
+    o.put("canonicalId", x.area.canonicalId);
+    o.put("part", x.area.part);
+    o.put("documentRoot", x.documentRoot);
+    o.put("projects", new ArrayList<Object>(x.projects));
+    o.put("citableParts", new ArrayList<Object>(x.citableParts));
+    o.put("entryCount", Integer.valueOf(x.entries.size()));
+    List<Object> sectionIds = new ArrayList<>();
+    List<Object> values = new ArrayList<>();
+    List<Object> classNames = new ArrayList<>();
+    List<Object> headlines = new ArrayList<>();
+    for (CodeSpecsExtractEntry e : x.entries) {
+      sectionIds.add(e.sectionId);
+      values.add(e.value);
+      classNames.add(e.className);
+      headlines.add(e.headline);
+    }
+    o.put("sectionIds", sectionIds);
+    o.put("values", values);
+    o.put("classNames", classNames);
+    o.put("headlines", headlines);
+    return o;
+  }
+
+  private static Map<String, Object> gateSummary(CodeSpecsGateRecord g) {
+    List<Object> verdicts = new ArrayList<>();
+    for (CodeSpecsGateEntry v : g.verdicts) {
+      Map<String, Object> o = new LinkedHashMap<>();
+      o.put("area", v.area);
+      o.put("verdict", v.verdict.word);
+      o.put("resolution", v.resolution);
+      o.put("note", v.note);
+      verdicts.add(o);
+    }
+    Map<String, Object> o = new LinkedHashMap<>();
+    o.put("verdicts", verdicts);
+    return o;
+  }
+
+  private static Map<String, Object> scopeSummary(CodeSpecsExtractSet set) {
+    List<Object> inScope = new ArrayList<>();
+    for (CodeSpecsExtract x : set.extracts) {
+      inScope.add(x.area.code);
+    }
+    List<Object> excluded = new ArrayList<>();
+    for (CodeSpecsExcludedArea e : set.excluded) {
+      Map<String, Object> o = new LinkedHashMap<>();
+      o.put("area", e.area);
+      o.put("verdict", e.verdict.word);
+      o.put("descoped", Boolean.valueOf(e.descoped));
+      o.put("entryCount", Integer.valueOf(e.entryCount));
+      o.put("source", e.source);
+      excluded.add(o);
+    }
+    Map<String, Object> o = new LinkedHashMap<>();
+    o.put("inScope", inScope);
+    o.put("sources", new ArrayList<Object>(set.sources));
+    o.put("hasGate", Boolean.valueOf(set.gate != null));
+    o.put("excluded", excluded);
+    return o;
   }
 
   private static SpecDocument documentFromState(Map<String, Object> state) {
@@ -1841,6 +2054,7 @@ public final class ConformanceRunner {
     testQueries(model);
     testProjection(model);
     testCodeSpecsExtract(model);
+    testCodeSpecsRecords();
     testCursorScript(model);
     testNodeCreationCases(model);
     testNodeCreationCoverage();

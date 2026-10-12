@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Reading Phase-4 files back (`spec_codespecs_records.dart`):
+  `CodeSpecsExtract.fromYaml` (the inverse of `toYaml`, byte-stable;
+  refuses an unknown `formatVersion` and a disagreeing `entryCount`);
+  `CodeSpecsGateRecord` reads and writes `gate.verdicts.yaml` in a checked
+  shape, with `withVerdict` and `checkAgainst(catalog)`; and
+  `CodeSpecsExtractSet.fromFiles` / `fromDirectory` read a run's extracts
+  scoped by its gate record. Errors are `CodeSpecsRecordError`. Pinned by
+  `codespecs_record_cases.json` in all nine runtimes.
+
 - `CodeSpecsAreaCatalog.steps` carries the `codespecs_mapping.md` §4.4.6
   authoring-step table as `CodeSpecsStep` rows (`number`, `title`, `slice`,
   `placedBy`, `areaCodes`), with `stepNumbered` and `stepsFor(area)`. A

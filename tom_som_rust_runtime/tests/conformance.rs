@@ -27,6 +27,9 @@
 //!   - the Phase-4 CodeSpecs tier: the routing diagnostic, the per-area extracts
 //!     with their YAML/Markdown goldens, the "copied, never composed" guard, and
 //!     the `ROUTE-TOTAL` error cases;
+//!   - reading the CodeSpecs records back: extract files (round-tripping byte
+//!     for byte), the gate record (read, written, edited, refused) and the
+//!     scoping of a file set by its record (codespecs_record_cases.json);
 //!   - the SOM §14 DocSpecs tier (one case per violation rule).
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
@@ -35,7 +38,12 @@ use std::collections::HashSet;
 use std::path::PathBuf;
 
 use tom_som_rust_runtime::json::Json;
-use tom_som_rust_runtime::spec_codespecs_extract::{CodeSpecsAreaCatalog, CodeSpecsExtractor};
+use tom_som_rust_runtime::spec_codespecs_extract::{
+    CodeSpecsAreaCatalog, CodeSpecsExtract, CodeSpecsExtractor,
+};
+use tom_som_rust_runtime::spec_codespecs_records::{
+    CodeSpecsExtractSet, CodeSpecsGateEntry, CodeSpecsGateRecord, CodeSpecsGateVerdict,
+};
 use tom_som_rust_runtime::spec_document::{DocumentJson, SpecDocument};
 use tom_som_rust_runtime::spec_document_markdown::{SpecDocumentMarkdown, SpecMarkdownResult};
 use tom_som_rust_runtime::spec_document_yaml::{
@@ -183,6 +191,7 @@ fn conformance() {
     test_query(&mut c, &model);
     test_projection(&mut c, &model);
     test_codespecs_extract(&mut c, &model);
+    test_codespecs_records(&mut c);
     test_cursor_script(&mut c, &model);
     test_node_creation_cases(&mut c, &model);
     test_node_creation_script(&mut c, &model);
@@ -1988,6 +1997,325 @@ fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
 /// cursor was opened is skipped. Rust cannot hold a shared borrow of the
 /// document across a mutation, so [`SpecQueryEngine`] is rebuilt per step (it is
 /// a borrow pair, not state) and the cursor carries no engine reference.
+/// Structural JSON equality with object keys compared as a set — the corpus is
+/// written by the Dart reference, whose key order a summary need not copy.
+fn json_eq(a: &Json, b: &Json) -> bool {
+    match (a, b) {
+        (Json::Object(x), Json::Object(y)) => {
+            x.len() == y.len()
+                && x.iter().all(|(k, v)| {
+                    y.iter()
+                        .find(|(k2, _)| k2 == k)
+                        .is_some_and(|(_, v2)| json_eq(v, v2))
+                })
+        }
+        (Json::Array(x), Json::Array(y)) => {
+            x.len() == y.len() && x.iter().zip(y).all(|(p, q)| json_eq(p, q))
+        }
+        _ => a == b,
+    }
+}
+
+fn jstr(s: &str) -> Json {
+    Json::Str(s.to_string())
+}
+
+fn jopt(s: &Option<String>) -> Json {
+    match s {
+        Some(s) => jstr(s),
+        None => Json::Null,
+    }
+}
+
+fn jstrs<'a>(items: impl IntoIterator<Item = &'a String>) -> Json {
+    Json::Array(items.into_iter().map(|s| jstr(s)).collect())
+}
+
+fn obj(pairs: Vec<(&str, Json)>) -> Json {
+    Json::Object(pairs.into_iter().map(|(k, v)| (k.to_string(), v)).collect())
+}
+
+fn extract_summary(x: &CodeSpecsExtract) -> Json {
+    obj(vec![
+        ("area", jstr(&x.area.code)),
+        ("canonicalId", jstr(&x.area.canonical_id)),
+        ("part", jstr(&x.area.part)),
+        ("documentRoot", jstr(&x.document_root)),
+        ("projects", jstrs(&x.projects)),
+        ("citableParts", jstrs(&x.citable_parts)),
+        ("entryCount", Json::Int(x.entries.len() as i64)),
+        ("sectionIds", jstrs(x.entries.iter().map(|e| &e.section_id))),
+        ("values", jstrs(x.entries.iter().map(|e| &e.value))),
+        ("classNames", jstrs(x.entries.iter().map(|e| &e.class_name))),
+        (
+            "headlines",
+            Json::Array(x.entries.iter().map(|e| jopt(&e.headline)).collect()),
+        ),
+    ])
+}
+
+fn gate_summary(g: &CodeSpecsGateRecord) -> Json {
+    let verdicts = g
+        .verdicts()
+        .iter()
+        .map(|v| {
+            obj(vec![
+                ("area", jstr(&v.area)),
+                ("verdict", jstr(v.verdict.word())),
+                ("resolution", jopt(&v.resolution)),
+                ("note", jopt(&v.note)),
+            ])
+        })
+        .collect();
+    obj(vec![("verdicts", Json::Array(verdicts))])
+}
+
+fn scope_summary(set: &CodeSpecsExtractSet) -> Json {
+    let excluded = set
+        .excluded
+        .iter()
+        .map(|e| {
+            obj(vec![
+                ("area", jstr(&e.area)),
+                ("verdict", jstr(e.verdict.word())),
+                ("descoped", Json::Bool(e.descoped)),
+                ("entryCount", Json::Int(e.entry_count as i64)),
+                ("source", jstr(&e.source)),
+            ])
+        })
+        .collect();
+    obj(vec![
+        ("inScope", jstrs(set.extracts.iter().map(|x| &x.area.code))),
+        ("sources", jstrs(&set.sources)),
+        ("hasGate", Json::Bool(set.gate.is_some())),
+        ("excluded", Json::Array(excluded)),
+    ])
+}
+
+fn gate_entry(v: &Json) -> CodeSpecsGateEntry {
+    CodeSpecsGateEntry {
+        area: v.str_or("area"),
+        verdict: CodeSpecsGateVerdict::parse(&v.str_or("verdict")).expect("a known verdict"),
+        resolution: v
+            .get("resolution")
+            .and_then(|r| r.as_str())
+            .map(str::to_string),
+        note: v.get("note").and_then(|r| r.as_str()).map(str::to_string),
+    }
+}
+
+fn cases<'a>(table: &'a Json, key: &str) -> &'a [Json] {
+    table
+        .get(key)
+        .and_then(|v| v.as_array())
+        .unwrap_or_else(|| panic!("codespecs_record_cases has {}", key))
+}
+
+/// Reading back what a Phase-4 run wrote: extract files (each read checked
+/// against its summary and written back byte for byte), the gate record (read,
+/// written, edited, refused) and the scoping of a file set by its record. Error
+/// cases compare by substring of the Dart reference's message.
+fn test_codespecs_records(c: &mut Checker) {
+    let table = read_json("codespecs_record_cases.json");
+    let extract_table = read_json("codespecs_extract_cases.json");
+    let catalog = CodeSpecsAreaCatalog::from_json(
+        extract_table
+            .get("catalog")
+            .expect("codespecs_extract_cases has a catalog"),
+    );
+
+    for case in cases(&table, "extractReads") {
+        let source = case.str_or("source");
+        let yaml = case.str_or("yaml");
+        let at = format!("codespecsRecords.extractRead[{}]", source);
+        match CodeSpecsExtract::from_yaml(&yaml, &source) {
+            Ok(x) => {
+                let got = extract_summary(&x);
+                let want = case.get("expect").expect("an expect");
+                c.check(
+                    &at,
+                    json_eq(&got, want),
+                    &format!("{:?} != {:?}", got, want),
+                );
+                let back = x.to_yaml();
+                c.check(
+                    &format!("{}.roundTrip", at),
+                    back == yaml,
+                    &byte_diff(&at, &back, &yaml),
+                );
+            }
+            Err(e) => c.check(&at, false, &e.message),
+        }
+    }
+
+    let minimal = table
+        .get("extractMinimal")
+        .expect("codespecs_record_cases has extractMinimal");
+    match CodeSpecsExtract::from_yaml(&minimal.str_or("yaml"), &minimal.str_or("source")) {
+        Ok(x) => {
+            let got = extract_summary(&x);
+            let want = minimal.get("expect").expect("an expect");
+            c.check(
+                "codespecsRecords.extractMinimal",
+                json_eq(&got, want),
+                &format!("{:?} != {:?}", got, want),
+            );
+        }
+        Err(e) => c.check("codespecsRecords.extractMinimal", false, &e.message),
+    }
+
+    for case in cases(&table, "extractErrors") {
+        let at = format!("codespecsRecords.extractError[{}]", case.str_or("name"));
+        let want = case.str_or("messageContains");
+        match CodeSpecsExtract::from_yaml(&case.str_or("yaml"), &case.str_or("source")) {
+            Ok(_) => c.check(
+                &at,
+                false,
+                &format!("no error, want one containing {}", want),
+            ),
+            Err(e) => c.check(
+                &at,
+                e.message.contains(&want),
+                &format!("{} does not contain {}", e.message, want),
+            ),
+        }
+    }
+
+    for case in cases(&table, "gateRecords") {
+        let at = format!("codespecsRecords.gateRecord[{}]", case.str_or("name"));
+        let yaml = case.str_or("yaml");
+        match CodeSpecsGateRecord::from_yaml(&yaml, "") {
+            Ok(g) => {
+                let got = gate_summary(&g);
+                let want = case.get("expect").expect("an expect");
+                c.check(
+                    &at,
+                    json_eq(&got, want),
+                    &format!("{:?} != {:?}", got, want),
+                );
+                let back = g.to_yaml();
+                c.check(
+                    &format!("{}.toYaml", at),
+                    back == yaml,
+                    &byte_diff(&at, &back, &yaml),
+                );
+                let checked = g.check_against(&catalog);
+                c.check(
+                    &format!("{}.checkAgainst", at),
+                    checked.is_ok(),
+                    &checked.err().map(|e| e.message).unwrap_or_default(),
+                );
+            }
+            Err(e) => c.check(&at, false, &e.message),
+        }
+    }
+
+    for case in cases(&table, "gateWrites") {
+        let at = format!("codespecsRecords.gateWrite[{}]", case.str_or("name"));
+        let verdicts = case
+            .get("verdicts")
+            .and_then(|v| v.as_array())
+            .expect("a verdicts list")
+            .iter()
+            .map(gate_entry)
+            .collect();
+        let g = match CodeSpecsGateRecord::new(verdicts) {
+            Ok(g) => g,
+            Err(e) => {
+                c.check(&at, false, &e.message);
+                continue;
+            }
+        };
+        let want = case.str_or("yaml");
+        c.check(
+            &at,
+            g.to_yaml() == want,
+            &byte_diff(&at, &g.to_yaml(), &want),
+        );
+        if let Some(then) = case.get("then").filter(|t| **t != Json::Null) {
+            match g.with_verdict(gate_entry(then)) {
+                Ok(g2) => {
+                    let then_want = case.str_or("thenYaml");
+                    c.check(
+                        &format!("{}.then", at),
+                        g2.to_yaml() == then_want,
+                        &byte_diff(&at, &g2.to_yaml(), &then_want),
+                    );
+                }
+                Err(e) => c.check(&format!("{}.then", at), false, &e.message),
+            }
+        }
+    }
+
+    for case in cases(&table, "gateErrors") {
+        let at = format!("codespecsRecords.gateError[{}]", case.str_or("name"));
+        let want = case.str_or("messageContains");
+        let against = case
+            .get("againstCatalog")
+            .and_then(|v| v.as_bool())
+            .unwrap_or(false);
+        let result = CodeSpecsGateRecord::from_yaml(&case.str_or("yaml"), "").and_then(|g| {
+            if against {
+                g.check_against(&catalog)
+            } else {
+                Ok(())
+            }
+        });
+        match result {
+            Ok(()) => c.check(
+                &at,
+                false,
+                &format!("no error, want one containing {}", want),
+            ),
+            Err(e) => c.check(
+                &at,
+                e.message.contains(&want),
+                &format!("{} does not contain {}", e.message, want),
+            ),
+        }
+    }
+
+    for case in cases(&table, "scopeCases") {
+        let at = format!("codespecsRecords.scope[{}]", case.str_or("name"));
+        let files: Vec<(String, String)> = case
+            .get("files")
+            .and_then(|v| v.as_array())
+            .expect("a files list")
+            .iter()
+            .map(|pair| {
+                let pair = pair.as_array().expect("a [name, text] pair");
+                (
+                    pair[0].as_str().expect("a name").to_string(),
+                    pair[1].as_str().expect("a text").to_string(),
+                )
+            })
+            .collect();
+        let want = case.get("expect").expect("an expect");
+        let result = CodeSpecsExtractSet::from_files(files);
+        match (want.get("error").and_then(|e| e.as_str()), result) {
+            (Some(want_error), Err(e)) => c.check(
+                &at,
+                e.message.contains(want_error),
+                &format!("{} does not contain {}", e.message, want_error),
+            ),
+            (Some(want_error), Ok(set)) => c.check(
+                &at,
+                false,
+                &format!("got {:?}, want error {}", scope_summary(&set), want_error),
+            ),
+            (None, Ok(set)) => {
+                let got = scope_summary(&set);
+                c.check(
+                    &at,
+                    json_eq(&got, want),
+                    &format!("{:?} != {:?}", got, want),
+                );
+            }
+            (None, Err(e)) => c.check(&at, false, &e.message),
+        }
+    }
+}
+
 fn test_cursor_script(c: &mut Checker, model: &SpecModel) {
     let state = DocumentJson::from_json(&read_json("state.json"));
     let mut doc = doc_from_state(&state);

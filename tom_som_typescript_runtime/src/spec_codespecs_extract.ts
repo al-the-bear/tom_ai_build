@@ -42,6 +42,8 @@
  * open the mapping document to find out what `CE-FM` means.
  */
 
+import * as fs from 'fs';
+
 import { SpecDocument } from './spec_document';
 import {
   SpecClass,
@@ -52,6 +54,7 @@ import {
 } from './spec_model';
 import { specPathJoin } from './spec_paths';
 import { SpecReflection } from './spec_reflection';
+import * as yaml from './yaml';
 
 /**
  * The version of the emitted extract artifact's on-disk shape. Bumped when the
@@ -675,6 +678,16 @@ export class CodeSpecsExtract {
     this.citableParts = props.citableParts || [];
     this.projects = props.projects || [];
     this.entries = props.entries || [];
+  }
+
+  /**
+   * Reads an extract back from its artifact of record — the inverse of
+   * {@link toYaml}. `source` names the file in errors. Throws
+   * {@link CodeSpecsRecordError} on an unknown `formatVersion` or a malformed
+   * file.
+   */
+  static fromYaml(text: string, source = ''): CodeSpecsExtract {
+    return parseCodeSpecsExtractYaml(text, source);
   }
 
   /** The extract's file name stem — `CE-FM.extract`. */
@@ -1304,6 +1317,850 @@ export class CodeSpecsExtractor {
       declaredAt: `${cls.name}.${field.name}`,
     });
   }
+}
+
+// --- reading back: extract files and the gate record ------------------------
+//
+// The extractor writes `<CE-CODE>.extract.yaml`; this is the other half, so a
+// consumer that did not run the extractor — a validator, an editor tool, an
+// agent asking which areas are in scope — reads the files with the same rules
+// everywhere instead of re-deriving the shape (`codespecs_mapping.md` §1.1.1,
+// `codespecs_prompt.md` §6.3). Port of
+// `tom_som_dart_runtime/lib/src/spec_codespecs_records.dart`.
+//
+// Both readers **refuse** an unknown `formatVersion`: a later format that moved
+// a key would otherwise read as an extract with no entries, or a scope with no
+// verdicts, and a check with no input passes.
+
+/**
+ * The file name of the gate record, written beside the extracts. Fixed so a
+ * partial pass cannot hide its record under a name no reader looks for.
+ */
+export const K_CODE_SPECS_GATE_RECORD_FILE = 'gate.verdicts.yaml';
+
+/** The gate record `formatVersion` this runtime reads and writes. */
+export const K_CODE_SPECS_GATE_RECORD_FORMAT = 1;
+
+/** The suffix every extract artifact of record carries. */
+export const K_CODE_SPECS_EXTRACT_FILE_SUFFIX = '.extract.yaml';
+
+/**
+ * The one resolution a gate record may carry: an insufficient area the user
+ * decided to leave out.
+ */
+export const K_CODE_SPECS_GATE_DESCOPED = 'descoped';
+
+const _AREA_CODE_PATTERN = /^CE-[A-Z]+$/;
+
+/**
+ * A malformed or unreadable extract file or gate record. {@link message} names
+ * the file it was read from.
+ */
+export class CodeSpecsRecordError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'CodeSpecsRecordError';
+    Object.setPrototypeOf(this, CodeSpecsRecordError.prototype);
+  }
+
+  toString(): string {
+    return `CodeSpecsRecordError: ${this.message}`;
+  }
+}
+
+/**
+ * Parses one `<CE-CODE>.extract.yaml`; `source` names the file in errors.
+ *
+ * Only `extract.formatVersion` and `extract.area.code` are required; any other
+ * absent key reads as empty (a string as `''`, a list as `[]`, an optional
+ * entry field as `null`), so a hand-written fixture stays readable. A key that
+ * is present with the wrong type is an error, and so is a
+ * `document.entryCount` that disagrees with the entries — a truncated file
+ * would otherwise read as a complete one.
+ *
+ * The inverse of {@link CodeSpecsExtract.toYaml}: for any extract the extractor
+ * wrote, `parseCodeSpecsExtractYaml(x.toYaml()).toYaml() === x.toYaml()`.
+ */
+export function parseCodeSpecsExtractYaml(
+  text: string,
+  source = '',
+): CodeSpecsExtract {
+  const name = source === '' ? 'the extract' : source;
+  const root = _rootMapping(text, name, 'extract');
+  const version = root.formatVersion;
+  if (version !== K_CODE_SPECS_EXTRACT_FORMAT) {
+    throw new CodeSpecsRecordError(
+      `${name} declares extract format ${_show(version)}; this reader ` +
+        `understands ${K_CODE_SPECS_EXTRACT_FORMAT} only — reading it would ` +
+        'silently drop entries',
+    );
+  }
+  const area = _absent(root.area) ? null : root.area;
+  if (!_isMap(area)) {
+    throw new CodeSpecsRecordError(`${name} has no \`area:\` mapping`);
+  }
+  const code = _str(area.code, name, 'area.code');
+  if (code === '') {
+    throw new CodeSpecsRecordError(`${name} names no area code`);
+  }
+  let part = _str(area.part, name, 'area.part');
+  if (part.startsWith('CodeSpecPart.')) {
+    part = part.slice('CodeSpecPart.'.length);
+  }
+  const documentNode = _absent(root.document) ? null : root.document;
+  if (documentNode !== null && !_isMap(documentNode)) {
+    throw new CodeSpecsRecordError(`${name}: \`document\` must be a mapping`);
+  }
+  const entriesNode = _absent(root.entries) ? null : root.entries;
+  if (entriesNode !== null && !Array.isArray(entriesNode)) {
+    throw new CodeSpecsRecordError(`${name}: \`entries\` must be a list`);
+  }
+  const entries: CodeSpecsExtractEntry[] = [];
+  for (const raw of (entriesNode as unknown[] | null) || []) {
+    if (!_isMap(raw)) {
+      throw new CodeSpecsRecordError(
+        `${name} has an entry that is not a mapping`,
+      );
+    }
+    const req = (key: string) => _str(raw[key], name, `entries[].${key}`);
+    const opt = (key: string) => _optStr(raw[key], name, `entries[].${key}`);
+    entries.push(
+      new CodeSpecsExtractEntry({
+        areaCode: code,
+        sectionId: req('sectionId'),
+        headline: opt('headline'),
+        instanceId: opt('instanceId'),
+        path: req('path'),
+        className: req('className'),
+        fieldName: req('fieldName'),
+        formField: opt('formField'),
+        routedBy: req('routedBy'),
+        routedAt: req('routedAt'),
+        routingNote: opt('routingNote'),
+        value: req('value'),
+      }),
+    );
+  }
+  const declared = documentNode === null ? null : documentNode.entryCount;
+  if (declared != null && declared !== entries.length) {
+    throw new CodeSpecsRecordError(
+      `${name} declares entryCount ${_show(declared)} but carries ` +
+        `${entries.length} entries — a truncated extract must not read as a ` +
+        'complete one',
+    );
+  }
+  return new CodeSpecsExtract({
+    area: new CodeSpecsArea({
+      code,
+      canonicalId: _str(area.canonicalId, name, 'area.canonicalId'),
+      part,
+      annotations: _strList(area.annotations, name, 'area.annotations'),
+      builtOn: _str(area.builtOn, name, 'area.builtOn'),
+      attributeSurface: _str(
+        area.attributeSurface,
+        name,
+        'area.attributeSurface',
+      ),
+      slices: _intList(area.slices, name, 'area.slices'),
+      authoringSteps: _intList(
+        area.authoringSteps,
+        name,
+        'area.authoringSteps',
+      ),
+    }),
+    documentRoot: _str(
+      documentNode === null ? null : documentNode.root,
+      name,
+      'document.root',
+    ),
+    catalogSource: _str(root.catalogSource, name, 'catalogSource'),
+    projects: _strList(area.projects, name, 'area.projects'),
+    citableParts: _strList(area.citableParts, name, 'area.citableParts'),
+    entries,
+  });
+}
+
+/**
+ * One of `codespecs_prompt.md` §6.2's three per-area verdicts — an enum of
+ * fixed instances, compared by identity, carrying the Dart enum `name` and
+ * the §6.2 {@link word}.
+ */
+export class CodeSpecsGateVerdict {
+  /** The extract carries every input the derivation contract requires. */
+  static readonly sufficient = new CodeSpecsGateVerdict(
+    'sufficient',
+    'sufficient',
+  );
+
+  /**
+   * The area does not apply — nothing was routed, with positive evidence of
+   * absence (`codespecs_prompt.md` §6.4).
+   */
+  static readonly notApplicable = new CodeSpecsGateVerdict(
+    'notApplicable',
+    'not applicable',
+  );
+
+  /**
+   * The extract is missing required inputs; only a recorded descope lets a run
+   * continue without the area.
+   */
+  static readonly insufficient = new CodeSpecsGateVerdict(
+    'insufficient',
+    'insufficient',
+  );
+
+  /** Every verdict, in declaration order. */
+  static readonly values: readonly CodeSpecsGateVerdict[] = [
+    CodeSpecsGateVerdict.sufficient,
+    CodeSpecsGateVerdict.notApplicable,
+    CodeSpecsGateVerdict.insufficient,
+  ];
+
+  /** The enum constant's name (`notApplicable`). */
+  readonly name: string;
+
+  /** The verdict word exactly as `codespecs_prompt.md` §6.2 states it. */
+  readonly word: string;
+
+  private constructor(name: string, word: string) {
+    this.name = name;
+    this.word = word;
+  }
+
+  /** The verdict for `word`, or `null` for a word §6.2 does not know. */
+  static parse(word: string): CodeSpecsGateVerdict | null {
+    for (const v of CodeSpecsGateVerdict.values) {
+      if (v.word === word) {
+        return v;
+      }
+    }
+    return null;
+  }
+
+  toString(): string {
+    return `CodeSpecsGateVerdict.${this.name}`;
+  }
+}
+
+/** One area's recorded verdict. */
+export class CodeSpecsGateEntry {
+  /** The area's `CE-*` code. */
+  readonly area: string;
+
+  /** The verdict. */
+  readonly verdict: CodeSpecsGateVerdict;
+
+  /** `descoped`, on an insufficient area only; otherwise `null`. */
+  readonly resolution: string | null;
+
+  /** A free-text note — why the verdict was taken. Never read as data. */
+  readonly note: string | null;
+
+  /**
+   * Creates an entry. Shape is checked by {@link CodeSpecsGateRecord}, which is
+   * the only thing that reads or writes entries.
+   */
+  constructor(props: {
+    area: string;
+    verdict: CodeSpecsGateVerdict;
+    resolution?: string | null;
+    note?: string | null;
+  }) {
+    this.area = props.area;
+    this.verdict = props.verdict;
+    this.resolution = props.resolution != null ? props.resolution : null;
+    this.note = props.note != null ? props.note : null;
+  }
+
+  /** Whether this is an insufficient area resolved by descoping. */
+  get descoped(): boolean {
+    return this.resolution === K_CODE_SPECS_GATE_DESCOPED;
+  }
+
+  toString(): string {
+    return `CodeSpecsGateEntry(${this.area}, ${this.verdict.word})`;
+  }
+}
+
+/**
+ * The Stage-B gate record, `gate.verdicts.yaml` (`codespecs_prompt.md` §6.3).
+ *
+ * Constructing one checks it: every area is a `CE-*` code named once, and a
+ * `resolution:` appears only as `descoped` on an insufficient area. So a record
+ * that exists is a record of the checked shape, whether it was read or built to
+ * be written.
+ */
+export class CodeSpecsGateRecord {
+  /** The verdicts, in the order they were recorded. */
+  readonly verdicts: readonly CodeSpecsGateEntry[];
+
+  /**
+   * Creates and checks a record; throws {@link CodeSpecsRecordError} on a shape
+   * `codespecs_prompt.md` §6.3 does not allow. `source` names it in errors.
+   */
+  constructor(
+    verdicts: readonly CodeSpecsGateEntry[],
+    source: string = K_CODE_SPECS_GATE_RECORD_FILE,
+  ) {
+    this.verdicts = Object.freeze([...verdicts]);
+    this._check(source);
+  }
+
+  /** Parses `gate.verdicts.yaml`; `source` names the file in errors. */
+  static fromYaml(
+    text: string,
+    source: string = K_CODE_SPECS_GATE_RECORD_FILE,
+  ): CodeSpecsGateRecord {
+    const root = _rootMapping(text, source, 'gate');
+    for (const key of Object.keys(root)) {
+      if (key !== 'formatVersion' && key !== 'verdicts') {
+        throw new CodeSpecsRecordError(
+          `${source} has an unknown key \`gate.${key}\` — the record knows ` +
+            '`formatVersion` and `verdicts` only',
+        );
+      }
+    }
+    const version = root.formatVersion;
+    if (version !== K_CODE_SPECS_GATE_RECORD_FORMAT) {
+      throw new CodeSpecsRecordError(
+        `${source} declares gate record format ${_show(version)}; this ` +
+          `reader understands ${K_CODE_SPECS_GATE_RECORD_FORMAT} only — ` +
+          'reading it would silently change the scope',
+      );
+    }
+    const list = root.verdicts;
+    if (!Array.isArray(list)) {
+      throw new CodeSpecsRecordError(`${source} has no \`verdicts:\` list`);
+    }
+    const entries: CodeSpecsGateEntry[] = [];
+    for (const raw of list) {
+      if (!_isMap(raw)) {
+        throw new CodeSpecsRecordError(
+          `${source} has a verdict that is not a mapping`,
+        );
+      }
+      for (const key of Object.keys(raw)) {
+        if (!['area', 'verdict', 'resolution', 'note'].includes(key)) {
+          throw new CodeSpecsRecordError(
+            `${source} has an unknown key \`${key}\` in a verdict — an entry ` +
+              'knows `area`, `verdict`, `resolution` and `note` only',
+          );
+        }
+      }
+      const area = _str(raw.area, source, 'verdicts[].area');
+      const word = _str(raw.verdict, source, 'verdicts[].verdict');
+      const verdict = CodeSpecsGateVerdict.parse(word);
+      if (verdict === null) {
+        throw new CodeSpecsRecordError(
+          `${source} gives ${area} the verdict \`${word}\` — ` +
+            'codespecs_prompt.md §6.2 knows `sufficient`, `not applicable` ' +
+            'and `insufficient` only',
+        );
+      }
+      entries.push(
+        new CodeSpecsGateEntry({
+          area,
+          verdict,
+          resolution: _optStr(raw.resolution, source, 'verdicts[].resolution'),
+          note: _optStr(raw.note, source, 'verdicts[].note'),
+        }),
+      );
+    }
+    return new CodeSpecsGateRecord(entries, source);
+  }
+
+  private _check(source: string): void {
+    const seen = new Set<string>();
+    for (const e of this.verdicts) {
+      if (e.area === '') {
+        throw new CodeSpecsRecordError(
+          `${source} has a verdict that names no area`,
+        );
+      }
+      if (!_AREA_CODE_PATTERN.test(e.area)) {
+        throw new CodeSpecsRecordError(
+          `${source} names the area \`${e.area}\`, which is not a CE-* code`,
+        );
+      }
+      if (seen.has(e.area)) {
+        throw new CodeSpecsRecordError(
+          `${source} carries two verdicts for ${e.area} — a scope with two ` +
+            'answers for one area is no scope',
+        );
+      }
+      seen.add(e.area);
+      const resolution = e.resolution;
+      if (resolution === null) {
+        continue;
+      }
+      if (e.verdict !== CodeSpecsGateVerdict.insufficient) {
+        throw new CodeSpecsRecordError(
+          `${source} gives ${e.area} a \`resolution:\` on verdict ` +
+            `\`${e.verdict.word}\` — only an insufficient area has an L0 ` +
+            'decision to resolve',
+        );
+      }
+      if (resolution !== K_CODE_SPECS_GATE_DESCOPED) {
+        throw new CodeSpecsRecordError(
+          `${source} gives ${e.area} the resolution \`${resolution}\` — ` +
+            '`descoped` is the one resolution that admits a partial pass; ' +
+            'any other resolution means the area was completed and its ' +
+            'verdict re-taken',
+        );
+      }
+    }
+  }
+
+  /** The entry for `area`, or `null` when the record says nothing about it. */
+  verdictFor(area: string): CodeSpecsGateEntry | null {
+    for (const e of this.verdicts) {
+      if (e.area === area) {
+        return e;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Throws {@link CodeSpecsRecordError} when an area is not an active area of
+   * `catalog` — a verdict for an area that does not exist scopes nothing.
+   */
+  checkAgainst(
+    catalog: CodeSpecsAreaCatalog,
+    source: string = K_CODE_SPECS_GATE_RECORD_FILE,
+  ): void {
+    for (const e of this.verdicts) {
+      const area = catalog.byCode(e.area);
+      if (area === null || !area.active) {
+        throw new CodeSpecsRecordError(
+          `${source} gives a verdict for ${e.area}, which is not an active ` +
+            'area of the catalogue',
+        );
+      }
+    }
+  }
+
+  /**
+   * A copy with `entry` recorded — replacing the area's earlier verdict in
+   * place, or appended when the area had none.
+   */
+  withVerdict(entry: CodeSpecsGateEntry): CodeSpecsGateRecord {
+    const out: CodeSpecsGateEntry[] = [];
+    let replaced = false;
+    for (const e of this.verdicts) {
+      if (e.area === entry.area) {
+        out.push(entry);
+        replaced = true;
+      } else {
+        out.push(e);
+      }
+    }
+    if (!replaced) {
+      out.push(entry);
+    }
+    return new CodeSpecsGateRecord(out);
+  }
+
+  /**
+   * The record as `gate.verdicts.yaml`. Byte-stable: the same record always
+   * writes the same text, and `fromYaml(r.toYaml()).toYaml() === r.toYaml()`.
+   *
+   * `area` and `verdict` are written plain, as `codespecs_prompt.md` §6.3 shows
+   * them — both are from a closed vocabulary the constructor checked — and a
+   * note as a double-quoted scalar, the extract's one escaping rule.
+   */
+  toYaml(): string {
+    const b = new _Buffer();
+    b.writeln('gate:');
+    b.writeln(`  formatVersion: ${K_CODE_SPECS_GATE_RECORD_FORMAT}`);
+    if (this.verdicts.length === 0) {
+      b.writeln('  verdicts: []');
+      return b.toString();
+    }
+    b.writeln('  verdicts:');
+    for (const e of this.verdicts) {
+      b.writeln(`    - area: ${e.area}`);
+      b.writeln(`      verdict: ${e.verdict.word}`);
+      if (e.resolution !== null) {
+        b.writeln(`      resolution: ${e.resolution}`);
+      }
+      if (e.note !== null) {
+        b.writeln(`      note: ${yamlString(e.note)}`);
+      }
+    }
+    return b.toString();
+  }
+}
+
+/**
+ * One area the gate record left out of scope. Kept visible rather than
+ * dropped, so a consumer can say so: a scoped-out area must never read as a
+ * covered one.
+ */
+export class CodeSpecsExcludedArea {
+  /** The `CE-*` code. */
+  readonly area: string;
+
+  /** `notApplicable`, or `insufficient` with a recorded descope. */
+  readonly verdict: CodeSpecsGateVerdict;
+
+  /** Whether an insufficient verdict was resolved by descoping. */
+  readonly descoped: boolean;
+
+  /** How many routed entries the excluded extract carried (0 with no file). */
+  readonly entryCount: number;
+
+  /** The file the excluded extract was read from, or '' when there was none. */
+  readonly source: string;
+
+  constructor(props: {
+    area: string;
+    verdict: CodeSpecsGateVerdict;
+    descoped?: boolean;
+    entryCount?: number;
+    source?: string;
+  }) {
+    this.area = props.area;
+    this.verdict = props.verdict;
+    this.descoped = props.descoped != null ? props.descoped : false;
+    this.entryCount = props.entryCount != null ? props.entryCount : 0;
+    this.source = props.source != null ? props.source : '';
+  }
+
+  toString(): string {
+    return `CodeSpecsExcludedArea(${this.area}, ${this.verdict.word})`;
+  }
+}
+
+/**
+ * The files {@link CodeSpecsExtractSet.fromFiles} reads — file name → text, in
+ * source order: a `Map`, an array (or other iterable) of `[name, text]` pairs,
+ * or a plain object. Order matters: it is the in-scope order without a gate
+ * record, and it decides which file an error names.
+ */
+export type CodeSpecsFiles =
+  | ReadonlyMap<string, string>
+  | Iterable<readonly [string, string]>
+  | Readonly<Record<string, string>>;
+
+/** Every extract one run produced, read back and scoped by its gate record. */
+export class CodeSpecsExtractSet {
+  /**
+   * The in-scope extracts, in source order. With a gate record: the areas it
+   * marks `sufficient`, in the record's order. Without: every extract.
+   */
+  readonly extracts: readonly CodeSpecsExtract[];
+
+  /** The file each in-scope extract was read from, parallel to {@link extracts}. */
+  readonly sources: readonly string[];
+
+  /** The areas the gate record excluded — empty without a record. */
+  readonly excluded: readonly CodeSpecsExcludedArea[];
+
+  /** The gate record, when one was among the sources. */
+  readonly gate: CodeSpecsGateRecord | null;
+
+  private constructor(
+    extracts: CodeSpecsExtract[],
+    sources: string[],
+    excluded: CodeSpecsExcludedArea[],
+    gate: CodeSpecsGateRecord | null,
+  ) {
+    this.extracts = Object.freeze(extracts);
+    this.sources = Object.freeze(sources);
+    this.excluded = Object.freeze(excluded);
+    this.gate = gate;
+  }
+
+  /**
+   * Reads `files` — file name → text, ordered — into a scoped set.
+   *
+   * The file whose basename is {@link K_CODE_SPECS_GATE_RECORD_FILE} is the gate
+   * record; every other file is an extract. The area code comes from the file's
+   * content, never its name. With a record, an area is in scope **iff** its
+   * verdict is `sufficient`, and:
+   *
+   *   * the record must carry a verdict for every extract supplied — a scope
+   *     silent about an area would let a skipped area read as a passed one;
+   *   * a `not applicable` area whose extract has entries is an error — a
+   *     routed value is evidence the area applies (`codespecs_prompt.md` §6.4);
+   *   * an `insufficient` area without `resolution: descoped` is an error — the
+   *     run may not have continued past it (`codespecs_prompt.md` §6.2).
+   *
+   * Two extracts for one area, or two gate records, are errors. A name given
+   * twice keeps its first position and its last text, as a map would.
+   */
+  static fromFiles(files: CodeSpecsFiles): CodeSpecsExtractSet {
+    const map = _filesMap(files);
+    let gateName: string | null = null;
+    const extracts: CodeSpecsExtract[] = [];
+    const sources: string[] = [];
+    for (const [fileName, text] of map) {
+      const segments = fileName.split('/');
+      const basename = segments[segments.length - 1];
+      if (basename === K_CODE_SPECS_GATE_RECORD_FILE) {
+        if (gateName !== null) {
+          throw new CodeSpecsRecordError(
+            `both ${gateName} and ${fileName} are gate records — the scope ` +
+              'must have one author',
+          );
+        }
+        gateName = fileName;
+        continue;
+      }
+      const x = parseCodeSpecsExtractYaml(text, fileName);
+      const earlier = extracts.findIndex((e) => e.area.code === x.area.code);
+      if (earlier >= 0) {
+        throw new CodeSpecsRecordError(
+          `${sources[earlier]} and ${fileName} are both extracts for ` +
+            `${x.area.code}`,
+        );
+      }
+      extracts.push(x);
+      sources.push(fileName);
+    }
+    if (gateName === null) {
+      return new CodeSpecsExtractSet(extracts, sources, [], null);
+    }
+    const gate = CodeSpecsGateRecord.fromYaml(
+      map.get(gateName) as string,
+      gateName,
+    );
+    for (let i = 0; i < extracts.length; i++) {
+      if (gate.verdictFor(extracts[i].area.code) === null) {
+        throw new CodeSpecsRecordError(
+          `${gateName} carries no verdict for ${extracts[i].area.code} ` +
+            `(${sources[i]}) — the gate record must be total over the ` +
+            'supplied extracts',
+        );
+      }
+    }
+    const inScope: CodeSpecsExtract[] = [];
+    const inScopeSources: string[] = [];
+    const excluded: CodeSpecsExcludedArea[] = [];
+    for (const v of gate.verdicts) {
+      const i = extracts.findIndex((e) => e.area.code === v.area);
+      const x = i < 0 ? null : extracts[i];
+      const src = i < 0 ? '' : sources[i];
+      if (v.verdict === CodeSpecsGateVerdict.sufficient) {
+        if (x !== null) {
+          inScope.push(x);
+          inScopeSources.push(src);
+        }
+      } else if (v.verdict === CodeSpecsGateVerdict.notApplicable) {
+        if (x !== null && x.entries.length > 0) {
+          const n = x.entries.length;
+          throw new CodeSpecsRecordError(
+            `${gateName} marks ${v.area} \`not applicable\`, but ${src} ` +
+              `carries ${n} routed entr${n === 1 ? 'y' : 'ies'} — a routed ` +
+              'value is evidence the area applies (codespecs_prompt.md §6.4)',
+          );
+        }
+        excluded.push(
+          new CodeSpecsExcludedArea({
+            area: v.area,
+            verdict: v.verdict,
+            entryCount: x === null ? 0 : x.entries.length,
+            source: src,
+          }),
+        );
+      } else {
+        if (!v.descoped) {
+          throw new CodeSpecsRecordError(
+            `${gateName} marks ${v.area} \`insufficient\` without ` +
+              '`resolution: descoped` — codespecs_prompt.md §6.2 says the ' +
+              'run does not continue past an unresolved insufficient area; ' +
+              'recording the descope is what legitimizes a partial pass',
+          );
+        }
+        excluded.push(
+          new CodeSpecsExcludedArea({
+            area: v.area,
+            verdict: v.verdict,
+            descoped: true,
+            entryCount: x === null ? 0 : x.entries.length,
+            source: src,
+          }),
+        );
+      }
+    }
+    return new CodeSpecsExtractSet(inScope, inScopeSources, excluded, gate);
+  }
+
+  /**
+   * Reads a directory of extracts — `<CE-CODE>.extract.yaml` plus an optional
+   * `gate.verdicts.yaml`; other files (the `.extract.md` views) are ignored.
+   * Files are read in name order, so the set is the same on every file system.
+   */
+  static fromDirectory(path: string): CodeSpecsExtractSet {
+    if (!fs.existsSync(path) || !fs.statSync(path).isDirectory()) {
+      throw new CodeSpecsRecordError(`extract directory not found: ${path}`);
+    }
+    const names = fs
+      .readdirSync(path, { withFileTypes: true })
+      .filter((d) => d.isFile())
+      .map((d) => d.name)
+      .filter(
+        (n) =>
+          n.endsWith(K_CODE_SPECS_EXTRACT_FILE_SUFFIX) ||
+          n === K_CODE_SPECS_GATE_RECORD_FILE,
+      )
+      .sort();
+    return CodeSpecsExtractSet.fromFiles(
+      names.map((n): [string, string] => [
+        n,
+        fs.readFileSync(`${path}/${n}`, 'utf8'),
+      ]),
+    );
+  }
+
+  /** The in-scope extract for `area`, or `null`. */
+  byArea(area: string): CodeSpecsExtract | null {
+    for (const x of this.extracts) {
+      if (x.area.code === area) {
+        return x;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Every in-scope entry routed from `sectionId` — the back-link token a
+   * `DocRef` names — across every area, in extract order.
+   */
+  entriesForSection(sectionId: string): CodeSpecsExtractEntry[] {
+    const out: CodeSpecsExtractEntry[] = [];
+    for (const x of this.extracts) {
+      for (const e of x.entries) {
+        if (e.sectionId === sectionId) {
+          out.push(e);
+        }
+      }
+    }
+    return out;
+  }
+
+  /** Every in-scope entry read from document `path`, in extract order. */
+  entriesAtPath(path: string): CodeSpecsExtractEntry[] {
+    const out: CodeSpecsExtractEntry[] = [];
+    for (const x of this.extracts) {
+      for (const e of x.entries) {
+        if (e.path === path) {
+          out.push(e);
+        }
+      }
+    }
+    return out;
+  }
+}
+
+/**
+ * A JSON string literal that is also a YAML 1.2 double-quoted scalar — the one
+ * escaping rule every CodeSpecs artifact uses for free text.
+ */
+export function codeSpecsYamlString(value: string): string {
+  return yamlString(value);
+}
+
+// --- record reading helpers -----------------------------------------------
+
+function _filesMap(files: CodeSpecsFiles): Map<string, string> {
+  if (files instanceof Map) {
+    return new Map(files as ReadonlyMap<string, string>);
+  }
+  if (
+    files != null &&
+    typeof (files as Iterable<unknown>)[Symbol.iterator] === 'function'
+  ) {
+    return new Map(files as Iterable<readonly [string, string]>);
+  }
+  return new Map(Object.entries(files as Record<string, string>));
+}
+
+function _isMap(v: unknown): v is Record<string, any> {
+  return v !== null && typeof v === 'object' && !Array.isArray(v);
+}
+
+/**
+ * Whether `v` reads as an absent value. The runtime's YAML reader gives a key
+ * with no value (`headline:`) an empty mapping where `package:yaml` gives null;
+ * reading that as absent keeps the two readers agreeing on it.
+ */
+function _absent(v: unknown): boolean {
+  return v == null || (_isMap(v) && Object.keys(v).length === 0);
+}
+
+/** A value as Dart's string interpolation shows it (`null`, not `undefined`). */
+function _show(v: unknown): string {
+  return v == null ? 'null' : String(v);
+}
+
+function _rootMapping(text: string, name: string, key: string): any {
+  let document: unknown;
+  try {
+    document = yaml.parse(text, true);
+  } catch (e) {
+    const detail = e instanceof Error ? e.message : String(e);
+    throw new CodeSpecsRecordError(`${name} is not valid YAML: ${detail}`);
+  }
+  if (!_isMap(document)) {
+    throw new CodeSpecsRecordError(`${name} does not hold a YAML mapping`);
+  }
+  const root = document[key];
+  if (!_isMap(root) || Object.keys(root).length === 0) {
+    throw new CodeSpecsRecordError(
+      `${name} has no top-level \`${key}:\` mapping`,
+    );
+  }
+  return root;
+}
+
+function _str(v: unknown, name: string, key: string): string {
+  if (_absent(v)) {
+    return '';
+  }
+  if (typeof v === 'string') {
+    return v;
+  }
+  throw new CodeSpecsRecordError(`${name}: \`${key}\` must be a string`);
+}
+
+function _optStr(v: unknown, name: string, key: string): string | null {
+  if (_absent(v)) {
+    return null;
+  }
+  if (typeof v === 'string') {
+    return v;
+  }
+  throw new CodeSpecsRecordError(
+    `${name}: \`${key}\` must be a string or null`,
+  );
+}
+
+function _strList(v: unknown, name: string, key: string): string[] {
+  if (_absent(v)) {
+    return [];
+  }
+  if (!Array.isArray(v)) {
+    throw new CodeSpecsRecordError(`${name}: \`${key}\` must be a list`);
+  }
+  return v.map((e) => _str(e, name, key));
+}
+
+function _intList(v: unknown, name: string, key: string): number[] {
+  if (_absent(v)) {
+    return [];
+  }
+  if (!Array.isArray(v)) {
+    throw new CodeSpecsRecordError(`${name}: \`${key}\` must be a list`);
+  }
+  return v.map((e) => {
+    if (typeof e === 'number' && Number.isInteger(e)) {
+      return e;
+    }
+    throw new CodeSpecsRecordError(`${name}: \`${key}\` must hold integers`);
+  });
 }
 
 // --- shared emission helpers ----------------------------------------------

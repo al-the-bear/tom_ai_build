@@ -23,6 +23,8 @@
  *   - the SOM §9 query surface, flat node projection and lazy cursor;
  *   - the Phase-4 CodeSpecs extract generator (routing verdicts, the per-area
  *     extracts and their YAML/Markdown goldens, ROUTE-TOTAL refusals);
+ *   - reading extracts and the Stage-B gate record back, writing the gate
+ *     record, and scoping a set of extracts by it;
  *   - llm_and_d4rt_tools.md §5 constrained node creation (checks + script).
  *
  * The corpus directory is argv[1], defaulting to
@@ -32,6 +34,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
+#include <optional>
 #include <set>
 #include <sstream>
 #include <stdexcept>
@@ -1843,6 +1846,339 @@ static void test_codespecs_extract(Checker& c, const som::SpecModel& model) {
   }
 }
 
+/* ---- CodeSpecs records: reading extracts and the gate record ------------- */
+
+/* Compact JSON text of a corpus value, keys in source order — the form the
+ * summaries below are rendered in, so one string comparison checks a summary. */
+static std::string json_text(const som::JsonRef& v) {
+  if (v == nullptr) return "null";
+  switch (v->type) {
+    case som::JsonType::Null:
+      return "null";
+    case som::JsonType::Bool:
+      return v->boolean ? "true" : "false";
+    case som::JsonType::Int:
+      return std::to_string(v->integer);
+    case som::JsonType::Float: {
+      char num[64];
+      std::snprintf(num, sizeof(num), "%.17g", v->real);
+      return num;
+    }
+    case som::JsonType::Str:
+      return som::jsonEncodeStr(v->str);
+    case som::JsonType::Array: {
+      std::string b = "[";
+      for (std::size_t i = 0; i < v->array.size(); i++) {
+        if (i > 0) b += ",";
+        b += json_text(v->array[i]);
+      }
+      return b + "]";
+    }
+    case som::JsonType::Object: {
+      std::string b = "{";
+      for (std::size_t i = 0; i < v->object.size(); i++) {
+        if (i > 0) b += ",";
+        b += som::jsonEncodeStr(v->object[i].first) + ":" +
+             json_text(v->object[i].second);
+      }
+      return b + "}";
+    }
+  }
+  return "null";
+}
+
+static std::string sum_str(const std::optional<std::string>& s) {
+  return s.has_value() ? som::jsonEncodeStr(*s) : std::string("null");
+}
+
+static std::string sum_list(const std::vector<std::optional<std::string>>& l) {
+  std::string b = "[";
+  for (std::size_t i = 0; i < l.size(); i++) {
+    if (i > 0) b += ",";
+    b += sum_str(l[i]);
+  }
+  return b + "]";
+}
+
+static std::string sum_list(const std::vector<std::string>& l) {
+  return sum_list(std::vector<std::optional<std::string>>(l.begin(), l.end()));
+}
+
+/* The Dart `_extractSummary`, key for key. */
+static std::string extract_summary(const som::CodeSpecsExtract& x) {
+  std::vector<std::optional<std::string>> sectionIds, values, classNames,
+      headlines;
+  for (const som::CodeSpecsExtractEntry& e : x.entries) {
+    sectionIds.emplace_back(e.sectionId);
+    values.emplace_back(e.value);
+    classNames.emplace_back(e.className);
+    headlines.push_back(e.headline);
+  }
+  return "{\"area\":" + sum_str(x.area.code) +
+         ",\"canonicalId\":" + sum_str(x.area.canonicalId) +
+         ",\"part\":" + sum_str(x.area.part) +
+         ",\"documentRoot\":" + sum_str(x.documentRoot) +
+         ",\"projects\":" + sum_list(x.projects) +
+         ",\"citableParts\":" + sum_list(x.citableParts) +
+         ",\"entryCount\":" + std::to_string(x.entries.size()) +
+         ",\"sectionIds\":" + sum_list(sectionIds) +
+         ",\"values\":" + sum_list(values) +
+         ",\"classNames\":" + sum_list(classNames) +
+         ",\"headlines\":" + sum_list(headlines) + "}";
+}
+
+/* The Dart `_gateSummary`. */
+static std::string gate_summary(const som::CodeSpecsGateRecord& g) {
+  std::string b = "{\"verdicts\":[";
+  for (std::size_t i = 0; i < g.verdicts().size(); i++) {
+    const som::CodeSpecsGateEntry& e = g.verdicts()[i];
+    if (i > 0) b += ",";
+    b += "{\"area\":" + sum_str(e.area) + ",\"verdict\":" +
+         sum_str(std::string(som::codeSpecsGateVerdictWord(e.verdict))) +
+         ",\"resolution\":" + sum_str(e.resolution) +
+         ",\"note\":" + sum_str(e.note) + "}";
+  }
+  return b + "]}";
+}
+
+/* The Dart `_scopeSummary`. */
+static std::string scope_summary(const som::CodeSpecsExtractSet& s) {
+  std::vector<std::string> inScope;
+  for (const som::CodeSpecsExtract& x : s.extracts()) inScope.push_back(x.area.code);
+  std::string b = "{\"inScope\":" + sum_list(inScope) +
+                  ",\"sources\":" + sum_list(s.sources()) + ",\"hasGate\":" +
+                  (s.gate().has_value() ? "true" : "false") + ",\"excluded\":[";
+  for (std::size_t i = 0; i < s.excluded().size(); i++) {
+    const som::CodeSpecsExcludedArea& e = s.excluded()[i];
+    if (i > 0) b += ",";
+    b += "{\"area\":" + sum_str(e.area) + ",\"verdict\":" +
+         sum_str(std::string(som::codeSpecsGateVerdictWord(e.verdict))) +
+         ",\"descoped\":" + (e.descoped ? "true" : "false") +
+         ",\"entryCount\":" + std::to_string(e.entryCount) +
+         ",\"source\":" + sum_str(e.source) + "}";
+  }
+  return b + "]}";
+}
+
+/* A gate entry from its corpus form. */
+static som::CodeSpecsGateEntry gate_entry_json(const som::JsonRef& v) {
+  som::CodeSpecsGateEntry e;
+  e.area = som::jsonStrOr(v, "area");
+  e.verdict = som::parseCodeSpecsGateVerdict(som::jsonStrOr(v, "verdict"))
+                  .value_or(som::CodeSpecsGateVerdict::Sufficient);
+  if (const std::string* r = som::jsonAsStr(som::jsonGet(v, "resolution"))) {
+    e.resolution = *r;
+  }
+  if (const std::string* n = som::jsonAsStr(som::jsonGet(v, "note"))) {
+    e.note = *n;
+  }
+  return e;
+}
+
+static void check_summary(Checker& c, const std::string& tag,
+                          const std::string& got, const som::JsonRef& want) {
+  std::string w = json_text(want);
+  c.check(tag, got == w, byte_diff(tag, got, w));
+}
+
+/* Runs `act`, which must throw CodeSpecsRecordError with a message containing
+ * `want`; returns the message ("" when it did not throw). */
+template <typename F>
+static std::string check_record_error(Checker& c, const std::string& tag,
+                                      const std::string& want, F act) {
+  try {
+    act();
+  } catch (const som::CodeSpecsRecordError& e) {
+    c.check(tag, e.message().find(want) != std::string::npos,
+            "got \"" + e.message() + "\" want \"" + want + "\"");
+    return e.message();
+  }
+  c.check(tag, false, "no error; want \"" + want + "\"");
+  return "";
+}
+
+/* `codespecs_record_cases.json`: reading extracts and the gate record back,
+ * writing the gate record, and scoping a set of extracts by it. */
+static void test_codespecs_records(Checker& c) {
+  som::JsonPtr table = read_json("codespecs_record_cases.json");
+  som::JsonPtr extractTable = read_json("codespecs_extract_cases.json");
+  som::CodeSpecsAreaCatalog catalog =
+      som::CodeSpecsAreaCatalog::fromJson(som::jsonGet(extractTable, "catalog"));
+
+  // 1. Extract reads: the summary, and the byte-stable round trip.
+  som::JsonRef reads = som::jsonGet(table, "extractReads");
+  c.check("codespecsRecords.extractReads.nonEmpty", som::jsonArrayLen(reads) > 0,
+          "");
+  for (std::size_t i = 0; i < som::jsonArrayLen(reads); i++) {
+    som::JsonRef k = som::jsonArrayAt(reads, i);
+    std::string yaml = som::jsonStrOr(k, "yaml");
+    std::string tag =
+        "codespecsRecords.extractRead[" + som::jsonStrOr(k, "source") + "]";
+    try {
+      som::CodeSpecsExtract x =
+          som::CodeSpecsExtract::fromYaml(yaml, som::jsonStrOr(k, "source"));
+      check_summary(c, tag, extract_summary(x), som::jsonGet(k, "expect"));
+      std::string again = x.toYaml();
+      c.check(tag + ".roundTrip", again == yaml,
+              byte_diff(tag + ".roundTrip", again, yaml));
+    } catch (const som::CodeSpecsRecordError& e) {
+      c.check(tag, false, e.message());
+    }
+  }
+
+  // 2. A minimal hand-written extract: absent keys read as empty.
+  {
+    som::JsonRef k = som::jsonGet(table, "extractMinimal");
+    try {
+      som::CodeSpecsExtract x = som::CodeSpecsExtract::fromYaml(
+          som::jsonStrOr(k, "yaml"), som::jsonStrOr(k, "source"));
+      check_summary(c, "codespecsRecords.extractMinimal", extract_summary(x),
+                    som::jsonGet(k, "expect"));
+    } catch (const som::CodeSpecsRecordError& e) {
+      c.check("codespecsRecords.extractMinimal", false, e.message());
+    }
+  }
+
+  // 3. Extract errors.
+  som::JsonRef xerrs = som::jsonGet(table, "extractErrors");
+  for (std::size_t i = 0; i < som::jsonArrayLen(xerrs); i++) {
+    som::JsonRef k = som::jsonArrayAt(xerrs, i);
+    check_record_error(
+        c, "codespecsRecords.extractError[" + som::jsonStrOr(k, "name") + "]",
+        som::jsonStrOr(k, "messageContains"), [&] {
+          som::CodeSpecsExtract::fromYaml(som::jsonStrOr(k, "yaml"),
+                                          som::jsonStrOr(k, "source"));
+        });
+  }
+
+  // 4. Gate records: parse, summary, byte-stable write, valid against the
+  // catalogue.
+  som::JsonRef records = som::jsonGet(table, "gateRecords");
+  for (std::size_t i = 0; i < som::jsonArrayLen(records); i++) {
+    som::JsonRef k = som::jsonArrayAt(records, i);
+    std::string yaml = som::jsonStrOr(k, "yaml");
+    std::string tag =
+        "codespecsRecords.gateRecord[" + som::jsonStrOr(k, "name") + "]";
+    try {
+      som::CodeSpecsGateRecord g = som::CodeSpecsGateRecord::fromYaml(yaml);
+      check_summary(c, tag, gate_summary(g), som::jsonGet(k, "expect"));
+      std::string again = g.toYaml();
+      c.check(tag + ".toYaml", again == yaml,
+              byte_diff(tag + ".toYaml", again, yaml));
+      g.checkAgainst(catalog);
+      c.check(tag + ".checkAgainst", true, "");
+    } catch (const som::CodeSpecsRecordError& e) {
+      c.check(tag, false, e.message());
+    }
+  }
+
+  // 5. Gate writes: built from verdicts, then one recorded with withVerdict.
+  som::JsonRef writes = som::jsonGet(table, "gateWrites");
+  for (std::size_t i = 0; i < som::jsonArrayLen(writes); i++) {
+    som::JsonRef k = som::jsonArrayAt(writes, i);
+    std::string tag =
+        "codespecsRecords.gateWrite[" + som::jsonStrOr(k, "name") + "]";
+    try {
+      std::vector<som::CodeSpecsGateEntry> verdicts;
+      som::JsonRef list = som::jsonGet(k, "verdicts");
+      for (std::size_t v = 0; v < som::jsonArrayLen(list); v++) {
+        verdicts.push_back(gate_entry_json(som::jsonArrayAt(list, v)));
+      }
+      som::CodeSpecsGateRecord g(verdicts);
+      std::string yaml = g.toYaml();
+      c.check(tag, yaml == som::jsonStrOr(k, "yaml"),
+              byte_diff(tag, yaml, som::jsonStrOr(k, "yaml")));
+      som::JsonRef then = som::jsonGet(k, "then");
+      if (then != nullptr && then->type == som::JsonType::Object) {
+        std::string y2 = g.withVerdict(gate_entry_json(then)).toYaml();
+        c.check(tag + ".then", y2 == som::jsonStrOr(k, "thenYaml"),
+                byte_diff(tag + ".then", y2, som::jsonStrOr(k, "thenYaml")));
+      }
+    } catch (const som::CodeSpecsRecordError& e) {
+      c.check(tag, false, e.message());
+    }
+  }
+
+  // 6. Gate errors — some only against the catalogue.
+  som::JsonRef gerrs = som::jsonGet(table, "gateErrors");
+  for (std::size_t i = 0; i < som::jsonArrayLen(gerrs); i++) {
+    som::JsonRef k = som::jsonArrayAt(gerrs, i);
+    check_record_error(
+        c, "codespecsRecords.gateError[" + som::jsonStrOr(k, "name") + "]",
+        som::jsonStrOr(k, "messageContains"), [&] {
+          som::CodeSpecsGateRecord g =
+              som::CodeSpecsGateRecord::fromYaml(som::jsonStrOr(k, "yaml"));
+          if (som::jsonBoolOr(k, "againstCatalog")) g.checkAgainst(catalog);
+        });
+  }
+
+  // 7. Scoping a set of files (an ordered list of [name, text] pairs).
+  som::JsonRef scopes = som::jsonGet(table, "scopeCases");
+  for (std::size_t i = 0; i < som::jsonArrayLen(scopes); i++) {
+    som::JsonRef k = som::jsonArrayAt(scopes, i);
+    std::string tag = "codespecsRecords.scope[" + som::jsonStrOr(k, "name") + "]";
+    std::vector<std::pair<std::string, std::string>> files;
+    som::JsonRef list = som::jsonGet(k, "files");
+    for (std::size_t f = 0; f < som::jsonArrayLen(list); f++) {
+      som::JsonRef pair = som::jsonArrayAt(list, f);
+      const std::string* name = som::jsonAsStr(som::jsonArrayAt(pair, 0));
+      const std::string* text = som::jsonAsStr(som::jsonArrayAt(pair, 1));
+      files.emplace_back(name ? *name : "", text ? *text : "");
+    }
+    som::JsonRef want = som::jsonGet(k, "expect");
+    if (const std::string* wantError = som::jsonAsStr(som::jsonGet(want, "error"))) {
+      std::string got = check_record_error(c, tag, *wantError, [&] {
+        som::CodeSpecsExtractSet::fromFiles(files);
+      });
+      c.check(tag + ".exactMessage", got == *wantError, got);
+      continue;
+    }
+    try {
+      som::CodeSpecsExtractSet set = som::CodeSpecsExtractSet::fromFiles(files);
+      check_summary(c, tag, scope_summary(set), want);
+      for (const som::CodeSpecsExtract& x : set.extracts()) {
+        c.check(tag + ".byArea[" + x.area.code + "]",
+                set.byArea(x.area.code) == &x, "");
+      }
+    } catch (const som::CodeSpecsRecordError& e) {
+      c.check(tag, false, e.message());
+    }
+  }
+
+  // 8. The lookups across a scoped set: every entry is found by its section id
+  // and by its path, and a token no entry carries finds nothing.
+  try {
+    std::vector<std::pair<std::string, std::string>> files;
+    for (std::size_t f = 0; f < som::jsonArrayLen(reads); f++) {
+      som::JsonRef k = som::jsonArrayAt(reads, f);
+      files.emplace_back(som::jsonStrOr(k, "source"), som::jsonStrOr(k, "yaml"));
+    }
+    som::CodeSpecsExtractSet set = som::CodeSpecsExtractSet::fromFiles(files);
+    std::size_t total = 0, bySection = 0, byPath = 0;
+    for (const som::CodeSpecsExtract& x : set.extracts()) {
+      for (const som::CodeSpecsExtractEntry& e : x.entries) {
+        for (const som::CodeSpecsExtractEntry* h : set.entriesForSection(e.sectionId)) {
+          bySection += h == &e;
+        }
+        for (const som::CodeSpecsExtractEntry* h : set.entriesAtPath(e.path)) {
+          byPath += h == &e;
+        }
+        total++;
+      }
+    }
+    c.check("codespecsRecords.lookups.entriesForSection",
+            total > 0 && bySection == total, "");
+    c.check("codespecsRecords.lookups.entriesAtPath",
+            total > 0 && byPath == total, "");
+    c.check("codespecsRecords.lookups.none",
+            set.entriesForSection("NO-SUCH").empty(), "");
+    c.check("codespecsRecords.lookups.byArea.missing",
+            set.byArea("CE-NONE") == nullptr, "");
+  } catch (const som::CodeSpecsRecordError& e) {
+    c.check("codespecsRecords.lookups.read", false, e.message());
+  }
+}
+
 /* The cursor's laziness and its view of a **mutating** document: the script
  * removes a list item between opening a cursor and draining it, and the removed
  * item must not surface. */
@@ -2035,6 +2371,7 @@ int main(int argc, char** argv) {
   test_query(c, *model);
   test_projection(c, *model);
   test_codespecs_extract(c, *model);
+  test_codespecs_records(c);
   test_cursor(c, *model);
   test_node_creation_cases(c, *model);
   test_node_creation_script(c, *model);

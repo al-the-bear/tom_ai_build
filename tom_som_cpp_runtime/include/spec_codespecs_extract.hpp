@@ -331,6 +331,13 @@ struct CodeSpecsExtract {
   /* The routed entries, in SOM document order. */
   std::vector<CodeSpecsExtractEntry> entries;
 
+  /* Reads an extract back from its artifact of record — the inverse of
+   * toYaml(). `source` names the file in errors. Throws CodeSpecsRecordError
+   * (spec_codespecs_records.hpp) on an unknown `formatVersion` or a malformed
+   * file. */
+  static CodeSpecsExtract fromYaml(const std::string& text,
+                                   const std::string& source = std::string());
+
   /* The extract's file name stem — `CE-FM.extract`. */
   std::string fileStem() const;
 
@@ -345,6 +352,11 @@ struct CodeSpecsExtract {
    * reads YAML. */
   std::string toMarkdown() const;
 };
+
+/* `value` as a JSON string literal that is also a YAML 1.2 double-quoted
+ * scalar — the one escaping rule every CodeSpecs artifact uses for free text
+ * (the extract's values, the gate record's notes). */
+std::string codeSpecsYamlString(const std::string& value);
 
 /* Thrown when the document cannot be extracted from at all.
  *

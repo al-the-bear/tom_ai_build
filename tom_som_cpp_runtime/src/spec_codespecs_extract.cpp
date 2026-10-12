@@ -390,6 +390,10 @@ std::vector<std::string> CodeSpecsAreaCatalog::citableAreaCodes(
 
 /* ---- the extract -------------------------------------------------------- */
 
+std::string codeSpecsYamlString(const std::string& value) {
+  return yamlString(value);
+}
+
 std::string CodeSpecsExtract::fileStem() const {
   return area.code + ".extract";
 }

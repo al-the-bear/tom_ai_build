@@ -74,7 +74,7 @@ and how to pin.
 | `spec_text_pattern.js` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`RegExp` is the ECMAScript grammar, which accepts far more than the subset and would let a pattern that only works here into the corpus). |
 | `spec_query.js` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.js` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
-| `spec_codespecs_extract.js` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — per area, every value `@CodeSpecKind` routes there, verbatim and with provenance. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
+| `spec_codespecs_extract.js` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — per area, every value `@CodeSpecKind` routes there, verbatim and with provenance. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). Also reads the artifacts back: `CodeSpecsExtract.fromYaml`, the gate record `CodeSpecsGateRecord` and the scoped `CodeSpecsExtractSet`. |
 | `spec_document_yaml.js` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.js` | DocSpecs-conform Markdown import/export codec (`SOM §11`). |
 | `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`). |
@@ -176,6 +176,7 @@ wrapper (`tests/conformance.test.js`).
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
+| `CodeSpecsExtractSet` | Reads extracts back (`CodeSpecsExtract.fromYaml`) and scopes them by the Stage-B gate record (`CodeSpecsGateRecord`, `gate.verdicts.yaml`). |
 | `SomNode` / `SomScalar` / `SomList` | The editing-facade base types the generated `tom_som_javascript_v0` classes extend. |
 
 ## Ecosystem

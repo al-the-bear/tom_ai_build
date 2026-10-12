@@ -612,6 +612,32 @@ areas as `.extract.yaml` / `.extract.md` pairs plus the gate's verdict file — 
 the CodeSpecs trio authored from those extracts is
 [`samples/meridian_codespecs/`](samples/meridian_codespecs/).
 
+##### …and reading back what that tier wrote
+
+[`corpus/codespecs_record_cases.json`](corpus/codespecs_record_cases.json) pins
+the other half of Phase 4's files: reading an `<CE-CODE>.extract.yaml` back
+(`CodeSpecsExtract.fromYaml`), and reading and writing the Stage-B gate record
+`gate.verdicts.yaml` (`CodeSpecsGateRecord`, `codespecs_prompt.md` §6.3).
+It is generated from the extract table's own YAML, so the round trip is held
+against exactly what the extractor emits:
+
+- **`extractReads`** — every extract of the extract table, read back: a summary
+  of what the reader saw, and `toYaml()` of the read equal to the file byte for
+  byte. **`extractMinimal`** is a hand-written file carrying only the two
+  required keys, which must still read; **`extractErrors`** a later
+  `formatVersion`, a disagreeing `entryCount` and a file that is not an extract.
+- **`gateRecords`**, **`gateWrites`**, **`gateErrors`** — parse, write
+  byte-stably, replace a verdict in place, and refuse what `codespecs_prompt.md` §6.3 does not allow:
+  an unknown verdict or key, a resolution other than `descoped` or on a
+  non-insufficient area, a duplicate area, an area that is not a `CE-*` code,
+  and — against the catalogue — an area the catalogue does not have.
+- **`scopeCases`** — `CodeSpecsExtractSet.fromFiles`: a set of files, scoped by
+  its gate record exactly as the validator scopes its checks. The files are a
+  list of `[name, text]` pairs rather than an object, because source order is
+  part of the contract and a JSON object's key order does not survive every
+  decoder. Error messages are compared as text, so all nine runtimes say the
+  same thing about the same broken record.
+
 ##### Proving a table is load-bearing: `tool/parity_gate.sh`
 
 Nine green suites do not show that nine runners read a table, and check counts

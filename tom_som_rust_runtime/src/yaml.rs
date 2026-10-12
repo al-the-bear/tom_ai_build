@@ -189,6 +189,10 @@ fn yaml_parse_scalar_key(key_part: &str) -> String {
 struct YamlReader {
     lines: Vec<String>,
     idx: usize,
+    /// Raw-scalar mode ([`yaml_parse_raw_scalars`]): every flow scalar is kept
+    /// as its source text, and a block scalar as the JSON string literal of its
+    /// content, so the caller can tell `null` from `"null"`.
+    raw: bool,
 }
 
 impl YamlReader {
@@ -240,7 +244,7 @@ impl YamlReader {
             let value = if rest.is_empty() {
                 self.parse_nested_after_key(indent)
             } else if rest.starts_with('|') || rest.starts_with('>') {
-                YamlValue::Str(self.parse_block_scalar(&rest, indent))
+                self.block_value(&rest, indent)
             } else {
                 self.parse_flow_scalar(&rest)
             };
@@ -270,7 +274,7 @@ impl YamlReader {
             if item_text.is_empty() {
                 list.push(self.parse_nested_after_key(indent));
             } else if item_text.starts_with('|') || item_text.starts_with('>') {
-                list.push(YamlValue::Str(self.parse_block_scalar(&item_text, indent)));
+                list.push(self.block_value(&item_text, indent));
             } else {
                 // A `- key: …` item is a mapping whose first entry sits on the
                 // dash line; rewrite the dash as indentation and re-parse as a
@@ -311,6 +315,9 @@ impl YamlReader {
         if t == "[]" {
             return YamlValue::Seq(Vec::new());
         }
+        if self.raw {
+            return YamlValue::Str(t.to_string());
+        }
         if t.starts_with('"') {
             if let Ok(Json::Str(v)) = Json::parse(t) {
                 return YamlValue::Str(v);
@@ -323,6 +330,17 @@ impl YamlReader {
             }
         }
         YamlValue::Str(t.to_string())
+    }
+
+    /// A block scalar as a value: its content, or in raw-scalar mode the JSON
+    /// string literal of its content (so it reads back as a quoted scalar).
+    fn block_value(&mut self, header: &str, key_indent: usize) -> YamlValue {
+        let content = self.parse_block_scalar(header, key_indent);
+        if self.raw {
+            YamlValue::Str(crate::json::encode_str(&content))
+        } else {
+            YamlValue::Str(content)
+        }
     }
 
     /// Parses a literal block scalar starting at `header` (e.g. `|2-`) whose body
@@ -418,8 +436,24 @@ impl YamlReader {
 
 /// Parses `text` into the value model (a map or sequence).
 pub fn yaml_parse(text: &str) -> YamlValue {
+    yaml_parse_with(text, false)
+}
+
+/// Parses `text` like [`yaml_parse`], but keeps every flow scalar as its
+/// **source text** (`null`, `42`, `"a \"b\""`, `["x", "y"]` arrive verbatim as
+/// [`YamlValue::Str`]) and every block scalar as the JSON string literal of its
+/// content. Only `{}` and `[]` are still read as empty collections.
+///
+/// The default mode decodes a quoted scalar and leaves a plain one as text, so
+/// `null` and `"null"` read the same; a reader that has to tell them apart —
+/// the CodeSpecs record reader — types the scalars itself from this form.
+pub fn yaml_parse_raw_scalars(text: &str) -> YamlValue {
+    yaml_parse_with(text, true)
+}
+
+fn yaml_parse_with(text: &str, raw: bool) -> YamlValue {
     let lines: Vec<String> = text.split('\n').map(|s| s.to_string()).collect();
-    let mut y = YamlReader { lines, idx: 0 };
+    let mut y = YamlReader { lines, idx: 0, raw };
     if y.next_significant(0).is_none() {
         return YamlValue::empty_map();
     }

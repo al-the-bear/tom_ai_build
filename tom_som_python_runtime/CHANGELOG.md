@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- CodeSpecs records: a new module `spec_codespecs_records` reads back what a
+  Phase-4 run wrote. `CodeSpecsExtract.from_yaml(text, source)` (also
+  `parse_code_specs_extract_yaml`) is the inverse of `to_yaml` — byte-stable
+  for every extract the extractor writes; it requires `formatVersion` 3 and a
+  non-empty `area.code`, reads every other absent key as empty, refuses a
+  present key of the wrong type and a `document.entryCount` that disagrees
+  with the entries. `CodeSpecsGateRecord` reads, checks and writes the Stage-B
+  gate record `gate.verdicts.yaml` (`from_yaml`, `to_yaml`, `verdict_for`,
+  `check_against(catalog)`, `with_verdict`), with `CodeSpecsGateVerdict` and
+  `CodeSpecsGateEntry`. `CodeSpecsExtractSet.from_files(pairs)` /
+  `from_directory(path)` read a tree of extracts scoped by its gate record
+  (`extracts`, `sources`, `excluded`, `gate`, `by_area`,
+  `entries_for_section`, `entries_at_path`). Errors are
+  `CodeSpecsRecordError`. The YAML is read through a PyYAML loader narrowed to
+  YAML 1.2 booleans, without implicit timestamps and refusing duplicate keys,
+  so it reads what `package:yaml` reads. The `codespecs_record_cases.json`
+  corpus table pins it.
 - CodeSpecs catalogue: `CodeSpecsAreaCatalog.steps` carries the
   `codespecs_mapping.md` §4.4.6 authoring-step table as `CodeSpecsStep` rows
   (`number`, `title`, `slice`, `placed_by`, `area_codes`); a catalogue without

@@ -127,8 +127,24 @@ export {
   CodeSpecsExtract,
   CodeSpecsExtractError,
   CodeSpecsExtractor,
+  // reading back: extract files and the Stage-B gate record
+  K_CODE_SPECS_GATE_RECORD_FILE,
+  K_CODE_SPECS_GATE_RECORD_FORMAT,
+  K_CODE_SPECS_EXTRACT_FILE_SUFFIX,
+  K_CODE_SPECS_GATE_DESCOPED,
+  CodeSpecsRecordError,
+  parseCodeSpecsExtractYaml,
+  codeSpecsYamlString,
+  CodeSpecsGateVerdict,
+  CodeSpecsGateEntry,
+  CodeSpecsGateRecord,
+  CodeSpecsExcludedArea,
+  CodeSpecsExtractSet,
 } from './spec_codespecs_extract';
-export type { CodeSpecsRoutingVerdictValue } from './spec_codespecs_extract';
+export type {
+  CodeSpecsRoutingVerdictValue,
+  CodeSpecsFiles,
+} from './spec_codespecs_extract';
 
 // validator
 export {

@@ -21,6 +21,8 @@
 //   - the query surface (match lists, cursor laziness, the projection walk);
 //   - the Phase-4 CodeSpecs extract generator (routing verdicts, the per-area
 //     YAML/Markdown goldens, the verbatim-copy guard, `ROUTE-TOTAL`);
+//   - reading extracts and the gate record back (the byte-stable extract read,
+//     the gate record's shape checks, scoping a tree of extracts);
 //   - the constrained node-creation gate (per-code rejections + the script);
 //   - the Markdown load/apply operations (SpecDocumentFromMarkdown,
 //     ApplyMarkdownResult);
@@ -221,6 +223,7 @@ func TestConformance(t *testing.T) {
 	testQuery(c, t, model)
 	testProjection(c, t, model)
 	testCodeSpecsExtract(c, t, model)
+	testCodeSpecsRecords(c, t)
 	testCursor(c, t, model)
 	testNodeCreation(c, t, model)
 	testNodeCreationScript(c, t, model)
@@ -2171,5 +2174,257 @@ func testDocSpecsReplace(c *checker, t *testing.T) {
 		}
 		c.check(name, got == cc.Expect.Text,
 			strconv.Quote(got)+" != "+strconv.Quote(cc.Expect.Text))
+	}
+}
+
+// codeSpecsRecordTable mirrors corpus/codespecs_record_cases.json — reading
+// extracts and the gate record back. Expectations stay raw and are compared as
+// canonical JSON, the shape the reference's summaries take.
+type codeSpecsRecordTable struct {
+	ExtractReads []struct {
+		Source string          `json:"source"`
+		Yaml   string          `json:"yaml"`
+		Expect json.RawMessage `json:"expect"`
+	} `json:"extractReads"`
+	ExtractMinimal struct {
+		Source string          `json:"source"`
+		Yaml   string          `json:"yaml"`
+		Expect json.RawMessage `json:"expect"`
+	} `json:"extractMinimal"`
+	ExtractErrors []struct {
+		Name            string `json:"name"`
+		Source          string `json:"source"`
+		Yaml            string `json:"yaml"`
+		MessageContains string `json:"messageContains"`
+	} `json:"extractErrors"`
+	GateRecords []struct {
+		Name   string          `json:"name"`
+		Yaml   string          `json:"yaml"`
+		Expect json.RawMessage `json:"expect"`
+	} `json:"gateRecords"`
+	GateWrites []struct {
+		Name     string                   `json:"name"`
+		Verdicts []codeSpecsGateEntryJSON `json:"verdicts"`
+		Yaml     string                   `json:"yaml"`
+		Then     *codeSpecsGateEntryJSON  `json:"then"`
+		ThenYaml string                   `json:"thenYaml"`
+	} `json:"gateWrites"`
+	GateErrors []struct {
+		Name            string `json:"name"`
+		Yaml            string `json:"yaml"`
+		MessageContains string `json:"messageContains"`
+		AgainstCatalog  bool   `json:"againstCatalog"`
+	} `json:"gateErrors"`
+	ScopeCases []struct {
+		Name   string          `json:"name"`
+		Files  [][2]string     `json:"files"`
+		Expect json.RawMessage `json:"expect"`
+	} `json:"scopeCases"`
+}
+
+type codeSpecsGateEntryJSON struct {
+	Area       string `json:"area"`
+	Verdict    string `json:"verdict"`
+	Resolution string `json:"resolution"`
+	Note       string `json:"note"`
+}
+
+func (v codeSpecsGateEntryJSON) entry() som.CodeSpecsGateEntry {
+	return som.CodeSpecsGateEntry{
+		Area: v.Area, Verdict: v.Verdict, Resolution: v.Resolution, Note: v.Note,
+	}
+}
+
+func codeSpecsExtractSummary(x *som.CodeSpecsExtract) map[string]any {
+	sectionIDs, values, classNames, headlines := []any{}, []any{}, []any{}, []any{}
+	for _, e := range x.Entries {
+		sectionIDs = append(sectionIDs, e.SectionID)
+		values = append(values, e.Value)
+		classNames = append(classNames, e.ClassName)
+		headlines = append(headlines, nullable(e.Headline))
+	}
+	projects := append([]string{}, x.Projects...)
+	citable := append([]string{}, x.CitableParts...)
+	return map[string]any{
+		"area":         x.Area.Code,
+		"canonicalId":  x.Area.CanonicalID,
+		"part":         x.Area.Part,
+		"documentRoot": x.DocumentRoot,
+		"projects":     projects,
+		"citableParts": citable,
+		"entryCount":   len(x.Entries),
+		"sectionIds":   sectionIDs,
+		"values":       values,
+		"classNames":   classNames,
+		"headlines":    headlines,
+	}
+}
+
+func codeSpecsGateSummary(g *som.CodeSpecsGateRecord) map[string]any {
+	verdicts := []any{}
+	for _, v := range g.Verdicts {
+		verdicts = append(verdicts, map[string]any{
+			"area":       v.Area,
+			"verdict":    v.Verdict,
+			"resolution": nullable(v.Resolution),
+			"note":       nullable(v.Note),
+		})
+	}
+	return map[string]any{"verdicts": verdicts}
+}
+
+func codeSpecsScopeSummary(s *som.CodeSpecsExtractSet) map[string]any {
+	inScope, excluded := []any{}, []any{}
+	for _, x := range s.Extracts {
+		inScope = append(inScope, x.Area.Code)
+	}
+	for _, e := range s.Excluded {
+		excluded = append(excluded, map[string]any{
+			"area":       e.Area,
+			"verdict":    e.Verdict,
+			"descoped":   e.Descoped,
+			"entryCount": e.EntryCount,
+			"source":     e.Source,
+		})
+	}
+	return map[string]any{
+		"inScope":  inScope,
+		"sources":  append([]string{}, s.Sources...),
+		"hasGate":  s.Gate != nil,
+		"excluded": excluded,
+	}
+}
+
+// rawCanon re-encodes raw JSON canonically (sorted keys), so it compares with
+// canonJSON of a Go map.
+func rawCanon(t *testing.T, raw json.RawMessage) string {
+	return canonJSON(t, jsonAny(t, raw))
+}
+
+func recordErrMessage(err error) (string, bool) {
+	var re *som.CodeSpecsRecordError
+	if errors.As(err, &re) {
+		return re.Message, true
+	}
+	return errString(err), false
+}
+
+// testCodeSpecsRecords runs codespecs_record_cases.json: every extract the
+// extractor writes reads back byte-stably, the gate record round-trips and
+// checks its shape, and a tree of extracts is scoped by its record with the
+// reference's exact errors.
+func testCodeSpecsRecords(c *checker, t *testing.T) {
+	var table codeSpecsRecordTable
+	readJSON(t, "codespecs_record_cases.json", &table)
+	var extractTable codeSpecsExtractTable
+	readJSON(t, "codespecs_extract_cases.json", &extractTable)
+	catalog, err := som.CodeSpecsAreaCatalogFromJSON(extractTable.Catalog)
+	if err != nil {
+		t.Fatalf("load codespecs catalog: %v", err)
+	}
+
+	for _, rc := range table.ExtractReads {
+		tag := "records.extractRead[" + rc.Source + "]"
+		x, err := som.CodeSpecsExtractFromYaml(rc.Yaml, rc.Source)
+		if err != nil {
+			c.check(tag, false, err.Error())
+			continue
+		}
+		got, want := canonJSON(t, codeSpecsExtractSummary(x)), rawCanon(t, rc.Expect)
+		c.check(tag+".summary", got == want, got)
+		out := x.ToYaml()
+		c.check(tag+".roundTrip", out == rc.Yaml, byteDiff("ToYaml", out, rc.Yaml))
+	}
+
+	if x, err := som.CodeSpecsExtractFromYaml(
+		table.ExtractMinimal.Yaml, table.ExtractMinimal.Source,
+	); err != nil {
+		c.check("records.extractMinimal", false, err.Error())
+	} else {
+		got := canonJSON(t, codeSpecsExtractSummary(x))
+		c.check("records.extractMinimal",
+			got == rawCanon(t, table.ExtractMinimal.Expect), got)
+	}
+
+	for _, ec := range table.ExtractErrors {
+		_, err := som.CodeSpecsExtractFromYaml(ec.Yaml, ec.Source)
+		msg, ok := recordErrMessage(err)
+		c.check("records.extractError["+ec.Name+"]",
+			ok && strings.Contains(msg, ec.MessageContains), msg)
+	}
+
+	for _, gc := range table.GateRecords {
+		tag := "records.gateRecord[" + gc.Name + "]"
+		g, err := som.CodeSpecsGateRecordFromYaml(gc.Yaml, "")
+		if err != nil {
+			c.check(tag, false, err.Error())
+			continue
+		}
+		got := canonJSON(t, codeSpecsGateSummary(g))
+		c.check(tag+".summary", got == rawCanon(t, gc.Expect), got)
+		out := g.ToYaml()
+		c.check(tag+".toYaml", out == gc.Yaml, byteDiff("ToYaml", out, gc.Yaml))
+		err = g.CheckAgainst(catalog, "")
+		c.check(tag+".checkAgainst", err == nil, errString(err))
+	}
+
+	for _, wc := range table.GateWrites {
+		tag := "records.gateWrite[" + wc.Name + "]"
+		entries := []som.CodeSpecsGateEntry{}
+		for _, v := range wc.Verdicts {
+			entries = append(entries, v.entry())
+		}
+		g, err := som.NewCodeSpecsGateRecord(entries, "")
+		if err != nil {
+			c.check(tag, false, err.Error())
+			continue
+		}
+		out := g.ToYaml()
+		c.check(tag+".yaml", out == wc.Yaml, byteDiff("ToYaml", out, wc.Yaml))
+		if wc.Then != nil {
+			g, err = g.WithVerdict(wc.Then.entry())
+			if err != nil {
+				c.check(tag+".then", false, err.Error())
+				continue
+			}
+			out = g.ToYaml()
+			c.check(tag+".thenYaml", out == wc.ThenYaml,
+				byteDiff("ToYaml", out, wc.ThenYaml))
+		}
+	}
+
+	for _, ec := range table.GateErrors {
+		g, err := som.CodeSpecsGateRecordFromYaml(ec.Yaml, "")
+		if err == nil && ec.AgainstCatalog {
+			err = g.CheckAgainst(catalog, "")
+		}
+		msg, ok := recordErrMessage(err)
+		c.check("records.gateError["+ec.Name+"]",
+			ok && strings.Contains(msg, ec.MessageContains), msg)
+	}
+
+	for _, sc := range table.ScopeCases {
+		tag := "records.scope[" + sc.Name + "]"
+		files := []som.CodeSpecsFile{}
+		for _, f := range sc.Files {
+			files = append(files, som.CodeSpecsFile{Name: f[0], Text: f[1]})
+		}
+		var want map[string]json.RawMessage
+		if err := json.Unmarshal(sc.Expect, &want); err != nil {
+			t.Fatalf("%s: expect: %v", tag, err)
+		}
+		set, err := som.CodeSpecsExtractSetFromFiles(files)
+		if rawErr, isError := want["error"]; isError {
+			wantMsg := jsonString(t, rawErr)
+			msg, ok := recordErrMessage(err)
+			c.check(tag, ok && strings.Contains(msg, wantMsg), msg)
+			continue
+		}
+		if err != nil {
+			c.check(tag, false, err.Error())
+			continue
+		}
+		got := canonJSON(t, codeSpecsScopeSummary(set))
+		c.check(tag, got == rawCanon(t, sc.Expect), got)
 	}
 }

@@ -47,8 +47,9 @@
  *
  * Ownership: an extractor **borrows** its model, document and catalogue; all
  * three must outlive it, and it owns nothing (there is no
- * `spec_codespecs_extractor_free`). A `CodeSpecsExtract` likewise borrows its
- * `area` from the catalogue but owns every string it carries — release it with
+ * `spec_codespecs_extractor_free`). A `CodeSpecsExtract` the extractor produced
+ * likewise borrows its `area` from the catalogue (one read back from its YAML
+ * owns it, in `owned_area`) and owns every string it carries — release it with
  * `spec_codespecs_extract_free`, a list of them with
  * `spec_codespecs_extract_list_free`. The catalogue itself owns its whole
  * structure (`spec_codespecs_area_catalog_free`), and every `char *` returned by
@@ -269,6 +270,11 @@ typedef struct {
 /* The fully-qualified `@CodeSpecKind` value — `CodeSpecPart.form`. Owned. */
 char *spec_codespecs_area_kind_value(const CodeSpecsArea *a);
 
+/* Frees the owned members of `*a` (not `a` itself) and zeroes it. Safe on a
+ * zeroed struct. A catalogue's areas are released by
+ * `spec_codespecs_area_catalog_free`; this is for an area held on its own. */
+void spec_codespecs_area_free(CodeSpecsArea *a);
+
 /* The machine-readable form of `codespecs_mapping.md` §4.1 + §4.4.3 + §4.4.6.
  *
  * Authored once, read by all nine runtimes. It is an input rather than a baked
@@ -367,8 +373,13 @@ void spec_codespecs_catalog_citable_area_codes(const CodeSpecsAreaCatalog *c,
  * document order. */
 typedef struct {
   /* The area this extract is for — borrowed from the catalogue, which must
-   * outlive the extract. */
+   * outlive the extract; for an extract read back from its YAML
+   * (`spec_codespecs_extract_from_yaml`) it points at `owned_area`. */
   const CodeSpecsArea *area;
+  /* The area an extract read back from its YAML owns (there is no catalogue to
+   * borrow it from), released by `spec_codespecs_extract_free`; NULL for an
+   * extract the extractor produced. */
+  CodeSpecsArea *owned_area;
   /* The `codespecs_mapping.md` §4.1/§4.4.3 source the catalogue names. */
   char *catalog_source;
   /* The section segment of the document root the entries were collected from. */
@@ -383,8 +394,8 @@ typedef struct {
   size_t entries_cap;
 } CodeSpecsExtract;
 
-/* Frees the owned members of `*x` (not the borrowed `area`). Safe on a zeroed
- * struct. */
+/* Frees the owned members of `*x` — `owned_area` included, never a borrowed
+ * `area`. Safe on a zeroed struct. */
 void spec_codespecs_extract_free(CodeSpecsExtract *x);
 
 /* The extract's file name stem — `CE-FM.extract`. Owned result. */
@@ -395,6 +406,11 @@ char *spec_codespecs_extract_file_stem(const CodeSpecsExtract *x);
  * rule, identical in all nine runtimes, covers every value a specification can
  * hold. Owned result. */
 char *spec_codespecs_extract_to_yaml(const CodeSpecsExtract *x);
+
+/* `value` as a JSON string literal that is also a YAML 1.2 double-quoted
+ * scalar — the one escaping rule every CodeSpecs artifact uses for free text
+ * (the extract's values, the gate record's notes). Owned result. */
+char *spec_codespecs_yaml_string(const char *value);
 
 /* The rendered view. Regenerated from the YAML's own data — nothing reads the
  * Markdown as input — and exists because the agent reads it far better than it

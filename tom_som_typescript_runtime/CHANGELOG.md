@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+- CodeSpecs: reading back what a Phase-4 run wrote.
+  `CodeSpecsExtract.fromYaml(text, source)` (also `parseCodeSpecsExtractYaml`)
+  is the inverse of `toYaml` — byte-identical for every extract the extractor
+  writes. It requires the `extract.area` mapping, a non-empty `area.code` and
+  `formatVersion` 3; every other absent key reads as empty, a present key of the
+  wrong type is an error, and a `document.entryCount` that disagrees with the
+  entries is refused. The Stage-B gate record `gate.verdicts.yaml`:
+  `CodeSpecsGateVerdict` (`sufficient` / `notApplicable` / `insufficient`, with
+  `word` and `parse(word)`), `CodeSpecsGateEntry` (`area`, `verdict`,
+  `resolution`, `note`, `descoped`) and `CodeSpecsGateRecord` — checked on
+  construction (`CE-*` areas named once, `resolution: descoped` only on an
+  insufficient area), `fromYaml` (unknown keys and `formatVersion` other than 1
+  refused), byte-stable `toYaml`, `verdictFor`, `checkAgainst(catalog)` and
+  `withVerdict(entry)`. `CodeSpecsExtractSet.fromFiles(files)` reads an ordered
+  `Map` or list of `[name, text]` pairs, scoped by the gate record among them
+  (in scope iff `sufficient`; the record must be total, a `not applicable` area
+  with routed entries and an undescoped `insufficient` area are errors), with
+  the excluded areas kept visible as `CodeSpecsExcludedArea`; `fromDirectory`
+  reads `*.extract.yaml` + `gate.verdicts.yaml` in name order. Lookups `byArea`,
+  `entriesForSection`, `entriesAtPath`. Errors are `CodeSpecsRecordError`,
+  worded as the Dart reference. Constants `K_CODE_SPECS_GATE_RECORD_FILE`,
+  `K_CODE_SPECS_GATE_RECORD_FORMAT`, `K_CODE_SPECS_EXTRACT_FILE_SUFFIX`,
+  `K_CODE_SPECS_GATE_DESCOPED`.
+  Conformance: `codespecs_record_cases.json` (`codespecs.record.*`).
 - CodeSpecs: the area catalogue carries the `codespecs_mapping.md` §4.4.6
   authoring-step table. New `CodeSpecsStep` (`number`, `title`, `slice`,
   `placedBy`, `areaCodes`), `CodeSpecsAreaCatalog.steps` (read from the
