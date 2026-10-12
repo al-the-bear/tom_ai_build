@@ -65,6 +65,20 @@ if ! command -v cargo > /dev/null 2>&1 && [ -x "$HOME/.cargo/bin/cargo" ]; then
   export PATH
 fi
 
+# Go has the same quirk in two shapes: Homebrew's `/opt/homebrew/bin` (macOS)
+# and the official tarball under `/usr/local/go` or `~/.local/go` (Linux,
+# som_toolchains.md) are added by the interactive profile only. On mbp this
+# reported both Go suites as NOT MEASURED while go 1.26.5 sat installed.
+if ! command -v go > /dev/null 2>&1; then
+  for go_dir in /opt/homebrew/bin /usr/local/go/bin "$HOME/.local/go/bin"; do
+    if [ -x "$go_dir/go" ]; then
+      PATH="$PATH:$go_dir"
+      export PATH
+      break
+    fi
+  done
+fi
+
 # Flutter is usually an SDK checkout that bundles the `dart` on PATH, and — like
 # cargo — it is often wired into the interactive profile only. So when
 # `flutter` does not resolve: FLUTTER_ROOT when set, else the SDK the resolved
