@@ -21,6 +21,10 @@ import tom_som_runtime.CodeSpecsExtractError;
 import tom_som_runtime.CodeSpecsExtractSet;
 import tom_som_runtime.CodeSpecsExtractor;
 import tom_som_runtime.CodeSpecsExcludedArea;
+import tom_som_runtime.CodeSpecsGate;
+import tom_som_runtime.CodeSpecsGateCheckResult;
+import tom_som_runtime.CodeSpecsGateFinding;
+import tom_som_runtime.CodeSpecsGateReport;
 import tom_som_runtime.CodeSpecsGateEntry;
 import tom_som_runtime.CodeSpecsGateRecord;
 import tom_som_runtime.CodeSpecsGateVerdict;
@@ -145,6 +149,76 @@ public final class ConformanceRunner {
 
   private static SpecModel loadModel() throws IOException {
     return SpecModel.fromJson(readJsonObject("model.meta.json"));
+  }
+
+  // --- codespecs_gate_cases.json: the Stage-A gate, A1–A5 -------------------
+
+  /**
+   * Every case of the gate table: the catalogue is {@code catalog} plus the
+   * case's (or the table's) {@code gate} block, the schema the case's (or the
+   * table's) {@code schema}. A case key that is <b>present with null</b>
+   * overrides the default — no schema, or a catalogue without gate tables — so
+   * presence is tested with {@code containsKey}, not by the value.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testCodeSpecsGate() throws IOException {
+    Map<String, Object> table = readJsonObject("codespecs_gate_cases.json");
+    Map<String, Object> meta = readJsonObject("model.meta.json");
+    for (Object raw : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) raw;
+      String name = "codespecs gate: " + c.get("name");
+      Object got;
+      try {
+        got = runGateCase(table, c, meta);
+      } catch (RuntimeException e) {
+        check(name, false, "threw " + e);
+        continue;
+      }
+      check(name, got.equals(c.get("expect")), jsonMismatch(got, c.get("expect")));
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> runGateCase(
+      Map<String, Object> table, Map<String, Object> c, Map<String, Object> meta) {
+    Map<String, Object> catalogJson =
+        new LinkedHashMap<>((Map<String, Object>) table.get("catalog"));
+    Object gate = c.containsKey("gate") ? c.get("gate") : table.get("gate");
+    if (gate != null) {
+      catalogJson.put("gate", gate);
+    }
+    Object schemaYaml = c.containsKey("schema") ? c.get("schema") : table.get("schema");
+    Object modelJson = c.get("model") != null ? c.get("model") : meta;
+    SpecModel model = SpecModel.fromJson((Map<String, Object>) modelJson);
+    SpecDocument doc = documentFromState((Map<String, Object>) c.get("state"));
+    CodeSpecsGateReport report =
+        new CodeSpecsGate(
+                model,
+                doc,
+                CodeSpecsAreaCatalog.fromJson(catalogJson),
+                schemaYaml == null ? null : DocSpecsSchema.fromYamlText((String) schemaYaml))
+            .run();
+    List<Object> results = new ArrayList<>();
+    for (CodeSpecsGateCheckResult r : report.results) {
+      List<Object> findings = new ArrayList<>();
+      for (CodeSpecsGateFinding f : r.findings) {
+        Map<String, Object> fo = new LinkedHashMap<>();
+        fo.put("code", f.code);
+        fo.put("location", f.location);
+        fo.put("message", f.message);
+        findings.add(fo);
+      }
+      Map<String, Object> ro = new LinkedHashMap<>();
+      ro.put("check", r.check.label());
+      ro.put("ran", Boolean.valueOf(r.ran));
+      ro.put("notRunReason", r.notRunReason);
+      ro.put("findings", findings);
+      results.add(ro);
+    }
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("passed", Boolean.valueOf(report.passed()));
+    out.put("results", results);
+    return out;
   }
 
   // --- codespecs_record_cases.json: reading extracts and the gate record ----
@@ -2055,6 +2129,7 @@ public final class ConformanceRunner {
     testProjection(model);
     testCodeSpecsExtract(model);
     testCodeSpecsRecords();
+    testCodeSpecsGate();
     testCursorScript(model);
     testNodeCreationCases(model);
     testNodeCreationCoverage();

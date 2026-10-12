@@ -638,6 +638,23 @@ against exactly what the extractor emits:
   decoder. Error messages are compared as text, so all nine runtimes say the
   same thing about the same broken record.
 
+##### …and the Stage-A gate over them
+
+[`corpus/codespecs_gate_cases.json`](corpus/codespecs_gate_cases.json) pins
+`CodeSpecsGate`, the five Stage-A checks of `codespecs_prompt.md` §4 run as
+one. Each case is a document (the shared state, or an edited copy), optionally
+its own model, and the catalogue with or without its gate tables; the expected
+value is the whole report — per check whether it ran, why not, and every
+finding's code, location and message. The fixture's gate tables are over the
+fixture's own classes and exercise each A4 rule shape once: a plain source, an
+*Applies when* row, a *Resolves to* row resolving across two extracts, and a row
+whose area's extract is empty and is therefore not held. The cases are a
+passing document; A1 without a schema; A3 over an unrouted model, which leaves
+A4 nothing to run on; three A4 failures (a cleared source, a condition that now
+holds, a value that resolves to nothing); A5 with a carrier the model lacks;
+and a catalogue written before the gate tables, which runs neither A4 nor A5.
+A check that does not run is reported as such, and the gate does not pass.
+
 ##### Proving a table is load-bearing: `tool/parity_gate.sh`
 
 Nine green suites do not show that nine runners read a table, and check counts

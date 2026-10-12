@@ -83,6 +83,7 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `spec_node_creation.c` | The constrained node-creation gate (`spec_check_add_node`, `spec_node_creator_add`) — a document may only grow in ways the model permits. |
 | `spec_codespecs_extract.c` | The Phase-4 CodeSpecs specification-extract generator (`CodeSpecsExtractor`) — routes every section by `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` and emits one verbatim, provenance-carrying extract per CodeSpecs area. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
 | `spec_codespecs_records.c` | Reads Phase-4 output back: `spec_codespecs_extract_from_yaml` (the inverse of `spec_codespecs_extract_to_yaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written byte-stable), and `CodeSpecsExtractSet`, a set of extract files scoped by its gate record. Failures fill a `CodeSpecsRecordError`. |
+| `spec_codespecs_gate.c` | The Stage-A gate (`CodeSpecsGate`, `codespecs_prompt.md` §4): runs A1 (DocSpecs completeness of the rendered Markdown), A2 (`validate_document`), A3 (every section routed, then the extraction), A4 (required marker arguments populated, from the catalogue's `gate` tables) and A5 (carriers still in the model) as one, reporting a not-run check as not run. |
 | `spec_document_yaml.c` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.c` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
 | `som_facade.c` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_c_v0`. |
@@ -224,6 +225,7 @@ make test CORPUS=/path/to/corpus
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
 | `CodeSpecsGateRecord` / `CodeSpecsExtractSet` | The Stage-B gate record, and the extract files of one run read back and scoped by it. |
+| `CodeSpecsGate` | The Stage-A gate — A1–A5 over model, document, catalogue and schema, one report. |
 | `SomNode` / `SomScalar` / `SomList` | The editing-facade base types the generated `tom_som_c_v0` accessors build on. |
 
 ## Ecosystem

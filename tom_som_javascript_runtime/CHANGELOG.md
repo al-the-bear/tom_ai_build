@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- CodeSpecs: the Stage-A gate (`codespecs_prompt.md` §4, A1–A5) as one
+  `CodeSpecsGate` (`{model, document, catalog, schema?, rootType?}`). `run()`
+  returns a `CodeSpecsGateReport` — `results` A1..A5 in order, `extracts` when
+  A3 passed, `passed`, `findings`, `resultFor(check)` — of
+  `CodeSpecsGateCheckResult` (`check`, `ran`, `notRunReason`, `findings`,
+  `passed`) and `CodeSpecsGateFinding` (`check`, `code`, `location`,
+  `message`); `CodeSpecsGateCheck` `a1`..`a5` with `label` `A1`..`A5`. Every
+  check runs; one that could not (no schema, A3 left no extracts, no gate
+  tables) is reported not run, with the Dart reason, and the gate fails. A1
+  validates the rendered Markdown against the DocSpecs schema, A2 is
+  `validateDocument`, A3 reports every unrouted class (or the root-resolution
+  error) before running `extractAll()`, A4 checks the required marker
+  arguments over the extracts, A5 the carriers against the model. The area
+  catalogue reads the optional `gate` key: `CodeSpecsFieldRef`,
+  `CodeSpecsRequiredArgument`, `CodeSpecsCarrier`, and
+  `CodeSpecsAreaCatalog.requiredArguments` / `carriers` / `hasGateTables`.
+  Conformance: `codespecs_gate_cases.json` (`codespecs.gate[*]`).
 - CodeSpecs: reading back what a Phase-4 run wrote.
   `CodeSpecsExtract.fromYaml(text, source)` (also `parseCodeSpecsExtractYaml`)
   is the inverse of `toYaml` — byte-identical for every extract the extractor

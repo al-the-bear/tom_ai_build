@@ -1,0 +1,1328 @@
+{
+  "catalog": {
+    "source": "codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6",
+    "slices": [
+      {
+        "number": 1,
+        "title": "Shared const catalogues",
+        "project": "<app>_codespec_shared",
+        "cites": []
+      },
+      {
+        "number": 2,
+        "title": "Shared contract",
+        "project": "<app>_codespec_shared",
+        "cites": [
+          1
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Server persistence & configuration",
+        "project": "<app>_codespec_server",
+        "cites": [
+          1,
+          2
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Server behaviour",
+        "project": "<app>_codespec_server",
+        "cites": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Client interaction core",
+        "project": "<app>_codespec_client",
+        "cites": [
+          1,
+          2
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Client presentation & shell",
+        "project": "<app>_codespec_client",
+        "cites": [
+          1,
+          5
+        ]
+      },
+      {
+        "number": 7,
+        "title": "Server operational",
+        "project": "<app>_codespec_server",
+        "cites": [
+          3,
+          4
+        ]
+      }
+    ],
+    "areas": [
+      {
+        "code": "CE-FM",
+        "canonicalId": "Form",
+        "part": "form",
+        "annotations": [
+          "@CsForm"
+        ],
+        "builtOn": "`TomForm`, `TomFormChildContainer` (`tom_flutter_ui`)",
+        "attributeSurface": "codespecs_mapping.md §5.7.2",
+        "slices": [
+          5
+        ],
+        "authoringSteps": [
+          23
+        ]
+      },
+      {
+        "code": "CE-TX",
+        "canonicalId": "Text",
+        "part": "text",
+        "annotations": [
+          "@CsText"
+        ],
+        "builtOn": "`TomText` (`tom_flutter_ui`) + `TomTextResourceProvider` (`tom_core_kernel`); message/i18n-key model `TomMessageKey` / `TomMessageKeyRegistry` (`tom_core_codespecs`)",
+        "attributeSurface": "codespecs_mapping.md §5.8, §5.21",
+        "slices": [
+          1,
+          5
+        ],
+        "authoringSteps": [
+          2,
+          24
+        ]
+      },
+      {
+        "code": "CE-DB",
+        "canonicalId": "DataAccess",
+        "part": "dataAccess",
+        "annotations": [
+          "@CsTable",
+          "@CsColumn",
+          "@CsRepository"
+        ],
+        "builtOn": "Tom persistence model + repository (`tom_core_server`)",
+        "attributeSurface": "codespecs_mapping.md §5.13",
+        "slices": [
+          3
+        ],
+        "authoringSteps": [
+          10
+        ]
+      },
+      {
+        "code": "CE-ST",
+        "canonicalId": "ViewState",
+        "part": "viewState",
+        "annotations": [
+          "@CsViewModel"
+        ],
+        "builtOn": "`TomObservable` / `TomObject` (`tom_core_kernel`)",
+        "attributeSurface": "codespecs_mapping.md §5.4",
+        "slices": [
+          5
+        ],
+        "authoringSteps": [
+          23
+        ]
+      },
+      {
+        "code": "CE-NV",
+        "canonicalId": "Navigation",
+        "part": "navigation",
+        "annotations": [
+          "@CsRoute",
+          "@CsScreenFlow"
+        ],
+        "builtOn": "`TomPageRoute` (`tom_flutter_ui`); route-id + screen-flow model (`tom_core_codespecs`)",
+        "attributeSurface": "codespecs_mapping.md §5.11",
+        "slices": [
+          5
+        ],
+        "authoringSteps": [
+          23
+        ]
+      },
+      {
+        "code": "CE-ER",
+        "canonicalId": "ErrorResult",
+        "part": "errorResult",
+        "annotations": [
+          "@CsError"
+        ],
+        "builtOn": "**gap** — plain annotated result/error classes in `<app>_codespec_shared`; no framework counterpart",
+        "attributeSurface": "codespecs_mapping.md §7",
+        "slices": [
+          1
+        ],
+        "authoringSteps": [
+          2
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "number": 2,
+        "title": "**SCC-A** — CE-ER codes + CE-TX message keys (§4.4.7)",
+        "slice": 1,
+        "placedBy": "CE-TX (4)",
+        "areaCodes": [
+          "CE-TX",
+          "CE-ER"
+        ]
+      },
+      {
+        "number": 10,
+        "title": "CE-DB entities/columns/repositories",
+        "slice": 3,
+        "placedBy": "CE-DB (10)",
+        "areaCodes": [
+          "CE-DB"
+        ]
+      },
+      {
+        "number": 23,
+        "title": "**SCC-B** — CE-ST + CE-EL + CE-FM + CE-AC + CE-SC + CE-NV (§4.4.7)",
+        "slice": 5,
+        "placedBy": "CE-EL (1)",
+        "areaCodes": [
+          "CE-FM",
+          "CE-ST",
+          "CE-NV"
+        ]
+      },
+      {
+        "number": 24,
+        "title": "CE-TX copy",
+        "slice": 5,
+        "placedBy": "CE-TX (4)",
+        "areaCodes": [
+          "CE-TX"
+        ]
+      }
+    ]
+  },
+  "gate": {
+    "requiredArguments": [
+      {
+        "area": "CE-FM",
+        "marker": "@CsForm",
+        "argument": "owner",
+        "className": "Demo",
+        "member": "details",
+        "formField": "owner"
+      },
+      {
+        "area": "CE-FM",
+        "marker": "@CsElement",
+        "argument": "kind",
+        "className": "Item",
+        "member": "label",
+        "formField": null,
+        "when": {
+          "className": "Item",
+          "member": "status",
+          "formField": null,
+          "equals": "open"
+        }
+      },
+      {
+        "area": "CE-FM",
+        "marker": "@CsColumn",
+        "argument": "domainEnum",
+        "className": "Demo",
+        "member": "details",
+        "formField": "priority",
+        "resolvesTo": {
+          "className": "Demo",
+          "member": "priority",
+          "formField": null
+        }
+      },
+      {
+        "area": "CE-DB",
+        "marker": "@CsTable",
+        "argument": "table",
+        "className": "Demo",
+        "member": "details",
+        "formField": "reviewer"
+      }
+    ],
+    "carriers": [
+      {
+        "className": "Demo",
+        "member": "details",
+        "formField": "owner",
+        "introducedBy": "fixture"
+      },
+      {
+        "className": "Item",
+        "member": "status",
+        "formField": null,
+        "introducedBy": "fixture"
+      }
+    ]
+  },
+  "schema": "section-types:\n  card_lst:\n    prefix: CARD_LST\n    subsection-types:\n      card:\n        min-count: 0\n        max-count: infinite\n  ctrl_sum:\n    prefix: CTRL_SUM\n  note_bdy:\n    prefix: NOTE_BDY\n  ref_lst:\n    prefix: REF_LST\n    subsection-types:\n      ref:\n        min-count: 0\n        max-count: infinite\n  item:\n    prefix: items_\n    subsection-types:\n      sts:\n        min-count: 0\n        max-count: infinite\n  items:\n    prefix: items\n    subsection-types:\n      item:\n        min-count: 0\n        max-count: infinite\n  card:\n    prefix: CARD_\n  tag:\n    prefix: tags_\n  ref:\n    prefix: REF_\n  meta:\n    prefix: META\n    subsection-types:\n      ownr:\n        min-count: 0\n        max-count: infinite\n      tags:\n        min-count: 0\n        max-count: infinite\n  ownr:\n    prefix: OWNR\n  tags:\n    prefix: tags\n    subsection-types:\n      tag:\n        min-count: 0\n        max-count: infinite\n  ctrl:\n    prefix: CTRL\n    subsection-types:\n      ctrl_sum:\n        min-count: 0\n        max-count: infinite\n  note:\n    prefix: NOTE\n    subsection-types:\n      note_bdy:\n        min-count: 0\n        max-count: infinite\n  ttl:\n    prefix: TTL\n  sum:\n    prefix: SUM\n  pri:\n    prefix: PRI\n  cnt:\n    prefix: CNT\n  det:\n    prefix: DET\n  sts:\n    prefix: STS\ndocument:\n  sections:\n    ttl:\n      section-type: ttl\n      optional: true\n    sum:\n      section-type: sum\n      optional: true\n    pri:\n      section-type: pri\n      optional: true\n    cnt:\n      section-type: cnt\n      optional: true\n    det:\n      section-type: det\n      optional: true\n    items:\n      section-type: items\n      optional: true\n    ref_lst:\n      section-type: ref_lst\n      optional: true\n    card_lst:\n      section-type: card_lst\n      optional: true\n    meta:\n      section-type: meta\n      optional: true\n    ctrl:\n      section-type: ctrl\n      optional: true\n    note:\n      section-type: note\n      optional: true\n",
+  "cases": [
+    {
+      "name": "every check passes",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "expect": {
+        "passed": true,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "A1 is not run without a schema",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "schema": null,
+      "expect": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": false,
+            "notRunReason": "no DocSpecs schema was supplied",
+            "findings": []
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "A3 finds an unrouted section, so A4 cannot run",
+      "model": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "roots": [
+          {
+            "type": "Root",
+            "title": "Root",
+            "sectionId": "ROOT"
+          }
+        ],
+        "classes": {
+          "Root": {
+            "name": "Root",
+            "sectionId": "ROOT",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Root"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "orphan",
+                "kind": "complex",
+                "sectionId": "ORP",
+                "type": "Orphan"
+              }
+            ]
+          },
+          "Orphan": {
+            "name": "Orphan",
+            "sectionId": "ORP",
+            "fields": [
+              {
+                "name": "body",
+                "kind": "content",
+                "sectionId": "ORP-BDY"
+              }
+            ]
+          }
+        }
+      },
+      "state": {},
+      "schema": null,
+      "expect": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": false,
+            "notRunReason": "no DocSpecs schema was supplied",
+            "findings": []
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "unrouted",
+                "location": "ROOT/ORP",
+                "message": "Orphan carries no @CodeSpecKind, @FollowUpKind or @NoArtifact — its content would reach no extract"
+              }
+            ]
+          },
+          {
+            "check": "A4",
+            "ran": false,
+            "notRunReason": "A3 did not complete, so there is no extraction run to read the used areas from",
+            "findings": []
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "missingCarrier",
+                "location": "Demo.details.owner",
+                "message": "the model no longer offers Demo.details.owner (fixture) — a project with that structured fact would have to write prose again"
+              },
+              {
+                "code": "missingCarrier",
+                "location": "Item.status",
+                "message": "the model no longer offers Item.status (fixture) — a project with that structured fact would have to write prose again"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "A4: a required source cleared",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "expect": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "missingSource",
+                "location": "DEMO",
+                "message": "@CsForm.owner (CE-FM) is required, and its source Demo.details.owner is empty here"
+              }
+            ]
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "A4: an Applies-when row that now holds",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "open",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "expect": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "missingSource",
+                "location": "DEMO/items-2",
+                "message": "@CsElement.kind (CE-FM) is required, and its source Item.label is empty here"
+              }
+            ]
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "A4: a value that resolves to nothing",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "low",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "expect": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "unresolvedReference",
+                "location": "DEMO",
+                "message": "Demo.details.priority names `low`, which no Demo.priority in this document carries — @CsColumn.domainEnum (CE-FM) has nothing to resolve against"
+              }
+            ]
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "A5: a carrier the model does not offer",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "gate": {
+        "requiredArguments": [
+          {
+            "area": "CE-FM",
+            "marker": "@CsForm",
+            "argument": "owner",
+            "className": "Demo",
+            "member": "details",
+            "formField": "owner"
+          },
+          {
+            "area": "CE-FM",
+            "marker": "@CsElement",
+            "argument": "kind",
+            "className": "Item",
+            "member": "label",
+            "formField": null,
+            "when": {
+              "className": "Item",
+              "member": "status",
+              "formField": null,
+              "equals": "open"
+            }
+          },
+          {
+            "area": "CE-FM",
+            "marker": "@CsColumn",
+            "argument": "domainEnum",
+            "className": "Demo",
+            "member": "details",
+            "formField": "priority",
+            "resolvesTo": {
+              "className": "Demo",
+              "member": "priority",
+              "formField": null
+            }
+          },
+          {
+            "area": "CE-DB",
+            "marker": "@CsTable",
+            "argument": "table",
+            "className": "Demo",
+            "member": "details",
+            "formField": "reviewer"
+          }
+        ],
+        "carriers": [
+          {
+            "className": "Demo",
+            "member": "details",
+            "formField": "owner",
+            "introducedBy": "fixture"
+          },
+          {
+            "className": "Item",
+            "member": "status",
+            "formField": null,
+            "introducedBy": "fixture"
+          },
+          {
+            "className": "Item",
+            "member": "reviewer",
+            "formField": null,
+            "introducedBy": "fixture"
+          }
+        ]
+      },
+      "expect": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A5",
+            "ran": true,
+            "notRunReason": null,
+            "findings": [
+              {
+                "code": "missingCarrier",
+                "location": "Item.reviewer",
+                "message": "the model no longer offers Item.reviewer (fixture) — a project with that structured fact would have to write prose again"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "a catalogue without gate tables runs neither A4 nor A5",
+      "state": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+          "DEMO/META/OWNR": "alice",
+          "DEMO/META/tags-1": "on",
+          "DEMO/META/tags-2": "no",
+          "DEMO/META/tags-3": "1:30",
+          "DEMO/META/tags-4": "plain",
+          "DEMO/PRI": "high",
+          "DEMO/REF-LST-1": "spec §1.2",
+          "DEMO/REF-LST-2": "ADR7",
+          "DEMO/SUM": "Line one\nLine two\n\nLine four",
+          "DEMO/TTL": "Hello",
+          "DEMO/control/CTRL-SUM": "Controlled summary",
+          "DEMO/control/owner": "ctrl-owner",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First",
+          "DEMO/items-2/STS": "done",
+          "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+          "DEMO/notes/NOTE-BDY": "Section-kind body",
+          "DEMO/notes/remarks": "Wrapper-section text"
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          },
+          "DEMO/DET": {
+            "active": "true",
+            "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+            "estimate": "8",
+            "owner": "Bob",
+            "priority": "high",
+            "weight": "2.5"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA"
+            }
+          },
+          "DEMO/META/tags": {
+            "seq": 4,
+            "items": [
+              "DEMO/META/tags-1",
+              "DEMO/META/tags-2",
+              "DEMO/META/tags-3",
+              "DEMO/META/tags-4"
+            ]
+          },
+          "DEMO/REF-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/REF-LST-1",
+              "DEMO/REF-LST-2"
+            ],
+            "ids": {
+              "DEMO/REF-LST-1": "REF-SPEC"
+            }
+          },
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card",
+          "DEMO/DET": "Details & Contacts",
+          "DEMO/REF-LST-1": "Reference to the Spec",
+          "DEMO/SUM": "Executive Summary",
+          "DEMO/items": "Work Items"
+        }
+      },
+      "gate": null,
+      "expect": {
+        "passed": false,
+        "results": [
+          {
+            "check": "A1",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A2",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A3",
+            "ran": true,
+            "notRunReason": null,
+            "findings": []
+          },
+          {
+            "check": "A4",
+            "ran": false,
+            "notRunReason": "the catalogue carries no gate tables (written before `codespecs_prompt.md` §4.4/§4.5 were transcribed)",
+            "findings": []
+          },
+          {
+            "check": "A5",
+            "ran": false,
+            "notRunReason": "the catalogue carries no gate tables (written before `codespecs_prompt.md` §4.4/§4.5 were transcribed)",
+            "findings": []
+          }
+        ]
+      }
+    }
+  ]
+}

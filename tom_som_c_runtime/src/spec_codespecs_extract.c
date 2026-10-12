@@ -418,6 +418,78 @@ static void area_from_json(const SomJson *j, CodeSpecsArea *out) {
   out->active = json_bool_or_default(j, "active", 1);
 }
 
+/* `j[key]` as an owned string, or NULL when absent / null / not a string —
+ * the ports' `as String?`. */
+static char *json_opt_str(const SomJson *j, const char *key) {
+  const char *s = som_json_as_str(som_json_get(j, key));
+  return s != NULL ? som_strdup(s) : NULL;
+}
+
+/* `j[key]` when it is a JSON object, else NULL — the ports' `as Map?`. */
+static const SomJson *json_opt_object(const SomJson *j, const char *key) {
+  const SomJson *v = som_json_get(j, key);
+  return v != NULL && v->type == SOM_JSON_OBJECT ? v : NULL;
+}
+
+static void field_ref_from_json(const SomJson *j, CodeSpecsFieldRef *out) {
+  out->class_name = som_strdup(som_json_str_or(j, "className"));
+  out->member = som_strdup(som_json_str_or(j, "member"));
+  out->form_field = json_opt_str(j, "formField");
+}
+
+static void field_ref_free(CodeSpecsFieldRef *r) {
+  if (r == NULL) {
+    return;
+  }
+  free(r->class_name);
+  free(r->member);
+  free(r->form_field);
+  memset(r, 0, sizeof(*r));
+}
+
+/* An owned, heap-allocated reference, or NULL when `j` is NULL. */
+static CodeSpecsFieldRef *field_ref_new(const SomJson *j) {
+  if (j == NULL) {
+    return NULL;
+  }
+  CodeSpecsFieldRef *r = (CodeSpecsFieldRef *)calloc(1, sizeof(*r));
+  field_ref_from_json(j, r);
+  return r;
+}
+
+char *spec_codespecs_field_ref_source(const CodeSpecsFieldRef *r) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, r->class_name);
+  som_buf_putc(&b, '.');
+  som_buf_puts(&b, r->member);
+  if (r->form_field != NULL) {
+    som_buf_putc(&b, '.');
+    som_buf_puts(&b, r->form_field);
+  }
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+static void required_argument_from_json(const SomJson *j,
+                                        CodeSpecsRequiredArgument *out) {
+  out->area = som_strdup(som_json_str_or(j, "area"));
+  out->marker = som_strdup(som_json_str_or(j, "marker"));
+  out->argument = som_strdup(som_json_str_or(j, "argument"));
+  field_ref_from_json(j, &out->field);
+  out->resolves_to = field_ref_new(json_opt_object(j, "resolvesTo"));
+  const SomJson *when = json_opt_object(j, "when");
+  out->when = field_ref_new(when);
+  out->when_equals =
+      when == NULL ? NULL : som_strdup(som_json_str_or(when, "equals"));
+}
+
+static void carrier_from_json(const SomJson *j, CodeSpecsCarrier *out) {
+  field_ref_from_json(j, &out->field);
+  out->introduced_by = som_strdup(som_json_str_or(j, "introducedBy"));
+}
+
 void spec_codespecs_area_catalog_from_json(const SomJson *v,
                                            CodeSpecsAreaCatalog *out) {
   out->source = som_strdup(som_json_str_or(v, "source"));
@@ -458,6 +530,35 @@ void spec_codespecs_area_catalog_from_json(const SomJson *v,
     }
     out->steps_len = n;
   }
+
+  /* The gate tables — absent in a catalogue written before §4.4/§4.5 were
+   * transcribed, which then runs neither A4 nor A5. */
+  out->required_arguments = NULL;
+  out->required_arguments_len = 0;
+  out->carriers = NULL;
+  out->carriers_len = 0;
+  const SomJson *gate = json_opt_object(v, "gate");
+  out->has_gate_tables = gate != NULL;
+  const SomJson *required = som_json_get(gate, "requiredArguments");
+  n = som_json_array_len(required);
+  if (n > 0) {
+    out->required_arguments = (CodeSpecsRequiredArgument *)calloc(
+        n, sizeof(CodeSpecsRequiredArgument));
+    for (size_t i = 0; i < n; i++) {
+      required_argument_from_json(som_json_array_at(required, i),
+                                  &out->required_arguments[i]);
+    }
+    out->required_arguments_len = n;
+  }
+  const SomJson *carriers = som_json_get(gate, "carriers");
+  n = som_json_array_len(carriers);
+  if (n > 0) {
+    out->carriers = (CodeSpecsCarrier *)calloc(n, sizeof(CodeSpecsCarrier));
+    for (size_t i = 0; i < n; i++) {
+      carrier_from_json(som_json_array_at(carriers, i), &out->carriers[i]);
+    }
+    out->carriers_len = n;
+  }
 }
 
 void spec_codespecs_area_catalog_free(CodeSpecsAreaCatalog *c) {
@@ -488,6 +589,24 @@ void spec_codespecs_area_catalog_free(CodeSpecsAreaCatalog *c) {
     som_strlist_free(&c->steps[i].area_codes);
   }
   free(c->steps);
+  for (size_t i = 0; i < c->required_arguments_len; i++) {
+    CodeSpecsRequiredArgument *r = &c->required_arguments[i];
+    free(r->area);
+    free(r->marker);
+    free(r->argument);
+    field_ref_free(&r->field);
+    field_ref_free(r->resolves_to);
+    free(r->resolves_to);
+    field_ref_free(r->when);
+    free(r->when);
+    free(r->when_equals);
+  }
+  free(c->required_arguments);
+  for (size_t i = 0; i < c->carriers_len; i++) {
+    field_ref_free(&c->carriers[i].field);
+    free(c->carriers[i].introduced_by);
+  }
+  free(c->carriers);
   memset(c, 0, sizeof(*c));
 }
 

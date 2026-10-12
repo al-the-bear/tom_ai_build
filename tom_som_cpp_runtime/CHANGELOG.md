@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+- CodeSpecs: the Stage-A gate (`codespecs_prompt.md` §4, A1–A5) as one
+  `CodeSpecsGate` (`spec_codespecs_gate.hpp`). It borrows a model, document,
+  catalogue, optional DocSpecs schema and optional root type; `run()` returns
+  a `CodeSpecsGateReport` — one `CodeSpecsGateCheckResult` per check (`ran`,
+  `notRunReason`, the `CodeSpecsGateFinding`s with `code` / `location` /
+  `message`), the extraction run's `extracts` when A3 passed, `passed()`,
+  `findings()` and lookup by `CodeSpecsGateCheck`. Every check runs; a check
+  that cannot run (no schema, no gate tables, no extraction run) is reported
+  not run, with the Dart reference's reason, and fails the gate. A1 renders
+  the document to Markdown and validates it with the DocSpecs validator; A2 is
+  `validateDocument`; A3 collects every unrouted class of the routing walk (or
+  the root-resolution error) before extracting; A4 checks the catalogue's
+  required marker arguments against the extracts; A5 checks its carriers
+  against the model. `CodeSpecsAreaCatalog::fromJson` reads the optional
+  `gate` block: `CodeSpecsFieldRef` (`source()`), `CodeSpecsRequiredArgument`
+  (optional `resolvesTo` / `when` + `whenEquals`), `CodeSpecsCarrier`, and the
+  catalogue's `requiredArguments`, `carriers` and `hasGateTables`. The
+  conformance runner checks every case of `codespecs_gate_cases.json`
+  (`codespecsGate[...]`).
+- Fix: `specYamlNodeKey` compared a node's `kind` with the kind constants by
+  pointer. Two translation units need not share one copy of a string literal,
+  and under AddressSanitizer they do not, so a section or complex node lost its
+  class section id from its YAML key (`control:` for `CTRL control:`). Kinds
+  are compared by content now.
+
 - CodeSpecs: reading Phase-4 output back (`spec_codespecs_records.hpp`).
   `CodeSpecsExtract::fromYaml` / `parseCodeSpecsExtractYaml` parse a
   `<CE-CODE>.extract.yaml` — the inverse of `toYaml`, byte-identical on the

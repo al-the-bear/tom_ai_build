@@ -23,6 +23,13 @@ Future<void> main(List<String> arguments) async {
           'tom_ai/core/tom_core_codespecs/doc/codespecs_mapping.md.',
     )
     ..addOption(
+      'prompt',
+      help:
+          'The starting-prompt document whose §4.4/§4.5 gate tables are '
+          'transcribed. Default: '
+          'tom_specs_model/doc/codespecs_prompt.md.',
+    )
+    ..addOption(
       'output',
       help:
           'Where to write the catalogue. Default: '
@@ -72,6 +79,12 @@ Future<void> main(List<String> arguments) async {
           ),
     ),
   );
+  final promptPath = p.normalize(
+    p.absolute(
+      results.option('prompt') ??
+          p.join(modelRoot, 'doc', 'codespecs_prompt.md'),
+    ),
+  );
   final outputPath = p.normalize(
     p.absolute(
       results.option('output') ??
@@ -98,7 +111,10 @@ Future<void> main(List<String> arguments) async {
       if (!mapping.existsSync()) {
         throw AreasCatalogException('mapping document not found: $mappingPath');
       }
-      text = buildAreasCatalog(mapping.readAsStringSync()).toJsonText();
+      text = buildAreasCatalog(
+        mapping.readAsStringSync(),
+        promptDocument: File(promptPath).readAsStringSync(),
+      ).toJsonText();
       final committed = File(outputPath);
       if (!committed.existsSync()) {
         stderr.writeln('codespecs_areas --check: $outputPath does not exist.');
@@ -135,6 +151,7 @@ Future<void> main(List<String> arguments) async {
     } else {
       text = writeAreasCatalog(
         mappingPath: mappingPath,
+        promptPath: promptPath,
         outputPath: outputPath,
       );
       File(accessorPath).writeAsStringSync(
@@ -146,7 +163,10 @@ Future<void> main(List<String> arguments) async {
     exit(1);
   }
 
-  final catalog = buildAreasCatalog(File(mappingPath).readAsStringSync());
+  final catalog = buildAreasCatalog(
+    File(mappingPath).readAsStringSync(),
+    promptDocument: File(promptPath).readAsStringSync(),
+  );
   stdout.writeln(
     '${results.flag('check') ? 'OK — up to date' : 'Wrote'} '
     '${p.relative(outputPath, from: clitoolRoot)}',

@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- `CodeSpecsGate` runs Stage A of `codespecs_prompt.md` §4 — A1 to A5 — as one
+  gate over (model, document, catalogue, schema), reporting each check's
+  findings and never stopping at the first; a check that could not run is
+  reported as not run, and the gate does not pass. A4 (required marker
+  arguments have populated sources) and A5 (structured carriers still offered)
+  are new; their tables come from the catalogue's new `gate` block
+  (`CodeSpecsRequiredArgument`, `CodeSpecsCarrier`, `CodeSpecsFieldRef`).
+  Pinned by `codespecs_gate_cases.json` in all nine runtimes.
+
 - Reading Phase-4 files back (`spec_codespecs_records.dart`):
   `CodeSpecsExtract.fromYaml` (the inverse of `toYaml`, byte-stable;
   refuses an unknown `formatVersion` and a disagreeing `entryCount`);

@@ -43,6 +43,7 @@ document to find out what ``CE-FM`` means.
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field as dataclass_field
 from enum import Enum
 from typing import Any, Optional
@@ -229,6 +230,135 @@ class CodeSpecsStep:
 
 
 @dataclass(frozen=True)
+class CodeSpecsFieldRef:
+    """A SOM field a gate table names: a class, one of its members, and the
+    form field when the value is one field of a ``@Form`` section."""
+
+    #: The model class.
+    class_name: str
+    #: The member of :attr:`class_name`.
+    member: str
+    #: The form field of :attr:`member`, or ``None`` for a whole-member value.
+    form_field: Optional[str] = None
+
+    @staticmethod
+    def from_json(j: dict[str, Any]) -> "CodeSpecsFieldRef":
+        """Reads one reference; ``className`` and ``member`` are required."""
+        label = _row_label(j, ["className", "member"])
+        return CodeSpecsFieldRef(
+            class_name=_required_string(j, "className", label),
+            member=_required_string(j, "member", label),
+            form_field=j.get("formField"),
+        )
+
+    @property
+    def source(self) -> str:
+        """``Class.member`` or ``Class.member.formField`` — how findings name
+        it."""
+        if self.form_field is None:
+            return f"{self.class_name}.{self.member}"
+        return f"{self.class_name}.{self.member}.{self.form_field}"
+
+
+@dataclass(frozen=True)
+class CodeSpecsRequiredArgument:
+    """One A4 obligation (`codespecs_prompt.md` §4.4): a required ``Cs*``
+    marker argument and the stored SOM field it derives from."""
+
+    #: The area whose extract makes the obligation apply.
+    area: str
+    #: The marker, ``@CsTable``.
+    marker: str
+    #: The required argument, ``table``.
+    argument: str
+    #: The SOM field the argument derives from.
+    field: CodeSpecsFieldRef
+    #: When set, the value must also equal a value the run carries here — the
+    #: ``domainEnum`` → ``DMENE`` case of §4.4.
+    resolves_to: Optional[CodeSpecsFieldRef] = None
+    #: When set, an instance is held to the row only if it carries this field
+    #: with the value :attr:`when_equals` — the obligation sits on a ``@Case``.
+    when: Optional[CodeSpecsFieldRef] = None
+    #: The value :attr:`when` must hold.
+    when_equals: Optional[str] = None
+
+    @staticmethod
+    def from_json(j: dict[str, Any]) -> "CodeSpecsRequiredArgument":
+        """Reads one row of the catalogue's ``gate.requiredArguments``."""
+        label = _row_label(j, ["marker", "argument", "area"])
+        resolves = j.get("resolvesTo")
+        when = j.get("when")
+        return CodeSpecsRequiredArgument(
+            area=_required_string(j, "area", label),
+            marker=_required_string(j, "marker", label),
+            argument=_required_string(j, "argument", label),
+            field=CodeSpecsFieldRef.from_json(j),
+            resolves_to=None if resolves is None else CodeSpecsFieldRef.from_json(resolves),
+            when=None if when is None else CodeSpecsFieldRef.from_json(when),
+            when_equals=None if when is None else _required_string(when, "equals", label),
+        )
+
+    @property
+    def class_name(self) -> str:
+        """The source field's class."""
+        return self.field.class_name
+
+    @property
+    def member(self) -> str:
+        """The source field's member."""
+        return self.field.member
+
+    @property
+    def form_field(self) -> Optional[str]:
+        """The source field's form field."""
+        return self.field.form_field
+
+    @property
+    def source(self) -> str:
+        """The source field, as findings name it."""
+        return self.field.source
+
+
+@dataclass(frozen=True)
+class CodeSpecsCarrier:
+    """One A5 carrier (`codespecs_prompt.md` §4.5): a structured field the
+    model must keep offering."""
+
+    #: The field.
+    field: CodeSpecsFieldRef
+    #: The document section that introduced it, for the finding.
+    introduced_by: str = ""
+
+    @staticmethod
+    def from_json(j: dict[str, Any]) -> "CodeSpecsCarrier":
+        """Reads one row of the catalogue's ``gate.carriers``."""
+        return CodeSpecsCarrier(
+            field=CodeSpecsFieldRef.from_json(j),
+            introduced_by=j.get("introducedBy") or "",
+        )
+
+    @property
+    def class_name(self) -> str:
+        """The carrier's class."""
+        return self.field.class_name
+
+    @property
+    def member(self) -> str:
+        """The carrier's member."""
+        return self.field.member
+
+    @property
+    def form_field(self) -> Optional[str]:
+        """The carrier's form field."""
+        return self.field.form_field
+
+    @property
+    def source(self) -> str:
+        """The carrier, as findings name it."""
+        return self.field.source
+
+
+@dataclass(frozen=True)
 class CodeSpecsArea:
     """One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the
     §4.4.3 slice and §4.4.6 authoring steps that place it. This is the
@@ -301,14 +431,33 @@ class CodeSpecsAreaCatalog:
     #: The §4.4.6 authoring steps, in authoring order. Empty for a catalogue
     #: written before the step table was transcribed.
     steps: list[CodeSpecsStep] = dataclass_field(default_factory=list)
+    #: The A4 obligations (`codespecs_prompt.md` §4.4).
+    required_arguments: list[CodeSpecsRequiredArgument] = dataclass_field(
+        default_factory=list
+    )
+    #: The A5 carriers (`codespecs_prompt.md` §4.5).
+    carriers: list[CodeSpecsCarrier] = dataclass_field(default_factory=list)
+    #: Whether the catalogue carries the gate tables at all. Without them A4
+    #: and A5 are not run, rather than passing over nothing.
+    has_gate_tables: bool = False
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "CodeSpecsAreaCatalog":
+        gate = j.get("gate")
         return CodeSpecsAreaCatalog(
             source=j.get("source") or "",
             slices=[CodeSpecsSlice.from_json(e) for e in (j.get("slices") or [])],
             areas=[CodeSpecsArea.from_json(e) for e in (j.get("areas") or [])],
             steps=[CodeSpecsStep.from_json(e) for e in (j.get("steps") or [])],
+            required_arguments=[
+                CodeSpecsRequiredArgument.from_json(e)
+                for e in ((gate or {}).get("requiredArguments") or [])
+            ],
+            carriers=[
+                CodeSpecsCarrier.from_json(e)
+                for e in ((gate or {}).get("carriers") or [])
+            ],
+            has_gate_tables=gate is not None,
         )
 
     def step_numbered(self, number: int) -> Optional[CodeSpecsStep]:
@@ -990,6 +1139,30 @@ class _Buffer:
 
     def __str__(self) -> str:
         return "".join(self._parts)
+
+
+def _row_label(j: dict[str, Any], preferred: list[str]) -> str:
+    """Names a catalogue row for an error message: the first non-empty
+    *preferred* key, else the keys the row carries."""
+    for key in preferred:
+        v = j.get(key)
+        if isinstance(v, str) and v:
+            return f'{key} "{v}"'
+    keys = ", ".join(j.keys())
+    return "an empty row" if not keys else f"the row with keys [{keys}]"
+
+
+def _required_string(j: dict[str, Any], key: str, owner: str) -> str:
+    """A required non-empty string key of a catalogue row; raises
+    :class:`ValueError` naming the row otherwise."""
+    v = j.get(key)
+    if isinstance(v, str) and v:
+        return v
+    got = "absent" if v is None else f"{type(v).__name__} {json.dumps(str(v))}"
+    raise ValueError(
+        f'CodeSpecs area catalogue: {owner} is missing a non-empty "{key}" '
+        f"(got {got})"
+    )
 
 
 def _string_list(raw: Any) -> list[str]:

@@ -844,5 +844,378 @@
         "CE-CL"
       ]
     }
-  ]
+  ],
+  "gate": {
+    "requiredArguments": [
+      {
+        "area": "CE-TX",
+        "marker": "@CsText",
+        "argument": "baseCopy",
+        "className": "MessageKeyEntry",
+        "member": "content",
+        "formField": "defaultCopy"
+      },
+      {
+        "area": "CE-VA",
+        "marker": "@CsFieldRule/@CsFormRule",
+        "argument": "errorKey",
+        "className": "ElementValidationRuleEntry",
+        "member": "content",
+        "formField": "errorMessageResource"
+      },
+      {
+        "area": "CE-EL",
+        "marker": "@CsElement",
+        "argument": "kind",
+        "className": "ScreenElementEntry",
+        "member": "content",
+        "formField": "elementType"
+      },
+      {
+        "area": "CE-EL",
+        "marker": "@CsElement",
+        "argument": "kind",
+        "className": "ScreenElementFieldSpec",
+        "member": "content",
+        "formField": "dataType"
+      },
+      {
+        "area": "CE-LO",
+        "marker": "@CsLayout",
+        "argument": "nodeId",
+        "className": "ScreenSectionEntry",
+        "member": "content",
+        "formField": "sectionId"
+      },
+      {
+        "area": "CE-API",
+        "marker": "@CsEndpoint",
+        "argument": "operation",
+        "className": "ServerOperationEntry",
+        "member": "content",
+        "formField": "operationName"
+      },
+      {
+        "area": "CE-SU",
+        "marker": "@CsServiceUnit",
+        "argument": "rootAggregate",
+        "className": "DataEntityEntry",
+        "member": "classification",
+        "formField": "aggregateRoot"
+      },
+      {
+        "area": "CE-DB",
+        "marker": "@CsTable",
+        "argument": "table",
+        "className": "DataEntityEntry",
+        "member": "identity",
+        "formField": "tableName"
+      },
+      {
+        "area": "CE-DB",
+        "marker": "@CsColumn",
+        "argument": "domainEnum",
+        "className": "DataAttributeEntry",
+        "member": "enumerationTypeOptions",
+        "formField": "domainEnum",
+        "resolvesTo": {
+          "className": "DomainEnumEntry",
+          "member": "content",
+          "formField": "enumName"
+        },
+        "when": {
+          "className": "DataAttributeEntry",
+          "member": "dataTypeSpec",
+          "formField": "dataType",
+          "equals": "enumeration"
+        }
+      },
+      {
+        "area": "CE-AZ",
+        "marker": "@CsAuthorize",
+        "argument": "requirement",
+        "className": "AuthorizationRequirementSpec",
+        "member": "content",
+        "formField": "requirementKind"
+      },
+      {
+        "area": "CE-AZ",
+        "marker": "@CsAuthorize",
+        "argument": "requirement",
+        "className": "GradedAccessLevelEntry",
+        "member": "content",
+        "formField": "requirementKind"
+      },
+      {
+        "area": "CE-CF",
+        "marker": "@CsServerConfig",
+        "argument": "key",
+        "className": "ServerConfigurationSettingEntry",
+        "member": "content",
+        "formField": "settingKey"
+      },
+      {
+        "area": "CE-CF",
+        "marker": "@CsServerConfig",
+        "argument": "overridableBy",
+        "className": "ServerConfigurationSettingEntry",
+        "member": "content",
+        "formField": "overridableBy"
+      },
+      {
+        "area": "CE-CC",
+        "marker": "@CsClientConfig",
+        "argument": "key",
+        "className": "ClientConfigurationSettingEntry",
+        "member": "content",
+        "formField": "settingKey"
+      },
+      {
+        "area": "CE-CC",
+        "marker": "@CsClientConfig",
+        "argument": "overridableBy",
+        "className": "ClientConfigurationSettingEntry",
+        "member": "content",
+        "formField": "overridableBy"
+      },
+      {
+        "area": "CE-DS",
+        "marker": "@CsDeviceSetting",
+        "argument": "key",
+        "className": "DeviceSettingEntry",
+        "member": "content",
+        "formField": "settingKey"
+      },
+      {
+        "area": "CE-UP",
+        "marker": "@CsUserSetting",
+        "argument": "key",
+        "className": "UserSettingEntry",
+        "member": "content",
+        "formField": "settingKey"
+      },
+      {
+        "area": "CE-UP",
+        "marker": "@CsUserSetting",
+        "argument": "overridableBy",
+        "className": "UserSettingEntry",
+        "member": "content",
+        "formField": "overridableBy"
+      },
+      {
+        "area": "CE-CL",
+        "marker": "@CsClient",
+        "argument": "clientId",
+        "className": "ClientApplicationEntry",
+        "member": "content",
+        "formField": "clientId"
+      },
+      {
+        "area": "CE-CL",
+        "marker": "@CsClient",
+        "argument": "kind",
+        "className": "ClientApplicationEntry",
+        "member": "content",
+        "formField": "clientKind"
+      },
+      {
+        "area": "CE-ID",
+        "marker": "@CsIdentityAttribute",
+        "argument": "placement",
+        "className": "UserAttributeEntry",
+        "member": "content",
+        "formField": "placement"
+      },
+      {
+        "area": "CE-MG",
+        "marker": "@CsMigration",
+        "argument": "datasource",
+        "className": "MigrationTargetEntry",
+        "member": "content",
+        "formField": "dataSourceName"
+      },
+      {
+        "area": "CE-MG",
+        "marker": "@CsMigration",
+        "argument": "schema",
+        "className": "MigrationTargetEntry",
+        "member": "content",
+        "formField": "schemaName"
+      },
+      {
+        "area": "CE-MG",
+        "marker": "@CsMigration",
+        "argument": "kind",
+        "className": "SchemaMigrationStepEntry",
+        "member": "content",
+        "formField": "artifactKind"
+      },
+      {
+        "area": "CE-JB",
+        "marker": "@CsJob",
+        "argument": "trigger",
+        "className": "ScheduledJobEntry",
+        "member": "content",
+        "formField": "triggerKind"
+      }
+    ],
+    "carriers": [
+      {
+        "className": "ScheduledJobEntry",
+        "member": "workSteps",
+        "formField": null,
+        "introducedBy": "`codespecs_derivation_contract.md` §2.4 B8 (job work steps)"
+      },
+      {
+        "className": "ScheduledJobStepEntry",
+        "member": "content",
+        "formField": "systemAction",
+        "introducedBy": "`codespecs_derivation_contract.md` §2.4 B8 (job work steps)"
+      },
+      {
+        "className": "ScheduledJobStepEntry",
+        "member": "content",
+        "formField": "condition",
+        "introducedBy": "`codespecs_derivation_contract.md` §2.4 B4 (step guard)"
+      },
+      {
+        "className": "ExtensionEntry",
+        "member": "content",
+        "formField": "branchPoint",
+        "introducedBy": "`codespecs_derivation_contract.md` §2.4 B5 (branch point)"
+      },
+      {
+        "className": "ExtensionEntry",
+        "member": "content",
+        "formField": "returnKind",
+        "introducedBy": "`codespecs_derivation_contract.md` §2.4 B6 (return point)"
+      },
+      {
+        "className": "ExtensionEntry",
+        "member": "resumePoint",
+        "formField": "resumeStep",
+        "introducedBy": "`codespecs_derivation_contract.md` §2.4 B6 (return point)"
+      },
+      {
+        "className": "AlternativeFlowEntry",
+        "member": "content",
+        "formField": "branchPoint",
+        "introducedBy": "`codespecs_derivation_contract.md` §2.4 B5 (branch point)"
+      },
+      {
+        "className": "AlternativeFlowEntry",
+        "member": "content",
+        "formField": "returnKind",
+        "introducedBy": "`codespecs_derivation_contract.md` §2.4 B6 (return point)"
+      },
+      {
+        "className": "AlternativeFlowEntry",
+        "member": "resumePoint",
+        "formField": "resumeStep",
+        "introducedBy": "`codespecs_derivation_contract.md` §2.4 B6 (return point)"
+      },
+      {
+        "className": "ServerCallStepEntry",
+        "member": "content",
+        "formField": "role",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.7 (server-call roles)"
+      },
+      {
+        "className": "ServerCallStepEntry",
+        "member": "content",
+        "formField": "systemAction",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.7 (server-call roles)"
+      },
+      {
+        "className": "MainScenarioStepEntry",
+        "member": "serverCallSteps",
+        "formField": null,
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.7 (server-call steps)"
+      },
+      {
+        "className": "AlternativeStepEntry",
+        "member": "serverCallSteps",
+        "formField": null,
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.7 (server-call steps)"
+      },
+      {
+        "className": "ExtensionStepEntry",
+        "member": "serverCallSteps",
+        "formField": null,
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.7 (server-call steps)"
+      },
+      {
+        "className": "ScenarioStepEntry",
+        "member": "serverCallSteps",
+        "formField": null,
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.7 (server-call steps)"
+      },
+      {
+        "className": "MainScenarioStepEntry",
+        "member": "content",
+        "formField": "serverOperation",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.7 (operation citation)"
+      },
+      {
+        "className": "AlternativeStepEntry",
+        "member": "content",
+        "formField": "serverOperation",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.7 (operation citation)"
+      },
+      {
+        "className": "ExtensionStepEntry",
+        "member": "content",
+        "formField": "serverOperation",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.7 (operation citation)"
+      },
+      {
+        "className": "ScenarioStepEntry",
+        "member": "content",
+        "formField": "serverOperation",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.7 (operation citation)"
+      },
+      {
+        "className": "DataEntityEntry",
+        "member": "classification",
+        "formField": "aggregateRoot",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.4.1 (service-unit grouping)"
+      },
+      {
+        "className": "DataEntityEntry",
+        "member": "classification",
+        "formField": "serviceUnitAggregate",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.4.1 (service-unit grouping)"
+      },
+      {
+        "className": "DataEntityEntry",
+        "member": "classification",
+        "formField": "boundedContext",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.4.1 (service-unit grouping)"
+      },
+      {
+        "className": "ScheduledJobEntry",
+        "member": "cronTrigger",
+        "formField": "cronExpression",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.7.1 (job trigger cases)"
+      },
+      {
+        "className": "ScheduledJobEntry",
+        "member": "calendarTrigger",
+        "formField": "calendarRule",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.7.1 (job trigger cases)"
+      },
+      {
+        "className": "ScheduledJobEntry",
+        "member": "eventTrigger",
+        "formField": "eventName",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.7.1 (job trigger cases)"
+      },
+      {
+        "className": "DataAttributeEntry",
+        "member": "enumerationTypeOptions",
+        "formField": "domainEnum",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.3.2 (enumeration typing)"
+      }
+    ]
+  }
 }

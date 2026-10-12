@@ -79,6 +79,7 @@ tag / path-`replace` routes and how to pin.
 | `spec_query.go` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.go` | The constrained node-creation gate (`CheckAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
 | `spec_codespecs_extract.go` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — per-area, verbatim, with provenance. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
+| `spec_codespecs_gate.go` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, area catalogue (its `gate` tables) and DocSpecs schema; a check that cannot run is reported not run and fails the gate. |
 | `spec_codespecs_records.go` | Reads a Phase-4 run back: `CodeSpecsExtractFromYaml` (the byte-stable inverse of `ToYaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written), and `CodeSpecsExtractSet`, a tree of extracts scoped by its gate record. |
 | `spec_document_yaml.go` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
@@ -207,6 +208,7 @@ guard and the `ROUTE-TOTAL` error cases).
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
+| `CodeSpecsGate` | The Phase-4 Stage-A gate — checks A1–A5, one `CodeSpecsGateReport`. |
 | `CodeSpecsExtractSet` | A run's extracts read back and scoped by the gate record (`CodeSpecsGateRecord`). |
 | `SomNode` / `SomScalar` / `SomList[T]` | The editing-facade base types the generated `tom_som_go_v0` structs embed. |
 

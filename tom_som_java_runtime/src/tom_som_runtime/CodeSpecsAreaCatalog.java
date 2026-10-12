@@ -38,6 +38,18 @@ public final class CodeSpecsAreaCatalog {
    */
   public final List<CodeSpecsStep> steps;
 
+  /** The A4 obligations ({@code codespecs_prompt.md} §4.4). */
+  public final List<CodeSpecsRequiredArgument> requiredArguments;
+
+  /** The A5 carriers ({@code codespecs_prompt.md} §4.5). */
+  public final List<CodeSpecsCarrier> carriers;
+
+  /**
+   * Whether the catalogue carries the gate tables at all. Without them A4 and A5
+   * are not run, rather than passing over nothing.
+   */
+  public final boolean hasGateTables;
+
   public CodeSpecsAreaCatalog(
       String source, List<CodeSpecsSlice> slices, List<CodeSpecsArea> areas) {
     this(source, slices, areas, Collections.<CodeSpecsStep>emptyList());
@@ -48,10 +60,31 @@ public final class CodeSpecsAreaCatalog {
       List<CodeSpecsSlice> slices,
       List<CodeSpecsArea> areas,
       List<CodeSpecsStep> steps) {
+    this(
+        source,
+        slices,
+        areas,
+        steps,
+        Collections.<CodeSpecsRequiredArgument>emptyList(),
+        Collections.<CodeSpecsCarrier>emptyList(),
+        false);
+  }
+
+  public CodeSpecsAreaCatalog(
+      String source,
+      List<CodeSpecsSlice> slices,
+      List<CodeSpecsArea> areas,
+      List<CodeSpecsStep> steps,
+      List<CodeSpecsRequiredArgument> requiredArguments,
+      List<CodeSpecsCarrier> carriers,
+      boolean hasGateTables) {
     this.source = source;
     this.slices = slices;
     this.areas = areas;
     this.steps = steps;
+    this.requiredArguments = requiredArguments;
+    this.carriers = carriers;
+    this.hasGateTables = hasGateTables;
   }
 
   @SuppressWarnings("unchecked")
@@ -79,11 +112,34 @@ public final class CodeSpecsAreaCatalog {
         steps.add(CodeSpecsStep.fromJson((Map<String, Object>) e));
       }
     }
+    // The optional `gate` block carries the Stage-A tables (§4.4 / §4.5). Its
+    // presence, not its contents, decides whether A4 and A5 run.
+    Object rawGate = j.get("gate");
+    Map<String, Object> gate = rawGate instanceof Map ? (Map<String, Object>) rawGate : null;
+    List<CodeSpecsRequiredArgument> requiredArguments = new ArrayList<>();
+    List<CodeSpecsCarrier> carriers = new ArrayList<>();
+    if (gate != null) {
+      Object rawArgs = gate.get("requiredArguments");
+      if (rawArgs instanceof List) {
+        for (Object e : (List<Object>) rawArgs) {
+          requiredArguments.add(CodeSpecsRequiredArgument.fromJson((Map<String, Object>) e));
+        }
+      }
+      Object rawCarriers = gate.get("carriers");
+      if (rawCarriers instanceof List) {
+        for (Object e : (List<Object>) rawCarriers) {
+          carriers.add(CodeSpecsCarrier.fromJson((Map<String, Object>) e));
+        }
+      }
+    }
     return new CodeSpecsAreaCatalog(
         stringOr(j.get("source")),
         Collections.unmodifiableList(slices),
         Collections.unmodifiableList(areas),
-        Collections.unmodifiableList(steps));
+        Collections.unmodifiableList(steps),
+        Collections.unmodifiableList(requiredArguments),
+        Collections.unmodifiableList(carriers),
+        gate != null);
   }
 
   /** The authoring step numbered {@code number}, or {@code null}. */

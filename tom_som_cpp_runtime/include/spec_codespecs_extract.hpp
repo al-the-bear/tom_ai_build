@@ -252,6 +252,70 @@ struct CodeSpecsArea {
   std::string display() const;
 };
 
+/* ---- the gate tables (`codespecs_prompt.md` §4.4 / §4.5) ---------------- */
+
+/* A SOM field a gate table names: a class, one of its members, and the form
+ * field when the value is one field of a `@Form` section. */
+struct CodeSpecsFieldRef {
+  /* The model class. */
+  std::string className;
+  /* The member of `className`. */
+  std::string member;
+  /* The form field of `member`, or unset for a whole-member value. */
+  std::optional<std::string> formField;
+
+  /* Reads one reference from its `{className, member, formField}` object. */
+  static CodeSpecsFieldRef fromJson(const JsonRef& j);
+
+  /* `Class.member` or `Class.member.formField` — how findings name it. */
+  std::string source() const;
+};
+
+/* One A4 obligation (`codespecs_prompt.md` §4.4): a required `Cs*` marker
+ * argument and the stored SOM field it derives from. */
+struct CodeSpecsRequiredArgument {
+  /* The area whose extract makes the obligation apply. */
+  std::string area;
+  /* The marker, `@CsTable`. */
+  std::string marker;
+  /* The required argument, `table`. */
+  std::string argument;
+  /* The SOM field the argument derives from. */
+  CodeSpecsFieldRef field;
+  /* When set, the value must also equal a value the run carries here — the
+   * `domainEnum` → `DMENE` case of §4.4. */
+  std::optional<CodeSpecsFieldRef> resolvesTo;
+  /* When set, an instance is held to the row only if it carries this field
+   * with the value `whenEquals` — the obligation sits on a `@Case`. */
+  std::optional<CodeSpecsFieldRef> when;
+  /* The value `when` must hold; set exactly when `when` is. */
+  std::optional<std::string> whenEquals;
+
+  /* Reads one row of the catalogue's `gate.requiredArguments` — `area`,
+   * `marker`, `argument`, `className`, `member`, `formField`, the optional
+   * `resolvesTo` {className, member, formField} and the optional `when`
+   * {className, member, formField, equals}. */
+  static CodeSpecsRequiredArgument fromJson(const JsonRef& j);
+
+  /* The source field, as findings name it. */
+  std::string source() const { return field.source(); }
+};
+
+/* One A5 carrier (`codespecs_prompt.md` §4.5): a structured field the model
+ * must keep offering. */
+struct CodeSpecsCarrier {
+  /* The field. */
+  CodeSpecsFieldRef field;
+  /* The document section that introduced it, for the finding. */
+  std::string introducedBy;
+
+  /* Reads one row of the catalogue's `gate.carriers`. */
+  static CodeSpecsCarrier fromJson(const JsonRef& j);
+
+  /* The carrier, as findings name it. */
+  std::string source() const { return field.source(); }
+};
+
 /* The machine-readable form of `codespecs_mapping.md` §4.1 + §4.4.3 + §4.4.6.
  *
  * Authored once, read by all nine runtimes. It is an input rather than a baked
@@ -270,9 +334,18 @@ struct CodeSpecsAreaCatalog {
   /* The §4.4.6 authoring steps, in authoring order. Empty for a catalogue
    * written before the step table was transcribed. */
   std::vector<CodeSpecsStep> steps;
+  /* The A4 obligations (`codespecs_prompt.md` §4.4), from `gate`. */
+  std::vector<CodeSpecsRequiredArgument> requiredArguments;
+  /* The A5 carriers (`codespecs_prompt.md` §4.5), from `gate`. */
+  std::vector<CodeSpecsCarrier> carriers;
+  /* Whether the catalogue carries the gate tables at all (the optional `gate`
+   * object is present). Without them A4 and A5 are not run, rather than
+   * passing over nothing. */
+  bool hasGateTables = false;
 
-  /* Decodes a catalogue from its `{source, slices, areas, steps}` JSON object.
-   * An absent `steps` key yields no steps. */
+  /* Decodes a catalogue from its `{source, slices, areas, steps, gate}` JSON
+   * object. An absent `steps` key yields no steps; an absent (or null) `gate`
+   * key yields no gate tables. */
   static CodeSpecsAreaCatalog fromJson(const JsonRef& j);
 
   /* The active areas, in catalogue order — one extract each. */

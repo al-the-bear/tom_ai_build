@@ -2907,6 +2907,144 @@ static int gate_from_json_list(const SomJson *list, CodeSpecsGateRecord *out,
   return ok;
 }
 
+/* ---- CodeSpecs gate: Stage A, A1–A5 ------------------------------------- */
+
+/* The report in the corpus's `expect` shape, as compact JSON text in the key
+ * order of the Dart `_runGateCase`. */
+static char *gate_report_text(const CodeSpecsGateReport *r) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, "{\"passed\":");
+  som_buf_puts(&b, spec_codespecs_gate_report_passed(r) ? "true" : "false");
+  som_buf_puts(&b, ",\"results\":[");
+  for (size_t i = 0; i < CODESPECS_GATE_CHECK_COUNT; i++) {
+    const CodeSpecsGateCheckResult *res = &r->results[i];
+    if (i > 0) som_buf_putc(&b, ',');
+    som_buf_puts(&b, "{\"check\":");
+    sum_str(&b, spec_codespecs_gate_check_label(res->check));
+    som_buf_puts(&b, ",\"ran\":");
+    som_buf_puts(&b, res->ran ? "true" : "false");
+    som_buf_puts(&b, ",\"notRunReason\":");
+    sum_str(&b, res->not_run_reason);
+    som_buf_puts(&b, ",\"findings\":[");
+    for (size_t k = 0; k < res->findings_len; k++) {
+      const CodeSpecsGateFinding *f = &res->findings[k];
+      if (k > 0) som_buf_putc(&b, ',');
+      som_buf_puts(&b, "{\"code\":");
+      sum_str(&b, f->code);
+      som_buf_puts(&b, ",\"location\":");
+      sum_str(&b, f->location);
+      som_buf_puts(&b, ",\"message\":");
+      sum_str(&b, f->message);
+      som_buf_putc(&b, '}');
+    }
+    som_buf_puts(&b, "]}");
+  }
+  som_buf_puts(&b, "]}");
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+/* One gate case, like the Dart `_runGateCase`. A case key that is PRESENT
+ * overrides the table default — `schema: null` means no schema, `gate: null` a
+ * catalogue without gate tables. */
+static char *run_gate_case(const SomJson *table, const SomJson *cc,
+                           const SomJson *meta) {
+  /* The catalogue JSON: `catalog` plus `gate` unless that is null. */
+  const SomJson *gate = som_json_get(cc, "gate") != NULL
+                            ? som_json_get(cc, "gate")
+                            : som_json_get(table, "gate");
+  char *catalog_text = json_text(som_json_get(table, "catalog"));
+  if (gate != NULL && gate->type != SOM_JSON_NULL) {
+    size_t n = strlen(catalog_text);
+    char *gate_text = json_text(gate);
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_putn(&b, catalog_text, n - 1); /* drop the closing brace */
+    som_buf_puts(&b, n > 2 ? ",\"gate\":" : "\"gate\":");
+    som_buf_puts(&b, gate_text);
+    som_buf_putc(&b, '}');
+    free(catalog_text);
+    free(gate_text);
+    catalog_text = som_buf_take(&b);
+    som_buf_free(&b);
+  }
+  char *perr = NULL;
+  SomJson *catalog_json = som_json_parse(catalog_text, &perr);
+  free(catalog_text);
+  if (catalog_json == NULL) {
+    char *msg = perr;
+    return msg != NULL ? msg : som_strdup("catalogue JSON did not parse");
+  }
+  CodeSpecsAreaCatalog catalog;
+  spec_codespecs_area_catalog_from_json(catalog_json, &catalog);
+  som_json_free(catalog_json);
+
+  const SomJson *schema_yaml = som_json_get(cc, "schema") != NULL
+                                   ? som_json_get(cc, "schema")
+                                   : som_json_get(table, "schema");
+  DocSpecsSchema *schema = NULL;
+  if (som_json_as_str(schema_yaml) != NULL) {
+    char *serr = NULL;
+    if (!docspecs_schema_from_yaml_text(som_json_as_str(schema_yaml), &schema,
+                                        &serr)) {
+      spec_codespecs_area_catalog_free(&catalog);
+      return serr != NULL ? serr : som_strdup("schema did not parse");
+    }
+  }
+
+  const SomJson *model_json = som_json_get(cc, "model");
+  SpecModel *model =
+      spec_model_from_json(model_json != NULL ? model_json : meta);
+  DocumentJson state;
+  document_json_from_json(som_json_get(cc, "state"), &state);
+  SpecDocument doc;
+  doc_from_state(&doc, &state);
+
+  CodeSpecsGate gate_run =
+      spec_codespecs_gate_make(model, &doc, &catalog, schema, NULL);
+  CodeSpecsGateReport report;
+  char *err = NULL;
+  char *got;
+  if (spec_codespecs_gate_run(&gate_run, &report, &err)) {
+    got = gate_report_text(&report);
+    spec_codespecs_gate_report_free(&report);
+  } else {
+    got = err != NULL ? err : som_strdup("gate run failed");
+  }
+
+  spec_document_free(&doc);
+  document_json_free(&state);
+  spec_model_free(model);
+  if (schema != NULL) docspecs_schema_free(schema);
+  spec_codespecs_area_catalog_free(&catalog);
+  return got;
+}
+
+/* `codespecs_gate_cases.json`: the Stage-A gate, A1–A5, every case. */
+static void test_codespecs_gate(Checker *c) {
+  SomJson *table = read_json("codespecs_gate_cases.json");
+  SomJson *meta = read_json("model.meta.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "codespecsGate.cases.nonEmpty", n > 0, "no cases");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *cc = som_json_array_at(cases, i);
+    char tag[512];
+    snprintf(tag, sizeof(tag), "codespecsGate[%s]", som_json_str_or(cc, "name"));
+    char *got = run_gate_case(table, cc, meta);
+    char *want = json_text(som_json_get(cc, "expect"));
+    char *d = byte_diff(tag, got, want);
+    check(c, tag, strcmp(got, want) == 0, d);
+    free(d);
+    free(got);
+    free(want);
+  }
+  som_json_free(meta);
+  som_json_free(table);
+}
+
 /* `codespecs_record_cases.json`: reading extracts and the gate record back,
  * writing the gate record, and scoping a set of extracts by it. */
 static void test_codespecs_records(Checker *c) {
@@ -3482,6 +3620,7 @@ int main(int argc, char **argv) {
   test_projection(&c, model);
   test_codespecs_extract(&c, model);
   test_codespecs_records(&c);
+  test_codespecs_gate(&c);
   test_cursor(&c, model);
   test_node_creation_cases(&c, model);
   test_node_creation_script(&c, model);

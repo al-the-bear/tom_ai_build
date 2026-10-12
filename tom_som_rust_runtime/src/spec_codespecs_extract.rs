@@ -295,6 +295,193 @@ impl CodeSpecsStep {
     }
 }
 
+/// A SOM field a gate table names: a class, one of its members, and the form
+/// field when the value is one field of a `@Form` section.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CodeSpecsFieldRef {
+    /// The model class.
+    pub class_name: String,
+
+    /// The member of [`Self::class_name`].
+    pub member: String,
+
+    /// The form field of [`Self::member`], or `None` for a whole-member value.
+    pub form_field: Option<String>,
+}
+
+impl CodeSpecsFieldRef {
+    /// Reads one reference; `className` and `member` are required, so either
+    /// one absent or empty is an `Err` naming the row.
+    pub fn from_json(j: &Json) -> Result<CodeSpecsFieldRef, String> {
+        let label = gate_row_label(j, &["className", "member"]);
+        Ok(CodeSpecsFieldRef {
+            class_name: gate_required_string(j, "className", &label)?,
+            member: gate_required_string(j, "member", &label)?,
+            form_field: j.get("formField").and_then(|v| v.as_str()).map(str::to_string),
+        })
+    }
+
+    /// `Class.member` or `Class.member.formField` — how findings name it.
+    pub fn source(&self) -> String {
+        match &self.form_field {
+            None => format!("{}.{}", self.class_name, self.member),
+            Some(ff) => format!("{}.{}.{}", self.class_name, self.member, ff),
+        }
+    }
+}
+
+/// One A4 obligation (`codespecs_prompt.md` §4.4): a required `Cs*` marker
+/// argument and the stored SOM field it derives from.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CodeSpecsRequiredArgument {
+    /// The area whose extract makes the obligation apply.
+    pub area: String,
+
+    /// The marker, `@CsTable`.
+    pub marker: String,
+
+    /// The required argument, `table`.
+    pub argument: String,
+
+    /// The SOM field the argument derives from.
+    pub field: CodeSpecsFieldRef,
+
+    /// When set, the value must also equal a value the run carries here — the
+    /// `domainEnum` → `DMENE` case of §4.4.
+    pub resolves_to: Option<CodeSpecsFieldRef>,
+
+    /// When set, an instance is held to the row only if it carries this field
+    /// with the value [`Self::when_equals`] — the obligation sits on a `@Case`.
+    pub when: Option<CodeSpecsFieldRef>,
+
+    /// The value [`Self::when`] must hold; `None` without [`Self::when`].
+    pub when_equals: Option<String>,
+}
+
+impl CodeSpecsRequiredArgument {
+    /// Reads one row of the catalogue's `gate.requiredArguments`.
+    pub fn from_json(j: &Json) -> Result<CodeSpecsRequiredArgument, String> {
+        let label = gate_row_label(j, &["marker", "argument", "area"]);
+        let resolves_to = match j.get("resolvesTo") {
+            Some(r @ Json::Object(_)) => Some(CodeSpecsFieldRef::from_json(r)?),
+            _ => None,
+        };
+        let (when, when_equals) = match j.get("when") {
+            Some(w @ Json::Object(_)) => (
+                Some(CodeSpecsFieldRef::from_json(w)?),
+                Some(gate_required_string(w, "equals", &label)?),
+            ),
+            _ => (None, None),
+        };
+        Ok(CodeSpecsRequiredArgument {
+            area: gate_required_string(j, "area", &label)?,
+            marker: gate_required_string(j, "marker", &label)?,
+            argument: gate_required_string(j, "argument", &label)?,
+            field: CodeSpecsFieldRef::from_json(j)?,
+            resolves_to,
+            when,
+            when_equals,
+        })
+    }
+
+    /// The source field's class.
+    pub fn class_name(&self) -> &str {
+        &self.field.class_name
+    }
+
+    /// The source field's member.
+    pub fn member(&self) -> &str {
+        &self.field.member
+    }
+
+    /// The source field's form field.
+    pub fn form_field(&self) -> Option<&str> {
+        self.field.form_field.as_deref()
+    }
+
+    /// The source field, as findings name it.
+    pub fn source(&self) -> String {
+        self.field.source()
+    }
+}
+
+/// One A5 carrier (`codespecs_prompt.md` §4.5): a structured field the model
+/// must keep offering.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CodeSpecsCarrier {
+    /// The field.
+    pub field: CodeSpecsFieldRef,
+
+    /// The document section that introduced it, for the finding.
+    pub introduced_by: String,
+}
+
+impl CodeSpecsCarrier {
+    /// Reads one row of the catalogue's `gate.carriers`.
+    pub fn from_json(j: &Json) -> Result<CodeSpecsCarrier, String> {
+        Ok(CodeSpecsCarrier {
+            field: CodeSpecsFieldRef::from_json(j)?,
+            introduced_by: j.str_or("introducedBy"),
+        })
+    }
+
+    /// The carrier's class.
+    pub fn class_name(&self) -> &str {
+        &self.field.class_name
+    }
+
+    /// The carrier's member.
+    pub fn member(&self) -> &str {
+        &self.field.member
+    }
+
+    /// The carrier's form field.
+    pub fn form_field(&self) -> Option<&str> {
+        self.field.form_field.as_deref()
+    }
+
+    /// The carrier, as findings name it.
+    pub fn source(&self) -> String {
+        self.field.source()
+    }
+}
+
+/// The row's first non-empty identifying cell, for a gate-table error message.
+fn gate_row_label(j: &Json, preferred: &[&str]) -> String {
+    for key in preferred {
+        if let Some(v) = j.get(key).and_then(|v| v.as_str()) {
+            if !v.is_empty() {
+                return format!("{} \"{}\"", key, v);
+            }
+        }
+    }
+    let keys: Vec<&str> = j
+        .as_object()
+        .map(|o| o.iter().map(|(k, _)| k.as_str()).collect())
+        .unwrap_or_default();
+    if keys.is_empty() {
+        "an empty row".to_string()
+    } else {
+        format!("the row with keys [{}]", keys.join(", "))
+    }
+}
+
+/// A required non-empty string cell of a gate-table row.
+fn gate_required_string(j: &Json, key: &str, owner: &str) -> Result<String, String> {
+    match j.get(key) {
+        Some(Json::Str(v)) if !v.is_empty() => Ok(v.clone()),
+        other => Err(format!(
+            "CodeSpecs area catalogue: {} is missing a non-empty \"{}\" (got {})",
+            owner,
+            key,
+            match other {
+                None | Some(Json::Null) => "absent".to_string(),
+                Some(v) => format!("{:?}", v),
+            }
+        )),
+    }
+}
+
 /// One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the §4.4.3
 /// slice and §4.4.6 authoring steps that place it. This is the **per-area
 /// context** an extract carries beside its content.
@@ -383,11 +570,26 @@ pub struct CodeSpecsAreaCatalog {
     /// The §4.4.6 authoring steps, in authoring order. Empty for a catalogue
     /// written before the step table was transcribed.
     pub steps: Vec<CodeSpecsStep>,
+
+    /// The A4 obligations (`codespecs_prompt.md` §4.4).
+    pub required_arguments: Vec<CodeSpecsRequiredArgument>,
+
+    /// The A5 carriers (`codespecs_prompt.md` §4.5).
+    pub carriers: Vec<CodeSpecsCarrier>,
+
+    /// Whether the catalogue carries the gate tables at all. Without them A4
+    /// and A5 are not run, rather than passing over nothing.
+    pub has_gate_tables: bool,
 }
 
 impl CodeSpecsAreaCatalog {
     /// Reads the catalogue out of its JSON object.
-    pub fn from_json(j: &Json) -> CodeSpecsAreaCatalog {
+    ///
+    /// Fails only on a malformed row of the optional `gate` block (a
+    /// `requiredArguments` or `carriers` row missing a required cell): the gate
+    /// tables are authored input shared by all nine runtimes, and a row that
+    /// half-parsed would put a silently incomplete obligation into every gate.
+    pub fn from_json(j: &Json) -> Result<CodeSpecsAreaCatalog, String> {
         let slices = j
             .get("slices")
             .and_then(|v| v.as_array())
@@ -405,12 +607,31 @@ impl CodeSpecsAreaCatalog {
             .and_then(|v| v.as_array())
             .map(|arr| arr.iter().map(CodeSpecsStep::from_json).collect())
             .unwrap_or_default();
-        CodeSpecsAreaCatalog {
+        // The optional `gate` block carries the Stage-A tables (§4.4 / §4.5).
+        // Its presence, not its contents, decides whether A4 and A5 run.
+        let gate = match j.get("gate") {
+            Some(g @ Json::Object(_)) => Some(g),
+            _ => None,
+        };
+        let mut required_arguments = Vec::new();
+        let mut carriers = Vec::new();
+        if let Some(g) = gate {
+            for row in g.get("requiredArguments").and_then(|v| v.as_array()).unwrap_or(&[]) {
+                required_arguments.push(CodeSpecsRequiredArgument::from_json(row)?);
+            }
+            for row in g.get("carriers").and_then(|v| v.as_array()).unwrap_or(&[]) {
+                carriers.push(CodeSpecsCarrier::from_json(row)?);
+            }
+        }
+        Ok(CodeSpecsAreaCatalog {
             source: j.str_or("source"),
             slices,
             areas,
             steps,
-        }
+            required_arguments,
+            carriers,
+            has_gate_tables: gate.is_some(),
+        })
     }
 
     /// The authoring step numbered `number`, or `None`.

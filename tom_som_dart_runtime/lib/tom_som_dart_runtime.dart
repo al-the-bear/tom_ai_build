@@ -62,6 +62,7 @@ library;
 export 'src/docspecs_validator.dart';
 export 'src/spec_annotation_display.dart';
 export 'src/spec_codespecs_extract.dart';
+export 'src/spec_codespecs_gate.dart';
 export 'src/spec_codespecs_records.dart';
 export 'src/som_facade.dart';
 export 'src/spec_document.dart';

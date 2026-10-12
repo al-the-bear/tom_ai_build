@@ -113,7 +113,9 @@ unpublished_drift:
     `CodeSpecsAreaCatalog.steps`, the §4.4.6 authoring-step table (vsctsa37),
     pinned by `codespecs_extract_cases.json`; and reading extracts back plus
     the gate record (`CodeSpecsExtract.fromYaml`, `CodeSpecsGateRecord`,
-    `CodeSpecsExtractSet`, vsctsa38), pinned by `codespecs_record_cases.json`
+    `CodeSpecsExtractSet`, vsctsa38), pinned by `codespecs_record_cases.json`;
+    and `CodeSpecsGate`, Stage A's five checks as one gate (vsctsa39), pinned
+    by `codespecs_gate_cases.json`
     — all in all nine runtimes.
   tom_som_dart_v0: >-
     REGENERATED, unpublished until vsctsa45: the meta now carries the class-level
@@ -123,13 +125,16 @@ unpublished_drift:
   tom_core_codespecs: >-
     NO CODE: one documentation line — `codespecs_derivation_contract.md`'s
     "Where they run" names the SOM runtime's `CodeSpecsExtractSet` as the reader
-    `cs_extract` goes through (vsctsa38). Goes out with vsctsa45.
+    `cs_extract` goes through (vsctsa38); `codespecs_mapping.md` §10 indexes
+    qrb6, the two required arguments with no SOM source (vsctsa39). Goes out
+    with vsctsa45.
   tom_specs_model: >-
     NO CODE: SOM §11.6 (wrapper sections), SOM §11.7 (applying a parsed
     import), SOM §12.1 (the review pass), SOM §14 item 4 (section replace)
     and the meta-schema note on the class-level `@Form`; the area catalogue
     gains its `steps` (vsctsa37); `codespecs_prompt.md` §6.3 names the
-    gate record's `note:` and its runtime reader (vsctsa38). Goes out with
+    gate record's `note:` and its runtime reader (vsctsa38); §4.4/§4.5 pin A4
+    and A5 and the catalogue carries their tables (vsctsa39). Goes out with
     vsctsa45.
   tom_specs_clitool: >-
     The model JSON export honours a class-level `@Form`, and the schema
@@ -138,7 +143,8 @@ unpublished_drift:
     facade takes its runtime as a peer (vsctsa36); the area catalogue
     carries the §4.4.6 step table (vsctsa37); the CodeSpecs validator reads
     extracts through the runtime (vsctsa38), so its published constraint on
-    tom_som_dart_runtime must move to the release carrying that reader. Unpublished
+    tom_som_dart_runtime must move to the release carrying that reader; the
+    catalogue transcribes the Stage-A gate tables (vsctsa39). Unpublished
     until vsctsa45, which publishes the regenerated packages these produce.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`

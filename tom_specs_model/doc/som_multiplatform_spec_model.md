@@ -559,6 +559,14 @@ language mirrors it:
   validator in `tom_specs_clitool` reads through the Dart one, so there is one
   reader rather than a second copy of its rules.
 
+- `spec_codespecs_gate.dart` — `CodeSpecsGate`, Stage A of
+  `codespecs_prompt.md` §4: A1 (schema completeness), A2 (`validateDocument`),
+  A3 (routing totality over the extractor's own walk), A4 (required marker
+  arguments have populated sources) and A5 (the model still offers its
+  structured carriers), run together and never failing fast. A4 and A5 read
+  their tables from the area catalogue's `gate` block, transcribed from
+  `codespecs_prompt.md` §4.4.2/§4.5, so no runtime restates them.
+
 The Dart runtime additionally carries **`spec_annotation_display.dart`** and the
 test-only `spec_display_fixture.dart`: the theme-free *display semantics* of the
 model's annotations — which markers a node carries, what each says, when one

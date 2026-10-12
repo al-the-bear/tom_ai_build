@@ -30,6 +30,8 @@
 //!   - reading the CodeSpecs records back: extract files (round-tripping byte
 //!     for byte), the gate record (read, written, edited, refused) and the
 //!     scoping of a file set by its record (codespecs_record_cases.json);
+//!   - the Stage-A CodeSpecs gate, A1–A5, over every case of
+//!     codespecs_gate_cases.json;
 //!   - the SOM §14 DocSpecs tier (one case per violation rule).
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
@@ -41,6 +43,7 @@ use tom_som_rust_runtime::json::Json;
 use tom_som_rust_runtime::spec_codespecs_extract::{
     CodeSpecsAreaCatalog, CodeSpecsExtract, CodeSpecsExtractor,
 };
+use tom_som_rust_runtime::spec_codespecs_gate::{CodeSpecsGate, CodeSpecsGateReport};
 use tom_som_rust_runtime::spec_codespecs_records::{
     CodeSpecsExtractSet, CodeSpecsGateEntry, CodeSpecsGateRecord, CodeSpecsGateVerdict,
 };
@@ -192,6 +195,7 @@ fn conformance() {
     test_projection(&mut c, &model);
     test_codespecs_extract(&mut c, &model);
     test_codespecs_records(&mut c);
+    test_codespecs_gate(&mut c);
     test_cursor_script(&mut c, &model);
     test_node_creation_cases(&mut c, &model);
     test_node_creation_script(&mut c, &model);
@@ -1546,7 +1550,7 @@ fn codespecs_step_cases(catalog_json: &Json) -> Json {
                 .collect(),
         )
     }
-    let catalog = CodeSpecsAreaCatalog::from_json(catalog_json);
+    let catalog = CodeSpecsAreaCatalog::from_json(catalog_json).expect("the catalogue loads");
     let legacy_json = Json::Object(
         catalog_json
             .as_object()
@@ -1556,7 +1560,7 @@ fn codespecs_step_cases(catalog_json: &Json) -> Json {
             .cloned()
             .collect(),
     );
-    let legacy = CodeSpecsAreaCatalog::from_json(&legacy_json);
+    let legacy = CodeSpecsAreaCatalog::from_json(&legacy_json).expect("the catalogue loads");
     let steps = catalog
         .steps
         .iter()
@@ -1591,7 +1595,8 @@ fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
     let table = read_json("codespecs_extract_cases.json");
     let catalog = CodeSpecsAreaCatalog::from_json(
         table.get("catalog").expect("codespecs_extract_cases has a catalog"),
-    );
+    )
+    .expect("the catalogue loads");
     let state = DocumentJson::from_json(&read_json("state.json"));
     let doc = doc_from_state(&state);
     let extractor = CodeSpecsExtractor::for_model(&doc, model, catalog.clone(), None)
@@ -2122,7 +2127,8 @@ fn test_codespecs_records(c: &mut Checker) {
         extract_table
             .get("catalog")
             .expect("codespecs_extract_cases has a catalog"),
-    );
+    )
+    .expect("the catalogue loads");
 
     for case in cases(&table, "extractReads") {
         let source = case.str_or("source");
@@ -2576,4 +2582,99 @@ fn opt_eq(got: &str, want: &Option<String>) -> bool {
         None => got.is_empty(),
         Some(w) => got == w,
     }
+}
+
+/// Every case of the Stage-A gate table (codespecs_gate_cases.json, A1–A5). The
+/// catalogue is `catalog` plus the case's (or the table's) `gate` block, the
+/// schema the case's (or the table's) `schema`. A case key that is **present
+/// with null** overrides the default — no schema, or a catalogue without gate
+/// tables — so presence is tested on the key, not on the value.
+fn test_codespecs_gate(c: &mut Checker) {
+    let table = read_json("codespecs_gate_cases.json");
+    let meta = read_json("model.meta.json");
+    for case in table
+        .get("cases")
+        .and_then(|v| v.as_array())
+        .expect("codespecs_gate_cases has cases")
+    {
+        let at = format!("codespecsGate[{}]", case.str_or("name"));
+        let want = case.get("expect").expect("a gate case has an expect");
+        match run_gate_case(&table, case, &meta) {
+            Ok(got) => c.check(&at, json_eq(&got, want), &format!("{:?} != {:?}", got, want)),
+            Err(e) => c.check(&at, false, &e),
+        }
+    }
+}
+
+/// The value of `key` when `case` carries the key at all (null included),
+/// else the table's default.
+fn case_or_default<'a>(table: &'a Json, case: &'a Json, key: &str) -> Option<&'a Json> {
+    let present = case
+        .as_object()
+        .is_some_and(|o| o.iter().any(|(k, _)| k == key));
+    if present {
+        case.get(key)
+    } else {
+        table.get(key)
+    }
+}
+
+fn run_gate_case(table: &Json, case: &Json, meta: &Json) -> Result<Json, String> {
+    let mut catalog_pairs: Vec<(String, Json)> = table
+        .get("catalog")
+        .and_then(|v| v.as_object())
+        .ok_or("codespecs_gate_cases has a catalog")?
+        .to_vec();
+    match case_or_default(table, case, "gate") {
+        None | Some(Json::Null) => {}
+        Some(gate) => {
+            catalog_pairs.retain(|(k, _)| k != "gate");
+            catalog_pairs.push(("gate".to_string(), gate.clone()));
+        }
+    }
+    let catalog = CodeSpecsAreaCatalog::from_json(&Json::Object(catalog_pairs))?;
+    let schema = match case_or_default(table, case, "schema") {
+        None | Some(Json::Null) => None,
+        Some(yaml) => Some(DocSpecsSchema::from_yaml_text(
+            yaml.as_str().ok_or("a gate schema is a YAML string")?,
+        )?),
+    };
+    let model = match case.get("model") {
+        None | Some(Json::Null) => SpecModel::from_json(meta),
+        Some(m) => SpecModel::from_json(m),
+    };
+    let state = DocumentJson::from_json(case.get("state").ok_or("a gate case has a state")?);
+    let doc = doc_from_state(&state);
+    let report = CodeSpecsGate::new(&model, &doc, &catalog, schema.as_ref(), None).run();
+    Ok(gate_report_json(&report))
+}
+
+fn gate_report_json(report: &CodeSpecsGateReport) -> Json {
+    let results = report
+        .results
+        .iter()
+        .map(|r| {
+            let findings = r
+                .findings
+                .iter()
+                .map(|f| {
+                    Json::Object(vec![
+                        ("code".to_string(), jstr(&f.code)),
+                        ("location".to_string(), jstr(&f.location)),
+                        ("message".to_string(), jstr(&f.message)),
+                    ])
+                })
+                .collect();
+            Json::Object(vec![
+                ("check".to_string(), jstr(r.check.label())),
+                ("ran".to_string(), Json::Bool(r.ran)),
+                ("notRunReason".to_string(), jopt(&r.not_run_reason)),
+                ("findings".to_string(), Json::Array(findings)),
+            ])
+        })
+        .collect();
+    Json::Object(vec![
+        ("passed".to_string(), Json::Bool(report.passed())),
+        ("results".to_string(), Json::Array(results)),
+    ])
 }

@@ -1,5 +1,10 @@
 ## Unreleased
 
+- The area catalogue carries the Stage-A gate tables (`gate.requiredArguments`,
+  `gate.carriers`), and `codespecs_prompt.md` §4.4/§4.5 pin A4 and A5
+  mechanically: the rule, the 25-row required-argument table and the 26-row
+  carrier table.
+
 - `generated-doc/codespecs/codespecs_areas.json` (and the embedded accessor
   `lib/codespecs_areas.dart`) carries the 31 authoring steps of
   `codespecs_mapping.md` §4.4.6.

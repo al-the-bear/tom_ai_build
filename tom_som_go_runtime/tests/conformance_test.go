@@ -21,6 +21,7 @@
 //   - the query surface (match lists, cursor laziness, the projection walk);
 //   - the Phase-4 CodeSpecs extract generator (routing verdicts, the per-area
 //     YAML/Markdown goldens, the verbatim-copy guard, `ROUTE-TOTAL`);
+//   - the Phase-4 Stage-A gate (CodeSpecsGate, checks A1–A5);
 //   - reading extracts and the gate record back (the byte-stable extract read,
 //     the gate record's shape checks, scoping a tree of extracts);
 //   - the constrained node-creation gate (per-code rejections + the script);
@@ -224,6 +225,7 @@ func TestConformance(t *testing.T) {
 	testProjection(c, t, model)
 	testCodeSpecsExtract(c, t, model)
 	testCodeSpecsRecords(c, t)
+	testCodeSpecsGate(c, t)
 	testCursor(c, t, model)
 	testNodeCreation(c, t, model)
 	testNodeCreationScript(c, t, model)
@@ -2426,5 +2428,120 @@ func testCodeSpecsRecords(c *checker, t *testing.T) {
 		}
 		got := canonJSON(t, codeSpecsScopeSummary(set))
 		c.check(tag, got == rawCanon(t, sc.Expect), got)
+	}
+}
+
+// codeSpecsGateTable mirrors corpus/codespecs_gate_cases.json — the Stage-A
+// gate, A1–A5. Cases are decoded into raw key maps because the corpus tells
+// "key present with null" (no schema / a catalogue without gate tables) from
+// "key absent" (take the table default), which a struct field cannot.
+type codeSpecsGateTable struct {
+	Catalog json.RawMessage              `json:"catalog"`
+	Gate    json.RawMessage              `json:"gate"`
+	Schema  json.RawMessage              `json:"schema"`
+	Cases   []map[string]json.RawMessage `json:"cases"`
+}
+
+func isJSONNull(raw json.RawMessage) bool {
+	return raw == nil || strings.TrimSpace(string(raw)) == "null"
+}
+
+// runGateCase is the Dart harness's `_runGateCase`: a case key that is
+// present overrides the table default.
+func runGateCase(t *testing.T, table *codeSpecsGateTable, cs map[string]json.RawMessage, meta string) (any, error) {
+	var catalogJSON map[string]json.RawMessage
+	if err := json.Unmarshal(table.Catalog, &catalogJSON); err != nil {
+		return nil, err
+	}
+	gate := table.Gate
+	if v, ok := cs["gate"]; ok {
+		gate = v
+	}
+	if !isJSONNull(gate) {
+		catalogJSON["gate"] = gate
+	}
+	catalogBytes, err := json.Marshal(catalogJSON)
+	if err != nil {
+		return nil, err
+	}
+	catalog, err := som.CodeSpecsAreaCatalogFromJSON(catalogBytes)
+	if err != nil {
+		return nil, err
+	}
+	schemaRaw := table.Schema
+	if v, ok := cs["schema"]; ok {
+		schemaRaw = v
+	}
+	var schema *som.DocSpecsSchema
+	if !isJSONNull(schemaRaw) {
+		var text string
+		if err := json.Unmarshal(schemaRaw, &text); err != nil {
+			return nil, err
+		}
+		if schema, err = som.DocSpecsSchemaFromYamlText(text); err != nil {
+			return nil, err
+		}
+	}
+	modelJSON := []byte(meta)
+	if v, ok := cs["model"]; ok && !isJSONNull(v) {
+		modelJSON = v
+	}
+	model, err := som.SpecModelFromJSON(modelJSON)
+	if err != nil {
+		return nil, err
+	}
+	var state som.DocumentJson
+	if err := json.Unmarshal(cs["state"], &state); err != nil {
+		return nil, err
+	}
+	report, err := som.NewCodeSpecsGate(model, docFromState(&state), catalog, schema, "").Run()
+	if err != nil {
+		return nil, err
+	}
+	results := []any{}
+	for _, r := range report.Results {
+		findings := []any{}
+		for _, f := range r.Findings {
+			findings = append(findings, map[string]any{
+				"code": f.Code, "location": f.Location, "message": f.Message,
+			})
+		}
+		var reason any
+		if !r.Ran {
+			reason = r.NotRunReason
+		}
+		results = append(results, map[string]any{
+			"check":        r.Check.Label(),
+			"ran":          r.Ran,
+			"notRunReason": reason,
+			"findings":     findings,
+		})
+	}
+	got := map[string]any{"passed": report.Passed(), "results": results}
+	b, err := json.Marshal(got)
+	if err != nil {
+		return nil, err
+	}
+	return jsonAny(t, b), nil
+}
+
+// testCodeSpecsGate runs codespecs_gate_cases.json: each case's whole report
+// against the Dart reference's.
+func testCodeSpecsGate(c *checker, t *testing.T) {
+	var table codeSpecsGateTable
+	readJSON(t, "codespecs_gate_cases.json", &table)
+	meta := readCorpus(t, "model.meta.json")
+	c.check("codespecs_gate.cases", len(table.Cases) > 0, "no cases")
+	for _, cs := range table.Cases {
+		var name string
+		_ = json.Unmarshal(cs["name"], &name)
+		tag := "codespecs_gate[" + name + "]"
+		got, err := runGateCase(t, &table, cs, meta)
+		if err != nil {
+			c.check(tag, false, err.Error())
+			continue
+		}
+		want := jsonAny(t, cs["expect"])
+		c.check(tag, reflect.DeepEqual(got, want), canonJSON(t, got)+" != "+canonJSON(t, want))
 	}
 }

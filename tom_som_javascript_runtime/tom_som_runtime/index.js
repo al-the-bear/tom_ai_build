@@ -89,7 +89,17 @@ const {
   CodeSpecsGateRecord,
   CodeSpecsExcludedArea,
   CodeSpecsExtractSet,
+  CodeSpecsFieldRef,
+  CodeSpecsRequiredArgument,
+  CodeSpecsCarrier,
 } = require('./spec_codespecs_extract');
+const {
+  CodeSpecsGate,
+  CodeSpecsGateCheck,
+  CodeSpecsGateFinding,
+  CodeSpecsGateCheckResult,
+  CodeSpecsGateReport,
+} = require('./spec_codespecs_gate');
 const {
   somFormatBool,
   somFormatDouble,
@@ -252,6 +262,15 @@ module.exports = {
   CodeSpecsGateRecord,
   CodeSpecsExcludedArea,
   CodeSpecsExtractSet,
+  // the Stage-A gate (codespecs_prompt.md §4, A1–A5) and its catalogue tables
+  CodeSpecsFieldRef,
+  CodeSpecsRequiredArgument,
+  CodeSpecsCarrier,
+  CodeSpecsGate,
+  CodeSpecsGateCheck,
+  CodeSpecsGateFinding,
+  CodeSpecsGateCheckResult,
+  CodeSpecsGateReport,
   // typed-value store boundary
   somParseInt,
   somFormatInt,

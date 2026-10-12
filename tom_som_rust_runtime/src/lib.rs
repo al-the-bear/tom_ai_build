@@ -17,6 +17,7 @@ pub mod docspecs_validator;
 pub mod json;
 pub mod som_facade;
 pub mod spec_codespecs_extract;
+pub mod spec_codespecs_gate;
 pub mod spec_codespecs_records;
 pub mod spec_document;
 pub mod spec_document_markdown;
@@ -58,10 +59,15 @@ pub use som_facade::{
     SomNode, SomScalar, SomVersionError,
 };
 pub use spec_codespecs_extract::{
-    CodeSpecsArea, CodeSpecsAreaCatalog, CodeSpecsExtract, CodeSpecsExtractEntry,
-    CodeSpecsExtractError, CodeSpecsExtractor, CodeSpecsRouting, CodeSpecsRoutingVerdict,
-    CodeSpecsSlice, CodeSpecsStep, CODE_SPECS_EXTRACT_FORMAT, CODE_SPEC_KIND_ANNOTATION,
+    CodeSpecsArea, CodeSpecsAreaCatalog, CodeSpecsCarrier, CodeSpecsExtract,
+    CodeSpecsExtractEntry, CodeSpecsExtractError, CodeSpecsExtractor, CodeSpecsFieldRef,
+    CodeSpecsRequiredArgument, CodeSpecsRouting, CodeSpecsRoutingVerdict, CodeSpecsSlice,
+    CodeSpecsStep, CODE_SPECS_EXTRACT_FORMAT, CODE_SPEC_KIND_ANNOTATION,
     FOLLOW_UP_KIND_ANNOTATION, NO_ARTIFACT_ANNOTATION,
+};
+pub use spec_codespecs_gate::{
+    CodeSpecsGate, CodeSpecsGateCheck, CodeSpecsGateCheckResult, CodeSpecsGateFinding,
+    CodeSpecsGateReport,
 };
 pub use spec_codespecs_records::{
     parse_code_specs_extract_yaml, CodeSpecsExcludedArea, CodeSpecsExtractSet, CodeSpecsGateEntry,

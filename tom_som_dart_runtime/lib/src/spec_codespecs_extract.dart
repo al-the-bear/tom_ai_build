@@ -327,6 +327,140 @@ class CodeSpecsStep {
   }
 }
 
+/// A SOM field a gate table names: a class, one of its members, and the form
+/// field when the value is one field of a `@Form` section.
+class CodeSpecsFieldRef {
+  /// The model class.
+  final String className;
+
+  /// The member of [className].
+  final String member;
+
+  /// The form field of [member], or `null` for a whole-member value.
+  final String? formField;
+
+  /// Creates a reference.
+  const CodeSpecsFieldRef({
+    required this.className,
+    required this.member,
+    this.formField,
+  });
+
+  /// Reads one reference; `className` and `member` are required.
+  factory CodeSpecsFieldRef.fromJson(Map<String, dynamic> j) {
+    final label = _rowLabel(j, ['className', 'member']);
+    return CodeSpecsFieldRef(
+      className: _requiredString(j, 'className', label),
+      member: _requiredString(j, 'member', label),
+      formField: j['formField'] as String?,
+    );
+  }
+
+  /// `Class.member` or `Class.member.formField` — how findings name it.
+  String get source => formField == null
+      ? '$className.$member'
+      : '$className.$member.$formField';
+}
+
+/// One A4 obligation (`codespecs_prompt.md` §4.4): a required `Cs*` marker
+/// argument and the stored SOM field it derives from.
+class CodeSpecsRequiredArgument {
+  /// The area whose extract makes the obligation apply.
+  final String area;
+
+  /// The marker, `@CsTable`.
+  final String marker;
+
+  /// The required argument, `table`.
+  final String argument;
+
+  /// The SOM field the argument derives from.
+  final CodeSpecsFieldRef field;
+
+  /// When set, the value must also equal a value the run carries here —
+  /// the `domainEnum` → `DMENE` case of `codespecs_prompt.md` §4.4.
+  final CodeSpecsFieldRef? resolvesTo;
+
+  /// When set, an instance is held to the row only if it carries this field
+  /// with the value [whenEquals] — the obligation sits on a `@Case`.
+  final CodeSpecsFieldRef? when;
+
+  /// The value [when] must hold.
+  final String? whenEquals;
+
+  /// Creates an obligation.
+  const CodeSpecsRequiredArgument({
+    required this.area,
+    required this.marker,
+    required this.argument,
+    required this.field,
+    this.resolvesTo,
+    this.when,
+    this.whenEquals,
+  });
+
+  /// Reads one row of the catalogue's `gate.requiredArguments`.
+  factory CodeSpecsRequiredArgument.fromJson(Map<String, dynamic> j) {
+    final label = _rowLabel(j, ['marker', 'argument', 'area']);
+    final resolves = j['resolvesTo'];
+    final when = (j['when'] as Map?)?.cast<String, dynamic>();
+    return CodeSpecsRequiredArgument(
+      area: _requiredString(j, 'area', label),
+      marker: _requiredString(j, 'marker', label),
+      argument: _requiredString(j, 'argument', label),
+      field: CodeSpecsFieldRef.fromJson(j),
+      resolvesTo: resolves == null
+          ? null
+          : CodeSpecsFieldRef.fromJson((resolves as Map).cast()),
+      when: when == null ? null : CodeSpecsFieldRef.fromJson(when),
+      whenEquals: when == null ? null : _requiredString(when, 'equals', label),
+    );
+  }
+
+  /// The source field's class.
+  String get className => field.className;
+
+  /// The source field's member.
+  String get member => field.member;
+
+  /// The source field's form field.
+  String? get formField => field.formField;
+
+  /// The source field, as findings name it.
+  String get source => field.source;
+}
+
+/// One A5 carrier (`codespecs_prompt.md` §4.5): a structured field the model
+/// must keep offering.
+class CodeSpecsCarrier {
+  /// The field.
+  final CodeSpecsFieldRef field;
+
+  /// The document section that introduced it, for the finding.
+  final String introducedBy;
+
+  /// Creates a carrier.
+  const CodeSpecsCarrier({required this.field, this.introducedBy = ''});
+
+  /// Reads one row of the catalogue's `gate.carriers`.
+  factory CodeSpecsCarrier.fromJson(Map<String, dynamic> j) => CodeSpecsCarrier(
+    field: CodeSpecsFieldRef.fromJson(j),
+    introducedBy: j['introducedBy'] as String? ?? '',
+  );
+
+  /// The carrier's class.
+  String get className => field.className;
+
+  /// The carrier's member.
+  String get member => field.member;
+
+  /// The carrier's form field.
+  String? get formField => field.formField;
+
+  /// The carrier, as findings name it.
+  String get source => field.source;
+}
+
 /// One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the `codespecs_mapping.md` §4.4.3
 /// slice and `codespecs_mapping.md` §4.4.6 authoring steps that place it. This is the **per-area
 /// context** an extract carries beside its content.
@@ -433,6 +567,16 @@ class CodeSpecsAreaCatalog {
   /// Empty for a catalogue written before the step table was transcribed.
   final List<CodeSpecsStep> steps;
 
+  /// The A4 obligations (`codespecs_prompt.md` §4.4).
+  final List<CodeSpecsRequiredArgument> requiredArguments;
+
+  /// The A5 carriers (`codespecs_prompt.md` §4.5).
+  final List<CodeSpecsCarrier> carriers;
+
+  /// Whether the catalogue carries the gate tables at all. Without them A4
+  /// and A5 are not run, rather than passing over nothing.
+  final bool hasGateTables;
+
   /// Every argument defaults to empty, so an empty catalogue is a legal value
   /// rather than an error — a runtime can be constructed before its catalogue
   /// file has been read. The order of [areas] is load-bearing input, not
@@ -444,6 +588,9 @@ class CodeSpecsAreaCatalog {
     this.slices = const [],
     this.areas = const [],
     this.steps = const [],
+    this.requiredArguments = const [],
+    this.carriers = const [],
+    this.hasGateTables = false,
   });
 
   /// Loads the authored catalogue as transcribed from `codespecs_mapping.md`
@@ -452,19 +599,35 @@ class CodeSpecsAreaCatalog {
   /// catalogue is authored input shared by all nine runtimes, and a row that
   /// half-parsed would put a silently incomplete vocabulary into every
   /// extract. Element order is preserved verbatim (see [areas]).
-  factory CodeSpecsAreaCatalog.fromJson(Map<String, dynamic> j) =>
-      CodeSpecsAreaCatalog(
-        source: j['source'] as String? ?? '',
-        slices: ((j['slices'] as List?) ?? const [])
-            .map((e) => CodeSpecsSlice.fromJson(e as Map<String, dynamic>))
-            .toList(growable: false),
-        areas: ((j['areas'] as List?) ?? const [])
-            .map((e) => CodeSpecsArea.fromJson(e as Map<String, dynamic>))
-            .toList(growable: false),
-        steps: ((j['steps'] as List?) ?? const [])
-            .map((e) => CodeSpecsStep.fromJson(e as Map<String, dynamic>))
-            .toList(growable: false),
-      );
+  factory CodeSpecsAreaCatalog.fromJson(Map<String, dynamic> j) {
+    final gate = (j['gate'] as Map?)?.cast<String, dynamic>();
+    return CodeSpecsAreaCatalog(
+      source: j['source'] as String? ?? '',
+      slices: ((j['slices'] as List?) ?? const [])
+          .map((e) => CodeSpecsSlice.fromJson(e as Map<String, dynamic>))
+          .toList(growable: false),
+      areas: ((j['areas'] as List?) ?? const [])
+          .map((e) => CodeSpecsArea.fromJson(e as Map<String, dynamic>))
+          .toList(growable: false),
+      steps: ((j['steps'] as List?) ?? const [])
+          .map((e) => CodeSpecsStep.fromJson(e as Map<String, dynamic>))
+          .toList(growable: false),
+      requiredArguments: ((gate?['requiredArguments'] as List?) ?? const [])
+          .map(
+            (e) => CodeSpecsRequiredArgument.fromJson(
+              (e as Map).cast<String, dynamic>(),
+            ),
+          )
+          .toList(growable: false),
+      carriers: ((gate?['carriers'] as List?) ?? const [])
+          .map(
+            (e) =>
+                CodeSpecsCarrier.fromJson((e as Map).cast<String, dynamic>()),
+          )
+          .toList(growable: false),
+      hasGateTables: gate != null,
+    );
+  }
 
   /// The authoring step numbered [number], or `null`.
   CodeSpecsStep? stepNumbered(int number) {

@@ -181,6 +181,24 @@ Map<String, String> _wire(
 /// Every enum diffed against a corpus table. **Adding one is one entry.**
 final List<CorpusGuardedEnum> _guarded = [
   CorpusGuardedEnum(
+    enumName: 'CodeSpecsGateCheck',
+    // The report labels checks as `codespecs_prompt.md` §4 names them.
+    declared: {for (final v in CodeSpecsGateCheck.values) v.name: v.label},
+    corpusFile: 'codespecs_gate_cases.json',
+    exercised: (c) => {
+      for (final k
+          in ((c as Map<String, dynamic>)['cases'] as List)
+              .cast<Map<String, dynamic>>())
+        for (final r
+            in ((k['expect'] as Map)['results'] as List)
+                .cast<Map<String, dynamic>>())
+          r['check'] as String,
+    },
+    why:
+        'A port that reports a check under the wrong label tells a reader '
+        'a different check failed.',
+  ),
+  CorpusGuardedEnum(
     enumName: 'CodeSpecsGateVerdict',
     // The record spells verdicts as `codespecs_prompt.md` §6.2 words.
     declared: {for (final v in CodeSpecsGateVerdict.values) v.name: v.word},

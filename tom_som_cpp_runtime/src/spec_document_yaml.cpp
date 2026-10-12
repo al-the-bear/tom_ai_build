@@ -53,9 +53,13 @@ std::string specYamlNodeKey(const SomMetaNode& node) {
   // SOM §12.2 class fallback), mirroring the markdown codec's heading rule.
   // Content/scalar/enum/form/list-item keys keep only their field-level id; the
   // path segment is never affected (see SomMetaNode::segment).
+  // Compare kinds by content, never by pointer: the constants are string
+  // literals, and two translation units need not share one copy of a literal
+  // (an AddressSanitizer build does not, and then every key lost its id).
+  const std::string kind = node.kind;
   const std::string& id =
       (node.sectionId.empty() &&
-       (node.kind == kSomMetaKindSection || node.kind == kSomMetaKindComplex))
+       (kind == kSomMetaKindSection || kind == kSomMetaKindComplex))
           ? node.classSectionId
           : node.sectionId;
   if (id.empty()) {

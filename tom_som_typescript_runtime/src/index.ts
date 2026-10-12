@@ -140,7 +140,18 @@ export {
   CodeSpecsGateRecord,
   CodeSpecsExcludedArea,
   CodeSpecsExtractSet,
+  CodeSpecsFieldRef,
+  CodeSpecsRequiredArgument,
+  CodeSpecsCarrier,
 } from './spec_codespecs_extract';
+// Phase-4 Stage-A gate (codespecs_prompt.md §4, A1–A5)
+export {
+  CodeSpecsGate,
+  CodeSpecsGateCheck,
+  CodeSpecsGateFinding,
+  CodeSpecsGateCheckResult,
+  CodeSpecsGateReport,
+} from './spec_codespecs_gate';
 export type {
   CodeSpecsRoutingVerdictValue,
   CodeSpecsFiles,

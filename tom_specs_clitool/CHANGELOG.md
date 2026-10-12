@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- `bin/codespecs_areas.dart` also transcribes the Stage-A gate tables of
+  `codespecs_prompt.md` §4.4.2 (A4's required arguments, with their
+  *Resolves to* and *Applies when* columns) and §4.5 (A5's carriers) into the
+  catalogue's `gate` block (`--prompt` names the document). A test holds every
+  row to the generated model.
+
 - `validate_codespecs` reads extracts and the gate record through the SOM
   runtime's `CodeSpecsExtractSet` instead of a reader of its own. The
   gate-record entry may carry a `note:`; an unknown key in it is now an error.

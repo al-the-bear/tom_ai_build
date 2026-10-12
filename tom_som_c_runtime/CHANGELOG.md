@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+- CodeSpecs: the Stage-A gate (`codespecs_prompt.md` §4, A1–A5) as one
+  `CodeSpecsGate` (`spec_codespecs_gate.h`). `spec_codespecs_gate_make`
+  borrows a model, document, catalogue, optional DocSpecs schema and optional
+  root type; `spec_codespecs_gate_run` fills a `CodeSpecsGateReport` — one
+  `CodeSpecsGateCheckResult` per check (`ran`, `not_run_reason`, the
+  `CodeSpecsGateFinding`s with `code` / `location` / `message`), the
+  extraction run's `extracts` when A3 passed, `passed`, findings in check
+  order — released with `spec_codespecs_gate_report_free`. Every check runs;
+  a check that cannot run (no schema, no gate tables, no extraction run) is
+  reported not run, with the Dart reference's reason, and fails the gate. A1
+  renders the document to Markdown and validates it with the DocSpecs
+  validator; A2 is `validate_document`; A3 collects every unrouted class of the
+  routing walk (or the root-resolution error) before extracting; A4 checks the
+  catalogue's required marker arguments against the extracts; A5 checks its
+  carriers against the model. The area catalogue reads the optional `gate`
+  block: `CodeSpecsFieldRef` (`spec_codespecs_field_ref_source`),
+  `CodeSpecsRequiredArgument` (with optional `resolves_to` / `when` +
+  `when_equals`), `CodeSpecsCarrier`, and `CodeSpecsAreaCatalog`'s
+  `required_arguments`, `carriers` and `has_gate_tables`, all released by
+  `spec_codespecs_area_catalog_free`. The conformance runner checks every case
+  of `codespecs_gate_cases.json` (`codespecsGate[...]`).
+
 - CodeSpecs: reading Phase-4 output back (`spec_codespecs_records.h`).
   `spec_codespecs_extract_from_yaml` parses a `<CE-CODE>.extract.yaml` — the
   inverse of `spec_codespecs_extract_to_yaml`, byte-identical on the round

@@ -299,6 +299,14 @@ type CodeSpecsAreaCatalog struct {
 	// Steps are the §4.4.6 authoring steps, in authoring order. Empty for a
 	// catalogue written before the step table was transcribed.
 	Steps []*CodeSpecsStep
+	// RequiredArguments are the A4 obligations (`codespecs_prompt.md` §4.4).
+	RequiredArguments []*CodeSpecsRequiredArgument
+	// Carriers are the A5 carriers (`codespecs_prompt.md` §4.5).
+	Carriers []*CodeSpecsCarrier
+	// HasGateTables reports whether the catalogue carries the gate tables at
+	// all (its `gate` key is present and not null). Without them A4 and A5 are
+	// not run, rather than passing over nothing.
+	HasGateTables bool
 }
 
 // codeSpecsSliceJSON, codeSpecsAreaJSON, codeSpecsStepJSON and
@@ -337,6 +345,9 @@ type codeSpecsCatalogJSON struct {
 	Slices []*codeSpecsSliceJSON `json:"slices"`
 	Areas  []*codeSpecsAreaJSON  `json:"areas"`
 	Steps  []*codeSpecsStepJSON  `json:"steps"`
+	// Gate is the optional `gate` block — rows kept generic so the gate-table
+	// reader can name a row by the keys it carries (codeSpecsRowLabel).
+	Gate *codeSpecsGateJSON `json:"gate"`
 }
 
 // CodeSpecsAreaCatalogFromJSON decodes the authored catalogue, normalising every
@@ -351,6 +362,9 @@ func CodeSpecsAreaCatalogFromJSON(data []byte) (*CodeSpecsAreaCatalog, error) {
 		Slices: make([]*CodeSpecsSlice, 0, len(raw.Slices)),
 		Areas:  make([]*CodeSpecsArea, 0, len(raw.Areas)),
 		Steps:  make([]*CodeSpecsStep, 0, len(raw.Steps)),
+	}
+	if err := catalog.readGateTables(raw.Gate); err != nil {
+		return nil, err
 	}
 	for _, s := range raw.Slices {
 		catalog.Slices = append(catalog.Slices, &CodeSpecsSlice{

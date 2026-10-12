@@ -16,8 +16,77 @@ void main() {
   final mapping = File(
     '../../core/tom_core_codespecs/doc/codespecs_mapping.md',
   ).readAsStringSync();
+  final prompt = File(
+    '../tom_specs_model/doc/codespecs_prompt.md',
+  ).readAsStringSync();
 
   group('codespecs_areas.json', () {
+    test(
+      'the gate tables are transcribed from codespecs_prompt.md §4.4/§4.5',
+      () {
+        final gate = buildAreasCatalog(mapping, promptDocument: prompt).gate!;
+        final required = (gate['requiredArguments'] as List).cast<Map>();
+        final carriers = (gate['carriers'] as List).cast<Map>();
+        expect(required, isNotEmpty);
+        expect(carriers, isNotEmpty);
+        // The one case `codespecs_prompt.md` §4.4 states by name: an enumeration attribute's domain
+        // enum must resolve to an authored registry entry.
+        expect(
+          required.where((r) => r['resolvesTo'] != null),
+          isNotEmpty,
+          reason: 'the domainEnum → DMENE obligation is in the table',
+        );
+        for (final r in [...required, ...carriers]) {
+          expect(r['className'], isNotEmpty);
+          expect(r['member'], isNotEmpty);
+        }
+      },
+    );
+
+    test('every gate-table row names a field the generated model has', () {
+      // A row naming a field the model never had would make A4 vacuous (no
+      // instance carries it) or A5 fail on a model that is fine, so the
+      // transcription is held to the meta all nine runtimes are built from.
+      final meta =
+          jsonDecode(
+                File(
+                  '../tom_som_dart_v0/meta/spec_model.meta.json',
+                ).readAsStringSync(),
+              )
+              as Map<String, dynamic>;
+      final classes = (meta['classes'] as Map).cast<String, dynamic>();
+      String? missing(Map ref) {
+        final cls = classes[ref['className']] as Map?;
+        if (cls == null) return 'no class ${ref['className']}';
+        final field = (cls['fields'] as List).cast<Map>().where(
+          (f) => f['name'] == ref['member'],
+        );
+        if (field.isEmpty) return 'no member ${ref['member']}';
+        final ff = ref['formField'];
+        if (ff == null) return null;
+        final forms = ((field.first['formFields'] as List?) ?? const [])
+            .cast<Map>();
+        return forms.any((f) => f['name'] == ff) ? null : 'no form field $ff';
+      }
+
+      final gate = buildAreasCatalog(mapping, promptDocument: prompt).gate!;
+      final problems = <String>[];
+      for (final r in [
+        ...(gate['requiredArguments'] as List).cast<Map>(),
+        ...(gate['carriers'] as List).cast<Map>(),
+      ]) {
+        for (final ref in [r, r['resolvesTo'], r['when']].whereType<Map>()) {
+          final m = missing(ref);
+          if (m != null) problems.add('${r['className']}.${r['member']}: $m');
+        }
+      }
+      expect(problems, isEmpty);
+    });
+
+    test('without the prompt document there is no gate block', () {
+      expect(buildAreasCatalog(mapping).toJson().containsKey('gate'), isFalse);
+    });
+
     test('the committed catalogue equals a fresh transcription', () {
       final committed = File(
         '../tom_specs_model/generated-doc/codespecs/codespecs_areas.json',
@@ -29,7 +98,7 @@ void main() {
       );
       expect(
         committed.readAsStringSync(),
-        buildAreasCatalog(mapping).toJsonText(),
+        buildAreasCatalog(mapping, promptDocument: prompt).toJsonText(),
         reason:
             'codespecs_areas.json is stale — regenerate it and commit the '
             'diff. The mapping document is the authority; this file is only '

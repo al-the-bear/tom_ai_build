@@ -75,6 +75,7 @@ and how to pin.
 | `spec_query.js` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.js` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
 | `spec_codespecs_extract.js` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — per area, every value `@CodeSpecKind` routes there, verbatim and with provenance. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). Also reads the artifacts back: `CodeSpecsExtract.fromYaml`, the gate record `CodeSpecsGateRecord` and the scoped `CodeSpecsExtractSet`. |
+| `spec_codespecs_gate.js` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, catalogue and DocSpecs schema; a check that could not run is reported not run, never passed. |
 | `spec_document_yaml.js` | Byte-stable `*.docspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.js` | DocSpecs-conform Markdown import/export codec (`SOM §11`). |
 | `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`). |
@@ -177,6 +178,7 @@ wrapper (`tests/conformance.test.js`).
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
 | `CodeSpecsExtractSet` | Reads extracts back (`CodeSpecsExtract.fromYaml`) and scopes them by the Stage-B gate record (`CodeSpecsGateRecord`, `gate.verdicts.yaml`). |
+| `CodeSpecsGate` | The Phase-4 Stage-A gate — A1 (DocSpecs completeness), A2 (values), A3 (routing), A4 (required marker arguments), A5 (carriers) in one `CodeSpecsGateReport`. |
 | `SomNode` / `SomScalar` / `SomList` | The editing-facade base types the generated `tom_som_javascript_v0` classes extend. |
 
 ## Ecosystem

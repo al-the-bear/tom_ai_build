@@ -24,6 +24,7 @@ golden byte-for-byte and matches every behavioural case:
   * the Phase-4 CodeSpecs extract generator (routing verdicts, the YAML +
     Markdown extract goldens, the verbatim-copy guard and the ``ROUTE-TOTAL``
     error cases);
+  * the Phase-4 Stage-A gate (``CodeSpecsGate``, checks A1–A5);
   * constrained node creation (the stateless gate probes and a mutation
     script).
 
@@ -52,6 +53,7 @@ from tom_som_runtime import (  # noqa: E402
     CodeSpecsExtractError,
     CodeSpecsExtractSet,
     CodeSpecsExtractor,
+    CodeSpecsGate,
     CodeSpecsGateEntry,
     CodeSpecsGateRecord,
     CodeSpecsGateVerdict,
@@ -1277,6 +1279,52 @@ def _record_error(fn):
     return None
 
 
+def _run_gate_case(table: dict, case: dict, meta: dict) -> dict:
+    """One gate case of ``codespecs_gate_cases.json`` — a port of the Dart
+    harness's ``_runGateCase``. A case key that is **present** overrides the
+    table default: ``schema: null`` means no schema, ``gate: null`` a catalogue
+    without gate tables, so presence is tested with ``in``, not ``get``."""
+    catalog_json = dict(table["catalog"])
+    gate = case["gate"] if "gate" in case else table["gate"]
+    if gate is not None:
+        catalog_json["gate"] = gate
+    schema_yaml = case["schema"] if "schema" in case else table["schema"]
+    model = SpecModel.from_json(case.get("model") or meta)
+    report = CodeSpecsGate(
+        model=model,
+        document=_document_from_state(case["state"]),
+        catalog=CodeSpecsAreaCatalog.from_json(catalog_json),
+        schema=None if schema_yaml is None else DocSpecsSchema.from_yaml_text(schema_yaml),
+    ).run()
+    return {
+        "passed": report.passed,
+        "results": [
+            {
+                "check": r.check.label,
+                "ran": r.ran,
+                "notRunReason": r.not_run_reason,
+                "findings": [
+                    {"code": f.code, "location": f.location, "message": f.message}
+                    for f in r.findings
+                ],
+            }
+            for r in report.results
+        ],
+    }
+
+
+def test_codespecs_gate() -> None:
+    """``codespecs_gate_cases.json``: the Stage-A gate, A1–A5, one case per
+    rule shape, each compared whole against the Dart reference's report."""
+    table = _read_json("codespecs_gate_cases.json")
+    meta = _read_json("model.meta.json")
+    for case in table["cases"]:
+        name = case["name"]
+        got = _run_gate_case(table, case, meta)
+        _check(f"codespecs_gate[{name}]", got == case["expect"],
+               _json_mismatch(got, case["expect"]))
+
+
 def test_codespecs_records() -> None:
     """Reading extracts and the gate record back
     (``codespecs_record_cases.json``): every extract the extractor writes reads
@@ -1505,6 +1553,7 @@ def main() -> int:
     test_projection(model)
     test_codespecs_extract(model)
     test_codespecs_records()
+    test_codespecs_gate()
     test_cursor(model)
     test_node_creation(model)
     test_node_creation_script(model)

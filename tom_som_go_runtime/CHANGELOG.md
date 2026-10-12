@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+- CodeSpecs gate (`spec_codespecs_gate.go`) runs Stage A of
+  `codespecs_prompt.md` §4 as one `NewCodeSpecsGate(model, document, catalog,
+  schema, rootType).Run()`, returning a `CodeSpecsGateReport` with one
+  `CodeSpecsGateCheckResult` per check A1–A5 (`Ran`, `NotRunReason`,
+  `Findings`, `Passed()`), the extraction run's `Extracts` when A3 passed, and
+  `Result(check)` lookup. A1 validates the rendered Markdown against the
+  DocSpecs schema (nil schema: not run), A2 runs `ValidateDocument`, A3
+  reports every unrouted section of the non-strict walk (or the
+  root-resolution error), A4 holds each required marker argument of a used
+  area to a populated source (with the `When` filter and `ResolvesTo` check),
+  A5 checks every carrier still exists in the model. A check that cannot run
+  is reported not run, with its reason, and fails the gate. `Run` returns an
+  error only where the reference throws (A1's Markdown render failing).
+  `CodeSpecsAreaCatalogFromJSON` reads the optional `gate` key into
+  `RequiredArguments` (`CodeSpecsRequiredArgument`), `Carriers`
+  (`CodeSpecsCarrier`) and `HasGateTables`; field references are
+  `CodeSpecsFieldRef`, and a gate row missing a required key is an error. The
+  `codespecs_gate_cases.json` corpus table pins it.
 - CodeSpecs records (`spec_codespecs_records.go`) read back what a Phase-4 run
   wrote. `CodeSpecsExtractFromYaml(text, source)` (also
   `ParseCodeSpecsExtractYaml`) is the inverse of `ToYaml` — byte-stable for

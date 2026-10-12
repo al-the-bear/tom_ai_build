@@ -256,6 +256,61 @@ std::string CodeSpecsArea::display() const {
   return "CodeSpecsArea(" + code + ")";
 }
 
+namespace {
+
+/* `j[key]` as a string, unset when absent / null / not a string — the ports'
+ * `as String?`. */
+std::optional<std::string> jsonOptStr(const JsonRef& j, const std::string& key) {
+  const std::string* s = jsonAsStr(jsonGet(j, key));
+  return s != nullptr ? std::optional<std::string>(*s) : std::nullopt;
+}
+
+/* `j[key]` when it is a JSON object, else null — the ports' `as Map?`. */
+JsonRef jsonOptObject(const JsonRef& j, const std::string& key) {
+  JsonRef v = jsonGet(j, key);
+  return v != nullptr && v->type == JsonType::Object ? v : nullptr;
+}
+
+}  // namespace
+
+CodeSpecsFieldRef CodeSpecsFieldRef::fromJson(const JsonRef& j) {
+  CodeSpecsFieldRef out;
+  out.className = jsonStrOr(j, "className");
+  out.member = jsonStrOr(j, "member");
+  out.formField = jsonOptStr(j, "formField");
+  return out;
+}
+
+std::string CodeSpecsFieldRef::source() const {
+  return formField.has_value() ? className + "." + member + "." + *formField
+                               : className + "." + member;
+}
+
+CodeSpecsRequiredArgument CodeSpecsRequiredArgument::fromJson(const JsonRef& j) {
+  CodeSpecsRequiredArgument out;
+  out.area = jsonStrOr(j, "area");
+  out.marker = jsonStrOr(j, "marker");
+  out.argument = jsonStrOr(j, "argument");
+  out.field = CodeSpecsFieldRef::fromJson(j);
+  JsonRef resolves = jsonOptObject(j, "resolvesTo");
+  if (resolves != nullptr) {
+    out.resolvesTo = CodeSpecsFieldRef::fromJson(resolves);
+  }
+  JsonRef when = jsonOptObject(j, "when");
+  if (when != nullptr) {
+    out.when = CodeSpecsFieldRef::fromJson(when);
+    out.whenEquals = jsonStrOr(when, "equals");
+  }
+  return out;
+}
+
+CodeSpecsCarrier CodeSpecsCarrier::fromJson(const JsonRef& j) {
+  CodeSpecsCarrier out;
+  out.field = CodeSpecsFieldRef::fromJson(j);
+  out.introducedBy = jsonStrOr(j, "introducedBy");
+  return out;
+}
+
 CodeSpecsAreaCatalog CodeSpecsAreaCatalog::fromJson(const JsonRef& j) {
   CodeSpecsAreaCatalog out;
   out.source = jsonStrOr(j, "source");
@@ -274,6 +329,21 @@ CodeSpecsAreaCatalog CodeSpecsAreaCatalog::fromJson(const JsonRef& j) {
   std::size_t tn = jsonArrayLen(steps);
   for (std::size_t i = 0; i < tn; i++) {
     out.steps.push_back(CodeSpecsStep::fromJson(jsonArrayAt(steps, i)));
+  }
+  // The gate tables — absent in a catalogue written before §4.4/§4.5 were
+  // transcribed, which then runs neither A4 nor A5.
+  JsonRef gate = jsonOptObject(j, "gate");
+  out.hasGateTables = gate != nullptr;
+  JsonRef required = jsonGet(gate, "requiredArguments");
+  std::size_t rn = jsonArrayLen(required);
+  for (std::size_t i = 0; i < rn; i++) {
+    out.requiredArguments.push_back(
+        CodeSpecsRequiredArgument::fromJson(jsonArrayAt(required, i)));
+  }
+  JsonRef carriers = jsonGet(gate, "carriers");
+  std::size_t cn = jsonArrayLen(carriers);
+  for (std::size_t i = 0; i < cn; i++) {
+    out.carriers.push_back(CodeSpecsCarrier::fromJson(jsonArrayAt(carriers, i)));
   }
   return out;
 }

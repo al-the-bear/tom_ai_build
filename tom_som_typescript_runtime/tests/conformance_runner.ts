@@ -41,6 +41,7 @@ import {
   CodeSpecsExtractError,
   CodeSpecsExtractSet,
   CodeSpecsExtractor,
+  CodeSpecsGate,
   CodeSpecsGateEntry,
   CodeSpecsGateRecord,
   CodeSpecsGateVerdict,
@@ -1885,6 +1886,55 @@ function testCodeSpecsRecords(): void {
   }
 }
 
+/**
+ * The Stage-A gate (`codespecs_prompt.md` §4, A1–A5) over every case of
+ * `codespecs_gate_cases.json`. A case key that is **present** overrides the
+ * table default — `schema: null` means no schema, `gate: null` a catalogue
+ * without gate tables — so presence is tested with `in`, not with `!= null`.
+ */
+function testCodeSpecsGate(meta: any): void {
+  const table = _readJson('codespecs_gate_cases.json');
+  for (const c of table.cases) {
+    const name = `codespecs.gate[${c.name}]`;
+    try {
+      const catalogJson: any = { ...table.catalog };
+      const gate = 'gate' in c ? c.gate : table.gate;
+      if (gate !== null && gate !== undefined) {
+        catalogJson.gate = gate;
+      }
+      const schemaYaml = 'schema' in c ? c.schema : table.schema;
+      const model = SpecModel.fromJson(
+        c.model !== null && c.model !== undefined ? c.model : meta,
+      );
+      const report = new CodeSpecsGate({
+        model,
+        document: _documentFromState(c.state),
+        catalog: CodeSpecsAreaCatalog.fromJson(catalogJson),
+        schema:
+          schemaYaml === null || schemaYaml === undefined
+            ? null
+            : DocSpecsSchema.fromYamlText(schemaYaml),
+      }).run();
+      const got = {
+        passed: report.passed,
+        results: report.results.map((r) => ({
+          check: r.check.label,
+          ran: r.ran,
+          notRunReason: r.notRunReason,
+          findings: r.findings.map((f) => ({
+            code: f.code,
+            location: f.location,
+            message: f.message,
+          })),
+        })),
+      };
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+}
+
 export function main(): number {
   if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
     process.stderr.write(`corpus not found at ${_CORPUS}\n`);
@@ -1921,6 +1971,7 @@ export function main(): number {
   testProjection(model, queryDoc);
   testCodeSpecsExtract(model);
   testCodeSpecsRecords();
+  testCodeSpecsGate(_readJson('model.meta.json'));
   testCursorScript(model);
   testNodeCreationCases(model);
   testNodeCreationScript(model);

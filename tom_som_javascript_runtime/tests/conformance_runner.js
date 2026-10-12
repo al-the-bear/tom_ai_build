@@ -41,6 +41,7 @@ const _CORPUS = path.normalize(
 );
 
 const {
+  CodeSpecsGate,
   DEFAULT_MAX_SNAPSHOT_AGE_MS,
   DocSpecsDocument,
   DocSpecsSchema,
@@ -1720,6 +1721,50 @@ function testCodeSpecsRecords() {
   }
 }
 
+/**
+ * The Stage-A gate (`codespecs_prompt.md` §4, A1–A5) over every case of
+ * `codespecs_gate_cases.json`. A case key that is **present** overrides the
+ * table default — `schema: null` means no schema, `gate: null` a catalogue
+ * without gate tables — so presence is tested with `in`, not with `!= null`.
+ */
+function testCodeSpecsGate(meta) {
+  const table = _readJson('codespecs_gate_cases.json');
+  for (const c of table.cases) {
+    const name = `codespecs.gate[${c.name}]`;
+    try {
+      const catalogJson = { ...table.catalog };
+      const gate = 'gate' in c ? c.gate : table.gate;
+      if (gate !== null && gate !== undefined) {
+        catalogJson.gate = gate;
+      }
+      const schemaYaml = 'schema' in c ? c.schema : table.schema;
+      const model = SpecModel.fromJson(c.model != null ? c.model : meta);
+      const report = new CodeSpecsGate({
+        model,
+        document: _documentFromState(c.state),
+        catalog: CodeSpecsAreaCatalog.fromJson(catalogJson),
+        schema: schemaYaml == null ? null : DocSpecsSchema.fromYamlText(schemaYaml),
+      }).run();
+      const got = {
+        passed: report.passed,
+        results: report.results.map((r) => ({
+          check: r.check.label,
+          ran: r.ran,
+          notRunReason: r.notRunReason,
+          findings: r.findings.map((f) => ({
+            code: f.code,
+            location: f.location,
+            message: f.message,
+          })),
+        })),
+      };
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+}
+
 function main() {
   if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
     process.stderr.write(`corpus not found at ${_CORPUS}\n`);
@@ -1753,6 +1798,7 @@ function main() {
   testProjection(model, fixture);
   testCodeSpecsExtract(model, fixture);
   testCodeSpecsRecords();
+  testCodeSpecsGate(_readJson('model.meta.json'));
   testCursorScript(model);
   testNodeCreation(model);
   testNodeCreationScript(model);

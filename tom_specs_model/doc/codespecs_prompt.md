@@ -172,6 +172,82 @@ required case field resolving through `DMENE.enumName` — but it is the one
 instance where the tempting repair is a type substitution rather than an
 authored value, so the contract forecloses it here.
 
+#### 4.4.1 The rule, mechanically
+
+The inputs are the extraction run's extracts — the run A3 performs — and the
+table below, which the area catalogue carries as `gate.requiredArguments`
+(`tom_specs_clitool/bin/codespecs_areas.dart` transcribes it; no runtime
+restates it). For each row whose area's extract is non-empty:
+
+1. An **instance** is one node of the row's source class that the area's
+   extract carries at least one entry for — the entry path's parent, which is
+   the class node the member hangs off.
+2. When the row has an **Applies when** condition, an instance is held to the
+   row only if it carries an entry at that field equal to the stated value.
+3. The source is **populated** when the instance carries an entry at the
+   row's class, member and form field whose value is not blank. Anything else
+   is a `missingSource` finding at the instance's path, naming the marker, the
+   argument and the source field.
+4. When the row has a **Resolves to** field, the populated value must equal the
+   value of an entry at that field somewhere in the run's extracts; otherwise
+   it is an `unresolvedReference` finding.
+
+An instance the extract carries no entry for at all is not seen. That is
+deliberate: a node with nothing in it has no element to emit, and is A1's
+matter when its section is required.
+
+#### 4.4.2 The required-argument table
+
+| Area | Marker | Argument | Source | Resolves to | Applies when |
+|------|--------|----------|--------|-------------|--------------|
+| `CE-TX` | `@CsText` | `baseCopy` | `MessageKeyEntry.content.defaultCopy` | — | — |
+| `CE-VA` | `@CsFieldRule`/`@CsFormRule` | `errorKey` | `ElementValidationRuleEntry.content.errorMessageResource` | — | — |
+| `CE-EL` | `@CsElement` | `kind` | `ScreenElementEntry.content.elementType` | — | — |
+| `CE-EL` | `@CsElement` | `kind` | `ScreenElementFieldSpec.content.dataType` | — | — |
+| `CE-LO` | `@CsLayout` | `nodeId` | `ScreenSectionEntry.content.sectionId` | — | — |
+| `CE-API` | `@CsEndpoint` | `operation` | `ServerOperationEntry.content.operationName` | — | — |
+| `CE-SU` | `@CsServiceUnit` | `rootAggregate` | `DataEntityEntry.classification.aggregateRoot` | — | — |
+| `CE-DB` | `@CsTable` | `table` | `DataEntityEntry.identity.tableName` | — | — |
+| `CE-DB` | `@CsColumn` | `domainEnum` | `DataAttributeEntry.enumerationTypeOptions.domainEnum` | `DomainEnumEntry.content.enumName` | `DataAttributeEntry.dataTypeSpec.dataType` = `enumeration` |
+| `CE-AZ` | `@CsAuthorize` | `requirement` | `AuthorizationRequirementSpec.content.requirementKind` | — | — |
+| `CE-AZ` | `@CsAuthorize` | `requirement` | `GradedAccessLevelEntry.content.requirementKind` | — | — |
+| `CE-CF` | `@CsServerConfig` | `key` | `ServerConfigurationSettingEntry.content.settingKey` | — | — |
+| `CE-CF` | `@CsServerConfig` | `overridableBy` | `ServerConfigurationSettingEntry.content.overridableBy` | — | — |
+| `CE-CC` | `@CsClientConfig` | `key` | `ClientConfigurationSettingEntry.content.settingKey` | — | — |
+| `CE-CC` | `@CsClientConfig` | `overridableBy` | `ClientConfigurationSettingEntry.content.overridableBy` | — | — |
+| `CE-DS` | `@CsDeviceSetting` | `key` | `DeviceSettingEntry.content.settingKey` | — | — |
+| `CE-UP` | `@CsUserSetting` | `key` | `UserSettingEntry.content.settingKey` | — | — |
+| `CE-UP` | `@CsUserSetting` | `overridableBy` | `UserSettingEntry.content.overridableBy` | — | — |
+| `CE-CL` | `@CsClient` | `clientId` | `ClientApplicationEntry.content.clientId` | — | — |
+| `CE-CL` | `@CsClient` | `kind` | `ClientApplicationEntry.content.clientKind` | — | — |
+| `CE-ID` | `@CsIdentityAttribute` | `placement` | `UserAttributeEntry.content.placement` | — | — |
+| `CE-MG` | `@CsMigration` | `datasource` | `MigrationTargetEntry.content.dataSourceName` | — | — |
+| `CE-MG` | `@CsMigration` | `schema` | `MigrationTargetEntry.content.schemaName` | — | — |
+| `CE-MG` | `@CsMigration` | `kind` | `SchemaMigrationStepEntry.content.artifactKind` | — | — |
+| `CE-JB` | `@CsJob` | `trigger` | `ScheduledJobEntry.content.triggerKind` | — | — |
+
+Where the model marks a source form field `required`, A1 already rejects a
+missing value once its section is present and A4 restates it; where the model
+leaves it optional — `tableName`, `placement`, `errorMessageResource`, the field
+spec's `dataType` — A4 is the only check that holds the contract.
+
+**Required arguments with no row, and why.** Each is a `codespecs_derivation_contract.md` §5.1 required argument
+A4 deliberately does not hold to a document field:
+
+- **Derived, not stored.** The fixed server-configuration sections' `key`
+  (naming rule N10) and their `overridableBy` (always `none`); `@CsLayout`'s
+  `nodeId` for a slot or container, which derives from the referenced element
+  or is synthetic (`codespecs_mapping.md` §5.22).
+- **Satisfied by construction.** `@CsServerCall`'s `operation`: the step's
+  `serverOperation` being set *is* the condition for emitting the call
+  (`codespecs_derivation_contract.md` §3.5.7), and its resolution is A2's.
+- **Not expressible per instance.** `@CsServiceUnit`'s `boundedContext` is read
+  from the unit's **root** entity only; a rule over every entity instance would
+  reject the non-root ones, so it stays with stage B's reading.
+- **No source in the model.** `@CsTrigger`'s `kind` names no SOM member, and
+  `@CsNotification`'s `body` has no message-key field on `NotificationTypeEntry`.
+  These are model gaps, indexed in `codespecs_mapping.md` §10.
+
 ### 4.5 A5 — no structured carrier is missing from the model
 
 Several places in the model carry an explicitly structured field because prose
@@ -188,6 +264,48 @@ have nowhere to put it and would write prose again, which is the condition the
 carriers were introduced to end. A5 is therefore a check against the generated
 meta rather than against the document, and it fails only when a carrier has been
 removed.
+
+Mechanically: each row below names a class, a member and — for a value that is
+one field of a `@Form` section — a form field. A5 passes when the model has the
+class, the class has the member, and the member has the form field. A missing
+one is a `missingCarrier` finding naming the carrier and the section that
+introduced it. The area catalogue carries the table as `gate.carriers`.
+
+| Carrier | Introduced by |
+|---------|---------------|
+| `ScheduledJobEntry.workSteps` | `codespecs_derivation_contract.md` §2.4 B8 (job work steps) |
+| `ScheduledJobStepEntry.content.systemAction` | `codespecs_derivation_contract.md` §2.4 B8 (job work steps) |
+| `ScheduledJobStepEntry.content.condition` | `codespecs_derivation_contract.md` §2.4 B4 (step guard) |
+| `ExtensionEntry.content.branchPoint` | `codespecs_derivation_contract.md` §2.4 B5 (branch point) |
+| `ExtensionEntry.content.returnKind` | `codespecs_derivation_contract.md` §2.4 B6 (return point) |
+| `ExtensionEntry.resumePoint.resumeStep` | `codespecs_derivation_contract.md` §2.4 B6 (return point) |
+| `AlternativeFlowEntry.content.branchPoint` | `codespecs_derivation_contract.md` §2.4 B5 (branch point) |
+| `AlternativeFlowEntry.content.returnKind` | `codespecs_derivation_contract.md` §2.4 B6 (return point) |
+| `AlternativeFlowEntry.resumePoint.resumeStep` | `codespecs_derivation_contract.md` §2.4 B6 (return point) |
+| `ServerCallStepEntry.content.role` | `codespecs_derivation_contract.md` §3.5.7 (server-call roles) |
+| `ServerCallStepEntry.content.systemAction` | `codespecs_derivation_contract.md` §3.5.7 (server-call roles) |
+| `MainScenarioStepEntry.serverCallSteps` | `codespecs_derivation_contract.md` §3.5.7 (server-call steps) |
+| `AlternativeStepEntry.serverCallSteps` | `codespecs_derivation_contract.md` §3.5.7 (server-call steps) |
+| `ExtensionStepEntry.serverCallSteps` | `codespecs_derivation_contract.md` §3.5.7 (server-call steps) |
+| `ScenarioStepEntry.serverCallSteps` | `codespecs_derivation_contract.md` §3.5.7 (server-call steps) |
+| `MainScenarioStepEntry.content.serverOperation` | `codespecs_derivation_contract.md` §3.5.7 (operation citation) |
+| `AlternativeStepEntry.content.serverOperation` | `codespecs_derivation_contract.md` §3.5.7 (operation citation) |
+| `ExtensionStepEntry.content.serverOperation` | `codespecs_derivation_contract.md` §3.5.7 (operation citation) |
+| `ScenarioStepEntry.content.serverOperation` | `codespecs_derivation_contract.md` §3.5.7 (operation citation) |
+| `DataEntityEntry.classification.aggregateRoot` | `codespecs_derivation_contract.md` §3.4.1 (service-unit grouping) |
+| `DataEntityEntry.classification.serviceUnitAggregate` | `codespecs_derivation_contract.md` §3.4.1 (service-unit grouping) |
+| `DataEntityEntry.classification.boundedContext` | `codespecs_derivation_contract.md` §3.4.1 (service-unit grouping) |
+| `ScheduledJobEntry.cronTrigger.cronExpression` | `codespecs_derivation_contract.md` §3.7.1 (job trigger cases) |
+| `ScheduledJobEntry.calendarTrigger.calendarRule` | `codespecs_derivation_contract.md` §3.7.1 (job trigger cases) |
+| `ScheduledJobEntry.eventTrigger.eventName` | `codespecs_derivation_contract.md` §3.7.1 (job trigger cases) |
+| `DataAttributeEntry.enumerationTypeOptions.domainEnum` | `codespecs_derivation_contract.md` §3.3.2 (enumeration typing) |
+
+All nine SOM runtimes run A1–A5 as one gate, `CodeSpecsGate`, over the model,
+the document, the area catalogue and the document's DocSpecs schema. It reports
+each check's findings and never stops at the first; a check that could not run
+— A1 without a schema, A4 when A3 left no extraction run, A4 and A5 over a
+catalogue that carries no gate tables — is reported as **not run**, and the gate
+does not pass.
 
 ## 5. The pre-gate extraction run
 

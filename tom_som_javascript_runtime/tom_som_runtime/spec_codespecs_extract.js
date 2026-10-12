@@ -263,6 +263,166 @@ class CodeSpecsStep {
 }
 
 /**
+ * A SOM field a gate table names: a class, one of its members, and the form
+ * field when the value is one field of a `@Form` section.
+ */
+class CodeSpecsFieldRef {
+  constructor({ className, member, formField = null }) {
+    /** The model class. */
+    this.className = className;
+    /** The member of {@link CodeSpecsFieldRef#className}. */
+    this.member = member;
+    /** The form field of {@link CodeSpecsFieldRef#member}, or `null` for a
+     * whole-member value. @type {?string} */
+    this.formField = formField != null ? formField : null;
+  }
+
+  /** Reads one reference; `className` and `member` are required. */
+  static fromJson(j) {
+    const label = _gateRowLabel(j, ['className', 'member']);
+    return new CodeSpecsFieldRef({
+      className: _gateRequiredString(j, 'className', label),
+      member: _gateRequiredString(j, 'member', label),
+      formField: j.formField != null ? String(j.formField) : null,
+    });
+  }
+
+  /** `Class.member` or `Class.member.formField` — how findings name it. */
+  get source() {
+    return this.formField === null
+      ? `${this.className}.${this.member}`
+      : `${this.className}.${this.member}.${this.formField}`;
+  }
+}
+
+/**
+ * One A4 obligation (`codespecs_prompt.md` §4.4): a required `Cs*` marker
+ * argument and the stored SOM field it derives from.
+ */
+class CodeSpecsRequiredArgument {
+  constructor({ area, marker, argument, field, resolvesTo = null, when = null, whenEquals = null }) {
+    /** The area whose extract makes the obligation apply. */
+    this.area = area;
+    /** The marker, `@CsTable`. */
+    this.marker = marker;
+    /** The required argument, `table`. */
+    this.argument = argument;
+    /** The SOM field the argument derives from. @type {CodeSpecsFieldRef} */
+    this.field = field;
+    /** When set, the value must also equal a value the run carries here — the
+     * `domainEnum` → `DMENE` case of §4.4. @type {?CodeSpecsFieldRef} */
+    this.resolvesTo = resolvesTo != null ? resolvesTo : null;
+    /** When set, an instance is held to the row only if it carries this field
+     * with the value {@link CodeSpecsRequiredArgument#whenEquals} — the
+     * obligation sits on a `@Case`. @type {?CodeSpecsFieldRef} */
+    this.when = when != null ? when : null;
+    /** The value {@link CodeSpecsRequiredArgument#when} must hold. @type {?string} */
+    this.whenEquals = whenEquals != null ? whenEquals : null;
+  }
+
+  /** Reads one row of the catalogue's `gate.requiredArguments`. */
+  static fromJson(j) {
+    const label = _gateRowLabel(j, ['marker', 'argument', 'area']);
+    const resolves = j.resolvesTo;
+    const when = j.when;
+    return new CodeSpecsRequiredArgument({
+      area: _gateRequiredString(j, 'area', label),
+      marker: _gateRequiredString(j, 'marker', label),
+      argument: _gateRequiredString(j, 'argument', label),
+      field: CodeSpecsFieldRef.fromJson(j),
+      resolvesTo: resolves == null ? null : CodeSpecsFieldRef.fromJson(resolves),
+      when: when == null ? null : CodeSpecsFieldRef.fromJson(when),
+      whenEquals: when == null ? null : _gateRequiredString(when, 'equals', label),
+    });
+  }
+
+  /** The source field's class. */
+  get className() {
+    return this.field.className;
+  }
+
+  /** The source field's member. */
+  get member() {
+    return this.field.member;
+  }
+
+  /** The source field's form field. */
+  get formField() {
+    return this.field.formField;
+  }
+
+  /** The source field, as findings name it. */
+  get source() {
+    return this.field.source;
+  }
+}
+
+/**
+ * One A5 carrier (`codespecs_prompt.md` §4.5): a structured field the model
+ * must keep offering.
+ */
+class CodeSpecsCarrier {
+  constructor({ field, introducedBy = '' }) {
+    /** The field. @type {CodeSpecsFieldRef} */
+    this.field = field;
+    /** The document section that introduced it, for the finding. */
+    this.introducedBy = introducedBy != null ? introducedBy : '';
+  }
+
+  /** Reads one row of the catalogue's `gate.carriers`. */
+  static fromJson(j) {
+    return new CodeSpecsCarrier({
+      field: CodeSpecsFieldRef.fromJson(j),
+      introducedBy: j.introducedBy != null ? String(j.introducedBy) : '',
+    });
+  }
+
+  /** The carrier's class. */
+  get className() {
+    return this.field.className;
+  }
+
+  /** The carrier's member. */
+  get member() {
+    return this.field.member;
+  }
+
+  /** The carrier's form field. */
+  get formField() {
+    return this.field.formField;
+  }
+
+  /** The carrier, as findings name it. */
+  get source() {
+    return this.field.source;
+  }
+}
+
+/** Names a gate-table row for an error: its first non-empty preferred key. */
+function _gateRowLabel(j, preferred) {
+  for (const key of preferred) {
+    const v = j != null ? j[key] : undefined;
+    if (typeof v === 'string' && v !== '') {
+      return `${key} "${v}"`;
+    }
+  }
+  const keys = j != null && typeof j === 'object' ? Object.keys(j).join(', ') : '';
+  return keys === '' ? 'an empty row' : `the row with keys [${keys}]`;
+}
+
+/** A required non-empty string of a gate-table row. */
+function _gateRequiredString(j, key, owner) {
+  const v = j != null ? j[key] : undefined;
+  if (typeof v === 'string' && v !== '') {
+    return v;
+  }
+  const got = v == null ? 'absent' : `${typeof v} ${_yamlString(String(v))}`;
+  throw new Error(
+    `CodeSpecs area catalogue: ${owner} is missing a non-empty "${key}" (got ${got})`,
+  );
+}
+
+/**
  * One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the §4.4.3
  * slice and §4.4.6 authoring steps that place it. This is the **per-area
  * context** an extract carries beside its content.
@@ -339,7 +499,15 @@ class CodeSpecsArea {
  * agreement.
  */
 class CodeSpecsAreaCatalog {
-  constructor({ source = '', slices = [], areas = [], steps = [] } = {}) {
+  constructor({
+    source = '',
+    slices = [],
+    areas = [],
+    steps = [],
+    requiredArguments = [],
+    carriers = [],
+    hasGateTables = false,
+  } = {}) {
     /** Where the catalogue was transcribed from, for the extract header. */
     this.source = source;
     /** The §4.4.3 slices, in emission order. @type {CodeSpecsSlice[]} */
@@ -351,14 +519,33 @@ class CodeSpecsAreaCatalog {
     /** The §4.4.6 authoring steps, in authoring order. Empty for a catalogue
      * written before the step table was transcribed. @type {CodeSpecsStep[]} */
     this.steps = steps;
+    /** The A4 obligations (`codespecs_prompt.md` §4.4).
+     * @type {CodeSpecsRequiredArgument[]} */
+    this.requiredArguments = requiredArguments;
+    /** The A5 carriers (`codespecs_prompt.md` §4.5). @type {CodeSpecsCarrier[]} */
+    this.carriers = carriers;
+    /** Whether the catalogue carries the gate tables at all. Without them A4
+     * and A5 are not run, rather than passing over nothing. */
+    this.hasGateTables = hasGateTables === true;
   }
 
+  /**
+   * Loads the authored catalogue. The optional `gate` key carries the A4/A5
+   * tables (`requiredArguments`, `carriers`); its presence — not null — is
+   * {@link CodeSpecsAreaCatalog#hasGateTables}.
+   */
   static fromJson(j) {
+    const gate = j.gate != null ? j.gate : null;
     return new CodeSpecsAreaCatalog({
       source: j.source != null ? j.source : '',
       slices: (j.slices || []).map((e) => CodeSpecsSlice.fromJson(e)),
       areas: (j.areas || []).map((e) => CodeSpecsArea.fromJson(e)),
       steps: (j.steps || []).map((e) => CodeSpecsStep.fromJson(e)),
+      requiredArguments: ((gate && gate.requiredArguments) || []).map((e) =>
+        CodeSpecsRequiredArgument.fromJson(e),
+      ),
+      carriers: ((gate && gate.carriers) || []).map((e) => CodeSpecsCarrier.fromJson(e)),
+      hasGateTables: gate !== null,
     });
   }
 
@@ -2142,6 +2329,9 @@ module.exports = {
   CodeSpecsExtractEntry,
   CodeSpecsSlice,
   CodeSpecsStep,
+  CodeSpecsFieldRef,
+  CodeSpecsRequiredArgument,
+  CodeSpecsCarrier,
   CodeSpecsArea,
   CodeSpecsAreaCatalog,
   CodeSpecsExtract,

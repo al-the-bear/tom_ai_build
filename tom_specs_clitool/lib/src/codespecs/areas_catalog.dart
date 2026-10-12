@@ -115,6 +115,12 @@ class AreasCatalog {
   /// order, so a step's `number` *is* its position.
   final List<Map<String, dynamic>> steps;
 
+  /// The Stage-A gate tables of `codespecs_prompt.md` §4.4 (A4's required
+  /// arguments) and `codespecs_prompt.md` §4.5 (A5's carriers); `null` when
+  /// no prompt document was
+  /// transcribed.
+  final Map<String, dynamic>? gate;
+
   /// Holds an already-transcribed catalogue.
   ///
   /// The cross-table agreement checks run in [buildAreasCatalog], not here —
@@ -125,6 +131,7 @@ class AreasCatalog {
     required this.slices,
     required this.areas,
     this.steps = const [],
+    this.gate,
   });
 
   /// The extract's JSON shape: [source] first, then [slices], then [areas],
@@ -138,6 +145,7 @@ class AreasCatalog {
     'slices': slices,
     'areas': areas,
     'steps': steps,
+    if (gate != null) 'gate': gate,
   };
 
   /// The JSON text written to disk — two-space indented, newline-terminated,
@@ -147,7 +155,15 @@ class AreasCatalog {
 }
 
 /// Transcribes [mappingDocument] (the text of `codespecs_mapping.md`).
-AreasCatalog buildAreasCatalog(String mappingDocument) {
+///
+/// With [promptDocument] (the text of `codespecs_prompt.md`) the catalogue
+/// also carries the Stage-A gate tables of `codespecs_prompt.md` §4.4 and
+/// `codespecs_prompt.md` §4.5, which the
+/// runtimes' `CodeSpecsGate` runs A4 and A5 from.
+AreasCatalog buildAreasCatalog(
+  String mappingDocument, {
+  String? promptDocument,
+}) {
   final lines = const LineSplitter().convert(mappingDocument);
 
   final parts = _parsePartsCatalogue(lines);
@@ -248,6 +264,11 @@ AreasCatalog buildAreasCatalog(String mappingDocument) {
     ],
     areas: areas,
     steps: steps,
+    gate: promptDocument == null
+        ? null
+        : _parseGateTables(const LineSplitter().convert(promptDocument), {
+            for (final a in areas) a['code'] as String,
+          }),
   );
 }
 
@@ -255,13 +276,19 @@ AreasCatalog buildAreasCatalog(String mappingDocument) {
 /// [outputPath], returning the text written.
 String writeAreasCatalog({
   required String mappingPath,
+  String? promptPath,
   required String outputPath,
 }) {
   final source = File(mappingPath);
   if (!source.existsSync()) {
     throw AreasCatalogException('mapping document not found: $mappingPath');
   }
-  final catalog = buildAreasCatalog(source.readAsStringSync());
+  final catalog = buildAreasCatalog(
+    source.readAsStringSync(),
+    promptDocument: promptPath == null
+        ? null
+        : File(promptPath).readAsStringSync(),
+  );
   final text = catalog.toJsonText();
   Directory(p.dirname(outputPath)).createSync(recursive: true);
   File(outputPath).writeAsStringSync(text);
@@ -663,6 +690,93 @@ void _checkStepCoverage(
       '${memberKindSlices.join(", ")} per the §4.4.6 step table.',
     );
   }
+}
+
+// ---------------------------------------------------------------------------
+// `codespecs_prompt.md` §4.4 / §4.5 — the Stage-A gate tables
+// ---------------------------------------------------------------------------
+
+/// A cell meaning "none" — an empty cell or a dash.
+bool _isNone(String cell) {
+  final c = _unbacktick(cell);
+  return c.isEmpty || c == '—' || c == '-';
+}
+
+/// `Class.member` or `Class.member.formField`, backticks stripped.
+Map<String, dynamic> _fieldRef(String cell, String label) {
+  final parts = _unbacktick(cell).split('.');
+  if (parts.length < 2 || parts.length > 3 || parts.any((p) => p.isEmpty)) {
+    throw AreasCatalogException(
+      '$label names `${_unbacktick(cell)}`, which is not '
+      'Class.member or Class.member.formField.',
+    );
+  }
+  return {
+    'className': parts[0],
+    'member': parts[1],
+    'formField': parts.length == 3 ? parts[2] : null,
+  };
+}
+
+/// `` `Class.member.formField` = `value` `` — an Applies-when condition.
+Map<String, dynamic> _condition(String cell, String label) {
+  final i = cell.indexOf('=');
+  if (i < 0) {
+    throw AreasCatalogException(
+      '$label: the Applies-when cell `$cell` is not `field` = `value`.',
+    );
+  }
+  return {
+    ..._fieldRef(cell.substring(0, i).trim(), label),
+    'equals': _unbacktick(cell.substring(i + 1)),
+  };
+}
+
+Map<String, dynamic> _parseGateTables(
+  List<String> lines,
+  Set<String> areaCodes,
+) {
+  final required = <Map<String, dynamic>>[];
+  for (final cells in _tableAfter(
+    lines,
+    '#### 4.4.2 ',
+    'codespecs_prompt.md §4.4.2',
+  )) {
+    if (cells.length < 6) {
+      throw AreasCatalogException('§4.4 row has ${cells.length} cells.');
+    }
+    final area = _unbacktick(cells[0]);
+    if (!areaCodes.contains(area)) {
+      throw AreasCatalogException(
+        'codespecs_prompt.md §4.4 names area $area, which the catalogue does '
+        'not have.',
+      );
+    }
+    final label = 'codespecs_prompt.md §4.4 row ${cells[1]}.${cells[2]}';
+    required.add({
+      'area': area,
+      'marker': _unbacktick(cells[1]),
+      'argument': _unbacktick(cells[2]),
+      ..._fieldRef(cells[3], label),
+      if (!_isNone(cells[4])) 'resolvesTo': _fieldRef(cells[4], label),
+      if (!_isNone(cells[5])) 'when': _condition(cells[5], label),
+    });
+  }
+  final carriers = <Map<String, dynamic>>[];
+  for (final cells in _tableAfter(
+    lines,
+    '### 4.5 ',
+    'codespecs_prompt.md §4.5',
+  )) {
+    if (cells.length < 2) {
+      throw AreasCatalogException('§4.5 row has ${cells.length} cells.');
+    }
+    carriers.add({
+      ..._fieldRef(cells[0], 'codespecs_prompt.md §4.5 row ${cells[0]}'),
+      'introducedBy': cells[1],
+    });
+  }
+  return {'requiredArguments': required, 'carriers': carriers};
 }
 
 // ---------------------------------------------------------------------------

@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- CodeSpecs: the Stage-A gate (`codespecs_prompt.md` §4, A1–A5) as one
+  `CodeSpecsGate(model, document, catalog, schema[, rootType]).run()`
+  returning a `CodeSpecsGateReport` (`results` A1..A5 in order, `extracts`
+  when A3 passed, `passed()`, `findings()`, `get(check)`). Every check runs;
+  one that cannot run is reported not run, with its reason, and never passes.
+  A1 renders the document with `toMarkdown` and validates it with
+  `DocSpecsValidator`; A2 is `validateDocument`; A3 collects every unrouted
+  class from the non-strict `routings()` walk (or the root-resolution error)
+  and only then runs `extractAll()`; A4 checks each required marker argument's
+  source (with `when` and `resolvesTo`); A5 checks each carrier against the
+  model. New `CodeSpecsGateCheck` (`label()` = `A1`..`A5`),
+  `CodeSpecsGateCheckResult`, `CodeSpecsGateFinding`. The area catalogue reads
+  the optional `gate` block: new `CodeSpecsFieldRef`,
+  `CodeSpecsRequiredArgument`, `CodeSpecsCarrier`, and
+  `CodeSpecsAreaCatalog.requiredArguments` / `carriers` / `hasGateTables`; a
+  gate row missing a required cell throws an `IllegalArgumentException` naming
+  the row. Pinned by the corpus table `codespecs_gate_cases.json`.
 - CodeSpecs: reading a Phase-4 run back. `CodeSpecsExtract.fromYaml(text[,
   source])` is the inverse of `toYaml` (byte-identical round trip for every
   extract the extractor writes): it requires `formatVersion` 3 and a non-empty

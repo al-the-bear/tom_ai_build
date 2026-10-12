@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- CodeSpecs gate: a new module `spec_codespecs_gate` runs Stage A of
+  `codespecs_prompt.md` §4 as one `CodeSpecsGate(model, document, catalog,
+  schema=None, root_type=None).run()`, returning a `CodeSpecsGateReport` with
+  one `CodeSpecsGateCheckResult` per check A1–A5 (`ran`, `not_run_reason`,
+  `findings`, `passed`), the extraction run's `extracts` when A3 passed, and
+  `report[check]` lookup. A1 validates the rendered Markdown against the
+  DocSpecs schema, A2 runs `validate_document`, A3 reports every unrouted
+  section of the non-strict walk (or the root-resolution error), A4 holds each
+  required marker argument of a used area to a populated source (with the
+  `when` filter and `resolves_to` check), A5 checks every carrier still exists
+  in the model. A check that cannot run is reported not run, with its reason,
+  and fails the gate. `CodeSpecsAreaCatalog.from_json` reads the optional
+  `gate` key into `required_arguments` (`CodeSpecsRequiredArgument`),
+  `carriers` (`CodeSpecsCarrier`) and `has_gate_tables`; field references are
+  `CodeSpecsFieldRef`. The `codespecs_gate_cases.json` corpus table pins it.
 - CodeSpecs records: a new module `spec_codespecs_records` reads back what a
   Phase-4 run wrote. `CodeSpecsExtract.from_yaml(text, source)` (also
   `parse_code_specs_extract_yaml`) is the inverse of `to_yaml` — byte-stable

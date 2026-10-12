@@ -62,6 +62,11 @@ void main() {
   final projectionCases = _projectionCases(model, doc);
   final codeSpecsExtractCases = _codeSpecsExtractCases(model, doc);
   final codeSpecsRecordCases = _codeSpecsRecordCases(codeSpecsExtractCases);
+  final codeSpecsGateCases = _codeSpecsGateCases(
+    meta,
+    state,
+    codeSpecsExtractCases,
+  );
   final cursorScript = _cursorScript(model);
   final nodeCreationCases = _nodeCreationCases(model);
   final nodeCreationScript = _nodeCreationScript(model);
@@ -110,6 +115,7 @@ void main() {
       'codespecs_record_cases.json',
       '${enc.convert(codeSpecsRecordCases)}\n',
     );
+    write('codespecs_gate_cases.json', '${enc.convert(codeSpecsGateCases)}\n');
     write('cursor_cases.json', '${enc.convert(cursorScript)}\n');
     write('node_creation_cases.json', '${enc.convert(nodeCreationCases)}\n');
     write('node_creation_script.json', '${enc.convert(nodeCreationScript)}\n');
@@ -1003,6 +1009,20 @@ void main() {
         },
     ];
     expect(got, jsonDecode(read('projection_cases.json')));
+  });
+
+  group('codespecs_gate_cases.json (the Stage-A gate, A1–A5)', () {
+    final table = update
+        ? codeSpecsGateCases
+        : jsonDecode(read('codespecs_gate_cases.json')) as Map<String, dynamic>;
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('gate: ${c['name']}', () {
+        expect(
+          jsonDecode(jsonEncode(_runGateCase(table, c, meta))),
+          c['expect'],
+        );
+      });
+    }
   });
 
   group(
@@ -5839,3 +5859,310 @@ Map<String, dynamic> _scopeSummary(CodeSpecsExtractSet set) => {
       },
   ],
 };
+
+/// The fixture's gate tables (`codespecs_prompt.md` §4.4/§4.5), over the
+/// fixture's own classes. Every rule shape is exercised once on the passing
+/// document: a plain source, an `Applies when` row that holds for one
+/// instance and not the other, a `Resolves to` row that resolves across two
+/// extracts, a row whose area's extract is empty (and is therefore not held),
+/// and carriers on a form field and on a plain member.
+Map<String, dynamic> _fixtureGateTables({
+  List<Map<String, dynamic>>? extraCarriers,
+}) => {
+  'requiredArguments': [
+    {
+      'area': 'CE-FM',
+      'marker': '@CsForm',
+      'argument': 'owner',
+      'className': 'Demo',
+      'member': 'details',
+      'formField': 'owner',
+    },
+    {
+      'area': 'CE-FM',
+      'marker': '@CsElement',
+      'argument': 'kind',
+      'className': 'Item',
+      'member': 'label',
+      'formField': null,
+      'when': {
+        'className': 'Item',
+        'member': 'status',
+        'formField': null,
+        'equals': 'open',
+      },
+    },
+    {
+      'area': 'CE-FM',
+      'marker': '@CsColumn',
+      'argument': 'domainEnum',
+      'className': 'Demo',
+      'member': 'details',
+      'formField': 'priority',
+      'resolvesTo': {
+        'className': 'Demo',
+        'member': 'priority',
+        'formField': null,
+      },
+    },
+    {
+      'area': 'CE-DB',
+      'marker': '@CsTable',
+      'argument': 'table',
+      'className': 'Demo',
+      'member': 'details',
+      'formField': 'reviewer',
+    },
+  ],
+  'carriers': [
+    {
+      'className': 'Demo',
+      'member': 'details',
+      'formField': 'owner',
+      'introducedBy': 'fixture',
+    },
+    {
+      'className': 'Item',
+      'member': 'status',
+      'formField': null,
+      'introducedBy': 'fixture',
+    },
+    ...?extraCarriers,
+  ],
+};
+
+/// A DocSpecs schema the fixture document satisfies: A1 has to be able to
+/// pass for the gate to pass.
+/// Section types in descending prefix length, as generated schemas order
+/// them: resolution takes the first type whose prefix matches.
+const String _gateSchemaYaml = '''
+section-types:
+  card_lst:
+    prefix: CARD_LST
+    subsection-types:
+      card:
+        min-count: 0
+        max-count: infinite
+  ctrl_sum:
+    prefix: CTRL_SUM
+  note_bdy:
+    prefix: NOTE_BDY
+  ref_lst:
+    prefix: REF_LST
+    subsection-types:
+      ref:
+        min-count: 0
+        max-count: infinite
+  item:
+    prefix: items_
+    subsection-types:
+      sts:
+        min-count: 0
+        max-count: infinite
+  items:
+    prefix: items
+    subsection-types:
+      item:
+        min-count: 0
+        max-count: infinite
+  card:
+    prefix: CARD_
+  tag:
+    prefix: tags_
+  ref:
+    prefix: REF_
+  meta:
+    prefix: META
+    subsection-types:
+      ownr:
+        min-count: 0
+        max-count: infinite
+      tags:
+        min-count: 0
+        max-count: infinite
+  ownr:
+    prefix: OWNR
+  tags:
+    prefix: tags
+    subsection-types:
+      tag:
+        min-count: 0
+        max-count: infinite
+  ctrl:
+    prefix: CTRL
+    subsection-types:
+      ctrl_sum:
+        min-count: 0
+        max-count: infinite
+  note:
+    prefix: NOTE
+    subsection-types:
+      note_bdy:
+        min-count: 0
+        max-count: infinite
+  ttl:
+    prefix: TTL
+  sum:
+    prefix: SUM
+  pri:
+    prefix: PRI
+  cnt:
+    prefix: CNT
+  det:
+    prefix: DET
+  sts:
+    prefix: STS
+document:
+  sections:
+    ttl:
+      section-type: ttl
+      optional: true
+    sum:
+      section-type: sum
+      optional: true
+    pri:
+      section-type: pri
+      optional: true
+    cnt:
+      section-type: cnt
+      optional: true
+    det:
+      section-type: det
+      optional: true
+    items:
+      section-type: items
+      optional: true
+    ref_lst:
+      section-type: ref_lst
+      optional: true
+    card_lst:
+      section-type: card_lst
+      optional: true
+    meta:
+      section-type: meta
+      optional: true
+    ctrl:
+      section-type: ctrl
+      optional: true
+    note:
+      section-type: note
+      optional: true
+''';
+
+Map<String, dynamic> _codeSpecsGateCases(
+  Map<String, dynamic> meta,
+  Map<String, dynamic> state,
+  Map<String, dynamic> extractTable,
+) {
+  Map<String, dynamic> edited(void Function(Map<String, dynamic>) edit) {
+    final copy = jsonDecode(jsonEncode(state)) as Map<String, dynamic>;
+    edit(copy);
+    return copy;
+  }
+
+  Map<String, dynamic> forms(Map<String, dynamic> s) =>
+      (s['forms'] as Map).cast<String, dynamic>();
+  Map<String, dynamic> content(Map<String, dynamic> s) =>
+      (s['content'] as Map).cast<String, dynamic>();
+  final routeError = ((extractTable['errorCases'] as List).first as Map)
+      .cast<String, dynamic>();
+
+  final cases = <Map<String, dynamic>>[
+    {'name': 'every check passes', 'state': state},
+    {'name': 'A1 is not run without a schema', 'state': state, 'schema': null},
+    {
+      'name': 'A3 finds an unrouted section, so A4 cannot run',
+      'model': routeError['model'],
+      'state': routeError['state'],
+      'schema': null,
+    },
+    {
+      'name': 'A4: a required source cleared',
+      'state': edited((s) => (forms(s)['DEMO/DET'] as Map).remove('owner')),
+    },
+    {
+      'name': 'A4: an Applies-when row that now holds',
+      'state': edited((s) {
+        content(s)['DEMO/items-2/STS'] = 'open';
+        content(s).remove('DEMO/items-2/label');
+      }),
+    },
+    {
+      'name': 'A4: a value that resolves to nothing',
+      'state': edited((s) => (forms(s)['DEMO/DET'] as Map)['priority'] = 'low'),
+    },
+    {
+      'name': 'A5: a carrier the model does not offer',
+      'state': state,
+      'gate': _fixtureGateTables(
+        extraCarriers: [
+          {
+            'className': 'Item',
+            'member': 'reviewer',
+            'formField': null,
+            'introducedBy': 'fixture',
+          },
+        ],
+      ),
+    },
+    {
+      'name': 'a catalogue without gate tables runs neither A4 nor A5',
+      'state': state,
+      'gate': null,
+    },
+  ];
+
+  final table = <String, dynamic>{
+    'catalog': extractTable['catalog'],
+    'gate': _fixtureGateTables(),
+    'schema': _gateSchemaYaml,
+    'cases': cases,
+  };
+  for (final c in cases) {
+    c['expect'] = _runGateCase(table, c, meta);
+  }
+  return table;
+}
+
+/// One gate case. A case key that is present overrides the table default —
+/// `schema: null` means no schema, `gate: null` a catalogue without tables.
+Map<String, dynamic> _runGateCase(
+  Map<String, dynamic> table,
+  Map<String, dynamic> c,
+  Map<String, dynamic> meta,
+) {
+  final catalogJson = Map<String, dynamic>.of(
+    (table['catalog'] as Map).cast<String, dynamic>(),
+  );
+  final gate = c.containsKey('gate') ? c['gate'] : table['gate'];
+  if (gate != null) catalogJson['gate'] = gate;
+  final schemaYaml = c.containsKey('schema') ? c['schema'] : table['schema'];
+  final model = SpecModel.fromJson(
+    ((c['model'] ?? meta) as Map).cast<String, dynamic>(),
+  );
+  final doc = SpecDocument()
+    ..loadJson((c['state'] as Map).cast<String, dynamic>());
+  final report = CodeSpecsGate(
+    model: model,
+    document: doc,
+    catalog: CodeSpecsAreaCatalog.fromJson(catalogJson),
+    schema: schemaYaml == null
+        ? null
+        : DocSpecsSchema.fromYamlText(schemaYaml as String),
+  ).run();
+  return {
+    'passed': report.passed,
+    'results': [
+      for (final r in report.results)
+        {
+          'check': r.check.label,
+          'ran': r.ran,
+          'notRunReason': r.notRunReason,
+          'findings': [
+            for (final f in r.findings)
+              {'code': f.code, 'location': f.location, 'message': f.message},
+          ],
+        },
+    ],
+  };
+}

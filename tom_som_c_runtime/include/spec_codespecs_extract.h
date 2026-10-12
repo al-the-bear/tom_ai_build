@@ -275,6 +275,59 @@ char *spec_codespecs_area_kind_value(const CodeSpecsArea *a);
  * `spec_codespecs_area_catalog_free`; this is for an area held on its own. */
 void spec_codespecs_area_free(CodeSpecsArea *a);
 
+/* ---- the gate tables (`codespecs_prompt.md` §4.4 / §4.5) ----------------- */
+
+/* A SOM field a gate table names: a class, one of its members, and the form
+ * field when the value is one field of a `@Form` section. Owns its strings. */
+typedef struct {
+  /* The model class. */
+  char *class_name;
+  /* The member of `class_name`. */
+  char *member;
+  /* The form field of `member`, or NULL for a whole-member value. */
+  char *form_field;
+} CodeSpecsFieldRef;
+
+/* `Class.member` or `Class.member.formField` — how findings name the field.
+ * Owned. */
+char *spec_codespecs_field_ref_source(const CodeSpecsFieldRef *r);
+
+/* One A4 obligation (`codespecs_prompt.md` §4.4): a required `Cs*` marker
+ * argument and the stored SOM field it derives from. Read from one row of the
+ * catalogue's `gate.requiredArguments` — `area`, `marker`, `argument`,
+ * `className`, `member`, `formField`, the optional `resolvesTo` {className,
+ * member, formField} and the optional `when` {className, member, formField,
+ * equals}. */
+typedef struct {
+  /* The area whose extract makes the obligation apply. */
+  char *area;
+  /* The marker, `@CsTable`. */
+  char *marker;
+  /* The required argument, `table`. */
+  char *argument;
+  /* The SOM field the argument derives from. */
+  CodeSpecsFieldRef field;
+  /* When non-NULL, the value must also equal a value the run carries here —
+   * the `domainEnum` → `DMENE` case of §4.4. Owned. */
+  CodeSpecsFieldRef *resolves_to;
+  /* When non-NULL, an instance is held to the row only if it carries this
+   * field with the value `when_equals` — the obligation sits on a `@Case`.
+   * Owned. */
+  CodeSpecsFieldRef *when;
+  /* The value `when` must hold; NULL exactly when `when` is NULL. */
+  char *when_equals;
+} CodeSpecsRequiredArgument;
+
+/* One A5 carrier (`codespecs_prompt.md` §4.5): a structured field the model
+ * must keep offering. Read from one row of the catalogue's `gate.carriers`. */
+typedef struct {
+  /* The field. */
+  CodeSpecsFieldRef field;
+  /* The document section that introduced it, for the finding ("" when the row
+   * names none). */
+  char *introduced_by;
+} CodeSpecsCarrier;
+
 /* The machine-readable form of `codespecs_mapping.md` §4.1 + §4.4.3 + §4.4.6.
  *
  * Authored once, read by all nine runtimes. It is an input rather than a baked
@@ -296,12 +349,23 @@ typedef struct {
    * written before the step table was transcribed. */
   CodeSpecsStep *steps;
   size_t steps_len;
+  /* The A4 obligations (`codespecs_prompt.md` §4.4), from `gate`. */
+  CodeSpecsRequiredArgument *required_arguments;
+  size_t required_arguments_len;
+  /* The A5 carriers (`codespecs_prompt.md` §4.5), from `gate`. */
+  CodeSpecsCarrier *carriers;
+  size_t carriers_len;
+  /* Whether the catalogue carries the gate tables at all — the optional `gate`
+   * object is present. Without them A4 and A5 are not run, rather than passing
+   * over nothing. */
+  int has_gate_tables;
 } CodeSpecsAreaCatalog;
 
 /* Decodes a catalogue from its parsed JSON form into `*out` (initialised by the
  * callee, released with `spec_codespecs_area_catalog_free`). A NULL or
  * non-object node yields an empty catalogue rather than a failure — the shape
- * every optional block in this runtime decodes to. */
+ * every optional block in this runtime decodes to. An absent (or null) `gate`
+ * key yields no gate tables (`has_gate_tables == 0`). */
 void spec_codespecs_area_catalog_from_json(const SomJson *v,
                                            CodeSpecsAreaCatalog *out);
 

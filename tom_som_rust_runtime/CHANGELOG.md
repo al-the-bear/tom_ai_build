@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+- CodeSpecs: the Stage-A gate (`codespecs_prompt.md` §4, A1–A5), new module
+  `spec_codespecs_gate` re-exported from the crate root:
+  `CodeSpecsGate::new(model, document, catalog, schema, root_type).run()`
+  returns a `CodeSpecsGateReport` (`results` A1..A5 in order, `extracts` when
+  A3 passed, `passed()`, `findings()`, `get(check)`) — never a `Result`: every
+  check runs, and one that cannot run is reported not run, with its reason,
+  and never passes. A1 renders with `SpecDocument::to_markdown` and validates
+  with `DocSpecsValidator` (a render `Err`, which Dart throws, is reported as
+  A1 not run); A2 is `validate_document`; A3 collects every unrouted class
+  from the non-strict `routings()` walk (or the root-resolution error) and
+  only then runs `extract_all()`; A4 checks each required marker argument's
+  source (with `when` and `resolves_to`); A5 checks each carrier against the
+  model. New `CodeSpecsGateCheck` (`label()` = `A1`..`A5`),
+  `CodeSpecsGateCheckResult`, `CodeSpecsGateFinding`. The area catalogue reads
+  the optional `gate` block: new `CodeSpecsFieldRef`,
+  `CodeSpecsRequiredArgument`, `CodeSpecsCarrier` (each `from_json` returns
+  `Result<_, String>`), and `CodeSpecsAreaCatalog::required_arguments` /
+  `carriers` / `has_gate_tables`. **Breaking:** `CodeSpecsAreaCatalog::from_json`
+  now returns `Result<CodeSpecsAreaCatalog, String>`, failing on a gate row
+  missing a required cell. Verified against `codespecs_gate_cases.json`.
 - CodeSpecs: reading a Phase-4 run back (new module `spec_codespecs_records`,
   re-exported from the crate root). `CodeSpecsExtract::from_yaml(text,
   source)` / `parse_code_specs_extract_yaml` are the inverse of `to_yaml`

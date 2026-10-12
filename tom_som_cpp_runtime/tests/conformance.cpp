@@ -1999,6 +1999,89 @@ static std::string check_record_error(Checker& c, const std::string& tag,
 
 /* `codespecs_record_cases.json`: reading extracts and the gate record back,
  * writing the gate record, and scoping a set of extracts by it. */
+/* ---- CodeSpecs gate: Stage A, A1–A5 ------------------------------------- */
+
+/* The report in the corpus's `expect` shape, as compact JSON text in the key
+ * order of the Dart `_runGateCase`. */
+static std::string gate_report_text(const som::CodeSpecsGateReport& r) {
+  std::string b = "{\"passed\":";
+  b += r.passed() ? "true" : "false";
+  b += ",\"results\":[";
+  for (std::size_t i = 0; i < r.results.size(); i++) {
+    const som::CodeSpecsGateCheckResult& res = r.results[i];
+    if (i > 0) b += ",";
+    b += "{\"check\":" + sum_str(std::string(som::codeSpecsGateCheckLabel(res.check)));
+    b += ",\"ran\":";
+    b += res.ran ? "true" : "false";
+    b += ",\"notRunReason\":" + sum_str(res.notRunReason);
+    b += ",\"findings\":[";
+    for (std::size_t k = 0; k < res.findings.size(); k++) {
+      const som::CodeSpecsGateFinding& f = res.findings[k];
+      if (k > 0) b += ",";
+      b += "{\"code\":" + sum_str(f.code) + ",\"location\":" +
+           sum_str(f.location) + ",\"message\":" + sum_str(f.message) + "}";
+    }
+    b += "]}";
+  }
+  b += "]}";
+  return b;
+}
+
+/* One gate case, like the Dart `_runGateCase`. A case key that is PRESENT
+ * overrides the table default — `schema: null` means no schema, `gate: null` a
+ * catalogue without gate tables. */
+static std::string run_gate_case(const som::JsonRef& table, const som::JsonRef& cc,
+                                 const som::JsonRef& meta) {
+  // The catalogue JSON: `catalog` plus `gate` unless that is null. A shallow
+  // copy, so the shared table is never written to.
+  som::JsonRef gate = som::jsonGet(cc, "gate") != nullptr
+                          ? som::jsonGet(cc, "gate")
+                          : som::jsonGet(table, "gate");
+  auto catalogJson = std::make_shared<som::Json>(*som::jsonGet(table, "catalog"));
+  if (gate != nullptr && gate->type != som::JsonType::Null) {
+    catalogJson->object.emplace_back("gate", std::const_pointer_cast<som::Json>(gate));
+  }
+  som::CodeSpecsAreaCatalog catalog = som::CodeSpecsAreaCatalog::fromJson(catalogJson);
+
+  som::JsonRef schemaYaml = som::jsonGet(cc, "schema") != nullptr
+                                ? som::jsonGet(cc, "schema")
+                                : som::jsonGet(table, "schema");
+  std::optional<som::DocSpecsSchema> schema;
+  if (som::jsonAsStr(schemaYaml) != nullptr) {
+    std::string err;
+    schema = som::docspecsSchemaFromYamlText(*som::jsonAsStr(schemaYaml), &err);
+    if (!schema.has_value()) return "schema did not parse: " + err;
+  }
+  som::JsonRef modelJson = som::jsonGet(cc, "model");
+  std::unique_ptr<som::SpecModel> model =
+      som::SpecModel::fromJson(modelJson != nullptr ? modelJson : meta);
+  som::SpecDocument doc =
+      doc_from_state(som::documentJsonFromJson(som::jsonGet(cc, "state")));
+  try {
+    som::CodeSpecsGate gateRun(*model, doc, catalog,
+                               schema.has_value() ? &*schema : nullptr);
+    return gate_report_text(gateRun.run());
+  } catch (const std::exception& e) {
+    return std::string("gate run threw: ") + e.what();
+  }
+}
+
+/* `codespecs_gate_cases.json`: the Stage-A gate, A1–A5, every case. */
+static void test_codespecs_gate(Checker& c) {
+  som::JsonPtr table = read_json("codespecs_gate_cases.json");
+  som::JsonPtr meta = read_json("model.meta.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  c.check("codespecsGate.cases.nonEmpty", n > 0, "no cases");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef cc = som::jsonArrayAt(cases, i);
+    std::string tag = "codespecsGate[" + som::jsonStrOr(cc, "name") + "]";
+    std::string got = run_gate_case(table, cc, meta);
+    std::string want = json_text(som::jsonGet(cc, "expect"));
+    c.check(tag, got == want, byte_diff(tag, got, want));
+  }
+}
+
 static void test_codespecs_records(Checker& c) {
   som::JsonPtr table = read_json("codespecs_record_cases.json");
   som::JsonPtr extractTable = read_json("codespecs_extract_cases.json");
@@ -2372,6 +2455,7 @@ int main(int argc, char** argv) {
   test_projection(c, *model);
   test_codespecs_extract(c, *model);
   test_codespecs_records(c);
+  test_codespecs_gate(c);
   test_cursor(c, *model);
   test_node_creation_cases(c, *model);
   test_node_creation_script(c, *model);

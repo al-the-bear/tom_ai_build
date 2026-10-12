@@ -85,6 +85,7 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SomEditability`, `SomVersionError` | `SOM §4.2` version-check outcome enum (non-throwing `SomFacade.somEditabilityFor`) and its throwing error. |
 | `SpecAnnotations`, `KindLink`, `NoArtifactLink` | The annotation lookups shared by `SpecClass` and `SpecField`, including the three routing verdicts of `codespecs_mapping.md` §8.3 (`@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact`). |
 | `CodeSpecsExtractor`, `CodeSpecsExtract`, `CodeSpecsAreaCatalog`, `CodeSpecsArea`, `CodeSpecsSlice`, `CodeSpecsStep`, `CodeSpecsRouting`, `CodeSpecsExtractEntry`, `CodeSpecsExtractError` | The Phase-4 CodeSpecs specification-extract generator: per area, every value the document routes there — verbatim, with provenance — plus its YAML and Markdown artifacts. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
+| `CodeSpecsGate`, `CodeSpecsGateReport`, `CodeSpecsGateCheckResult`, `CodeSpecsGateFinding`, `CodeSpecsGateCheck`, `CodeSpecsFieldRef`, `CodeSpecsRequiredArgument`, `CodeSpecsCarrier` | The Stage-A gate (`codespecs_prompt.md` §4, A1–A5) run as one over model, document, catalogue and DocSpecs schema: every check runs, a check that cannot run is reported not run, and the report carries the extracts when A3 passed. A4/A5 read the catalogue's optional `gate` tables. |
 | `CodeSpecsExtract.fromYaml`, `CodeSpecsGateRecord`, `CodeSpecsGateEntry`, `CodeSpecsGateVerdict`, `CodeSpecsExtractSet`, `CodeSpecsExcludedArea`, `CodeSpecsRecordError` | Reading a Phase-4 run back: an extract file (the inverse of `toYaml`, refusing an unknown `formatVersion`), the Stage-B gate record `gate.verdicts.yaml` (read, checked, edited with `withVerdict`, written byte-stable) and a set of extracts scoped by that record (`fromFiles`, `fromDirectory`), with the excluded areas kept visible. |
 
 ## Quick start
@@ -171,6 +172,7 @@ operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
 | `CodeSpecsExtractSet` | The extracts of one run read back and scoped by their gate record. |
+| `CodeSpecsGate` | The Stage-A gate — A1–A5 over model, document, catalogue and schema, all run, none failing fast. |
 | `SomNode` / `SomScalar` / `SomList` | The editing-facade base types the generated `tom_som_java_v0` classes extend. |
 
 ## Ecosystem
