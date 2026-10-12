@@ -1137,6 +1137,44 @@ static void test_docspecs(Checker& c) {
           "uncovered: " + join(uncovered));
 }
 
+/* Section-body replacement (DocSpecsDocument::replaceSectionBody), run like
+ * the Dart reference's `_runDocSpecsReplaceCase`: std::invalid_argument maps to
+ * {error: true}; otherwise the returned text must equal `expect.text`
+ * byte-for-byte. */
+static void test_docspecs_replace(Checker& c) {
+  som::JsonPtr table = read_json("docspecs_replace_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  c.check("docspecsReplace.cases", n > 0,
+          "no cases in docspecs_replace_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string tag =
+        "docspecsReplace[" + som::jsonStrOr(kase, "name") + "]";
+    bool error = false;
+    std::string text;
+    try {
+      text = som::DocSpecsDocument::replaceSectionBody(
+          som::jsonStrOr(kase, "markdown"), som::jsonStrOr(kase, "sectionId"),
+          som::jsonStrOr(kase, "body"));
+    } catch (const std::invalid_argument&) {
+      error = true;
+    }
+    som::JsonRef expect = som::jsonGet(kase, "expect");
+    bool wantError = som::jsonBoolOr(expect, "error");
+    if (error != wantError) {
+      c.check(tag, false, error ? "threw, expected text" : "expected an error");
+      continue;
+    }
+    if (error) {
+      c.check(tag, true, "");
+      continue;
+    }
+    std::string want = som::jsonStrOr(expect, "text");
+    c.check(tag, text == want, "got " + text + " want " + want);
+  }
+}
+
 /* ---- SOM §9 text pattern / query / node creation ------------------------ */
 
 /* The fixture document every §9 group starts from — the same one the Dart
@@ -1878,6 +1916,7 @@ int main(int argc, char** argv) {
   test_section_id(c);
   test_serialization_order(c);
   test_docspecs(c);
+  test_docspecs_replace(c);
   test_text_pattern(c);
   test_query(c, *model);
   test_projection(c, *model);

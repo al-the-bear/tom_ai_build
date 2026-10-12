@@ -23,8 +23,10 @@ package somruntime
 // returns an error instead.
 
 import (
+	"errors"
 	"regexp"
 	"strings"
+	"unicode"
 )
 
 // The vocabulary of validation violation rules (Dart-parity names).
@@ -189,6 +191,90 @@ func ParseDocSpecsDocument(text string) *DocSpecsDocument {
 		fence.Feed(raw)
 	}
 	return doc
+}
+
+// AllSections returns every section of the document, depth-first: each
+// section followed by its subsections, at all levels.
+func (d *DocSpecsDocument) AllSections() []*DocSpecsSection {
+	var out []*DocSpecsSection
+	var walk func(list []*DocSpecsSection)
+	walk = func(list []*DocSpecsSection) {
+		for _, s := range list {
+			out = append(out, s)
+			walk(s.Children)
+		}
+	}
+	walk(d.Sections)
+	return out
+}
+
+// DocSpecsReplaceSectionBody returns text with the body of the section whose
+// id is sectionID replaced by body; every other byte is kept.
+//
+// The body is the section's own region: the lines after its heading up to its
+// first child heading, or the next heading of any level. The heading line
+// (with its `<!--[ID]-->` comment) and the subsections are untouched. The
+// region is found by the same fence-aware ParseDocSpecsDocument, so a `#` line
+// inside a fenced block is never taken for a heading.
+//
+// The new region is a blank line, body with its leading and trailing blank
+// lines removed, and a blank line; an empty body leaves a single blank line.
+// It returns an error when sectionID names no section or more than one, and
+// when body would change the document's structure: a heading outside a fenced
+// block, or a fence it opens and never closes.
+func DocSpecsReplaceSectionBody(text, sectionID, body string) (string, error) {
+	var matches []*DocSpecsSection
+	for _, s := range ParseDocSpecsDocument(text).AllSections() {
+		if s.ID == sectionID {
+			matches = append(matches, s)
+		}
+	}
+	if len(matches) == 0 {
+		return "", errors.New("sectionId \"" + sectionID + "\" names no section")
+	}
+	if len(matches) > 1 {
+		lineNos := make([]string, len(matches))
+		for i, s := range matches {
+			lineNos[i] = itoa(s.Line)
+		}
+		return "", errors.New("sectionId \"" + sectionID + "\" names " +
+			itoa(len(matches)) + " sections (lines " +
+			strings.Join(lineNos, ", ") + ")")
+	}
+
+	bodyLines := strings.Split(body, "\n")
+	for len(bodyLines) > 0 && strings.TrimSpace(bodyLines[0]) == "" {
+		bodyLines = bodyLines[1:]
+	}
+	for len(bodyLines) > 0 && strings.TrimSpace(bodyLines[len(bodyLines)-1]) == "" {
+		bodyLines = bodyLines[:len(bodyLines)-1]
+	}
+	fence := &MarkdownFenceTracker{}
+	for _, line := range bodyLines {
+		if !fence.InFence() &&
+			mdHeadingLineRE.MatchString(strings.TrimRightFunc(line, unicode.IsSpace)) {
+			return "", errors.New("body contains a heading outside a fenced " +
+				"block: \"" + line + "\"")
+		}
+		fence.Feed(line)
+	}
+	if fence.InFence() {
+		return "", errors.New("body leaves a fenced block open")
+	}
+
+	section := matches[0]
+	lines := strings.Split(text, "\n")
+	start := section.Line // 0-based index of the first body line
+	end := start + len(section.BodyLines)
+	region := []string{""}
+	if len(bodyLines) > 0 {
+		region = append(append([]string{""}, bodyLines...), "")
+	}
+	out := make([]string, 0, len(lines)-(end-start)+len(region))
+	out = append(out, lines[:start]...)
+	out = append(out, region...)
+	out = append(out, lines[end:]...)
+	return strings.Join(out, "\n"), nil
 }
 
 var docSpecsIDTransformRE = regexp.MustCompile(`[^a-zA-Z0-9_]+`)

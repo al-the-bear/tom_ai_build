@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- `DocSpecsDocument::replace_section_body` replaces one section's own body
+  (the lines between its heading and the next heading of any level) and keeps
+  every other byte; the body is trimmed of leading/trailing blank lines and
+  framed by one blank line on each side. It returns `Err` when the id names no
+  section or several, or when the body carries a heading outside a fence or
+  leaves a fence open. `DocSpecsDocument::all_sections` walks the tree
+  depth-first. Verified against the corpus table
+  `docspecs_replace_cases.json`.
 - YAML codec: the `review:` pass is written back. `encode_yaml_with_review`
   takes an optional review map (typically the one `decode_yaml` returned) and
   appends it after the document pass via `write_review_pass`: entries sorted by

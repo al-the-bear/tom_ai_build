@@ -1577,6 +1577,15 @@ tool:
    producing a structured violation list.
 3. **Bind** a parsed document onto the SOM metadata tree, yielding staged
    values by path (the §11.7 `parse` entry point).
+4. **Replace one section's body** by id
+   (`DocSpecsDocument.replaceSectionBody(text, sectionId, body)`), without a
+   schema. Only the section's own region changes: the lines after its heading
+   up to its first child or the next heading, found by the same fence-aware
+   parse. The heading, its id comment, the subsections and every other byte are
+   kept. The new region is a blank line, the body (outer blank lines trimmed)
+   and a blank line. An id naming no section or several is refused, and so is a
+   body that would change the document's structure: a heading outside a fence,
+   or a fence left open. Pinned by `docspecs_replace_cases.json`.
 
 Scope: a consolidated clean design, **not** a port of `tom_doc_scanner` /
 `tom_doc_specs` internals (those packages are not touched by SOM work).

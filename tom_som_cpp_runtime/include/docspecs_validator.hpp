@@ -109,6 +109,28 @@ struct DocSpecsDocument {
   std::string declaredSchema;  // the `<!-- docspec: … -->` id, "" absent
   std::vector<std::unique_ptr<DocSpecsSection>> sections;  // top-level (root)
   std::vector<DocSpecsViolation> violations;  // structural findings from parse
+
+  /* Every section of the tree, depth-first (each section before its
+   * children), at every level. Borrowed pointers into `sections`. */
+  std::vector<const DocSpecsSection*> allSections() const;
+
+  /* Returns `text` with the body of the section whose id is `sectionId`
+   * replaced by `body`; every other byte is kept.
+   *
+   * The body is the section's own region: the lines after its heading up to
+   * its first child heading, or the next heading of any level. The heading
+   * line and the subsections are untouched. The region is found by the same
+   * fence-aware docspecsParseDocument, so a `#` line inside a fenced block is
+   * never taken for a heading.
+   *
+   * The new region is a blank line, `body` with its leading and trailing blank
+   * lines removed, and a blank line; an empty `body` leaves a single blank
+   * line. Throws std::invalid_argument when `sectionId` names no section or
+   * more than one, and when `body` would change the document's structure: a
+   * heading outside a fenced block, or a fence it opens and never closes. */
+  static std::string replaceSectionBody(const std::string& text,
+                                        const std::string& sectionId,
+                                        const std::string& body);
 };
 
 /* Parses `text` into a heading tree. Never fails — structural problems are

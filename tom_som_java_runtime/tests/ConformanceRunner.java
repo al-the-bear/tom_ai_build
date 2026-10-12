@@ -19,6 +19,7 @@ import tom_som_runtime.CodeSpecsExtractEntry;
 import tom_som_runtime.CodeSpecsExtractError;
 import tom_som_runtime.CodeSpecsExtractor;
 import tom_som_runtime.CodeSpecsRouting;
+import tom_som_runtime.DocSpecsDocument;
 import tom_som_runtime.DocSpecsSchema;
 import tom_som_runtime.DocSpecsValidator;
 import tom_som_runtime.DocSpecsViolation;
@@ -1041,6 +1042,35 @@ public final class ConformanceRunner {
     check("docspecs.ruleCoverage", uncovered.isEmpty(), "uncovered: " + uncovered);
   }
 
+  /**
+   * {@code docspecs_replace_cases.json}: {@link DocSpecsDocument#replaceSectionBody}
+   * either rejects the case (the error flag must match) or returns exactly the
+   * expected text.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testDocSpecsReplace() throws IOException {
+    Map<String, Object> table = readJsonObject("docspecs_replace_cases.json");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = (String) c.get("name");
+      Map<String, Object> expect = (Map<String, Object>) c.get("expect");
+      boolean wantError = Boolean.TRUE.equals(expect.get("error"));
+      String got;
+      boolean gotError;
+      try {
+        got =
+            DocSpecsDocument.replaceSectionBody(
+                (String) c.get("markdown"), (String) c.get("sectionId"), (String) c.get("body"));
+        gotError = false;
+      } catch (IllegalArgumentException e) {
+        got = e.getMessage();
+        gotError = true;
+      }
+      boolean ok = gotError == wantError && (wantError || got.equals(expect.get("text")));
+      check("docspecsReplace[" + name + "]", ok, "error=" + gotError + ": " + got);
+    }
+  }
+
   // --- SOM §9: text pattern / query / node creation -------------------------
 
   /**
@@ -1748,6 +1778,7 @@ public final class ConformanceRunner {
     testSectionId();
     testSerializationOrder();
     testDocSpecs();
+    testDocSpecsReplace();
     testFixtureDocument();
     testPatterns();
     testQueries(model);

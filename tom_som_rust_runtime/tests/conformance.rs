@@ -61,7 +61,9 @@ use tom_som_rust_runtime::spec_section_id::{
 use tom_som_rust_runtime::spec_serialization_order::SpecSerializationOrder;
 use tom_som_rust_runtime::spec_text_pattern::SomTextPattern;
 use tom_som_rust_runtime::spec_validator::validate_document;
-use tom_som_rust_runtime::{DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES};
+use tom_som_rust_runtime::{
+    DocSpecsDocument, DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES,
+};
 
 const MODEL_VERSION: &str = "1.0";
 
@@ -185,6 +187,7 @@ fn conformance() {
     test_node_creation_cases(&mut c, &model);
     test_node_creation_script(&mut c, &model);
     test_docspecs(&mut c);
+    test_docspecs_replace(&mut c);
 
     c.finish();
 }
@@ -808,6 +811,28 @@ fn test_docspecs(c: &mut Checker) {
         uncovered.is_empty(),
         &format!("uncovered: {:?}", uncovered),
     );
+}
+
+/// `DocSpecsDocument::replace_section_body` over `docspecs_replace_cases.json`:
+/// the error flag must match, and a successful replacement must reproduce the
+/// expected text byte for byte.
+fn test_docspecs_replace(c: &mut Checker) {
+    let table = read_json("docspecs_replace_cases.json");
+    for cc in table.get("cases").and_then(|v| v.as_array()).unwrap() {
+        let name = cc.str_or("name");
+        let expect = cc.get("expect").unwrap();
+        let got = DocSpecsDocument::replace_section_body(
+            &cc.str_or("markdown"),
+            &cc.str_or("sectionId"),
+            &cc.str_or("body"),
+        );
+        let ok = match (&got, expect.bool_or("error")) {
+            (Err(_), true) => true,
+            (Ok(text), false) => *text == expect.str_or("text"),
+            _ => false,
+        };
+        c.check(&format!("docspecsReplace[{}]", name), ok, &format!("{:?}", got));
+    }
 }
 
 fn test_operations(c: &mut Checker) {

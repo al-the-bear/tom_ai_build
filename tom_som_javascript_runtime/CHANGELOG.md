@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- DocSpecs: `DocSpecsDocument.allSections` (every section, depth-first) and
+  static `DocSpecsDocument.replaceSectionBody(text, sectionId, body)`, which
+  replaces one section's own body (up to its first child heading) and keeps
+  every other byte. It throws when the id names no section or several, and
+  when the body holds a heading outside a fenced block or leaves a fence
+  open. Conformance: `docspecs_replace_cases.json` (`docspecsReplace[…]`).
 - YAML codec: `encode(document, tree, modelVersion, review)` writes the
   `review:` pass back when `review` is given (`review: {}` when empty), via the
   new `writeReviewPass` — entries sorted by path, fields sorted by name,

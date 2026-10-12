@@ -737,6 +737,171 @@ void docspecs_document_free(DocSpecsDocument *doc) {
   free(doc);
 }
 
+/* ---- section body replacement -------------------------------------------- */
+
+/* strings.Split(text, "\n") into `out` (initialised by the caller). */
+static void split_lines(const char *text, SomStrList *out) {
+  const char *cursor = text;
+  for (;;) {
+    const char *nl = strchr(cursor, '\n');
+    size_t len = nl != NULL ? (size_t)(nl - cursor) : strlen(cursor);
+    som_strlist_push(out, som_strdup_n(cursor, len));
+    if (nl == NULL) {
+      return;
+    }
+    cursor = nl + 1;
+  }
+}
+
+/* Reports whether `s` is empty or whitespace only (Dart `trim().isEmpty`). */
+static int is_blank(const char *s) {
+  for (; *s != '\0'; s++) {
+    if (!is_ascii_ws(*s)) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+/* Depth-first, pre-order collection of the sections whose id is `id`. */
+static void collect_sections(DocSpecsSection **list, size_t len, const char *id,
+                             const DocSpecsSection ***out, size_t *out_len,
+                             size_t *out_cap) {
+  for (size_t i = 0; i < len; i++) {
+    const DocSpecsSection *s = list[i];
+    if (strcmp(s->id, id) == 0) {
+      if (*out_len == *out_cap) {
+        *out_cap = *out_cap == 0 ? 4 : *out_cap * 2;
+        *out = realloc((void *)*out, *out_cap * sizeof(DocSpecsSection *));
+      }
+      (*out)[(*out_len)++] = s;
+    }
+    collect_sections(s->children, s->children_len, id, out, out_len, out_cap);
+  }
+}
+
+int docspecs_replace_section_body(const char *text, const char *section_id,
+                                  const char *body, char **out,
+                                  char **error_out) {
+  *out = NULL;
+  if (error_out != NULL) {
+    *error_out = NULL;
+  }
+  char *err = NULL;
+  DocSpecsDocument *doc = docspecs_parse_document(text);
+  const DocSpecsSection **matches = NULL;
+  size_t matches_len = 0;
+  size_t matches_cap = 0;
+  collect_sections(doc->sections, doc->sections_len, section_id, &matches,
+                   &matches_len, &matches_cap);
+  SomStrList body_lines;
+  som_strlist_init(&body_lines);
+
+  if (matches_len == 0) {
+    err = vcat("sectionId \"", section_id, "\" names no section", NULL);
+    goto done;
+  }
+  if (matches_len > 1) {
+    SomBuf lb;
+    som_buf_init(&lb);
+    for (size_t i = 0; i < matches_len; i++) {
+      if (i > 0) {
+        som_buf_puts(&lb, ", ");
+      }
+      char *n = dv_itoa(matches[i]->line);
+      som_buf_puts(&lb, n);
+      free(n);
+    }
+    char *lines_s = som_buf_take(&lb);
+    char *count = dv_itoa((long long)matches_len);
+    err = vcat("sectionId \"", section_id, "\" names ", count,
+               " sections (lines ", lines_s, ")", NULL);
+    free(count);
+    free(lines_s);
+    goto done;
+  }
+
+  split_lines(body, &body_lines);
+  while (body_lines.len > 0 && is_blank(body_lines.items[0])) {
+    som_strlist_remove_at(&body_lines, 0);
+  }
+  while (body_lines.len > 0 && is_blank(body_lines.items[body_lines.len - 1])) {
+    som_strlist_remove_at(&body_lines, body_lines.len - 1);
+  }
+  {
+    SpecMarkdownFenceTracker fence;
+    spec_markdown_fence_init(&fence);
+    for (size_t i = 0; i < body_lines.len; i++) {
+      const char *line = body_lines.items[i];
+      if (!spec_markdown_fence_in_fence(&fence)) {
+        char *trimmed = strip_trailing_ws(line);
+        int level = 0;
+        char *rest = NULL;
+        int heading = match_heading_line(trimmed, &level, &rest);
+        free(rest);
+        free(trimmed);
+        if (heading) {
+          err = vcat("body contains a heading outside a fenced block: \"", line,
+                     "\"", NULL);
+          goto done;
+        }
+      }
+      spec_markdown_fence_feed(&fence, line);
+    }
+    if (spec_markdown_fence_in_fence(&fence)) {
+      err = som_strdup("body leaves a fenced block open");
+      goto done;
+    }
+  }
+
+  {
+    const DocSpecsSection *section = matches[0];
+    SomStrList lines;
+    som_strlist_init(&lines);
+    split_lines(text, &lines);
+    size_t start = (size_t)section->line; /* 0-based first body line */
+    size_t end = start + section->body_lines.len;
+    if (start > lines.len) {
+      start = lines.len;
+    }
+    if (end > lines.len) {
+      end = lines.len;
+    }
+    SomStrList result;
+    som_strlist_init(&result);
+    for (size_t i = 0; i < start; i++) {
+      som_strlist_push_copy(&result, lines.items[i]);
+    }
+    som_strlist_push_copy(&result, "");
+    if (body_lines.len > 0) {
+      for (size_t i = 0; i < body_lines.len; i++) {
+        som_strlist_push_copy(&result, body_lines.items[i]);
+      }
+      som_strlist_push_copy(&result, "");
+    }
+    for (size_t i = end; i < lines.len; i++) {
+      som_strlist_push_copy(&result, lines.items[i]);
+    }
+    *out = som_strlist_join(&result, "\n");
+    som_strlist_free(&result);
+    som_strlist_free(&lines);
+  }
+
+done:
+  som_strlist_free(&body_lines);
+  free((void *)matches);
+  docspecs_document_free(doc);
+  if (err != NULL) {
+    if (error_out != NULL) {
+      *error_out = err;
+    } else {
+      free(err);
+    }
+    return 1;
+  }
+  return 0;
+}
+
 /* ---- schema -------------------------------------------------------------- */
 
 static DocSpecsPatternCheck *pattern_check_from_node(const YamlValue *node) {

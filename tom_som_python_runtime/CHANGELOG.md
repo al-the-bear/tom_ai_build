@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- DocSpecs: `DocSpecsDocument.replace_section_body(text, section_id, body)`
+  returns the markdown with one section's own body region replaced and every
+  other byte kept; it raises `ValueError` when the id names no section or
+  several, or when the body holds a heading outside a fence or leaves a fence
+  open. `DocSpecsDocument.all_sections` lists every section depth-first. The
+  `docspecs_replace_cases.json` corpus table pins it.
 - Markdown codec: a member's heading id and its transparency are read from its
   meta node (`sectionId`, then `classSectionId`), no longer by looking up the
   node's class name. A wrapper section (`TextSection`, …) carries its owner's

@@ -55,6 +55,7 @@ void main() {
   final markdownImportCases = _markdownImportCases();
   final markdownApplyCases = _markdownApplyCases(model, mdGolden);
   final yamlReviewCases = _yamlReviewCases(model, tree, yamlGolden);
+  final docSpecsReplaceCases = _docSpecsReplaceCases();
   final docSpecsCases = _docSpecsCases();
   final patternCases = _patternCases();
   final queryCases = _queryCases(model, doc);
@@ -91,6 +92,10 @@ void main() {
     );
     write('markdown_apply_cases.json', '${enc.convert(markdownApplyCases)}\n');
     write('yaml_review_cases.json', '${enc.convert(yamlReviewCases)}\n');
+    write(
+      'docspecs_replace_cases.json',
+      '${enc.convert(docSpecsReplaceCases)}\n',
+    );
     write('docspecs_schema.yaml', _docSpecsSchemaYaml);
     write('docspecs_cases.json', '${enc.convert(docSpecsCases)}\n');
     write('pattern_cases.json', '${enc.convert(patternCases)}\n');
@@ -301,6 +306,23 @@ void main() {
       final c = raw as Map<String, dynamic>;
       test(c['name'] as String, () {
         expect(_runYamlReviewCase(model, tree, c), c['expect']);
+      });
+    }
+  });
+
+  // Replacing one DocSpecs section's body by id (DocSpecsDocument
+  // .replaceSectionBody): only the section's own region changes, a fenced
+  // `#` line is never a heading, and an ambiguous or structure-changing
+  // request is refused.
+  group('docspecs_replace_cases.json (replace a section body)', () {
+    final onDisk = File('${corpusDir.path}/docspecs_replace_cases.json');
+    final table = update && !onDisk.existsSync()
+        ? docSpecsReplaceCases
+        : jsonDecode(onDisk.readAsStringSync()) as Map<String, dynamic>;
+    for (final raw in table['cases'] as List<dynamic>) {
+      final c = raw as Map<String, dynamic>;
+      test(c['name'] as String, () {
+        expect(_runDocSpecsReplaceCase(c), c['expect']);
       });
     }
   });
@@ -5214,6 +5236,103 @@ Map<String, dynamic> _yamlReviewCases(
   ];
   for (final c in cases) {
     c['expect'] = _runYamlReviewCase(model, tree, c);
+  }
+  return {'cases': cases};
+}
+
+/// Runs one `docspecs_replace_cases.json` case: `{error: true}` when the
+/// replace is refused, else `{error: false, text: <result>}`.
+Map<String, dynamic> _runDocSpecsReplaceCase(Map<String, dynamic> c) {
+  try {
+    final text = DocSpecsDocument.replaceSectionBody(
+      c['markdown'] as String,
+      c['sectionId'] as String,
+      c['body'] as String,
+    );
+    return {'error': false, 'text': text};
+  } on ArgumentError {
+    return {'error': true};
+  }
+}
+
+/// The `docspecs_replace_cases.json` table, expected results computed live.
+Map<String, dynamic> _docSpecsReplaceCases() {
+  const doc =
+      '<!-- docspec: demo/1.0 -->\n'
+      '# <!--[ROOT]--> Root\n'
+      '\n'
+      'Root intro.\n'
+      '\n'
+      '## <!--[A]--> Section A\n'
+      '\n'
+      'Old A text.\n'
+      '\n'
+      '```text\n'
+      '# not a heading, inside a fence\n'
+      '```\n'
+      '\n'
+      '### <!--[A-1]--> Child\n'
+      '\n'
+      'Child text.\n'
+      '\n'
+      '## <!--[B]--> Section B\n'
+      '\n'
+      'Old B.\n';
+  const duplicated = '$doc\n## <!--[B]--> Section B again\n\nAgain.\n';
+  final cases = <Map<String, dynamic>>[
+    {
+      'name': 'a section with a subsection: only its own body changes',
+      'markdown': doc,
+      'sectionId': 'A',
+      'body': 'New A text.',
+    },
+    {
+      'name': 'the last section, at the end of the file',
+      'markdown': doc,
+      'sectionId': 'B',
+      'body': '\n\nNew B, first line.\nSecond line.\n\n',
+    },
+    {
+      'name': 'a body with a fenced heading-like line',
+      'markdown': doc,
+      'sectionId': 'A-1',
+      'body':
+          'Before.\n\n```markdown\n## <!--[X]--> fenced, not a heading\n'
+          '```\n\nAfter.',
+    },
+    {
+      'name': 'an empty body leaves one blank line',
+      'markdown': doc,
+      'sectionId': 'ROOT',
+      'body': '',
+    },
+    {
+      'name': 'an unknown id is refused',
+      'markdown': doc,
+      'sectionId': 'NOPE',
+      'body': 'x',
+    },
+    {
+      'name': 'a duplicated id is refused',
+      'markdown': duplicated,
+      'sectionId': 'B',
+      'body': 'x',
+    },
+    {
+      'name': 'a body with a heading outside a fence is refused',
+      'markdown': doc,
+      'sectionId': 'B',
+      'body': 'Text.\n\n## <!--[C]--> Smuggled',
+    },
+    {
+      'name': 'a body that leaves a fence open is refused',
+      'markdown': doc,
+      'sectionId': 'B',
+      'body': '```dart\nvoid main() {}',
+    },
+  ];
+  for (final c in cases) {
+    c['expect'] = _runDocSpecsReplaceCase(c);
   }
   return {'cases': cases};
 }

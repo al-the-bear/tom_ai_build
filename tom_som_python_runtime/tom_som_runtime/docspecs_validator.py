@@ -197,6 +197,75 @@ class DocSpecsDocument:
             fence.feed(raw)
         return doc
 
+    @property
+    def all_sections(self) -> list[DocSpecsSection]:
+        """Every section of the document, depth-first in source order (each
+        section before its children)."""
+        out: list[DocSpecsSection] = []
+
+        def walk(sections: list[DocSpecsSection]) -> None:
+            for s in sections:
+                out.append(s)
+                walk(s.children)
+
+        walk(self.sections)
+        return out
+
+    @staticmethod
+    def replace_section_body(text: str, section_id: str, body: str) -> str:
+        """Returns *text* with the body of the section whose id is
+        *section_id* replaced by *body*; every other byte is kept.
+
+        The body is the section's **own** region: the lines after its heading
+        up to its first child heading, or the next heading of any level. The
+        heading line (with its ``<!--[ID]-->`` comment) and the subsections
+        are untouched. The region is found by the same fence-aware
+        :meth:`parse`, so a ``#`` line inside a fenced block is never taken
+        for a heading.
+
+        The new region is a blank line, *body* with its leading and trailing
+        blank lines removed, and a blank line; an empty *body* leaves a single
+        blank line. Raises :class:`ValueError` when *section_id* names no
+        section or more than one, and when *body* would change the document's
+        structure: a heading outside a fenced block, or a fence it opens and
+        never closes."""
+        matches = [
+            s
+            for s in DocSpecsDocument.parse(text).all_sections
+            if s.id == section_id
+        ]
+        if not matches:
+            raise ValueError(f'sectionId "{section_id}" names no section')
+        if len(matches) > 1:
+            raise ValueError(
+                f'sectionId "{section_id}" names {len(matches)} sections '
+                f"(lines {', '.join(str(s.line) for s in matches)})"
+            )
+
+        body_lines = body.split("\n")
+        while body_lines and not body_lines[0].strip():
+            body_lines = body_lines[1:]
+        while body_lines and not body_lines[-1].strip():
+            body_lines = body_lines[:-1]
+        fence = MarkdownFenceTracker()
+        for line in body_lines:
+            if not fence.in_fence and SpecDocumentMarkdown.heading_line.match(
+                line.rstrip()
+            ):
+                raise ValueError(
+                    f'body contains a heading outside a fenced block: "{line}"'
+                )
+            fence.feed(line)
+        if fence.in_fence:
+            raise ValueError("body leaves a fenced block open")
+
+        section = matches[0]
+        lines = text.split("\n")
+        start = section.line  # 0-based index of the first body line
+        end = start + len(section.body_lines)
+        region = ["", *body_lines, ""] if body_lines else [""]
+        return "\n".join(lines[:start] + region + lines[end:])
+
 
 # ---------------------------------------------------------------------------
 # 2. Schema loading

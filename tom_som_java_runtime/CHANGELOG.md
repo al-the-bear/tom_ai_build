@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- DocSpecs: `DocSpecsDocument.replaceSectionBody(text, sectionId, body)`
+  returns the text with one section's own body (up to its first child heading)
+  replaced and every other byte kept; the region is found by the fence-aware
+  `parse`, and the new region is the body without leading/trailing blank lines
+  between two blank lines (one blank line for an empty body). Throws
+  `IllegalArgumentException` for an id naming no section or several, a body
+  heading outside a fence, or a body that leaves a fence open. New
+  `allSections()` lists every section depth-first. Pinned by the corpus table
+  `docspecs_replace_cases.json`.
 - YAML codec: the `review:` pass is written back. `SpecDocumentYaml.encode`
   takes an optional `review` map (written after the document pass by the new
   public `writeReviewPass`: entries sorted by path, fields sorted by name,

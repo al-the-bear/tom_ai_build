@@ -23,7 +23,8 @@
 //     YAML/Markdown goldens, the verbatim-copy guard, `ROUTE-TOTAL`);
 //   - the constrained node-creation gate (per-code rejections + the script);
 //   - the Markdown load/apply operations (SpecDocumentFromMarkdown,
-//     ApplyMarkdownResult).
+//     ApplyMarkdownResult);
+//   - the DocSpecs section-body replacement (DocSpecsReplaceSectionBody).
 //
 // `go test ./tests/` is the native runner; exit 0 == all green.
 package tests
@@ -34,6 +35,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -214,6 +216,7 @@ func TestConformance(t *testing.T) {
 	testSectionId(c, t)
 	testSerializationOrder(c, t)
 	testDocSpecs(c, t)
+	testDocSpecsReplace(c, t)
 	testPattern(c, t)
 	testQuery(c, t, model)
 	testProjection(c, t, model)
@@ -2068,4 +2071,40 @@ func join(s []string) string {
 		out += v
 	}
 	return out
+}
+
+// docSpecsReplaceCase is one row of corpus/docspecs_replace_cases.json.
+type docSpecsReplaceCase struct {
+	Name      string `json:"name"`
+	Markdown  string `json:"markdown"`
+	SectionID string `json:"sectionId"`
+	Body      string `json:"body"`
+	Expect    struct {
+		Error bool   `json:"error"`
+		Text  string `json:"text"`
+	} `json:"expect"`
+}
+
+// testDocSpecsReplace replays docspecs_replace_cases.json against
+// DocSpecsReplaceSectionBody: the error flag must match, and a successful
+// replacement must reproduce the expected text byte for byte.
+func testDocSpecsReplace(c *checker, t *testing.T) {
+	var table struct {
+		Cases []docSpecsReplaceCase `json:"cases"`
+	}
+	readJSON(t, "docspecs_replace_cases.json", &table)
+	for _, cc := range table.Cases {
+		got, err := som.DocSpecsReplaceSectionBody(cc.Markdown, cc.SectionID, cc.Body)
+		name := "docspecsReplace[" + cc.Name + "]"
+		if cc.Expect.Error {
+			c.check(name, err != nil, "expected an error, got "+strconv.Quote(got))
+			continue
+		}
+		if err != nil {
+			c.check(name, false, "unexpected error: "+err.Error())
+			continue
+		}
+		c.check(name, got == cc.Expect.Text,
+			strconv.Quote(got)+" != "+strconv.Quote(cc.Expect.Text))
+	}
 }

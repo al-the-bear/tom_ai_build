@@ -1,0 +1,80 @@
+{
+  "cases": [
+    {
+      "name": "a section with a subsection: only its own body changes",
+      "markdown": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nOld B.\n",
+      "sectionId": "A",
+      "body": "New A text.",
+      "expect": {
+        "error": false,
+        "text": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nNew A text.\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nOld B.\n"
+      }
+    },
+    {
+      "name": "the last section, at the end of the file",
+      "markdown": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nOld B.\n",
+      "sectionId": "B",
+      "body": "\n\nNew B, first line.\nSecond line.\n\n",
+      "expect": {
+        "error": false,
+        "text": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nNew B, first line.\nSecond line.\n"
+      }
+    },
+    {
+      "name": "a body with a fenced heading-like line",
+      "markdown": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nOld B.\n",
+      "sectionId": "A-1",
+      "body": "Before.\n\n```markdown\n## <!--[X]--> fenced, not a heading\n```\n\nAfter.",
+      "expect": {
+        "error": false,
+        "text": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nBefore.\n\n```markdown\n## <!--[X]--> fenced, not a heading\n```\n\nAfter.\n\n## <!--[B]--> Section B\n\nOld B.\n"
+      }
+    },
+    {
+      "name": "an empty body leaves one blank line",
+      "markdown": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nOld B.\n",
+      "sectionId": "ROOT",
+      "body": "",
+      "expect": {
+        "error": false,
+        "text": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nOld B.\n"
+      }
+    },
+    {
+      "name": "an unknown id is refused",
+      "markdown": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nOld B.\n",
+      "sectionId": "NOPE",
+      "body": "x",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "name": "a duplicated id is refused",
+      "markdown": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nOld B.\n\n## <!--[B]--> Section B again\n\nAgain.\n",
+      "sectionId": "B",
+      "body": "x",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "name": "a body with a heading outside a fence is refused",
+      "markdown": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nOld B.\n",
+      "sectionId": "B",
+      "body": "Text.\n\n## <!--[C]--> Smuggled",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "name": "a body that leaves a fence open is refused",
+      "markdown": "<!-- docspec: demo/1.0 -->\n# <!--[ROOT]--> Root\n\nRoot intro.\n\n## <!--[A]--> Section A\n\nOld A text.\n\n```text\n# not a heading, inside a fence\n```\n\n### <!--[A-1]--> Child\n\nChild text.\n\n## <!--[B]--> Section B\n\nOld B.\n",
+      "sectionId": "B",
+      "body": "```dart\nvoid main() {}",
+      "expect": {
+        "error": true
+      }
+    }
+  ]
+}

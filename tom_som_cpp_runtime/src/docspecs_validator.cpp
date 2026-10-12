@@ -4,6 +4,7 @@
 #include "docspecs_validator.hpp"
 
 #include <cstddef>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -745,6 +746,121 @@ DocSpecsDocument docspecsParseDocument(const std::string& text) {
     cursor = nl + 1;
   }
   return doc;
+}
+
+/* ---- section body replacement -------------------------------------------- */
+
+namespace {
+
+/* Appends `s` and its descendants, depth-first, to `out`. */
+void collectSections(const DocSpecsSection& s,
+                     std::vector<const DocSpecsSection*>& out) {
+  out.push_back(&s);
+  for (const auto& child : s.children) {
+    collectSections(*child, out);
+  }
+}
+
+/* Splits `text` on '\n' — a trailing '\n' yields a final empty element, as
+ * Dart's String.split does. */
+std::vector<std::string> splitLines(const std::string& text) {
+  std::vector<std::string> out;
+  std::size_t cursor = 0;
+  for (;;) {
+    std::size_t nl = text.find('\n', cursor);
+    if (nl == std::string::npos) {
+      out.push_back(text.substr(cursor));
+      return out;
+    }
+    out.push_back(text.substr(cursor, nl - cursor));
+    cursor = nl + 1;
+  }
+}
+
+/* Reports whether `s` is empty or whitespace only (Dart's trim().isEmpty). */
+bool isBlankLine(const std::string& s) { return stripTrailingWs(s).empty(); }
+
+}  // namespace
+
+std::vector<const DocSpecsSection*> DocSpecsDocument::allSections() const {
+  std::vector<const DocSpecsSection*> out;
+  for (const auto& s : sections) {
+    collectSections(*s, out);
+  }
+  return out;
+}
+
+std::string DocSpecsDocument::replaceSectionBody(const std::string& text,
+                                                 const std::string& sectionId,
+                                                 const std::string& body) {
+  DocSpecsDocument doc = docspecsParseDocument(text);
+  std::vector<const DocSpecsSection*> matches;
+  for (const DocSpecsSection* s : doc.allSections()) {
+    if (s->id == sectionId) {
+      matches.push_back(s);
+    }
+  }
+  if (matches.empty()) {
+    throw std::invalid_argument("sectionId \"" + sectionId +
+                                "\" names no section");
+  }
+  if (matches.size() > 1) {
+    std::string lines;
+    for (std::size_t i = 0; i < matches.size(); i++) {
+      if (i > 0) lines += ", ";
+      lines += std::to_string(matches[i]->line);
+    }
+    throw std::invalid_argument("sectionId \"" + sectionId + "\" names " +
+                                std::to_string(matches.size()) +
+                                " sections (lines " + lines + ")");
+  }
+
+  // the body, without its leading and trailing blank lines
+  std::vector<std::string> all = splitLines(body);
+  std::size_t first = 0;
+  std::size_t last = all.size();
+  while (first < last && isBlankLine(all[first])) first++;
+  while (last > first && isBlankLine(all[last - 1])) last--;
+  std::vector<std::string> bodyLines(all.begin() + static_cast<long>(first),
+                                     all.begin() + static_cast<long>(last));
+
+  // the body must not change the document's structure
+  SpecMarkdownFenceTracker fence;
+  for (const std::string& line : bodyLines) {
+    int level = 0;
+    std::string rest;
+    if (!fence.inFence() &&
+        matchHeadingLine(stripTrailingWs(line), &level, &rest)) {
+      throw std::invalid_argument(
+          "body contains a heading outside a fenced block: \"" + line + "\"");
+    }
+    fence.feed(line);
+  }
+  if (fence.inFence()) {
+    throw std::invalid_argument("body leaves a fenced block open");
+  }
+
+  const DocSpecsSection& section = *matches.front();
+  std::vector<std::string> lines = splitLines(text);
+  // the 1-based heading line is the 0-based index of the first body line
+  std::size_t start = static_cast<std::size_t>(section.line);
+  std::size_t end = start + section.bodyLines.size();
+
+  std::vector<std::string> out(lines.begin(),
+                               lines.begin() + static_cast<long>(start));
+  out.emplace_back();
+  if (!bodyLines.empty()) {
+    out.insert(out.end(), bodyLines.begin(), bodyLines.end());
+    out.emplace_back();
+  }
+  out.insert(out.end(), lines.begin() + static_cast<long>(end), lines.end());
+
+  std::string result;
+  for (std::size_t i = 0; i < out.size(); i++) {
+    if (i > 0) result.push_back('\n');
+    result += out[i];
+  }
+  return result;
 }
 
 /* ---- schema -------------------------------------------------------------- */

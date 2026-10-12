@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- DocSpecs: `docspecs_replace_section_body` replaces the own body of the one
+  section (any level) whose id is given and keeps every other byte; it
+  refuses an id naming no section or several (listing their lines), a body
+  with a heading outside a fence, and a body that leaves a fence open. The
+  conformance runner checks the shared `docspecs_replace_cases.json` table
+  (`docspecsReplace[...]`).
 - YAML codec: the `review:` pass is written back. `encode_yaml_with_review`
   encodes with a review value (NULL: no pass, exactly `encode_yaml`) and
   appends it through `spec_yaml_write_review_pass` — entries sorted by path

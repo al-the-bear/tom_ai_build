@@ -40,6 +40,7 @@ import {
   CodeSpecsExtractError,
   CodeSpecsExtractor,
   DEFAULT_MAX_SNAPSHOT_AGE_MS,
+  DocSpecsDocument,
   DocSpecsSchema,
   DocSpecsValidator,
   DocSpecsViolationRule,
@@ -974,6 +975,40 @@ function testDocSpecs(): void {
     `uncovered: ${uncovered}`);
 }
 
+/**
+ * One `docspecs_replace_cases.json` case, run exactly as the Dart reference
+ * does: a thrown error reports `{error: true}`, a result `{error: false,
+ * text}`.
+ */
+function _runDocSpecsReplaceCase(c: any): any {
+  try {
+    const text = DocSpecsDocument.replaceSectionBody(
+      c.markdown,
+      c.sectionId,
+      c.body,
+    );
+    return { error: false, text };
+  } catch (_) {
+    return { error: true };
+  }
+}
+
+/**
+ * `DocSpecsDocument.replaceSectionBody` against the shared corpus table: the
+ * error flag must match, and a successful replacement must produce the
+ * expected text byte for byte.
+ */
+function testDocSpecsReplace(): void {
+  for (const c of _readJson('docspecs_replace_cases.json').cases) {
+    const got = _runDocSpecsReplaceCase(c);
+    const want = c.expect;
+    const ok = got.error === want.error &&
+      (want.error || got.text === want.text);
+    _check(`docspecsReplace[${c.name}]`, ok,
+      `${JSON.stringify(got)} != ${JSON.stringify(want)}`);
+  }
+}
+
 // --- spec_text_pattern / spec_query / spec_node_creation (SOM §9) -----------
 
 /**
@@ -1619,6 +1654,7 @@ export function main(): number {
   testSectionId();
   testSerializationOrder();
   testDocSpecs();
+  testDocSpecsReplace();
   const queryDoc = _buildFixtureDocument();
   testQueryFixtureMatchesState();
   testPatterns();

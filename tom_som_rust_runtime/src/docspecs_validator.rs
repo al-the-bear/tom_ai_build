@@ -301,6 +301,92 @@ pub fn parse_docspecs_document(text: &str) -> DocSpecsDocument {
     doc
 }
 
+impl DocSpecsDocument {
+    /// Every section of the tree, depth-first (each section before its
+    /// children), at all levels.
+    pub fn all_sections(&self) -> Vec<&DocSpecsSection> {
+        fn walk<'a>(list: &'a [DocSpecsSection], out: &mut Vec<&'a DocSpecsSection>) {
+            for s in list {
+                out.push(s);
+                walk(&s.children, out);
+            }
+        }
+        let mut out = Vec::new();
+        walk(&self.sections, &mut out);
+        out
+    }
+
+    /// Returns `text` with the body of the section whose id is `section_id`
+    /// replaced by `body`; every other byte is kept.
+    ///
+    /// The body is the section's **own** region: the lines after its heading
+    /// up to its first child heading, or the next heading of any level. The
+    /// heading line (with its `<!--[ID]-->` comment) and the subsections are
+    /// untouched. The region is found by the same fence-aware
+    /// [`parse_docspecs_document`], so a `#` line inside a fenced block is
+    /// never taken for a heading.
+    ///
+    /// The new region is a blank line, `body` with its leading and trailing
+    /// blank lines removed, and a blank line; an empty `body` leaves a single
+    /// blank line. Returns `Err` when `section_id` names no section or more
+    /// than one, and when `body` would change the document's structure: a
+    /// heading outside a fenced block, or a fence it opens and never closes.
+    pub fn replace_section_body(text: &str, section_id: &str, body: &str) -> Result<String, String> {
+        let doc = parse_docspecs_document(text);
+        let matches: Vec<&DocSpecsSection> =
+            doc.all_sections().into_iter().filter(|s| s.id == section_id).collect();
+        if matches.is_empty() {
+            return Err(format!("sectionId \"{}\" names no section", section_id));
+        }
+        if matches.len() > 1 {
+            let lines: Vec<String> = matches.iter().map(|s| s.line.to_string()).collect();
+            return Err(format!(
+                "sectionId \"{}\" names {} sections (lines {})",
+                section_id,
+                matches.len(),
+                lines.join(", ")
+            ));
+        }
+
+        let mut body_lines: Vec<&str> = body.split('\n').collect();
+        while body_lines.first().is_some_and(|l| l.trim().is_empty()) {
+            body_lines.remove(0);
+        }
+        while body_lines.last().is_some_and(|l| l.trim().is_empty()) {
+            body_lines.pop();
+        }
+        let mut fence = MarkdownFenceTracker::new();
+        for line in &body_lines {
+            if !fence.in_fence() && md_heading_line(line.trim_end()).is_some() {
+                return Err(format!(
+                    "body contains a heading outside a fenced block: \"{}\"",
+                    line
+                ));
+            }
+            fence.feed(line);
+        }
+        if fence.in_fence() {
+            return Err("body leaves a fenced block open".to_string());
+        }
+
+        let section = matches[0];
+        let lines: Vec<&str> = text.split('\n').collect();
+        let start = section.line; // 0-based index of the first body line
+        let end = start + section.body_lines.len();
+        let mut out: Vec<&str> = Vec::with_capacity(lines.len() + body_lines.len() + 2);
+        out.extend_from_slice(&lines[..start]);
+        if body_lines.is_empty() {
+            out.push("");
+        } else {
+            out.push("");
+            out.extend_from_slice(&body_lines);
+            out.push("");
+        }
+        out.extend_from_slice(&lines[end..]);
+        Ok(out.join("\n"))
+    }
+}
+
 /// The DocSpecs id transform: every run of non-alphanumeric/underscore
 /// characters becomes a single `_`.
 pub fn docspecs_id_transform(id: &str) -> String {

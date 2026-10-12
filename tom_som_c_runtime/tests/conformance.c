@@ -1572,6 +1572,45 @@ static void test_docspecs(Checker *c) {
   docspecs_schema_free(schema);
 }
 
+/* docspecs_replace_cases.json, run like the Dart reference's
+ * `_runDocSpecsReplaceCase`: the error flag must match; for a success the
+ * resulting text must equal the expected text exactly. */
+static void test_docspecs_replace(Checker *c) {
+  SomJson *table = read_json("docspecs_replace_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(kase, "name");
+    char *got = NULL;
+    char *err = NULL;
+    int refused = docspecs_replace_section_body(
+                      som_json_str_or(kase, "markdown"),
+                      som_json_str_or(kase, "sectionId"),
+                      som_json_str_or(kase, "body"), &got, &err) != 0;
+    const SomJson *expect = som_json_get(kase, "expect");
+    int want_error = som_json_bool_or(expect, "error") != 0;
+    char label[512];
+    snprintf(label, sizeof(label), "docspecsReplace[%s]", name);
+    if (refused != want_error) {
+      char detail[1024];
+      snprintf(detail, sizeof(detail), "error got %d want %d%s%s", refused,
+               want_error, err != NULL ? ": " : "", err != NULL ? err : "");
+      check(c, label, 0, detail);
+    } else if (!want_error) {
+      const char *want = som_json_str_or(expect, "text");
+      char *d = byte_diff(label, got, want);
+      check(c, label, strcmp(got, want) == 0, d);
+      free(d);
+    } else {
+      check(c, label, 1, "");
+    }
+    free(got);
+    free(err);
+  }
+  som_json_free(table);
+}
+
 /* ---- the query surfaces (llm_and_d4rt_tools.md §5–6, SOM §9/§15) -------- */
 
 /* The fixture document every query/creation group starts from — the same one
@@ -2748,6 +2787,7 @@ int main(int argc, char **argv) {
   test_section_id(&c);
   test_serialization_order(&c);
   test_docspecs(&c);
+  test_docspecs_replace(&c);
   test_text_pattern(&c);
   test_query(&c, model);
   test_projection(&c, model);

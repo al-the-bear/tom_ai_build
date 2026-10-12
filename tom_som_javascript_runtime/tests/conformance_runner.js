@@ -42,6 +42,7 @@ const _CORPUS = path.normalize(
 
 const {
   DEFAULT_MAX_SNAPSHOT_AGE_MS,
+  DocSpecsDocument,
   DocSpecsSchema,
   DocSpecsValidator,
   DocSpecsViolationRule,
@@ -825,6 +826,30 @@ function testDocSpecs() {
     `uncovered: ${uncovered}`);
 }
 
+/**
+ * Replays one `docspecs_replace_cases.json` case: `{error: true}` when
+ * {@link DocSpecsDocument.replaceSectionBody} throws, else the rewritten text.
+ */
+function _runDocSpecsReplaceCase(c) {
+  try {
+    const text = DocSpecsDocument.replaceSectionBody(c.markdown, c.sectionId, c.body);
+    return { error: false, text };
+  } catch (_) {
+    return { error: true };
+  }
+}
+
+/** DocSpecs section-body replacement: error flag and exact rewritten text. */
+function testDocSpecsReplace() {
+  for (const c of _readJson('docspecs_replace_cases.json').cases) {
+    const got = _runDocSpecsReplaceCase(c);
+    const want = c.expect;
+    const ok = got.error === want.error && (want.error || got.text === want.text);
+    _check(`docspecsReplace[${c.name}]`, ok,
+      `${JSON.stringify(got)} != ${JSON.stringify(want)}`);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // SOM §9: spec_text_pattern / spec_query / spec_node_creation
 // ---------------------------------------------------------------------------
@@ -1475,6 +1500,7 @@ function main() {
   testNodeCreation(model);
   testNodeCreationScript(model);
   testDocSpecs();
+  testDocSpecsReplace();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

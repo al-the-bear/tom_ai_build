@@ -303,6 +303,83 @@ class DocSpecsDocument {
     }
     return doc;
   }
+
+  /// Every section with an id, depth-first in source order.
+  Iterable<DocSpecsSection> get allSections sync* {
+    Iterable<DocSpecsSection> walk(List<DocSpecsSection> list) sync* {
+      for (final s in list) {
+        yield s;
+        yield* walk(s.children);
+      }
+    }
+
+    yield* walk(sections);
+  }
+
+  /// Returns [text] with the body of the section whose id is [sectionId]
+  /// replaced by [body]; every other byte is kept.
+  ///
+  /// The body is the section's **own** region: the lines after its heading up
+  /// to its first child heading, or the next heading of any level. The heading
+  /// line (with its `<!--[ID]-->` comment) and the subsections are untouched.
+  /// The region is found by the same fence-aware [parse], so a `#` line inside
+  /// a fenced block is never taken for a heading.
+  ///
+  /// The new region is a blank line, [body] with its leading and trailing
+  /// blank lines removed, and a blank line; an empty [body] leaves a single
+  /// blank line. Throws [ArgumentError] when [sectionId] names no section or
+  /// more than one, and when [body] would change the document's structure: a
+  /// heading outside a fenced block, or a fence it opens and never closes.
+  static String replaceSectionBody(String text, String sectionId, String body) {
+    final matches = parse(
+      text,
+    ).allSections.where((s) => s.id == sectionId).toList();
+    if (matches.isEmpty) {
+      throw ArgumentError.value(sectionId, 'sectionId', 'names no section');
+    }
+    if (matches.length > 1) {
+      throw ArgumentError.value(
+        sectionId,
+        'sectionId',
+        'names ${matches.length} sections (lines '
+            '${matches.map((s) => s.line).join(', ')})',
+      );
+    }
+
+    var bodyLines = body.split('\n');
+    while (bodyLines.isNotEmpty && bodyLines.first.trim().isEmpty) {
+      bodyLines = bodyLines.sublist(1);
+    }
+    while (bodyLines.isNotEmpty && bodyLines.last.trim().isEmpty) {
+      bodyLines = bodyLines.sublist(0, bodyLines.length - 1);
+    }
+    final fence = MarkdownFenceTracker();
+    for (final line in bodyLines) {
+      if (!fence.inFence &&
+          SpecDocumentMarkdown.headingLine.hasMatch(line.trimRight())) {
+        throw ArgumentError.value(
+          body,
+          'body',
+          'contains a heading outside a fenced block: "$line"',
+        );
+      }
+      fence.feed(line);
+    }
+    if (fence.inFence) {
+      throw ArgumentError.value(body, 'body', 'leaves a fenced block open');
+    }
+
+    final section = matches.single;
+    final lines = text.split('\n');
+    final start = section.line; // 0-based index of the first body line
+    final end = start + section.bodyLines.length;
+    final region = bodyLines.isEmpty ? [''] : ['', ...bodyLines, ''];
+    return [
+      ...lines.sublist(0, start),
+      ...region,
+      ...lines.sublist(end),
+    ].join('\n');
+  }
 }
 
 // ---------------------------------------------------------------------------

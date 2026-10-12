@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- DocSpecs section-body replacement: `DocSpecsReplaceSectionBody(text,
+  sectionID, body)` returns the document with one section's own body (the lines
+  between its heading and the next heading of any level) replaced, every other
+  byte kept; the region is found by the fence-aware `ParseDocSpecsDocument`.
+  The body is trimmed of leading/trailing blank lines and framed by one blank
+  line on each side (an empty body leaves a single blank line). It errors when
+  the id names no section or several (listing their lines), and when the body
+  holds a heading outside a fence or leaves a fence open.
+  `DocSpecsDocument.AllSections()` lists every section depth-first. Pinned by
+  the shared corpus table `docspecs_replace_cases.json`.
 - YAML review pass: `EncodeYamlWithReview(document, tree, modelVersion,
   review)` writes the opaque `review:` pass back after the document pass
   (`EncodeYaml` is unchanged and writes none), through the exported

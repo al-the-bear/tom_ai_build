@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- `DocSpecsDocument.replaceSectionBody(text, sectionId, body)` returns `text`
+  with the own body of the section `sectionId` replaced — the lines after its
+  heading up to the next heading of any level — and every other byte kept.
+  The new region is a blank line, `body` trimmed of leading and trailing blank
+  lines, and a blank line. It throws when the id names no section or several,
+  and when `body` holds a heading outside a fence or leaves a fence open.
+  `DocSpecsDocument.allSections` lists every section depth-first. Pinned by the
+  corpus table `docspecs_replace_cases.json`.
 - YAML codec: `encode(document, tree, modelVersion, review)` takes the
   optional `review:` pass and writes it back after the document pass
   (`writeReviewPass`): entries sorted by path with JSON-quoted keys, each

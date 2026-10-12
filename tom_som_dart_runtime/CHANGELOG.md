@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- `DocSpecsDocument.replaceSectionBody(text, sectionId, body)` replaces one
+  DocSpecs section's own body by id and keeps every other byte (SOM §14). It
+  refuses an unknown or duplicated id and a body that would add a heading or
+  leave a fence open. `DocSpecsDocument.allSections` walks the section tree.
+  Pinned by `docspecs_replace_cases.json`.
 - `SpecDocumentYaml.encode(..., review:)` writes the `review:` pass back, so a
   runtime load followed by a save keeps a reviewed document's review state
   (before, the pass was decoded and silently dropped on save). The writer

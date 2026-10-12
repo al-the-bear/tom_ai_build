@@ -50,6 +50,7 @@ from tom_som_runtime import (  # noqa: E402
     CodeSpecsAreaCatalog,
     CodeSpecsExtractError,
     CodeSpecsExtractor,
+    DocSpecsDocument,
     DocSpecsSchema,
     DocSpecsValidator,
     DocSpecsViolationRule,
@@ -829,6 +830,25 @@ def test_docspecs() -> None:
     _check("docspecs.ruleCoverage", not uncovered, f"uncovered: {uncovered}")
 
 
+def test_docspecs_replace() -> None:
+    """``DocSpecsDocument.replace_section_body``: one case per table row.
+
+    An error case must raise; any other case must return the expected text
+    byte-for-byte.
+    """
+    for case in _read_json("docspecs_replace_cases.json")["cases"]:
+        name = case["name"]
+        expect = case["expect"]
+        try:
+            text = DocSpecsDocument.replace_section_body(
+                case["markdown"], case["sectionId"], case["body"]
+            )
+            got: dict = {"error": False, "text": text}
+        except ValueError:
+            got = {"error": True}
+        _check(f"docspecsReplace[{name}]", got == expect, f"{got!r} != {expect!r}")
+
+
 # ---------------------------------------------------------------------------
 # spec_text_pattern / spec_query / spec_node_creation (SOM §9)
 # ---------------------------------------------------------------------------
@@ -1284,6 +1304,7 @@ def main() -> int:
     test_section_id()
     test_serialization_order()
     test_docspecs()
+    test_docspecs_replace()
     test_build_document_matches_state()
     test_pattern()
     test_query(model)

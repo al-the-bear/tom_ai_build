@@ -167,6 +167,89 @@ class DocSpecsDocument {
     }
     return doc;
   }
+
+  /**
+   * Every section of the document, depth-first in document order (each
+   * section before its children).
+   *
+   * @returns {DocSpecsSection[]}
+   */
+  get allSections() {
+    const out = [];
+    const walk = (list) => {
+      for (const s of list) {
+        out.push(s);
+        walk(s.children);
+      }
+    };
+    walk(this.sections);
+    return out;
+  }
+
+  /**
+   * Returns `text` with the body of the section whose id is `sectionId`
+   * replaced by `body`; every other byte is kept.
+   *
+   * The body is the section's **own** region: the lines after its heading up
+   * to its first child heading, or the next heading of any level. The heading
+   * line (with its `<!--[ID]-->` comment) and the subsections are untouched.
+   * The region is found by the same fence-aware {@link DocSpecsDocument.parse},
+   * so a `#` line inside a fenced block is never taken for a heading.
+   *
+   * The new region is a blank line, `body` with its leading and trailing
+   * blank lines removed, and a blank line; an empty `body` leaves a single
+   * blank line. Throws an `Error` when `sectionId` names no section or more
+   * than one, and when `body` would change the document's structure: a
+   * heading outside a fenced block, or a fence it opens and never closes.
+   *
+   * @param {string} text
+   * @param {string} sectionId
+   * @param {string} body
+   * @returns {string}
+   */
+  static replaceSectionBody(text, sectionId, body) {
+    const matches = DocSpecsDocument.parse(text).allSections
+      .filter((s) => s.id === sectionId);
+    if (matches.length === 0) {
+      throw new Error(`sectionId "${sectionId}" names no section`);
+    }
+    if (matches.length > 1) {
+      throw new Error(
+        `sectionId "${sectionId}" names ${matches.length} sections ` +
+        `(lines ${matches.map((s) => s.line).join(', ')})`,
+      );
+    }
+
+    let bodyLines = body.split('\n');
+    while (bodyLines.length > 0 && bodyLines[0].trim() === '') {
+      bodyLines = bodyLines.slice(1);
+    }
+    while (bodyLines.length > 0 && bodyLines[bodyLines.length - 1].trim() === '') {
+      bodyLines = bodyLines.slice(0, -1);
+    }
+    const fence = new MarkdownFenceTracker();
+    for (const line of bodyLines) {
+      if (!fence.inFence &&
+          SpecDocumentMarkdown.headingLine.test(line.replace(/\s+$/, ''))) {
+        throw new Error(`body contains a heading outside a fenced block: "${line}"`);
+      }
+      fence.feed(line);
+    }
+    if (fence.inFence) {
+      throw new Error('body leaves a fenced block open');
+    }
+
+    const section = matches[0];
+    const lines = text.split('\n');
+    const start = section.line; // 0-based index of the first body line
+    const end = start + section.bodyLines.length;
+    const region = bodyLines.length === 0 ? [''] : ['', ...bodyLines, ''];
+    return [
+      ...lines.slice(0, start),
+      ...region,
+      ...lines.slice(end),
+    ].join('\n');
+  }
 }
 
 /**

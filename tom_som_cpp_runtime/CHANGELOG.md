@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- DocSpecs: `DocSpecsDocument::replaceSectionBody(text, sectionId, body)`
+  returns `text` with the own body of the section whose id is `sectionId`
+  replaced: a blank line, `body` without its leading and trailing blank lines,
+  a blank line (a single blank line for an empty body); the heading, the
+  subsections and every other byte are kept. The region is found by the
+  fence-aware parse. Throws `std::invalid_argument` when the id names no
+  section or more than one (listing their lines), and when the body holds a
+  heading outside a fenced block or leaves a fence open.
+  `DocSpecsDocument::allSections()` lists every section depth-first. The
+  conformance runner checks it against `docspecs_replace_cases.json`
+  (`docspecsReplace[...]`).
+
 - YAML codec: the `review:` pass is written back. `encodeYaml` takes an optional
   `review` (`const YamlValue*`, typically `SpecYamlContents::review.get()`);
   when given, `specYamlWriteReviewPass` appends it after the document pass:

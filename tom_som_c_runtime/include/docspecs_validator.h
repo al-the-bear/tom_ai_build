@@ -120,6 +120,21 @@ void docspecs_document_free(DocSpecsDocument *doc);
  * characters becomes a single `_`. Owned result. */
 char *docspecs_id_transform(const char *id);
 
+/* Replaces the body of the one section (any level, depth-first) whose id is
+ * `section_id` with `body`; every other byte of `text` is kept. The body is the
+ * section's own region: the lines after its heading up to the next heading of
+ * any level (its children are untouched). Leading/trailing whitespace-only
+ * lines of `body` are dropped, and the new region is framed by one blank line
+ * on each side (a single blank line when the body is empty).
+ *
+ * Refuses (non-zero return, owned message to `*error_out` when non-NULL) when
+ * the id names no section or several (the message lists their lines), when the
+ * body holds a heading line outside a fenced block, or when it leaves a fence
+ * open. On success returns 0 and writes the owned new text to `*out`. */
+int docspecs_replace_section_body(const char *text, const char *section_id,
+                                  const char *body, char **out,
+                                  char **error_out);
+
 /* ---- schema -------------------------------------------------------------- */
 
 /* A regex pattern check with an optional custom error message ("" when none). */
