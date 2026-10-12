@@ -146,6 +146,32 @@ export class SpecMarkdownResult {
 }
 
 /**
+ * What {@link SpecDocument.fromMarkdown} hands back: the loaded document and
+ * the parse report it came from. The rejected blocks are not in the document —
+ * a caller shows them or refuses to save, since re-exporting the document drops
+ * them for good.
+ */
+export class SpecMarkdownImport {
+  /** The document holding every value the parse accepted. */
+  readonly document: SpecDocument;
+
+  /** The parse report, rejections included. */
+  readonly result: SpecMarkdownResult;
+
+  /** Both are set by the import that produced them. */
+  constructor(document: SpecDocument, result: SpecMarkdownResult) {
+    this.document = document;
+    this.result = result;
+  }
+
+  /** The blocks the parse rejected, in source order; they are not in
+   *  {@link document}. */
+  get rejections(): SpecMarkdownRejection[] {
+    return this.result.rejections;
+  }
+}
+
+/**
  * Fence state machine (CommonMark-ish): a line whose first non-space run (up
  * to 3 spaces indent) is 3+ backticks or tildes opens a fence; a matching
  * same-character run at least as long closes it.

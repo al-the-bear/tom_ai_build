@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- `SpecDocument.applyMarkdownResult(result, {allowRejections})` applies a parsed
+  Markdown import as a full overwrite of the roots it covers (SOM §11.7): purge,
+  then write content, forms, lists, headlines and codeSpecs through the
+  installed path normalizer. A result with rejections is refused unless
+  allowed. `SpecDocument.fromMarkdown(text, model)` loads a fresh document and
+  returns it with the parse report (`SpecMarkdownImport`). Pinned by the
+  `markdown_apply_cases.json` corpus table. Every consumer that loads a spec
+  from Markdown used to carry its own copy of this step.
 - Markdown codec: a member's heading id and its transparency are read from its
   meta node (`sectionId`, then `classSectionId`), no longer by looking up the
   node's class name. A wrapper section (`TextSection`, …) carries its owner's

@@ -143,6 +143,121 @@ public final class SpecDocument {
     return new SpecDocumentMarkdown(model, this).exportRoot(root);
   }
 
+  // --- markdown import ----------------------------------------------------
+
+  /**
+   * Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document in
+   * one call: parse, then {@link #applyMarkdownResult(SpecMarkdownResult,
+   * boolean)}.
+   *
+   * <p>Blocks the parser rejects are not loaded, and are returned with the
+   * document, so a caller can show them or refuse to save: re-exporting a
+   * document whose source had rejections drops those blocks for good.
+   */
+  public static SpecMarkdownImport fromMarkdown(String text, SpecModel model) {
+    SpecDocument document = new SpecDocument();
+    SpecMarkdownResult result = new SpecDocumentMarkdown(model, document).parse(text);
+    document.applyMarkdownResult(result, true);
+    return new SpecMarkdownImport(document, result);
+  }
+
+  /**
+   * Applies a parsed Markdown import, refusing a result with rejections — the
+   * {@code allowRejections = false} form of
+   * {@link #applyMarkdownResult(SpecMarkdownResult, boolean)}.
+   */
+  public void applyMarkdownResult(SpecMarkdownResult result) {
+    applyMarkdownResult(result, false);
+  }
+
+  /**
+   * Applies a parsed Markdown import as a <b>full overwrite</b> of the roots it
+   * covers (SOM §11.7): every value under each of
+   * {@link SpecMarkdownResult#rootPrefixes} is removed, then the parsed content,
+   * forms, lists, headlines and codeSpecs are written. Other roots are left as
+   * they are.
+   *
+   * <p>A result with rejections is refused with an
+   * {@link IllegalStateException} — and nothing is changed — unless
+   * {@code allowRejections} is true: the blocks it rejected would otherwise
+   * vanish from a document the caller believes it imported whole.
+   *
+   * <p>Store-agnostic on both halves: the purge goes through
+   * {@link #removeValuesUnder}, which clears every store, and the carry-over is
+   * whatever {@link #toJson} emits. Parsed paths are used as-is (this port has
+   * no path normalizer).
+   */
+  @SuppressWarnings("unchecked")
+  public void applyMarkdownResult(SpecMarkdownResult result, boolean allowRejections) {
+    if (!allowRejections && !result.rejections.isEmpty()) {
+      SpecMarkdownRejection first = result.rejections.get(0);
+      throw new IllegalStateException(
+          "markdown import has " + result.rejections.size() + " rejected block(s); "
+              + "first at line " + first.line + ": " + first.message);
+    }
+    if (result.rootPrefixes.isEmpty()) {
+      return;
+    }
+    for (String prefix : result.rootPrefixes) {
+      removeValuesUnder(prefix);
+    }
+
+    Map<String, Object> held = toJson();
+    Map<String, Object> contentStore = heldStore(held, "content");
+    contentStore.putAll(result.content);
+    Map<String, Object> formsStore = heldStore(held, "forms");
+    formsStore.putAll(result.forms);
+    Map<String, Object> headlinesStore = heldStore(held, "headlines");
+    headlinesStore.putAll(result.headlines);
+    Map<String, Object> codeSpecsStore = heldStore(held, "codeSpecs");
+    codeSpecsStore.putAll(result.codeSpecs);
+
+    Map<String, Object> listsStore = heldStore(held, "lists");
+    for (Map.Entry<String, Object> entry : result.lists.entrySet()) {
+      Map<String, Object> spec = entry.getValue() instanceof Map
+          ? (Map<String, Object>) entry.getValue()
+          : Collections.emptyMap();
+      Map<String, Object> record = new LinkedHashMap<>();
+      record.put("seq", spec.get("seq"));
+      List<String> items = new ArrayList<>();
+      if (spec.get("items") instanceof List) {
+        for (Object i : (List<Object>) spec.get("items")) {
+          items.add(String.valueOf(i));
+        }
+      }
+      record.put("items", items);
+      if (spec.get("ids") instanceof Map) {
+        Map<String, Object> ids = new LinkedHashMap<>();
+        for (Map.Entry<Object, Object> e : ((Map<Object, Object>) spec.get("ids")).entrySet()) {
+          ids.put(String.valueOf(e.getKey()), e.getValue());
+        }
+        record.put("ids", ids);
+      }
+      listsStore.put(entry.getKey(), record);
+    }
+
+    Map<String, Object> merged = new LinkedHashMap<>();
+    merged.put("content", contentStore);
+    merged.put("forms", formsStore);
+    merged.put("lists", listsStore);
+    merged.put("headlines", headlinesStore);
+    merged.put("codeSpecs", codeSpecsStore);
+    loadJson(merged);
+  }
+
+  /** A mutable copy of one {@link #toJson} store, empty when absent. */
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> heldStore(Map<String, Object> held, String name) {
+    Map<String, Object> out = new LinkedHashMap<>();
+    Object raw = held.get(name);
+    if (raw instanceof Map) {
+      for (Map.Entry<Object, Object> e : ((Map<Object, Object>) raw).entrySet()) {
+        out.put(String.valueOf(e.getKey()), e.getValue());
+      }
+    }
+    return out;
+  }
+
   /**
    * The one root under which this document holds any value, for
    * {@link #toMarkdown}'s default. Throws {@link IllegalStateException} when zero

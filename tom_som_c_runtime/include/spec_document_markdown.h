@@ -170,4 +170,46 @@ char *spec_document_to_markdown(const SpecDocument *document,
 void spec_markdown_parse(const SpecModel *model, const char *text,
                          SpecMarkdownResult *out);
 
+/* ---- apply / one-call import (SOM §11.7) --------------------------------- */
+
+/* Applies a parsed Markdown import to `doc` as a **full overwrite** of the
+ * roots it covers (SOM §11.7): every value under each of
+ * `result->root_prefixes` is removed, then the parsed content, forms, lists
+ * (seq, items and stored item ids exactly as staged), headlines and codeSpecs
+ * are written. Other roots are left as they are. Keys are written as-is (this
+ * port has no path normalizer).
+ *
+ * A result with rejections is refused unless `allow_rejections` is non-zero:
+ * the blocks it rejected would otherwise vanish from a document the caller
+ * believes it imported whole. On refusal the document is left unchanged, a
+ * non-zero value is returned and, when `error_out` is non-NULL, an owned
+ * message naming the rejection count and the first rejection's line and
+ * message is written. Returns 0 on success (including a result covering no
+ * root, which changes nothing). */
+int spec_document_apply_markdown_result(SpecDocument *doc,
+                                        const SpecMarkdownResult *result,
+                                        int allow_rejections,
+                                        char **error_out);
+
+/* The outcome of `spec_document_from_markdown`: a document holding every
+ * value the parse accepted, plus the parse report (rejections included — the
+ * rejected blocks are not in `document`). Owns both; free with
+ * `spec_markdown_import_free`. */
+typedef struct {
+  SpecDocument *document; /* owned heap document */
+  SpecMarkdownResult result;
+} SpecMarkdownImport;
+
+/* Frees the document and the parse result held by `imp` (not `imp` itself). */
+void spec_markdown_import_free(SpecMarkdownImport *imp);
+
+/* Builds a document from a DocSpecs Markdown `text` in one call: creates a
+ * fresh document, parses `text` against `model`, then applies the result with
+ * rejections allowed (`spec_document_apply_markdown_result`). Rejected blocks
+ * are not loaded and are reported in `out->result`, so a caller can show them
+ * or refuse to save: re-exporting a document whose source had rejections drops
+ * those blocks for good. `out` is initialised by the callee. */
+void spec_document_from_markdown(const char *text, const SpecModel *model,
+                                 SpecMarkdownImport *out);
+
 #endif /* SPEC_DOCUMENT_MARKDOWN_H */

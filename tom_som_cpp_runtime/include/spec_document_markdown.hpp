@@ -89,6 +89,21 @@ struct SpecMarkdownResult {
   const DocumentJson& document() const { return staged; }
 };
 
+/* What SpecDocument::fromMarkdown returns: the loaded document plus the parse
+ * report it came from. */
+struct SpecMarkdownImport {
+  /* The document holding every value the parse accepted. */
+  SpecDocument document;
+  /* The parse report, rejections included. */
+  SpecMarkdownResult result;
+
+  /* The blocks the parse rejected, in source order; they are not in
+   * `document`. */
+  const std::vector<SpecMarkdownRejection>& rejections() const {
+    return result.rejections;
+  }
+};
+
 /* ---- fence tracking ------------------------------------------------------ */
 
 /* A fence state machine (CommonMark-ish): a line whose first non-space run (up

@@ -143,6 +143,7 @@ const {
   SpecMarkdownRejectReason,
   SpecMarkdownRejection,
   SpecMarkdownResult,
+  SpecMarkdownImport,
   MarkdownFenceTracker,
   SpecDocumentMarkdown,
 } = require('./spec_document_markdown');
@@ -285,6 +286,7 @@ module.exports = {
   SpecMarkdownRejectReason,
   SpecMarkdownRejection,
   SpecMarkdownResult,
+  SpecMarkdownImport,
   MarkdownFenceTracker,
   SpecDocumentMarkdown,
   // docspecs validation

@@ -67,7 +67,7 @@ pub use spec_document_markdown::{
     spec_markdown_form_label, spec_markdown_item_title_stem, spec_markdown_kebab_case,
     spec_markdown_title_case, MarkdownFenceTracker, SpecDocumentMarkdown, SpecMarkdownRejection,
     SpecMarkdownResult, SPEC_MARKDOWN_REJECT_KIND_MISMATCH, SPEC_MARKDOWN_REJECT_MALFORMED_HEADING,
-    SPEC_MARKDOWN_REJECT_MISSING_VALUE, SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,
+    SpecMarkdownImport, SPEC_MARKDOWN_REJECT_MISSING_VALUE, SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,
     SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
 };
 pub use spec_document_yaml::{

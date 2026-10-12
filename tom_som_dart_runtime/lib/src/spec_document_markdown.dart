@@ -169,6 +169,23 @@ class SpecMarkdownResult {
       content.length + forms.values.fold<int>(0, (a, m) => a + m.length);
 }
 
+/// A Markdown document loaded by [SpecDocument.fromMarkdown]: the document
+/// built from every accepted block, and the parse report it came from.
+class SpecMarkdownImport {
+  /// Both are set by the import that produced them.
+  SpecMarkdownImport({required this.document, required this.result});
+
+  /// The document holding every value the parse accepted.
+  final SpecDocument document;
+
+  /// The parse report, rejections included.
+  final SpecMarkdownResult result;
+
+  /// The blocks the parse rejected, in source order; they are not in
+  /// [document].
+  List<SpecMarkdownRejection> get rejections => result.rejections;
+}
+
 /// Codec binding a [SpecModel] and a concrete [SpecDocument] to the DocSpecs
 /// Markdown import/export format (SOM §11).
 class SpecDocumentMarkdown {

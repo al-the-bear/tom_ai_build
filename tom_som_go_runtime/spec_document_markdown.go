@@ -119,6 +119,22 @@ type SpecMarkdownResult struct {
 	CodeSpecs map[string]string
 }
 
+// SpecMarkdownImport is a Markdown document loaded by SpecDocumentFromMarkdown:
+// the document built from every accepted block, and the parse report it came
+// from.
+type SpecMarkdownImport struct {
+	// Document holds every value the parse accepted.
+	Document *SpecDocument
+	// Result is the parse report, rejections included.
+	Result *SpecMarkdownResult
+}
+
+// Rejections returns the blocks the parse rejected, in source order; they are
+// not in Document.
+func (i *SpecMarkdownImport) Rejections() []*SpecMarkdownRejection {
+	return i.Result.Rejections
+}
+
 // IsClean reports whether the parse was clean (no rejections).
 func (r *SpecMarkdownResult) IsClean() bool {
 	return len(r.Rejections) == 0

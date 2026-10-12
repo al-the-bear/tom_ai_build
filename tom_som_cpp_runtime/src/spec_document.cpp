@@ -47,6 +47,48 @@ std::string SpecDocument::toMarkdown(const SpecModel& model,
                            "); pass rootType to choose one");
 }
 
+/* ---- Markdown import (SOM §11.7) ---------------------------------------- */
+
+SpecMarkdownImport SpecDocument::fromMarkdown(const std::string& text,
+                                              const SpecModel& model) {
+  SpecMarkdownImport imported;
+  imported.result = markdownParse(model, text);
+  imported.document.applyMarkdownResult(imported.result, true);
+  return imported;
+}
+
+void SpecDocument::applyMarkdownResult(const SpecMarkdownResult& result,
+                                       bool allowRejections) {
+  if (!allowRejections && !result.rejections.empty()) {
+    const SpecMarkdownRejection& first = result.rejections.front();
+    throw std::runtime_error(
+        "markdown import has " + std::to_string(result.rejections.size()) +
+        " rejected block(s); first at line " + std::to_string(first.line) +
+        ": " + first.message);
+  }
+  if (result.rootPrefixes.empty()) {
+    return;
+  }
+  for (const std::string& prefix : result.rootPrefixes) {
+    removeValuesUnder(prefix);
+  }
+
+  // Carry over everything the purge left, then lay the parsed values on top:
+  // a parsed key replaces the held one (a form or list as a whole).
+  DocumentJson merged = toJson();
+  const DocumentJson& parsed = result.staged;
+  for (const auto& kv : parsed.content) merged.content[kv.first] = kv.second;
+  for (const auto& kv : parsed.forms) merged.forms[kv.first] = kv.second;
+  for (const auto& kv : parsed.lists) merged.lists[kv.first] = kv.second;
+  for (const auto& kv : parsed.headlines) {
+    merged.headlines[kv.first] = kv.second;
+  }
+  for (const auto& kv : parsed.codeSpecs) {
+    merged.codeSpecs[kv.first] = kv.second;
+  }
+  loadJson(merged);
+}
+
 /* ---- one-call document loading (SOM §21) -------------------------------- */
 
 std::optional<SpecDocument> SpecDocument::fromYaml(const std::string& yaml,

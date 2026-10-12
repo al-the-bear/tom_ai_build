@@ -27,6 +27,8 @@ namespace som {
 
 class SpecModel;    // fwd (spec_model.hpp), used by SpecDocument::toMarkdown
 class SomMetaTree;  // fwd (spec_meta.hpp), used by SpecDocument::fromYaml
+struct SpecMarkdownResult;  // fwd (spec_document_markdown.hpp)
+struct SpecMarkdownImport;  // fwd (spec_document_markdown.hpp)
 
 /* ---- DocumentJson — plain-data view for persistence --------------------- */
 
@@ -106,6 +108,34 @@ class SpecDocument {
    * so the caller names `rootType` explicitly. */
   std::string toMarkdown(const SpecModel& model,
                          const std::string& rootType = "") const;
+
+  /* Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
+   * in one call: parse, then applyMarkdownResult (rejections allowed).
+   *
+   * Blocks the parser rejects are not loaded, and are returned with the
+   * document, so a caller can show them or refuse to save: re-exporting a
+   * document whose source had rejections drops those blocks for good. The
+   * return type is defined in spec_document_markdown.hpp. */
+  static SpecMarkdownImport fromMarkdown(const std::string& text,
+                                         const SpecModel& model);
+
+  /* Applies a parsed Markdown import as a **full overwrite** of the roots it
+   * covers (SOM §11.7): every value under each of result.rootPrefixes is
+   * removed, then the parsed content, forms, lists, headlines and codeSpecs
+   * are written. Other roots are left as they are.
+   *
+   * A result with rejections is refused with std::runtime_error (naming the
+   * rejection count and the first rejection's line and message) unless
+   * `allowRejections` is true: the blocks it rejected would otherwise vanish
+   * from a document the caller believes it imported whole. A refused apply
+   * changes nothing.
+   *
+   * Store-agnostic on both halves: the purge goes through removeValuesUnder,
+   * which clears every store, and the carry-over is whatever toJson emits;
+   * the merged view is written back through loadJson. This port has no path
+   * normalizer, so parsed keys are written as-is. */
+  void applyMarkdownResult(const SpecMarkdownResult& result,
+                           bool allowRejections = false);
 
   // content leaves
   std::string content(const std::string& path) const;  // "" when unset

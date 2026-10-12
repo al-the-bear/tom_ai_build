@@ -39,6 +39,7 @@ import tom_som_runtime.SpecDocumentMarkdown;
 import tom_som_runtime.SpecDocumentYaml;
 import tom_som_runtime.SpecEditor;
 import tom_som_runtime.SpecField;
+import tom_som_runtime.SpecMarkdownImport;
 import tom_som_runtime.SpecMarkdownRejection;
 import tom_som_runtime.SpecMarkdownResult;
 import tom_som_runtime.SpecMatchSpan;
@@ -402,15 +403,57 @@ public final class ConformanceRunner {
   private static void testMarkdownMemoryLanding(SpecModel model) throws IOException {
     String golden = read("expected.md");
     Map<String, Object> canonical = readJsonObject("state.json");
-    SpecDocument doc = documentFromState(canonical);
-    SpecMarkdownResult parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
-    check("md.land.clean", parsed.rejections.isEmpty(), rejDetail(parsed));
-    SpecDocument landed = new SpecDocument();
-    landed.loadJson(parsed.toLoadJson());
+    SpecMarkdownImport imported = SpecDocument.fromMarkdown(golden, model);
+    check("md.land.clean", imported.rejections().isEmpty(), rejDetail(imported.result));
+    SpecDocument landed = imported.document;
     check(
         "md.land.memory",
         landed.toJson().equals(canonical),
         jsonMismatch(landed.toJson(), canonical));
+  }
+
+  /**
+   * {@code markdown_apply_cases.json}: {@link SpecDocument#fromMarkdown} into a fresh document,
+   * and {@link SpecDocument#applyMarkdownResult(SpecMarkdownResult, boolean)} as a full overwrite
+   * of the covered roots — other roots kept, a result with rejections refused (and the document
+   * left unchanged) unless the caller allows them.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testMarkdownApplyCases(SpecModel model) throws IOException {
+    Map<String, Object> table = readJsonObject("markdown_apply_cases.json");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      Map<String, Object> got = runMarkdownApplyCase(model, c);
+      Object expect = c.get("expect");
+      check("mdApply[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
+    }
+  }
+
+  /** Runs one {@code markdown_apply_cases.json} case, in the shape of its {@code expect}. */
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> runMarkdownApplyCase(SpecModel model, Map<String, Object> c) {
+    String markdown = (String) c.get("markdown");
+    Map<String, Object> out = new LinkedHashMap<>();
+    if ("fromMarkdown".equals(c.get("op"))) {
+      SpecMarkdownImport imported = SpecDocument.fromMarkdown(markdown, model);
+      out.put("refused", false);
+      out.put("rejectionCount", imported.rejections().size());
+      out.put("document", imported.document.toJson());
+      return out;
+    }
+    SpecDocument document = new SpecDocument();
+    document.loadJson((Map<String, Object>) c.get("base"));
+    SpecMarkdownResult parsed = new SpecDocumentMarkdown(model, document).parse(markdown);
+    boolean refused = false;
+    try {
+      document.applyMarkdownResult(parsed, Boolean.TRUE.equals(c.get("allowRejections")));
+    } catch (IllegalStateException e) {
+      refused = true;
+    }
+    out.put("refused", refused);
+    out.put("rejectionCount", parsed.rejections.size());
+    out.put("document", document.toJson());
+    return out;
   }
 
   private static String rejDetail(SpecMarkdownResult r) {
@@ -1658,6 +1701,7 @@ public final class ConformanceRunner {
     testMarkdownRoundTrip(model);
     testMarkdownMemoryLanding(model);
     testMarkdownImportRejections(model);
+    testMarkdownApplyCases(model);
     testReflection(model);
     testValidation(model);
     testOperations();

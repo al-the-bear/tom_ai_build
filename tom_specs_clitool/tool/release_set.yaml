@@ -104,15 +104,18 @@ unpublished_drift:
     section (`TextSection`, …) is transparent instead of rendering under its
     owner's id, and the validator accepts content on a wrapper section. Found
     authoring tom_uam's Blueprint; pinned by the `Notes.remarks` corpus case in
-    all nine runtimes.
+    all nine runtimes. And new API: `SpecDocument.applyMarkdownResult` and
+    `SpecDocument.fromMarkdown` (vsctsa33), pinned by
+    `markdown_apply_cases.json` in all nine runtimes.
   tom_som_dart_v0: >-
     REGENERATED, unpublished until vsctsa45: the meta now carries the class-level
     `@Form` of 73 classes as their `content` member's form, and the schemas
     drop the `format: description` lines that demanded a fenced block around
     prose.
   tom_specs_model: >-
-    NO CODE: SOM §11.6 (wrapper sections) and the meta-schema note on the
-    class-level `@Form`. Goes out with vsctsa45.
+    NO CODE: SOM §11.6 (wrapper sections), SOM §11.7 (applying a parsed
+    import) and the meta-schema note on the class-level `@Form`. Goes out with
+    vsctsa45.
   tom_specs_clitool: >-
     The model JSON export honours a class-level `@Form`, and the schema
     generator treats `@ContentType('description', …)` as prose. Unpublished

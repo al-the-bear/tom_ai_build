@@ -135,6 +135,24 @@ class SpecMarkdownResult:
         return len(self.content) + sum(len(m) for m in self.forms.values())
 
 
+@dataclass
+class SpecMarkdownImport:
+    """A Markdown document loaded by :meth:`SpecDocument.from_markdown`: the
+    document holding every accepted value, plus the parse report. Both are set
+    by the import that produced them."""
+
+    #: The document holding every value the parse accepted.
+    document: SpecDocument
+    #: The parse report, rejections included.
+    result: SpecMarkdownResult
+
+    @property
+    def rejections(self) -> list[SpecMarkdownRejection]:
+        """The blocks the parse rejected, in source order; they are not in
+        :attr:`document`."""
+        return self.result.rejections
+
+
 class MarkdownFenceTracker:
     """Fence state machine (CommonMark-ish): a line whose first non-space run
     (up to 3 spaces indent) is 3+ backticks or tildes opens a fence; a matching

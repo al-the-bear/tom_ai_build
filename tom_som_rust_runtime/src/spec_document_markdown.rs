@@ -157,6 +157,28 @@ impl SpecMarkdownResult {
     }
 }
 
+/// The outcome of [`SpecDocument::from_markdown`]: the document holding every
+/// value the parse accepted, together with the parse report.
+///
+/// Blocks the parser rejected are not in [`document`](Self::document); they
+/// are kept here so a caller can show them or refuse to save — re-exporting a
+/// document whose source had rejections drops those blocks for good.
+#[derive(Debug, Clone)]
+pub struct SpecMarkdownImport {
+    /// The document holding every value the parse accepted.
+    pub document: SpecDocument,
+    /// The parse report, rejections included.
+    pub result: SpecMarkdownResult,
+}
+
+impl SpecMarkdownImport {
+    /// The blocks the parse rejected, in source order; they are not in
+    /// [`document`](Self::document).
+    pub fn rejections(&self) -> &[SpecMarkdownRejection] {
+        &self.result.rejections
+    }
+}
+
 /// A fence state machine (CommonMark-ish): a line whose first non-space run
 /// (up to 3 spaces indent) is 3+ backticks or tildes opens a fence; a matching
 /// same-character run at least as long closes it.

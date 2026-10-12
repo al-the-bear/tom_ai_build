@@ -14,6 +14,16 @@
 - Both were found authoring a real Solution Blueprint, where such sections
   could not be written in any form that passed every tier. A new corpus case
   (`Notes.remarks`) pins them in all nine runtimes.
+- Markdown import: `spec_document_apply_markdown_result` applies a parse result
+  as a full overwrite of the roots it covers (SOM §11.7) — values under each
+  root prefix are removed, then the parsed content, forms, lists (seq, items
+  and stored ids), headlines and codeSpecs are written; other roots are kept.
+  A result with rejections is refused, leaving the document unchanged, unless
+  rejections are allowed. `spec_document_from_markdown` does parse + apply in
+  one call and returns the document with the parse report
+  (`SpecMarkdownImport`, freed with `spec_markdown_import_free`). The
+  conformance runner checks the shared `markdown_apply_cases.json` table
+  (`mdApply[...]`), and `md.land.memory` now lands through the one-call import.
 
 ## 1.3.3
 

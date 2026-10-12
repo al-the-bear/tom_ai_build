@@ -314,19 +314,52 @@ def test_markdown_lands_in_shared_memory(model: SpecModel) -> None:
     formats converge on one in-memory document (SOM §8)."""
     golden = _read("expected.md")
     canonical = _read_json("state.json")
-    doc = _document_from_state(canonical)
-    parsed = SpecDocumentMarkdown(model, doc).parse(golden)
-    _check("md.land.clean", not parsed.rejections,
-           "; ".join(str(r) for r in parsed.rejections))
-    landed = SpecDocument()
-    landed.load_json({
-        "content": parsed.content,
-        "forms": parsed.forms,
-        "lists": parsed.lists,
-        "headlines": parsed.headlines,
-    })
+    imported = SpecDocument.from_markdown(golden, model)
+    _check("md.land.clean", not imported.rejections,
+           "; ".join(str(r) for r in imported.rejections))
+    landed = imported.document
     _check("md.land.memory", landed.to_json() == canonical,
            _json_mismatch(landed.to_json(), canonical))
+
+
+def _run_markdown_apply_case(model: SpecModel, case: dict) -> dict:
+    """Runs one ``markdown_apply_cases.json`` case and returns what it observed,
+    in the shape of the case's ``expect`` (mirrors Dart's
+    ``_runMarkdownApplyCase``)."""
+    markdown = case["markdown"]
+    if case["op"] == "fromMarkdown":
+        imported = SpecDocument.from_markdown(markdown, model)
+        return {
+            "refused": False,
+            "rejectionCount": len(imported.rejections),
+            "document": imported.document.to_json(),
+        }
+    document = SpecDocument()
+    document.load_json(case["base"])
+    parsed = SpecDocumentMarkdown(model, document).parse(markdown)
+    refused = False
+    try:
+        document.apply_markdown_result(
+            parsed, allow_rejections=bool(case["allowRejections"])
+        )
+    except RuntimeError:
+        refused = True
+    return {
+        "refused": refused,
+        "rejectionCount": len(parsed.rejections),
+        "document": document.to_json(),
+    }
+
+
+def test_markdown_apply(model: SpecModel) -> None:
+    """Applying a parsed Markdown import (SOM §11.7): a full overwrite of the
+    covered roots that keeps other roots, and refuses a result with rejections
+    unless the caller allows them."""
+    for case in _read_json("markdown_apply_cases.json")["cases"]:
+        name = f"mdApply[{case['name']}]"
+        got = _run_markdown_apply_case(model, case)
+        _check(name, got == case["expect"],
+               _json_mismatch(got, case["expect"]))
 
 
 def test_markdown_import_rejections(model: SpecModel) -> None:
@@ -1217,6 +1250,7 @@ def main() -> int:
     test_markdown_round_trip(model)
     test_markdown_lands_in_shared_memory(model)
     test_markdown_import_rejections(model)
+    test_markdown_apply(model)
     test_reflection(model)
     test_validation(model)
     test_operations()

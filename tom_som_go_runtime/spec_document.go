@@ -21,6 +21,7 @@ package somruntime
 // counter that never reuses a number.
 
 import (
+	"fmt"
 	"os"
 	"sort"
 	"strings"
@@ -502,6 +503,104 @@ func (e *notLiveItemError) Error() string {
 }
 
 // --- markdown --------------------------------------------------------------
+
+// SpecDocumentFromMarkdown loads a DocSpecs Markdown document into a fresh
+// document in one call: parse against model, then ApplyMarkdownResult.
+//
+// Blocks the parser rejects are not loaded, and are returned with the document
+// (SpecMarkdownImport.Rejections), so a caller can show them or refuse to save:
+// re-exporting a document whose source had rejections drops those blocks for
+// good. The error return is reserved for a failed apply and is nil in practice,
+// because rejections are allowed here.
+func SpecDocumentFromMarkdown(text string, model *SpecModel) (*SpecMarkdownImport, error) {
+	document := NewSpecDocument()
+	result := NewSpecDocumentMarkdown(model, document).Parse(text)
+	if err := document.ApplyMarkdownResult(result, true); err != nil {
+		return nil, err
+	}
+	return &SpecMarkdownImport{Document: document, Result: result}, nil
+}
+
+// ApplyMarkdownResult applies a parsed Markdown import as a **full overwrite**
+// of the roots it covers (SOM §11.7): every value under each of
+// result.RootPrefixes is removed, then the parsed content, forms, lists,
+// headlines and codeSpecs are written. Other roots are left as they are.
+//
+// A result with rejections is refused with an error — and the document left
+// unchanged — unless allowRejections is true: the blocks it rejected would
+// otherwise vanish from a document the caller believes it imported whole.
+//
+// Store-agnostic on both halves: the purge goes through RemoveValuesUnder,
+// which clears every store, and the carry-over is whatever ToJSON emits. This
+// port has no path normalizer, so parsed paths are written as they are.
+func (d *SpecDocument) ApplyMarkdownResult(result *SpecMarkdownResult, allowRejections bool) error {
+	if result == nil {
+		return nil
+	}
+	if !allowRejections && len(result.Rejections) > 0 {
+		first := result.Rejections[0]
+		return fmt.Errorf(
+			"markdown import has %d rejected block(s); first at line %d: %s",
+			len(result.Rejections), first.Line, first.Message)
+	}
+	if len(result.RootPrefixes) == 0 {
+		return nil
+	}
+	for prefix := range result.RootPrefixes {
+		d.RemoveValuesUnder(prefix)
+	}
+
+	held := d.ToJSON()
+	merged := &DocumentJson{
+		Content:   map[string]string{},
+		Forms:     map[string]map[string]string{},
+		Lists:     map[string]ListJson{},
+		Headlines: map[string]string{},
+		CodeSpecs: map[string]string{},
+	}
+	for k, v := range held.Content {
+		merged.Content[k] = v
+	}
+	for k, v := range result.Content {
+		merged.Content[k] = v
+	}
+	for k, v := range held.Forms {
+		merged.Forms[k] = v
+	}
+	for k, v := range result.Forms {
+		merged.Forms[k] = v
+	}
+	for k, v := range held.Lists {
+		merged.Lists[k] = v
+	}
+	for k, spec := range result.Lists {
+		items := make([]string, len(spec.Items))
+		copy(items, spec.Items)
+		entry := ListJson{Seq: spec.Seq, Items: items}
+		if spec.Ids != nil {
+			ids := map[string]string{}
+			for itemPath, id := range spec.Ids {
+				ids[itemPath] = id
+			}
+			entry.Ids = ids
+		}
+		merged.Lists[k] = entry
+	}
+	for k, v := range held.Headlines {
+		merged.Headlines[k] = v
+	}
+	for k, v := range result.Headlines {
+		merged.Headlines[k] = v
+	}
+	for k, v := range held.CodeSpecs {
+		merged.CodeSpecs[k] = v
+	}
+	for k, v := range result.CodeSpecs {
+		merged.CodeSpecs[k] = v
+	}
+	d.LoadJSON(merged)
+	return nil
+}
 
 // ToMarkdown renders this document to Markdown in one call (SOM §21).
 //

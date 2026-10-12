@@ -1,0 +1,400 @@
+{
+  "cases": [
+    {
+      "name": "fromMarkdown loads the golden into a fresh document",
+      "op": "fromMarkdown",
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n",
+      "expect": {
+        "refused": false,
+        "rejectionCount": 0,
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "priority": "high",
+              "weight": "2.5"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items"
+          }
+        }
+      }
+    },
+    {
+      "name": "apply overwrites the covered root and keeps every other root",
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n",
+      "allowRejections": false,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 0,
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "priority": "high",
+              "weight": "2.5"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "OTHER/kept": "kept.dart"
+          }
+        }
+      }
+    },
+    {
+      "name": "apply refuses a result with rejections and changes nothing",
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n\n## <!--[NOPE]--> Not A Section\n\nText with no home.\n",
+      "allowRejections": false,
+      "expect": {
+        "refused": true,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO/TTL": "stale title",
+            "DEMO/stale": "not in the import",
+            "OTHER/kept": "another root"
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 9,
+              "items": [
+                "DEMO/CARD-LST-9"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/SUM": "Stale headline",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "DEMO/TTL": "stale.dart",
+            "OTHER/kept": "kept.dart"
+          }
+        }
+      }
+    },
+    {
+      "name": "apply with allowRejections lands every accepted block",
+      "op": "apply",
+      "base": {
+        "content": {
+          "DEMO/TTL": "stale title",
+          "DEMO/stale": "not in the import",
+          "OTHER/kept": "another root"
+        },
+        "headlines": {
+          "DEMO/SUM": "Stale headline",
+          "OTHER/kept": "Kept headline"
+        },
+        "codeSpecs": {
+          "DEMO/TTL": "stale.dart",
+          "OTHER/kept": "kept.dart"
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 9,
+            "items": [
+              "DEMO/CARD-LST-9"
+            ]
+          }
+        }
+      },
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n\n## <!--[NOPE]--> Not A Section\n\nText with no home.\n",
+      "allowRejections": true,
+      "expect": {
+        "refused": false,
+        "rejectionCount": 1,
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text",
+            "OTHER/kept": "another root"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "priority": "high",
+              "weight": "2.5"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items",
+            "OTHER/kept": "Kept headline"
+          },
+          "codeSpecs": {
+            "OTHER/kept": "kept.dart"
+          }
+        }
+      }
+    }
+  ]
+}

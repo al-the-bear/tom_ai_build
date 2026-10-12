@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Applying a Markdown import is a runtime operation (SOM §11.7).
+  `SpecDocument::apply_markdown_result` overwrites the roots a parsed import
+  covers and keeps every other root; a result with rejections is refused with
+  `Err` and leaves the document unchanged unless `allow_rejections` is true.
+  `SpecDocument::from_markdown` parses and loads a fresh document in one call
+  and returns a `SpecMarkdownImport` (the document plus the parse report, with
+  a `rejections()` accessor). Verified against the corpus table
+  `markdown_apply_cases.json`.
 - Markdown codec: a member's heading id and its transparency are read from its
   meta node (`sectionId`, then `classSectionId`), no longer by looking up the
   node's class name. A wrapper section (`TextSection`, …) carries its owner's

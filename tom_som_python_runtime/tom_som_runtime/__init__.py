@@ -63,6 +63,7 @@ from .spec_serialization_order import SpecSerializationOrder
 from .spec_document_markdown import (
     MarkdownFenceTracker,
     SpecDocumentMarkdown,
+    SpecMarkdownImport,
     SpecMarkdownRejectReason,
     SpecMarkdownRejection,
     SpecMarkdownResult,
@@ -217,6 +218,7 @@ __all__ = [
     "SpecEditor",
     "SpecField",
     "SpecFieldKind",
+    "SpecMarkdownImport",
     "SpecMarkdownRejectReason",
     "SpecMarkdownRejection",
     "SpecMarkdownResult",

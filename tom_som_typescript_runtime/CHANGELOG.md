@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- `SpecDocument.applyMarkdownResult(result, allowRejections)` applies a parsed
+  Markdown import as a full overwrite of the roots it covers (SOM §11.7): every
+  value under each root prefix is removed, then the parsed content, forms,
+  lists, headlines and codeSpecs are written; other roots are kept. A result
+  with rejections is refused with an `Error`, the document unchanged, unless
+  `allowRejections` is true. `SpecDocument.fromMarkdown(text, model)` parses
+  and applies into a fresh document in one call and returns a
+  `SpecMarkdownImport` (`document`, `result`, `rejections`). Both are pinned by
+  the shared corpus table `markdown_apply_cases.json`.
 - Markdown codec: a member's heading id and its transparency are read from its
   meta node (`sectionId`, then `classSectionId`), no longer by looking up the
   node's class name. A wrapper section (`TextSection`, …) carries its owner's

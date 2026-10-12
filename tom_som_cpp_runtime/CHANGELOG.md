@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Markdown import: `SpecDocument::applyMarkdownResult(result,
+  allowRejections)` applies a parsed import as a full overwrite of the roots
+  it covers (SOM §11.7): every value under each root prefix is removed, then
+  the parsed content, forms, lists (seq, items, ids), headlines and codeSpecs
+  are written; other roots are kept. A result with rejections is refused with
+  `std::runtime_error` and nothing changes, unless `allowRejections` is true.
+  `SpecDocument::fromMarkdown(text, model)` parses and applies in one call and
+  returns a `SpecMarkdownImport` (`document`, `result`, `rejections()`). The
+  conformance runner checks both against `markdown_apply_cases.json`, and the
+  Markdown-to-memory landing check now goes through `fromMarkdown`.
 - Markdown codec: a member's heading id and its transparency are read from its
   meta node (`sectionId`, then `classSectionId`), no longer by looking up the
   node's class name. A wrapper section (`TextSection`, …) carries its owner's

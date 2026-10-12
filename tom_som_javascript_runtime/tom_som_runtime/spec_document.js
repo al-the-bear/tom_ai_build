@@ -128,6 +128,87 @@ class SpecDocument {
   }
 
   /**
+   * Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
+   * in one call: parse, then {@link applyMarkdownResult}.
+   *
+   * Blocks the parser rejects are not loaded, and are returned with the
+   * document, so a caller can show them or refuse to save: re-exporting a
+   * document whose source had rejections drops those blocks for good.
+   *
+   * The markdown codec is required lazily (see {@link toMarkdown}).
+   *
+   * @param {string} text
+   * @param {import('./spec_model').SpecModel} model
+   * @returns {import('./spec_document_markdown').SpecMarkdownImport}
+   */
+  static fromMarkdown(text, model) {
+    const { SpecDocumentMarkdown, SpecMarkdownImport } = require('./spec_document_markdown');
+    const document = new SpecDocument();
+    const result = new SpecDocumentMarkdown(model, document).parse(text);
+    document.applyMarkdownResult(result, true);
+    return new SpecMarkdownImport(document, result);
+  }
+
+  /**
+   * Applies a parsed Markdown import as a **full overwrite** of the roots it
+   * covers (SOM §11.7): every value under each of the result's
+   * `rootPrefixes` is removed, then the parsed content, forms, lists,
+   * headlines and codeSpecs are written. Other roots are left as they are.
+   *
+   * A result with rejections is refused with an {@link Error} — and the
+   * document left unchanged — unless `allowRejections` is true: the blocks it
+   * rejected would otherwise vanish from a document the caller believes it
+   * imported whole.
+   *
+   * Store-agnostic on both halves: the purge goes through
+   * {@link removeValuesUnder}, which clears every store, and the carry-over is
+   * whatever {@link toJson} emits. This port has no path normalizer, so the
+   * parsed paths are written as they are.
+   *
+   * @param {import('./spec_document_markdown').SpecMarkdownResult} result
+   * @param {boolean} [allowRejections]
+   */
+  applyMarkdownResult(result, allowRejections = false) {
+    if (!allowRejections && result.rejections.length > 0) {
+      const first = result.rejections[0];
+      throw new Error(
+        `markdown import has ${result.rejections.length} rejected block(s); ` +
+          `first at line ${first.line}: ${first.message}`,
+      );
+    }
+    if (result.rootPrefixes.size === 0) {
+      return;
+    }
+    for (const prefix of result.rootPrefixes) {
+      this.removeValuesUnder(prefix);
+    }
+
+    const held = this.toJson();
+    const store = (name) =>
+      held[name] && typeof held[name] === 'object' ? { ...held[name] } : {};
+
+    const lists = store('lists');
+    for (const [key, spec] of Object.entries(result.lists)) {
+      const entry = {
+        seq: spec.seq,
+        items: Array.isArray(spec.items) ? spec.items.map((i) => String(i)) : [],
+      };
+      if (spec.ids && typeof spec.ids === 'object') {
+        entry.ids = { ...spec.ids };
+      }
+      lists[key] = entry;
+    }
+
+    this.loadJson({
+      content: { ...store('content'), ...result.content },
+      forms: { ...store('forms'), ...result.forms },
+      lists,
+      headlines: { ...store('headlines'), ...result.headlines },
+      codeSpecs: { ...store('codeSpecs'), ...result.codeSpecs },
+    });
+  }
+
+  /**
    * The one root under which this document holds any value, for
    * {@link toMarkdown}'s default. Throws an {@link Error} when zero or more
    * than one root is populated.

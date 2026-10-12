@@ -53,6 +53,7 @@ void main() {
   final stampCases = _stampCases();
   final editabilityCases = _editabilityCases();
   final markdownImportCases = _markdownImportCases();
+  final markdownApplyCases = _markdownApplyCases(model, mdGolden);
   final docSpecsCases = _docSpecsCases();
   final patternCases = _patternCases();
   final queryCases = _queryCases(model, doc);
@@ -87,6 +88,7 @@ void main() {
       'markdown_import_cases.json',
       '${enc.convert(markdownImportCases)}\n',
     );
+    write('markdown_apply_cases.json', '${enc.convert(markdownApplyCases)}\n');
     write('docspecs_schema.yaml', _docSpecsSchemaYaml);
     write('docspecs_cases.json', '${enc.convert(docSpecsCases)}\n');
     write('pattern_cases.json', '${enc.convert(patternCases)}\n');
@@ -267,6 +269,24 @@ void main() {
     }
   });
 
+  // SOM §11.7: applying a parsed import is a runtime operation, not every
+  // caller's own copy. `fromMarkdown` loads a fresh document; `apply`
+  // overwrites the covered root of an existing one, keeps every other root,
+  // and refuses a result with rejections unless the caller allows them.
+  group('markdown_apply_cases.json (applying a parsed import)', () {
+    final onDisk = File('${corpusDir.path}/markdown_apply_cases.json');
+    final table = update && !onDisk.existsSync()
+        ? markdownApplyCases
+        : jsonDecode(onDisk.readAsStringSync()) as Map<String, dynamic>;
+    for (final raw in table['cases'] as List<dynamic>) {
+      final c = raw as Map<String, dynamic>;
+      test(c['name'] as String, () {
+        final got = _runMarkdownApplyCase(model, c);
+        expect(got, c['expect']);
+      });
+    }
+  });
+
   test('state.json matches the live document toJson()', () {
     final onDisk = jsonDecode(read('state.json')) as Map<String, dynamic>;
     expect(onDisk, state);
@@ -330,15 +350,13 @@ void main() {
   test('Markdown route lands in the shared memory representation', () {
     final golden = read('expected.md');
     final canonical = jsonDecode(read('state.json')) as Map<String, dynamic>;
-    final parsed = SpecDocumentMarkdown(model, doc).parse(golden);
-    expect(parsed.rejections, isEmpty, reason: parsed.rejections.join('\n'));
-    final landed = SpecDocument()
-      ..loadJson({
-        'content': parsed.content,
-        'forms': parsed.forms,
-        'lists': parsed.lists,
-        'headlines': parsed.headlines,
-      });
+    final imported = SpecDocument.fromMarkdown(golden, model);
+    expect(
+      imported.rejections,
+      isEmpty,
+      reason: imported.rejections.join('\n'),
+    );
+    final landed = imported.document;
     expect(
       landed.toJson(),
       canonical,
@@ -5013,4 +5031,94 @@ List<Map<String, dynamic>> _nodeCreationScript(SpecModel model) {
   steps.add({'op': 'finalState', 'expect': doc.toJson()});
 
   return steps;
+}
+
+/// Runs one `markdown_apply_cases.json` case and returns what it observed, in
+/// the shape of the case's `expect`.
+Map<String, dynamic> _runMarkdownApplyCase(
+  SpecModel model,
+  Map<String, dynamic> c,
+) {
+  final markdown = c['markdown'] as String;
+  if (c['op'] == 'fromMarkdown') {
+    final imported = SpecDocument.fromMarkdown(markdown, model);
+    return {
+      'refused': false,
+      'rejectionCount': imported.rejections.length,
+      'document': imported.document.toJson(),
+    };
+  }
+  final document = SpecDocument()..loadJson(c['base'] as Map<String, dynamic>);
+  final parsed = SpecDocumentMarkdown(model, document).parse(markdown);
+  var refused = false;
+  try {
+    document.applyMarkdownResult(
+      parsed,
+      allowRejections: c['allowRejections'] as bool,
+    );
+  } on StateError {
+    refused = true;
+  }
+  return {
+    'refused': refused,
+    'rejectionCount': parsed.rejections.length,
+    'document': document.toJson(),
+  };
+}
+
+/// The `markdown_apply_cases.json` table: expected results computed live, so
+/// `UPDATE_CORPUS` keeps them honest. [golden] is `expected.md`.
+Map<String, dynamic> _markdownApplyCases(SpecModel model, String golden) {
+  // A base document holding stale values under the covered root `DEMO` (a
+  // value the import does not carry, a headline, a codeSpec, a list) and
+  // values under another root, which the apply must keep.
+  final base = {
+    'content': {
+      'DEMO/TTL': 'stale title',
+      'DEMO/stale': 'not in the import',
+      'OTHER/kept': 'another root',
+    },
+    'headlines': {'DEMO/SUM': 'Stale headline', 'OTHER/kept': 'Kept headline'},
+    'codeSpecs': {'DEMO/TTL': 'stale.dart', 'OTHER/kept': 'kept.dart'},
+    'lists': {
+      'DEMO/CARD-LST': {
+        'seq': 9,
+        'items': ['DEMO/CARD-LST-9'],
+      },
+    },
+  };
+  final rejecting =
+      '$golden\n## <!--[NOPE]--> Not A Section\n\nText with no home.\n';
+  final cases = <Map<String, dynamic>>[
+    {
+      'name': 'fromMarkdown loads the golden into a fresh document',
+      'op': 'fromMarkdown',
+      'markdown': golden,
+    },
+    {
+      'name': 'apply overwrites the covered root and keeps every other root',
+      'op': 'apply',
+      'base': base,
+      'markdown': golden,
+      'allowRejections': false,
+    },
+    {
+      'name': 'apply refuses a result with rejections and changes nothing',
+      'op': 'apply',
+      'base': base,
+      'markdown': rejecting,
+      'allowRejections': false,
+    },
+    {
+      'name': 'apply with allowRejections lands every accepted block',
+      'op': 'apply',
+      'base': base,
+      'markdown': rejecting,
+      'allowRejections': true,
+    },
+  ];
+  for (final c in cases) {
+    c['expect'] = _runMarkdownApplyCase(model, c);
+  }
+  return {'cases': cases};
 }

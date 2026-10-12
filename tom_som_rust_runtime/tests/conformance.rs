@@ -12,7 +12,8 @@
 //!     lands the fixture memory (state.json);
 //!   - Markdown export == expected.md, parse round-trips byte-stable, and the
 //!     parsed values land the fixture memory (md.export / md.parse.* /
-//!     md.land.*);
+//!     md.land.*), and applying a parsed import overwrites only the roots it
+//!     covers (mdApply[…]);
 //!   - the SOM §4.2/§21 editability contract (classification + refusal message);
 //!   - reflection resolution cases;
 //!   - validation cases;
@@ -164,6 +165,7 @@ fn conformance() {
     test_markdown_round_trip(&mut c, &model);
     test_markdown_memory_landing(&mut c, &model);
     test_markdown_import_rejections(&mut c, &model);
+    test_markdown_apply(&mut c, &model);
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
     test_operations(&mut c);
@@ -487,18 +489,65 @@ fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
 fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
     let golden = read_corpus("expected.md");
     let canonical = DocumentJson::from_json(&read_json("state.json"));
-    let doc = doc_from_state(&canonical);
-    let parsed = SpecDocumentMarkdown::new(model, &doc).parse(&golden);
-    c.check("md.land.clean", parsed.rejections.is_empty(), &rej_detail(&parsed));
-    let mut landed = SpecDocument::new();
-    landed.load_json(&parsed.to_document_json());
-    let got = landed.to_json().to_canonical_json();
+    let imported = SpecDocument::from_markdown(&golden, model);
+    c.check(
+        "md.land.clean",
+        imported.rejections().is_empty(),
+        &rej_detail(&imported.result),
+    );
+    let got = imported.document.to_json().to_canonical_json();
     let want = canonical.to_canonical_json();
     c.check(
         "md.land.memory",
         got == want,
         &format!("got {} want {}", got, want),
     );
+}
+
+/// SOM §11.7: applying a parsed import is a runtime operation. `fromMarkdown`
+/// loads a fresh document; `apply` overwrites the covered root of an existing
+/// one, keeps every other root, and refuses a result with rejections unless the
+/// caller allows them. Each case runs exactly like the Dart reference's
+/// `_runMarkdownApplyCase` and is compared field by field with its `expect`.
+fn test_markdown_apply(c: &mut Checker, model: &SpecModel) {
+    let table = read_json("markdown_apply_cases.json");
+    for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
+        let name = kase.str_or("name");
+        let markdown = kase.str_or("markdown");
+        let (refused, rejection_count, document) = if kase.str_or("op") == "fromMarkdown" {
+            let imported = SpecDocument::from_markdown(&markdown, model);
+            (false, imported.rejections().len(), imported.document.to_json())
+        } else {
+            let base = DocumentJson::from_json(kase.get("base").unwrap_or(&Json::Null));
+            let mut document = doc_from_state(&base);
+            let parsed = SpecDocumentMarkdown::new(model, &document).parse(&markdown);
+            let allow = kase.get("allowRejections").and_then(|v| v.as_bool()).unwrap_or(false);
+            let refused = document.apply_markdown_result(&parsed, allow).is_err();
+            (refused, parsed.rejections.len(), document.to_json())
+        };
+        let expect = kase.get("expect").unwrap_or(&Json::Null);
+        let tag = format!("mdApply[{}]", name);
+        let want_refused = expect.get("refused").and_then(|v| v.as_bool());
+        c.check(
+            &format!("{}.refused", tag),
+            want_refused == Some(refused),
+            &format!("got {} want {:?}", refused, want_refused),
+        );
+        let want_count = expect.get("rejectionCount").and_then(|v| v.as_i64());
+        c.check(
+            &format!("{}.rejectionCount", tag),
+            want_count == Some(rejection_count as i64),
+            &format!("got {} want {:?}", rejection_count, want_count),
+        );
+        let got = document.to_canonical_json();
+        let want = DocumentJson::from_json(expect.get("document").unwrap_or(&Json::Null))
+            .to_canonical_json();
+        c.check(
+            &format!("{}.document", tag),
+            got == want,
+            &format!("got {} want {}", got, want),
+        );
+    }
 }
 
 /// The SOM §11.7 rejection protocol: nothing is silently dropped. Each case

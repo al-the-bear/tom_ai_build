@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Markdown load/apply: `SpecDocumentFromMarkdown(text, model)` loads a DocSpecs
+  Markdown document into a fresh document in one call and returns a
+  `SpecMarkdownImport` (`Document`, `Result`, `Rejections()`); rejected blocks
+  are reported, not loaded. `SpecDocument.ApplyMarkdownResult(result,
+  allowRejections)` applies a parse result as a full overwrite of the roots it
+  covers (SOM §11.7), keeping every other root, and refuses a result with
+  rejections — changing nothing — unless they are allowed. Both are pinned by
+  the shared corpus table `markdown_apply_cases.json`.
 - Markdown codec: a member's heading id and its transparency are read from its
   meta node (`sectionId`, then `classSectionId`), no longer by looking up the
   node's class name. A wrapper section (`TextSection`, …) carries its owner's

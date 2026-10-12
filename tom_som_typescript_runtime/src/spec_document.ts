@@ -31,7 +31,11 @@
 import { readFileSync } from 'fs';
 import { SpecSectionIdCollision } from './spec_section_id';
 import { SpecModel, SpecRoot } from './spec_model';
-import { SpecDocumentMarkdown } from './spec_document_markdown';
+import {
+  SpecDocumentMarkdown,
+  SpecMarkdownImport,
+} from './spec_document_markdown';
+import type { SpecMarkdownResult } from './spec_document_markdown';
 import type { SomMetaTree } from './spec_meta';
 
 /** The plain-data shape of a single list store entry. */
@@ -144,6 +148,84 @@ export class SpecDocument {
         `(${populated.map((r) => r.type).join(', ')}); ` +
         'pass rootType to choose one',
     );
+  }
+
+  /**
+   * Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
+   * in one call: parse, then {@link applyMarkdownResult}.
+   *
+   * Blocks the parser rejects are not loaded, and are returned with the
+   * document, so a caller can show them or refuse to save: re-exporting a
+   * document whose source had rejections drops those blocks for good.
+   */
+  static fromMarkdown(text: string, model: SpecModel): SpecMarkdownImport {
+    const document = new SpecDocument();
+    const result = new SpecDocumentMarkdown(model, document).parse(text);
+    document.applyMarkdownResult(result, true);
+    return new SpecMarkdownImport(document, result);
+  }
+
+  /**
+   * Applies a parsed Markdown import as a **full overwrite** of the roots it
+   * covers (SOM §11.7): every value under each of
+   * {@link SpecMarkdownResult.rootPrefixes} is removed, then the parsed
+   * content, forms, lists, headlines and codeSpecs are written. Other roots are
+   * left as they are.
+   *
+   * A result with rejections is refused with an {@link Error} — and the
+   * document left unchanged — unless `allowRejections` is true: the blocks it
+   * rejected would otherwise vanish from a document the caller believes it
+   * imported whole.
+   *
+   * Store-agnostic on both halves: the purge goes through
+   * {@link removeValuesUnder}, which clears every store, and the carry-over is
+   * whatever {@link toJson} emits. This port keys its stores by the raw path
+   * (it has no path normalizer), so the parsed paths are written as they are.
+   */
+  applyMarkdownResult(
+    result: SpecMarkdownResult,
+    allowRejections = false,
+  ): void {
+    if (!allowRejections && result.rejections.length > 0) {
+      const first = result.rejections[0];
+      throw new Error(
+        `markdown import has ${result.rejections.length} rejected block(s); ` +
+          `first at line ${first.line}: ${first.message}`,
+      );
+    }
+    if (result.rootPrefixes.size === 0) {
+      return;
+    }
+    for (const prefix of result.rootPrefixes) {
+      this.removeValuesUnder(prefix);
+    }
+
+    const held = this.toJson();
+    const lists: Record<string, ListJson> = { ...(held.lists || {}) };
+    for (const [listPath, spec] of Object.entries(result.lists)) {
+      const entry: ListJson = {
+        seq: spec.seq,
+        items: Array.isArray(spec.items)
+          ? spec.items.map((i) => String(i))
+          : [],
+      };
+      if (spec.ids && typeof spec.ids === 'object') {
+        const ids: Record<string, string> = {};
+        for (const [itemPath, id] of Object.entries(spec.ids)) {
+          ids[String(itemPath)] = id;
+        }
+        entry.ids = ids;
+      }
+      lists[listPath] = entry;
+    }
+
+    this.loadJson({
+      content: { ...(held.content || {}), ...result.content },
+      forms: { ...(held.forms || {}), ...result.forms },
+      lists,
+      headlines: { ...(held.headlines || {}), ...result.headlines },
+      codeSpecs: { ...(held.codeSpecs || {}), ...result.codeSpecs },
+    });
   }
 
   // --- content ------------------------------------------------------------

@@ -169,6 +169,84 @@ class SpecDocument {
     return SpecDocumentMarkdown(model, this).exportRoot(root);
   }
 
+  /// Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
+  /// in one call: parse, then [applyMarkdownResult].
+  ///
+  /// Blocks the parser rejects are not loaded, and are returned with the
+  /// document, so a caller can show them or refuse to save: re-exporting a
+  /// document whose source had rejections drops those blocks for good.
+  static SpecMarkdownImport fromMarkdown(String text, SpecModel model) {
+    final document = SpecDocument();
+    final result = SpecDocumentMarkdown(model, document).parse(text);
+    document.applyMarkdownResult(result, allowRejections: true);
+    return SpecMarkdownImport(document: document, result: result);
+  }
+
+  /// Applies a parsed Markdown import as a **full overwrite** of the roots it
+  /// covers (SOM §11.7): every value under each of
+  /// [SpecMarkdownResult.rootPrefixes] is removed, then the parsed content,
+  /// forms, lists, headlines and codeSpecs are written. Other roots are left
+  /// as they are.
+  ///
+  /// A result with rejections is refused with a [StateError] unless
+  /// [allowRejections] is true: the blocks it rejected would otherwise vanish
+  /// from a document the caller believes it imported whole.
+  ///
+  /// Store-agnostic on both halves: the purge goes through [removeValuesUnder],
+  /// which clears every store, and the carry-over is whatever [toJson] emits.
+  /// The parsed paths are mapped through the installed path normalizer
+  /// ([installPathNormalizer]) — list item paths and stored item ids included
+  /// — because [loadJson] writes the raw stores.
+  void applyMarkdownResult(
+    SpecMarkdownResult result, {
+    bool allowRejections = false,
+  }) {
+    if (!allowRejections && result.rejections.isNotEmpty) {
+      final first = result.rejections.first;
+      throw StateError(
+        'markdown import has ${result.rejections.length} rejected block(s); '
+        'first at line ${first.line}: ${first.message}',
+      );
+    }
+    if (result.rootPrefixes.isEmpty) return;
+    for (final prefix in result.rootPrefixes) {
+      removeValuesUnder(prefix);
+    }
+
+    final held = toJson();
+    Map<String, Object?> store(String name) => {
+      if (held[name] is Map)
+        for (final e in (held[name] as Map).entries) '${e.key}': e.value,
+    };
+    Map<String, Object?> keyed(Map<String, Object?> values) => {
+      for (final e in values.entries) _key(e.key): e.value,
+    };
+
+    final lists = store('lists');
+    for (final entry in result.lists.entries) {
+      final spec = entry.value;
+      final items = spec['items'];
+      final ids = spec['ids'];
+      lists[_key(entry.key)] = {
+        'seq': spec['seq'],
+        'items': [
+          if (items is List)
+            for (final i in items) _key('$i'),
+        ],
+        if (ids is Map)
+          'ids': {for (final e in ids.entries) _key('${e.key}'): e.value},
+      };
+    }
+
+    loadJson({
+      'content': store('content')..addAll(keyed(result.content)),
+      'forms': store('forms')..addAll(keyed(result.forms)),
+      'lists': lists,
+      'headlines': store('headlines')..addAll(keyed(result.headlines)),
+      'codeSpecs': store('codeSpecs')..addAll(keyed(result.codeSpecs)),
+    });
+  }
+
   /// The one root under which this document holds any value, for [toMarkdown]'s
   /// default. Throws [StateError] when zero or more than one root is populated.
   SpecRoot _singlePopulatedRoot(SpecModel model) {

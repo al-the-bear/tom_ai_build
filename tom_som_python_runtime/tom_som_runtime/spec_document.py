@@ -35,6 +35,7 @@ from typing import TYPE_CHECKING, Any, Iterable, Optional
 from .spec_section_id import SpecSectionIdCollision
 
 if TYPE_CHECKING:
+    from .spec_document_markdown import SpecMarkdownImport, SpecMarkdownResult
     from .spec_model import SpecModel, SpecRoot
 
 
@@ -107,6 +108,84 @@ class SpecDocument:
         else:
             root = self._single_populated_root(model)
         return SpecDocumentMarkdown(model, self).export_root(root)
+
+    # --- one-call Markdown import (SOM §11.7) -----------------------------
+
+    @staticmethod
+    def from_markdown(text: str, model: "SpecModel") -> "SpecMarkdownImport":
+        """Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh
+        document in one call: parse, then :meth:`apply_markdown_result`.
+
+        Blocks the parser rejects are not loaded, and are returned with the
+        document, so a caller can show them or refuse to save: re-exporting a
+        document whose source had rejections drops those blocks for good."""
+        # Lazy import: spec_document_markdown imports SpecDocument at load.
+        from .spec_document_markdown import (
+            SpecDocumentMarkdown,
+            SpecMarkdownImport,
+        )
+
+        document = SpecDocument()
+        result = SpecDocumentMarkdown(model, document).parse(text)
+        document.apply_markdown_result(result, allow_rejections=True)
+        return SpecMarkdownImport(document=document, result=result)
+
+    def apply_markdown_result(
+        self, result: "SpecMarkdownResult", allow_rejections: bool = False
+    ) -> None:
+        """Applies a parsed Markdown import as a **full overwrite** of the roots
+        it covers (SOM §11.7): every value under each of
+        :attr:`SpecMarkdownResult.root_prefixes` is removed, then the parsed
+        content, forms, lists, headlines and codeSpecs are written. Other roots
+        are left as they are.
+
+        A result with rejections is refused with a :class:`RuntimeError` (and
+        the document is left unchanged) unless *allow_rejections* is true: the
+        blocks it rejected would otherwise vanish from a document the caller
+        believes it imported whole.
+
+        Store-agnostic on both halves: the purge goes through
+        :meth:`remove_values_under`, which clears every store, and the
+        carry-over is whatever :meth:`to_json` emits. Paths are written as
+        parsed — this port has no path normalizer."""
+        if not allow_rejections and result.rejections:
+            first = result.rejections[0]
+            raise RuntimeError(
+                f"markdown import has {len(result.rejections)} rejected "
+                f"block(s); first at line {first.line}: {first.message}"
+            )
+        if not result.root_prefixes:
+            return
+        for prefix in result.root_prefixes:
+            self.remove_values_under(prefix)
+
+        held = self.to_json()
+
+        def store(name: str) -> dict[str, Any]:
+            values = held.get(name)
+            if not isinstance(values, dict):
+                return {}
+            return {str(k): v for k, v in values.items()}
+
+        lists = store("lists")
+        for list_path, spec in result.lists.items():
+            items = spec.get("items")
+            ids = spec.get("ids")
+            entry: dict[str, Any] = {
+                "seq": spec.get("seq"),
+                "items": [str(i) for i in items] if isinstance(items, list) else [],
+            }
+            if isinstance(ids, dict):
+                entry["ids"] = {str(k): v for k, v in ids.items()}
+            lists[list_path] = entry
+
+        self.load_json({
+            "content": {**store("content"), **result.content},
+            "forms": {**store("forms"), **result.forms},
+            "lists": lists,
+            "headlines": {**store("headlines"), **result.headlines},
+            "codeSpecs": {**store("codeSpecs"), **result.code_specs},
+        })
 
     def _single_populated_root(self, model: "SpecModel") -> "SpecRoot":
         """The one root under which this document holds any value, for

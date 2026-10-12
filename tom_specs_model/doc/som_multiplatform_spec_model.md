@@ -1283,7 +1283,19 @@ match at this position", "unresolvable parent" and "no such document root".
 `orphanContent` means text before the document root heading — and only that:
 text before a form's first field label is the form's preamble and has a home
 (§11.4 rule 7). `emit(parse(emit(doc)))` is byte-identical (modulo the idempotent blank-line
-collapse and the §11.6 transparency canonicalisations). Stored headlines are
+collapse and the §11.6 transparency canonicalisations).
+
+Applying a parse is a runtime operation, not each caller's own code.
+`SpecDocument.applyMarkdownResult(result, allowRejections)` is a **full
+overwrite of the roots the import covers** (`rootPrefixes`): every value under
+them is removed from every store, then the staged content, forms, lists (with
+their `seq` and stored item ids), headlines and codeSpecs are written; other
+roots are untouched. A result with rejections is refused, and the document left
+unchanged, unless the caller allows them, because the rejected blocks would
+otherwise vanish from a document believed to be imported whole.
+`SpecDocument.fromMarkdown(text, model)` loads a fresh document in one call and
+returns it with the parse report. Both are pinned in every port by
+`markdown_apply_cases.json`. Stored headlines are
 staged only when they differ from the effective default, keeping untouched
 documents byte-stable.
 

@@ -19,7 +19,7 @@
 use std::collections::BTreeMap;
 
 use crate::json::{encode_str, Json};
-use crate::spec_document_markdown::SpecDocumentMarkdown;
+use crate::spec_document_markdown::{SpecDocumentMarkdown, SpecMarkdownImport, SpecMarkdownResult};
 use crate::spec_model::{SpecModel, SpecRoot};
 use crate::spec_section_id::{SpecSectionIdCollision, SpecSectionIdError};
 
@@ -325,6 +325,69 @@ impl SpecDocument {
             None => self.single_populated_root(model)?,
         };
         SpecDocumentMarkdown::new(model, self).export_root(root)
+    }
+
+    /// Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
+    /// in one call: parse, then [`apply_markdown_result`](Self::apply_markdown_result)
+    /// with rejections allowed.
+    ///
+    /// Blocks the parser rejects are not loaded, and are returned with the
+    /// document ([`SpecMarkdownImport::rejections`]), so a caller can show them
+    /// or refuse to save: re-exporting a document whose source had rejections
+    /// drops those blocks for good.
+    pub fn from_markdown(text: &str, model: &SpecModel) -> SpecMarkdownImport {
+        let mut document = SpecDocument::new();
+        let result = SpecDocumentMarkdown::new(model, &document).parse(text);
+        document
+            .apply_markdown_result(&result, true)
+            .expect("rejections are allowed, so the apply cannot refuse");
+        SpecMarkdownImport { document, result }
+    }
+
+    /// Applies a parsed Markdown import as a **full overwrite** of the roots it
+    /// covers (SOM §11.7): every value under each of
+    /// [`SpecMarkdownResult::root_prefixes`] is removed, then the parsed
+    /// content, forms, lists, headlines and codeSpecs are written. Other roots
+    /// are left as they are.
+    ///
+    /// A result with rejections is refused with `Err` — naming the rejection
+    /// count and the first rejection's line and message — and the document is
+    /// left unchanged, unless `allow_rejections` is true: the blocks it
+    /// rejected would otherwise vanish from a document the caller believes it
+    /// imported whole.
+    ///
+    /// Store-agnostic on both halves: the purge goes through
+    /// [`remove_values_under`](Self::remove_values_under), which clears every
+    /// store, and the carry-over is whatever [`to_json`](Self::to_json) emits.
+    /// This port has no path normalizer, so parsed paths are stored as-is.
+    pub fn apply_markdown_result(
+        &mut self,
+        result: &SpecMarkdownResult,
+        allow_rejections: bool,
+    ) -> Result<(), String> {
+        if let (false, Some(first)) = (allow_rejections, result.rejections.first()) {
+            return Err(format!(
+                "markdown import has {} rejected block(s); first at line {}: {}",
+                result.rejections.len(),
+                first.line,
+                first.message
+            ));
+        }
+        if result.root_prefixes.is_empty() {
+            return Ok(());
+        }
+        for prefix in &result.root_prefixes {
+            self.remove_values_under(prefix);
+        }
+
+        let mut merged = self.to_json();
+        merged.content.extend(result.content.clone());
+        merged.forms.extend(result.forms.clone());
+        merged.lists.extend(result.lists.clone());
+        merged.headlines.extend(result.headlines.clone());
+        merged.code_specs.extend(result.code_specs.clone());
+        self.load_json(&merged);
+        Ok(())
     }
 
     /// Returns the one root under which this document holds any value, for

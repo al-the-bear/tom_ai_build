@@ -413,25 +413,60 @@ function testMarkdownRoundTrip(model: SpecModel): void {
 function testMarkdownMemoryLanding(model: SpecModel): void {
   const golden = _read('expected.md');
   const canonical = _readJson('state.json');
-  const doc = _documentFromState(canonical);
-  const parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
+  const imported = SpecDocument.fromMarkdown(golden, model);
   _check(
     'md.land.clean',
-    parsed.rejections.length === 0,
-    parsed.rejections.map((r) => String(r)).join('; '),
+    imported.rejections.length === 0,
+    imported.rejections.map((r) => String(r)).join('; '),
   );
-  const landed = new SpecDocument();
-  landed.loadJson({
-    content: parsed.content,
-    forms: parsed.forms,
-    lists: parsed.lists,
-    headlines: parsed.headlines,
-  });
+  const landed = imported.document;
   _check(
     'md.land.memory',
     _deepEqual(landed.toJson(), canonical),
     _jsonMismatch(landed.toJson(), canonical),
   );
+}
+
+// One `markdown_apply_cases.json` case, run exactly as the Dart reference
+// does: `fromMarkdown` loads into a fresh document; `apply` loads `base`,
+// parses with the codec and applies — `refused` when the apply throws.
+function _runMarkdownApplyCase(model: SpecModel, c: any): any {
+  const markdown = c.markdown as string;
+  if (c.op === 'fromMarkdown') {
+    const imported = SpecDocument.fromMarkdown(markdown, model);
+    return {
+      refused: false,
+      rejectionCount: imported.rejections.length,
+      document: imported.document.toJson(),
+    };
+  }
+  const document = _documentFromState(c.base);
+  const parsed = new SpecDocumentMarkdown(model, document).parse(markdown);
+  let refused = false;
+  try {
+    document.applyMarkdownResult(parsed, c.allowRejections === true);
+  } catch (_) {
+    refused = true;
+  }
+  return {
+    refused,
+    rejectionCount: parsed.rejections.length,
+    document: document.toJson(),
+  };
+}
+
+// The one-call Markdown load and the full-overwrite apply (SOM §11.7): the
+// covered root is replaced, other roots kept, and a result with rejections is
+// refused unchanged unless explicitly allowed.
+function testMarkdownApply(model: SpecModel): void {
+  for (const c of _readJson('markdown_apply_cases.json').cases) {
+    const got = _runMarkdownApplyCase(model, c);
+    _check(
+      `mdApply[${c.name}]`,
+      _deepEqual(got, c.expect),
+      _jsonMismatch(got, c.expect),
+    );
+  }
 }
 
 // The SOM §11.7 rejection protocol: nothing is silently dropped. Each case
@@ -1544,6 +1579,7 @@ export function main(): number {
   testMarkdownRoundTrip(model);
   testMarkdownMemoryLanding(model);
   testMarkdownImportRejections(model);
+  testMarkdownApply(model);
   testOneLineExport(model);
   testReflection(model);
   testValidation(model);

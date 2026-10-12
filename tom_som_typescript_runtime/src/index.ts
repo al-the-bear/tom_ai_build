@@ -195,6 +195,7 @@ export {
   SpecMarkdownRejectReason,
   SpecMarkdownRejection,
   SpecMarkdownResult,
+  SpecMarkdownImport,
   MarkdownFenceTracker,
   SpecDocumentMarkdown,
 } from './spec_document_markdown';

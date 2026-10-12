@@ -11,6 +11,7 @@
  *   - Markdown export == expected.md (byte-for-byte);
  *   - Markdown parse -> memory -> export is clean + byte-stable;
  *   - the Markdown route lands the fixture in the same memory as the YAML route;
+ *   - the Markdown apply/one-call import cases (full overwrite of covered roots);
  *   - the SOM §4.2/§21 editability contract (classification + refusal message);
  *   - reflection resolution cases;
  *   - validation cases;
@@ -579,16 +580,14 @@ static void test_markdown_memory_landing(Checker *c, const SpecModel *model) {
   SomJson *sj = read_json("state.json");
   DocumentJson canonical;
   document_json_from_json(sj, &canonical);
-  SpecMarkdownResult result;
-  spec_markdown_parse(model, expected_md, &result);
-  char *rs = rej_str(&result);
-  check(c, "md.land.clean", spec_markdown_result_is_clean(&result), rs);
+  SpecMarkdownImport imported;
+  spec_document_from_markdown(expected_md, model, &imported);
+  char *rs = rej_str(&imported.result);
+  check(c, "md.land.clean", spec_markdown_result_is_clean(&imported.result),
+        rs);
   free(rs);
-  SpecDocument landed;
-  spec_document_init(&landed);
-  spec_document_load_json(&landed, spec_markdown_result_document(&result));
   DocumentJson dj;
-  spec_document_to_json(&landed, &dj);
+  spec_document_to_json(imported.document, &dj);
   char *got = document_json_to_canonical_json(&dj);
   char *want = document_json_to_canonical_json(&canonical);
   char detail[2048];
@@ -597,11 +596,84 @@ static void test_markdown_memory_landing(Checker *c, const SpecModel *model) {
   free(got);
   free(want);
   document_json_free(&dj);
-  spec_document_free(&landed);
-  spec_markdown_result_free(&result);
+  spec_markdown_import_free(&imported);
   document_json_free(&canonical);
   som_json_free(sj);
   free(expected_md);
+}
+
+/* markdown_apply_cases.json: the one-call import (`fromMarkdown`) and the
+ * full-overwrite apply (`apply`) of a parse result onto a base document,
+ * run exactly like the Dart reference's `_runMarkdownApplyCase` — refusal,
+ * rejection count and the resulting document (canonical JSON) all compared. */
+static void test_markdown_apply(Checker *c, const SpecModel *model) {
+  SomJson *table = read_json("markdown_apply_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(kase, "name");
+    const char *op = som_json_str_or(kase, "op");
+    const char *markdown = som_json_str_or(kase, "markdown");
+    int refused = 0;
+    size_t rejection_count = 0;
+    DocumentJson dj;
+    if (strcmp(op, "fromMarkdown") == 0) {
+      SpecMarkdownImport imported;
+      spec_document_from_markdown(markdown, model, &imported);
+      rejection_count = imported.result.rejections_len;
+      spec_document_to_json(imported.document, &dj);
+      spec_markdown_import_free(&imported);
+    } else {
+      DocumentJson base;
+      document_json_from_json(som_json_get(kase, "base"), &base);
+      SpecDocument document;
+      doc_from_state(&document, &base);
+      document_json_free(&base);
+      SpecMarkdownResult parsed;
+      spec_markdown_parse(model, markdown, &parsed);
+      const SomJson *allow = som_json_get(kase, "allowRejections");
+      int allow_rejections = allow != NULL && allow->type == SOM_JSON_BOOL &&
+                             allow->as.boolean;
+      char *err = NULL;
+      refused = spec_document_apply_markdown_result(&document, &parsed,
+                                                    allow_rejections, &err) != 0;
+      free(err);
+      rejection_count = parsed.rejections_len;
+      spec_document_to_json(&document, &dj);
+      spec_markdown_result_free(&parsed);
+      spec_document_free(&document);
+    }
+
+    const SomJson *expect = som_json_get(kase, "expect");
+    const SomJson *want_refused = som_json_get(expect, "refused");
+    int want_ref = want_refused != NULL && want_refused->type == SOM_JSON_BOOL &&
+                   want_refused->as.boolean;
+    long long want_count = -1;
+    som_json_as_i64(som_json_get(expect, "rejectionCount"), &want_count);
+    char label[256];
+    char detail[2048];
+    snprintf(label, sizeof(label), "mdApply[%s].refused", name);
+    snprintf(detail, sizeof(detail), "got %d want %d", refused, want_ref);
+    check(c, label, refused == want_ref, detail);
+    snprintf(label, sizeof(label), "mdApply[%s].rejectionCount", name);
+    snprintf(detail, sizeof(detail), "got %zu want %lld", rejection_count,
+             want_count);
+    check(c, label, (long long)rejection_count == want_count, detail);
+
+    DocumentJson wanted;
+    document_json_from_json(som_json_get(expect, "document"), &wanted);
+    char *got_json = document_json_to_canonical_json(&dj);
+    char *want_json = document_json_to_canonical_json(&wanted);
+    snprintf(detail, sizeof(detail), "got %s want %s", got_json, want_json);
+    snprintf(label, sizeof(label), "mdApply[%s].document", name);
+    check(c, label, strcmp(got_json, want_json) == 0, detail);
+    free(got_json);
+    free(want_json);
+    document_json_free(&wanted);
+    document_json_free(&dj);
+  }
+  som_json_free(table);
 }
 
 /* The SOM §11.7 rejection protocol: nothing is silently dropped. Each case
@@ -2598,6 +2670,7 @@ int main(int argc, char **argv) {
   test_markdown_round_trip(&c, model);
   test_markdown_memory_landing(&c, model);
   test_markdown_import_rejections(&c, model);
+  test_markdown_apply(&c, model);
   test_reflection(&c, model);
   test_validation(&c, model);
   test_operations(&c);

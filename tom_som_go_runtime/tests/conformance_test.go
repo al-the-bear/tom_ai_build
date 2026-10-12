@@ -21,7 +21,9 @@
 //   - the query surface (match lists, cursor laziness, the projection walk);
 //   - the Phase-4 CodeSpecs extract generator (routing verdicts, the per-area
 //     YAML/Markdown goldens, the verbatim-copy guard, `ROUTE-TOTAL`);
-//   - the constrained node-creation gate (per-code rejections + the script).
+//   - the constrained node-creation gate (per-code rejections + the script);
+//   - the Markdown load/apply operations (SpecDocumentFromMarkdown,
+//     ApplyMarkdownResult).
 //
 // `go test ./tests/` is the native runner; exit 0 == all green.
 package tests
@@ -31,6 +33,7 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 	"time"
@@ -202,6 +205,7 @@ func TestConformance(t *testing.T) {
 	testMarkdownRoundTrip(c, t, model)
 	testMarkdownMemoryLanding(c, t, model)
 	testMarkdownImportRejections(c, t, model)
+	testMarkdownApply(c, t, model)
 	testReflection(c, t, model)
 	testValidation(c, t, model)
 	testOperations(c, t)
@@ -518,19 +522,78 @@ func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
 	golden := readCorpus(t, "expected.md")
 	var canonical som.DocumentJson
 	readJSON(t, "state.json", &canonical)
-	doc := docFromState(&canonical)
-	parsed := som.NewSpecDocumentMarkdown(model, doc).Parse(golden)
-	c.check("md.land.clean", len(parsed.Rejections) == 0, rejDetail(parsed))
-	landed := som.NewSpecDocument()
-	landed.LoadJSON(&som.DocumentJson{
-		Content:   parsed.Content,
-		Forms:     parsed.Forms,
-		Lists:     parsed.Lists,
-		Headlines: parsed.Headlines,
-	})
-	got := canonJSON(t, landed.ToJSON())
+	imported, err := som.SpecDocumentFromMarkdown(golden, model)
+	if err != nil {
+		c.check("md.land.clean", false, err.Error())
+		return
+	}
+	c.check("md.land.clean", len(imported.Rejections()) == 0, rejDetail(imported.Result))
+	got := canonJSON(t, imported.Document.ToJSON())
 	want := canonJSON(t, &canonical)
 	c.check("md.land.memory", got == want, "got "+got+" want "+want)
+}
+
+// markdownApplyCaseTable mirrors corpus/markdown_apply_cases.json — the SOM
+// §11.7 load/apply operations: SpecDocumentFromMarkdown into a fresh document,
+// and ApplyMarkdownResult as a full overwrite of the covered roots (refused on
+// rejections unless allowed). Expect is kept as raw JSON and compared as the
+// decoded generic shape, so numbers compare as JSON numbers.
+type markdownApplyCaseTable struct {
+	Cases []struct {
+		Name            string            `json:"name"`
+		Op              string            `json:"op"`
+		Base            *som.DocumentJson `json:"base"`
+		Markdown        string            `json:"markdown"`
+		AllowRejections bool              `json:"allowRejections"`
+		Expect          json.RawMessage   `json:"expect"`
+	} `json:"cases"`
+}
+
+// testMarkdownApply runs each markdown_apply_cases.json case exactly like the
+// Dart reference's _runMarkdownApplyCase and deep-compares the outcome record
+// {refused, rejectionCount, document} with the case's expectation.
+func testMarkdownApply(c *checker, t *testing.T, model *som.SpecModel) {
+	var table markdownApplyCaseTable
+	readJSON(t, "markdown_apply_cases.json", &table)
+	c.check("mdApply.cases", len(table.Cases) > 0, "no cases in markdown_apply_cases.json")
+	for _, mc := range table.Cases {
+		tag := "mdApply[" + mc.Name + "]"
+		var got map[string]interface{}
+		switch mc.Op {
+		case "fromMarkdown":
+			imported, err := som.SpecDocumentFromMarkdown(mc.Markdown, model)
+			if err != nil {
+				c.check(tag, false, err.Error())
+				continue
+			}
+			got = map[string]interface{}{
+				"refused":        false,
+				"rejectionCount": len(imported.Rejections()),
+				"document":       imported.Document.ToJSON(),
+			}
+		case "apply":
+			document := docFromState(mc.Base)
+			parsed := som.NewSpecDocumentMarkdown(model, document).Parse(mc.Markdown)
+			refused := document.ApplyMarkdownResult(parsed, mc.AllowRejections) != nil
+			got = map[string]interface{}{
+				"refused":        refused,
+				"rejectionCount": len(parsed.Rejections),
+				"document":       document.ToJSON(),
+			}
+		default:
+			c.check(tag, false, "unknown op "+mc.Op)
+			continue
+		}
+		var gotAny, wantAny interface{}
+		if err := json.Unmarshal([]byte(canonJSON(t, got)), &gotAny); err != nil {
+			t.Fatalf("%s: re-decode: %v", tag, err)
+		}
+		if err := json.Unmarshal(mc.Expect, &wantAny); err != nil {
+			t.Fatalf("%s: decode expect: %v", tag, err)
+		}
+		c.check(tag, reflect.DeepEqual(gotAny, wantAny),
+			"got "+canonJSON(t, gotAny)+" want "+canonJSON(t, wantAny))
+	}
 }
 
 // markdownImportCaseTable mirrors corpus/markdown_import_cases.json — the SOM

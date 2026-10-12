@@ -14,6 +14,13 @@
 - Both were found authoring a real Solution Blueprint, where such sections
   could not be written in any form that passed every tier. A new corpus case
   (`Notes.remarks`) pins them in all nine runtimes.
+- Markdown import: `SpecDocument.apply_markdown_result(result,
+  allow_rejections=False)` applies a parsed import as a full overwrite of the
+  roots it covers, keeping every other root; a result with rejections raises
+  `RuntimeError` and changes nothing unless `allow_rejections` is set.
+  `SpecDocument.from_markdown(text, model)` parses and applies in one call and
+  returns a `SpecMarkdownImport` (document, result, rejections). Pinned by the
+  corpus table `markdown_apply_cases.json`.
 
 ## 1.3.3
 

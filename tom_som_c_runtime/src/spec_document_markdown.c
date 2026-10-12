@@ -2388,3 +2388,81 @@ char *spec_document_to_markdown(const SpecDocument *document,
   }
   return spec_markdown_export_root(model, document, root, err);
 }
+
+/* ---- apply / one-call import (SOM §11.7) --------------------------------- */
+
+/* Copies every entry of `src` into `dst`, overwriting same-key values. */
+static void map_merge(SomMap *dst, const SomMap *src) {
+  for (size_t i = 0; i < src->len; i++) {
+    som_map_set(dst, src->entries[i].key, src->entries[i].val);
+  }
+}
+
+int spec_document_apply_markdown_result(SpecDocument *doc,
+                                        const SpecMarkdownResult *result,
+                                        int allow_rejections,
+                                        char **error_out) {
+  if (!allow_rejections && result->rejections_len > 0) {
+    const SpecMarkdownRejection *first = &result->rejections[0];
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, "markdown import has ");
+    som_buf_puti(&b, (long long)result->rejections_len);
+    som_buf_puts(&b, " rejected block(s); first at line ");
+    som_buf_puti(&b, (long long)first->line);
+    som_buf_puts(&b, ": ");
+    som_buf_puts(&b, first->message);
+    set_err(error_out, som_buf_take(&b));
+    return 1;
+  }
+  if (result->root_prefixes.len == 0) {
+    return 0;
+  }
+  for (size_t i = 0; i < result->root_prefixes.len; i++) {
+    spec_document_remove_values_under(doc, result->root_prefixes.items[i]);
+  }
+
+  /* Carry the surviving stores over, overlay the staged values (a staged
+   * form or list replaces the held entry wholesale), then reload. */
+  DocumentJson held;
+  spec_document_to_json(doc, &held);
+  const DocumentJson *staged = &result->staged;
+  map_merge(&held.content, &staged->content);
+  for (size_t i = 0; i < staged->forms_len; i++) {
+    SomMap *fields = document_json_form_fields(&held, staged->forms[i].key);
+    som_map_clear(fields);
+    map_merge(fields, &staged->forms[i].fields);
+  }
+  for (size_t i = 0; i < staged->lists_len; i++) {
+    const DocListEntry *src = &staged->lists[i];
+    DocListEntry *dst = document_json_list_entry(&held, src->key);
+    dst->seq = src->seq;
+    som_strlist_free(&dst->items);
+    som_strlist_copy(&dst->items, &src->items);
+    som_map_clear(&dst->ids);
+    map_merge(&dst->ids, &src->ids);
+  }
+  map_merge(&held.headlines, &staged->headlines);
+  map_merge(&held.code_specs, &staged->code_specs);
+  spec_document_load_json(doc, &held);
+  document_json_free(&held);
+  return 0;
+}
+
+void spec_markdown_import_free(SpecMarkdownImport *imp) {
+  if (imp->document != NULL) {
+    spec_document_free(imp->document);
+    free(imp->document);
+    imp->document = NULL;
+  }
+  spec_markdown_result_free(&imp->result);
+}
+
+void spec_document_from_markdown(const char *text, const SpecModel *model,
+                                 SpecMarkdownImport *out) {
+  out->document = (SpecDocument *)malloc(sizeof(SpecDocument));
+  spec_document_init(out->document);
+  spec_markdown_parse(model, text, &out->result);
+  (void)spec_document_apply_markdown_result(out->document, &out->result, 1,
+                                            NULL);
+}

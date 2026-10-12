@@ -11,6 +11,7 @@
  *   - Markdown export == expected.md (byte-for-byte);
  *   - Markdown parse -> memory -> export is clean + byte-stable;
  *   - the Markdown route lands the fixture in the same memory as the YAML route;
+ *   - applying a parsed Markdown import (fromMarkdown / applyMarkdownResult);
  *   - the SOM §4.2/§21 editability contract (classification + refusal message);
  *   - reflection resolution cases;
  *   - validation cases;
@@ -32,6 +33,7 @@
 #include <fstream>
 #include <set>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -420,11 +422,11 @@ static void test_markdown_memory_landing(Checker& c, const som::SpecModel& model
   std::string expected_md = read_corpus("expected.md");
   som::JsonPtr sj = read_json("state.json");
   som::DocumentJson canonical = som::documentJsonFromJson(sj);
-  som::SpecMarkdownResult result = som::markdownParse(model, expected_md);
-  c.check("md.land.clean", result.isClean(), rej_str(result));
-  som::SpecDocument landed;
-  landed.loadJson(result.document());
-  som::DocumentJson dj = landed.toJson();
+  som::SpecMarkdownImport imported =
+      som::SpecDocument::fromMarkdown(expected_md, model);
+  c.check("md.land.clean", imported.rejections().empty(),
+          rej_str(imported.result));
+  som::DocumentJson dj = imported.document.toJson();
   std::string got = som::documentJsonToCanonicalJson(dj);
   std::string want = som::documentJsonToCanonicalJson(canonical);
   c.check("md.land.memory", got == want, "got " + got + " want " + want);
@@ -476,6 +478,60 @@ static void test_markdown_import_rejections(Checker& c, const som::SpecModel& mo
         som::documentJsonFromJson(som::jsonGet(kase, "document")));
     c.check("md.reject[" + name + "].landed", got == want,
             "got " + got + " want " + want);
+  }
+}
+
+/* Applying a parsed import (SOM §11.7): SpecDocument::fromMarkdown, and
+ * applyMarkdownResult as a full overwrite of the covered roots that keeps every
+ * other root and refuses a result with rejections unless allowed. Each case is
+ * run exactly like the Dart reference's `_runMarkdownApplyCase`; the observed
+ * {refused, rejectionCount, document} must equal the case's `expect`. */
+static void test_markdown_apply(Checker& c, const som::SpecModel& model) {
+  som::JsonPtr table = read_json("markdown_apply_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  c.check("mdApply.cases", n > 0, "no cases in markdown_apply_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string tag = "mdApply[" + som::jsonStrOr(kase, "name") + "]";
+    const std::string markdown = som::jsonStrOr(kase, "markdown");
+
+    bool refused = false;
+    std::size_t rejectionCount = 0;
+    som::DocumentJson landed;
+    if (som::jsonStrOr(kase, "op") == "fromMarkdown") {
+      som::SpecMarkdownImport imported =
+          som::SpecDocument::fromMarkdown(markdown, model);
+      rejectionCount = imported.rejections().size();
+      landed = imported.document.toJson();
+    } else {
+      som::SpecDocument document = doc_from_state(
+          som::documentJsonFromJson(som::jsonGet(kase, "base")));
+      som::SpecMarkdownResult parsed = som::markdownParse(model, markdown);
+      rejectionCount = parsed.rejections.size();
+      try {
+        document.applyMarkdownResult(parsed,
+                                     som::jsonBoolOr(kase, "allowRejections"));
+      } catch (const std::runtime_error&) {
+        refused = true;
+      }
+      landed = document.toJson();
+    }
+
+    som::JsonRef expect = som::jsonGet(kase, "expect");
+    bool wantRefused = som::jsonBoolOr(expect, "refused");
+    c.check(tag + ".refused", refused == wantRefused,
+            refused ? "refused" : "not refused");
+    std::optional<long long> wantCount =
+        som::jsonAsI64(som::jsonGet(expect, "rejectionCount"));
+    c.check(tag + ".rejectionCount",
+            wantCount.has_value() &&
+                static_cast<long long>(rejectionCount) == *wantCount,
+            std::to_string(rejectionCount));
+    std::string got = som::documentJsonToCanonicalJson(landed);
+    std::string want = som::documentJsonToCanonicalJson(
+        som::documentJsonFromJson(som::jsonGet(expect, "document")));
+    c.check(tag + ".document", got == want, "got " + got + " want " + want);
   }
 }
 
@@ -1755,6 +1811,7 @@ int main(int argc, char** argv) {
   test_markdown_round_trip(c, *model);
   test_markdown_memory_landing(c, *model);
   test_markdown_import_rejections(c, *model);
+  test_markdown_apply(c, *model);
   test_reflection(c, *model);
   test_validation(c, *model);
   test_operations(c);
