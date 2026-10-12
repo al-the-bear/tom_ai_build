@@ -304,6 +304,68 @@ export class CodeSpecsSlice {
 }
 
 /**
+ * One row of the `codespecs_mapping.md` §4.4.6 authoring-step table — the unit
+ * Phase 4 is authored in, one `csgen` todo each.
+ *
+ * The catalogue carries the table so a consumer planning Phase 4 step by step
+ * reads it as data rather than parsing the mapping document's Markdown.
+ */
+export class CodeSpecsStep {
+  /**
+   * The step's number, 1–31. The table is written in authoring order, so the
+   * number is also the step's position in that order.
+   */
+  number: number;
+
+  /** The "Authoring step (emission unit)" cell, verbatim — Markdown included. */
+  title: string;
+
+  /** The §4.4.3 slice the step's code is emitted in. */
+  slice: number;
+
+  /**
+   * The "Placed by" cell, verbatim: the catalogue position or edge that puts
+   * the step where it is.
+   */
+  placedBy: string;
+
+  /**
+   * The `CE-*` codes of the areas the step authors, in catalogue order — the
+   * inverse of {@link CodeSpecsArea.authoringSteps}.
+   */
+  areaCodes: string[];
+
+  /**
+   * `number` and `slice` are required: a step with no number cannot be placed,
+   * and one with no slice does not say which project it lands in.
+   */
+  constructor(props: {
+    number: number;
+    slice: number;
+    title?: string;
+    placedBy?: string;
+    areaCodes?: string[];
+  }) {
+    this.number = props.number;
+    this.slice = props.slice;
+    this.title = props.title != null ? props.title : '';
+    this.placedBy = props.placedBy != null ? props.placedBy : '';
+    this.areaCodes = props.areaCodes || [];
+  }
+
+  /** Reads one step. The text cells and `areaCodes` fall back to empty. */
+  static fromJson(j: any): CodeSpecsStep {
+    return new CodeSpecsStep({
+      number: Math.trunc(Number(j.number)),
+      slice: Math.trunc(Number(j.slice)),
+      title: j.title != null ? j.title : '',
+      placedBy: j.placedBy != null ? j.placedBy : '',
+      areaCodes: stringList(j.areaCodes),
+    });
+  }
+}
+
+/**
  * One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the §4.4.3
  * slice and §4.4.6 authoring steps that place it. This is the **per-area
  * context** an extract carries beside its content.
@@ -420,14 +482,22 @@ export class CodeSpecsAreaCatalog {
    */
   areas: CodeSpecsArea[];
 
+  /**
+   * The §4.4.6 authoring steps, in authoring order. Empty for a catalogue
+   * written before the step table was transcribed.
+   */
+  steps: CodeSpecsStep[];
+
   constructor(props: {
     source?: string;
     slices?: CodeSpecsSlice[];
     areas?: CodeSpecsArea[];
+    steps?: CodeSpecsStep[];
   }) {
     this.source = props.source != null ? props.source : '';
     this.slices = props.slices || [];
     this.areas = props.areas || [];
+    this.steps = props.steps || [];
   }
 
   static fromJson(j: any): CodeSpecsAreaCatalog {
@@ -435,7 +505,33 @@ export class CodeSpecsAreaCatalog {
       source: j.source != null ? j.source : '',
       slices: (j.slices || []).map((e: any) => CodeSpecsSlice.fromJson(e)),
       areas: (j.areas || []).map((e: any) => CodeSpecsArea.fromJson(e)),
+      steps: (j.steps || []).map((e: any) => CodeSpecsStep.fromJson(e)),
     });
+  }
+
+  /** The authoring step numbered `number`, or `null`. */
+  stepNumbered(number: number): CodeSpecsStep | null {
+    for (const s of this.steps) {
+      if (s.number === number) {
+        return s;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * The steps that author `area`, in authoring order. Steps the catalogue does
+   * not carry are skipped, so an older catalogue answers empty.
+   */
+  stepsFor(area: CodeSpecsArea): CodeSpecsStep[] {
+    const out: CodeSpecsStep[] = [];
+    for (const n of area.authoringSteps) {
+      const step = this.stepNumbered(n);
+      if (step !== null) {
+        out.push(step);
+      }
+    }
+    return out;
   }
 
   /** The active areas, in catalogue order — one extract each. */

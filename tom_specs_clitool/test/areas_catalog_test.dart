@@ -145,6 +145,57 @@ void main() {
       },
     );
 
+    test('the step table is transcribed whole and agrees with the areas', () {
+      final catalog = buildAreasCatalog(mapping);
+      final steps = catalog.steps;
+      expect(
+        [for (final s in steps) s['number']],
+        [for (var i = 1; i <= 31; i++) i],
+        reason: '§4.4.6 numbers 31 steps in authoring order',
+      );
+      final areaCodes = {for (final a in catalog.areas) a['code'] as String};
+      final sliceNumbers = {for (final s in catalog.slices) s['number'] as int};
+      for (final step in steps) {
+        expect(sliceNumbers, contains(step['slice']));
+        expect(step['title'], isNotEmpty);
+        expect(step['placedBy'], isNotEmpty);
+        for (final code in step['areaCodes'] as List) {
+          expect(areaCodes, contains(code));
+        }
+      }
+      // Both directions of the step ↔ area relation agree.
+      for (final area in catalog.areas) {
+        for (final n in area['authoringSteps'] as List) {
+          final step = steps.firstWhere((s) => s['number'] == n);
+          expect(
+            step['areaCodes'] as List,
+            contains(area['code']),
+            reason: 'step $n does not list ${area['code']}',
+          );
+          expect(
+            (area['slices'] as List),
+            contains(step['slice']),
+            reason: '${area['code']} omits the slice of its step $n',
+          );
+        }
+      }
+      // The cells are verbatim, markup included.
+      expect(steps[1]['title'], contains('**SCC-A**'));
+      expect(steps[0]['areaCodes'], ['CE-EN']);
+    });
+
+    test('a step table with a gap in its numbering fails loudly', () {
+      final broken = mapping.replaceFirst(
+        RegExp(r'^\| \*\*31\*\* ', multiLine: true),
+        '| **32** ',
+      );
+      expect(broken, isNot(mapping));
+      expect(
+        () => buildAreasCatalog(broken),
+        throwsA(isA<AreasCatalogException>()),
+      );
+    });
+
     test('a mapping document missing a table fails loudly', () {
       // The transcription's one real hazard is silence: a `codespecs_mapping.md` §4.1 restructure that
       // moves the table would otherwise produce an empty catalogue and an

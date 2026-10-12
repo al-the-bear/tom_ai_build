@@ -1155,6 +1155,12 @@ void main() {
       });
     }
 
+    test('the catalogue\'s authoring steps read back as committed', () {
+      final catalogJson = (table['catalog'] as Map).cast<String, dynamic>();
+      final got = jsonDecode(jsonEncode(_codeSpecsStepCases(catalogJson)));
+      expect(got, table['stepCases']);
+    });
+
     for (final c in (table['rootCases'] as List).cast<Map<String, dynamic>>()) {
       test('root scoping: ${c['name']}', () {
         final catalog = CodeSpecsAreaCatalog.fromJson(
@@ -4535,7 +4541,75 @@ Map<String, dynamic> _codeSpecsCatalogJson() => {
       'authoringSteps': [2],
     },
   ],
+  // The real `codespecs_mapping.md` §4.4.6 rows the six areas are authored
+  // in, cells verbatim; `areaCodes` is cut down to the fixture's areas, as the
+  // areas themselves are.
+  'steps': [
+    {
+      'number': 2,
+      'title': '**SCC-A** — CE-ER codes + CE-TX message keys (§4.4.7)',
+      'slice': 1,
+      'placedBy': 'CE-TX (4)',
+      'areaCodes': ['CE-TX', 'CE-ER'],
+    },
+    {
+      'number': 10,
+      'title': 'CE-DB entities/columns/repositories',
+      'slice': 3,
+      'placedBy': 'CE-DB (10)',
+      'areaCodes': ['CE-DB'],
+    },
+    {
+      'number': 23,
+      'title':
+          '**SCC-B** — CE-ST + CE-EL + CE-FM + CE-AC + CE-SC + CE-NV (§4.4.7)',
+      'slice': 5,
+      'placedBy': 'CE-EL (1)',
+      'areaCodes': ['CE-FM', 'CE-ST', 'CE-NV'],
+    },
+    {
+      'number': 24,
+      'title': 'CE-TX copy',
+      'slice': 5,
+      'placedBy': 'CE-TX (4)',
+      'areaCodes': ['CE-TX'],
+    },
+  ],
 };
+
+/// The catalogue's authoring-step table as a runtime reads it back: every
+/// step's fields, `stepsFor` per area, and a catalogue written before the
+/// table was transcribed, which must still load with no steps.
+Map<String, dynamic> _codeSpecsStepCases(Map<String, dynamic> catalogJson) {
+  final catalog = CodeSpecsAreaCatalog.fromJson(catalogJson);
+  final legacy = CodeSpecsAreaCatalog.fromJson(
+    Map.of(catalogJson)..remove('steps'),
+  );
+  return {
+    'steps': [
+      for (final s in catalog.steps)
+        {
+          'number': s.number,
+          'title': s.title,
+          'slice': s.slice,
+          'placedBy': s.placedBy,
+          'areaCodes': s.areaCodes,
+        },
+    ],
+    'stepsByArea': {
+      for (final a in catalog.areas)
+        a.code: [for (final s in catalog.stepsFor(a)) s.number],
+    },
+    'legacy': {
+      'steps': legacy.steps.length,
+      'areas': legacy.areas.length,
+      'stepsByArea': {
+        for (final a in legacy.areas)
+          a.code: [for (final s in legacy.stepsFor(a)) s.number],
+      },
+    },
+  };
+}
 
 /// The Phase-4 extract generator (`codespecs_mapping.md` §1.1.1) — the machine
 /// half that turns a filled document into one bounded, cited extract per
@@ -4573,6 +4647,7 @@ Map<String, dynamic> _codeSpecsExtractCases(SpecModel model, SpecDocument doc) {
 
   return {
     'catalog': catalogJson,
+    'stepCases': _codeSpecsStepCases(catalogJson),
     // The `routings` diagnostic: which verdict each walked class carried and
     // where the marker sat. Pinned separately from the extracts because a port
     // can route right and emit wrong, or the reverse, and a single table cannot

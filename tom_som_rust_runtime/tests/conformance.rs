@@ -1517,6 +1517,64 @@ fn test_projection(c: &mut Checker, model: &SpecModel) {
     }
 }
 
+/// The catalogue's authoring-step table as a runtime reads it back: every
+/// step's fields, `steps_for` per area, and a catalogue written before the table
+/// was transcribed, which must still load with no steps.
+fn codespecs_step_cases(catalog_json: &Json) -> Json {
+    fn str_array(items: &[String]) -> Json {
+        Json::Array(items.iter().map(|s| Json::Str(s.clone())).collect())
+    }
+    fn steps_by_area(catalog: &CodeSpecsAreaCatalog) -> Json {
+        Json::Object(
+            catalog
+                .areas
+                .iter()
+                .map(|a| {
+                    let numbers =
+                        catalog.steps_for(a).iter().map(|s| Json::Int(s.number)).collect();
+                    (a.code.clone(), Json::Array(numbers))
+                })
+                .collect(),
+        )
+    }
+    let catalog = CodeSpecsAreaCatalog::from_json(catalog_json);
+    let legacy_json = Json::Object(
+        catalog_json
+            .as_object()
+            .expect("the catalogue is an object")
+            .iter()
+            .filter(|(k, _)| k != "steps")
+            .cloned()
+            .collect(),
+    );
+    let legacy = CodeSpecsAreaCatalog::from_json(&legacy_json);
+    let steps = catalog
+        .steps
+        .iter()
+        .map(|s| {
+            Json::Object(vec![
+                ("number".to_string(), Json::Int(s.number)),
+                ("title".to_string(), Json::Str(s.title.clone())),
+                ("slice".to_string(), Json::Int(s.slice)),
+                ("placedBy".to_string(), Json::Str(s.placed_by.clone())),
+                ("areaCodes".to_string(), str_array(&s.area_codes)),
+            ])
+        })
+        .collect();
+    Json::Object(vec![
+        ("steps".to_string(), Json::Array(steps)),
+        ("stepsByArea".to_string(), steps_by_area(&catalog)),
+        (
+            "legacy".to_string(),
+            Json::Object(vec![
+                ("steps".to_string(), Json::Int(legacy.steps.len() as i64)),
+                ("areas".to_string(), Json::Int(legacy.areas.len() as i64)),
+                ("stepsByArea".to_string(), steps_by_area(&legacy)),
+            ]),
+        ),
+    ])
+}
+
 /// The Phase-4 CodeSpecs extract generator: the routing diagnostic, the emitted
 /// extracts (including their YAML and Markdown goldens), the "copied, never
 /// composed" guard, and the `ROUTE-TOTAL` error cases.
@@ -1529,6 +1587,18 @@ fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
     let doc = doc_from_state(&state);
     let extractor = CodeSpecsExtractor::for_model(&doc, model, catalog.clone(), None)
         .expect("the corpus model resolves to one root");
+
+    // 0. the catalogue's §4.4.6 authoring steps read back as committed — and a
+    // catalogue written before the step table was transcribed still loads.
+    let got_steps = codespecs_step_cases(
+        table.get("catalog").expect("codespecs_extract_cases has a catalog"),
+    );
+    let want_steps = table.get("stepCases").expect("codespecs_extract_cases has stepCases");
+    c.check(
+        "codespecs.stepCases",
+        &got_steps == want_steps,
+        &format!("{:?} != {:?}", got_steps, want_steps),
+    );
 
     // 1. the routing verdicts reproduce the committed diagnostic.
     let got = extractor.routings();

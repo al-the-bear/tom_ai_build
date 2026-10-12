@@ -32,11 +32,26 @@ public final class CodeSpecsAreaCatalog {
    */
   public final List<CodeSpecsArea> areas;
 
+  /**
+   * The §4.4.6 authoring steps, in authoring order. Empty for a catalogue
+   * written before the step table was transcribed.
+   */
+  public final List<CodeSpecsStep> steps;
+
   public CodeSpecsAreaCatalog(
       String source, List<CodeSpecsSlice> slices, List<CodeSpecsArea> areas) {
+    this(source, slices, areas, Collections.<CodeSpecsStep>emptyList());
+  }
+
+  public CodeSpecsAreaCatalog(
+      String source,
+      List<CodeSpecsSlice> slices,
+      List<CodeSpecsArea> areas,
+      List<CodeSpecsStep> steps) {
     this.source = source;
     this.slices = slices;
     this.areas = areas;
+    this.steps = steps;
   }
 
   @SuppressWarnings("unchecked")
@@ -55,10 +70,45 @@ public final class CodeSpecsAreaCatalog {
         areas.add(CodeSpecsArea.fromJson((Map<String, Object>) e));
       }
     }
+    // An absent `steps` key is a catalogue written before §4.4.6 was
+    // transcribed: it loads with no steps rather than failing.
+    List<CodeSpecsStep> steps = new ArrayList<>();
+    Object rawSteps = j.get("steps");
+    if (rawSteps instanceof List) {
+      for (Object e : (List<Object>) rawSteps) {
+        steps.add(CodeSpecsStep.fromJson((Map<String, Object>) e));
+      }
+    }
     return new CodeSpecsAreaCatalog(
         stringOr(j.get("source")),
         Collections.unmodifiableList(slices),
-        Collections.unmodifiableList(areas));
+        Collections.unmodifiableList(areas),
+        Collections.unmodifiableList(steps));
+  }
+
+  /** The authoring step numbered {@code number}, or {@code null}. */
+  public CodeSpecsStep stepNumbered(int number) {
+    for (CodeSpecsStep s : steps) {
+      if (s.number == number) {
+        return s;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * The steps that author {@code area}, in authoring order. Steps the catalogue
+   * does not carry are skipped, so an older catalogue answers empty.
+   */
+  public List<CodeSpecsStep> stepsFor(CodeSpecsArea area) {
+    List<CodeSpecsStep> out = new ArrayList<>();
+    for (Integer n : area.authoringSteps) {
+      CodeSpecsStep step = stepNumbered(n);
+      if (step != null) {
+        out.add(step);
+      }
+    }
+    return out;
   }
 
   /** The active areas, in catalogue order — one extract each. */
@@ -170,7 +220,7 @@ public final class CodeSpecsAreaCatalog {
 
   // --- shared JSON coercion -------------------------------------------------
   //
-  // The catalogue is this module's only JSON door, so the coercions its three
+  // The catalogue is this module's only JSON door, so the coercions its four
   // value types share are stated here rather than repeated per type.
 
   /** A JSON string, or {@code ""} when the key is absent. */

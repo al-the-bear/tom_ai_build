@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `bin/codespecs_areas.dart` transcribes the `codespecs_mapping.md` §4.4.6
+  step table into the catalogue's `steps` array, cells verbatim, and checks
+  the step ↔ area relation in both directions; `--check` covers it.
+
 - **The TypeScript and JavaScript facades carry a DocSpecs schema accessor**
   (`SomScriptSchemasEmitter`): `somDocSpecsSchema(id)` in
   `<package>_schemas.ts` / `.js`, embedded like Dart's, exported as

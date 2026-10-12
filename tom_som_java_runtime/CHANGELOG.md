@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- CodeSpecs: the area catalogue carries the `codespecs_mapping.md` §4.4.6
+  authoring-step table. New `CodeSpecsStep` (`number`, `title`, `slice`,
+  `placedBy`, `areaCodes`; `number` and `slice` are required and throw an
+  `IllegalArgumentException` naming the row) and `CodeSpecsAreaCatalog.steps`,
+  read from the optional `steps` key — a catalogue without it loads with no
+  steps. `stepNumbered(n)` returns a step or `null`; `stepsFor(area)` returns
+  the steps for `area.authoringSteps` in that order, skipping numbers the
+  catalogue does not carry. Pinned by `stepCases` in
+  `codespecs_extract_cases.json`.
 - DocSpecs: `DocSpecsDocument.replaceSectionBody(text, sectionId, body)`
   returns the text with one section's own body (up to its first child heading)
   replaced and every other byte kept; the region is found by the fence-aware

@@ -2064,6 +2064,160 @@ static int any_extract_emits(const SomJson *extracts, const char *value) {
   return 0;
 }
 
+/* Renders the `stepCases` shape of `catalog` as one line per fact — the steps
+ * as read back, `steps_for` per area in catalogue order, then the same for
+ * `legacy` (the catalogue with its `steps` key removed). Owned. */
+static char *render_step_cases(const CodeSpecsAreaCatalog *catalog,
+                               const CodeSpecsAreaCatalog *legacy) {
+  SomBuf b;
+  som_buf_init(&b);
+  char num[64];
+  for (size_t i = 0; i < catalog->steps_len; i++) {
+    const CodeSpecsStep *s = &catalog->steps[i];
+    char *codes = som_strlist_join(&s->area_codes, ",");
+    snprintf(num, sizeof(num), "step %lld slice %lld | ", s->number, s->slice);
+    som_buf_puts(&b, num);
+    som_buf_puts(&b, s->title);
+    som_buf_puts(&b, " | ");
+    som_buf_puts(&b, s->placed_by);
+    som_buf_puts(&b, " | ");
+    som_buf_puts(&b, codes);
+    som_buf_puts(&b, "\n");
+    free(codes);
+  }
+  const CodeSpecsAreaCatalog *cats[2] = {catalog, legacy};
+  for (size_t k = 0; k < 2; k++) {
+    const CodeSpecsAreaCatalog *cat = cats[k];
+    if (k == 1) {
+      snprintf(num, sizeof(num), "legacy steps %zu areas %zu\n", cat->steps_len,
+               cat->areas_len);
+      som_buf_puts(&b, num);
+    }
+    for (size_t i = 0; i < cat->areas_len; i++) {
+      const CodeSpecsStep **steps = NULL;
+      size_t n = spec_codespecs_catalog_steps_for(cat, &cat->areas[i], &steps);
+      som_buf_puts(&b, k == 0 ? "area " : "legacy area ");
+      som_buf_puts(&b, cat->areas[i].code);
+      som_buf_puts(&b, ":");
+      for (size_t j = 0; j < n; j++) {
+        snprintf(num, sizeof(num), " %lld", steps[j]->number);
+        som_buf_puts(&b, num);
+      }
+      som_buf_puts(&b, "\n");
+      free(steps);
+    }
+  }
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+/* The committed `stepCases` rendered in `render_step_cases`'s shape. The
+ * `stepsByArea` objects are walked in their own member order, which is the
+ * catalogue's area order the Dart reference wrote them in. */
+static char *render_want_step_cases(const SomJson *want) {
+  SomBuf b;
+  som_buf_init(&b);
+  char num[64];
+  const SomJson *steps = som_json_get(want, "steps");
+  for (size_t i = 0; i < som_json_array_len(steps); i++) {
+    const SomJson *s = som_json_array_at(steps, i);
+    long long number = 0, slice = 0;
+    som_json_as_i64(som_json_get(s, "number"), &number);
+    som_json_as_i64(som_json_get(s, "slice"), &slice);
+    SomStrList codes_list;
+    json_str_list(som_json_get(s, "areaCodes"), &codes_list);
+    char *codes = som_strlist_join(&codes_list, ",");
+    snprintf(num, sizeof(num), "step %lld slice %lld | ", number, slice);
+    som_buf_puts(&b, num);
+    som_buf_puts(&b, som_json_str_or(s, "title"));
+    som_buf_puts(&b, " | ");
+    som_buf_puts(&b, som_json_str_or(s, "placedBy"));
+    som_buf_puts(&b, " | ");
+    som_buf_puts(&b, codes);
+    som_buf_puts(&b, "\n");
+    free(codes);
+    som_strlist_free(&codes_list);
+  }
+  const SomJson *legacy = som_json_get(want, "legacy");
+  const SomJson *by_area[2] = {som_json_get(want, "stepsByArea"),
+                               som_json_get(legacy, "stepsByArea")};
+  for (size_t k = 0; k < 2; k++) {
+    if (k == 1) {
+      long long ls = -1, la = -1;
+      som_json_as_i64(som_json_get(legacy, "steps"), &ls);
+      som_json_as_i64(som_json_get(legacy, "areas"), &la);
+      snprintf(num, sizeof(num), "legacy steps %lld areas %lld\n", ls, la);
+      som_buf_puts(&b, num);
+    }
+    const SomJson *obj = by_area[k];
+    if (obj == NULL || obj->type != SOM_JSON_OBJECT) {
+      continue;
+    }
+    for (size_t i = 0; i < obj->as.object.len; i++) {
+      const SomJsonMember *m = &obj->as.object.members[i];
+      som_buf_puts(&b, k == 0 ? "area " : "legacy area ");
+      som_buf_puts(&b, m->key);
+      som_buf_puts(&b, ":");
+      for (size_t j = 0; j < som_json_array_len(m->value); j++) {
+        long long v = 0;
+        som_json_as_i64(som_json_array_at(m->value, j), &v);
+        snprintf(num, sizeof(num), " %lld", v);
+        som_buf_puts(&b, num);
+      }
+      som_buf_puts(&b, "\n");
+    }
+  }
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+/* The catalogue's §4.4.6 authoring steps read back as committed: the step rows,
+ * `steps_for` per area, and a legacy catalogue — the same JSON with `steps`
+ * removed — which must still load, with no steps. */
+static void test_codespecs_steps(Checker *c, const SomJson *table,
+                                 const CodeSpecsAreaCatalog *catalog) {
+  const SomJson *catalog_json = som_json_get(table, "catalog");
+  /* The legacy catalogue: a shallow copy of the object minus its `steps`
+   * member. The members' values stay owned by `table`. */
+  SomJson legacy_json;
+  memset(&legacy_json, 0, sizeof(legacy_json));
+  legacy_json.type = SOM_JSON_OBJECT;
+  size_t member_n = catalog_json != NULL && catalog_json->type == SOM_JSON_OBJECT
+                        ? catalog_json->as.object.len
+                        : 0;
+  SomJsonMember *members =
+      member_n > 0 ? (SomJsonMember *)calloc(member_n, sizeof(SomJsonMember))
+                   : NULL;
+  for (size_t i = 0; i < member_n; i++) {
+    const SomJsonMember *m = &catalog_json->as.object.members[i];
+    if (strcmp(m->key, "steps") != 0) {
+      members[legacy_json.as.object.len++] = *m;
+    }
+  }
+  legacy_json.as.object.members = members;
+  CodeSpecsAreaCatalog legacy;
+  spec_codespecs_area_catalog_from_json(&legacy_json, &legacy);
+  free(members);
+
+  char *got = render_step_cases(catalog, &legacy);
+  char *want = render_want_step_cases(som_json_get(table, "stepCases"));
+  char *diff = byte_diff("stepCases", got, want);
+  check(c, "codespecs.stepCases", diff[0] == '\0', diff);
+  check(c, "codespecs.stepCases.nonEmpty", catalog->steps_len > 0,
+        "the corpus catalogue carries no steps");
+
+  /* `step_numbered` misses cleanly on a number the catalogue lacks. */
+  check(c, "codespecs.stepNumbered.missing",
+        spec_codespecs_catalog_step_numbered(catalog, -1) == NULL,
+        "found a step numbered -1");
+  free(diff);
+  free(got);
+  free(want);
+  spec_codespecs_area_catalog_free(&legacy);
+}
+
 /* The Phase-4 CodeSpecs extract generator (`codespecs_mapping.md` §1.1.1): the
  * routing diagnostic, the goldens byte for byte, the `codespecs_derivation
  * _contract.md` §2.8 C1 verbatim guard, the `@FollowUpKind` exclusion, and the
@@ -2077,6 +2231,9 @@ static void test_codespecs_extract(Checker *c, const SpecModel *model) {
                                         &catalog);
   CodeSpecsExtractor ex =
       spec_codespecs_extractor_make(model, &doc, &catalog, NULL, NULL);
+
+  /* 0. the §4.4.6 authoring steps read back as committed. */
+  test_codespecs_steps(c, table, &catalog);
 
   /* 1. the routing verdicts reproduce the committed diagnostic. */
   const SomJson *want_routings = som_json_get(table, "routings");

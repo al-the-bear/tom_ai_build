@@ -568,7 +568,7 @@ surface is a *runtime* surface in all nine languages rather than a Dart tool,
 because Phase 4 is not a Dart-only phase — a project whose specification lives
 outside a Dart toolchain must still be able to produce its extracts.
 
-The table has four parts, and each pins something the others cannot:
+The table has five parts, and each pins something the others cannot:
 
 - **`catalog`** — the area catalogue of
   [codespecs_mapping.md](../../core/tom_core_codespecs/doc/codespecs_mapping.md) §4.1/§4.4.3/§4.4.6,
@@ -578,6 +578,11 @@ The table has four parts, and each pins something the others cannot:
   the corpus carries a six-area cut of it, sized to exercise the shapes (a
   locus-split area with two slices, an area whose extract comes out empty) rather
   than to be complete.
+- **`stepCases`** — the catalogue's `steps` (the `codespecs_mapping.md` §4.4.6 authoring-step table:
+  `number`, `title`, `slice`, `placedBy`, `areaCodes`) as the runtime reads it
+  back, `stepsFor` per area, and a `legacy` catalogue with the `steps` key
+  removed — which must still load, with no steps, because catalogues written
+  before the table was transcribed are still on disk.
 - **`routings`** — the per-class verdict diagnostic. All three verdicts of
   [codespecs_mapping.md](../../core/tom_core_codespecs/doc/codespecs_mapping.md) §8.3 have to
   be reachable, plus the two the walk itself produces: `documentRoot` (a

@@ -154,6 +154,7 @@ Future<void> main(List<String> arguments) async {
   stdout.writeln(
     '  ${catalog.areas.length} area(s), '
     '${catalog.slices.length} slice(s), '
+    '${catalog.steps.length} step(s), '
     '${text.length} byte(s).',
   );
   stdout.writeln('  accessor: ${p.relative(accessorPath, from: clitoolRoot)}');

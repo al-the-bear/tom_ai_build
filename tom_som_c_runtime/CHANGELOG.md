@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- CodeSpecs: the area catalogue carries the `codespecs_mapping.md` §4.4.6
+  authoring-step table. `CodeSpecsStep` (`number`, `title`, `slice`,
+  `placed_by`, `area_codes`) and `CodeSpecsAreaCatalog.steps` / `steps_len`,
+  read from the catalogue's `steps` array — absent in an older catalogue,
+  which loads with no steps — and released by
+  `spec_codespecs_area_catalog_free`. `spec_codespecs_catalog_step_numbered`
+  returns the step with a number or NULL; `spec_codespecs_catalog_steps_for`
+  returns an area's steps in its `authoring_steps` order as an owned array of
+  borrowed pointers, skipping numbers the catalogue does not carry. The
+  conformance runner recomputes `stepCases` from `codespecs_extract_cases.json`
+  (including the legacy catalogue with `steps` removed) and compares it with
+  the committed table (`codespecs.stepCases`).
 - DocSpecs: `docspecs_replace_section_body` replaces the own body of the one
   section (any level) whose id is given and keeps every other byte; it
   refuses an id naming no section or several (listing their lines), a body

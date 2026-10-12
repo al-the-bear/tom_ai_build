@@ -106,6 +106,15 @@ class AreasCatalog {
   /// load-bearing rather than cosmetic.
   final List<Map<String, dynamic>> areas;
 
+  /// The authoring steps of `codespecs_mapping.md` §4.4.6, in authoring order.
+  ///
+  /// Each carries the row's cells verbatim (`title`, `placedBy`), its `slice`,
+  /// and the `areaCodes` it authors — the inverse of the areas'
+  /// `authoringSteps`, so a consumer planning Phase 4 step by step needs no
+  /// second reading of the mapping document. The table is written in authoring
+  /// order, so a step's `number` *is* its position.
+  final List<Map<String, dynamic>> steps;
+
   /// Holds an already-transcribed catalogue.
   ///
   /// The cross-table agreement checks run in [buildAreasCatalog], not here —
@@ -115,9 +124,11 @@ class AreasCatalog {
     required this.source,
     required this.slices,
     required this.areas,
+    this.steps = const [],
   });
 
-  /// The extract's JSON shape: [source] first, then [slices], then [areas].
+  /// The extract's JSON shape: [source] first, then [slices], then [areas],
+  /// then [steps].
   ///
   /// Key order is deliberate and load-bearing for review, not for parsing —
   /// the header states which document sections were transcribed before the
@@ -126,6 +137,7 @@ class AreasCatalog {
     'source': source,
     'slices': slices,
     'areas': areas,
+    'steps': steps,
   };
 
   /// The JSON text written to disk — two-space indented, newline-terminated,
@@ -140,7 +152,8 @@ AreasCatalog buildAreasCatalog(String mappingDocument) {
 
   final parts = _parsePartsCatalogue(lines);
   final sliceRows = _parseSliceTable(lines);
-  final stepSlices = _parseStepTable(lines);
+  final stepRows = _parseStepTable(lines);
+  final stepSlices = {for (final e in stepRows.entries) e.key: e.value.slice};
   final areaSteps = _parseCoverage(lines);
   final surfaces = _parseAttributeSurfaces(lines);
 
@@ -195,6 +208,31 @@ AreasCatalog buildAreasCatalog(String mappingDocument) {
 
   _checkStepCoverage(areaSteps, stepSlices);
 
+  // The step → areas inverse, in catalogue order. Every area's steps were
+  // checked against the table above; this checks the other direction — every
+  // step is authored by at least one area.
+  final steps = <Map<String, dynamic>>[];
+  for (final number in stepRows.keys.toList()..sort()) {
+    final row = stepRows[number]!;
+    final codes = [
+      for (final area in areas)
+        if ((area['authoringSteps'] as List).contains(number))
+          area['code'] as String,
+    ];
+    if (codes.isEmpty) {
+      throw AreasCatalogException(
+        '§4.4.6 step $number is authored by no area.',
+      );
+    }
+    steps.add({
+      'number': number,
+      'title': row.title,
+      'slice': row.slice,
+      'placedBy': row.placedBy,
+      'areaCodes': codes,
+    });
+  }
+
   return AreasCatalog(
     source:
         'codespecs_mapping.md §4.1 (parts catalogue) + §4.4.3 (emission '
@@ -209,6 +247,7 @@ AreasCatalog buildAreasCatalog(String mappingDocument) {
         },
     ],
     areas: areas,
+    steps: steps,
   );
 }
 
@@ -408,11 +447,21 @@ Map<int, _SliceRow> _parseSliceTable(List<String> lines) {
 // `codespecs_mapping.md` §4.4.6 — the authoring order
 // ---------------------------------------------------------------------------
 
-Map<int, int> _parseStepTable(List<String> lines) {
+class _StepRow {
+  final String title;
+  final int slice;
+  final String placedBy;
+  const _StepRow(this.title, this.slice, this.placedBy);
+}
+
+/// The step table's rows, keyed by step number. `title` and `placedBy` are the
+/// cells verbatim — markup included — so the catalogue says exactly what the
+/// document says.
+Map<int, _StepRow> _parseStepTable(List<String> lines) {
   final body = _tableAfter(lines, '#### 4.4.6 ', '§4.4.6');
-  final steps = <int, int>{};
+  final steps = <int, _StepRow>{};
   for (final cells in body) {
-    if (cells.length < 3) {
+    if (cells.length < 4) {
       throw AreasCatalogException('§4.4.6 row has ${cells.length} cells.');
     }
     final step = int.tryParse(_unbold(cells[0]));
@@ -420,7 +469,19 @@ Map<int, int> _parseStepTable(List<String> lines) {
     if (step == null || slice == null) {
       throw AreasCatalogException('§4.4.6 row unreadable: $cells');
     }
-    steps[step] = slice;
+    if (steps.containsKey(step)) {
+      throw AreasCatalogException('§4.4.6 numbers step $step twice.');
+    }
+    steps[step] = _StepRow(cells[1], slice, cells[3]);
+  }
+  final numbers = steps.keys.toList()..sort();
+  for (var i = 0; i < numbers.length; i++) {
+    if (numbers[i] != i + 1) {
+      throw AreasCatalogException(
+        '§4.4.6 steps must be numbered 1..${numbers.length} without gaps; '
+        'found ${numbers.join(", ")}.',
+      );
+    }
   }
   if (steps.length != 31) {
     throw AreasCatalogException(

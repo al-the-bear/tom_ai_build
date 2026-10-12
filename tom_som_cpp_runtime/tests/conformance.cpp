@@ -1419,6 +1419,117 @@ static void test_projection(Checker& c, const som::SpecModel& model) {
   }
 }
 
+/* Renders the `stepCases` shape of `catalog` as one line per fact — the steps
+ * as read back, stepsFor per area in catalogue order, then the same for
+ * `legacy` (the catalogue with its `steps` key removed). */
+static std::string render_step_cases(const som::CodeSpecsAreaCatalog& catalog,
+                                     const som::CodeSpecsAreaCatalog& legacy) {
+  std::string out;
+  for (const som::CodeSpecsStep& s : catalog.steps) {
+    std::string codes;
+    for (std::size_t i = 0; i < s.areaCodes.size(); i++) {
+      codes += (i > 0 ? "," : "") + s.areaCodes[i];
+    }
+    out += "step " + std::to_string(s.number) + " slice " +
+           std::to_string(s.slice) + " | " + s.title + " | " + s.placedBy +
+           " | " + codes + "\n";
+  }
+  const som::CodeSpecsAreaCatalog* cats[2] = {&catalog, &legacy};
+  for (int k = 0; k < 2; k++) {
+    const som::CodeSpecsAreaCatalog& cat = *cats[k];
+    if (k == 1) {
+      out += "legacy steps " + std::to_string(cat.steps.size()) + " areas " +
+             std::to_string(cat.areas.size()) + "\n";
+    }
+    for (const som::CodeSpecsArea& a : cat.areas) {
+      out += (k == 0 ? "area " : "legacy area ") + a.code + ":";
+      for (const som::CodeSpecsStep* s : cat.stepsFor(a)) {
+        out += " " + std::to_string(s->number);
+      }
+      out += "\n";
+    }
+  }
+  return out;
+}
+
+/* The committed `stepCases` rendered in render_step_cases's shape. The
+ * `stepsByArea` objects are walked in their own member order, which is the
+ * catalogue's area order the Dart reference wrote them in. */
+static std::string render_want_step_cases(const som::JsonRef& want) {
+  std::string out;
+  som::JsonRef steps = som::jsonGet(want, "steps");
+  for (std::size_t i = 0; i < som::jsonArrayLen(steps); i++) {
+    som::JsonRef s = som::jsonArrayAt(steps, i);
+    std::vector<std::string> codesList =
+        json_str_list(som::jsonGet(s, "areaCodes"));
+    std::string codes;
+    for (std::size_t k = 0; k < codesList.size(); k++) {
+      codes += (k > 0 ? "," : "") + codesList[k];
+    }
+    out += "step " +
+           std::to_string(som::jsonAsI64(som::jsonGet(s, "number")).value_or(0)) +
+           " slice " +
+           std::to_string(som::jsonAsI64(som::jsonGet(s, "slice")).value_or(0)) +
+           " | " + som::jsonStrOr(s, "title") + " | " +
+           som::jsonStrOr(s, "placedBy") + " | " + codes + "\n";
+  }
+  som::JsonRef legacy = som::jsonGet(want, "legacy");
+  som::JsonRef byArea[2] = {som::jsonGet(want, "stepsByArea"),
+                            som::jsonGet(legacy, "stepsByArea")};
+  for (int k = 0; k < 2; k++) {
+    if (k == 1) {
+      out += "legacy steps " +
+             std::to_string(
+                 som::jsonAsI64(som::jsonGet(legacy, "steps")).value_or(-1)) +
+             " areas " +
+             std::to_string(
+                 som::jsonAsI64(som::jsonGet(legacy, "areas")).value_or(-1)) +
+             "\n";
+    }
+    if (byArea[k] == nullptr || byArea[k]->type != som::JsonType::Object) {
+      continue;
+    }
+    for (const auto& member : byArea[k]->object) {
+      out += (k == 0 ? "area " : "legacy area ") + member.first + ":";
+      som::JsonRef numbers = member.second;
+      for (std::size_t i = 0; i < som::jsonArrayLen(numbers); i++) {
+        out += " " + std::to_string(
+                         som::jsonAsI64(som::jsonArrayAt(numbers, i)).value_or(0));
+      }
+      out += "\n";
+    }
+  }
+  return out;
+}
+
+/* The catalogue's §4.4.6 authoring steps read back as committed: the step rows,
+ * stepsFor per area, and a legacy catalogue — the same JSON with `steps`
+ * removed — which must still load, with no steps. */
+static void test_codespecs_steps(Checker& c, const som::JsonRef& table) {
+  som::JsonRef catalogJson = som::jsonGet(table, "catalog");
+  som::CodeSpecsAreaCatalog catalog =
+      som::CodeSpecsAreaCatalog::fromJson(catalogJson);
+  auto legacyJson = std::make_shared<som::Json>(som::JsonType::Object);
+  if (catalogJson != nullptr && catalogJson->type == som::JsonType::Object) {
+    for (const auto& member : catalogJson->object) {
+      if (member.first != "steps") {
+        legacyJson->object.push_back(member);
+      }
+    }
+  }
+  som::CodeSpecsAreaCatalog legacy =
+      som::CodeSpecsAreaCatalog::fromJson(legacyJson);
+
+  std::string diff =
+      byte_diff("stepCases", render_step_cases(catalog, legacy),
+                render_want_step_cases(som::jsonGet(table, "stepCases")));
+  c.check("codeSpecsExtract.stepCases", diff.empty(), diff);
+  c.check("codeSpecsExtract.stepCases.nonEmpty", !catalog.steps.empty(),
+          "the corpus catalogue carries no steps");
+  c.check("codeSpecsExtract.stepNumbered.missing",
+          catalog.stepNumbered(-1) == nullptr, "found a step numbered -1");
+}
+
 /* The Phase-4 CodeSpecs specification-extract generator
  * (`codespecs_mapping.md` §1.1.1): the routing diagnostic, the per-area extract
  * goldens (including the YAML and Markdown artifacts byte for byte), and the two
@@ -1429,6 +1540,9 @@ static void test_codespecs_extract(Checker& c, const som::SpecModel& model) {
   som::JsonRef catalogJson = som::jsonGet(table, "catalog");
   som::CodeSpecsExtractor extractor(
       model, doc, som::CodeSpecsAreaCatalog::fromJson(catalogJson));
+
+  // 0. The §4.4.6 authoring steps read back as committed.
+  test_codespecs_steps(c, table);
 
   // 1. The routing verdicts reproduce the committed diagnostic.
   som::JsonRef wantRoutings = som::jsonGet(table, "routings");

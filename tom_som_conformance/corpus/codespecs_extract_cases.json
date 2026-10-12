@@ -165,7 +165,124 @@
           2
         ]
       }
+    ],
+    "steps": [
+      {
+        "number": 2,
+        "title": "**SCC-A** — CE-ER codes + CE-TX message keys (§4.4.7)",
+        "slice": 1,
+        "placedBy": "CE-TX (4)",
+        "areaCodes": [
+          "CE-TX",
+          "CE-ER"
+        ]
+      },
+      {
+        "number": 10,
+        "title": "CE-DB entities/columns/repositories",
+        "slice": 3,
+        "placedBy": "CE-DB (10)",
+        "areaCodes": [
+          "CE-DB"
+        ]
+      },
+      {
+        "number": 23,
+        "title": "**SCC-B** — CE-ST + CE-EL + CE-FM + CE-AC + CE-SC + CE-NV (§4.4.7)",
+        "slice": 5,
+        "placedBy": "CE-EL (1)",
+        "areaCodes": [
+          "CE-FM",
+          "CE-ST",
+          "CE-NV"
+        ]
+      },
+      {
+        "number": 24,
+        "title": "CE-TX copy",
+        "slice": 5,
+        "placedBy": "CE-TX (4)",
+        "areaCodes": [
+          "CE-TX"
+        ]
+      }
     ]
+  },
+  "stepCases": {
+    "steps": [
+      {
+        "number": 2,
+        "title": "**SCC-A** — CE-ER codes + CE-TX message keys (§4.4.7)",
+        "slice": 1,
+        "placedBy": "CE-TX (4)",
+        "areaCodes": [
+          "CE-TX",
+          "CE-ER"
+        ]
+      },
+      {
+        "number": 10,
+        "title": "CE-DB entities/columns/repositories",
+        "slice": 3,
+        "placedBy": "CE-DB (10)",
+        "areaCodes": [
+          "CE-DB"
+        ]
+      },
+      {
+        "number": 23,
+        "title": "**SCC-B** — CE-ST + CE-EL + CE-FM + CE-AC + CE-SC + CE-NV (§4.4.7)",
+        "slice": 5,
+        "placedBy": "CE-EL (1)",
+        "areaCodes": [
+          "CE-FM",
+          "CE-ST",
+          "CE-NV"
+        ]
+      },
+      {
+        "number": 24,
+        "title": "CE-TX copy",
+        "slice": 5,
+        "placedBy": "CE-TX (4)",
+        "areaCodes": [
+          "CE-TX"
+        ]
+      }
+    ],
+    "stepsByArea": {
+      "CE-FM": [
+        23
+      ],
+      "CE-TX": [
+        2,
+        24
+      ],
+      "CE-DB": [
+        10
+      ],
+      "CE-ST": [
+        23
+      ],
+      "CE-NV": [
+        23
+      ],
+      "CE-ER": [
+        2
+      ]
+    },
+    "legacy": {
+      "steps": 0,
+      "areas": 6,
+      "stepsByArea": {
+        "CE-FM": [],
+        "CE-TX": [],
+        "CE-DB": [],
+        "CE-ST": [],
+        "CE-NV": [],
+        "CE-ER": []
+      }
+    }
   },
   "routings": [
     {

@@ -556,5 +556,293 @@
       ],
       "active": true
     }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "title": "Domain enums (`@CsEnum`)",
+      "slice": 1,
+      "placedBy": "position 0",
+      "areaCodes": [
+        "CE-EN"
+      ]
+    },
+    {
+      "number": 2,
+      "title": "**SCC-A** — CE-ER codes + CE-TX message keys (§4.4.7)",
+      "slice": 1,
+      "placedBy": "CE-TX (4)",
+      "areaCodes": [
+        "CE-TX",
+        "CE-ER"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "CE-AZ role + resource-key catalogues",
+      "slice": 1,
+      "placedBy": "CE-AZ (13)",
+      "areaCodes": [
+        "CE-AZ"
+      ]
+    },
+    {
+      "number": 4,
+      "title": "CE-VA shared rules",
+      "slice": 2,
+      "placedBy": "CE-VA (5)",
+      "areaCodes": [
+        "CE-VA"
+      ]
+    },
+    {
+      "number": 5,
+      "title": "CE-API operation catalogue + request/response DTOs",
+      "slice": 2,
+      "placedBy": "CE-API (8)",
+      "areaCodes": [
+        "CE-API"
+      ]
+    },
+    {
+      "number": 6,
+      "title": "CE-ID identity-extension declaration",
+      "slice": 2,
+      "placedBy": "CE-ID (21)",
+      "areaCodes": [
+        "CE-ID"
+      ]
+    },
+    {
+      "number": 7,
+      "title": "CE-AU shared wire/token types",
+      "slice": 2,
+      "placedBy": "edge: consumes the CE-ID declaration (§5.24)",
+      "areaCodes": [
+        "CE-AU"
+      ]
+    },
+    {
+      "number": 8,
+      "title": "CE-NT type + channel declarations",
+      "slice": 2,
+      "placedBy": "CE-NT (25)",
+      "areaCodes": [
+        "CE-NT"
+      ]
+    },
+    {
+      "number": 9,
+      "title": "CE-RP result envelope + parameter shapes",
+      "slice": 2,
+      "placedBy": "CE-RP (26)",
+      "areaCodes": [
+        "CE-RP"
+      ]
+    },
+    {
+      "number": 10,
+      "title": "CE-DB entities/columns/repositories",
+      "slice": 3,
+      "placedBy": "CE-DB (10)",
+      "areaCodes": [
+        "CE-DB"
+      ]
+    },
+    {
+      "number": 11,
+      "title": "CE-CF server configuration",
+      "slice": 3,
+      "placedBy": "CE-CF (15)",
+      "areaCodes": [
+        "CE-CF"
+      ]
+    },
+    {
+      "number": 12,
+      "title": "CE-MG migration artifact tree",
+      "slice": 3,
+      "placedBy": "CE-MG (22)",
+      "areaCodes": [
+        "CE-MG"
+      ]
+    },
+    {
+      "number": 13,
+      "title": "CE-LG over the CE-DB write path",
+      "slice": 3,
+      "placedBy": "marker follows host (step 10)",
+      "areaCodes": [
+        "CE-LG"
+      ]
+    },
+    {
+      "number": 14,
+      "title": "CE-RP report definitions + column/chart members",
+      "slice": 3,
+      "placedBy": "edge: source entity `Type` literal → CE-DB (§5.28)",
+      "areaCodes": [
+        "CE-RP"
+      ]
+    },
+    {
+      "number": 15,
+      "title": "CE-ID attribute population",
+      "slice": 4,
+      "placedBy": "CE-ID (21)",
+      "areaCodes": [
+        "CE-ID"
+      ]
+    },
+    {
+      "number": 16,
+      "title": "CE-AU server flow",
+      "slice": 4,
+      "placedBy": "edge: CE-AU → CE-ID (§5.24)",
+      "areaCodes": [
+        "CE-AU"
+      ]
+    },
+    {
+      "number": 17,
+      "title": "CE-NT delivery — routing + outbox",
+      "slice": 4,
+      "placedBy": "edge: the service units that raise it cite it (§4.4.3)",
+      "areaCodes": [
+        "CE-NT"
+      ]
+    },
+    {
+      "number": 18,
+      "title": "CE-SU units **co-emitting** the CE-API handler methods",
+      "slice": 4,
+      "placedBy": "CE-API (8), after step 17",
+      "areaCodes": [
+        "CE-API",
+        "CE-SU"
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Operation-level CE-AZ",
+      "slice": 4,
+      "placedBy": "marker follows host (step 18)",
+      "areaCodes": [
+        "CE-AZ"
+      ]
+    },
+    {
+      "number": 20,
+      "title": "CE-LG over the CE-API handler",
+      "slice": 4,
+      "placedBy": "marker follows host (step 18)",
+      "areaCodes": [
+        "CE-LG"
+      ]
+    },
+    {
+      "number": 21,
+      "title": "CE-UP server-side typed access",
+      "slice": 7,
+      "placedBy": "CE-UP (17)",
+      "areaCodes": [
+        "CE-UP"
+      ]
+    },
+    {
+      "number": 22,
+      "title": "CE-JB job definitions + work-body skeletons",
+      "slice": 7,
+      "placedBy": "CE-JB (23)",
+      "areaCodes": [
+        "CE-JB"
+      ]
+    },
+    {
+      "number": 23,
+      "title": "**SCC-B** — CE-ST + CE-EL + CE-FM + CE-AC + CE-SC + CE-NV (§4.4.7)",
+      "slice": 5,
+      "placedBy": "CE-EL (1)",
+      "areaCodes": [
+        "CE-EL",
+        "CE-FM",
+        "CE-AC",
+        "CE-SC",
+        "CE-ST",
+        "CE-NV"
+      ]
+    },
+    {
+      "number": 24,
+      "title": "CE-TX copy",
+      "slice": 5,
+      "placedBy": "CE-TX (4)",
+      "areaCodes": [
+        "CE-TX"
+      ]
+    },
+    {
+      "number": 25,
+      "title": "Field-level CE-AZ (`authorizer`)",
+      "slice": 5,
+      "placedBy": "marker follows host (CE-EL, step 23)",
+      "areaCodes": [
+        "CE-AZ"
+      ]
+    },
+    {
+      "number": 26,
+      "title": "CE-AU client login flow",
+      "slice": 5,
+      "placedBy": "CE-AU (20)",
+      "areaCodes": [
+        "CE-AU"
+      ]
+    },
+    {
+      "number": 27,
+      "title": "CE-LO layout trees",
+      "slice": 6,
+      "placedBy": "CE-LO (3)",
+      "areaCodes": [
+        "CE-LO"
+      ]
+    },
+    {
+      "number": 28,
+      "title": "CE-CC client configuration",
+      "slice": 6,
+      "placedBy": "CE-CC (16)",
+      "areaCodes": [
+        "CE-CC"
+      ]
+    },
+    {
+      "number": 29,
+      "title": "CE-UP client shape",
+      "slice": 6,
+      "placedBy": "CE-UP (17)",
+      "areaCodes": [
+        "CE-UP"
+      ]
+    },
+    {
+      "number": 30,
+      "title": "CE-DS device settings",
+      "slice": 6,
+      "placedBy": "CE-DS (18)",
+      "areaCodes": [
+        "CE-DS"
+      ]
+    },
+    {
+      "number": 31,
+      "title": "CE-CL client application",
+      "slice": 6,
+      "placedBy": "CE-CL (19)",
+      "areaCodes": [
+        "CE-CL"
+      ]
+    }
   ]
 }

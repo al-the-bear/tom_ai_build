@@ -393,6 +393,18 @@ static void slice_from_json(const SomJson *j, CodeSpecsSlice *out) {
   json_intlist(j, "cites", &out->cites, &out->cites_len);
 }
 
+/* Reads one step. Like a slice row, a missing or non-numeric `number` /
+ * `slice` decodes to 0 and the text cells fall back to empty. */
+static void step_from_json(const SomJson *j, CodeSpecsStep *out) {
+  out->number = 0;
+  som_json_as_i64(som_json_get(j, "number"), &out->number);
+  out->slice = 0;
+  som_json_as_i64(som_json_get(j, "slice"), &out->slice);
+  out->title = som_strdup(som_json_str_or(j, "title"));
+  out->placed_by = som_strdup(som_json_str_or(j, "placedBy"));
+  json_strlist(j, "areaCodes", &out->area_codes);
+}
+
 static void area_from_json(const SomJson *j, CodeSpecsArea *out) {
   out->code = som_strdup(som_json_str_or(j, "code"));
   out->canonical_id = som_strdup(som_json_str_or(j, "canonicalId"));
@@ -413,6 +425,8 @@ void spec_codespecs_area_catalog_from_json(const SomJson *v,
   out->slices_len = 0;
   out->areas = NULL;
   out->areas_len = 0;
+  out->steps = NULL;
+  out->steps_len = 0;
 
   const SomJson *slices = som_json_get(v, "slices");
   size_t n = som_json_array_len(slices);
@@ -432,6 +446,17 @@ void spec_codespecs_area_catalog_from_json(const SomJson *v,
       area_from_json(som_json_array_at(areas, i), &out->areas[i]);
     }
     out->areas_len = n;
+  }
+
+  /* Absent in a catalogue written before the step table was transcribed. */
+  const SomJson *steps = som_json_get(v, "steps");
+  n = som_json_array_len(steps);
+  if (n > 0) {
+    out->steps = (CodeSpecsStep *)calloc(n, sizeof(CodeSpecsStep));
+    for (size_t i = 0; i < n; i++) {
+      step_from_json(som_json_array_at(steps, i), &out->steps[i]);
+    }
+    out->steps_len = n;
   }
 }
 
@@ -457,6 +482,12 @@ void spec_codespecs_area_catalog_free(CodeSpecsAreaCatalog *c) {
     free(c->areas[i].authoring_steps);
   }
   free(c->areas);
+  for (size_t i = 0; i < c->steps_len; i++) {
+    free(c->steps[i].title);
+    free(c->steps[i].placed_by);
+    som_strlist_free(&c->steps[i].area_codes);
+  }
+  free(c->steps);
   memset(c, 0, sizeof(*c));
 }
 
@@ -535,6 +566,42 @@ spec_codespecs_catalog_slice_numbered(const CodeSpecsAreaCatalog *c,
     }
   }
   return NULL;
+}
+
+const CodeSpecsStep *
+spec_codespecs_catalog_step_numbered(const CodeSpecsAreaCatalog *c,
+                                     long long number) {
+  for (size_t i = 0; i < c->steps_len; i++) {
+    if (c->steps[i].number == number) {
+      return &c->steps[i];
+    }
+  }
+  return NULL;
+}
+
+size_t spec_codespecs_catalog_steps_for(const CodeSpecsAreaCatalog *c,
+                                        const CodeSpecsArea *area,
+                                        const CodeSpecsStep ***out) {
+  *out = NULL;
+  if (area->authoring_steps_len == 0) {
+    return 0;
+  }
+  const CodeSpecsStep **items = (const CodeSpecsStep **)calloc(
+      area->authoring_steps_len, sizeof(const CodeSpecsStep *));
+  size_t len = 0;
+  for (size_t i = 0; i < area->authoring_steps_len; i++) {
+    const CodeSpecsStep *step =
+        spec_codespecs_catalog_step_numbered(c, area->authoring_steps[i]);
+    if (step != NULL) {
+      items[len++] = step;
+    }
+  }
+  if (len == 0) {
+    free(items);
+    return 0;
+  }
+  *out = items;
+  return len;
 }
 
 void spec_codespecs_catalog_projects_for(const CodeSpecsAreaCatalog *c,

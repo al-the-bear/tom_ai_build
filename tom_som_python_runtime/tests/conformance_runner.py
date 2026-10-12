@@ -980,6 +980,40 @@ def test_projection(model: SpecModel) -> None:
     _check("projection.walk", got == want, _json_mismatch(got, want))
 
 
+def _codespecs_step_cases(catalog_json: dict) -> dict:
+    """Recomputes ``stepCases`` of ``codespecs_extract_cases.json``: the steps
+    as read back, the steps per area in catalogue order, and the same for the
+    catalogue with its ``steps`` key removed."""
+    catalog = CodeSpecsAreaCatalog.from_json(catalog_json)
+    legacy = CodeSpecsAreaCatalog.from_json(
+        {k: v for k, v in catalog_json.items() if k != "steps"}
+    )
+    return {
+        "steps": [
+            {
+                "number": s.number,
+                "title": s.title,
+                "slice": s.slice,
+                "placedBy": s.placed_by,
+                "areaCodes": s.area_codes,
+            }
+            for s in catalog.steps
+        ],
+        "stepsByArea": {
+            a.code: [s.number for s in catalog.steps_for(a)]
+            for a in catalog.areas
+        },
+        "legacy": {
+            "steps": len(legacy.steps),
+            "areas": len(legacy.areas),
+            "stepsByArea": {
+                a.code: [s.number for s in legacy.steps_for(a)]
+                for a in legacy.areas
+            },
+        },
+    }
+
+
 def test_codespecs_extract(model: SpecModel) -> None:
     """The Phase-4 extract generator: the routing diagnostic, the per-area
     YAML/Markdown goldens, and the two guards that make "verbatim" checkable
@@ -1012,6 +1046,13 @@ def test_codespecs_extract(model: SpecModel) -> None:
     ]
     _check("codespecs.routings", got == table["routings"],
            _json_mismatch(got, table["routings"]))
+
+    # The §4.4.6 authoring-step table, read back from the catalogue — and from
+    # the same catalogue with `steps` deleted, which must load (an older
+    # catalogue) and answer every area with no steps.
+    got_steps = _codespecs_step_cases(table["catalog"])
+    _check("codespecs.stepCases", got_steps == table["stepCases"],
+           _json_mismatch(got_steps, table["stepCases"]))
 
     extracts = extractor.extract_all()
     want_extracts = table["extracts"]

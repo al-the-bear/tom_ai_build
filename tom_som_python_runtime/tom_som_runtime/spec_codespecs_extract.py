@@ -193,6 +193,42 @@ class CodeSpecsSlice:
 
 
 @dataclass(frozen=True)
+class CodeSpecsStep:
+    """One row of the `codespecs_mapping.md` §4.4.6 authoring-step table — the
+    unit Phase 4 is authored in, one ``csgen`` todo each.
+
+    The catalogue carries the table so a consumer planning Phase 4 step by step
+    reads it as data rather than parsing the mapping document's Markdown."""
+
+    #: The step's number, 1–31. The table is written in authoring order, so the
+    #: number is also the step's position in that order.
+    number: int
+    #: The §4.4.3 slice the step's code is emitted in.
+    slice: int
+    #: The "Authoring step (emission unit)" cell, verbatim — Markdown included.
+    title: str = ""
+    #: The "Placed by" cell, verbatim: the catalogue position or edge that puts
+    #: the step where it is.
+    placed_by: str = ""
+    #: The ``CE-*`` codes of the areas the step authors, in catalogue order —
+    #: the inverse of :attr:`CodeSpecsArea.authoring_steps`.
+    area_codes: list[str] = dataclass_field(default_factory=list)
+
+    @staticmethod
+    def from_json(j: dict[str, Any]) -> "CodeSpecsStep":
+        """Reads one step. ``number`` and ``slice`` are required — a step with
+        no number cannot be placed, and one with no slice does not say which
+        project it lands in; the text cells fall back to empty."""
+        return CodeSpecsStep(
+            number=int(j["number"]),
+            slice=int(j["slice"]),
+            title=j.get("title") or "",
+            placed_by=j.get("placedBy") or "",
+            area_codes=_string_list(j.get("areaCodes")),
+        )
+
+
+@dataclass(frozen=True)
 class CodeSpecsArea:
     """One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the
     §4.4.3 slice and §4.4.6 authoring steps that place it. This is the
@@ -262,6 +298,9 @@ class CodeSpecsAreaCatalog:
     #: The §4.1 areas, in catalogue order. Catalogue order is the tie-break
     #: §4.4.6 rule 2 uses, so it is load-bearing rather than cosmetic.
     areas: list[CodeSpecsArea] = dataclass_field(default_factory=list)
+    #: The §4.4.6 authoring steps, in authoring order. Empty for a catalogue
+    #: written before the step table was transcribed.
+    steps: list[CodeSpecsStep] = dataclass_field(default_factory=list)
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "CodeSpecsAreaCatalog":
@@ -269,7 +308,26 @@ class CodeSpecsAreaCatalog:
             source=j.get("source") or "",
             slices=[CodeSpecsSlice.from_json(e) for e in (j.get("slices") or [])],
             areas=[CodeSpecsArea.from_json(e) for e in (j.get("areas") or [])],
+            steps=[CodeSpecsStep.from_json(e) for e in (j.get("steps") or [])],
         )
+
+    def step_numbered(self, number: int) -> Optional[CodeSpecsStep]:
+        """The authoring step numbered *number*, or ``None``."""
+        for s in self.steps:
+            if s.number == number:
+                return s
+        return None
+
+    def steps_for(self, area: CodeSpecsArea) -> list[CodeSpecsStep]:
+        """The steps that author *area*, in authoring order. Steps the
+        catalogue does not carry are skipped, so an older catalogue answers
+        empty."""
+        out: list[CodeSpecsStep] = []
+        for n in area.authoring_steps:
+            step = self.step_numbered(n)
+            if step is not None:
+                out.append(step)
+        return out
 
     @property
     def active_areas(self) -> list[CodeSpecsArea]:

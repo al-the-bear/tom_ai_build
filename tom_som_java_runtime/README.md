@@ -84,7 +84,7 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SomNode`, `SomScalar`, `SomList`, `SomFacade` | Editing-facade base types for the generated `tom_som_java_v0`. |
 | `SomEditability`, `SomVersionError` | `SOM §4.2` version-check outcome enum (non-throwing `SomFacade.somEditabilityFor`) and its throwing error. |
 | `SpecAnnotations`, `KindLink`, `NoArtifactLink` | The annotation lookups shared by `SpecClass` and `SpecField`, including the three routing verdicts of `codespecs_mapping.md` §8.3 (`@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact`). |
-| `CodeSpecsExtractor`, `CodeSpecsExtract`, `CodeSpecsAreaCatalog`, `CodeSpecsArea`, `CodeSpecsSlice`, `CodeSpecsRouting`, `CodeSpecsExtractEntry`, `CodeSpecsExtractError` | The Phase-4 CodeSpecs specification-extract generator: per area, every value the document routes there — verbatim, with provenance — plus its YAML and Markdown artifacts. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
+| `CodeSpecsExtractor`, `CodeSpecsExtract`, `CodeSpecsAreaCatalog`, `CodeSpecsArea`, `CodeSpecsSlice`, `CodeSpecsStep`, `CodeSpecsRouting`, `CodeSpecsExtractEntry`, `CodeSpecsExtractError` | The Phase-4 CodeSpecs specification-extract generator: per area, every value the document routes there — verbatim, with provenance — plus its YAML and Markdown artifacts. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
 
 ## Quick start
 

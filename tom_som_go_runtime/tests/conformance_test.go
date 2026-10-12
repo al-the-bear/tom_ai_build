@@ -1512,6 +1512,7 @@ type codeSpecsExtractTable struct {
 	Extracts   []codeSpecsExtractWant `json:"extracts"`
 	ErrorCases []codeSpecsErrorCase   `json:"errorCases"`
 	RootCases  []codeSpecsRootCase    `json:"rootCases"`
+	StepCases  json.RawMessage        `json:"stepCases"`
 }
 
 // codeSpecsRootCase is one row of the `rootCases` table — the root-scoping
@@ -1559,6 +1560,59 @@ type codeSpecsErrorCase struct {
 	} `json:"expect"`
 }
 
+// codeSpecsStepCases recomputes `stepCases` of codespecs_extract_cases.json:
+// the steps as read back, the step numbers per area in catalogue order, and the
+// same for the catalogue with its `steps` key removed.
+func codeSpecsStepCases(t *testing.T, catalogJSON json.RawMessage) map[string]any {
+	catalog, err := som.CodeSpecsAreaCatalogFromJSON(catalogJSON)
+	if err != nil {
+		t.Fatalf("load codespecs catalog: %v", err)
+	}
+	var stripped map[string]json.RawMessage
+	if err := json.Unmarshal(catalogJSON, &stripped); err != nil {
+		t.Fatalf("decode codespecs catalog: %v", err)
+	}
+	delete(stripped, "steps")
+	legacyJSON, err := json.Marshal(stripped)
+	if err != nil {
+		t.Fatalf("encode legacy codespecs catalog: %v", err)
+	}
+	legacy, err := som.CodeSpecsAreaCatalogFromJSON(legacyJSON)
+	if err != nil {
+		t.Fatalf("load legacy codespecs catalog: %v", err)
+	}
+	byArea := func(c *som.CodeSpecsAreaCatalog) map[string]any {
+		out := map[string]any{}
+		for _, a := range c.Areas {
+			numbers := []int{}
+			for _, s := range c.StepsFor(a) {
+				numbers = append(numbers, s.Number)
+			}
+			out[a.Code] = numbers
+		}
+		return out
+	}
+	steps := []map[string]any{}
+	for _, s := range catalog.Steps {
+		steps = append(steps, map[string]any{
+			"number":    s.Number,
+			"title":     s.Title,
+			"slice":     s.Slice,
+			"placedBy":  s.PlacedBy,
+			"areaCodes": s.AreaCodes,
+		})
+	}
+	return map[string]any{
+		"steps":       steps,
+		"stepsByArea": byArea(catalog),
+		"legacy": map[string]any{
+			"steps":       len(legacy.Steps),
+			"areas":       len(legacy.Areas),
+			"stepsByArea": byArea(legacy),
+		},
+	}
+}
+
 // testCodeSpecsExtract replays the Phase-4 extract generator: the routing
 // verdicts, the per-area extracts (record + the two goldens, byte for byte), the
 // verbatim-copy guard `codespecs_derivation_contract.md` §2.8 C1 rests on, the
@@ -1594,6 +1648,17 @@ func testCodeSpecsExtract(c *checker, t *testing.T, model *som.SpecModel) {
 	}
 	gotJSON, wantJSON := canonJSON(t, gotRoutings), canonJSON(t, wantRoutings)
 	c.check("codespecs.routings", gotJSON == wantJSON, gotJSON+" != "+wantJSON)
+
+	// 1b. The §4.4.6 authoring-step table reads back as committed — and the same
+	// catalogue with `steps` deleted loads and answers every area with no steps.
+	var wantSteps any
+	if err := json.Unmarshal(table.StepCases, &wantSteps); err != nil {
+		t.Fatalf("decode codespecs stepCases: %v", err)
+	}
+	gotStepsJSON := canonJSON(t, codeSpecsStepCases(t, table.Catalog))
+	wantStepsJSON := canonJSON(t, wantSteps)
+	c.check("codespecs.stepCases", gotStepsJSON == wantStepsJSON,
+		gotStepsJSON+" != "+wantStepsJSON)
 
 	// 2. The extracts reproduce the committed goldens byte for byte.
 	extracts, err := extractor.ExtractAll()

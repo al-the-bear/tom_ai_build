@@ -214,6 +214,27 @@ typedef struct {
   size_t cites_len;
 } CodeSpecsSlice;
 
+/* One row of the `codespecs_mapping.md` §4.4.6 authoring-step table — the unit
+ * Phase 4 is authored in, one `csgen` todo each.
+ *
+ * The catalogue carries the table so a consumer planning Phase 4 step by step
+ * reads it as data rather than parsing the mapping document's Markdown. */
+typedef struct {
+  /* The step's number, 1–31. The table is written in authoring order, so the
+   * number is also the step's position in that order. */
+  long long number;
+  /* The "Authoring step (emission unit)" cell, verbatim — Markdown included. */
+  char *title;
+  /* The §4.4.3 slice the step's code is emitted in. */
+  long long slice;
+  /* The "Placed by" cell, verbatim: the catalogue position or edge that puts the
+   * step where it is. */
+  char *placed_by;
+  /* The `CE-*` codes of the areas the step authors, in catalogue order — the
+   * inverse of `CodeSpecsArea.authoring_steps`. */
+  SomStrList area_codes;
+} CodeSpecsStep;
+
 /* One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the §4.4.3
  * slice and §4.4.6 authoring steps that place it. This is the **per-area
  * context** an extract carries beside its content. */
@@ -265,6 +286,10 @@ typedef struct {
    * rule 2 uses, so it is load-bearing rather than cosmetic. */
   CodeSpecsArea *areas;
   size_t areas_len;
+  /* The §4.4.6 authoring steps, in authoring order. Empty for a catalogue
+   * written before the step table was transcribed. */
+  CodeSpecsStep *steps;
+  size_t steps_len;
 } CodeSpecsAreaCatalog;
 
 /* Decodes a catalogue from its parsed JSON form into `*out` (initialised by the
@@ -298,6 +323,20 @@ spec_codespecs_catalog_by_part(const CodeSpecsAreaCatalog *c, const char *value)
 const CodeSpecsSlice *
 spec_codespecs_catalog_slice_numbered(const CodeSpecsAreaCatalog *c,
                                       long long number);
+
+/* The authoring step numbered `number`, or NULL. Borrowed. */
+const CodeSpecsStep *
+spec_codespecs_catalog_step_numbered(const CodeSpecsAreaCatalog *c,
+                                     long long number);
+
+/* The steps that author `area`, in the order of its `authoring_steps`. Writes an
+ * owned array of **borrowed** step pointers (into the catalogue) to `*out` —
+ * release the array with `free`, never the steps — and returns its length.
+ * Steps the catalogue does not carry are skipped, so an older catalogue answers
+ * 0 with `*out` NULL. */
+size_t spec_codespecs_catalog_steps_for(const CodeSpecsAreaCatalog *c,
+                                        const CodeSpecsArea *area,
+                                        const CodeSpecsStep ***out);
 
 /* The §4.2 projects `area`'s code lands in, in slice order, written into `out`
  * (initialised by the callee; free with `som_strlist_free`).

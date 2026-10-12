@@ -190,6 +190,30 @@ struct CodeSpecsSlice {
   static CodeSpecsSlice fromJson(const JsonRef& j);
 };
 
+/* One row of the `codespecs_mapping.md` §4.4.6 authoring-step table — the unit
+ * Phase 4 is authored in, one `csgen` todo each.
+ *
+ * The catalogue carries the table so a consumer planning Phase 4 step by step
+ * reads it as data rather than parsing the mapping document's Markdown. */
+struct CodeSpecsStep {
+  /* The step's number, 1–31. The table is written in authoring order, so the
+   * number is also the step's position in that order. */
+  long long number = 0;
+  /* The "Authoring step (emission unit)" cell, verbatim — Markdown included. */
+  std::string title;
+  /* The §4.4.3 slice the step's code is emitted in. */
+  long long slice = 0;
+  /* The "Placed by" cell, verbatim: the catalogue position or edge that puts the
+   * step where it is. */
+  std::string placedBy;
+  /* The `CE-*` codes of the areas the step authors, in catalogue order — the
+   * inverse of CodeSpecsArea::authoringSteps. */
+  std::vector<std::string> areaCodes;
+
+  /* Decodes one step from its catalogue JSON object. */
+  static CodeSpecsStep fromJson(const JsonRef& j);
+};
+
 /* One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the §4.4.3
  * slice and §4.4.6 authoring steps that place it. This is the **per-area
  * context** an extract carries beside its content. */
@@ -243,8 +267,12 @@ struct CodeSpecsAreaCatalog {
   /* The §4.1 areas, in catalogue order. Catalogue order is the tie-break §4.4.6
    * rule 2 uses, so it is load-bearing rather than cosmetic. */
   std::vector<CodeSpecsArea> areas;
+  /* The §4.4.6 authoring steps, in authoring order. Empty for a catalogue
+   * written before the step table was transcribed. */
+  std::vector<CodeSpecsStep> steps;
 
-  /* Decodes a catalogue from its `{source, slices, areas}` JSON object. */
+  /* Decodes a catalogue from its `{source, slices, areas, steps}` JSON object.
+   * An absent `steps` key yields no steps. */
   static CodeSpecsAreaCatalog fromJson(const JsonRef& j);
 
   /* The active areas, in catalogue order — one extract each. */
@@ -260,6 +288,14 @@ struct CodeSpecsAreaCatalog {
 
   /* The slice numbered `number`, or null. Borrowed from `slices`. */
   const CodeSpecsSlice* sliceNumbered(long long number) const;
+
+  /* The authoring step numbered `number`, or null. Borrowed from `steps`. */
+  const CodeSpecsStep* stepNumbered(long long number) const;
+
+  /* The steps that author `area`, in the order of its `authoringSteps`.
+   * Borrowed from `steps`. Steps the catalogue does not carry are skipped, so an
+   * older catalogue answers empty. */
+  std::vector<const CodeSpecsStep*> stepsFor(const CodeSpecsArea& area) const;
 
   /* The §4.2 projects `area`'s code lands in, in slice order.
    *

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- CodeSpecs catalogue: `CodeSpecsAreaCatalog.Steps` carries the
+  `codespecs_mapping.md` §4.4.6 authoring-step table as `CodeSpecsStep` rows
+  (`Number`, `Title`, `Slice`, `PlacedBy`, `AreaCodes`); a catalogue without a
+  `steps` key loads with none. `StepNumbered(n)` finds one step and
+  `StepsFor(area)` returns the steps of `area.AuthoringSteps` in that order,
+  skipping numbers the catalogue does not carry. The `stepCases` table of
+  `codespecs_extract_cases.json` pins it.
 - DocSpecs section-body replacement: `DocSpecsReplaceSectionBody(text,
   sectionID, body)` returns the document with one section's own body (the lines
   between its heading and the next heading of any level) replaced, every other

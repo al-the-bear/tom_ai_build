@@ -59,7 +59,7 @@ pub use som_facade::{
 pub use spec_codespecs_extract::{
     CodeSpecsArea, CodeSpecsAreaCatalog, CodeSpecsExtract, CodeSpecsExtractEntry,
     CodeSpecsExtractError, CodeSpecsExtractor, CodeSpecsRouting, CodeSpecsRoutingVerdict,
-    CodeSpecsSlice, CODE_SPECS_EXTRACT_FORMAT, CODE_SPEC_KIND_ANNOTATION,
+    CodeSpecsSlice, CodeSpecsStep, CODE_SPECS_EXTRACT_FORMAT, CODE_SPEC_KIND_ANNOTATION,
     FOLLOW_UP_KIND_ANNOTATION, NO_ARTIFACT_ANNOTATION,
 };
 pub use spec_document::{DocumentJson, ListJson, SpecDocument};

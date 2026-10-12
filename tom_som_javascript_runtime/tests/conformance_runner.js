@@ -1130,6 +1130,41 @@ function testCodeSpecsExtract(model, doc) {
     _jsonMismatch(routings, table.routings),
   );
 
+  // 1b. The §4.4.6 authoring-step table, read back from the catalogue — and
+  // from the same catalogue with `steps` removed, which must load as an older
+  // catalogue that carries no steps rather than fail.
+  const stepsByArea = (c) => {
+    const out = {};
+    for (const area of c.areas) {
+      out[area.code] = c.stepsFor(area).map((s) => s.number);
+    }
+    return out;
+  };
+  const stepCatalog = CodeSpecsAreaCatalog.fromJson(table.catalog);
+  const legacyJson = { ...table.catalog };
+  delete legacyJson.steps;
+  const legacyCatalog = CodeSpecsAreaCatalog.fromJson(legacyJson);
+  const gotStepCases = {
+    steps: stepCatalog.steps.map((s) => ({
+      number: s.number,
+      title: s.title,
+      slice: s.slice,
+      placedBy: s.placedBy,
+      areaCodes: s.areaCodes,
+    })),
+    stepsByArea: stepsByArea(stepCatalog),
+    legacy: {
+      steps: legacyCatalog.steps.length,
+      areas: legacyCatalog.areas.length,
+      stepsByArea: stepsByArea(legacyCatalog),
+    },
+  };
+  _check(
+    'codespecs.stepCases',
+    _deepEqual(gotStepCases, table.stepCases),
+    _jsonMismatch(gotStepCases, table.stepCases),
+  );
+
   const extracts = extractor.extractAll().map((x) => ({
     area: x.area.code,
     canonicalId: x.area.canonicalId,

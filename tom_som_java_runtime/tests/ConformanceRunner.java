@@ -13,12 +13,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import tom_som_runtime.CodeSpecsArea;
 import tom_som_runtime.CodeSpecsAreaCatalog;
 import tom_som_runtime.CodeSpecsExtract;
 import tom_som_runtime.CodeSpecsExtractEntry;
 import tom_som_runtime.CodeSpecsExtractError;
 import tom_som_runtime.CodeSpecsExtractor;
 import tom_som_runtime.CodeSpecsRouting;
+import tom_som_runtime.CodeSpecsStep;
 import tom_som_runtime.DocSpecsDocument;
 import tom_som_runtime.DocSpecsSchema;
 import tom_som_runtime.DocSpecsValidator;
@@ -1347,6 +1349,51 @@ public final class ConformanceRunner {
   }
 
   /**
+   * The catalogue's authoring-step table as a runtime reads it back: every
+   * step's fields, {@code stepsFor} per area, and a catalogue written before the
+   * table was transcribed, which must still load with no steps.
+   */
+  private static Map<String, Object> codeSpecsStepCases(Map<String, Object> catalogJson) {
+    CodeSpecsAreaCatalog catalog = CodeSpecsAreaCatalog.fromJson(catalogJson);
+    Map<String, Object> legacyJson = new LinkedHashMap<>(catalogJson);
+    legacyJson.remove("steps");
+    CodeSpecsAreaCatalog legacy = CodeSpecsAreaCatalog.fromJson(legacyJson);
+
+    List<Object> steps = new ArrayList<>();
+    for (CodeSpecsStep s : catalog.steps) {
+      Map<String, Object> o = new LinkedHashMap<>();
+      o.put("number", s.number);
+      o.put("title", s.title);
+      o.put("slice", s.slice);
+      o.put("placedBy", s.placedBy);
+      o.put("areaCodes", new ArrayList<Object>(s.areaCodes));
+      steps.add(o);
+    }
+    Map<String, Object> legacyOut = new LinkedHashMap<>();
+    legacyOut.put("steps", legacy.steps.size());
+    legacyOut.put("areas", legacy.areas.size());
+    legacyOut.put("stepsByArea", stepsByArea(legacy));
+
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("steps", steps);
+    out.put("stepsByArea", stepsByArea(catalog));
+    out.put("legacy", legacyOut);
+    return out;
+  }
+
+  private static Map<String, Object> stepsByArea(CodeSpecsAreaCatalog catalog) {
+    Map<String, Object> out = new LinkedHashMap<>();
+    for (CodeSpecsArea a : catalog.areas) {
+      List<Object> numbers = new ArrayList<>();
+      for (CodeSpecsStep s : catalog.stepsFor(a)) {
+        numbers.add(s.number);
+      }
+      out.put(a.code, numbers);
+    }
+    return out;
+  }
+
+  /**
    * The Phase-4 CodeSpecs extract generator ({@code codespecs_mapping.md}
    * §1.1.1): the routing verdicts, the per-area extracts with their YAML and
    * Markdown artifacts, the copy-don't-compose guard, the {@code @FollowUpKind}
@@ -1362,6 +1409,16 @@ public final class ConformanceRunner {
     CodeSpecsAreaCatalog catalog =
         CodeSpecsAreaCatalog.fromJson((Map<String, Object>) table.get("catalog"));
     CodeSpecsExtractor extractor = new CodeSpecsExtractor(model, buildDocument(), catalog);
+
+    // 0. The catalogue's §4.4.6 authoring steps read back as committed — and a
+    // catalogue written before the step table was transcribed still loads.
+    Map<String, Object> catalogJson = (Map<String, Object>) table.get("catalog");
+    Object gotStepCases = codeSpecsStepCases(catalogJson);
+    Object wantStepCases = table.get("stepCases");
+    check(
+        "codeSpecs.stepCases",
+        gotStepCases.equals(wantStepCases),
+        jsonMismatch(gotStepCases, wantStepCases));
 
     // 1. The routing diagnostic — every class node the walk reaches, in order.
     List<Object> gotRoutings = new ArrayList<>();

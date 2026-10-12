@@ -49,6 +49,7 @@ from .spec_codespecs_extract import (
     CodeSpecsRouting,
     CodeSpecsRoutingVerdict,
     CodeSpecsSlice,
+    CodeSpecsStep,
 )
 from .spec_document import SpecDocument
 from .spec_section_id import (
@@ -170,6 +171,7 @@ __all__ = [
     "CodeSpecsRouting",
     "CodeSpecsRoutingVerdict",
     "CodeSpecsSlice",
+    "CodeSpecsStep",
     "DocSpecsDocument",
     "DocSpecsDocumentSection",
     "DocSpecsFormField",

@@ -226,6 +226,16 @@ CodeSpecsSlice CodeSpecsSlice::fromJson(const JsonRef& j) {
   return out;
 }
 
+CodeSpecsStep CodeSpecsStep::fromJson(const JsonRef& j) {
+  CodeSpecsStep out;
+  out.number = jsonAsI64(jsonGet(j, "number")).value_or(0);
+  out.title = jsonStrOr(j, "title");
+  out.slice = jsonAsI64(jsonGet(j, "slice")).value_or(0);
+  out.placedBy = jsonStrOr(j, "placedBy");
+  out.areaCodes = stringList(jsonGet(j, "areaCodes"));
+  return out;
+}
+
 CodeSpecsArea CodeSpecsArea::fromJson(const JsonRef& j) {
   CodeSpecsArea out;
   out.code = jsonStrOr(j, "code");
@@ -258,6 +268,12 @@ CodeSpecsAreaCatalog CodeSpecsAreaCatalog::fromJson(const JsonRef& j) {
   std::size_t an = jsonArrayLen(areas);
   for (std::size_t i = 0; i < an; i++) {
     out.areas.push_back(CodeSpecsArea::fromJson(jsonArrayAt(areas, i)));
+  }
+  // Absent in a catalogue written before the step table was transcribed.
+  JsonRef steps = jsonGet(j, "steps");
+  std::size_t tn = jsonArrayLen(steps);
+  for (std::size_t i = 0; i < tn; i++) {
+    out.steps.push_back(CodeSpecsStep::fromJson(jsonArrayAt(steps, i)));
   }
   return out;
 }
@@ -305,6 +321,26 @@ const CodeSpecsSlice* CodeSpecsAreaCatalog::sliceNumbered(
     }
   }
   return nullptr;
+}
+
+const CodeSpecsStep* CodeSpecsAreaCatalog::stepNumbered(long long number) const {
+  for (const CodeSpecsStep& s : steps) {
+    if (s.number == number) {
+      return &s;
+    }
+  }
+  return nullptr;
+}
+
+std::vector<const CodeSpecsStep*> CodeSpecsAreaCatalog::stepsFor(
+    const CodeSpecsArea& area) const {
+  std::vector<const CodeSpecsStep*> out;
+  for (long long n : area.authoringSteps) {
+    if (const CodeSpecsStep* step = stepNumbered(n)) {
+      out.push_back(step);
+    }
+  }
+  return out;
 }
 
 std::vector<std::string> CodeSpecsAreaCatalog::projectsFor(

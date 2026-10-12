@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- CodeSpecs catalogue: `CodeSpecsAreaCatalog.steps` carries the
+  `codespecs_mapping.md` §4.4.6 authoring-step table as `CodeSpecsStep` rows
+  (`number`, `title`, `slice`, `placed_by`, `area_codes`); a catalogue without
+  a `steps` key loads with none. `step_numbered(n)` finds one step and
+  `steps_for(area)` returns the steps of `area.authoring_steps` in that order,
+  skipping numbers the catalogue does not carry. `CodeSpecsStep` is exported
+  from `tom_som_runtime`. The `stepCases` table of
+  `codespecs_extract_cases.json` pins it.
 - DocSpecs: `DocSpecsDocument.replace_section_body(text, section_id, body)`
   returns the markdown with one section's own body region replaced and every
   other byte kept; it raises `ValueError` when the id names no section or

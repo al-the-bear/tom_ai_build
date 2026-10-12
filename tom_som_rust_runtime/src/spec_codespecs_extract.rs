@@ -253,6 +253,48 @@ impl CodeSpecsSlice {
     }
 }
 
+/// One row of the `codespecs_mapping.md` §4.4.6 authoring-step table — the
+/// unit Phase 4 is authored in, one `csgen` todo each.
+///
+/// The catalogue carries the table so a consumer planning Phase 4 step by step
+/// reads it as data rather than parsing the mapping document's Markdown.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CodeSpecsStep {
+    /// The step's number, 1–31. The table is written in authoring order, so the
+    /// number is also the step's position in that order.
+    pub number: i64,
+
+    /// The "Authoring step (emission unit)" cell, verbatim — Markdown included.
+    pub title: String,
+
+    /// The §4.4.3 slice the step's code is emitted in.
+    pub slice: i64,
+
+    /// The "Placed by" cell, verbatim: the catalogue position or edge that puts
+    /// the step where it is.
+    pub placed_by: String,
+
+    /// The `CE-*` codes of the areas the step authors, in catalogue order — the
+    /// inverse of [`CodeSpecsArea::authoring_steps`].
+    pub area_codes: Vec<String>,
+}
+
+impl CodeSpecsStep {
+    /// Reads one step out of its catalogue JSON object. `number` and `slice`
+    /// are the step's placement; like [`CodeSpecsSlice::from_json`]'s `number`
+    /// they read as `0` when absent or non-numeric, a value no area's
+    /// `authoringSteps` names. The text cells fall back to empty.
+    pub fn from_json(j: &Json) -> CodeSpecsStep {
+        CodeSpecsStep {
+            number: j.get("number").and_then(|v| v.as_i64()).unwrap_or(0),
+            title: j.str_or("title"),
+            slice: j.get("slice").and_then(|v| v.as_i64()).unwrap_or(0),
+            placed_by: j.str_or("placedBy"),
+            area_codes: string_list(j.get("areaCodes")),
+        }
+    }
+}
+
 /// One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the §4.4.3
 /// slice and §4.4.6 authoring steps that place it. This is the **per-area
 /// context** an extract carries beside its content.
@@ -337,6 +379,10 @@ pub struct CodeSpecsAreaCatalog {
     /// The §4.1 areas, in catalogue order. Catalogue order is the tie-break
     /// §4.4.6 rule 2 uses, so it is load-bearing rather than cosmetic.
     pub areas: Vec<CodeSpecsArea>,
+
+    /// The §4.4.6 authoring steps, in authoring order. Empty for a catalogue
+    /// written before the step table was transcribed.
+    pub steps: Vec<CodeSpecsStep>,
 }
 
 impl CodeSpecsAreaCatalog {
@@ -352,11 +398,30 @@ impl CodeSpecsAreaCatalog {
             .and_then(|v| v.as_array())
             .map(|arr| arr.iter().map(CodeSpecsArea::from_json).collect())
             .unwrap_or_default();
+        // An absent `steps` key is a catalogue written before §4.4.6 was
+        // transcribed: it loads with no steps rather than failing.
+        let steps = j
+            .get("steps")
+            .and_then(|v| v.as_array())
+            .map(|arr| arr.iter().map(CodeSpecsStep::from_json).collect())
+            .unwrap_or_default();
         CodeSpecsAreaCatalog {
             source: j.str_or("source"),
             slices,
             areas,
+            steps,
         }
+    }
+
+    /// The authoring step numbered `number`, or `None`.
+    pub fn step_numbered(&self, number: i64) -> Option<&CodeSpecsStep> {
+        self.steps.iter().find(|s| s.number == number)
+    }
+
+    /// The steps that author `area`, in authoring order. Steps the catalogue
+    /// does not carry are skipped, so an older catalogue answers empty.
+    pub fn steps_for(&self, area: &CodeSpecsArea) -> Vec<&CodeSpecsStep> {
+        area.authoring_steps.iter().filter_map(|n| self.step_numbered(*n)).collect()
     }
 
     /// The active areas, in catalogue order — one extract each.

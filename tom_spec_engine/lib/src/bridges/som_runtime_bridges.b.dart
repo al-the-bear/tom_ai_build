@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 21 files
-// Generated: 2026-10-12T21:13:13.770709 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-12T21:50:26.994279 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -75,6 +75,7 @@ class SomRuntimeBridge {
       _createCodeSpecsRoutingBridge(),
       _createCodeSpecsExtractEntryBridge(),
       _createCodeSpecsSliceBridge(),
+      _createCodeSpecsStepBridge(),
       _createCodeSpecsAreaBridge(),
       _createCodeSpecsAreaCatalogBridge(),
       _createCodeSpecsExtractBridge(),
@@ -156,6 +157,7 @@ class SomRuntimeBridge {
       'CodeSpecsRouting': _createCodeSpecsRoutingBridge,
       'CodeSpecsExtractEntry': _createCodeSpecsExtractEntryBridge,
       'CodeSpecsSlice': _createCodeSpecsSliceBridge,
+      'CodeSpecsStep': _createCodeSpecsStepBridge,
       'CodeSpecsArea': _createCodeSpecsAreaBridge,
       'CodeSpecsAreaCatalog': _createCodeSpecsAreaCatalogBridge,
       'CodeSpecsExtract': _createCodeSpecsExtractBridge,
@@ -237,6 +239,7 @@ class SomRuntimeBridge {
       'CodeSpecsRouting': $tom_som_dart_runtime_4.CodeSpecsRouting,
       'CodeSpecsExtractEntry': $tom_som_dart_runtime_4.CodeSpecsExtractEntry,
       'CodeSpecsSlice': $tom_som_dart_runtime_4.CodeSpecsSlice,
+      'CodeSpecsStep': $tom_som_dart_runtime_4.CodeSpecsStep,
       'CodeSpecsArea': $tom_som_dart_runtime_4.CodeSpecsArea,
       'CodeSpecsAreaCatalog': $tom_som_dart_runtime_4.CodeSpecsAreaCatalog,
       'CodeSpecsExtract': $tom_som_dart_runtime_4.CodeSpecsExtract,
@@ -334,6 +337,8 @@ class SomRuntimeBridge {
       'CodeSpecsExtractEntry':
           'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
       'CodeSpecsSlice':
+          'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
+      'CodeSpecsStep':
           'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
       'CodeSpecsArea':
           'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart',
@@ -3290,6 +3295,102 @@ BridgedClass _createCodeSpecsSliceBridge() {
 }
 
 // =============================================================================
+// CodeSpecsStep Bridge
+// =============================================================================
+
+BridgedClass _createCodeSpecsStepBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_4.CodeSpecsStep,
+    name: 'CodeSpecsStep',
+    isAssignable: (v) => v is $tom_som_dart_runtime_4.CodeSpecsStep,
+    constructors: {
+      '': (visitor, positional, named) {
+        final number = D4.getRequiredNamedArg<int>(
+          named,
+          'number',
+          'CodeSpecsStep',
+        );
+        final slice = D4.getRequiredNamedArg<int>(
+          named,
+          'slice',
+          'CodeSpecsStep',
+        );
+        final title = D4.getNamedArgWithDefault<String>(named, 'title', '');
+        final placedBy = D4.getNamedArgWithDefault<String>(
+          named,
+          'placedBy',
+          '',
+        );
+        final areaCodes =
+            named.containsKey('areaCodes') && named['areaCodes'] != null
+            ? D4.coerceList<String>(named['areaCodes'], 'areaCodes')
+            : const <String>[];
+        return $tom_som_dart_runtime_4.CodeSpecsStep(
+          number: number,
+          slice: slice,
+          title: title,
+          placedBy: placedBy,
+          areaCodes: areaCodes,
+        );
+      },
+      'fromJson': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'CodeSpecsStep');
+        if (positional.isEmpty) {
+          throw ArgumentError(
+            'CodeSpecsStep: Missing required argument "j" at position 0',
+          );
+        }
+        final j = D4.coerceMap<String, dynamic>(positional[0], 'j');
+        return $tom_som_dart_runtime_4.CodeSpecsStep.fromJson(j);
+      },
+    },
+    getters: {
+      'number': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsStep>(
+            target,
+            'CodeSpecsStep',
+          )
+          .number,
+      'title': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsStep>(
+            target,
+            'CodeSpecsStep',
+          )
+          .title,
+      'slice': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsStep>(
+            target,
+            'CodeSpecsStep',
+          )
+          .slice,
+      'placedBy': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsStep>(
+            target,
+            'CodeSpecsStep',
+          )
+          .placedBy,
+      'areaCodes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsStep>(
+            target,
+            'CodeSpecsStep',
+          )
+          .areaCodes,
+    },
+    constructorSignatures: {
+      '': 'const CodeSpecsStep({required int number, required int slice, String title = \'\', String placedBy = \'\', List<String> areaCodes = const []})',
+      'fromJson': 'factory CodeSpecsStep.fromJson(Map<String, dynamic> j)',
+    },
+    getterSignatures: {
+      'number': 'int get number',
+      'title': 'String get title',
+      'slice': 'int get slice',
+      'placedBy': 'String get placedBy',
+      'areaCodes': 'List<String> get areaCodes',
+    },
+  );
+}
+
+// =============================================================================
 // CodeSpecsArea Bridge
 // =============================================================================
 
@@ -3472,10 +3573,17 @@ BridgedClass _createCodeSpecsAreaCatalogBridge() {
                 'areas',
               )
             : const <$tom_som_dart_runtime_4.CodeSpecsArea>[];
+        final steps = named.containsKey('steps') && named['steps'] != null
+            ? D4.coerceList<$tom_som_dart_runtime_4.CodeSpecsStep>(
+                named['steps'],
+                'steps',
+              )
+            : const <$tom_som_dart_runtime_4.CodeSpecsStep>[];
         return $tom_som_dart_runtime_4.CodeSpecsAreaCatalog(
           source: source,
           slices: slices,
           areas: areas,
+          steps: steps,
         );
       },
       'fromJson': (visitor, positional, named) {
@@ -3508,6 +3616,12 @@ BridgedClass _createCodeSpecsAreaCatalogBridge() {
             'CodeSpecsAreaCatalog',
           )
           .areas,
+      'steps': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+            target,
+            'CodeSpecsAreaCatalog',
+          )
+          .steps,
       'activeAreas': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
             target,
@@ -3516,6 +3630,36 @@ BridgedClass _createCodeSpecsAreaCatalogBridge() {
           .activeAreas,
     },
     methods: {
+      'stepNumbered': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+              target,
+              'CodeSpecsAreaCatalog',
+            );
+        D4.requireMinArgs(positional, 1, 'stepNumbered');
+        final number = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'number',
+          'stepNumbered',
+        );
+        return t.stepNumbered(number);
+      },
+      'stepsFor': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
+              target,
+              'CodeSpecsAreaCatalog',
+            );
+        D4.requireMinArgs(positional, 1, 'stepsFor');
+        final area = D4.getRequiredArg<$tom_som_dart_runtime_4.CodeSpecsArea>(
+          positional,
+          0,
+          'area',
+          'stepsFor',
+        );
+        return t.stepsFor(area);
+      },
       'byCode': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(
@@ -3588,11 +3732,13 @@ BridgedClass _createCodeSpecsAreaCatalogBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const CodeSpecsAreaCatalog({String source = \'\', List<CodeSpecsSlice> slices = const [], List<CodeSpecsArea> areas = const []})',
+      '': 'const CodeSpecsAreaCatalog({String source = \'\', List<CodeSpecsSlice> slices = const [], List<CodeSpecsArea> areas = const [], List<CodeSpecsStep> steps = const []})',
       'fromJson':
           'factory CodeSpecsAreaCatalog.fromJson(Map<String, dynamic> j)',
     },
     methodSignatures: {
+      'stepNumbered': 'CodeSpecsStep? stepNumbered(int number)',
+      'stepsFor': 'List<CodeSpecsStep> stepsFor(CodeSpecsArea area)',
       'byCode': 'CodeSpecsArea? byCode(String code)',
       'byPart': 'CodeSpecsArea? byPart(String value)',
       'sliceNumbered': 'CodeSpecsSlice? sliceNumbered(int number)',
@@ -3603,6 +3749,7 @@ BridgedClass _createCodeSpecsAreaCatalogBridge() {
       'source': 'String get source',
       'slices': 'List<CodeSpecsSlice> get slices',
       'areas': 'List<CodeSpecsArea> get areas',
+      'steps': 'List<CodeSpecsStep> get steps',
       'activeAreas': 'List<CodeSpecsArea> get activeAreas',
     },
   );

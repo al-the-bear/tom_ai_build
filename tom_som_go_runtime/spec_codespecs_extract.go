@@ -221,6 +221,28 @@ type CodeSpecsSlice struct {
 	Cites []int
 }
 
+// CodeSpecsStep is one row of the `codespecs_mapping.md` §4.4.6 authoring-step
+// table — the unit Phase 4 is authored in, one `csgen` todo each.
+//
+// The catalogue carries the table so a consumer planning Phase 4 step by step
+// reads it as data rather than parsing the mapping document's Markdown.
+type CodeSpecsStep struct {
+	// Number is the step's number, 1–31. The table is written in authoring
+	// order, so the number is also the step's position in that order.
+	Number int
+	// Title is the "Authoring step (emission unit)" cell, verbatim — Markdown
+	// included.
+	Title string
+	// Slice is the §4.4.3 slice the step's code is emitted in.
+	Slice int
+	// PlacedBy is the "Placed by" cell, verbatim: the catalogue position or edge
+	// that puts the step where it is.
+	PlacedBy string
+	// AreaCodes are the `CE-*` codes of the areas the step authors, in catalogue
+	// order — the inverse of CodeSpecsArea.AuthoringSteps.
+	AreaCodes []string
+}
+
 // CodeSpecsArea is one row of the `codespecs_mapping.md` §4.1 parts catalogue,
 // plus the §4.4.3 slice and §4.4.6 authoring steps that place it. This is the
 // **per-area context** an extract carries beside its content.
@@ -274,10 +296,13 @@ type CodeSpecsAreaCatalog struct {
 	// Areas are the §4.1 areas, in catalogue order. Catalogue order is the
 	// tie-break §4.4.6 rule 2 uses, so it is load-bearing rather than cosmetic.
 	Areas []*CodeSpecsArea
+	// Steps are the §4.4.6 authoring steps, in authoring order. Empty for a
+	// catalogue written before the step table was transcribed.
+	Steps []*CodeSpecsStep
 }
 
-// codeSpecsSliceJSON, codeSpecsAreaJSON and codeSpecsCatalogJSON mirror the
-// catalogue's on-disk shape for unmarshalling. `active` is a *bool because its
+// codeSpecsSliceJSON, codeSpecsAreaJSON, codeSpecsStepJSON and
+// codeSpecsCatalogJSON mirror the catalogue's on-disk shape for unmarshalling. `active` is a *bool because its
 // absence means **true** (the reference's `?? true`), which a plain bool cannot
 // tell from an authored `false`.
 type codeSpecsSliceJSON struct {
@@ -299,10 +324,19 @@ type codeSpecsAreaJSON struct {
 	Active           *bool    `json:"active"`
 }
 
+type codeSpecsStepJSON struct {
+	Number    int      `json:"number"`
+	Title     string   `json:"title"`
+	Slice     int      `json:"slice"`
+	PlacedBy  string   `json:"placedBy"`
+	AreaCodes []string `json:"areaCodes"`
+}
+
 type codeSpecsCatalogJSON struct {
 	Source string                `json:"source"`
 	Slices []*codeSpecsSliceJSON `json:"slices"`
 	Areas  []*codeSpecsAreaJSON  `json:"areas"`
+	Steps  []*codeSpecsStepJSON  `json:"steps"`
 }
 
 // CodeSpecsAreaCatalogFromJSON decodes the authored catalogue, normalising every
@@ -316,6 +350,7 @@ func CodeSpecsAreaCatalogFromJSON(data []byte) (*CodeSpecsAreaCatalog, error) {
 		Source: raw.Source,
 		Slices: make([]*CodeSpecsSlice, 0, len(raw.Slices)),
 		Areas:  make([]*CodeSpecsArea, 0, len(raw.Areas)),
+		Steps:  make([]*CodeSpecsStep, 0, len(raw.Steps)),
 	}
 	for _, s := range raw.Slices {
 		catalog.Slices = append(catalog.Slices, &CodeSpecsSlice{
@@ -340,6 +375,15 @@ func CodeSpecsAreaCatalogFromJSON(data []byte) (*CodeSpecsAreaCatalog, error) {
 			Slices:           cseInts(a.Slices),
 			AuthoringSteps:   cseInts(a.AuthoringSteps),
 			Active:           active,
+		})
+	}
+	for _, st := range raw.Steps {
+		catalog.Steps = append(catalog.Steps, &CodeSpecsStep{
+			Number:    st.Number,
+			Title:     st.Title,
+			Slice:     st.Slice,
+			PlacedBy:  st.PlacedBy,
+			AreaCodes: cseStrings(st.AreaCodes),
 		})
 	}
 	return catalog, nil
@@ -387,6 +431,28 @@ func (c *CodeSpecsAreaCatalog) SliceNumbered(number int) *CodeSpecsSlice {
 		}
 	}
 	return nil
+}
+
+// StepNumbered returns the authoring step numbered number, or nil.
+func (c *CodeSpecsAreaCatalog) StepNumbered(number int) *CodeSpecsStep {
+	for _, s := range c.Steps {
+		if s.Number == number {
+			return s
+		}
+	}
+	return nil
+}
+
+// StepsFor returns the steps that author area, in authoring order. Steps the
+// catalogue does not carry are skipped, so an older catalogue answers empty.
+func (c *CodeSpecsAreaCatalog) StepsFor(area *CodeSpecsArea) []*CodeSpecsStep {
+	out := []*CodeSpecsStep{}
+	for _, n := range area.AuthoringSteps {
+		if s := c.StepNumbered(n); s != nil {
+			out = append(out, s)
+		}
+	}
+	return out
 }
 
 // ProjectsFor returns the §4.2 projects area's code lands in, in slice order.

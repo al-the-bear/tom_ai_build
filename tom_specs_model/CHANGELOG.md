@@ -1,3 +1,9 @@
+## Unreleased
+
+- `generated-doc/codespecs/codespecs_areas.json` (and the embedded accessor
+  `lib/codespecs_areas.dart`) carries the 31 authoring steps of
+  `codespecs_mapping.md` §4.4.6.
+
 ## 1.3.3
 
 - An enumerated column's documentation now names the annotated field's Dart type

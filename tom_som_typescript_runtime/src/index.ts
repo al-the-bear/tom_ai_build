@@ -121,6 +121,7 @@ export {
   CodeSpecsRouting,
   CodeSpecsExtractEntry,
   CodeSpecsSlice,
+  CodeSpecsStep,
   CodeSpecsArea,
   CodeSpecsAreaCatalog,
   CodeSpecsExtract,
