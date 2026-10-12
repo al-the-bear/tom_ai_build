@@ -102,15 +102,13 @@ workspace_prefixes:
 # gate over it at all.
 unpublished_drift:
   tom_som_dart_runtime: >-
-    BEHAVIOUR, deliberately unpublished: the markdown codec now writes one blank
-    line between consecutive `@Form` field groups (SOM §11.4 rule 2), so a
-    viewer no longer merges a form block into one paragraph. Parse and the
-    DocSpecs validator already read both layouts, so documents written by
-    1.3.3 import unchanged. All nine runtimes changed together, and the
-    convention for a runtime behaviour change is a lockstep release step
-    (model bump, regeneration of the nine packages, publish), which is the
-    product owner's call — the change is listed under `## Unreleased` in the
-    CHANGELOG until then.
+    PART OF 1.3.3, NOT YET ON PUB.DEV: the markdown codec writes one blank line
+    between consecutive `@Form` field groups (SOM §11.4 rule 2, `a544ce1e`,
+    in all nine runtimes), so a viewer no longer merges a form block into one
+    paragraph. Parse and the DocSpecs validator read both layouts. It landed
+    after the 1.3.3 version commit and before 1.3.3 was published, so the
+    1.3.3 CHANGELOG lists it and the 1.3.3 publish ships it; the entry goes
+    with that publish.
   tom_specs_core: >-
     NO CODE: documentation links only. `e65ae6a9` moved the CodeSpecs mapping and
     contract into `tom_core_codespecs`, and the README and three doc/ pages were
@@ -129,8 +127,8 @@ unpublished_drift:
     tom_specs_model above, a bump would move the nine-package SOM lockstep for
     prose, so it waits for the next release step. Also the Meridian rendition
     `documents/meridian_order_management.md`, regenerated for the blank line
-    between form fields (see tom_som_dart_runtime): blank lines only, it goes
-    out with the runtime's release step.
+    between form fields that is part of 1.3.3 (see tom_som_dart_runtime):
+    blank lines only, it ships with the 1.3.3 publish.
   tom_specs_clitool: >-
     Three things since 0.3.2, none urgent for a consumer. This manifest, whose
     acknowledgements were recorded after the publish and which ships inside this

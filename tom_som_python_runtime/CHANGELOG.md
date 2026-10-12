@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.3.3
 
 - Markdown export (SOM §11.4 rule 2): consecutive `@Form` field groups are now
   separated by one blank line, also after a multi-line value, so a markdown
