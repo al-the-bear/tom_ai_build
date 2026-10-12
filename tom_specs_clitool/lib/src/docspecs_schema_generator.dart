@@ -9,6 +9,16 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
 import 'meta_tree.dart';
 import 'model_reader.dart';
 
+/// Content types that are prose, and so carry no schema `format`.
+///
+/// Any other content type becomes the section's `format`, and the DocSpecs
+/// validator demands a fenced code block for every non-form format. The model
+/// uses `@ContentType('description', …)` on about ninety members for prose
+/// (the type slot naming what the text is, the second argument its help), so
+/// treating it as a code format made those sections unwritable without
+/// wrapping a sentence in a fence (found authoring tom_uam's Blueprint).
+const proseContentTypes = {'text', 'description'};
+
 /// Generates DocSpecs schemas (`*.docspecs-schema.yaml`) from the canonical
 /// The metadata tree ([MetaTreeBuilder]/[MetaNode]), applying the SOM §13
 /// generation rules (SOM §13).
@@ -95,17 +105,6 @@ import 'model_reader.dart';
 /// bump (the DocSpecs filename grammar is `<id>.<major>.<minor>...`, and churning
 /// the minor there would rename every file and defeat the [writeSchemaTree]
 /// prune, which keys directories by schema id).
-
-/// Content types that are prose, and so carry no schema `format`.
-///
-/// Any other content type becomes the section's `format`, and the DocSpecs
-/// validator demands a fenced code block for every non-form format. The model
-/// uses `@ContentType('description', …)` on about ninety members for prose
-/// (the type slot naming what the text is, the second argument its help), so
-/// treating it as a code format made those sections unwritable without
-/// wrapping a sentence in a fence (found authoring tom_uam's Blueprint).
-const proseContentTypes = {'text', 'description'};
-
 class DocSpecsSchemaGenerator {
   /// The full resolved class graph (as produced by [ModelReader]).
   final Map<String, ModelClass> classes;

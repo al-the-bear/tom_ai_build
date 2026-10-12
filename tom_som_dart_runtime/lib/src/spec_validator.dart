@@ -101,7 +101,9 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
     // path, the way the YAML codec writes it (SpecFieldKind.section).
     final isWrapperSection =
         res.kind == SpecNodeKind.section && res.targetClass == null;
-    if (!res.isValueLeaf && res.kind != SpecNodeKind.form && !isWrapperSection) {
+    if (!res.isValueLeaf &&
+        res.kind != SpecNodeKind.form &&
+        !isWrapperSection) {
       errors.add(
         SpecValidationError(
           path: path,
