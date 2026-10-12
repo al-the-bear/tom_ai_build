@@ -101,7 +101,18 @@ void main(List<String> args) {
           out.writeln('$pad$key: Exercise text.');
           keysEmitted++;
         case 'form':
-          if (fieldId == null) break; // id-less leaves are not demanded
+          if (fieldId == null) {
+            // An id-less form: chiefly a class-level `@Form` carried on the
+            // class's `content` member. The coverage gate does not count it,
+            // but the sample must hold a value the codecs accept, and a form
+            // holds a field mapping, so it gets its preamble. Its fields stay
+            // empty: filling them would also set `@OneOf` discriminators and
+            // cross-registry references to values that select nothing.
+            out
+              ..writeln('$pad$name:')
+              ..writeln('$pad  content: Exercise form preamble.');
+            break;
+          }
           out
             ..writeln('$pad$fieldId $name:')
             ..writeln('$pad  content: Exercise form preamble.');
@@ -118,6 +129,12 @@ void main(List<String> args) {
           final key = id == null ? name : '$id $name';
           out.writeln('$pad$key:');
           keysEmitted++;
+          if (!classes.containsKey(target)) {
+            // A wrapper section (`TextSection`, …): no exported class, its
+            // text stored at its own path (SOM §11.6).
+            out.writeln('$pad  content: Exercise text.');
+            break;
+          }
           if (visited.add(target)) {
             emitBody(out, target, indent + 2);
             // An empty first-visit body leaves the value null — legal for
