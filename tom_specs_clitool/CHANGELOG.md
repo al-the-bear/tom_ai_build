@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- `validate_spec` takes several fragments of one document: each is decoded,
+  they are assembled (`SpecDocument.assemble`; an overlap is a decode-tier
+  finding and stops the other tiers), and the schema and instance tiers judge
+  the assembly, so cross-fragment references are no longer reported dangling.
+  `--assembled-out` writes the assembled document.
+
 - `validate_spec` validates any project's TomSpecs document — a
   `*.docspecs.yaml` or a SOM-rendered `*.md`, any of the fourteen roots,
   detected or named with `--root` — on three tiers that all run: decode, the

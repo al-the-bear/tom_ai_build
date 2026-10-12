@@ -25,7 +25,8 @@
  *     Markdown goldens, the verbatim-copy guard and the ROUTE-TOTAL errors);
  *   - reading extracts and the Stage-B gate record back, writing the gate
  *     record, and scoping a set of extracts by it;
- *   - the meta-model-validated node-creation gate and its creator.
+ *   - the meta-model-validated node-creation gate and its creator;
+ *   - assembling one document from ordered fragments (refusing overlaps).
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -3578,6 +3579,125 @@ static void test_node_creation_script(Checker *c, const SpecModel *model) {
   spec_document_free(&doc);
 }
 
+/* ---- assembling a document from fragments (spec_document_assembly) ------- */
+
+/* Canonical JSON of a document's plain-data stores. Owned result. */
+static char *doc_canonical(const SpecDocument *doc) {
+  DocumentJson dj;
+  spec_document_to_json(doc, &dj);
+  char *s = document_json_to_canonical_json(&dj);
+  document_json_free(&dj);
+  return s;
+}
+
+/* Canonical JSON of a corpus `toJson()` value. Owned result. */
+static char *state_canonical(const SomJson *v) {
+  DocumentJson dj;
+  document_json_from_json(v, &dj);
+  char *s = document_json_to_canonical_json(&dj);
+  document_json_free(&dj);
+  return s;
+}
+
+/* assembly_cases.json, run like the Dart reference's `_runAssemblyCase`: each
+ * fragment state is loaded into a fresh document, the ordered fragments are
+ * assembled, and `ok`, the document (as toJson) and every overlap — store,
+ * path, field, fragments and message — must match `expect`. */
+static void test_assembly(Checker *c) {
+  SomJson *table = read_json("assembly_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "assembly.cases", n > 0, "no cases in assembly_cases.json");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    char label[512];
+    snprintf(label, sizeof(label), "assembly[%s]", som_json_str_or(kase, "name"));
+    const SomJson *frags = som_json_get(kase, "fragments");
+    size_t fn = som_json_array_len(frags);
+    SpecDocument *docs = (SpecDocument *)calloc(fn ? fn : 1, sizeof(SpecDocument));
+    SpecAssemblyFragment *fragments =
+        (SpecAssemblyFragment *)calloc(fn ? fn : 1, sizeof(SpecAssemblyFragment));
+    for (size_t f = 0; f < fn; f++) {
+      const SomJson *pair = som_json_array_at(frags, f);
+      DocumentJson state;
+      document_json_from_json(som_json_array_at(pair, 1), &state);
+      doc_from_state(&docs[f], &state);
+      document_json_free(&state);
+      fragments[f].name = som_json_as_str(som_json_array_at(pair, 0));
+      fragments[f].document = &docs[f];
+    }
+    SpecDocumentAssembly result;
+    spec_document_assemble(fragments, fn, &result);
+
+    const SomJson *expect = som_json_get(kase, "expect");
+    char tag[640];
+    int want_ok = som_json_bool_or(expect, "ok");
+    int got_ok = spec_document_assembly_ok(&result);
+    snprintf(tag, sizeof(tag), "%s.ok", label);
+    check(c, tag, got_ok == want_ok, got_ok ? "got true" : "got false");
+
+    const SomJson *want_doc = som_json_get(expect, "document");
+    snprintf(tag, sizeof(tag), "%s.document", label);
+    if (want_doc == NULL || want_doc->type == SOM_JSON_NULL) {
+      check(c, tag, result.document == NULL, "expected no document");
+    } else if (result.document == NULL) {
+      check(c, tag, 0, "expected a document, got none");
+    } else {
+      char *got = doc_canonical(result.document);
+      char *want = state_canonical(want_doc);
+      char *d = byte_diff(tag, got, want);
+      check(c, tag, strcmp(got, want) == 0, d);
+      free(d);
+      if (i == 0) {
+        /* The first case's fragments were cut from `whole`: assembled, they
+         * are the whole again. */
+        char *whole = state_canonical(som_json_get(table, "whole"));
+        snprintf(tag, sizeof(tag), "%s.whole", label);
+        check(c, tag, strcmp(got, whole) == 0, "differs from `whole`");
+        free(whole);
+      }
+      free(got);
+      free(want);
+    }
+
+    const SomJson *want_ov = som_json_get(expect, "overlaps");
+    size_t wn = som_json_array_len(want_ov);
+    snprintf(tag, sizeof(tag), "%s.overlaps", label);
+    char detail[128];
+    snprintf(detail, sizeof(detail), "got %zu want %zu", result.overlaps_len, wn);
+    check(c, tag, result.overlaps_len == wn, detail);
+    for (size_t k = 0; k < wn && k < result.overlaps_len; k++) {
+      const SomJson *w = som_json_array_at(want_ov, k);
+      const SpecAssemblyOverlap *o = &result.overlaps[k];
+      snprintf(tag, sizeof(tag), "%s.overlaps[%zu].store", label, k);
+      check_opt_str(c, tag, o->store, w, "store");
+      snprintf(tag, sizeof(tag), "%s.overlaps[%zu].path", label, k);
+      check_opt_str(c, tag, o->path, w, "path");
+      snprintf(tag, sizeof(tag), "%s.overlaps[%zu].field", label, k);
+      check_opt_str(c, tag, o->field, w, "field");
+      SomStrList want_frags;
+      json_str_list(som_json_get(w, "fragments"), &want_frags);
+      snprintf(tag, sizeof(tag), "%s.overlaps[%zu].fragments", label, k);
+      char *gj = som_strlist_join(&o->fragments, ",");
+      check(c, tag, strlist_eq(&o->fragments, &want_frags), gj);
+      free(gj);
+      som_strlist_free(&want_frags);
+      char *msg = spec_assembly_overlap_message(o);
+      snprintf(tag, sizeof(tag), "%s.overlaps[%zu].message", label, k);
+      check_opt_str(c, tag, msg, w, "message");
+      free(msg);
+    }
+
+    spec_document_assembly_free(&result);
+    for (size_t f = 0; f < fn; f++) {
+      spec_document_free(&docs[f]);
+    }
+    free(docs);
+    free(fragments);
+  }
+  som_json_free(table);
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -3624,6 +3744,7 @@ int main(int argc, char **argv) {
   test_cursor(&c, model);
   test_node_creation_cases(&c, model);
   test_node_creation_script(&c, model);
+  test_assembly(&c);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

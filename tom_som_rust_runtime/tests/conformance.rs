@@ -183,6 +183,7 @@ fn conformance() {
     test_markdown_memory_landing(&mut c, &model);
     test_markdown_import_rejections(&mut c, &model);
     test_markdown_apply(&mut c, &model);
+    test_assembly(&mut c);
     test_yaml_review(&mut c, &model, &tree);
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
@@ -530,6 +531,76 @@ fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
 /// one, keeps every other root, and refuses a result with rejections unless the
 /// caller allows them. Each case runs exactly like the Dart reference's
 /// `_runMarkdownApplyCase` and is compared field by field with its `expect`.
+/// `assembly_cases.json`: [`SpecDocument::assemble`] over ordered fragments,
+/// each loaded with `load_json` into a fresh document — the Dart reference's
+/// `_runAssemblyCase`. The document split in two must assemble back into
+/// `whole`; the other cases pin the refusing rule per store.
+fn test_assembly(c: &mut Checker) {
+    let table = read_json("assembly_cases.json");
+    let canonical = |v: Option<&Json>| match v {
+        None | Some(Json::Null) => "null".to_string(),
+        Some(v) => DocumentJson::from_json(v).to_canonical_json(),
+    };
+    for (index, kase) in cases(&table, "cases").iter().enumerate() {
+        let tag = format!("assembly[{}]", kase.str_or("name"));
+        let mut names = Vec::new();
+        let mut docs = Vec::new();
+        for pair in kase.get("fragments").and_then(|v| v.as_array()).unwrap_or(&[]) {
+            let pair = pair.as_array().unwrap_or(&[]);
+            names.push(pair.first().and_then(|v| v.as_str()).unwrap_or("").to_string());
+            docs.push(doc_from_state(&DocumentJson::from_json(
+                pair.get(1).unwrap_or(&Json::Null),
+            )));
+        }
+        let fragments: Vec<(&str, &SpecDocument)> =
+            names.iter().map(|n| n.as_str()).zip(docs.iter()).collect();
+        let result = SpecDocument::assemble(&fragments);
+        let expect = kase.get("expect").unwrap_or(&Json::Null);
+
+        let want_ok = expect.get("ok").and_then(|v| v.as_bool());
+        c.check(
+            &format!("{}.ok", tag),
+            want_ok == Some(result.ok()),
+            &format!("got {} want {:?}", result.ok(), want_ok),
+        );
+        let got = match &result.document {
+            None => "null".to_string(),
+            Some(d) => d.to_json().to_canonical_json(),
+        };
+        let want = canonical(expect.get("document"));
+        c.check(
+            &format!("{}.document", tag),
+            got == want,
+            &format!("got {} want {}", got, want),
+        );
+        let got_overlaps = Json::Array(
+            result
+                .overlaps
+                .iter()
+                .map(|o| {
+                    obj(vec![
+                        ("store", jstr(&o.store)),
+                        ("path", jstr(&o.path)),
+                        ("field", jopt(&o.field)),
+                        ("fragments", jstrs(&o.fragments)),
+                        ("message", jstr(&o.message())),
+                    ])
+                })
+                .collect(),
+        );
+        let want_overlaps = expect.get("overlaps").unwrap_or(&Json::Null);
+        c.check(
+            &format!("{}.overlaps", tag),
+            json_eq(&got_overlaps, want_overlaps),
+            &format!("got {:?} want {:?}", got_overlaps, want_overlaps),
+        );
+        if index == 0 {
+            let whole = canonical(table.get("whole"));
+            c.check("assembly.whole", got == whole, &format!("got {} want {}", got, whole));
+        }
+    }
+}
+
 fn test_markdown_apply(c: &mut Checker, model: &SpecModel) {
     let table = read_json("markdown_apply_cases.json");
     for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {

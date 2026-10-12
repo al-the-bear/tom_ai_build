@@ -53,6 +53,14 @@ export type { SpecNodeKindValue } from './spec_reflection';
 export { SpecDocument } from './spec_document';
 export type { DocumentJson, ListJson } from './spec_document';
 
+// assembling one document from fragments
+export {
+  SpecAssemblyOverlap,
+  SpecDocumentAssembly,
+  assembleSpecDocuments,
+} from './spec_document_assembly';
+export type { SpecDocumentFragments } from './spec_document_assembly';
+
 // section-id derivation (AA1 criteria 3–6)
 export {
   K_SECTION_ID_SLOT,

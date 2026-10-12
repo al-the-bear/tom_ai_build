@@ -62,6 +62,7 @@ void main() {
   final projectionCases = _projectionCases(model, doc);
   final codeSpecsExtractCases = _codeSpecsExtractCases(model, doc);
   final codeSpecsRecordCases = _codeSpecsRecordCases(codeSpecsExtractCases);
+  final assemblyCases = _assemblyCases(state);
   final codeSpecsGateCases = _codeSpecsGateCases(
     meta,
     state,
@@ -116,6 +117,7 @@ void main() {
       '${enc.convert(codeSpecsRecordCases)}\n',
     );
     write('codespecs_gate_cases.json', '${enc.convert(codeSpecsGateCases)}\n');
+    write('assembly_cases.json', '${enc.convert(assemblyCases)}\n');
     write('cursor_cases.json', '${enc.convert(cursorScript)}\n');
     write('node_creation_cases.json', '${enc.convert(nodeCreationCases)}\n');
     write('node_creation_script.json', '${enc.convert(nodeCreationScript)}\n');
@@ -1009,6 +1011,17 @@ void main() {
         },
     ];
     expect(got, jsonDecode(read('projection_cases.json')));
+  });
+
+  group('assembly_cases.json (assembling a document from fragments)', () {
+    final table = update
+        ? assemblyCases
+        : jsonDecode(read('assembly_cases.json')) as Map<String, dynamic>;
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('assembly: ${c['name']}', () {
+        expect(jsonDecode(jsonEncode(_runAssemblyCase(c))), c['expect']);
+      });
+    }
   });
 
   group('codespecs_gate_cases.json (the Stage-A gate, A1–A5)', () {
@@ -6162,6 +6175,139 @@ Map<String, dynamic> _runGateCase(
             for (final f in r.findings)
               {'code': f.code, 'location': f.location, 'message': f.message},
           ],
+        },
+    ],
+  };
+}
+
+/// Assembling one document from fragments (`spec_document_assembly.dart`).
+///
+/// The fragments are cut from the shared state, so the first case pins the
+/// property that matters: a document split into parts and assembled again is
+/// the document. The rest pin the refusing rule per store, and that two
+/// fragments may fill different fields of one form.
+Map<String, dynamic> _assemblyCases(Map<String, dynamic> state) {
+  Map<String, dynamic> copy() =>
+      jsonDecode(jsonEncode(state)) as Map<String, dynamic>;
+
+  /// The part of [state] whose paths start with one of [prefixes] (or does
+  /// not, when [invert]), store by store; form fields follow their form.
+  Map<String, dynamic> cut(List<String> prefixes, {bool invert = false}) {
+    bool keep(String path) =>
+        prefixes.any(
+          (p) => path == p || path.startsWith('$p/') || path.startsWith('$p-'),
+        ) !=
+        invert;
+    final out = <String, dynamic>{};
+    for (final MapEntry(key: store, value: entries) in copy().entries) {
+      final kept = {
+        for (final MapEntry(key: path, value: v)
+            in (entries as Map).cast<String, dynamic>().entries)
+          if (keep(path)) path: v,
+      };
+      if (kept.isNotEmpty) out[store] = kept;
+    }
+    return out;
+  }
+
+  final first = ['DEMO/items', 'DEMO/CARD-LST', 'DEMO/notes'];
+  final fragmentA = cut(first);
+  final fragmentB = cut(first, invert: true);
+
+  Map<String, dynamic> formOnly(String path, List<String> fields) => {
+    'forms': {
+      path: {
+        for (final f in fields) f: ((state['forms'] as Map)[path] as Map)[f],
+      },
+    },
+  };
+
+  final cases = <Map<String, dynamic>>[
+    {
+      'name': 'a document split in two assembles back into itself',
+      'fragments': [
+        ['A', fragmentA],
+        ['B', fragmentB],
+      ],
+    },
+    {
+      'name': 'two fragments may fill different fields of one form',
+      'fragments': [
+        [
+          'owner',
+          formOnly('DEMO/DET', ['owner', 'priority']),
+        ],
+        [
+          'contact',
+          formOnly('DEMO/DET', ['contact']),
+        ],
+      ],
+    },
+    {
+      'name': 'a content path two fragments write is refused',
+      'fragments': [
+        ['A', fragmentA],
+        ['B', fragmentB],
+        [
+          'C',
+          {
+            'content': {'DEMO/TTL': 'Another title'},
+          },
+        ],
+      ],
+    },
+    {
+      'name': 'a form field two fragments write is refused, naming the field',
+      'fragments': [
+        [
+          'first',
+          formOnly('DEMO/DET', ['owner']),
+        ],
+        [
+          'second',
+          formOnly('DEMO/DET', ['owner', 'contact']),
+        ],
+        [
+          'third',
+          formOnly('DEMO/DET', ['owner']),
+        ],
+      ],
+    },
+    {
+      'name': 'a list two fragments both hold is refused',
+      'fragments': [
+        ['A', fragmentA],
+        [
+          'B',
+          {'lists': (fragmentA['lists'] as Map)},
+        ],
+      ],
+    },
+  ];
+  for (final c in cases) {
+    c['expect'] = _runAssemblyCase(c);
+  }
+  return {'whole': state, 'cases': cases};
+}
+
+Map<String, dynamic> _runAssemblyCase(Map<String, dynamic> c) {
+  final fragments = <String, SpecDocument>{
+    for (final f in (c['fragments'] as List).cast<List>())
+      f[0] as String: SpecDocument()
+        ..loadJson((f[1] as Map).cast<String, dynamic>()),
+  };
+  final result = SpecDocument.assemble(fragments);
+  return {
+    'ok': result.ok,
+    'document': result.document?.toJson(),
+    'overlaps': [
+      for (final o in result.overlaps)
+        {
+          'store': o.store,
+          'path': o.path,
+          'field': o.field,
+          'fragments': o.fragments,
+          'message': o.message,
         },
     ],
   };

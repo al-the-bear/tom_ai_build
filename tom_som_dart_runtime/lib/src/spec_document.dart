@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'spec_document_assembly.dart';
 import 'spec_document_markdown.dart';
 import 'spec_document_yaml.dart';
 import 'spec_meta.dart';
@@ -168,6 +169,13 @@ class SpecDocument {
         : _singlePopulatedRoot(model);
     return SpecDocumentMarkdown(model, this).exportRoot(root);
   }
+
+  /// Assembles one document from [fragments] — name → document, in order —
+  /// each holding a subset of the sections (`spec_document_assembly.dart`).
+  /// Refusing: a place two fragments both write is an overlap, and an
+  /// assembly with any overlap carries no document.
+  static SpecDocumentAssembly assemble(Map<String, SpecDocument> fragments) =>
+      assembleSpecDocuments(fragments);
 
   /// Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
   /// in one call: parse, then [applyMarkdownResult].

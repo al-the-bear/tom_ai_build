@@ -20,6 +20,7 @@ pub mod spec_codespecs_extract;
 pub mod spec_codespecs_gate;
 pub mod spec_codespecs_records;
 pub mod spec_document;
+pub mod spec_document_assembly;
 pub mod spec_document_markdown;
 pub mod spec_document_yaml;
 pub mod spec_editor;
@@ -76,6 +77,9 @@ pub use spec_codespecs_records::{
     CODE_SPECS_GATE_RECORD_FORMAT,
 };
 pub use spec_document::{DocumentJson, ListJson, SpecDocument};
+pub use spec_document_assembly::{
+    assemble_spec_documents, SpecAssemblyOverlap, SpecDocumentAssembly,
+};
 pub use spec_document_markdown::{
     spec_markdown_form_label, spec_markdown_item_title_stem, spec_markdown_kebab_case,
     spec_markdown_title_case, MarkdownFenceTracker, SpecDocumentMarkdown, SpecMarkdownRejection,

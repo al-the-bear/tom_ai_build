@@ -75,6 +75,7 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `spec_model.c` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
 | `spec_reflection.c` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, node-kind constants). |
 | `spec_document.c` | A sparse in-memory document — values keyed by section path. |
+| `spec_document_assembly.c` | Assembling one document from fragments written in parallel (`spec_document_assemble`) — a refusing merge of the plain-data stores: any place two fragments both write is a `SpecAssemblyOverlap`, and an assembly with an overlap yields no document. |
 | `spec_typed_values.c` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided; also the tagged `SomValue` typed positions travel as. |
 | `spec_editor.c` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.c` | Validates a document's values against the model. |
@@ -215,6 +216,7 @@ make test CORPUS=/path/to/corpus
 | Type | Responsibility |
 | ---- | -------------- |
 | `SpecDocument` | The sparse, path-keyed store of a document's content, form and list values. |
+| `spec_document_assemble` | One document from ordered name/document fragments; `SpecDocumentAssembly` carries the document or every overlap. |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations. |
 | `SpecReflection` | Resolves and enumerates paths against the model without reading values. |
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated structs. |

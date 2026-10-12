@@ -638,6 +638,20 @@ against exactly what the extractor emits:
   decoder. Error messages are compared as text, so all nine runtimes say the
   same thing about the same broken record.
 
+##### …and so does assembling a document from fragments (SOM §12.9)
+
+[`corpus/assembly_cases.json`](corpus/assembly_cases.json) pins
+`SpecDocument.assemble`:
+- the shared state cut in two and assembled back into itself (`whole` is the
+  source, and the first case's expected document equals it);
+- two fragments filling different fields of one form;
+- the refusing rule, one case per store kind: a content path, a form field
+  written by three fragments (the overlap names all three, in order), and two
+  lists.
+
+The expected value is the assembled document's stores, or none, plus every
+overlap's store, path, field, fragments and message.
+
 ##### …and the Stage-A gate over them
 
 [`corpus/codespecs_gate_cases.json`](corpus/codespecs_gate_cases.json) pins

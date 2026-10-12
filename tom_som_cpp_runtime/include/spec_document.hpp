@@ -19,6 +19,7 @@
 #include <map>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "som_json.hpp"
@@ -29,6 +30,8 @@ class SpecModel;    // fwd (spec_model.hpp), used by SpecDocument::toMarkdown
 class SomMetaTree;  // fwd (spec_meta.hpp), used by SpecDocument::fromYaml
 struct SpecMarkdownResult;  // fwd (spec_document_markdown.hpp)
 struct SpecMarkdownImport;  // fwd (spec_document_markdown.hpp)
+struct SpecDocumentAssembly;  // fwd (spec_document_assembly.hpp)
+class SpecDocument;
 
 /* ---- DocumentJson — plain-data view for persistence --------------------- */
 
@@ -68,6 +71,10 @@ DocumentJson documentJsonFromJson(const JsonRef& v);
 std::string documentJsonToCanonicalJson(const DocumentJson& d);
 
 /* ---- SpecDocument — the live sparse document ---------------------------- */
+
+/* Fragments for SpecDocument::assemble: an ordered sequence of name/document
+ * pairs (spec_document_assembly.hpp). */
+using SpecAssemblyFragments = std::vector<std::pair<std::string, SpecDocument>>;
 
 class SpecDocument {
  public:
@@ -136,6 +143,11 @@ class SpecDocument {
    * normalizer, so parsed keys are written as-is. */
   void applyMarkdownResult(const SpecMarkdownResult& result,
                            bool allowRejections = false);
+
+  /* Assembles one document from `fragments` — an ordered sequence of
+   * name/document pairs — refusing any place two fragments both write. The
+   * return type is defined in spec_document_assembly.hpp; see there. */
+  static SpecDocumentAssembly assemble(const SpecAssemblyFragments& fragments);
 
   // content leaves
   std::string content(const std::string& path) const;  // "" when unset

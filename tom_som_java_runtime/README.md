@@ -73,6 +73,7 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, … | The meta-data loader — the exported class graph. |
 | `SpecReflection`, `SpecResolution`, `SpecNodeKind` | Value-free enumeration + path resolution. |
 | `SpecDocument` | A sparse in-memory document — values keyed by section path. |
+| `SpecDocumentAssembly`, `SpecAssemblyOverlap` | Assembling one document from fragments written in parallel (`SpecDocument.assemble`): a refusing merge of the plain-data stores — a content path, form field, list, headline or code-spec location two fragments both write is an overlap, and an assembly with any overlap has no document. |
 | `SpecTypedValues` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `SpecEditor` | The generic meta-model-driven modification API (YRD7) — typed edits over any path, without a generated facade. |
 | `SpecValidator` | Validates a document's values against the model. |
@@ -162,6 +163,7 @@ operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 | Type | Responsibility |
 | ---- | -------------- |
 | `SpecDocument` | The sparse, path-keyed store of a document's content, form and list values. |
+| `SpecDocumentAssembly` | One document from fragments written in parallel (`SpecDocument.assemble`) — refusing any place two fragments both write. |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations. |
 | `SpecReflection` | Resolves and enumerates paths against the model without reading values. |
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |

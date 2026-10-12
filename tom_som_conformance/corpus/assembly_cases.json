@@ -1,0 +1,605 @@
+{
+  "whole": {
+    "content": {
+      "DEMO/CNT": "3",
+      "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+      "DEMO/META/OWNR": "alice",
+      "DEMO/META/tags-1": "on",
+      "DEMO/META/tags-2": "no",
+      "DEMO/META/tags-3": "1:30",
+      "DEMO/META/tags-4": "plain",
+      "DEMO/PRI": "high",
+      "DEMO/REF-LST-1": "spec §1.2",
+      "DEMO/REF-LST-2": "ADR7",
+      "DEMO/SUM": "Line one\nLine two\n\nLine four",
+      "DEMO/TTL": "Hello",
+      "DEMO/control/CTRL-SUM": "Controlled summary",
+      "DEMO/control/owner": "ctrl-owner",
+      "DEMO/items-1/STS": "open",
+      "DEMO/items-1/label": "First",
+      "DEMO/items-2/STS": "done",
+      "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+      "DEMO/notes/NOTE-BDY": "Section-kind body",
+      "DEMO/notes/remarks": "Wrapper-section text"
+    },
+    "forms": {
+      "DEMO/CARD-LST-1/content": {
+        "note": "first card"
+      },
+      "DEMO/CARD-LST-2/content": {
+        "note": "second card"
+      },
+      "DEMO/DET": {
+        "active": "true",
+        "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+        "estimate": "8",
+        "owner": "Bob",
+        "priority": "high",
+        "weight": "2.5"
+      }
+    },
+    "lists": {
+      "DEMO/CARD-LST": {
+        "seq": 2,
+        "items": [
+          "DEMO/CARD-LST-1",
+          "DEMO/CARD-LST-2"
+        ],
+        "ids": {
+          "DEMO/CARD-LST-1": "CARD-ALPHA"
+        }
+      },
+      "DEMO/META/tags": {
+        "seq": 4,
+        "items": [
+          "DEMO/META/tags-1",
+          "DEMO/META/tags-2",
+          "DEMO/META/tags-3",
+          "DEMO/META/tags-4"
+        ]
+      },
+      "DEMO/REF-LST": {
+        "seq": 2,
+        "items": [
+          "DEMO/REF-LST-1",
+          "DEMO/REF-LST-2"
+        ],
+        "ids": {
+          "DEMO/REF-LST-1": "REF-SPEC"
+        }
+      },
+      "DEMO/items": {
+        "seq": 2,
+        "items": [
+          "DEMO/items-1",
+          "DEMO/items-2"
+        ]
+      }
+    },
+    "headlines": {
+      "DEMO/CARD-LST-1": "Alpha Card",
+      "DEMO/DET": "Details & Contacts",
+      "DEMO/REF-LST-1": "Reference to the Spec",
+      "DEMO/SUM": "Executive Summary",
+      "DEMO/items": "Work Items"
+    }
+  },
+  "cases": [
+    {
+      "name": "a document split in two assembles back into itself",
+      "fragments": [
+        [
+          "A",
+          {
+            "content": {
+              "DEMO/items-1/STS": "open",
+              "DEMO/items-1/label": "First",
+              "DEMO/items-2/STS": "done",
+              "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+              "DEMO/notes/NOTE-BDY": "Section-kind body",
+              "DEMO/notes/remarks": "Wrapper-section text"
+            },
+            "forms": {
+              "DEMO/CARD-LST-1/content": {
+                "note": "first card"
+              },
+              "DEMO/CARD-LST-2/content": {
+                "note": "second card"
+              }
+            },
+            "lists": {
+              "DEMO/CARD-LST": {
+                "seq": 2,
+                "items": [
+                  "DEMO/CARD-LST-1",
+                  "DEMO/CARD-LST-2"
+                ],
+                "ids": {
+                  "DEMO/CARD-LST-1": "CARD-ALPHA"
+                }
+              },
+              "DEMO/items": {
+                "seq": 2,
+                "items": [
+                  "DEMO/items-1",
+                  "DEMO/items-2"
+                ]
+              }
+            },
+            "headlines": {
+              "DEMO/CARD-LST-1": "Alpha Card",
+              "DEMO/items": "Work Items"
+            }
+          }
+        ],
+        [
+          "B",
+          {
+            "content": {
+              "DEMO/CNT": "3",
+              "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+              "DEMO/META/OWNR": "alice",
+              "DEMO/META/tags-1": "on",
+              "DEMO/META/tags-2": "no",
+              "DEMO/META/tags-3": "1:30",
+              "DEMO/META/tags-4": "plain",
+              "DEMO/PRI": "high",
+              "DEMO/REF-LST-1": "spec §1.2",
+              "DEMO/REF-LST-2": "ADR7",
+              "DEMO/SUM": "Line one\nLine two\n\nLine four",
+              "DEMO/TTL": "Hello",
+              "DEMO/control/CTRL-SUM": "Controlled summary",
+              "DEMO/control/owner": "ctrl-owner"
+            },
+            "forms": {
+              "DEMO/DET": {
+                "active": "true",
+                "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+                "estimate": "8",
+                "owner": "Bob",
+                "priority": "high",
+                "weight": "2.5"
+              }
+            },
+            "lists": {
+              "DEMO/META/tags": {
+                "seq": 4,
+                "items": [
+                  "DEMO/META/tags-1",
+                  "DEMO/META/tags-2",
+                  "DEMO/META/tags-3",
+                  "DEMO/META/tags-4"
+                ]
+              },
+              "DEMO/REF-LST": {
+                "seq": 2,
+                "items": [
+                  "DEMO/REF-LST-1",
+                  "DEMO/REF-LST-2"
+                ],
+                "ids": {
+                  "DEMO/REF-LST-1": "REF-SPEC"
+                }
+              }
+            },
+            "headlines": {
+              "DEMO/DET": "Details & Contacts",
+              "DEMO/REF-LST-1": "Reference to the Spec",
+              "DEMO/SUM": "Executive Summary"
+            }
+          }
+        ]
+      ],
+      "expect": {
+        "ok": true,
+        "document": {
+          "content": {
+            "DEMO/CNT": "3",
+            "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+            "DEMO/META/OWNR": "alice",
+            "DEMO/META/tags-1": "on",
+            "DEMO/META/tags-2": "no",
+            "DEMO/META/tags-3": "1:30",
+            "DEMO/META/tags-4": "plain",
+            "DEMO/PRI": "high",
+            "DEMO/REF-LST-1": "spec §1.2",
+            "DEMO/REF-LST-2": "ADR7",
+            "DEMO/SUM": "Line one\nLine two\n\nLine four",
+            "DEMO/TTL": "Hello",
+            "DEMO/control/CTRL-SUM": "Controlled summary",
+            "DEMO/control/owner": "ctrl-owner",
+            "DEMO/items-1/STS": "open",
+            "DEMO/items-1/label": "First",
+            "DEMO/items-2/STS": "done",
+            "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+            "DEMO/notes/NOTE-BDY": "Section-kind body",
+            "DEMO/notes/remarks": "Wrapper-section text"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "second card"
+            },
+            "DEMO/DET": {
+              "active": "true",
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "estimate": "8",
+              "owner": "Bob",
+              "priority": "high",
+              "weight": "2.5"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA"
+              }
+            },
+            "DEMO/META/tags": {
+              "seq": 4,
+              "items": [
+                "DEMO/META/tags-1",
+                "DEMO/META/tags-2",
+                "DEMO/META/tags-3",
+                "DEMO/META/tags-4"
+              ]
+            },
+            "DEMO/REF-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/REF-LST-1",
+                "DEMO/REF-LST-2"
+              ],
+              "ids": {
+                "DEMO/REF-LST-1": "REF-SPEC"
+              }
+            },
+            "DEMO/items": {
+              "seq": 2,
+              "items": [
+                "DEMO/items-1",
+                "DEMO/items-2"
+              ]
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/DET": "Details & Contacts",
+            "DEMO/REF-LST-1": "Reference to the Spec",
+            "DEMO/SUM": "Executive Summary",
+            "DEMO/items": "Work Items"
+          }
+        },
+        "overlaps": []
+      }
+    },
+    {
+      "name": "two fragments may fill different fields of one form",
+      "fragments": [
+        [
+          "owner",
+          {
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob",
+                "priority": "high"
+              }
+            }
+          }
+        ],
+        [
+          "contact",
+          {
+            "forms": {
+              "DEMO/DET": {
+                "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com"
+              }
+            }
+          }
+        ]
+      ],
+      "expect": {
+        "ok": true,
+        "document": {
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+              "owner": "Bob",
+              "priority": "high"
+            }
+          }
+        },
+        "overlaps": []
+      }
+    },
+    {
+      "name": "a content path two fragments write is refused",
+      "fragments": [
+        [
+          "A",
+          {
+            "content": {
+              "DEMO/items-1/STS": "open",
+              "DEMO/items-1/label": "First",
+              "DEMO/items-2/STS": "done",
+              "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+              "DEMO/notes/NOTE-BDY": "Section-kind body",
+              "DEMO/notes/remarks": "Wrapper-section text"
+            },
+            "forms": {
+              "DEMO/CARD-LST-1/content": {
+                "note": "first card"
+              },
+              "DEMO/CARD-LST-2/content": {
+                "note": "second card"
+              }
+            },
+            "lists": {
+              "DEMO/CARD-LST": {
+                "seq": 2,
+                "items": [
+                  "DEMO/CARD-LST-1",
+                  "DEMO/CARD-LST-2"
+                ],
+                "ids": {
+                  "DEMO/CARD-LST-1": "CARD-ALPHA"
+                }
+              },
+              "DEMO/items": {
+                "seq": 2,
+                "items": [
+                  "DEMO/items-1",
+                  "DEMO/items-2"
+                ]
+              }
+            },
+            "headlines": {
+              "DEMO/CARD-LST-1": "Alpha Card",
+              "DEMO/items": "Work Items"
+            }
+          }
+        ],
+        [
+          "B",
+          {
+            "content": {
+              "DEMO/CNT": "3",
+              "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
+              "DEMO/META/OWNR": "alice",
+              "DEMO/META/tags-1": "on",
+              "DEMO/META/tags-2": "no",
+              "DEMO/META/tags-3": "1:30",
+              "DEMO/META/tags-4": "plain",
+              "DEMO/PRI": "high",
+              "DEMO/REF-LST-1": "spec §1.2",
+              "DEMO/REF-LST-2": "ADR7",
+              "DEMO/SUM": "Line one\nLine two\n\nLine four",
+              "DEMO/TTL": "Hello",
+              "DEMO/control/CTRL-SUM": "Controlled summary",
+              "DEMO/control/owner": "ctrl-owner"
+            },
+            "forms": {
+              "DEMO/DET": {
+                "active": "true",
+                "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
+                "estimate": "8",
+                "owner": "Bob",
+                "priority": "high",
+                "weight": "2.5"
+              }
+            },
+            "lists": {
+              "DEMO/META/tags": {
+                "seq": 4,
+                "items": [
+                  "DEMO/META/tags-1",
+                  "DEMO/META/tags-2",
+                  "DEMO/META/tags-3",
+                  "DEMO/META/tags-4"
+                ]
+              },
+              "DEMO/REF-LST": {
+                "seq": 2,
+                "items": [
+                  "DEMO/REF-LST-1",
+                  "DEMO/REF-LST-2"
+                ],
+                "ids": {
+                  "DEMO/REF-LST-1": "REF-SPEC"
+                }
+              }
+            },
+            "headlines": {
+              "DEMO/DET": "Details & Contacts",
+              "DEMO/REF-LST-1": "Reference to the Spec",
+              "DEMO/SUM": "Executive Summary"
+            }
+          }
+        ],
+        [
+          "C",
+          {
+            "content": {
+              "DEMO/TTL": "Another title"
+            }
+          }
+        ]
+      ],
+      "expect": {
+        "ok": false,
+        "document": null,
+        "overlaps": [
+          {
+            "store": "content",
+            "path": "DEMO/TTL",
+            "field": null,
+            "fragments": [
+              "B",
+              "C"
+            ],
+            "message": "DEMO/TTL (content) is written by B and C — a place two fragments both write is an authoring conflict, not something the assembly may resolve"
+          }
+        ]
+      }
+    },
+    {
+      "name": "a form field two fragments write is refused, naming the field",
+      "fragments": [
+        [
+          "first",
+          {
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob"
+              }
+            }
+          }
+        ],
+        [
+          "second",
+          {
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob",
+                "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com"
+              }
+            }
+          }
+        ],
+        [
+          "third",
+          {
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob"
+              }
+            }
+          }
+        ]
+      ],
+      "expect": {
+        "ok": false,
+        "document": null,
+        "overlaps": [
+          {
+            "store": "forms",
+            "path": "DEMO/DET",
+            "field": "owner",
+            "fragments": [
+              "first",
+              "second",
+              "third"
+            ],
+            "message": "DEMO/DET field `owner` (forms) is written by first and second and third — a place two fragments both write is an authoring conflict, not something the assembly may resolve"
+          }
+        ]
+      }
+    },
+    {
+      "name": "a list two fragments both hold is refused",
+      "fragments": [
+        [
+          "A",
+          {
+            "content": {
+              "DEMO/items-1/STS": "open",
+              "DEMO/items-1/label": "First",
+              "DEMO/items-2/STS": "done",
+              "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+              "DEMO/notes/NOTE-BDY": "Section-kind body",
+              "DEMO/notes/remarks": "Wrapper-section text"
+            },
+            "forms": {
+              "DEMO/CARD-LST-1/content": {
+                "note": "first card"
+              },
+              "DEMO/CARD-LST-2/content": {
+                "note": "second card"
+              }
+            },
+            "lists": {
+              "DEMO/CARD-LST": {
+                "seq": 2,
+                "items": [
+                  "DEMO/CARD-LST-1",
+                  "DEMO/CARD-LST-2"
+                ],
+                "ids": {
+                  "DEMO/CARD-LST-1": "CARD-ALPHA"
+                }
+              },
+              "DEMO/items": {
+                "seq": 2,
+                "items": [
+                  "DEMO/items-1",
+                  "DEMO/items-2"
+                ]
+              }
+            },
+            "headlines": {
+              "DEMO/CARD-LST-1": "Alpha Card",
+              "DEMO/items": "Work Items"
+            }
+          }
+        ],
+        [
+          "B",
+          {
+            "lists": {
+              "DEMO/CARD-LST": {
+                "seq": 2,
+                "items": [
+                  "DEMO/CARD-LST-1",
+                  "DEMO/CARD-LST-2"
+                ],
+                "ids": {
+                  "DEMO/CARD-LST-1": "CARD-ALPHA"
+                }
+              },
+              "DEMO/items": {
+                "seq": 2,
+                "items": [
+                  "DEMO/items-1",
+                  "DEMO/items-2"
+                ]
+              }
+            }
+          }
+        ]
+      ],
+      "expect": {
+        "ok": false,
+        "document": null,
+        "overlaps": [
+          {
+            "store": "lists",
+            "path": "DEMO/CARD-LST",
+            "field": null,
+            "fragments": [
+              "A",
+              "B"
+            ],
+            "message": "DEMO/CARD-LST (lists) is written by A and B — a place two fragments both write is an authoring conflict, not something the assembly may resolve"
+          },
+          {
+            "store": "lists",
+            "path": "DEMO/items",
+            "field": null,
+            "fragments": [
+              "A",
+              "B"
+            ],
+            "message": "DEMO/items (lists) is written by A and B — a place two fragments both write is an authoring conflict, not something the assembly may resolve"
+          }
+        ]
+      }
+    }
+  ]
+}

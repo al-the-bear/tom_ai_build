@@ -1554,6 +1554,29 @@ An undeclared *stored form field* is refused here too, and md refuses it on the
 same grounds (§11.4 rule 4) — the two codecs give the same answer, stated
 per-format in §9, "Form-field order".
 
+### 12.9 Fragments and assembly
+
+A large document may be authored in parts — one group, or one agent, per set of
+sections — each part a complete `*.docspecs.yaml` of the same root holding a
+subset of the sections. References between parts can only be judged on the
+whole, since the instance tier (§9) resolves a `refersTo` against the document
+it is given: a part validated alone reports every reference into another part
+as dangling. `SpecDocument.assemble` produces the whole, in all nine runtimes:
+
+- It merges the plain-data stores of each fragment, in the order given.
+- Form fields merge one by one, so two fragments may fill different fields of
+  one form.
+- It is **refusing**. A content path, form field, list, headline or code-spec
+  location written by two fragments is an overlap, named with every fragment
+  that writes it. An assembly with any overlap yields no document. Choosing a
+  winner would make the result depend on fragment order, and two parts writing
+  one place is a conflict for their authors.
+
+Fragments stay files; there is no partial-validation mode, and references are
+judged on the assembly only. `tom_specs_clitool`'s `validate_spec` takes several
+fragments and assembles them before the three tiers (and `--assembled-out`
+writes the result).
+
 ## 13. Schema generation (`*.docspecs-schema.yaml`)
 
 One DocSpecs schema per document root, generated from the §7 tree:

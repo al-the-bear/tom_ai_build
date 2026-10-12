@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Assembling one document from fragments written in parallel:
+  `SpecDocument.assemble(fragments)` (also `SpecDocumentAssembly.assemble`)
+  takes an ordered `List` of (name, document) `Map.Entry` pairs — or a
+  name → document `Map`, in its iteration order — and merges the fragments'
+  `toJson` stores. The merge is refusing: a content path, headline or
+  code-spec location two fragments both write, a form field two fragments both
+  fill (two fragments may fill different fields of one form), or a list two
+  fragments both hold is a `SpecAssemblyOverlap` (`store`, `path`, `field`,
+  `fragments`, `message()`), and a `SpecDocumentAssembly` with any overlap has
+  a null `document` (`ok()` is false). Overlaps are reported in store order
+  content, forms, lists, headlines, codeSpecs, then by path. A fragment name
+  given twice throws `IllegalArgumentException`. Verified against
+  `assembly_cases.json`.
 - CodeSpecs: the Stage-A gate (`codespecs_prompt.md` §4, A1–A5) as one
   `CodeSpecsGate(model, document, catalog, schema[, rootType]).run()`
   returning a `CodeSpecsGateReport` (`results` A1..A5 in order, `extracts`

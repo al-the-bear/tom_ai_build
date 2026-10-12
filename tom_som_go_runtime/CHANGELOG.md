@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Document assembly (`spec_document_assembly.go`) merges fragments written in
+  parallel into one document. `AssembleSpecDocuments(fragments)` (also
+  `SpecDocumentAssemble`, the Go spelling of `SpecDocument.assemble`) takes an
+  ordered `[]SpecAssemblyFragment` (`Name`, `Document`) and merges the
+  plain-data stores of `ToJSON()`: content, headlines and code-spec locations
+  one value per path, forms field by field, lists whole. The merge is
+  refusing — a place two fragments both write is a `SpecAssemblyOverlap`
+  (`Store`, `Path`, `Field`, `Fragments`, `Message()`) and the
+  `SpecDocumentAssembly` then carries no `Document` (`Ok()` is false).
+  Overlaps are reported in store order, then path order (UTF-16 code-unit
+  order, as the reference sorts). The `assembly_cases.json` corpus table pins
+  it.
 - CodeSpecs gate (`spec_codespecs_gate.go`) runs Stage A of
   `codespecs_prompt.md` §4 as one `NewCodeSpecsGate(model, document, catalog,
   schema, rootType).Run()`, returning a `CodeSpecsGateReport` with one

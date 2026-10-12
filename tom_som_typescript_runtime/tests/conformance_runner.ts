@@ -16,6 +16,7 @@
  *     lands the same memory as `state.json`;
  *   * reflection resolution cases;
  *   * validation cases;
+ *   * assembling one document from fragments (`assembly_cases.json`);
  *   * the imperative operations script;
  *   * the YRD7 generic editor script (typed values, enum domains, structure);
  *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule);
@@ -501,6 +502,39 @@ function testMarkdownApply(model: SpecModel): void {
     const got = _runMarkdownApplyCase(model, c);
     _check(
       `mdApply[${c.name}]`,
+      _deepEqual(got, c.expect),
+      _jsonMismatch(got, c.expect),
+    );
+  }
+}
+
+function _runAssemblyCase(c: any): any {
+  const fragments = new Map<string, SpecDocument>();
+  for (const [name, state] of c.fragments as [string, any][]) {
+    fragments.set(name, _documentFromState(state));
+  }
+  const result = SpecDocument.assemble(fragments);
+  return {
+    ok: result.ok,
+    document: result.document ? result.document.toJson() : null,
+    overlaps: result.overlaps.map((o) => ({
+      store: o.store,
+      path: o.path,
+      field: o.field,
+      fragments: o.fragments.slice(),
+      message: o.message,
+    })),
+  };
+}
+
+// Assembling one document from fragments: disjoint fragments merge (forms
+// field by field), and any place two fragments both write is refused with
+// every overlap reported in store order, then path order.
+function testAssembly(): void {
+  for (const c of _readJson('assembly_cases.json').cases) {
+    const got = _runAssemblyCase(c);
+    _check(
+      `assembly[${c.name}]`,
       _deepEqual(got, c.expect),
       _jsonMismatch(got, c.expect),
     );
@@ -1954,6 +1988,7 @@ export function main(): number {
   testMarkdownMemoryLanding(model);
   testMarkdownImportRejections(model);
   testMarkdownApply(model);
+  testAssembly();
   testOneLineExport(model);
   testReflection(model);
   testValidation(model);

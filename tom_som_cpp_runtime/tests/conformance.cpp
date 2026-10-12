@@ -25,7 +25,8 @@
  *     extracts and their YAML/Markdown goldens, ROUTE-TOTAL refusals);
  *   - reading extracts and the Stage-B gate record back, writing the gate
  *     record, and scoping a set of extracts by it;
- *   - llm_and_d4rt_tools.md §5 constrained node creation (checks + script).
+ *   - llm_and_d4rt_tools.md §5 constrained node creation (checks + script);
+ *   - assembling one document from ordered fragments (refusing overlaps).
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -2416,6 +2417,81 @@ static void test_node_creation_script(Checker& c, const som::SpecModel& model) {
   }
 }
 
+/* ---- assembling a document from fragments (spec_document_assembly) ------- */
+
+/* assembly_cases.json, run like the Dart reference's `_runAssemblyCase`: each
+ * fragment state is loaded into a fresh document, the ordered fragments are
+ * assembled, and `ok`, the document (as toJson) and every overlap — store,
+ * path, field, fragments and message — must match `expect`. */
+static void test_assembly(Checker& c) {
+  som::JsonPtr table = read_json("assembly_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  c.check("assembly.cases", n > 0, "no cases in assembly_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string label = "assembly[" + som::jsonStrOr(kase, "name") + "]";
+    som::SpecAssemblyFragments fragments;
+    som::JsonRef frags = som::jsonGet(kase, "fragments");
+    for (std::size_t f = 0; f < som::jsonArrayLen(frags); f++) {
+      som::JsonRef pair = som::jsonArrayAt(frags, f);
+      const std::string* name = som::jsonAsStr(som::jsonArrayAt(pair, 0));
+      fragments.emplace_back(
+          name != nullptr ? *name : "",
+          doc_from_state(som::documentJsonFromJson(som::jsonArrayAt(pair, 1))));
+    }
+    som::SpecDocumentAssembly result = som::SpecDocument::assemble(fragments);
+
+    som::JsonRef expect = som::jsonGet(kase, "expect");
+    bool wantOk = som::jsonBoolOr(expect, "ok");
+    c.check(label + ".ok", result.ok() == wantOk,
+            result.ok() ? "got true" : "got false");
+
+    som::JsonRef wantDoc = som::jsonGet(expect, "document");
+    if (wantDoc == nullptr || wantDoc->type == som::JsonType::Null) {
+      c.check(label + ".document", !result.document.has_value(),
+              "expected no document");
+    } else if (!result.document) {
+      c.check(label + ".document", false, "expected a document, got none");
+    } else {
+      std::string got = som::documentJsonToCanonicalJson(result.document->toJson());
+      std::string want =
+          som::documentJsonToCanonicalJson(som::documentJsonFromJson(wantDoc));
+      c.check(label + ".document", got == want,
+              byte_diff(label + ".document", got, want));
+      if (i == 0) {
+        // The first case's fragments were cut from `whole`: assembled, they
+        // are the whole again.
+        std::string whole = som::documentJsonToCanonicalJson(
+            som::documentJsonFromJson(som::jsonGet(table, "whole")));
+        c.check(label + ".whole", got == whole, "differs from `whole`");
+      }
+    }
+
+    som::JsonRef wantOv = som::jsonGet(expect, "overlaps");
+    std::size_t wn = som::jsonArrayLen(wantOv);
+    c.check(label + ".overlaps", result.overlaps.size() == wn,
+            "got " + std::to_string(result.overlaps.size()) + " want " +
+                std::to_string(wn));
+    for (std::size_t k = 0; k < wn && k < result.overlaps.size(); k++) {
+      som::JsonRef w = som::jsonArrayAt(wantOv, k);
+      const som::SpecAssemblyOverlap& o = result.overlaps[k];
+      const std::string tag = label + ".overlaps[" + std::to_string(k) + "]";
+      c.check(tag + ".store", o.store == som::jsonStrOr(w, "store"), o.store);
+      c.check(tag + ".path", o.path == som::jsonStrOr(w, "path"), o.path);
+      const std::string* wantField = som::jsonAsStr(som::jsonGet(w, "field"));
+      bool fieldOk = wantField == nullptr ? !o.field.has_value()
+                                          : (o.field && *o.field == *wantField);
+      c.check(tag + ".field", fieldOk, o.field ? *o.field : "<null>");
+      c.check(tag + ".fragments",
+              o.fragments == json_str_list(som::jsonGet(w, "fragments")),
+              join(o.fragments));
+      c.check(tag + ".message", o.message() == som::jsonStrOr(w, "message"),
+              o.message());
+    }
+  }
+}
+
 int main(int argc, char** argv) {
   if (argc > 1) {
     g_corpus_dir = argv[1];
@@ -2459,6 +2535,7 @@ int main(int argc, char** argv) {
   test_cursor(c, *model);
   test_node_creation_cases(c, *model);
   test_node_creation_script(c, *model);
+  test_assembly(c);
 
   return c.finish();
 }

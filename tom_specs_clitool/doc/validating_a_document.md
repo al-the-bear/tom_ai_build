@@ -16,11 +16,33 @@ dart run tom_specs_clitool:validate_spec doc.docspecs.yaml --json
 | Option | Meaning |
 |--------|---------|
 | `--root <type or section id>` | The document root. Default: detected — the key under `document:` in a YAML file (`SBP D00SolutionBlueprint`), the id of the title heading in a markdown rendition (`# <!--[SBP]--> …`). Every one of the fourteen roots is accepted. |
+| `--assembled-out <file>` | Write the assembled document as a `*.docspecs.yaml` — with one input, that document re-encoded. |
 | `--markdown-out <file>` | Also write the document's markdown rendition — the text the schema tier checks. |
 | `--json` | One JSON report on stdout instead of the text report. |
 
 Exit codes: `0` all three tiers clean, `1` at least one finding, `2` bad usage
 (no document, an unknown `--root`, a file that is not YAML).
+
+## A document in fragments
+
+A document authored in parallel is often several files — each a complete
+`*.docspecs.yaml` (or rendered `*.md`) of the **same root**, holding a subset of
+the sections. Validated alone, a fragment reports every reference into another
+fragment as `danglingReference`; those findings are not real. Give all the
+fragments at once:
+
+```bash
+dart run tom_specs_clitool:validate_spec part_a.docspecs.yaml part_b.docspecs.yaml \
+    --assembled-out whole.docspecs.yaml
+```
+
+Each fragment is decoded, then they are assembled (SOM §12.9) and the schema
+and instance tiers judge the assembly. Assembly is **refusing**: a place two
+fragments both write — a content path, a form field, a list — is a decode-tier
+`overlap` finding naming the place and every fragment that writes it, and then
+the other tiers do not run. Two fragments may fill different fields of one form.
+`--assembled-out` writes the assembled document; fragments of different roots
+are bad usage (exit 2).
 
 ## The three tiers
 

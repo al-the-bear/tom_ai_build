@@ -10,6 +10,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0_model.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0_schemas.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
@@ -158,6 +159,95 @@ void main() {
       expect(json['notRun'], isEmpty, reason: '${root.type}: $json');
       expect(_violations(json, 'decode'), isEmpty, reason: root.type);
     }
+  });
+
+  group('fragments', () {
+    // The Meridian Blueprint cut into two fragments by top-level section, each
+    // a complete *.docspecs.yaml of the same root — how a document authored in
+    // parallel groups is held on disk.
+    final tree = buildSomMetaTree(
+      somSpecModel,
+      rootType: 'D00SolutionBlueprint',
+    );
+    final whole = SpecDocument.fromFile(_meridian, tree);
+    final informationModel = 'SBP/informationAndDataModel';
+
+    String fragment(String name, bool Function(String path) keep) {
+      final json = whole.toJson();
+      final cut = <String, Object?>{};
+      for (final MapEntry(key: store, value: entries) in json.entries) {
+        final kept = {
+          for (final MapEntry(key: path, value: v)
+              in (entries as Map).cast<String, Object?>().entries)
+            if (keep(path)) path: v,
+        };
+        if (kept.isNotEmpty) cut[store] = kept;
+      }
+      final doc = SpecDocument()..loadJson(cut);
+      return _write(
+        name,
+        SpecDocumentYaml.encode(document: doc, tree: tree, modelVersion: '1.3'),
+      );
+    }
+
+    bool inModel(String path) =>
+        path == informationModel || path.startsWith('$informationModel/');
+    final model = fragment('model.docspecs.yaml', inModel);
+    final rest = fragment('rest.docspecs.yaml', (p) => !inModel(p));
+
+    test(
+      'a fragment alone reports references into the other as dangling',
+      () async {
+        final json = await _json([rest], exit: 1);
+        expect(
+          _violations(json, 'instance').map((v) => v['code']),
+          contains('danglingReference'),
+        );
+      },
+    );
+
+    test('the fragments together are the document: clean, and the assembly '
+        'decodes back to it', () async {
+      final assembled = p.join(_tmp.path, 'assembled.docspecs.yaml');
+      final json = await _json([
+        model,
+        rest,
+        '--assembled-out',
+        assembled,
+      ], exit: 0);
+      expect(json['passed'], isTrue);
+      expect((json['inputs'] as Map)['documents'], [model, rest]);
+      expect(SpecDocument.fromFile(assembled, tree).toJson(), whole.toJson());
+    });
+
+    test('fragments that both write one place are refused, naming the '
+        'place and both fragments', () async {
+      final copy = _write(
+        'model_again.docspecs.yaml',
+        File(model).readAsStringSync(),
+      );
+      final json = await _json([model, rest, copy], exit: 1);
+      final overlaps = _violations(json, 'decode');
+      expect(overlaps, isNotEmpty);
+      expect(overlaps.first['code'], 'overlap');
+      expect(overlaps.first['message'], contains(model));
+      expect(overlaps.first['message'], contains(copy));
+      expect(
+        [for (final n in json['notRun'] as List) (n as Map)['tier']],
+        ['schema', 'instance'],
+      );
+    });
+
+    test('fragments of two different roots are bad usage', () async {
+      final other = _write(
+        'other_root.docspecs.yaml',
+        'version: 2\ndocument:\n  CLA D01CurrentLandscapeAssessment:\n'
+            '    content: "x"\n',
+      );
+      final (code, _, err) = await _run([model, other]);
+      expect(code, 2);
+      expect(err, contains('share its root'));
+    });
   });
 
   group('usage', () {

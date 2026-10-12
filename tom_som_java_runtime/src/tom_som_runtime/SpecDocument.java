@@ -162,6 +162,23 @@ public final class SpecDocument {
   }
 
   /**
+   * Assembles one document from fragments — (name, document) pairs, in order —
+   * written in parallel. The merge is refusing: a content path, form field,
+   * list, headline or code-spec location two fragments both write is a
+   * {@link SpecAssemblyOverlap}, and an assembly with any overlap has no
+   * document. See {@link SpecDocumentAssembly}.
+   */
+  public static SpecDocumentAssembly assemble(
+      List<? extends Map.Entry<String, SpecDocument>> fragments) {
+    return SpecDocumentAssembly.assemble(fragments);
+  }
+
+  /** {@link #assemble(List)} over a name → document map, in its iteration order. */
+  public static SpecDocumentAssembly assemble(Map<String, SpecDocument> fragments) {
+    return SpecDocumentAssembly.assemble(fragments);
+  }
+
+  /**
    * Applies a parsed Markdown import, refusing a result with rejections — the
    * {@code allowRejections = false} form of
    * {@link #applyMarkdownResult(SpecMarkdownResult, boolean)}.

@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Document assembly: a new module `spec_document_assembly` merges fragments
+  written in parallel into one document. `SpecDocument.assemble(fragments)`
+  (also `assemble_spec_documents`) takes an ordered sequence of
+  `(name, SpecDocument)` pairs (or a mapping) and merges the plain-data stores
+  of `to_json()`: content, headlines and code-spec locations one value per
+  path, forms field by field, lists whole. The merge is refusing — a place two
+  fragments both write is a `SpecAssemblyOverlap` (`store`, `path`, `field`,
+  `fragments`, `message`) and the `SpecDocumentAssembly` then carries no
+  `document` (`ok` is false). Overlaps are reported in store order, then path
+  order. The `assembly_cases.json` corpus table pins it.
 - CodeSpecs gate: a new module `spec_codespecs_gate` runs Stage A of
   `codespecs_prompt.md` §4 as one `CodeSpecsGate(model, document, catalog,
   schema=None, root_type=None).run()`, returning a `CodeSpecsGateReport` with

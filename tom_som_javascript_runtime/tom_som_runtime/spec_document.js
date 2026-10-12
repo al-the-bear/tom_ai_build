@@ -97,6 +97,23 @@ class SpecDocument {
     return SpecDocument.fromYaml(require('fs').readFileSync(path, 'utf8'), tree);
   }
 
+  // --- assembly -----------------------------------------------------------
+
+  /**
+   * Assembles one document from `fragments` — name → document, in order (a
+   * `Map` or an iterable of `[name, document]` pairs) — each holding a subset
+   * of the sections (`spec_document_assembly.js`). Refusing: a place two
+   * fragments both write is an overlap, and an assembly with any overlap
+   * carries no document.
+   *
+   * @param {Iterable<[string, SpecDocument]>} fragments
+   * @returns {import('./spec_document_assembly').SpecDocumentAssembly}
+   */
+  static assemble(fragments) {
+    const { assembleSpecDocuments } = require('./spec_document_assembly');
+    return assembleSpecDocuments(fragments);
+  }
+
   // --- markdown export ----------------------------------------------------
 
   /**

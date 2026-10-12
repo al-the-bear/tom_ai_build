@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- `SpecDocument.assemble(fragments)` (`spec_document_assembly.dart`) builds one
+  document from fragments of the same root, merging their stores field by
+  field and refusing any place two fragments both write
+  (`SpecAssemblyOverlap`). Pinned by `assembly_cases.json` in all nine
+  runtimes (SOM §12.9).
+
 - `CodeSpecsGate` runs Stage A of `codespecs_prompt.md` §4 — A1 to A5 — as one
   gate over (model, document, catalogue, schema), reporting each check's
   findings and never stopping at the first; a check that could not run is

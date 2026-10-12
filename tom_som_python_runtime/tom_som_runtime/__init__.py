@@ -75,6 +75,11 @@ from .spec_codespecs_records import (
     parse_code_specs_extract_yaml,
 )
 from .spec_document import SpecDocument
+from .spec_document_assembly import (
+    SpecAssemblyOverlap,
+    SpecDocumentAssembly,
+    assemble_spec_documents,
+)
 from .spec_section_id import (
     K_SECTION_ID_SLOT,
     SpecSectionIdCollision,
@@ -258,7 +263,9 @@ __all__ = [
     "SpecClass",
     "SpecCreationCode",
     "SpecCreationError",
+    "SpecAssemblyOverlap",
     "SpecDocument",
+    "SpecDocumentAssembly",
     "SpecDocumentMarkdown",
     "SpecEditor",
     "SpecField",
@@ -288,6 +295,7 @@ __all__ = [
     "SpecYamlContents",
     "SpecYamlFormatException",
     "bind_docspecs_markdown",
+    "assemble_spec_documents",
     "build_som_meta_tree",
     "som_meta_node_diff",
     "check_add_node",

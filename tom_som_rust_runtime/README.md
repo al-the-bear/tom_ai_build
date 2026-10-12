@@ -70,6 +70,7 @@ path routes, version pinning, and `cargo package` from source.
 | `spec_model.rs` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
 | `spec_reflection.rs` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, node-kind constants). |
 | `spec_document.rs` | A sparse in-memory document — values keyed by section path. |
+| `spec_document_assembly.rs` | Assembling one document from fragments written in parallel (`SpecDocument::assemble`, `assemble_spec_documents`): a refusing merge of the plain-data stores — a content path, form field, list, headline or code-spec location two fragments both write is a `SpecAssemblyOverlap`, and an assembly with any overlap has no document. |
 | `spec_typed_values.rs` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `spec_editor.rs` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.rs` | Validates a document's values against the model. |
@@ -196,6 +197,7 @@ reading back of extracts and the gate record (`codespecs_record_cases.json`).
 | Type | Responsibility |
 | ---- | -------------- |
 | `SpecDocument` | The sparse, path-keyed store of a document's content, form and list values. |
+| `SpecDocument::assemble` | One document from fragments written in parallel — refusing any place two fragments both write. |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations. |
 | `SpecReflection` | Resolves and enumerates paths against the model without reading values. |
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated structs. |

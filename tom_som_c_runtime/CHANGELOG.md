@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Assembling one document from fragments written in parallel
+  (`spec_document_assembly.h`). `spec_document_assemble` takes an ordered
+  array of `SpecAssemblyFragment` (borrowed `name` + `document`) and fills a
+  `SpecDocumentAssembly` — the assembled `document` (owned) or, when any place
+  is written by two or more fragments, no document and every
+  `SpecAssemblyOverlap` (`store`, `path`, `field` for forms, `fragments` in the
+  given order; `spec_assembly_overlap_message` renders the Dart reference's
+  message). Content, headlines and codeSpecs overlap per path, forms per
+  (path, field) — two fragments may fill different fields of one form — and
+  lists per list path. Overlaps come in store order content, forms, lists,
+  headlines, codeSpecs, then path order. Released with
+  `spec_document_assembly_free`. The conformance runner checks every case of
+  `assembly_cases.json` (`assembly[...]`).
+
 - CodeSpecs: the Stage-A gate (`codespecs_prompt.md` §4, A1–A5) as one
   `CodeSpecsGate` (`spec_codespecs_gate.h`). `spec_codespecs_gate_make`
   borrows a model, document, catalogue, optional DocSpecs schema and optional

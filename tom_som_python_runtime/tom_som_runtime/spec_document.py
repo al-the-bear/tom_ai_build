@@ -35,6 +35,7 @@ from typing import TYPE_CHECKING, Any, Iterable, Optional
 from .spec_section_id import SpecSectionIdCollision
 
 if TYPE_CHECKING:
+    from .spec_document_assembly import SpecDocumentAssembly
     from .spec_document_markdown import SpecMarkdownImport, SpecMarkdownResult
     from .spec_model import SpecModel, SpecRoot
 
@@ -108,6 +109,22 @@ class SpecDocument:
         else:
             root = self._single_populated_root(model)
         return SpecDocumentMarkdown(model, self).export_root(root)
+
+    # --- assembling from fragments ---------------------------------------
+
+    @staticmethod
+    def assemble(fragments: Any) -> "SpecDocumentAssembly":
+        """Merges *fragments* — name → document, in order (a mapping or an
+        ordered iterable of ``(name, document)`` pairs) — into one document.
+
+        Refusing: a content path, form field, list, headline or code-spec
+        location two fragments both write is an overlap, and an assembly with
+        any overlap carries no document. See
+        :func:`assemble_spec_documents`."""
+        # Lazy import: spec_document_assembly imports SpecDocument at load.
+        from .spec_document_assembly import assemble_spec_documents
+
+        return assemble_spec_documents(fragments)
 
     # --- one-call Markdown import (SOM §11.7) -----------------------------
 

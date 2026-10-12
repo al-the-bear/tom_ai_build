@@ -27,7 +27,8 @@
 //   - the constrained node-creation gate (per-code rejections + the script);
 //   - the Markdown load/apply operations (SpecDocumentFromMarkdown,
 //     ApplyMarkdownResult);
-//   - the DocSpecs section-body replacement (DocSpecsReplaceSectionBody).
+//   - the DocSpecs section-body replacement (DocSpecsReplaceSectionBody);
+//   - assembling one document from fragments (AssembleSpecDocuments).
 //
 // `go test ./tests/` is the native runner; exit 0 == all green.
 package tests
@@ -220,6 +221,7 @@ func TestConformance(t *testing.T) {
 	testSerializationOrder(c, t)
 	testDocSpecs(c, t)
 	testDocSpecsReplace(c, t)
+	testAssembly(c, t)
 	testPattern(c, t)
 	testQuery(c, t, model)
 	testProjection(c, t, model)
@@ -2176,6 +2178,90 @@ func testDocSpecsReplace(c *checker, t *testing.T) {
 		}
 		c.check(name, got == cc.Expect.Text,
 			strconv.Quote(got)+" != "+strconv.Quote(cc.Expect.Text))
+	}
+}
+
+// assemblyCase is one row of corpus/assembly_cases.json. Fragments are
+// [name, state] pairs, in order; Expect is kept as generic JSON so the
+// comparison is against the corpus verbatim.
+type assemblyCase struct {
+	Name      string              `json:"name"`
+	Fragments [][]json.RawMessage `json:"fragments"`
+	Expect    interface{}         `json:"expect"`
+}
+
+// toGenericJSON round-trips v through encoding/json into the dynamic shape the
+// corpus decodes into, so the two compare with reflect.DeepEqual.
+func toGenericJSON(t *testing.T, v interface{}) interface{} {
+	var out interface{}
+	if err := json.Unmarshal([]byte(canonJSON(t, v)), &out); err != nil {
+		t.Fatalf("unmarshal: %v", err)
+	}
+	return out
+}
+
+// runAssemblyCase is a port of the Dart harness's `_runAssemblyCase`: load
+// each fragment state into a fresh document, assemble in the given order, and
+// report what came out in the corpus's `expect` shape.
+func runAssemblyCase(t *testing.T, cc assemblyCase) interface{} {
+	var fragments []som.SpecAssemblyFragment
+	for _, f := range cc.Fragments {
+		var name string
+		var state som.DocumentJson
+		if len(f) != 2 || json.Unmarshal(f[0], &name) != nil || json.Unmarshal(f[1], &state) != nil {
+			t.Fatalf("assembly[%s]: malformed fragment", cc.Name)
+		}
+		fragments = append(fragments, som.SpecAssemblyFragment{Name: name, Document: docFromState(&state)})
+	}
+	result := som.SpecDocumentAssemble(fragments)
+	var document interface{}
+	if result.Document != nil {
+		document = toGenericJSON(t, result.Document.ToJSON())
+	}
+	overlaps := []interface{}{}
+	for _, o := range result.Overlaps {
+		var field interface{}
+		if o.Field != nil {
+			field = *o.Field
+		}
+		frags := []interface{}{}
+		for _, f := range o.Fragments {
+			frags = append(frags, f)
+		}
+		overlaps = append(overlaps, map[string]interface{}{
+			"store":     o.Store,
+			"path":      o.Path,
+			"field":     field,
+			"fragments": frags,
+			"message":   o.Message(),
+		})
+	}
+	return map[string]interface{}{
+		"ok":       result.Ok(),
+		"document": document,
+		"overlaps": overlaps,
+	}
+}
+
+// testAssembly replays assembly_cases.json: the split-and-reassemble identity
+// (the first case's document is `whole`), per-field form merging, and the
+// refusing rule per store.
+func testAssembly(c *checker, t *testing.T) {
+	var table struct {
+		Whole interface{}    `json:"whole"`
+		Cases []assemblyCase `json:"cases"`
+	}
+	readJSON(t, "assembly_cases.json", &table)
+	c.check("assembly.cases", len(table.Cases) > 0, "no cases in assembly_cases.json")
+	for i, cc := range table.Cases {
+		got := runAssemblyCase(t, cc)
+		c.check("assembly["+cc.Name+"]", reflect.DeepEqual(got, cc.Expect),
+			"got "+canonJSON(t, got)+" want "+canonJSON(t, cc.Expect))
+		if i == 0 {
+			doc := got.(map[string]interface{})["document"]
+			c.check("assembly.whole", reflect.DeepEqual(doc, table.Whole),
+				"got "+canonJSON(t, doc)+" want "+canonJSON(t, table.Whole))
+		}
 	}
 }
 

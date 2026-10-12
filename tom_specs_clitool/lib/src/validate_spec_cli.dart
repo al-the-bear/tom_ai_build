@@ -61,6 +61,10 @@ class SpecValidationFinding {
   /// The 1-based line of the file or rendition, when the tier knows one.
   final int? line;
 
+  /// The fragment a decode finding belongs to; `null` for a finding about
+  /// the (assembled) document as a whole.
+  final String? file;
+
   /// One sentence.
   final String message;
 
@@ -71,6 +75,7 @@ class SpecValidationFinding {
     required this.message,
     this.location,
     this.line,
+    this.file,
   });
 }
 
@@ -81,6 +86,12 @@ ArgParser validateSpecParser() => ArgParser()
     help:
         'The document root, as a type name (D00SolutionBlueprint) or section '
         'id (SBP). Default: detected from the document.',
+  )
+  ..addOption(
+    'assembled-out',
+    help:
+        'Write the assembled document as a *.docspecs.yaml to this file. With '
+        'one input it is that document, re-encoded.',
   )
   ..addOption(
     'markdown-out',
@@ -122,71 +133,129 @@ Future<int> runValidateSpec(
       _printUsage(parser, stdoutSink);
       return 0;
     }
-    if (results.rest.length != 1) {
+    if (results.rest.isEmpty) {
       throw const _UsageError(
-        'give exactly one document: a *.docspecs.yaml or a SOM-rendered *.md.',
+        'give at least one document: a *.docspecs.yaml or a SOM-rendered *.md. '
+        'Several are fragments of one document and are assembled first.',
         showUsage: true,
       );
     }
-    final path = results.rest.single;
-    final file = File(path);
-    if (!file.existsSync()) throw _UsageError('document not found: $path');
-    final text = file.readAsStringSync();
-    final isMarkdown = path.toLowerCase().endsWith('.md');
     final specModel = model ?? somSpecModel;
+    final paths = results.rest;
+    final texts = <String, String>{};
+    for (final path in paths) {
+      if (texts.containsKey(path)) {
+        throw _UsageError('$path is given twice');
+      }
+      final file = File(path);
+      if (!file.existsSync()) throw _UsageError('document not found: $path');
+      texts[path] = file.readAsStringSync();
+    }
 
-    final root = _resolveRoot(
-      specModel,
-      results.option('root'),
-      text,
-      isMarkdown,
-    );
+    // Every fragment must be the same root: an assembly of two documents is
+    // not a document.
+    final roots = {
+      for (final path in paths)
+        path: _resolveRoot(
+          specModel,
+          results.option('root'),
+          texts[path]!,
+          path.toLowerCase().endsWith('.md'),
+        ),
+    };
+    final root = roots[paths.first]!;
+    for (final MapEntry(key: path, value: r) in roots.entries) {
+      if (r.type != root.type) {
+        throw _UsageError(
+          '$path is a ${r.type}, but ${paths.first} is a ${root.type} — '
+          'fragments of one document share its root',
+        );
+      }
+    }
     final schemaId = specSchemaIdFor(root);
+    final tree = buildSomMetaTree(specModel, rootType: root.type);
 
     final findings = <SpecValidationFinding>[];
     final notRun = <Map<String, Object?>>[];
 
-    // Tier 1 — decode.
+    // Tier 1 — decode every fragment, then assemble them.
+    final decoded = <String, SpecDocument>{};
+    for (final path in paths) {
+      final text = texts[path]!;
+      if (path.toLowerCase().endsWith('.md')) {
+        final imported = SpecDocument.fromMarkdown(text, specModel);
+        decoded[path] = imported.document;
+        for (final r in imported.rejections) {
+          findings.add(
+            SpecValidationFinding(
+              tier: 'decode',
+              code: r.reason.name,
+              line: r.line,
+              file: path,
+              message: r.message,
+            ),
+          );
+        }
+      } else {
+        try {
+          decoded[path] = SpecDocument.fromYaml(text, tree);
+        } on SpecYamlFormatException catch (e) {
+          findings.add(
+            SpecValidationFinding(
+              tier: 'decode',
+              code: 'format',
+              file: path,
+              message: e.message,
+            ),
+          );
+        }
+      }
+    }
+
     SpecDocument? doc;
-    if (isMarkdown) {
-      final imported = SpecDocument.fromMarkdown(text, specModel);
-      doc = imported.document;
-      for (final r in imported.rejections) {
+    String? notRunReason;
+    if (decoded.length < paths.length) {
+      notRunReason = paths.length == 1
+          ? 'the document did not decode, so there is nothing to check'
+          : 'a fragment did not decode, so there is no assembled document to '
+                'check';
+    } else if (paths.length == 1) {
+      doc = decoded[paths.single];
+    } else {
+      final assembly = SpecDocument.assemble(decoded);
+      for (final o in assembly.overlaps) {
         findings.add(
           SpecValidationFinding(
             tier: 'decode',
-            code: r.reason.name,
-            line: r.line,
-            message: r.message,
+            code: 'overlap',
+            location: o.field == null ? o.path : '${o.path}/${o.field}',
+            message: o.message,
           ),
         );
       }
-    } else {
-      try {
-        doc = SpecDocument.fromYaml(
-          text,
-          buildSomMetaTree(specModel, rootType: root.type),
-        );
-      } on SpecYamlFormatException catch (e) {
-        findings.add(
-          SpecValidationFinding(
-            tier: 'decode',
-            code: 'format',
-            message: e.message,
-          ),
-        );
+      doc = assembly.document;
+      if (doc == null) {
+        notRunReason =
+            'the fragments overlap, so they do not assemble into one document';
       }
     }
 
     String? markdown;
     if (doc == null) {
       for (final tier in ['schema', 'instance']) {
-        notRun.add({
-          'tier': tier,
-          'reason': 'the document did not decode, so there is nothing to check',
-        });
+        notRun.add({'tier': tier, 'reason': notRunReason});
       }
     } else {
+      final assembledOut = results.option('assembled-out');
+      if (assembledOut != null) {
+        File(assembledOut).writeAsStringSync(
+          SpecDocumentYaml.encode(
+            document: doc,
+            tree: tree,
+            modelVersion: decoded.values.first.modelVersion,
+          ),
+        );
+      }
       markdown = doc.toMarkdown(specModel, rootType: root.type);
       final out = results.option('markdown-out');
       if (out != null) File(out).writeAsStringSync(markdown);
@@ -243,8 +312,9 @@ Future<int> runValidateSpec(
           'format': kSpecValidationFormat,
           'formatVersion': kSpecValidationFormatVersion,
           'inputs': {
-            'document': path,
+            'documents': paths,
             'root': results.option('root'),
+            'assembled-out': results.option('assembled-out'),
             'markdown-out': results.option('markdown-out'),
           },
           'root': {
@@ -270,7 +340,10 @@ Future<int> runValidateSpec(
                 'tier': f.tier,
                 'code': f.code,
                 'severity': 'error',
-                'file': path,
+                // A decode finding names its fragment; a schema or instance
+                // finding is about the (assembled) document, so it names the
+                // file only when there is a single one.
+                'file': f.file ?? (paths.length == 1 ? paths.single : null),
                 'line': f.line,
                 'location': f.location,
                 'message': f.message,
@@ -280,11 +353,13 @@ Future<int> runValidateSpec(
       );
     } else {
       stdoutSink.writeln(
-        'validate_spec $path — root ${root.type} (${root.sectionId}), '
-        'schema $schemaId',
+        'validate_spec ${paths.join(' + ')} — root ${root.type} '
+        '(${root.sectionId}), schema $schemaId'
+        '${paths.length > 1 ? ' — ${paths.length} fragments assembled' : ''}',
       );
       for (final f in findings) {
         final where = [
+          if (f.file != null && paths.length > 1) f.file!,
           if (f.line != null) 'line ${f.line}',
           if (f.location != null) f.location!,
         ].join(' ');
@@ -384,13 +459,15 @@ SpecRoot _resolveRoot(
 }
 
 void _printUsage(ArgParser parser, StringSink sink) {
-  sink.writeln('Usage: validate_spec <document> [options]');
+  sink.writeln('Usage: validate_spec <document> [<fragment> ...] [options]');
   sink.writeln();
   sink.writeln(
     'Checks one TomSpecs document — a *.docspecs.yaml or a SOM-rendered *.md — '
     'on three tiers: decode, the DocSpecs schema over its rendition, and the '
-    'instance tier. All three run every time. Exit 0 clean, 1 with findings, '
-    '2 on bad usage.',
+    'instance tier. All three run every time. Several documents are fragments '
+    'of one document: they are assembled first — a place two fragments both '
+    'write is refused — and references are judged on the assembly. Exit 0 '
+    'clean, 1 with findings, 2 on bad usage.',
   );
   sink.writeln();
   sink.writeln(parser.usage);

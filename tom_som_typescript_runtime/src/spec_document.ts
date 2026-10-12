@@ -37,6 +37,11 @@ import {
 } from './spec_document_markdown';
 import type { SpecMarkdownResult } from './spec_document_markdown';
 import type { SomMetaTree } from './spec_meta';
+import { assembleSpecDocuments } from './spec_document_assembly';
+import type {
+  SpecDocumentAssembly,
+  SpecDocumentFragments,
+} from './spec_document_assembly';
 
 /** The plain-data shape of a single list store entry. */
 export interface ListJson {
@@ -148,6 +153,17 @@ export class SpecDocument {
         `(${populated.map((r) => r.type).join(', ')}); ` +
         'pass rootType to choose one',
     );
+  }
+
+  /**
+   * Assembles one document from `fragments` — name → document, in order (a
+   * `Map` or an iterable of `[name, document]` pairs) — each holding a subset
+   * of the sections (`spec_document_assembly.ts`). Refusing: a place two
+   * fragments both write is an overlap, and an assembly with any overlap
+   * carries no document.
+   */
+  static assemble(fragments: SpecDocumentFragments): SpecDocumentAssembly {
+    return assembleSpecDocuments(fragments);
   }
 
   /**

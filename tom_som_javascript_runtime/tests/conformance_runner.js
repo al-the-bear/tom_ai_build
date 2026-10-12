@@ -18,6 +18,7 @@
  *     lands the same memory as `state.json`;
  *   * reflection resolution cases;
  *   * validation cases;
+ *   * assembling one document from fragments (`assembly_cases.json`);
  *   * the imperative operations script;
  *   * the generic editor (YRD7) script;
  *   * the SOM §9 query tier — the portable text-pattern subset, the query /
@@ -432,6 +433,38 @@ function testMarkdownApply(model) {
   for (const c of _readJson('markdown_apply_cases.json').cases) {
     const got = _runMarkdownApplyCase(model, c);
     _check(`mdApply[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+  }
+}
+
+// One `assembly_cases.json` case, run like Dart's `_runAssemblyCase`: each
+// fragment state loads into a fresh document, the fragments assemble in the
+// given order, and the result is reported as plain data.
+function _runAssemblyCase(c) {
+  const fragments = new Map();
+  for (const [name, state] of c.fragments) {
+    fragments.set(name, _documentFromState(state));
+  }
+  const result = SpecDocument.assemble(fragments);
+  return {
+    ok: result.ok,
+    document: result.document ? result.document.toJson() : null,
+    overlaps: result.overlaps.map((o) => ({
+      store: o.store,
+      path: o.path,
+      field: o.field,
+      fragments: o.fragments.slice(),
+      message: o.message,
+    })),
+  };
+}
+
+// Assembling one document from fragments: disjoint fragments merge (forms
+// field by field), and any place two fragments both write is refused with
+// every overlap reported in store order, then path order.
+function testAssembly() {
+  for (const c of _readJson('assembly_cases.json').cases) {
+    const got = _runAssemblyCase(c);
+    _check(`assembly[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
   }
 }
 
@@ -1784,6 +1817,7 @@ function main() {
   testMarkdownMemoryLanding(model);
   testMarkdownImportRejections(model);
   testMarkdownApply(model);
+  testAssembly();
   testReflection(model);
   testValidation(model);
   testEditor(model);

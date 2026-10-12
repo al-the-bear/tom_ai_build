@@ -26,7 +26,8 @@ golden byte-for-byte and matches every behavioural case:
     error cases);
   * the Phase-4 Stage-A gate (``CodeSpecsGate``, checks A1–A5);
   * constrained node creation (the stateless gate probes and a mutation
-    script).
+    script);
+  * assembling one document from fragments (``assembly_cases.json``).
 
 Run with: ``python3 tests/conformance_runner.py``. Exit code 0 == all green.
 """
@@ -857,6 +858,51 @@ def test_docspecs_replace() -> None:
         _check(f"docspecsReplace[{name}]", got == expect, f"{got!r} != {expect!r}")
 
 
+def _run_assembly_case(case: dict) -> dict:
+    """One ``assembly_cases.json`` case — a port of the Dart harness's
+    ``_runAssemblyCase``: load each fragment state into a fresh document,
+    assemble in the given order, and report what came out."""
+    fragments = [
+        (name, _document_from_state(state)) for name, state in case["fragments"]
+    ]
+    result = SpecDocument.assemble(fragments)
+    return {
+        "ok": result.ok,
+        "document": None if result.document is None else result.document.to_json(),
+        "overlaps": [
+            {
+                "store": o.store,
+                "path": o.path,
+                "field": o.field,
+                "fragments": list(o.fragments),
+                "message": o.message,
+            }
+            for o in result.overlaps
+        ],
+    }
+
+
+def test_assembly() -> None:
+    """``assembly_cases.json``: assembling a document from fragments — the
+    split-and-reassemble identity, per-field form merging, and the refusing
+    rule per store."""
+    table = _read_json("assembly_cases.json")
+    for case in table["cases"]:
+        got = _run_assembly_case(case)
+        _check(
+            f"assembly[{case['name']}]",
+            got == case["expect"],
+            _json_mismatch(got, case["expect"]),
+        )
+    # The first case's fragments were cut from `whole`; it must come back.
+    first = _run_assembly_case(table["cases"][0])
+    _check(
+        "assembly.whole",
+        first["document"] == table["whole"],
+        _json_mismatch(first["document"], table["whole"]),
+    )
+
+
 # ---------------------------------------------------------------------------
 # spec_text_pattern / spec_query / spec_node_creation (SOM §9)
 # ---------------------------------------------------------------------------
@@ -1547,6 +1593,7 @@ def main() -> int:
     test_serialization_order()
     test_docspecs()
     test_docspecs_replace()
+    test_assembly()
     test_build_document_matches_state()
     test_pattern()
     test_query(model)

@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Assembling one document from fragments written in parallel
+  (`spec_document_assembly.hpp`). `SpecDocument::assemble` (and the free
+  `assembleSpecDocuments`) takes `SpecAssemblyFragments`, an ordered
+  `std::vector` of name/document pairs, and returns a `SpecDocumentAssembly` —
+  the assembled `document` or, when any place is written by two or more
+  fragments, `std::nullopt` and every `SpecAssemblyOverlap` (`store`, `path`,
+  `field` for forms, `fragments` in the given order, `message()`). Content,
+  headlines and codeSpecs overlap per path, forms per (path, field) — two
+  fragments may fill different fields of one form — and lists per list path.
+  Overlaps come in store order content, forms, lists, headlines, codeSpecs,
+  then path order; `ok()` is true when there are none. The conformance runner
+  checks every case of `assembly_cases.json` (`assembly[...]`).
+
 - CodeSpecs: the Stage-A gate (`codespecs_prompt.md` §4, A1–A5) as one
   `CodeSpecsGate` (`spec_codespecs_gate.hpp`). It borrows a model, document,
   catalogue, optional DocSpecs schema and optional root type; `run()` returns

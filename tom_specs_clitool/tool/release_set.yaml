@@ -115,7 +115,8 @@ unpublished_drift:
     the gate record (`CodeSpecsExtract.fromYaml`, `CodeSpecsGateRecord`,
     `CodeSpecsExtractSet`, vsctsa38), pinned by `codespecs_record_cases.json`;
     and `CodeSpecsGate`, Stage A's five checks as one gate (vsctsa39), pinned
-    by `codespecs_gate_cases.json`
+    by `codespecs_gate_cases.json`; and `SpecDocument.assemble` (vsctsa42),
+    pinned by `assembly_cases.json`
     — all in all nine runtimes.
   tom_som_dart_v0: >-
     REGENERATED, unpublished until vsctsa45: the meta now carries the class-level
@@ -135,7 +136,8 @@ unpublished_drift:
     and the meta-schema note on the class-level `@Form`; the area catalogue
     gains its `steps` (vsctsa37); `codespecs_prompt.md` §6.3 names the
     gate record's `note:` and its runtime reader (vsctsa38); §4.4/§4.5 pin A4
-    and A5 and the catalogue carries their tables (vsctsa39). Goes out with
+    and A5 and the catalogue carries their tables (vsctsa39); SOM §12.9
+    documents assembly from fragments (vsctsa42). Goes out with
     vsctsa45.
   tom_specs_clitool: >-
     The model JSON export honours a class-level `@Form`, and the schema
@@ -148,7 +150,8 @@ unpublished_drift:
     catalogue transcribes the Stage-A gate tables (vsctsa39);
     validate_codespecs gains --json, --backlinks and a standalone-compile
     path (vsctsa40); validate_spec checks a project's document on three tiers,
-    and the clitool now depends on tom_som_dart_v0 (vsctsa41). Unpublished
+    and the clitool now depends on tom_som_dart_v0 (vsctsa41); it assembles
+    a document's fragments before validating them (vsctsa42). Unpublished
     until vsctsa45, which publishes the regenerated packages these produce.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`

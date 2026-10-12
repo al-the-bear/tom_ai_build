@@ -44,10 +44,12 @@ import tom_som_runtime.SomMetaTree;
 import tom_som_runtime.SomPatternError;
 import tom_som_runtime.SomTextPattern;
 import tom_som_runtime.SomVersionError;
+import tom_som_runtime.SpecAssemblyOverlap;
 import tom_som_runtime.SpecClass;
 import tom_som_runtime.SpecCreationCode;
 import tom_som_runtime.SpecCreationError;
 import tom_som_runtime.SpecDocument;
+import tom_som_runtime.SpecDocumentAssembly;
 import tom_som_runtime.SpecDocumentMarkdown;
 import tom_som_runtime.SpecDocumentYaml;
 import tom_som_runtime.SpecEditor;
@@ -781,6 +783,55 @@ public final class ConformanceRunner {
     out.put("refused", refused);
     out.put("rejectionCount", parsed.rejections.size());
     out.put("document", document.toJson());
+    return out;
+  }
+
+  /**
+   * {@code assembly_cases.json}: {@link SpecDocument#assemble} over ordered
+   * fragments, each loaded with {@link SpecDocument#loadJson} into a fresh
+   * document. The document split in two must assemble back into {@code whole};
+   * the other cases pin the refusing rule per store.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testAssemblyCases() throws IOException {
+    Map<String, Object> table = readJsonObject("assembly_cases.json");
+    List<Object> cases = (List<Object>) table.get("cases");
+    for (Object caseObj : cases) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      Map<String, Object> got = runAssemblyCase(c);
+      Object expect = c.get("expect");
+      check("assembly[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
+    }
+    Object first = ((Map<String, Object>) ((Map<String, Object>) cases.get(0)).get("expect")).get("document");
+    Object whole = table.get("whole");
+    check("assembly.whole", Objects.equals(first, whole), jsonMismatch(String.valueOf(first), String.valueOf(whole)));
+  }
+
+  /** Runs one {@code assembly_cases.json} case, in the shape of its {@code expect}. */
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> runAssemblyCase(Map<String, Object> c) {
+    List<Map.Entry<String, SpecDocument>> fragments = new ArrayList<>();
+    for (Object f : (List<Object>) c.get("fragments")) {
+      List<Object> pair = (List<Object>) f;
+      SpecDocument doc = new SpecDocument();
+      doc.loadJson((Map<String, Object>) pair.get(1));
+      fragments.add(Map.entry((String) pair.get(0), doc));
+    }
+    SpecDocumentAssembly result = SpecDocument.assemble(fragments);
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("ok", result.ok());
+    out.put("document", result.document == null ? null : result.document.toJson());
+    List<Object> overlaps = new ArrayList<>();
+    for (SpecAssemblyOverlap o : result.overlaps) {
+      Map<String, Object> entry = new LinkedHashMap<>();
+      entry.put("store", o.store);
+      entry.put("path", o.path);
+      entry.put("field", o.field);
+      entry.put("fragments", new ArrayList<Object>(o.fragments));
+      entry.put("message", o.message());
+      overlaps.add(entry);
+    }
+    out.put("overlaps", overlaps);
     return out;
   }
 
@@ -2115,6 +2166,7 @@ public final class ConformanceRunner {
     testMarkdownMemoryLanding(model);
     testMarkdownImportRejections(model);
     testMarkdownApplyCases(model);
+    testAssemblyCases();
     testReflection(model);
     testValidation(model);
     testOperations();

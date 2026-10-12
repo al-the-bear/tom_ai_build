@@ -14,6 +14,11 @@
 
 const { SpecDocument } = require('./spec_document');
 const {
+  SpecAssemblyOverlap,
+  SpecDocumentAssembly,
+  assembleSpecDocuments,
+} = require('./spec_document_assembly');
+const {
   SpecFieldKind,
   parseFieldKind,
   SpecAnnotation,
@@ -293,6 +298,10 @@ module.exports = {
   SpecSerializationOrder,
   // document
   SpecDocument,
+  // assembling one document from fragments
+  SpecAssemblyOverlap,
+  SpecDocumentAssembly,
+  assembleSpecDocuments,
   // validator
   SpecValidationCode,
   SpecValidationError,

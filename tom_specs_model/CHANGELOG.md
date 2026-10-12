@@ -1,5 +1,7 @@
 ## Unreleased
 
+- SOM §12.9 documents assembling a document from fragments.
+
 - The area catalogue carries the Stage-A gate tables (`gate.requiredArguments`,
   `gate.carriers`), and `codespecs_prompt.md` §4.4/§4.5 pin A4 and A5
   mechanically: the rule, the 25-row required-argument table and the 26-row

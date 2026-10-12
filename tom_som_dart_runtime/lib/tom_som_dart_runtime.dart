@@ -66,6 +66,7 @@ export 'src/spec_codespecs_gate.dart';
 export 'src/spec_codespecs_records.dart';
 export 'src/som_facade.dart';
 export 'src/spec_document.dart';
+export 'src/spec_document_assembly.dart';
 export 'src/spec_document_markdown.dart';
 export 'src/spec_document_yaml.dart';
 export 'src/spec_editor.dart';

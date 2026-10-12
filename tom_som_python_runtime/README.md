@@ -67,6 +67,7 @@ editable routes and how to pin.
 | `spec_model` | The meta-data loader — the exported class graph (`SpecModel`). |
 | `spec_reflection` | Value-free enumeration + path resolution (`SpecReflection`). |
 | `spec_document` | A sparse in-memory document — values keyed by section path. |
+| `spec_document_assembly` | Assembles one document from fragments written in parallel (`SpecDocument.assemble`, `assemble_spec_documents`) — a refusing merge: a place two fragments both write is reported as a `SpecAssemblyOverlap` and yields no document. |
 | `spec_typed_values` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `spec_editor` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator` | Validates a document's values against the model. |
@@ -156,6 +157,7 @@ document round-trips, and the reflection / validation / operations behaviour.
 | Type | Responsibility |
 | ---- | -------------- |
 | `SpecDocument` | The sparse, path-keyed store of a document's content, form and list values. |
+| `SpecDocument.assemble` | Merges ordered `(name, document)` fragments into one document, refusing any place two fragments both write (`SpecDocumentAssembly`, `SpecAssemblyOverlap`). |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations. |
 | `SpecReflection` | Resolves and enumerates paths against the model without reading values. |
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |

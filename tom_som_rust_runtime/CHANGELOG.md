@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Assembling one document from fragments written in parallel, new module
+  `spec_document_assembly` re-exported from the crate root:
+  `SpecDocument::assemble(&[(name, &document), ...])` (also
+  `assemble_spec_documents`) merges the fragments' `to_json` stores, in the
+  order given. The merge is refusing: a content path, headline or code-spec
+  location two fragments both write, a form field two fragments both fill (two
+  fragments may fill different fields of one form), or a list two fragments
+  both hold is a `SpecAssemblyOverlap` (`store`, `path`, `field`,
+  `fragments`, `message()`), and a `SpecDocumentAssembly` with any overlap has
+  `document: None` (`ok()` is false). Overlaps are reported in store order
+  content, forms, lists, headlines, codeSpecs, then by path (UTF-16 order).
+  A fragment name given twice panics. Verified against `assembly_cases.json`.
 - CodeSpecs: the Stage-A gate (`codespecs_prompt.md` §4, A1–A5), new module
   `spec_codespecs_gate` re-exported from the crate root:
   `CodeSpecsGate::new(model, document, catalog, schema, root_type).run()`
