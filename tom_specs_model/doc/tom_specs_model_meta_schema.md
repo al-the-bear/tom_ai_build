@@ -187,8 +187,8 @@ field-level `@Form`, and the `content` member is `form`-kind too when its
 the same rule the DocSpecs schema generator applies when it gives the section
 an `<id>-form` format. Each entry always carries `name`, `label`
 (the declared description, else the field name split on PascalCase), `type` (the
-Dart type name) and `required`; `hint`, `enumValues` and `refersTo` are omitted
-when empty.
+Dart type name) and `required`; `hint`, `enumValues`, `refersTo` and `countOf`
+are omitted when empty.
 
 `enumValues` lists the constant names when `type` is a model enum, so a runtime
 can validate and convert a value without the analyzer. `enumValueDocs` is its
@@ -217,6 +217,15 @@ single field value may itself name several ids, written comma-separated; each
 part is resolved independently. Consumers use it for the instance-tier
 dangling-reference check — a reference whose target id is not declared anywhere
 in the document is reported rather than silently generating broken code.
+
+`countOf` states that the field's value is **a count of entries the document
+holds** (`Field.countOf`). It is a list, each element either `<SECTIONID>` —
+every list entry of the class carrying that section id — or
+`<SECTIONID>.<formField>=<value>`, only the entries one of whose own form
+members holds that value in that form field. The stated count must equal the
+sum over the elements. Consumers use it for the instance-tier `countMismatch`
+check (SOM §9). As with `refersTo`, a target outside the document's scope is
+skipped, and an empty value is not checked.
 
 ## Validation contract
 

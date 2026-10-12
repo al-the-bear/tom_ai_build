@@ -242,6 +242,7 @@ class FormFieldSpec {
     required = false,
     enumValues = [],
     refersTo = [],
+    countOf = [],
   }) {
     this.name = name;
     this.label = label;
@@ -264,6 +265,14 @@ class FormFieldSpec {
      * @type {string[]}
      */
     this.refersTo = refersTo;
+    /**
+     * The entries this field's value counts (`Field.countOf`, vsctsa43), each
+     * `<SECTIONID>` or `<SECTIONID>.<formField>=<value>`; empty for a field
+     * that states no count. The instance tier holds the stated number to the
+     * document (`countMismatch`).
+     * @type {string[]}
+     */
+    this.countOf = countOf;
   }
 
   static fromJson(j) {
@@ -275,6 +284,7 @@ class FormFieldSpec {
       required: Boolean(j.required || false),
       enumValues: (j.enumValues || []).map(String),
       refersTo: (j.refersTo || []).map(String),
+      countOf: (j.countOf || []).map(String),
     });
   }
 }

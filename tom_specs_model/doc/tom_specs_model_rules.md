@@ -794,6 +794,43 @@ classes of field stay bare, and staying bare is the right answer for them:
 A bare id field therefore reads as "no registry contract claimed", which is
 accurate, rather than as "contract forgotten".
 
+#### 6.2.2 Count-valued form fields (`countOf:`)
+
+A form field may state **how many entries the document holds** — a summary's
+total, a bucket count. Such a total is written by hand, and it drifts from the
+list the first time the list changes and the total does not. `countOf:` on
+`Field` names what the value counts, and the instance tier holds it to the
+document:
+
+```dart
+Field('functionalRequirementCount', int, '…', countOf: ['FRE']),
+Field('nonFunctionalRequirementCount', int, '…', countOf: ['TERQ', 'SECRQ']),
+Field('mustHaveFunctional', String, '…', countOf: ['FRE.priority=must']),
+```
+
+- **Targets.** Each element is either `<SECTIONID>` — every list entry of the
+  class carrying that section id — or `<SECTIONID>.<formField>=<value>`, only
+  the entries one of whose own form members holds that value. The stated
+  number must equal the **sum** over the elements.
+- **Static tier** (§10.2 `REFERS-TO`). The grammar parses, the section id names
+  exactly one class, that class is the element type of some list, and a
+  filter's form field is one of the class's own form fields, with an enum's
+  value one of its constants.
+- **Instance tier.** A value that is not a whole number, or that differs from
+  the count, is a `countMismatch` (`som_multiplatform_spec_model.md` §9). An
+  empty value is not checked: that is completeness. A target outside the
+  document's scope is skipped, by the same rule as §6.2.1.
+- **Still authored.** The value stays in the document, written by the author,
+  and the check only holds it to the lists. Deriving it at render time would
+  make the stored document differ from what a reader sees, which the codec does
+  not do.
+
+The Solution Blueprint declares it on the scale form (`SYSCL`) and on the four
+requirement summary forms (`FR-SUMM`, `TR1-SUMM`, `SR1-SUMM`, `OR-SUMM`). The
+`OR-SUMM` category buckets stay unchecked, because an organizational
+requirement's `category` is free text. `SR1-SUMM` has no low-priority bucket,
+so its buckets need not add up to its total.
+
 ### 6.3 Form decomposition
 
 `@Form` sections target **3–10 fields**. Larger forms are decomposed so the
@@ -1501,12 +1538,14 @@ enforceable rather than aspirational.
    compatibility, and **cycle detection**. The one invariant enforced in
    `validateModel()` rather than `validateStructuralInvariants()` — see the
    note above the list.
-9. **`REFERS-TO`** — **The `refersTo` target contract** (§6.2) — target grammar, existence and
+9. **`REFERS-TO`** — **The `refersTo` and `countOf` target contracts** (§6.2, §6.2.2) — target grammar, existence and
    unambiguity of the named section id, the required/enumerated form-field slot
    or the patterned-list element requirement for `@sectionId`, and
    **co-reachability**: every target must be reachable together with its
    referring class from at least one `@Document` root (§6.2.1). A non-`String`
-   reference field is a warning; the rest are errors.
+   reference field is a warning; the rest are errors. For `countOf`, the target
+   must also name a list-element class, and a filter a form field of that class
+   (an enum's value one of its constants).
 10. **`NO-RESTATED-NAME`** — **No list entry restates its own headline** (§8 rule 4) — a name-shaped form
     field beneath a list-entry class, whose stem is that entry's own subject, is
     an error unless it is a registry key or carries a `refersTo` of its own

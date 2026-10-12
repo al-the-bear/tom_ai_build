@@ -372,23 +372,14 @@ static void registry_scope(const SpecReflection *refl, const SpecDocument *doc,
   som_strlist_free(&root_types);
 }
 
-/* Instance-tier cross-registry reference check (csrb3): every id written into a
-   `refersTo` form field must be declared by some entry of one of its target
-   registries *in this document*. Two sweeps over the document's form sections
-   (declare, then resolve), so it costs one extra walk rather than a resolve per
-   reference. An empty value is not a dangling reference — it means "not filled
-   in yet", the schema-completeness concern this validator leaves to its
-   caller. */
-static void validate_reference_instances(const SpecReflection *refl,
-                                         const SpecDocument *doc,
-                                         SpecValidationErrors *out) {
-  SomStrList scope;
-  registry_scope(refl, doc, &scope);
-
-  /* Resolve every form path once; both sweeps read the same resolutions. A form
-     resolution names the form *field*, not a class — the section id a registry
-     key is written against belongs to the class the form sits on, so the owner
-     is resolved from the parent path. */
+/* Every form instance in `doc` with its field and the class it sits on, in path
+   order — the shape both the reference and the count check sweep. A form
+   resolution names the form *field*, not a class — the section id a registry key
+   is written against belongs to the class the form sits on, so the owner is
+   resolved from the parent path. `*out` is owned; release with
+   `form_instances_free`. */
+static void resolved_forms(const SpecReflection *refl, const SpecDocument *doc,
+                           FormInstance **out, size_t *out_len) {
   SomStrList form_paths;
   spec_document_form_paths(doc, &form_paths);
   strlist_sort(&form_paths);
@@ -429,6 +420,34 @@ static void validate_reference_instances(const SpecReflection *refl,
     forms_len++;
   }
   som_strlist_free(&form_paths);
+  *out = forms;
+  *out_len = forms_len;
+}
+
+static void form_instances_free(FormInstance *forms, size_t len) {
+  for (size_t i = 0; i < len; i++) {
+    free(forms[i].path);
+  }
+  free(forms);
+}
+
+/* Instance-tier cross-registry reference check (csrb3): every id written into a
+   `refersTo` form field must be declared by some entry of one of its target
+   registries *in this document*. Two sweeps over the document's form sections
+   (declare, then resolve), so it costs one extra walk rather than a resolve per
+   reference. An empty value is not a dangling reference — it means "not filled
+   in yet", the schema-completeness concern this validator leaves to its
+   caller. */
+static void validate_reference_instances(const SpecReflection *refl,
+                                         const SpecDocument *doc,
+                                         SpecValidationErrors *out) {
+  SomStrList scope;
+  registry_scope(refl, doc, &scope);
+
+  /* Resolve every form path once; both sweeps read the same resolutions. */
+  FormInstance *forms = NULL;
+  size_t forms_len = 0;
+  resolved_forms(refl, doc, &forms, &forms_len);
 
   RegMap declared;
   reg_map_init(&declared);
@@ -595,12 +614,274 @@ static void validate_reference_instances(const SpecReflection *refl,
     }
   }
 
-  for (size_t i = 0; i < forms_len; i++) {
-    free(forms[i].path);
-  }
-  free(forms);
+  form_instances_free(forms, forms_len);
   reg_map_free(&declared);
   som_strlist_free(&scope);
+}
+
+/* ---- phase 6: stated counts (vsctsa43) ----------------------------------- */
+
+/* An entry: a list item whose element class carries a `@SectionId`. Both
+   pointers borrow (the id from the model, the item path from the document). */
+typedef struct {
+  const char *section_id;
+  const char *item_path;
+} CountEntry;
+
+/* The section id of a `countOf` target — the part before any `.field=value`.
+   Owned result. */
+static char *count_target_id(const char *target) {
+  const char *dot = strchr(target, '.');
+  return dot == NULL ? som_strdup(target)
+                     : som_strdup_n(target, (size_t)(dot - target));
+}
+
+/* Whether some form member of `item_path` — a form at `<item>/<member>` —
+   declares form field `field` and holds trimmed `value` in it. */
+static int item_holds(const SpecReflection *refl, const SpecDocument *doc,
+                      const SomStrList *form_paths, const char *item_path,
+                      const char *field, const char *value) {
+  size_t item_len = strlen(item_path);
+  for (size_t i = 0; i < form_paths->len; i++) {
+    const char *path = form_paths->items[i];
+    const char *slash = strrchr(path, '/');
+    if (slash == NULL || slash == path || (size_t)(slash - path) != item_len ||
+        strncmp(path, item_path, item_len) != 0) {
+      continue;
+    }
+    SpecResolution res;
+    if (!spec_reflection_resolve(refl, path, &res)) {
+      continue;
+    }
+    const SpecField *spec = res.field;
+    spec_resolution_free(&res);
+    if (spec == NULL) {
+      continue;
+    }
+    for (size_t k = 0; k < spec->form_fields_len; k++) {
+      if (strcmp(spec->form_fields[k].name, field) != 0) {
+        continue;
+      }
+      const char *raw = spec_document_form_field(doc, path, field);
+      if (raw == NULL) {
+        continue;
+      }
+      char *v = trim_dup(raw);
+      int match = v[0] != '\0' && strcmp(v, value) == 0;
+      free(v);
+      if (match) {
+        return 1;
+      }
+    }
+  }
+  return 0;
+}
+
+/* How many entries `target` counts: every entry of section id `X` for target
+   `X`, only those holding `v` in form field `f` for `X.f=v`. */
+static long long count_target(const SpecReflection *refl,
+                              const SpecDocument *doc,
+                              const SomStrList *form_paths,
+                              const CountEntry *entries, size_t entries_len,
+                              const char *target) {
+  const char *dot = strchr(target, '.');
+  long long n = 0;
+  if (dot == NULL) {
+    for (size_t i = 0; i < entries_len; i++) {
+      if (strcmp(entries[i].section_id, target) == 0) {
+        n++;
+      }
+    }
+    return n;
+  }
+  char *id = som_strdup_n(target, (size_t)(dot - target));
+  const char *eq = strchr(dot, '=');
+  char *field = eq == NULL ? som_strdup(dot + 1)
+                           : som_strdup_n(dot + 1, (size_t)(eq - dot - 1));
+  const char *value = eq == NULL ? "" : eq + 1;
+  /* An empty value never matches: empty form values are not recorded. */
+  if (value[0] != '\0') {
+    for (size_t i = 0; i < entries_len; i++) {
+      if (strcmp(entries[i].section_id, id) == 0 &&
+          item_holds(refl, doc, form_paths, entries[i].item_path, field,
+                     value)) {
+        n++;
+      }
+    }
+  }
+  free(id);
+  free(field);
+  return n;
+}
+
+/* Whether `s` is a non-empty run of ASCII digits (`^[0-9]+$`). */
+static int all_digits(const char *s) {
+  if (s[0] == '\0') {
+    return 0;
+  }
+  for (; *s != '\0'; s++) {
+    if (*s < '0' || *s > '9') {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+/* Whether the digit string `digits` names the number `n`. Compared as decimal
+   text (leading zeros stripped), so a stated value too large for any integer
+   type is simply unequal rather than overflowing. */
+static int digits_equal(const char *digits, long long n) {
+  while (digits[0] == '0' && digits[1] != '\0') {
+    digits++;
+  }
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puti(&b, n);
+  char *text = som_buf_take(&b);
+  int eq = strcmp(digits, text) == 0;
+  free(text);
+  return eq;
+}
+
+/* Instance-tier stated-count check (vsctsa43): every non-empty value of a
+   `countOf` form field must be a whole number equal to the number of entries
+   the document holds.
+
+   An **entry** is a list item whose element class carries `@SectionId(X)`. A
+   target `X` counts every such entry; `X.f=v` counts only the entries one of
+   whose own forms — a form member of the entry, at `<item>/<member>` — holds
+   `v` in form field `f`. The count is the sum over the targets. As with the
+   reference check, a target whose section id the document's root cannot reach
+   makes the field undecidable here, so it is skipped rather than reported, and
+   an empty value is completeness, not a count. */
+static void validate_count_instances(const SpecReflection *refl,
+                                     const SpecDocument *doc,
+                                     SpecValidationErrors *out) {
+  FormInstance *forms = NULL;
+  size_t forms_len = 0;
+  resolved_forms(refl, doc, &forms, &forms_len);
+  int any = 0;
+  for (size_t i = 0; i < forms_len && !any; i++) {
+    for (size_t j = 0; j < forms[i].field->form_fields_len && !any; j++) {
+      any = forms[i].field->form_fields[j].count_of.len > 0;
+    }
+  }
+  if (!any) {
+    form_instances_free(forms, forms_len);
+    return;
+  }
+  SomStrList scope;
+  registry_scope(refl, doc, &scope);
+
+  /* Every entry, by its class's section id. */
+  CountEntry *entries = NULL;
+  size_t entries_len = 0;
+  size_t entries_cap = 0;
+  SomStrList list_paths;
+  spec_document_list_paths(doc, &list_paths);
+  strlist_sort(&list_paths);
+  for (size_t i = 0; i < list_paths.len; i++) {
+    const SomStrList *items = spec_document_list_items(doc, list_paths.items[i]);
+    if (items == NULL) {
+      continue;
+    }
+    for (size_t j = 0; j < items->len; j++) {
+      const SpecClass *cls = NULL;
+      SpecResolution ires;
+      if (spec_reflection_resolve(refl, items->items[j], &ires)) {
+        cls = ires.target_class;
+        spec_resolution_free(&ires);
+      }
+      if (cls == NULL || cls->section_id == NULL || cls->section_id[0] == '\0') {
+        continue;
+      }
+      if (entries_len == entries_cap) {
+        entries_cap = entries_cap ? entries_cap * 2 : 8;
+        entries = (CountEntry *)realloc(entries,
+                                        entries_cap * sizeof(CountEntry));
+      }
+      entries[entries_len].section_id = cls->section_id;
+      entries[entries_len].item_path = items->items[j];
+      entries_len++;
+    }
+  }
+
+  SomStrList form_paths;
+  spec_document_form_paths(doc, &form_paths);
+
+  for (size_t i = 0; i < forms_len; i++) {
+    for (size_t j = 0; j < forms[i].field->form_fields_len; j++) {
+      const FormFieldSpec *ff = &forms[i].field->form_fields[j];
+      if (ff->count_of.len == 0) {
+        continue;
+      }
+      const char *raw = spec_document_form_field(doc, forms[i].path, ff->name);
+      if (raw == NULL) {
+        continue;
+      }
+      char *stated = trim_dup(raw);
+      if (stated[0] == '\0') {
+        free(stated);
+        continue;
+      }
+      int all_in_scope = 1;
+      for (size_t t = 0; t < ff->count_of.len && all_in_scope; t++) {
+        char *tid = count_target_id(ff->count_of.items[t]);
+        char *rid = registry_section_id(tid);
+        all_in_scope = som_strlist_contains(&scope, rid);
+        free(rid);
+        free(tid);
+      }
+      if (!all_in_scope) {
+        free(stated);
+        continue;
+      }
+      long long counted = 0;
+      for (size_t t = 0; t < ff->count_of.len; t++) {
+        counted += count_target(refl, doc, &form_paths, entries, entries_len,
+                                ff->count_of.items[t]);
+      }
+      if (!all_digits(stated)) {
+        char *targets = som_strlist_join(&ff->count_of, " + ");
+        SomBuf mb;
+        som_buf_init(&mb);
+        som_buf_puts(&mb, "form field \"");
+        som_buf_puts(&mb, ff->name);
+        som_buf_puts(&mb, "\" states \"");
+        som_buf_puts(&mb, stated);
+        som_buf_puts(&mb, "\", which is not a whole number \xE2\x80\x94 it counts ");
+        som_buf_puts(&mb, targets);
+        som_buf_puts(&mb, ", of which the document holds ");
+        som_buf_puti(&mb, counted);
+        free(targets);
+        errors_push(out, forms[i].path, SPEC_VALIDATION_CODE_COUNT_MISMATCH,
+                    som_buf_take(&mb));
+      } else if (!digits_equal(stated, counted)) {
+        char *targets = som_strlist_join(&ff->count_of, " + ");
+        SomBuf mb;
+        som_buf_init(&mb);
+        som_buf_puts(&mb, "form field \"");
+        som_buf_puts(&mb, ff->name);
+        som_buf_puts(&mb, "\" states ");
+        som_buf_puts(&mb, stated);
+        som_buf_puts(&mb, ", but the document holds ");
+        som_buf_puti(&mb, counted);
+        som_buf_puts(&mb, " (counting ");
+        som_buf_puts(&mb, targets);
+        som_buf_puts(&mb, ")");
+        free(targets);
+        errors_push(out, forms[i].path, SPEC_VALIDATION_CODE_COUNT_MISMATCH,
+                    som_buf_take(&mb));
+      }
+      free(stated);
+    }
+  }
+
+  som_strlist_free(&form_paths);
+  som_strlist_free(&list_paths);
+  free(entries);
+  som_strlist_free(&scope);
+  form_instances_free(forms, forms_len);
 }
 
 void validate_document(const SpecModel *model, const SpecDocument *doc,
@@ -765,6 +1046,10 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
      in this document. The static tier has checked the targets are resolvable;
      only here can we see whether the id a document wrote is one it declares. */
   validate_reference_instances(&refl, doc, out);
+
+  /* 6. Stated counts: a `countOf` form field states how many entries the
+     document holds; only the instance tier can count them. */
+  validate_count_instances(&refl, doc, out);
 }
 
 void spec_validation_errors_free(SpecValidationErrors *errs) {

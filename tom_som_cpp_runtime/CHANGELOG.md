@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Stated counts (vsctsa43). `FormFieldSpec::countOf` (read from the meta's
+  `formFields[].countOf`; empty when absent) names the entries a form field's
+  value counts — `X` for every list item whose element class carries
+  `@SectionId(X)`, `X.f=v` for those whose own form holds `v` in form field
+  `f`. `validateDocument` gains phase 6, after the reference check: a
+  non-empty value that is not a whole number, or not the summed count, is
+  reported as `kSpecValidationCodeCountMismatch` (`"countMismatch"`) at the
+  form path, with the Dart reference's messages; a field with any target
+  outside the document's registry scope is skipped. The conformance runner
+  checks the `countMatches` / `countMismatch` validation cases.
+
 - Assembling one document from fragments written in parallel
   (`spec_document_assembly.hpp`). `SpecDocument::assemble` (and the free
   `assembleSpecDocuments`) takes `SpecAssemblyFragments`, an ordered

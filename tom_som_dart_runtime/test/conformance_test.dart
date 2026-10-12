@@ -1929,6 +1929,20 @@ Map<String, dynamic> _buildMeta() => {
               'type': 'String',
               'refersTo': ['RGE.code', 'RGE.@sectionId'],
             },
+            // vsctsa43: two stated counts over the same registry — every
+            // entry, and only the entries whose own form says `code: ALPHA`.
+            {
+              'name': 'entryCount',
+              'label': 'Entry Count',
+              'type': 'int',
+              'countOf': ['RGE'],
+            },
+            {
+              'name': 'alphaCount',
+              'label': 'Alpha Count',
+              'type': 'int',
+              'countOf': ['RGE.code=ALPHA'],
+            },
           ],
         },
       ],
@@ -2475,6 +2489,29 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
       };
       return state;
     }()),
+    // vsctsa43: a stated count holds to the entries the document has — all
+    // of them (`RGE`), or those whose own form holds a value (`RGE.code=ALPHA`).
+    caseFor(
+      'countMatches',
+      _registryState(
+        entryCode: 'ALPHA',
+        entryId: 'RGE-ALPHA',
+        anyRefs: 'ALPHA',
+        entryCount: '2',
+        alphaCount: '1',
+      ),
+    ),
+    // One wrong number and one that is no number at all: two findings.
+    caseFor(
+      'countMismatch',
+      _registryState(
+        entryCode: 'ALPHA',
+        entryId: 'RGE-ALPHA',
+        anyRefs: 'ALPHA',
+        entryCount: '3',
+        alphaCount: 'two',
+      ),
+    ),
     caseFor('oneOfCaseSelected', _choiceState('alpha', ['CHO-ALP', 'CHO-COM'])),
     // `beta` is populated while `alpha` is chosen — the common subsection is
     // always allowed and must not be reported alongside it.
@@ -2494,6 +2531,8 @@ Map<String, Object?> _registryState({
   required String entryCode,
   required String entryId,
   required String anyRefs,
+  String? entryCount,
+  String? alphaCount,
 }) => {
   'forms': {
     'DEMO/REG/RGE-LST-1/RGE-DET': {'code': 'ALPHA', 'label': 'Alpha'},
@@ -2502,6 +2541,8 @@ Map<String, Object?> _registryState({
       'entryCode': entryCode,
       'entryId': entryId,
       'anyRefs': anyRefs,
+      'entryCount': ?entryCount,
+      'alphaCount': ?alphaCount,
     },
   },
   'lists': {

@@ -12,6 +12,7 @@ package somruntime
 
 import (
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -29,6 +30,11 @@ const (
 	// a setter, so without this the value is simply dropped. An EMPTY value is
 	// absence, not a bad value, and is not reported.
 	SpecValidationCodeEnumValueUnknown = "enumValueUnknown"
+	// A form field that states a count (`FormFieldSpec.CountOf`) holds a number
+	// that is not the number of entries the document holds, or no whole number
+	// at all (vsctsa43). A total kept by hand drifts from the list it describes
+	// the first time the list changes and the total does not.
+	SpecValidationCodeCountMismatch = "countMismatch"
 )
 
 // SpecValidationError is one problem found while validating a document.
@@ -185,6 +191,12 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 	// targets are resolvable; only here can we see whether the id a document
 	// actually wrote is one the document also declares.
 	errors = append(errors, validateReferenceInstances(refl, doc)...)
+
+	// 6. Stated counts (instance tier, vsctsa43).
+	//
+	// A form field declaring `countOf` states how many entries the document
+	// holds; only the instance tier can count them.
+	errors = append(errors, validateCountInstances(refl, doc)...)
 
 	return errors
 }
@@ -367,22 +379,7 @@ func validateReferenceInstances(refl *SpecReflection, doc *SpecDocument) []SpecV
 	// A form resolution names the form *field*, not a class — the section id a
 	// registry key is written against belongs to the class the form sits on, so
 	// the owner is resolved from the parent path.
-	var forms []formInstance
-	for _, path := range sortedCopy(doc.FormPaths()) {
-		res := refl.Resolve(path)
-		if res == nil || res.Kind != SpecNodeKindForm || res.Field == nil {
-			continue
-		}
-		slash := strings.LastIndex(path, "/")
-		if slash <= 0 {
-			continue
-		}
-		owner := refl.Resolve(path[:slash])
-		if owner == nil || owner.TargetClass == nil {
-			continue
-		}
-		forms = append(forms, formInstance{path: path, cls: owner.TargetClass, field: res.Field})
-	}
+	forms := resolvedForms(refl, doc)
 
 	// 1. Declare.
 	declared := map[string]map[string]bool{}
@@ -490,6 +487,187 @@ func validateReferenceInstances(refl *SpecReflection, doc *SpecDocument) []SpecV
 	}
 
 	return errors
+}
+
+// validateCountInstances is the instance-tier stated-count check (vsctsa43):
+// every non-empty value of a `countOf` form field must be a whole number equal
+// to the number of entries the document holds.
+//
+// An *entry* is a list item whose element class carries @SectionId(X). A target
+// `X` counts every such entry; `X.f=v` counts only the entries one of whose own
+// forms — a form member of the entry, at `<item>/<member>` — holds `v` in form
+// field `f`. The count is the sum over the targets. As with the reference check,
+// a target whose section id the document's root cannot reach makes the field
+// undecidable here, so it is skipped rather than reported, and an empty value is
+// completeness, not a count.
+func validateCountInstances(refl *SpecReflection, doc *SpecDocument) []SpecValidationError {
+	forms := resolvedForms(refl, doc)
+	anyCount := false
+	for _, form := range forms {
+		for _, ff := range form.field.FormFields {
+			if len(ff.CountOf) > 0 {
+				anyCount = true
+			}
+		}
+	}
+	if !anyCount {
+		return nil
+	}
+	scope := registryScope(refl, doc)
+
+	// Every entry, by its class's section id, with the form values its own form
+	// members hold.
+	entriesByID := map[string][]string{}
+	for _, listPath := range sortedCopy(doc.ListPaths()) {
+		for _, item := range doc.ListItems(listPath) {
+			res := refl.Resolve(item)
+			if res == nil || res.TargetClass == nil || res.TargetClass.SectionID == "" {
+				continue
+			}
+			id := res.TargetClass.SectionID
+			entriesByID[id] = append(entriesByID[id], item)
+		}
+	}
+	valuesByItem := map[string]map[string]map[string]bool{}
+	for _, path := range doc.FormPaths() {
+		slash := strings.LastIndex(path, "/")
+		if slash <= 0 {
+			continue
+		}
+		owner := path[:slash]
+		res := refl.Resolve(path)
+		if res == nil || res.Field == nil {
+			continue
+		}
+		for _, ff := range res.Field.FormFields {
+			v := strings.TrimSpace(doc.FormFieldOr(path, ff.Name))
+			if v == "" {
+				continue
+			}
+			if valuesByItem[owner] == nil {
+				valuesByItem[owner] = map[string]map[string]bool{}
+			}
+			if valuesByItem[owner][ff.Name] == nil {
+				valuesByItem[owner][ff.Name] = map[string]bool{}
+			}
+			valuesByItem[owner][ff.Name][v] = true
+		}
+	}
+
+	countTarget := func(target string) int {
+		dot := strings.Index(target, ".")
+		if dot < 0 {
+			return len(entriesByID[target])
+		}
+		id := target[:dot]
+		field := target[dot+1:]
+		value := ""
+		if eq := strings.Index(target[dot:], "="); eq >= 0 {
+			field = target[dot+1 : dot+eq]
+			value = target[dot+eq+1:]
+		}
+		n := 0
+		for _, item := range entriesByID[id] {
+			if valuesByItem[item][field][value] {
+				n++
+			}
+		}
+		return n
+	}
+
+	var errors []SpecValidationError
+	for _, form := range forms {
+		for _, ff := range form.field.FormFields {
+			if len(ff.CountOf) == 0 {
+				continue
+			}
+			stated := strings.TrimSpace(doc.FormFieldOr(form.path, ff.Name))
+			if stated == "" {
+				continue
+			}
+			allInScope := true
+			for _, target := range ff.CountOf {
+				if !scope[registrySectionID(countTargetID(target))] {
+					allInScope = false
+					break
+				}
+			}
+			if !allInScope {
+				continue
+			}
+			counted := 0
+			for _, target := range ff.CountOf {
+				counted += countTarget(target)
+			}
+			targets := strings.Join(ff.CountOf, " + ")
+			countedText := strconv.Itoa(counted)
+			if !isWholeNumber(stated) {
+				errors = append(errors, SpecValidationError{
+					Path: form.path,
+					Code: SpecValidationCodeCountMismatch,
+					Message: "form field \"" + ff.Name + "\" states \"" + stated +
+						"\", which is not a whole number — it counts " + targets +
+						", of which the document holds " + countedText,
+				})
+			} else if n, err := strconv.Atoi(stated); err != nil || n != counted {
+				// A digit string too large for an int cannot equal any count.
+				errors = append(errors, SpecValidationError{
+					Path: form.path,
+					Code: SpecValidationCodeCountMismatch,
+					Message: "form field \"" + ff.Name + "\" states " + stated +
+						", but the document holds " + countedText +
+						" (counting " + targets + ")",
+				})
+			}
+		}
+	}
+	return errors
+}
+
+// isWholeNumber reports whether s is one or more ASCII digits — the reference's
+// `^[0-9]+$`.
+func isWholeNumber(s string) bool {
+	if s == "" {
+		return false
+	}
+	for i := 0; i < len(s); i++ {
+		if s[i] < '0' || s[i] > '9' {
+			return false
+		}
+	}
+	return true
+}
+
+// countTargetID returns the section id of a `countOf` target — the part before
+// any `.field=value`.
+func countTargetID(target string) string {
+	if dot := strings.Index(target, "."); dot >= 0 {
+		return target[:dot]
+	}
+	return target
+}
+
+// resolvedForms returns every form instance in doc with its field and the class
+// it sits on, in path order — the shape both the reference and the count check
+// sweep.
+func resolvedForms(refl *SpecReflection, doc *SpecDocument) []formInstance {
+	var forms []formInstance
+	for _, path := range sortedCopy(doc.FormPaths()) {
+		res := refl.Resolve(path)
+		if res == nil || res.Kind != SpecNodeKindForm || res.Field == nil {
+			continue
+		}
+		slash := strings.LastIndex(path, "/")
+		if slash <= 0 {
+			continue
+		}
+		owner := refl.Resolve(path[:slash])
+		if owner == nil || owner.TargetClass == nil {
+			continue
+		}
+		forms = append(forms, formInstance{path: path, cls: owner.TargetClass, field: res.Field})
+	}
+	return forms
 }
 
 // registrySectionID returns the section id part of a registry key written

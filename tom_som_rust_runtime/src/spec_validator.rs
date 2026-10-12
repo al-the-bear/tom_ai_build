@@ -28,6 +28,11 @@ pub const SPEC_VALIDATION_CODE_DANGLING_REFERENCE: &str = "danglingReference";
 /// without this the value is simply dropped. An EMPTY value is absence, not a
 /// bad value, and is not reported.
 pub const SPEC_VALIDATION_CODE_ENUM_VALUE_UNKNOWN: &str = "enumValueUnknown";
+/// A form field that states a count (`Field.countOf`) holds a number that is
+/// not the number of entries the document holds, or no whole number at all
+/// (vsctsa43). A total kept by hand drifts from the list it describes the first
+/// time the list changes and the total does not.
+pub const SPEC_VALIDATION_CODE_COUNT_MISMATCH: &str = "countMismatch";
 
 /// One problem found while validating a document.
 #[derive(Debug, Clone, PartialEq)]
@@ -204,6 +209,12 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
     // actually wrote is one the document also declares.
     errors.extend(validate_reference_instances(&refl, doc));
 
+    // 6. Stated counts (instance tier, vsctsa43).
+    //
+    // A form field declaring `countOf` states how many entries the document
+    // holds; only the instance tier can count them.
+    errors.extend(validate_count_instances(&refl, doc));
+
     errors
 }
 
@@ -375,31 +386,7 @@ fn validate_reference_instances(
     // A form resolution names the form *field*, not a class — the section id a
     // registry key is written against belongs to the class the form sits on, so
     // the owner is resolved from the parent path.
-    let mut form_paths = doc.form_paths();
-    form_paths.sort();
-    let mut forms: Vec<FormInstance> = Vec::new();
-    for path in form_paths {
-        let res = match refl.resolve(&path) {
-            Some(r) => r,
-            None => continue,
-        };
-        if res.kind != SPEC_NODE_KIND_FORM {
-            continue;
-        }
-        let field = match res.field {
-            Some(f) => f,
-            None => continue,
-        };
-        let slash = match path.rfind('/') {
-            Some(s) if s > 0 => s,
-            _ => continue,
-        };
-        let cls = match refl.resolve(&path[..slash]).and_then(|r| r.target_class) {
-            Some(c) => c,
-            None => continue,
-        };
-        forms.push(FormInstance { path, cls, field });
-    }
+    let forms = resolved_forms(refl, doc);
 
     // 1. Declare.
     let mut declared: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
@@ -508,6 +495,171 @@ fn validate_reference_instances(
     }
 
     errors
+}
+
+/// Instance-tier stated-count check (vsctsa43): every non-empty value of a
+/// `countOf` form field must be a whole number equal to the number of entries
+/// the document holds.
+///
+/// An **entry** is a list item whose element class carries `@SectionId(X)`. A
+/// target `X` counts every such entry; `X.f=v` counts only the entries one of
+/// whose own forms — a form member of the entry, at `<item>/<member>` — holds
+/// `v` in form field `f`. The count is the sum over the targets. As with the
+/// reference check, a target whose section id the document's root cannot reach
+/// makes the field undecidable here, so it is skipped rather than reported, and
+/// an empty value is completeness, not a count.
+fn validate_count_instances(refl: &SpecReflection, doc: &SpecDocument) -> Vec<SpecValidationError> {
+    let forms = resolved_forms(refl, doc);
+    if !forms
+        .iter()
+        .any(|f| f.field.form_fields.iter().any(|ff| !ff.count_of.is_empty()))
+    {
+        return Vec::new();
+    }
+    let scope = registry_scope(refl, doc);
+
+    // Every entry, by its class's section id, with the form values its own form
+    // members hold.
+    let mut entries_by_id: BTreeMap<String, Vec<String>> = BTreeMap::new();
+    let mut list_paths = doc.list_paths();
+    list_paths.sort();
+    for list_path in list_paths {
+        for item in doc.list_items(&list_path) {
+            let id = match refl.resolve(&item).and_then(|r| r.target_class) {
+                Some(c) if !c.section_id.is_empty() => c.section_id,
+                _ => continue,
+            };
+            entries_by_id.entry(id).or_default().push(item);
+        }
+    }
+    let mut values_by_item: BTreeMap<String, BTreeMap<String, BTreeSet<String>>> =
+        BTreeMap::new();
+    for path in doc.form_paths() {
+        let slash = match path.rfind('/') {
+            Some(s) if s > 0 => s,
+            _ => continue,
+        };
+        let owner = &path[..slash];
+        let field = match refl.resolve(&path).and_then(|r| r.field) {
+            Some(f) => f,
+            None => continue,
+        };
+        for ff in &field.form_fields {
+            let v = doc.form_field_or(&path, &ff.name).trim().to_string();
+            if v.is_empty() {
+                continue;
+            }
+            values_by_item
+                .entry(owner.to_string())
+                .or_default()
+                .entry(ff.name.clone())
+                .or_default()
+                .insert(v);
+        }
+    }
+
+    let count_target = |target: &str| -> usize {
+        let dot = match target.find('.') {
+            Some(d) => d,
+            None => return entries_by_id.get(target).map_or(0, |e| e.len()),
+        };
+        let id = &target[..dot];
+        let eq = target[dot..].find('=').map(|e| dot + e);
+        let field = &target[dot + 1..eq.unwrap_or(target.len())];
+        let value = eq.map_or("", |e| &target[e + 1..]);
+        entries_by_id.get(id).map_or(0, |items| {
+            items
+                .iter()
+                .filter(|item| {
+                    values_by_item
+                        .get(item.as_str())
+                        .and_then(|m| m.get(field))
+                        .is_some_and(|vs| vs.contains(value))
+                })
+                .count()
+        })
+    };
+
+    let mut errors = Vec::new();
+    for form in &forms {
+        for ff in &form.field.form_fields {
+            if ff.count_of.is_empty() {
+                continue;
+            }
+            let stated = doc.form_field_or(&form.path, &ff.name).trim().to_string();
+            if stated.is_empty() {
+                continue;
+            }
+            if !ff
+                .count_of
+                .iter()
+                .all(|t| scope.contains(registry_section_id(count_target_id(t))))
+            {
+                continue;
+            }
+            let counted: usize = ff.count_of.iter().map(|t| count_target(t)).sum();
+            let targets = ff.count_of.join(" + ");
+            if !stated.bytes().all(|b| b.is_ascii_digit()) {
+                errors.push(SpecValidationError {
+                    path: form.path.clone(),
+                    code: SPEC_VALIDATION_CODE_COUNT_MISMATCH.to_string(),
+                    message: format!(
+                        "form field \"{}\" states \"{}\", which is not a whole number — it counts {}, of which the document holds {}",
+                        ff.name, stated, targets, counted
+                    ),
+                });
+            } else if stated.trim_start_matches('0') != counted.to_string().trim_start_matches('0') {
+                errors.push(SpecValidationError {
+                    path: form.path.clone(),
+                    code: SPEC_VALIDATION_CODE_COUNT_MISMATCH.to_string(),
+                    message: format!(
+                        "form field \"{}\" states {}, but the document holds {} (counting {})",
+                        ff.name, stated, counted, targets
+                    ),
+                });
+            }
+        }
+    }
+    errors
+}
+
+/// The section id of a `countOf` target — the part before any `.field=value`.
+fn count_target_id(target: &str) -> &str {
+    match target.find('.') {
+        Some(dot) => &target[..dot],
+        None => target,
+    }
+}
+
+/// Every form instance in `doc` with its field and the class it sits on, in
+/// path order — the shape both the reference and the count check sweep.
+fn resolved_forms(refl: &SpecReflection, doc: &SpecDocument) -> Vec<FormInstance> {
+    let mut form_paths = doc.form_paths();
+    form_paths.sort();
+    let mut forms: Vec<FormInstance> = Vec::new();
+    for path in form_paths {
+        let res = match refl.resolve(&path) {
+            Some(r) => r,
+            None => continue,
+        };
+        if res.kind != SPEC_NODE_KIND_FORM {
+            continue;
+        }
+        let field = match res.field {
+            Some(f) => f,
+            None => continue,
+        };
+        let slash = match path.rfind('/') {
+            Some(s) if s > 0 => s,
+            _ => continue,
+        };
+        let cls = match refl.resolve(&path[..slash]).and_then(|r| r.target_class) {
+            Some(c) => c,
+            None => continue,
+        };
+        forms.push(FormInstance { path, cls, field });
+    }
+    forms
 }
 
 /// The section id part of a registry key written `<SECTIONID>.<slot>`. A key with

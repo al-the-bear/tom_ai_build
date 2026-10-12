@@ -49,6 +49,12 @@ enum SpecValidationCode {
   /// The **empty** value is not reported: an absent field is absence, not a bad
   /// value, and every other tier treats it that way.
   enumValueUnknown,
+
+  /// A form field that states a count (`Field.countOf`) holds a number that
+  /// is not the number of entries the document holds, or no whole number at
+  /// all (vsctsa43). A total kept by hand drifts from the list it describes
+  /// the first time the list changes and the total does not.
+  countMismatch,
 }
 
 /// One problem found while validating a document.
@@ -214,6 +220,12 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
   // a document actually wrote is one the document also declares.
   errors.addAll(_validateReferenceInstances(refl, doc));
 
+  // 6. Stated counts (instance tier, vsctsa43).
+  //
+  // A form field declaring `countOf` states how many entries the document
+  // holds; only the instance tier can count them.
+  errors.addAll(_validateCountInstances(refl, doc));
+
   return errors;
 }
 
@@ -378,23 +390,10 @@ List<SpecValidationError> _validateReferenceInstances(
   final scope = _registryScope(refl, doc);
 
   // Resolve every form path once; both sweeps read the same resolutions.
-  //
   // A form resolution names the form *field*, not a class — the section id a
   // registry key is written against belongs to the class the form sits on, so
-  // the owner is resolved from the parent path (root, complex, section and
-  // list-item resolutions all carry their class).
-  final forms = <({String path, SpecClass cls, SpecField field})>[];
-  for (final path in doc.formPaths.toList()..sort()) {
-    final res = refl.resolve(path);
-    if (res == null || res.kind != SpecNodeKind.form || res.field == null) {
-      continue;
-    }
-    final slash = path.lastIndexOf('/');
-    if (slash <= 0) continue;
-    final cls = refl.resolve(path.substring(0, slash))?.targetClass;
-    if (cls == null) continue;
-    forms.add((path: path, cls: cls, field: res.field!));
-  }
+  // [_resolvedForms] resolves the owner from the parent path.
+  final forms = _resolvedForms(refl, doc);
 
   // 1. Declare.
   final declared = <String, Set<String>>{};
@@ -473,6 +472,132 @@ List<SpecValidationError> _validateReferenceInstances(
   }
 
   return errors;
+}
+
+/// Instance-tier stated-count check (vsctsa43): every non-empty value of a
+/// `countOf` form field must be a whole number equal to the number of entries
+/// the document holds.
+///
+/// An **entry** is a list item whose element class carries `@SectionId(X)`.
+/// A target `X` counts every such entry; `X.f=v` counts only the entries one of
+/// whose own forms — a form member of the entry, at `<item>/<member>` — holds
+/// `v` in form field `f`. The count is the sum over the targets. As with the
+/// reference check, a target whose section id the document's root cannot
+/// reach makes the field undecidable here, so it is skipped rather than
+/// reported, and an empty value is completeness, not a count.
+List<SpecValidationError> _validateCountInstances(
+  SpecReflection refl,
+  SpecDocument doc,
+) {
+  final forms = _resolvedForms(refl, doc);
+  if (!forms.any(
+    (f) => f.field.formFields.any((ff) => ff.countOf.isNotEmpty),
+  )) {
+    return const [];
+  }
+  final scope = _registryScope(refl, doc);
+
+  // Every entry, by its class's section id, with the form values its own form
+  // members hold.
+  final entriesById = <String, List<String>>{};
+  for (final listPath in doc.listPaths.toList()..sort()) {
+    for (final item in doc.listItems(listPath)) {
+      final id = refl.resolve(item)?.targetClass?.sectionId;
+      if (id == null || id.isEmpty) continue;
+      (entriesById[id] ??= []).add(item);
+    }
+  }
+  final valuesByItem = <String, Map<String, Set<String>>>{};
+  for (final path in doc.formPaths) {
+    final slash = path.lastIndexOf('/');
+    if (slash <= 0) continue;
+    final owner = path.substring(0, slash);
+    final res = refl.resolve(path);
+    if (res == null || res.field == null) continue;
+    for (final ff in res.field!.formFields) {
+      final v = doc.formField(path, ff.name)?.trim();
+      if (v == null || v.isEmpty) continue;
+      ((valuesByItem[owner] ??= {})[ff.name] ??= {}).add(v);
+    }
+  }
+
+  int countTarget(String target) {
+    final dot = target.indexOf('.');
+    if (dot < 0) return entriesById[target]?.length ?? 0;
+    final id = target.substring(0, dot);
+    final eq = target.indexOf('=', dot);
+    final field = target.substring(dot + 1, eq < 0 ? target.length : eq);
+    final value = eq < 0 ? '' : target.substring(eq + 1);
+    return (entriesById[id] ?? const <String>[])
+        .where((item) => valuesByItem[item]?[field]?.contains(value) ?? false)
+        .length;
+  }
+
+  final errors = <SpecValidationError>[];
+  for (final form in forms) {
+    for (final ff in form.field.formFields) {
+      if (ff.countOf.isEmpty) continue;
+      final stated = doc.formField(form.path, ff.name)?.trim();
+      if (stated == null || stated.isEmpty) continue;
+      if (!ff.countOf.every(
+        (t) => scope.contains(_registrySectionId(_countTargetId(t))),
+      )) {
+        continue;
+      }
+      final counted = ff.countOf.map(countTarget).fold(0, (a, b) => a + b);
+      final targets = ff.countOf.join(' + ');
+      if (!RegExp(r'^[0-9]+$').hasMatch(stated)) {
+        errors.add(
+          SpecValidationError(
+            path: form.path,
+            code: SpecValidationCode.countMismatch,
+            message:
+                'form field "${ff.name}" states "$stated", which is not a whole '
+                'number — it counts $targets, of which the document holds '
+                '$counted',
+          ),
+        );
+      } else if (int.parse(stated) != counted) {
+        errors.add(
+          SpecValidationError(
+            path: form.path,
+            code: SpecValidationCode.countMismatch,
+            message:
+                'form field "${ff.name}" states $stated, but the document '
+                'holds $counted (counting $targets)',
+          ),
+        );
+      }
+    }
+  }
+  return errors;
+}
+
+/// The section id of a `countOf` target — the part before any `.field=value`.
+String _countTargetId(String target) {
+  final dot = target.indexOf('.');
+  return dot < 0 ? target : target.substring(0, dot);
+}
+
+/// Every form instance in [doc] with its field and the class it sits on, in
+/// path order — the shape both the reference and the count check sweep.
+List<({String path, SpecClass cls, SpecField field})> _resolvedForms(
+  SpecReflection refl,
+  SpecDocument doc,
+) {
+  final forms = <({String path, SpecClass cls, SpecField field})>[];
+  for (final path in doc.formPaths.toList()..sort()) {
+    final res = refl.resolve(path);
+    if (res == null || res.kind != SpecNodeKind.form || res.field == null) {
+      continue;
+    }
+    final slash = path.lastIndexOf('/');
+    if (slash <= 0) continue;
+    final cls = refl.resolve(path.substring(0, slash))?.targetClass;
+    if (cls == null) continue;
+    forms.add((path: path, cls: cls, field: res.field!));
+  }
+  return forms;
 }
 
 /// The section id part of a registry key written `<SECTIONID>.<slot>`. A key

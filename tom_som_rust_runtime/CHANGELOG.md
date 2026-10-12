@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Stated counts: `FormFieldSpec::count_of` (read from the meta's
+  `formFields[].countOf`, empty when absent) names the entries a form field's
+  value counts — `X` (every list item whose element class carries
+  `@SectionId(X)`) or `X.f=v` (those entries one of whose own forms holds `v`
+  in form field `f`), summed over the targets. `validate_document` reports the
+  new `SPEC_VALIDATION_CODE_COUNT_MISMATCH` (`countMismatch`) after the
+  reference check when a non-empty stated value is not a whole number or not
+  the number of entries the document holds; a target outside the document's
+  registry scope skips the field. Verified by the `countMatches` /
+  `countMismatch` validation cases.
+
 - Assembling one document from fragments written in parallel, new module
   `spec_document_assembly` re-exported from the crate root:
   `SpecDocument::assemble(&[(name, &document), ...])` (also

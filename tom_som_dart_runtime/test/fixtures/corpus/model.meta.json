@@ -333,6 +333,22 @@
                 "RGE.code",
                 "RGE.@sectionId"
               ]
+            },
+            {
+              "name": "entryCount",
+              "label": "Entry Count",
+              "type": "int",
+              "countOf": [
+                "RGE"
+              ]
+            },
+            {
+              "name": "alphaCount",
+              "label": "Alpha Count",
+              "type": "int",
+              "countOf": [
+                "RGE.code=ALPHA"
+              ]
             }
           ]
         }

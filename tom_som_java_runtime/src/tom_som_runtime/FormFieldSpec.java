@@ -25,6 +25,14 @@ public final class FormFieldSpec {
    * dangling id instead of generating broken code.
    */
   public final List<String> refersTo;
+  /**
+   * The entries this field's value counts ({@code Field.countOf}, vsctsa43),
+   * each a section id {@code X} (every entry) or {@code X.f=v} (the entries one
+   * of whose own forms holds {@code v} in form field {@code f}); empty for a
+   * field that states no count. The instance tier checks the stated number
+   * against the entries the document holds.
+   */
+  public final List<String> countOf;
 
   public FormFieldSpec(
       String name, String label, String type, String hint, boolean required) {
@@ -39,6 +47,18 @@ public final class FormFieldSpec {
       boolean required,
       List<String> enumValues,
       List<String> refersTo) {
+    this(name, label, type, hint, required, enumValues, refersTo, List.of());
+  }
+
+  public FormFieldSpec(
+      String name,
+      String label,
+      String type,
+      String hint,
+      boolean required,
+      List<String> enumValues,
+      List<String> refersTo,
+      List<String> countOf) {
     this.name = name;
     this.label = label;
     this.type = type;
@@ -46,6 +66,7 @@ public final class FormFieldSpec {
     this.required = required;
     this.enumValues = enumValues;
     this.refersTo = refersTo;
+    this.countOf = countOf;
   }
 
   public static FormFieldSpec fromJson(Map<String, Object> j) {
@@ -59,7 +80,8 @@ public final class FormFieldSpec {
         j.get("hint") != null ? j.get("hint").toString() : null,
         Boolean.TRUE.equals(j.get("required")),
         stringList(j.get("enumValues")),
-        stringList(j.get("refersTo")));
+        stringList(j.get("refersTo")),
+        stringList(j.get("countOf")));
   }
 
   private static List<String> stringList(Object raw) {

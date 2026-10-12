@@ -211,6 +211,10 @@ class ModelJsonExporter {
                 // the eight non-Dart runtimes can run the instance-tier
                 // dangling-reference check too.
                 if (ff.refersTo.isNotEmpty) 'refersTo': ff.refersTo,
+                // vsctsa43: the entries this field's stated value counts, each
+                // `<SECTIONID>` or `<SECTIONID>.<formField>=<value>`, so every
+                // runtime's instance tier can hold the count to the document.
+                if (ff.countOf.isNotEmpty) 'countOf': ff.countOf,
               },
             )
             .toList();

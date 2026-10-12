@@ -94,6 +94,11 @@ class FormFieldInfo {
   /// cross-registry reference. See `Field.refersTo` in `tom_specs_core`.
   final List<String> refersTo;
 
+  /// The entries this field's value counts, each `<SECTIONID>` or
+  /// `<SECTIONID>.<formField>=<value>` (vsctsa43). Empty for a field that
+  /// states no count. See `Field.countOf` in `tom_specs_core`.
+  final List<String> countOf;
+
   /// [name] and [typeName] are required — a slot without either is not
   /// addressable and not parseable. Every remaining property defaults to
   /// its *empty* value (`''` / `const []`) rather than null, so consumers
@@ -108,6 +113,7 @@ class FormFieldInfo {
     this.enumValues = const [],
     this.enumValueDocs = const {},
     this.refersTo = const [],
+    this.countOf = const [],
   });
 }
 
@@ -952,6 +958,14 @@ class ModelReader {
                 .whereType<String>()
                 .toList() ??
             const <String>[];
+        final countOf =
+            item
+                .getField('countOf')
+                ?.toListValue()
+                ?.map((e) => e.toStringValue())
+                .whereType<String>()
+                .toList() ??
+            const <String>[];
 
         // Extract type name from the Type literal; resolve enum constant
         // names right here (YRD7) so downstream consumers need no analyzer.
@@ -977,6 +991,7 @@ class ModelReader {
             enumValues: enumValues,
             enumValueDocs: enumValueDocs,
             refersTo: refersTo,
+            countOf: countOf,
           ),
         );
       }

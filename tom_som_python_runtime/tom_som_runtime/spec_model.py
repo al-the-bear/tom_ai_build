@@ -80,6 +80,11 @@ class FormFieldSpec:
     #: some entry of the named registry, so a runtime can resolve it and report
     #: a dangling id instead of generating broken code.
     refers_to: list[str] = field(default_factory=list)
+    #: The entries this field's value counts (``Field.countOf``, vsctsa43),
+    #: each ``<SECTIONID>`` or ``<SECTIONID>.<formField>=<value>``; empty for a
+    #: field that states no count. The instance tier holds the stated number to
+    #: the document (``countMismatch``).
+    count_of: list[str] = field(default_factory=list)
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "FormFieldSpec":
@@ -91,6 +96,7 @@ class FormFieldSpec:
             required=bool(j.get("required") or False),
             enum_values=[str(e) for e in (j.get("enumValues") or [])],
             refers_to=[str(e) for e in (j.get("refersTo") or [])],
+            count_of=[str(e) for e in (j.get("countOf") or [])],
         )
 
 

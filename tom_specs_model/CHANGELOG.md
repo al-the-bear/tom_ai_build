@@ -1,5 +1,12 @@
 ## Unreleased
 
+- The Solution Blueprint's stated counts are declared with `countOf` and checked
+  against the lists they describe: the scale form (`SYSCL`) counts user
+  categories, external interfaces, functional and non-functional (technical +
+  security) requirements; the requirement summary forms (`FR-SUMM`,
+  `TR1-SUMM`, `SR1-SUMM`, `OR-SUMM`) their totals and priority buckets.
+  `tom_specs_model_rules.md` §6.2.2 states the rule.
+
 - SOM §12.9 documents assembling a document from fragments.
 
 - The area catalogue carries the Stage-A gate tables (`gate.requiredArguments`,

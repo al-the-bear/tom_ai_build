@@ -290,6 +290,7 @@ static SpecField fieldFromJson(const JsonRef& f) {
     ffs_out.required = jsonBoolOr(ff, "required");
     ffs_out.enumValues = strListFromJson(ff, "enumValues");
     ffs_out.refersTo = strListFromJson(ff, "refersTo");
+    ffs_out.countOf = strListFromJson(ff, "countOf");
     out.formFields.push_back(std::move(ffs_out));
   }
 

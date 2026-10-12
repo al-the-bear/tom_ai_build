@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- `Field.countOf`: a form field stating a count of entries the document holds
+  names them (`<SECTIONID>` or `<SECTIONID>.<formField>=<value>`, summed), so
+  the instance tier can hold the stated number to the lists (`countMismatch`).
+
 ## 0.2.1
 
 - Documentation only. The README and `doc/` pages link to the CodeSpecs mapping

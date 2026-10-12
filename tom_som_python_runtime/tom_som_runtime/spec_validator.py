@@ -10,6 +10,7 @@ every populated list must meet its ``@Min`` item count. Schema completeness
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from enum import Enum
 from typing import Optional
@@ -40,6 +41,11 @@ class SpecValidationCode(Enum):
     #: setter, so without this the value is simply dropped. An **empty** value
     #: is absence, not a bad value, and is not reported.
     ENUM_VALUE_UNKNOWN = "enumValueUnknown"
+    #: A form field that states a count (``FormFieldSpec.count_of``) holds a
+    #: number that is not the number of entries the document holds, or no whole
+    #: number at all (vsctsa43). A total kept by hand drifts from the list it
+    #: describes the first time the list changes and the total does not.
+    COUNT_MISMATCH = "countMismatch"
 
 
 @dataclass(frozen=True)
@@ -195,6 +201,12 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
     # targets are resolvable; only here can we see whether the id a document
     # actually wrote is one the document also declares.
     errors.extend(_validate_reference_instances(refl, doc))
+
+    # 6. Stated counts (instance tier, vsctsa43).
+    #
+    # A form field declaring `countOf` states how many entries the document
+    # holds; only the instance tier can count them.
+    errors.extend(_validate_count_instances(refl, doc))
 
     return errors
 
@@ -398,19 +410,7 @@ def _validate_reference_instances(
     # A form resolution names the form *field*, not a class — the section id a
     # registry key is written against belongs to the class the form sits on, so
     # the owner is resolved from the parent path.
-    forms: list[tuple[str, SpecClass, SpecField]] = []
-    for path in sorted(doc.form_paths):
-        res = refl.resolve(path)
-        if res is None or res.kind != SpecNodeKind.FORM or res.field is None:
-            continue
-        slash = path.rfind("/")
-        if slash <= 0:
-            continue
-        owner = refl.resolve(path[:slash])
-        cls = owner.target_class if owner is not None else None
-        if cls is None:
-            continue
-        forms.append((path, cls, res.field))
+    forms = _resolved_forms(refl, doc)
 
     # 1. Declare.
     declared: dict[str, set[str]] = {}
@@ -489,3 +489,138 @@ def _validate_reference_instances(
                 )
 
     return errors
+
+
+def _validate_count_instances(
+    refl: SpecReflection, doc: SpecDocument
+) -> list[SpecValidationError]:
+    """Instance-tier stated-count check (vsctsa43): every non-empty value of a
+    ``countOf`` form field must be a whole number equal to the number of entries
+    the document holds.
+
+    An **entry** is a list item whose element class carries ``@SectionId(X)``.
+    A target ``X`` counts every such entry; ``X.f=v`` counts only the entries
+    one of whose own forms — a form member of the entry, at ``<item>/<member>``
+    — holds ``v`` in form field ``f``. The count is the sum over the targets. As
+    with the reference check, a target whose section id the document's root
+    cannot reach makes the field undecidable here, so it is skipped rather than
+    reported, and an empty value is completeness, not a count.
+    """
+    forms = _resolved_forms(refl, doc)
+    if not any(ff.count_of for _, _, field in forms for ff in field.form_fields):
+        return []
+    scope = _registry_scope(refl, doc)
+
+    # Every entry, by its class's section id, with the form values its own form
+    # members hold.
+    entries_by_id: dict[str, list[str]] = {}
+    for list_path in sorted(doc.list_paths):
+        for item in doc.list_items(list_path):
+            item_res = refl.resolve(item)
+            cls = item_res.target_class if item_res is not None else None
+            section_id = cls.section_id if cls is not None else None
+            if not section_id:
+                continue
+            entries_by_id.setdefault(section_id, []).append(item)
+    values_by_item: dict[str, dict[str, set[str]]] = {}
+    for path in doc.form_paths:
+        slash = path.rfind("/")
+        if slash <= 0:
+            continue
+        owner = path[:slash]
+        res = refl.resolve(path)
+        if res is None or res.field is None:
+            continue
+        for ff in res.field.form_fields:
+            raw = doc.form_field(path, ff.name)
+            v = raw.strip() if raw is not None else None
+            if not v:
+                continue
+            values_by_item.setdefault(owner, {}).setdefault(ff.name, set()).add(v)
+
+    def count_target(target: str) -> int:
+        dot = target.find(".")
+        if dot < 0:
+            return len(entries_by_id.get(target, []))
+        id = target[:dot]
+        eq = target.find("=", dot)
+        field_name = target[dot + 1:eq if eq >= 0 else len(target)]
+        value = "" if eq < 0 else target[eq + 1:]
+        return sum(
+            1
+            for item in entries_by_id.get(id, [])
+            if value in values_by_item.get(item, {}).get(field_name, ())
+        )
+
+    errors: list[SpecValidationError] = []
+    for form_path, _cls, field in forms:
+        for ff in field.form_fields:
+            if not ff.count_of:
+                continue
+            raw = doc.form_field(form_path, ff.name)
+            stated = raw.strip() if raw is not None else None
+            if not stated:
+                continue
+            if not all(
+                _registry_section_id(_count_target_id(t)) in scope
+                for t in ff.count_of
+            ):
+                continue
+            counted = sum(count_target(t) for t in ff.count_of)
+            targets = " + ".join(ff.count_of)
+            if not _WHOLE_NUMBER.fullmatch(stated):
+                errors.append(
+                    SpecValidationError(
+                        path=form_path,
+                        code=SpecValidationCode.COUNT_MISMATCH,
+                        message=(
+                            f'form field "{ff.name}" states "{stated}", which is '
+                            f"not a whole number — it counts {targets}, of which "
+                            f"the document holds {counted}"
+                        ),
+                    )
+                )
+            elif int(stated) != counted:
+                errors.append(
+                    SpecValidationError(
+                        path=form_path,
+                        code=SpecValidationCode.COUNT_MISMATCH,
+                        message=(
+                            f'form field "{ff.name}" states {stated}, but the '
+                            f"document holds {counted} (counting {targets})"
+                        ),
+                    )
+                )
+    return errors
+
+
+#: A stated count: ASCII digits only, as the reference's ``^[0-9]+$``.
+_WHOLE_NUMBER = re.compile(r"[0-9]+")
+
+
+def _count_target_id(target: str) -> str:
+    """The section id of a ``countOf`` target — the part before any
+    ``.field=value``."""
+    dot = target.find(".")
+    return target if dot < 0 else target[:dot]
+
+
+def _resolved_forms(
+    refl: SpecReflection, doc: SpecDocument
+) -> list[tuple[str, SpecClass, SpecField]]:
+    """Every form instance in *doc* with the class it sits on and its field, in
+    path order — the shape both the reference and the count check sweep."""
+    forms: list[tuple[str, SpecClass, SpecField]] = []
+    for path in sorted(doc.form_paths):
+        res = refl.resolve(path)
+        if res is None or res.kind != SpecNodeKind.FORM or res.field is None:
+            continue
+        slash = path.rfind("/")
+        if slash <= 0:
+            continue
+        owner = refl.resolve(path[:slash])
+        cls = owner.target_class if owner is not None else None
+        if cls is None:
+            continue
+        forms.append((path, cls, res.field))
+    return forms

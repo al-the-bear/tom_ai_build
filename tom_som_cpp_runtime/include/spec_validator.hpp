@@ -38,6 +38,12 @@ inline constexpr const char* kSpecValidationCodeDanglingReference =
  * bad value, and is not reported. */
 inline constexpr const char* kSpecValidationCodeEnumValueUnknown =
     "enumValueUnknown";
+/* A form field that states a count (`Field.countOf`) holding a number that is
+ * not the number of entries the document holds, or no whole number at all
+ * (vsctsa43). A total kept by hand drifts from the list it describes the first
+ * time the list changes and the total does not. */
+inline constexpr const char* kSpecValidationCodeCountMismatch =
+    "countMismatch";
 
 struct SpecValidationError {
   std::string path;
@@ -47,7 +53,7 @@ struct SpecValidationError {
 
 /* Validates `doc` against `model`, returning problems in stable order: content
  * paths, then forms, then lists, then `@OneOf` case instances, then `refersTo`
- * references; each group sorted by path. An empty list means the document is
+ * references, then `countOf` stated counts; each group sorted by path. An empty list means the document is
  * valid. */
 std::vector<SpecValidationError> validateDocument(const SpecModel& model,
                                                   const SpecDocument& doc);

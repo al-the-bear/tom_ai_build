@@ -337,6 +337,97 @@
     ]
   },
   {
+    "name": "countMatches",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "label": "Alpha"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "label": "Beta"
+        },
+        "DEMO/REG/RGL-LST-1/RGL-DET": {
+          "entryCode": "ALPHA",
+          "entryId": "RGE-ALPHA",
+          "anyRefs": "ALPHA",
+          "entryCount": "2",
+          "alphaCount": "1"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ],
+          "ids": {
+            "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+          }
+        },
+        "DEMO/REG/RGL-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGL-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "countMismatch",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "label": "Alpha"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "label": "Beta"
+        },
+        "DEMO/REG/RGL-LST-1/RGL-DET": {
+          "entryCode": "ALPHA",
+          "entryId": "RGE-ALPHA",
+          "anyRefs": "ALPHA",
+          "entryCount": "3",
+          "alphaCount": "two"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ],
+          "ids": {
+            "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+          }
+        },
+        "DEMO/REG/RGL-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGL-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RGL-LST-1/RGL-DET",
+        "code": "countMismatch"
+      },
+      {
+        "path": "DEMO/REG/RGL-LST-1/RGL-DET",
+        "code": "countMismatch"
+      }
+    ]
+  },
+  {
     "name": "oneOfCaseSelected",
     "state": {
       "content": {

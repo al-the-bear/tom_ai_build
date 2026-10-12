@@ -91,6 +91,25 @@ class Field {
   /// never apply to the same declaration.
   final List<String> refersTo;
 
+  /// Declares that this field states a **count of entries the document
+  /// holds** — the instance tier then checks the stated number against them
+  /// (`countMismatch`), so a total kept by hand cannot silently drift from the
+  /// list it describes.
+  ///
+  /// Each element is `<SECTIONID>` — every list entry of the class carrying
+  /// that `@SectionId` in this document — or `<SECTIONID>.<formField>=<value>`,
+  /// only the entries one of whose own forms (a form member of the entry
+  /// class) holds [value] in that form field. The count is the **sum** over
+  /// the elements, so `['TERQ', 'SECRQ']` counts technical and security
+  /// requirements together. Like [refersTo], a target the document's root
+  /// cannot reach is skipped rather than reported, and an empty value is not
+  /// checked — it is completeness, which the schema tier owns.
+  ///
+  /// The value is still written by the author: the field states the count,
+  /// the check holds it to the document. Deriving it at render time would make
+  /// the stored document differ from what a reader sees.
+  final List<String> countOf;
+
   /// Declares a form field called [name] holding a value of [type].
   ///
   /// The three positional arguments are the ones every field has; the named
@@ -103,5 +122,6 @@ class Field {
     this.required = false,
     this.hint,
     this.refersTo = const [],
+    this.countOf = const [],
   });
 }

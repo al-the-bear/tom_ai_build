@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Stated counts: `FormFieldSpec.countOf` (read from the meta's
+  `formFields[].countOf`, absent → empty), and `validateDocument` reports
+  `SpecValidationCode.COUNT_MISMATCH` (`countMismatch`) when a `countOf` form
+  field states a value that is not a whole number or not the number of entries
+  the document holds (SOM §9, phase 6, run after the reference check). A target
+  `X` counts every list item whose element class carries `@SectionId(X)`;
+  `X.f=v` counts those whose own form holds `v` in field `f`; the targets sum.
+  Empty values and targets outside the document's registry scope are skipped.
+  Messages as in Dart. Conformance: the `countMatches` / `countMismatch`
+  validation cases.
 - Assembling one document from fragments written in parallel:
   `SpecDocument.assemble(fragments)` (also `assembleSpecDocuments`) takes the
   fragments as name → document, in order (a `Map` or an iterable of

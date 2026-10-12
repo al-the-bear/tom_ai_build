@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Stated counts: `FormFieldSpec.countOf` (read from the meta's
+  `formFields[].countOf`, empty when absent) names the entries a form field's
+  value counts — `X` (every list item whose element class carries
+  `@SectionId(X)`) or `X.f=v` (those entries one of whose own forms holds `v`
+  in form field `f`), summed over the targets. `validateDocument` reports the
+  new `SpecValidationCode.COUNT_MISMATCH` (`countMismatch`) after the reference
+  check when a non-empty stated value is not a whole number or not the number
+  of entries the document holds; a target outside the document's registry
+  scope skips the field. Verified by the `countMatches` / `countMismatch`
+  validation cases.
+
 - Assembling one document from fragments written in parallel:
   `SpecDocument.assemble(fragments)` (also `SpecDocumentAssembly.assemble`)
   takes an ordered `List` of (name, document) `Map.Entry` pairs — or a

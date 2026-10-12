@@ -155,6 +155,12 @@ public final class SpecValidator {
     // actually wrote is one the document also declares.
     errors.addAll(validateReferenceInstances(refl, doc));
 
+    // 6. Stated counts (instance tier, vsctsa43).
+    //
+    // A form field declaring `countOf` states how many entries the document
+    // holds; only the instance tier can count them.
+    errors.addAll(validateCountInstances(refl, doc));
+
     return errors;
   }
 
@@ -348,23 +354,7 @@ public final class SpecValidator {
     // A form resolution names the form *field*, not a class — the section id a
     // registry key is written against belongs to the class the form sits on, so
     // the owner is resolved from the parent path.
-    List<FormInstance> forms = new ArrayList<>();
-    for (String path : new TreeSet<>(doc.formPaths())) {
-      SpecResolution res = refl.resolve(path);
-      if (res == null || res.kind != SpecNodeKind.FORM || res.field == null) {
-        continue;
-      }
-      int slash = path.lastIndexOf('/');
-      if (slash <= 0) {
-        continue;
-      }
-      SpecResolution owner = refl.resolve(path.substring(0, slash));
-      SpecClass cls = owner == null ? null : owner.targetClass;
-      if (cls == null) {
-        continue;
-      }
-      forms.add(new FormInstance(path, cls, res.field));
-    }
+    List<FormInstance> forms = resolvedForms(refl, doc);
 
     // 1. Declare.
     Map<String, Set<String>> declared = new HashMap<>();
@@ -473,6 +463,199 @@ public final class SpecValidator {
     }
 
     return errors;
+  }
+
+  /**
+   * Instance-tier stated-count check (vsctsa43): every non-empty value of a
+   * {@code countOf} form field must be a whole number equal to the number of
+   * entries the document holds.
+   *
+   * <p>An <b>entry</b> is a list item whose element class carries
+   * {@code @SectionId(X)}. A target {@code X} counts every such entry;
+   * {@code X.f=v} counts only the entries one of whose own forms — a form member
+   * of the entry, at {@code <item>/<member>} — holds {@code v} in form field
+   * {@code f}. The count is the sum over the targets. As with the reference
+   * check, a target whose section id the document's root cannot reach makes the
+   * field undecidable here, so it is skipped rather than reported, and an empty
+   * value is completeness, not a count.
+   */
+  private static List<SpecValidationError> validateCountInstances(
+      SpecReflection refl, SpecDocument doc) {
+    List<FormInstance> forms = resolvedForms(refl, doc);
+    boolean anyCounted = false;
+    for (FormInstance form : forms) {
+      for (FormFieldSpec ff : form.field.formFields) {
+        if (!ff.countOf.isEmpty()) {
+          anyCounted = true;
+        }
+      }
+    }
+    if (!anyCounted) {
+      return Collections.emptyList();
+    }
+    Set<String> scope = registryScope(refl, doc);
+
+    // Every entry, by its class's section id, with the form values its own form
+    // members hold.
+    Map<String, List<String>> entriesById = new HashMap<>();
+    for (String listPath : new TreeSet<>(doc.listPaths())) {
+      for (String item : doc.listItems(listPath)) {
+        SpecResolution itemRes = refl.resolve(item);
+        SpecClass cls = itemRes == null ? null : itemRes.targetClass;
+        String id = cls == null ? null : cls.sectionId;
+        if (id == null || id.isEmpty()) {
+          continue;
+        }
+        entriesById.computeIfAbsent(id, k -> new ArrayList<>()).add(item);
+      }
+    }
+    Map<String, Map<String, Set<String>>> valuesByItem = new HashMap<>();
+    for (String path : doc.formPaths()) {
+      int slash = path.lastIndexOf('/');
+      if (slash <= 0) {
+        continue;
+      }
+      String owner = path.substring(0, slash);
+      SpecResolution res = refl.resolve(path);
+      if (res == null || res.field == null) {
+        continue;
+      }
+      for (FormFieldSpec ff : res.field.formFields) {
+        String v = doc.formField(path, ff.name);
+        if (v == null) {
+          continue;
+        }
+        v = v.trim();
+        if (v.isEmpty()) {
+          continue;
+        }
+        valuesByItem
+            .computeIfAbsent(owner, k -> new HashMap<>())
+            .computeIfAbsent(ff.name, k -> new HashSet<>())
+            .add(v);
+      }
+    }
+
+    List<SpecValidationError> errors = new ArrayList<>();
+    for (FormInstance form : forms) {
+      for (FormFieldSpec ff : form.field.formFields) {
+        if (ff.countOf.isEmpty()) {
+          continue;
+        }
+        String stated = doc.formField(form.path, ff.name);
+        if (stated == null) {
+          continue;
+        }
+        stated = stated.trim();
+        if (stated.isEmpty()) {
+          continue;
+        }
+        boolean allInScope = true;
+        for (String target : ff.countOf) {
+          if (!scope.contains(registrySectionId(countTargetId(target)))) {
+            allInScope = false;
+            break;
+          }
+        }
+        if (!allInScope) {
+          continue;
+        }
+        int counted = 0;
+        for (String target : ff.countOf) {
+          counted += countTarget(target, entriesById, valuesByItem);
+        }
+        String targets = String.join(" + ", ff.countOf);
+        if (!stated.matches("[0-9]+")) {
+          errors.add(
+              new SpecValidationError(
+                  form.path,
+                  SpecValidationCode.COUNT_MISMATCH,
+                  "form field \""
+                      + ff.name
+                      + "\" states \""
+                      + stated
+                      + "\", which is not a whole number — it counts "
+                      + targets
+                      + ", of which the document holds "
+                      + counted));
+        } else if (!new java.math.BigInteger(stated).equals(java.math.BigInteger.valueOf(counted))) {
+          errors.add(
+              new SpecValidationError(
+                  form.path,
+                  SpecValidationCode.COUNT_MISMATCH,
+                  "form field \""
+                      + ff.name
+                      + "\" states "
+                      + stated
+                      + ", but the document holds "
+                      + counted
+                      + " (counting "
+                      + targets
+                      + ")"));
+        }
+      }
+    }
+    return errors;
+  }
+
+  /**
+   * The number of entries one {@code countOf} target names: every entry of
+   * section id {@code X}, or — for {@code X.f=v} — those whose own forms hold
+   * {@code v} in form field {@code f}.
+   */
+  private static int countTarget(
+      String target,
+      Map<String, List<String>> entriesById,
+      Map<String, Map<String, Set<String>>> valuesByItem) {
+    int dot = target.indexOf('.');
+    if (dot < 0) {
+      List<String> entries = entriesById.get(target);
+      return entries == null ? 0 : entries.size();
+    }
+    String id = target.substring(0, dot);
+    int eq = target.indexOf('=', dot);
+    String field = target.substring(dot + 1, eq < 0 ? target.length() : eq);
+    String value = eq < 0 ? "" : target.substring(eq + 1);
+    int n = 0;
+    for (String item : entriesById.getOrDefault(id, Collections.emptyList())) {
+      Map<String, Set<String>> byField = valuesByItem.get(item);
+      Set<String> values = byField == null ? null : byField.get(field);
+      if (values != null && values.contains(value)) {
+        n++;
+      }
+    }
+    return n;
+  }
+
+  /** The section id of a {@code countOf} target — the part before any {@code .field=value}. */
+  private static String countTargetId(String target) {
+    int dot = target.indexOf('.');
+    return dot < 0 ? target : target.substring(0, dot);
+  }
+
+  /**
+   * Every form instance in {@code doc} with its field and the class it sits on,
+   * in path order — the shape both the reference and the count check sweep.
+   */
+  private static List<FormInstance> resolvedForms(SpecReflection refl, SpecDocument doc) {
+    List<FormInstance> forms = new ArrayList<>();
+    for (String path : new TreeSet<>(doc.formPaths())) {
+      SpecResolution res = refl.resolve(path);
+      if (res == null || res.kind != SpecNodeKind.FORM || res.field == null) {
+        continue;
+      }
+      int slash = path.lastIndexOf('/');
+      if (slash <= 0) {
+        continue;
+      }
+      SpecResolution owner = refl.resolve(path.substring(0, slash));
+      SpecClass cls = owner == null ? null : owner.targetClass;
+      if (cls == null) {
+        continue;
+      }
+      forms.add(new FormInstance(path, cls, res.field));
+    }
+    return forms;
   }
 
   /**

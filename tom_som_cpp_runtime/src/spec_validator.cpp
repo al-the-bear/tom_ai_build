@@ -215,22 +215,13 @@ std::set<std::string> registryScope(const SpecReflection& refl,
   return ids;
 }
 
-/* Instance-tier cross-registry reference check (csrb3): every id written into a
-   `refersTo` form field must be declared by some entry of one of its target
-   registries *in this document*. Two sweeps over the document's form sections
-   (declare, then resolve), so it costs one extra walk rather than a resolve per
-   reference. An empty value is not a dangling reference — it means "not filled
-   in yet", the schema-completeness concern this validator leaves to its
-   caller. */
-std::vector<SpecValidationError> validateReferenceInstances(
-    const SpecReflection& refl, const SpecDocument& doc) {
-  std::vector<SpecValidationError> errors;
-  const std::set<std::string> scope = registryScope(refl, doc);
-
-  // Resolve every form path once; both sweeps read the same resolutions. A form
-  // resolution names the form *field*, not a class — the section id a registry
-  // key is written against belongs to the class the form sits on, so the owner
-  // is resolved from the parent path.
+/* Every form instance in `doc` with its field and the class it sits on, in path
+   order — the shape both the reference and the count check sweep. A form
+   resolution names the form *field*, not a class — the section id a registry
+   key is written against belongs to the class the form sits on, so the owner is
+   resolved from the parent path. */
+std::vector<FormInstance> resolvedForms(const SpecReflection& refl,
+                                        const SpecDocument& doc) {
   std::vector<FormInstance> forms;
   std::vector<std::string> formPaths = doc.formPaths();
   std::sort(formPaths.begin(), formPaths.end());
@@ -250,6 +241,23 @@ std::vector<SpecValidationError> validateReferenceInstances(
     }
     forms.push_back({path, owner->targetClass, res->field});
   }
+  return forms;
+}
+
+/* Instance-tier cross-registry reference check (csrb3): every id written into a
+   `refersTo` form field must be declared by some entry of one of its target
+   registries *in this document*. Two sweeps over the document's form sections
+   (declare, then resolve), so it costs one extra walk rather than a resolve per
+   reference. An empty value is not a dangling reference — it means "not filled
+   in yet", the schema-completeness concern this validator leaves to its
+   caller. */
+std::vector<SpecValidationError> validateReferenceInstances(
+    const SpecReflection& refl, const SpecDocument& doc) {
+  std::vector<SpecValidationError> errors;
+  const std::set<std::string> scope = registryScope(refl, doc);
+
+  // Resolve every form path once; both sweeps read the same resolutions.
+  const std::vector<FormInstance> forms = resolvedForms(refl, doc);
 
   // 1. Declare: every form instance contributes `<SECTIONID>.<formField>`.
   std::map<std::string, std::set<std::string>> declared;
@@ -359,6 +367,160 @@ std::vector<SpecValidationError> validateReferenceInstances(
           break;
         }
         from = comma + 1;
+      }
+    }
+  }
+  return errors;
+}
+
+/* The section id of a `countOf` target — the part before any `.field=value`. */
+std::string countTargetId(const std::string& target) {
+  std::size_t dot = target.find('.');
+  return dot == std::string::npos ? target : target.substr(0, dot);
+}
+
+/* Whether `s` is a non-empty run of ASCII digits (`^[0-9]+$`). */
+bool allDigits(const std::string& s) {
+  return !s.empty() && std::all_of(s.begin(), s.end(), [](char c) {
+    return c >= '0' && c <= '9';
+  });
+}
+
+/* Whether the digit string `digits` names the number `n`. Compared as decimal
+   text (leading zeros stripped), so a stated value too large for any integer
+   type is simply unequal rather than overflowing. */
+bool digitsEqual(const std::string& digits, long long n) {
+  std::size_t first = digits.find_first_not_of('0');
+  std::string stripped =
+      first == std::string::npos ? "0" : digits.substr(first);
+  return stripped == std::to_string(n);
+}
+
+/* Instance-tier stated-count check (vsctsa43): every non-empty value of a
+   `countOf` form field must be a whole number equal to the number of entries
+   the document holds.
+
+   An **entry** is a list item whose element class carries `@SectionId(X)`. A
+   target `X` counts every such entry; `X.f=v` counts only the entries one of
+   whose own forms — a form member of the entry, at `<item>/<member>` — holds
+   `v` in form field `f`. The count is the sum over the targets. As with the
+   reference check, a target whose section id the document's root cannot reach
+   makes the field undecidable here, so it is skipped rather than reported, and
+   an empty value is completeness, not a count. */
+std::vector<SpecValidationError> validateCountInstances(
+    const SpecReflection& refl, const SpecDocument& doc) {
+  const std::vector<FormInstance> forms = resolvedForms(refl, doc);
+  bool any = std::any_of(forms.begin(), forms.end(), [](const FormInstance& f) {
+    return std::any_of(
+        f.field->formFields.begin(), f.field->formFields.end(),
+        [](const FormFieldSpec& ff) { return !ff.countOf.empty(); });
+  });
+  if (!any) {
+    return {};
+  }
+  const std::set<std::string> scope = registryScope(refl, doc);
+
+  // Every entry, by its class's section id, with the form values its own form
+  // members hold.
+  std::map<std::string, std::vector<std::string>> entriesById;
+  std::vector<std::string> listPaths = doc.listPaths();
+  std::sort(listPaths.begin(), listPaths.end());
+  for (const std::string& listPath : listPaths) {
+    for (const std::string& item : doc.listItems(listPath)) {
+      auto res = refl.resolve(item);
+      if (!res.has_value() || res->targetClass == nullptr ||
+          res->targetClass->sectionId.empty()) {
+        continue;
+      }
+      entriesById[res->targetClass->sectionId].push_back(item);
+    }
+  }
+  std::map<std::string, std::map<std::string, std::set<std::string>>>
+      valuesByItem;
+  for (const std::string& path : doc.formPaths()) {
+    std::size_t slash = path.rfind('/');
+    if (slash == std::string::npos || slash == 0) {
+      continue;
+    }
+    auto res = refl.resolve(path);
+    if (!res.has_value() || res->field == nullptr) {
+      continue;
+    }
+    const std::string owner = path.substr(0, slash);
+    for (const FormFieldSpec& ff : res->field->formFields) {
+      std::string v = trimmed(doc.formField(path, ff.name));
+      if (v.empty()) {
+        continue;
+      }
+      valuesByItem[owner][ff.name].insert(v);
+    }
+  }
+
+  auto countTarget = [&](const std::string& target) -> long long {
+    std::size_t dot = target.find('.');
+    if (dot == std::string::npos) {
+      auto it = entriesById.find(target);
+      return it == entriesById.end() ? 0
+                                     : static_cast<long long>(it->second.size());
+    }
+    const std::string id = target.substr(0, dot);
+    std::size_t eq = target.find('=', dot);
+    const std::string field = target.substr(
+        dot + 1, eq == std::string::npos ? std::string::npos : eq - dot - 1);
+    const std::string value =
+        eq == std::string::npos ? std::string() : target.substr(eq + 1);
+    auto it = entriesById.find(id);
+    if (it == entriesById.end()) {
+      return 0;
+    }
+    long long n = 0;
+    for (const std::string& item : it->second) {
+      auto byItem = valuesByItem.find(item);
+      if (byItem == valuesByItem.end()) continue;
+      auto byField = byItem->second.find(field);
+      if (byField != byItem->second.end() && byField->second.count(value) != 0) {
+        n++;
+      }
+    }
+    return n;
+  };
+
+  std::vector<SpecValidationError> errors;
+  for (const FormInstance& form : forms) {
+    for (const FormFieldSpec& ff : form.field->formFields) {
+      if (ff.countOf.empty()) {
+        continue;
+      }
+      const std::string stated = trimmed(doc.formField(form.path, ff.name));
+      if (stated.empty()) {
+        continue;
+      }
+      bool allInScope = std::all_of(
+          ff.countOf.begin(), ff.countOf.end(), [&](const std::string& t) {
+            return scope.count(registrySectionId(countTargetId(t))) != 0;
+          });
+      if (!allInScope) {
+        continue;
+      }
+      long long counted = 0;
+      std::string targets;
+      for (const std::string& t : ff.countOf) {
+        counted += countTarget(t);
+        if (!targets.empty()) targets += " + ";
+        targets += t;
+      }
+      if (!allDigits(stated)) {
+        errors.push_back(
+            {form.path, kSpecValidationCodeCountMismatch,
+             "form field \"" + ff.name + "\" states \"" + stated +
+                 "\", which is not a whole number — it counts " + targets +
+                 ", of which the document holds " + std::to_string(counted)});
+      } else if (!digitsEqual(stated, counted)) {
+        errors.push_back({form.path, kSpecValidationCodeCountMismatch,
+                          "form field \"" + ff.name + "\" states " + stated +
+                              ", but the document holds " +
+                              std::to_string(counted) + " (counting " +
+                              targets + ")"});
       }
     }
   }
@@ -492,6 +654,12 @@ std::vector<SpecValidationError> validateDocument(const SpecModel& model,
   // in this document. The static tier has checked the targets are resolvable;
   // only here can we see whether the id a document wrote is one it declares.
   for (SpecValidationError& e : validateReferenceInstances(refl, doc)) {
+    out.push_back(std::move(e));
+  }
+
+  // 6. Stated counts: a `countOf` form field states how many entries the
+  // document holds; only the instance tier can count them.
+  for (SpecValidationError& e : validateCountInstances(refl, doc)) {
     out.push_back(std::move(e));
   }
 

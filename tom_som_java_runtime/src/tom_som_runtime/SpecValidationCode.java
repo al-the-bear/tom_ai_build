@@ -15,7 +15,14 @@ public enum SpecValidationCode {
    * without this the value is simply dropped. An <b>empty</b> value is absence,
    * not a bad value, and is not reported.
    */
-  ENUM_VALUE_UNKNOWN("enumValueUnknown");
+  ENUM_VALUE_UNKNOWN("enumValueUnknown"),
+  /**
+   * A form field that states a count ({@code Field.countOf}) holds a number that
+   * is not the number of entries the document holds, or no whole number at all
+   * (vsctsa43). A total kept by hand drifts from the list it describes the first
+   * time the list changes and the total does not.
+   */
+  COUNT_MISMATCH("countMismatch");
 
   public final String value;
 

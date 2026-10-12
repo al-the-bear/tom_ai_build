@@ -31,6 +31,11 @@
  * without this the value is simply dropped. An EMPTY value is absence, not a
  * bad value, and is not reported. */
 #define SPEC_VALIDATION_CODE_ENUM_VALUE_UNKNOWN "enumValueUnknown"
+/* A form field that states a count (`Field.countOf`) holding a number that is
+ * not the number of entries the document holds, or no whole number at all
+ * (vsctsa43). A total kept by hand drifts from the list it describes the first
+ * time the list changes and the total does not. */
+#define SPEC_VALIDATION_CODE_COUNT_MISMATCH "countMismatch"
 
 typedef struct {
   char *path;    /* owned */
@@ -46,8 +51,8 @@ typedef struct {
 
 /* Validates `doc` against `model`, writing problems into `out` (initialised by
  * the callee) in stable order: content paths, then forms, then lists, then
- * `@OneOf` case instances, then `refersTo` references; each group sorted by
- * path. An empty list means the document is valid. */
+ * `@OneOf` case instances, then `refersTo` references, then `countOf` stated
+ * counts; each group sorted by path. An empty list means the document is valid. */
 void validate_document(const SpecModel *model, const SpecDocument *doc,
                        SpecValidationErrors *out);
 

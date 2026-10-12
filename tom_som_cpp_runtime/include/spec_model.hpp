@@ -153,6 +153,12 @@ struct FormFieldSpec {
   // the named registry, so a runtime can resolve it and report a dangling id
   // instead of generating broken code.
   std::vector<std::string> refersTo;
+  // The entries this field's value counts (`Field.countOf`, vsctsa43), each
+  // written `<SECTIONID>` (every entry) or `<SECTIONID>.<field>=<value>` (the
+  // entries whose own form holds that value); empty for a field that states no
+  // count. The stated number must equal the count the document holds
+  // (`countMismatch`).
+  std::vector<std::string> countOf;
 };
 
 struct SpecField {

@@ -708,6 +708,7 @@ references, each group sorted by path:
 | `minItems` | 3 | a populated list below its `@Min` item count |
 | `oneOfCaseMismatch` | 4 | a populated `@Case` subsection the chosen `@OneOf` discriminator does not select, or two selected-and-populated subsections in one container |
 | `danglingReference` | 5 | a `refersTo` value naming an id no entry of its target registries declares in this document |
+| `countMismatch` | 6 | a `countOf` value (`tom_specs_model_rules.md` §6.2.2) that is not a whole number, or not the number of entries the document holds |
 
 Phase 1 has one exemption, and it is not optional: a **form** node may carry
 content. That content is the form's preamble (§11.4 rule 7), stored in the same
@@ -715,10 +716,10 @@ slot a plain section's body uses, so a phase-1 check written as "content only on
 a value leaf" reports a legal document as invalid. Every other non-leaf kind —
 section, list, container — still fires.
 
-Adding an eighth code means adding it in all nine, in the same phase, with the
+Adding a ninth code means adding it in all nine, in the same phase, with the
 same message text. The corpus obligation in §19 is what makes that mechanical
-rather than remembered — the seventh, `enumValueUnknown`, was added exactly that
-way, and the parity gate showed all nine going red on a mutated expectation
+rather than remembered — the seventh, `enumValueUnknown`, and the eighth,
+`countMismatch`, were added exactly that way, and the parity gate showed all nine going red on a mutated expectation
 before the change was believed.
 
 `enumValueUnknown` is the one code whose **absence** was itself the defect. A

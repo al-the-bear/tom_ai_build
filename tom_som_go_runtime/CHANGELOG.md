@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Stated counts (vsctsa43): `FormFieldSpec.CountOf` reads the meta's
+  `formFields[].countOf` (absent → empty slice), and `ValidateDocument` gains a
+  sixth, instance-tier step after the reference check. A form field with
+  `CountOf` must hold a whole number equal to the entries the document holds:
+  a target `X` counts every list item whose element class carries
+  `@SectionId(X)`, `X.f=v` only those whose own form holds `v` in `f`, summed
+  over the targets. A blank value, or a target outside the document's registry
+  scope, is skipped; anything else that does not match is reported under the
+  new `SpecValidationCodeCountMismatch` (`countMismatch`). The corpus cases
+  `countMatches` and `countMismatch` pin it.
 - Document assembly (`spec_document_assembly.go`) merges fragments written in
   parallel into one document. `AssembleSpecDocuments(fragments)` (also
   `SpecDocumentAssemble`, the Go spelling of `SpecDocument.assemble`) takes an

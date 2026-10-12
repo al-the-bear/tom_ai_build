@@ -199,6 +199,11 @@ type FormFieldSpec struct {
 	// already be declared by some entry of the named registry, so a runtime can
 	// resolve it and report a dangling id instead of generating broken code.
 	RefersTo []string `json:"refersTo"`
+	// CountOf holds the entries this field's value counts (`Field.countOf`,
+	// vsctsa43), each `<SECTIONID>` or `<SECTIONID>.<formField>=<value>`;
+	// empty for a field that states no count. The instance tier holds the
+	// stated number to the document (`countMismatch`).
+	CountOf []string `json:"countOf"`
 }
 
 // SpecField is a single field of a SpecClass.
@@ -677,6 +682,9 @@ func SpecModelFromJSON(data []byte) (*SpecModel, error) {
 				}
 				if form.RefersTo == nil {
 					form.RefersTo = []string{}
+				}
+				if form.CountOf == nil {
+					form.CountOf = []string{}
 				}
 			}
 		}

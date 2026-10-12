@@ -83,6 +83,13 @@ export class FormFieldSpec {
    * instead of generating broken code.
    */
   refersTo: string[];
+  /**
+   * The entries this field's value counts (`Field.countOf`, vsctsa43), each
+   * `<SECTIONID>` or `<SECTIONID>.<formField>=<value>`; empty for a field that
+   * states no count. The instance tier holds the stated number to the document
+   * (`countMismatch`).
+   */
+  countOf: string[];
 
   constructor(props: {
     name: string;
@@ -92,6 +99,7 @@ export class FormFieldSpec {
     required?: boolean;
     enumValues?: string[];
     refersTo?: string[];
+    countOf?: string[];
   }) {
     this.name = props.name;
     this.label = props.label;
@@ -100,6 +108,7 @@ export class FormFieldSpec {
     this.required = Boolean(props.required || false);
     this.enumValues = props.enumValues || [];
     this.refersTo = props.refersTo || [];
+    this.countOf = props.countOf || [];
   }
 
   static fromJson(j: any): FormFieldSpec {
@@ -111,6 +120,7 @@ export class FormFieldSpec {
       required: Boolean(j.required || false),
       enumValues: (j.enumValues || []).map((e: unknown) => String(e)),
       refersTo: (j.refersTo || []).map((e: unknown) => String(e)),
+      countOf: (j.countOf || []).map((e: unknown) => String(e)),
     });
   }
 }

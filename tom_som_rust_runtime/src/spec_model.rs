@@ -227,6 +227,12 @@ pub struct FormFieldSpec {
     /// is not a reference. A value is valid when it resolves in ANY listed
     /// registry; a reference naming several ids writes them comma-separated.
     pub refers_to: Vec<String>,
+    /// The entries this field's value counts (`Field.countOf`, vsctsa43), each
+    /// a section id `X` (every entry) or `X.f=v` (the entries one of whose own
+    /// forms holds `v` in form field `f`); empty for a field that states no
+    /// count. The instance tier checks the stated number against the entries
+    /// the document holds.
+    pub count_of: Vec<String>,
 }
 
 /// A single field of a [`SpecClass`].
@@ -797,6 +803,14 @@ fn field_from_json(f: &Json) -> SpecField {
                     }
                 }
             }
+            let mut ff_count_of = Vec::new();
+            if let Some(arr) = ff.get("countOf").and_then(|v| v.as_array()) {
+                for v in arr {
+                    if let Some(s) = v.as_str() {
+                        ff_count_of.push(s.to_string());
+                    }
+                }
+            }
             form_fields.push(FormFieldSpec {
                 name: fname,
                 label,
@@ -805,6 +819,7 @@ fn field_from_json(f: &Json) -> SpecField {
                 required: ff.bool_or("required"),
                 enum_values: ff_enum_values,
                 refers_to: ff_refers_to,
+                count_of: ff_count_of,
             });
         }
     }

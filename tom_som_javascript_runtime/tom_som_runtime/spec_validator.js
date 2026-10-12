@@ -40,6 +40,13 @@ const SpecValidationCode = Object.freeze({
    * not a bad value, and is not reported.
    */
   ENUM_VALUE_UNKNOWN: 'enumValueUnknown',
+  /**
+   * A form field that states a count (`Field.countOf`) holds a number that is
+   * not the number of entries the document holds, or no whole number at all
+   * (vsctsa43). A total kept by hand drifts from the list it describes the
+   * first time the list changes and the total does not.
+   */
+  COUNT_MISMATCH: 'countMismatch',
 });
 
 /** One problem found while validating a document. */
@@ -198,6 +205,12 @@ function validateDocument(model, doc) {
   // targets are resolvable; only here can we see whether the id a document
   // actually wrote is one the document also declares.
   errors.push(..._validateReferenceInstances(refl, doc));
+
+  // 6. Stated counts (instance tier, vsctsa43).
+  //
+  // A form field declaring `countOf` states how many entries the document
+  // holds; only the instance tier can count them.
+  errors.push(..._validateCountInstances(refl, doc));
 
   return errors;
 }
@@ -408,27 +421,7 @@ function _validateReferenceInstances(refl, doc) {
   const scope = _registryScope(refl, doc);
 
   // Resolve every form path once; both sweeps read the same resolutions.
-  //
-  // A form resolution names the form *field*, not a class — the section id a
-  // registry key is written against belongs to the class the form sits on, so
-  // the owner is resolved from the parent path.
-  const forms = [];
-  for (const path of _sorted(doc.formPaths)) {
-    const res = refl.resolve(path);
-    if (res === null || res.kind !== SpecNodeKind.FORM || res.field === null) {
-      continue;
-    }
-    const slash = path.lastIndexOf('/');
-    if (slash <= 0) {
-      continue;
-    }
-    const owner = refl.resolve(path.substring(0, slash));
-    const cls = owner ? owner.targetClass : null;
-    if (cls === null || cls === undefined) {
-      continue;
-    }
-    forms.push({ path, cls, field: res.field });
-  }
+  const forms = _resolvedForms(refl, doc);
 
   // 1. Declare.
   const declared = new Map();
@@ -524,6 +517,174 @@ function _validateReferenceInstances(refl, doc) {
     }
   }
 
+  return errors;
+}
+
+/**
+ * Every form instance in `doc` with its field and the class it sits on, in path
+ * order — the shape both the reference and the count check sweep.
+ *
+ * A form resolution names the form *field*, not a class — the section id a
+ * registry key is written against belongs to the class the form sits on, so the
+ * owner is resolved from the parent path.
+ *
+ * @returns {{path: string, cls: object, field: object}[]}
+ */
+function _resolvedForms(refl, doc) {
+  const forms = [];
+  for (const path of _sorted(doc.formPaths)) {
+    const res = refl.resolve(path);
+    if (res === null || res.kind !== SpecNodeKind.FORM || res.field === null) {
+      continue;
+    }
+    const slash = path.lastIndexOf('/');
+    if (slash <= 0) {
+      continue;
+    }
+    const owner = refl.resolve(path.substring(0, slash));
+    const cls = owner ? owner.targetClass : null;
+    if (cls === null || cls === undefined) {
+      continue;
+    }
+    forms.push({ path, cls, field: res.field });
+  }
+  return forms;
+}
+
+/** The section id of a `countOf` target — the part before any `.field=value`. */
+function _countTargetId(target) {
+  const dot = target.indexOf('.');
+  return dot < 0 ? target : target.substring(0, dot);
+}
+
+/**
+ * Instance-tier stated-count check (vsctsa43): every non-empty value of a
+ * `countOf` form field must be a whole number equal to the number of entries
+ * the document holds.
+ *
+ * An **entry** is a list item whose element class carries `@SectionId(X)`. A
+ * target `X` counts every such entry; `X.f=v` counts only the entries one of
+ * whose own forms — a form member of the entry, at `<item>/<member>` — holds
+ * `v` in form field `f`. The count is the sum over the targets. As with the
+ * reference check, a target whose section id the document's root cannot reach
+ * makes the field undecidable here, so it is skipped rather than reported, and
+ * an empty value is completeness, not a count.
+ *
+ * @returns {SpecValidationError[]}
+ */
+function _validateCountInstances(refl, doc) {
+  const forms = _resolvedForms(refl, doc);
+  if (
+    !forms.some((f) => f.field.formFields.some((ff) => ff.countOf.length > 0))
+  ) {
+    return [];
+  }
+  const scope = _registryScope(refl, doc);
+
+  // Every entry, by its class's section id, with the form values its own form
+  // members hold.
+  const entriesById = new Map();
+  for (const listPath of _sorted(doc.listPaths)) {
+    for (const item of doc.listItems(listPath)) {
+      const itemRes = refl.resolve(item);
+      const cls = itemRes ? itemRes.targetClass : null;
+      const id = cls ? cls.sectionId : null;
+      if (!id) {
+        continue;
+      }
+      if (!entriesById.has(id)) {
+        entriesById.set(id, []);
+      }
+      entriesById.get(id).push(item);
+    }
+  }
+  const valuesByItem = new Map();
+  for (const path of doc.formPaths) {
+    const slash = path.lastIndexOf('/');
+    if (slash <= 0) {
+      continue;
+    }
+    const owner = path.substring(0, slash);
+    const res = refl.resolve(path);
+    if (res === null || res === undefined || !res.field) {
+      continue;
+    }
+    for (const ff of res.field.formFields) {
+      const raw = doc.formField(path, ff.name);
+      const v = raw === null || raw === undefined ? '' : raw.trim();
+      if (v === '') {
+        continue;
+      }
+      if (!valuesByItem.has(owner)) {
+        valuesByItem.set(owner, new Map());
+      }
+      const byField = valuesByItem.get(owner);
+      if (!byField.has(ff.name)) {
+        byField.set(ff.name, new Set());
+      }
+      byField.get(ff.name).add(v);
+    }
+  }
+
+  const countTarget = (target) => {
+    const dot = target.indexOf('.');
+    if (dot < 0) {
+      const entries = entriesById.get(target);
+      return entries === undefined ? 0 : entries.length;
+    }
+    const id = target.substring(0, dot);
+    const eq = target.indexOf('=', dot);
+    const field = target.substring(dot + 1, eq < 0 ? target.length : eq);
+    const value = eq < 0 ? '' : target.substring(eq + 1);
+    return (entriesById.get(id) || []).filter((item) => {
+      const byField = valuesByItem.get(item);
+      const values = byField ? byField.get(field) : undefined;
+      return values !== undefined && values.has(value);
+    }).length;
+  };
+
+  const errors = [];
+  for (const form of forms) {
+    for (const ff of form.field.formFields) {
+      if (ff.countOf.length === 0) {
+        continue;
+      }
+      const raw = doc.formField(form.path, ff.name);
+      const stated = raw === null || raw === undefined ? '' : raw.trim();
+      if (stated === '') {
+        continue;
+      }
+      if (
+        !ff.countOf.every((t) =>
+          scope.has(_registrySectionId(_countTargetId(t))),
+        )
+      ) {
+        continue;
+      }
+      const counted = ff.countOf.map(countTarget).reduce((a, b) => a + b, 0);
+      const targets = ff.countOf.join(' + ');
+      if (!/^[0-9]+$/.test(stated)) {
+        errors.push(
+          new SpecValidationError(
+            form.path,
+            SpecValidationCode.COUNT_MISMATCH,
+            `form field "${ff.name}" states "${stated}", which is not a whole ` +
+              `number — it counts ${targets}, of which the document holds ` +
+              `${counted}`,
+          ),
+        );
+      } else if (Number(stated) !== counted) {
+        errors.push(
+          new SpecValidationError(
+            form.path,
+            SpecValidationCode.COUNT_MISMATCH,
+            `form field "${ff.name}" states ${stated}, but the document ` +
+              `holds ${counted} (counting ${targets})`,
+          ),
+        );
+      }
+    }
+  }
   return errors;
 }
 

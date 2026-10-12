@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- `validateDocument` reports `countMismatch` when a `countOf` form field
+  (`FormFieldSpec.countOf`) states a number that is not a whole number or not
+  the number of entries the document holds (SOM §9, phase 6). Pinned by the
+  `countMatches` / `countMismatch` validation cases in all nine runtimes.
+
 - `SpecDocument.assemble(fragments)` (`spec_document_assembly.dart`) builds one
   document from fragments of the same root, merging their stores field by
   field and refusing any place two fragments both write

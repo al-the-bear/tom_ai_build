@@ -98,6 +98,9 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_specs_core: >-
+    NEW API, unpublished until vsctsa45: `Field.countOf` (vsctsa43), the
+    declaration a stated count is checked against.
   tom_som_dart_runtime: >-
     BEHAVIOUR, unpublished until the vsctsa series' closing release (vsctsa45):
     the markdown codec reads a member's ids from its meta node, so a wrapper
@@ -116,13 +119,14 @@ unpublished_drift:
     `CodeSpecsExtractSet`, vsctsa38), pinned by `codespecs_record_cases.json`;
     and `CodeSpecsGate`, Stage A's five checks as one gate (vsctsa39), pinned
     by `codespecs_gate_cases.json`; and `SpecDocument.assemble` (vsctsa42),
-    pinned by `assembly_cases.json`
+    pinned by `assembly_cases.json`; and the `countMismatch` instance-tier
+    check over `countOf` fields (vsctsa43), pinned by validation_cases.json
     — all in all nine runtimes.
   tom_som_dart_v0: >-
     REGENERATED, unpublished until vsctsa45: the meta now carries the class-level
     `@Form` of 73 classes as their `content` member's form, and the schemas
     drop the `format: description` lines that demanded a fenced block around
-    prose.
+    prose; the meta carries `countOf` on 19 Blueprint count fields (vsctsa43).
   tom_core_codespecs: >-
     NO CODE: one documentation line — `codespecs_derivation_contract.md`'s
     "Where they run" names the SOM runtime's `CodeSpecsExtractSet` as the reader
@@ -137,7 +141,8 @@ unpublished_drift:
     gains its `steps` (vsctsa37); `codespecs_prompt.md` §6.3 names the
     gate record's `note:` and its runtime reader (vsctsa38); §4.4/§4.5 pin A4
     and A5 and the catalogue carries their tables (vsctsa39); SOM §12.9
-    documents assembly from fragments (vsctsa42). Goes out with
+    documents assembly from fragments (vsctsa42); the Blueprint's count fields
+    declare `countOf` and the rules document states it as §6.2.2 (vsctsa43). Goes out with
     vsctsa45.
   tom_specs_clitool: >-
     The model JSON export honours a class-level `@Form`, and the schema
@@ -151,7 +156,8 @@ unpublished_drift:
     validate_codespecs gains --json, --backlinks and a standalone-compile
     path (vsctsa40); validate_spec checks a project's document on three tiers,
     and the clitool now depends on tom_som_dart_v0 (vsctsa41); it assembles
-    a document's fragments before validating them (vsctsa42). Unpublished
+    a document's fragments before validating them (vsctsa42); the reader,
+    export and static validator carry `Field.countOf` (vsctsa43). Unpublished
     until vsctsa45, which publishes the regenerated packages these produce.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`

@@ -1052,6 +1052,10 @@ void _validateStructuralInvariants(
     errors,
     warnings,
   );
+  // The same contract for a field stating a count of entries (`countOf`,
+  // vsctsa43): each target must name a class whose instances are list
+  // entries, and a filter a form field those entries actually carry.
+  _validateCountTargets(classes, reachable, errors);
 
   // --- Step 10 — `tom_specs_model_rules.md` §10.2 invariant NO-RESTATED-NAME: no restated heading
   //
@@ -1430,6 +1434,95 @@ void _validateEntryNameFields(
   }
   violations.sort();
   errors.addAll(violations);
+}
+
+/// Static enforcement of `Field.countOf` (vsctsa43), under `tom_specs_model_rules.md` §10.2 invariant
+/// `REFERS-TO`. Each target is `<SECTIONID>` or
+/// `<SECTIONID>.<formField>=<value>`, and the instance tier can only count
+/// what the declaration can resolve:
+///
+///   (i)   the target parses;
+///   (ii)  the section id names exactly one class;
+///   (iii) that class is the element type of some list — an entry is a list
+///         item, and nothing else enumerates;
+///   (iv)  a filter's form field is one of that class's own form fields, and
+///         when the field is an enum the value is one of its constants.
+void _validateCountTargets(
+  Map<String, ModelClass> classes,
+  Set<String> reachable,
+  List<String> errors,
+) {
+  final bySectionId = <String, List<String>>{};
+  for (final entry in classes.entries) {
+    final id = entry.value.getAnnotation('SectionId')?.arguments['id'];
+    if (id is String && id.isNotEmpty) {
+      bySectionId.putIfAbsent(id, () => []).add(entry.key);
+    }
+  }
+  final listElements = <String>{
+    for (final cls in classes.values)
+      for (final field in cls.fields)
+        if (field.isList && field.listElementIsComplex)
+          ?field.listElementTypeName,
+  };
+  final grammar = RegExp(r'^([A-Za-z0-9-]+)(?:\.([A-Za-z0-9_]+)=(.+))?$');
+
+  for (final className in reachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+    for (final formField in _allFormFields(cls)) {
+      for (final target in formField.countOf) {
+        final where = '$className.${formField.name}';
+        final m = grammar.firstMatch(target);
+        if (m == null) {
+          errors.add(
+            '$_invariants countOf: $where declares target "$target" — a target '
+            'must be written <SECTIONID> or <SECTIONID>.<formField>=<value>',
+          );
+          continue;
+        }
+        final sectionId = m.group(1)!;
+        final owners = bySectionId[sectionId] ?? const [];
+        if (owners.length != 1) {
+          errors.add(
+            '$_invariants countOf: $where targets "$target" but '
+            '${owners.isEmpty ? 'no class carries' : '${owners.length} classes carry'} '
+            "@SectionId('$sectionId')",
+          );
+          continue;
+        }
+        final target0 = classes[owners.single]!;
+        if (!listElements.contains(target0.name)) {
+          errors.add(
+            '$_invariants countOf: $where targets "$target" but '
+            '${target0.name} is never a list element — only list entries can '
+            'be counted',
+          );
+          continue;
+        }
+        final filterField = m.group(2);
+        if (filterField == null) continue;
+        final ff = _allFormFields(
+          target0,
+        ).where((f) => f.name == filterField).firstOrNull;
+        if (ff == null) {
+          errors.add(
+            '$_invariants countOf: $where filters "$target" on form field '
+            '"$filterField", which ${target0.name} does not declare',
+          );
+          continue;
+        }
+        final value = m.group(3)!;
+        if (ff.enumValues.isNotEmpty && !ff.enumValues.contains(value)) {
+          errors.add(
+            '$_invariants countOf: $where filters "$target" on "$value", which '
+            'is not a constant of ${ff.typeName} '
+            '(${ff.enumValues.join(', ')})',
+          );
+        }
+      }
+    }
+  }
 }
 
 /// Gathers every `@Form` field of [cls], from the class-level `@Form` and from

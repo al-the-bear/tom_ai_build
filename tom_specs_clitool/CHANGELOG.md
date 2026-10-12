@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- The model reader and JSON export carry `Field.countOf` into the meta, and the
+  static validator checks its targets under invariant `REFERS-TO` (a
+  list-element class; a filter field the class declares, an enum value it
+  has).
+
 - `validate_spec` takes several fragments of one document: each is decoded,
   they are assembled (`SpecDocument.assemble`; an overlap is a decode-tier
   finding and stops the other tiers), and the schema and instance tiers judge

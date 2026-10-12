@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Stated counts (vsctsa43): `FormFieldSpec.count_of` reads the meta's
+  `formFields[].countOf` (absent → empty), and `validate_document` gains a
+  sixth, instance-tier step after the reference check. A form field with
+  `count_of` must hold a whole number equal to the entries the document holds:
+  a target `X` counts every list item whose element class carries
+  `@SectionId(X)`, `X.f=v` only those whose own form holds `v` in `f`, summed
+  over the targets. A blank value, or a target outside the document's registry
+  scope, is skipped; anything else that does not match is reported under the
+  new `SpecValidationCode.COUNT_MISMATCH` (`countMismatch`). The corpus cases
+  `countMatches` and `countMismatch` pin it.
 - Document assembly: a new module `spec_document_assembly` merges fragments
   written in parallel into one document. `SpecDocument.assemble(fragments)`
   (also `assemble_spec_documents`) takes an ordered sequence of

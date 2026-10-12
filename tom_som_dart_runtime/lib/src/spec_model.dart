@@ -199,6 +199,12 @@ class FormFieldSpec {
   /// dangling id instead of generating broken code.
   final List<String> refersTo;
 
+  /// The entries this field's value counts (`Field.countOf`, vsctsa43), each
+  /// `<SECTIONID>` or `<SECTIONID>.<formField>=<value>`; empty for a field
+  /// that states no count. The instance tier holds the stated number to the
+  /// document (`countMismatch`).
+  final List<String> countOf;
+
   /// Only [name], [label] and [type] are required — the three a form line
   /// cannot be written without. Everything else defaults to the "nothing was
   /// declared" state: no [hint], not [required], and empty [enumValues] /
@@ -212,6 +218,7 @@ class FormFieldSpec {
     this.enumValues = const [],
     this.enumValueDocs = const {},
     this.refersTo = const [],
+    this.countOf = const [],
   });
 
   /// Reads one `formFields[]` entry
@@ -233,6 +240,8 @@ class FormFieldSpec {
     enumValueDocs: _stringMap(j['enumValueDocs']),
     refersTo:
         (j['refersTo'] as List?)?.map((e) => e.toString()).toList() ?? const [],
+    countOf:
+        (j['countOf'] as List?)?.map((e) => e.toString()).toList() ?? const [],
   );
 }
 
