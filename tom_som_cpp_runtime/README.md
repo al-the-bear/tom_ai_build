@@ -147,8 +147,11 @@ ownership; this port is RAII classes and value semantics:
   a list field. **`checkSomModelVersion`** throws `SomVersionError` on rejection.
 - **`validateDocument`** returns `std::vector<SpecValidationError>`;
   **`markdownParse`** returns a `SpecMarkdownResult` value.
-- **The YAML decoder drops the `review:` pass** — the runtime is review-agnostic
-  and nothing in the conformance contract reads it.
+- **The YAML codec carries the `review:` pass** — decode returns it (plain
+  scalars typed the way the Dart reference's YAML reader types them), encode
+  writes it back with the canonical writer, and a stale-paths function reports
+  review entries whose path no longer resolves (`SOM §12.1`). The runtime does
+  not interpret the entries.
 
 ### Building and running the tests
 

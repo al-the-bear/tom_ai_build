@@ -155,8 +155,11 @@ emitter mirrors:
 - **Sorted maps are byte-sorted dynamic arrays** (`SomMap`) with binary search,
   matching the Rust `BTreeMap` byte-order iteration the byte-stable codecs rely
   on. `list_seq` is stored as a `SomMap` with decimal-string values.
-- **The YAML decoder drops the `review:` pass** — the runtime is review-agnostic
-  and nothing in the conformance contract reads it.
+- **The YAML codec carries the `review:` pass** — decode returns it (plain
+  scalars typed the way the Dart reference's YAML reader types them), encode
+  writes it back with the canonical writer, and a stale-paths function reports
+  review entries whose path no longer resolves (`SOM §12.1`). The runtime does
+  not interpret the entries.
 
 ### Building and running the tests
 
